@@ -80,6 +80,7 @@ NSString *const kXMPPmyPassword = @"kXMPPmyPassword";
 @synthesize accountSetting;
 @synthesize activeVC;
 
+@synthesize session = _session;
 // Log levels: off, error, warn, info, verbose
 #if DEBUG
 static const int ddLogLevel = LOG_LEVEL_VERBOSE;
@@ -169,16 +170,16 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
     self.window.rootViewController = self.loginView;
     [self.window makeKeyAndVisible];
 
-    BOOL hasInternet = [self checkInternetConnection];
-    // See if we have a valid token for the current state.
-    if (hasInternet && (FBSession.activeSession.state == FBSessionStateCreatedTokenLoaded || FBSession.activeSession.state == FBSessionStateOpen)) {
-        // To-do, show logged in view
-        [self.loginView startSpinner];
-        [self openSession];
-    } else {
-        // No, display the login page.
-        [self showLoginView];
-    }
+//    BOOL hasInternet = [self checkInternetConnection];
+//    // See if we have a valid token for the current state.
+//    if (hasInternet && (FBSession.activeSession.state == FBSessionStateCreatedTokenLoaded || FBSession.activeSession.state == FBSessionStateOpen)) {
+//        // To-do, show logged in view
+//        [self.loginView startSpinner];
+//        [self openSession];
+//    } else {
+//        // No, display the login page.
+//        [self showLoginView];
+//    }
     
     [[UIApplication sharedApplication] registerForRemoteNotificationTypes:
      (UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeBadge)];
@@ -471,32 +472,28 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
         case FBSessionStateOpen: {
             NSLog(@"Logged in!");
             
-            [self.loginView dismissModalViewControllerAnimated:YES];
+//            [self.loginView dismissModalViewControllerAnimated:YES];
 //            self.loginView = nil;
-            
-            [FBRequestConnection startForMeWithCompletionHandler:
-             ^(FBRequestConnection *connection, id result, NSError *error)
-             {
-                 self.myFBProfile = (id<FBGraphUser>)result;
-                 [self loadDataForList];
+//            
+//            [FBRequestConnection startForMeWithCompletionHandler:
+//             ^(FBRequestConnection *connection, id result, NSError *error)
+//             {
+//                 self.myFBProfile = (id<FBGraphUser>)result;
 //                 NSLog(@"%@",[result objectForKey:@"gender"]);
 //                 NSLog(@"%@",[result objectForKey:@"gender"]);
 //                 NSLog(@"%@",[result objectForKey:@"relationship_status"]);
 //                 NSLog(@"%@",[result objectForKey:@"about"]);
-#if ENABLE_DEMO
-                 [self  getProfileInfo];
-                 [self loadLikeMeList];
-#else
-                 UIStoryboard *registerStoryboard = [UIStoryboard
-                                                     storyboardWithName:@"RegisterConfirmation"
-                                                     bundle:nil];
-                 UIViewController *registerViewConroller = [registerStoryboard
-                                                            instantiateInitialViewController];
-                 self.window.rootViewController = registerViewConroller;
-#endif
-                 
-                 NSLog(@"FB Login request completed!");
-             }];
+//#if ENABLE_DEMO
+//                 [self  getProfileInfo];
+//#else
+//                 UIStoryboard *registerStoryboard = [UIStoryboard
+//                                                     storyboardWithName:@"RegisterConfirmation"
+//                                                     bundle:nil];
+//                 UIViewController *registerViewConroller = [registerStoryboard
+//                                                            instantiateInitialViewController];
+//                 self.window.rootViewController = registerViewConroller;
+//#endif
+//             }];
         }
             break;
         case FBSessionStateClosed:
@@ -509,7 +506,7 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
             //[self showLoginView];
             [self logOut];
             
-            NSLog(@"Login failed! %@",[error description] );
+            NSLog(@"Login failed! %@",error.fberrorUserMessage );
 
             break;
         default:
@@ -685,7 +682,83 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
 //                                                }];
 //                                            }];
 }
+-(void) openSessionWithWebDialogWithhandler:(void(^)(FBSessionState))resultHandler
+{
+    FBSession *sessionApp = self.session;
+    if (!sessionApp.isOpen)
+    {
+        [FBSession setActiveSession:sessionApp];
+        sessionApp = [[FBSession alloc] initWithPermissions:[NSArray arrayWithObject:@"email, user_about_me, user_birthday, user_interests, user_location, user_relationship_details"]];
+        
+        [sessionApp openWithBehavior:FBSessionLoginBehaviorForcingWebView completionHandler:^(FBSession *session,
+                                                                                              FBSessionState status,
+                                                                                              NSError *error) {
+            // and here we make sure to update our UX according to the new session state
+            [FBSession setActiveSession:sessionApp];
+            [self sessionStateChanged:session state:status error:error];
+            if(resultHandler != nil){
+                resultHandler(status);
+            }
+        }];
+    }
+    else
+    {
+        [FBSession setActiveSession:sessionApp];
+        if(resultHandler != nil)
+            resultHandler(sessionApp.state);
+    }
 
+}
+
+-(void)loadFBUserInfo:(void(^)(id))resultHandler{
+    //self.myProfile = [[Profile alloc] init];
+    NSDictionary* params = [NSDictionary dictionaryWithObject:@"id,name,gender,relationship_status,about,location,interested_in,birthday,email,picture" forKey:@"fields"];
+    [FBRequestConnection startWithGraphPath:@"me" parameters:params HTTPMethod:@"GET" completionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
+        NSLog(@"USER INFO _ error : %@",error);
+        if(result == NULL)
+            return;
+        NSLog(@"USER INFO _ %@",result);
+        self.myFBProfile = result;
+        
+        [self loadDataForList];
+        
+        if(resultHandler != nil)
+        {
+            resultHandler(result);
+        }
+    }];
+}
+-(void)parseFBInfoToProfile:(id)fbProfile
+{
+    id result = fbProfile;
+    self.myProfile = [[Profile alloc] init];
+    self.myProfile.s_ID = [result objectForKey:@"id"];
+    self.myProfile.s_Name = [result objectForKey:@"name"];
+    self.myProfile.s_gender = [[Gender alloc] initWithNSString:[result objectForKey:@"gender"]];
+    self.myProfile.s_relationShip = [[RelationShip alloc] initWithNSString:[result objectForKey:@"relationship_status"]];
+    NSArray *interests = [result objectForKey:@"interested_in"];
+    int countInterest = [interests count];
+    if(countInterest == 2)
+        self.myProfile.s_interested = [[Gender alloc] initWithNSString:@"Both"];
+    else
+        if(countInterest == 0 && [self.myProfile.s_gender.text length]!= 0){
+            if(self.myProfile.s_gender.ID == MALE)
+                self.myProfile.s_interested = [[Gender alloc] initWithID:FEMALE];
+            else
+                if(self.myProfile.s_gender.ID ==FEMALE)
+                    self.myProfile.s_interested = [[Gender alloc] initWithID:MALE];
+        }
+        else{
+            self.myProfile.s_interested = [[Gender alloc] initWithNSString:[interests objectAtIndex:0]];
+        }
+    
+    self.myProfile.s_FB_id = [result objectForKey:@"id"];
+    //        self.myFBProfile.id = newAccount.s_FB_id;
+    self.myProfile.s_birthdayDate = [result objectForKey:@"birthday"];
+    self.myProfile.s_Email = [result objectForKey:@"email"];
+    NSMutableDictionary *dict_Location = [result valueForKey:key_location];
+    self.myProfile.s_location = [[Location alloc] initWithNSDictionaryFromFB:dict_Location];
+}
 
 -(NavConOakClub *) createNavigationByClass:(NSString *)className AndHeaderName:(NSString*) headerName andRightButton:(NSString*)rightViewControll andIsStoryBoard:(BOOL)isStoryBoard{
     NavConOakClub *nvOakClub = [[NavConOakClub alloc] initWithNavigationBarClass:[NavBarOakClub class] toolbarClass:nil];
