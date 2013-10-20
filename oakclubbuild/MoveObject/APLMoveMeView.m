@@ -435,7 +435,11 @@ BOOL isDragging = FALSE;
 	
 	// Add the animation group to the layer.
 	[welcomeLayer addAnimation:theGroup forKey:@"animatePlacardViewToCenter"];
-	
+    [NSTimer scheduledTimerWithTimeInterval:animationDuration
+                                     target:self
+                                   selector:@selector(handleTimer)
+                                   userInfo:nil
+                                    repeats:NO];
 	// Set the placard view's center and transformation to the original values in preparation for the end of the animation.
 	placardView.center = CENTER_POINT;
 	placardView.transform = CGAffineTransformIdentity;
@@ -519,15 +523,22 @@ BOOL isDragging = FALSE;
 	theGroup.duration = animationDuration;
 	theGroup.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseIn];
 	
-	theGroup.animations = @[bounceAnimation,rotateAnim/*, transformAnimation*/];
+	theGroup.animations = @[bounceAnimation/*,rotateAnim, transformAnimation*/];
 	
 	
 	// Add the animation group to the layer.
 	[welcomeLayer addAnimation:theGroup forKey:@"animatePlacardViewToCenter"];
 	
+    
+    //add new animation
+    [NSTimer scheduledTimerWithTimeInterval:duration
+                                     target:self
+                                   selector:@selector(handleTimer)
+                                   userInfo:nil
+                                    repeats:NO];
 	// Set the placard view's center and transformation to the original values in preparation for the end of the animation.
-//	placardView.center = CENTER_POINT;
-//	placardView.transform = CGAffineTransformIdentity;
+	placardView.center = CENTER_POINT;
+	placardView.transform = CGAffineTransformIdentity;
 }
 
 
@@ -535,12 +546,13 @@ BOOL isDragging = FALSE;
  Animation delegate method called when the animation's finished: restore the transform and reenable user interaction.
  */
 - (void)animationDidStop:(CAAnimation *)theAnimation finished:(BOOL)flag {
-//	self.placardView.transform = CGAffineTransformIdentity;
+	self.placardView.transform = CGAffineTransformIdentity;
 	self.userInteractionEnabled = YES;
     if(answerType != -1){
         [self.snapshotView loadCurrentProfile];
         [self.snapshotView loadNextProfileByCurrentIndex];
          answerType = -1;
+        [self.placardView setAlpha:1];
 //        self.placardView.center = CENTER_POINT;
 //        self.placardView.transform = CGAffineTransformIdentity;
     }
@@ -548,7 +560,6 @@ BOOL isDragging = FALSE;
 
 
 - (void)setupNextDisplayString {
-
     NSUInteger nextIndex = self.nextDisplayStringIndex;
     NSString *displayString = self.displayStrings[nextIndex];
     [self.placardView setDisplayString:displayString];
@@ -570,6 +581,12 @@ BOOL isDragging = FALSE;
     return answerType;
 }
 -(void) setAnswer:(int)type{
-    answerType;
+    answerType = type;
+}
+
+#pragma mark Timer
+- (void)handleTimer
+{
+    [self.placardView setAlpha:0];
 }
 @end

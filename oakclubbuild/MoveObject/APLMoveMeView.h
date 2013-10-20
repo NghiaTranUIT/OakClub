@@ -47,8 +47,9 @@
  
  */
 #import "APLPlacardView.h"
-@interface APLMoveMeView : UIView<UIScrollViewDelegate>
-
+@interface APLMoveMeView : UIView<UIScrollViewDelegate>{
+     NSTimer *myTimer;
+}
 @property (nonatomic, strong) NSArray *displayStrings;
 
 - (void)setupNextDisplayString;
