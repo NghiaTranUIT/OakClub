@@ -145,7 +145,7 @@ extern NSString *const SCSessionStateChangedNotification;
 -(void)loadFriendsList;
 -(BOOL)isAuthenticated;
 -(int)countTotalNotifications;
--(void)getProfileInfo;
+-(void)getProfileInfoWithHandler:(void(^)(void))handler;
 -(UINavigationController*)activeViewController;
 
 -(void)sendMessageState:(NSString*)state to:(NSString*)xmpp_id;

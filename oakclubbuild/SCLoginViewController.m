@@ -55,7 +55,7 @@
     
     if (FBSession.activeSession.state == FBSessionStateCreatedTokenLoaded || FBSession.activeSession.state == FBSessionStateOpen)
     {
-        self.btnLogin.enabled = NO;
+        [self startSpinner];
         [self tryLogin];
     }
 }
@@ -83,6 +83,7 @@
     [self.spinner stopAnimating];
     [btnLogin setEnabled:YES];
 }
+
 - (IBAction)performLogin:(id)sender
 {
     if(btnLogin.selected)
@@ -161,7 +162,10 @@
                           NSString *msg = [dict valueForKey:@"msg"];
                           if ([msg isEqualToString:@"This user exists already."])   // string check !=,=
                           {
-                              [appDelegate getProfileInfo];
+                              [appDelegate getProfileInfoWithHandler:^(void)
+                               {
+                                   [self stopSpinner];
+                               }];
                           }
                           else
                           {
@@ -216,7 +220,8 @@
                             work,@"work",//cate_id
                             /*self.s_aboutMe*/@"",@"about_me",//< 256 characters
                             nil];
-    [httpClient getPath:URl_setHangoutProfile parameters:params success:^(__unused AFHTTPRequestOperation *operation, id JSON) {
+    [httpClient getPath:URl_setHangoutProfile parameters:params success:^(__unused AFHTTPRequestOperation *operation, id JSON)
+    {
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@" SaveSetting Profile Error Code: %i - %@",[error code], [error localizedDescription]);
         //        return NO;
