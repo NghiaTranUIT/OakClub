@@ -40,6 +40,7 @@
                   [UIImage imageNamed:@"second-screen"],
                   [UIImage imageNamed:@"third-screen"],
                   nil];
+    
     CycleScrollView *cycle = [[CycleScrollView alloc] initWithFrame:CGRectMake(0, 0, 320, 455)
                                                      cycleDirection:CycleDirectionLandscape
                                                            pictures:pageImages];
