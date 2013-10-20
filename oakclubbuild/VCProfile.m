@@ -233,9 +233,10 @@ static CGFloat padding_left = 5.0;
     [loadingAvatar startAnimating];
     [self  disableControllerButtons:YES];
     [self addTopLeftButtonWithAction:@selector(backToPreviousView)];
-//    UINavigationController *test = self.navigationController;
+    
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"bg.png"]];
+    
     // Do any additional setup after loading the view from its nib.
     AFHTTPClient *request = [[AFHTTPClient alloc] initWithOakClubAPI:DOMAIN];
     NSDictionary *params = [[NSDictionary alloc]initWithObjectsAndKeys:currentProfile.s_ID,@"hangout_id", nil];
@@ -931,6 +932,7 @@ BOOL allowFullScreen = FALSE;
                 [scrollView setContentOffset:CGPointMake(0, 0)];
             }
         }
+        [self updateSubviewsToCenterScrollView];
     }
  
 }
@@ -946,5 +948,11 @@ BOOL allowFullScreen = FALSE;
     allowFullScreen = FALSE;
      float scrollOffset = scrollView.contentOffset.y;
     NSLog(@"scrollViewDidEndDragging - content offset : %f",scrollOffset);
+}
+
+-(void)updateSubviewsToCenterScrollView{
+    for(UIImageView* imageView in [self.svPhotos subviews]){
+        imageView.center = CGPointMake(imageView.center.x, self.svPhotos.center.y);
+    }
 }
 @end

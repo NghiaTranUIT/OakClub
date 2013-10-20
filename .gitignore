@@ -1,1 +1,25 @@
 /1_Projects/GlassEgg/Git/OakClub/OakClub.xcodeproj/project.xcworkspace/xcuserdata/vanluu.xcuserdatad
+# Mac OS X
+*.DS_Store
+
+# Xcode
+*.pbxuser
+*.mode1v3
+*.mode2v3
+*.perspectivev3
+*.xcuserstate
+project.xcworkspace/
+xcuserdata/
+
+# Generated files
+*.o
+*.pyc
+
+
+#Python modules
+MANIFEST
+dist/
+build/
+
+# Backup files
+*~.nib

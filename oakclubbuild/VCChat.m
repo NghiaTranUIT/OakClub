@@ -326,6 +326,16 @@ int cellCountinSection=0;
 	if (fetchedResultsController == nil)
 	{
 		NSManagedObjectContext *moc = [[self appDelegate] managedObjectContext_roster];
+        __block NSError *contexterror = nil;
+        [moc performBlockAndWait:^{
+            [moc save:&contexterror];
+        }];
+        
+        if (contexterror) {
+            // handle the error.
+            NSLog(@"Error on NSManagedObjectContext");
+        }
+
 		
 		NSEntityDescription *entity = [NSEntityDescription entityForName:@"XMPPUserCoreDataStorageObject"
 		                                          inManagedObjectContext:moc];
