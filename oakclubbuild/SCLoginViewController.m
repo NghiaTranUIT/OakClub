@@ -91,8 +91,7 @@
 {
     if(btnLogin.selected)
         return;
-    [self.spinner startAnimating];
-    [btnLogin setEnabled:NO];
+    [self startSpinner];
     [self tryLogin];
 }
 
@@ -100,7 +99,7 @@
 {
     // User switched back to the app without authorizing. Stay here, but
     // stop the spinner.
-    [self.spinner stopAnimating];
+    [self stopSpinner];
 }
 
 - (void)viewDidUnload {
@@ -157,7 +156,6 @@
                  [request getPath:URL_sendRegister parameters:params success:^(__unused AFHTTPRequestOperation *operation, id JSON)
                   {
                       [self.view setUserInteractionEnabled:YES];
-                      [self.spinner stopAnimating];
                       NSError *e=nil;
                       NSMutableDictionary *dict = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONReadingMutableContainers error:&e];
                       int status = [[dict valueForKey:key_status] integerValue];
