@@ -100,8 +100,11 @@ extern NSString *const SCSessionStateChangedNotification;
 @property (strong, nonatomic) UINavigationController *chat;
 @property (strong, nonatomic) UINavigationController *myLink;
 @property (strong, nonatomic) UINavigationController *snapShoot;
+#if ENABLE_DEMO
 @property (strong, nonatomic) UINavigationController *snapShotSettings;
 @property (strong, nonatomic) UINavigationController *simpleSnapShot;
+@property (strong, nonatomic) UINavigationController *mutualMatches;
+#endif
 @property (strong, nonatomic) UINavigationController *visitor;
 @property (strong, nonatomic) UINavigationController *hangOut;
 @property (strong, nonatomic) UINavigationController *myProfileVC;
@@ -116,8 +119,7 @@ extern NSString *const SCSessionStateChangedNotification;
 @property (strong, nonatomic) NSArray *languageList;
 @property (strong, nonatomic) NSArray *relationshipList;
 @property (strong, nonatomic) NSArray *genderList;
-
-
+@property (strong, nonatomic) NSArray *likedMeList;
 -(void)openSession;
 -(void)openSessionWithWebDialogWithhandler:(void(^)(FBSessionState))resultHandler;
 -(void)loadFBUserInfo:(void(^)(id))resultHandler;
@@ -128,6 +130,7 @@ extern NSString *const SCSessionStateChangedNotification;
 #if ENABLE_DEMO
 -(void)showSnapshotSettings;
 -(void)showSimpleSnapshot;
+-(void)showMutualMatches;
 #endif
 -(void)showMylink;
 -(void)showVisitor;

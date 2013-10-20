@@ -68,6 +68,7 @@ NSString *const kXMPPmyPassword = @"kXMPPmyPassword";
 #if ENABLE_DEMO
 @synthesize simpleSnapShot = _simpleSnapShot;
 @synthesize snapShotSettings = _snapShotSettings;
+@synthesize mutualMatches = _mutualMatches;
 #endif
 @synthesize visitor = _visitor;
 @synthesize rootVC = _rootVC;
@@ -80,7 +81,6 @@ NSString *const kXMPPmyPassword = @"kXMPPmyPassword";
 @synthesize activeVC;
 
 @synthesize session = _session;
-
 // Log levels: off, error, warn, info, verbose
 #if DEBUG
 static const int ddLogLevel = LOG_LEVEL_VERBOSE;
@@ -125,6 +125,8 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
 {
     
     [self changeFontStyle];
+
+    
 //    NSURL *url = [NSURL URLWithString:@"http://httpbin.org/ip"];
 //    NSURLRequest *request = [NSURLRequest requestWithURL:url];
     
@@ -141,10 +143,11 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
     self.simpleSnapShot = [self createNavigationByClass:@"VCSimpleSnapshot" AndHeaderName:@"Snapshot" andRightButton:@"VCChat" andIsStoryBoard:NO];
 //     self.snapShotSettings = [self.storyboard instantiateViewControllerWithIdentifier:@"SnapshotSettings"];
         self.snapShotSettings = [self createNavigationByClass:@"VCSimpleSnapshotSetting" AndHeaderName:@"Settings" andRightButton:nil andIsStoryBoard:NO];
+    self.mutualMatches = [self createNavigationByClass:@"VCMutualMatch" AndHeaderName:@"Mutual Matches" andRightButton:nil andIsStoryBoard:NO];
 #endif
     self.visitor = [self createNavigationByClass:@"VCVisitor" AndHeaderName:@"Visitors" andRightButton:nil andIsStoryBoard:NO];
     self.hangOut = [self createNavigationByClass:@"VCHangOut" AndHeaderName:@"Meet people around" andRightButton:@"HangoutSetting" andIsStoryBoard:YES];
-    self.myProfileVC = [self createNavigationByClass:@"VCMyProfile" AndHeaderName:@"Edit Profile" andRightButton:nil andIsStoryBoard:NO];
+    self.myProfileVC = [self createNavigationByClass:@"VCMyProfile" AndHeaderName:@"Edit Profile" andRightButton:@"VCMyProfile" andIsStoryBoard:NO];
     self.getPoints = [self createNavigationByClass:@"VCGetPoints" AndHeaderName:@"Get Coins" andRightButton:nil andIsStoryBoard:NO];
     self.loginView = [[SCLoginViewController alloc] initWithNibName:@"SCLoginViewController" bundle:nil];
 
@@ -307,6 +310,14 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
     //    [self.rootVC setContentViewController:self.snapShoot snapToContentViewController:YES animated:YES];
     activeVC = _simpleSnapShot;
     [self.rootVC setFrontViewController:self.simpleSnapShot focusAfterChange:YES completion:^(BOOL finished) {
+        
+    }];
+}
+-(void)showMutualMatches {
+    //    [self.rootVC setRootController:self.myLink animated:YES];
+    //    [self.rootVC setContentViewController:self.myLink snapToContentViewController:YES animated:YES];
+    activeVC = _mutualMatches;
+    [self.rootVC setFrontViewController:self.mutualMatches focusAfterChange:YES completion:^(BOOL finished) {
         
     }];
 }
@@ -532,7 +543,7 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
         self.window.rootViewController = self.rootVC;
         
         [self updateProfile ];
-        
+//        [self updateChatList];
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"GetAccountSetting Error Code: %i - %@",[error code], [error localizedDescription]);
@@ -589,7 +600,6 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
               [navbar setNotifications:[self countTotalNotifications]];
           }];
          
-         
          AFHTTPClient *requestPhoto = [[AFHTTPClient alloc] initWithOakClubAPI:DOMAIN];
          NSDictionary *params  = [[NSDictionary alloc]initWithObjectsAndKeys:self.myProfile.s_ID, key_profileID, nil];
          self.myProfile.arr_photos = [[NSMutableArray alloc] init];
@@ -606,9 +616,50 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
          NSLog(@"URL_getHangoutProfile Error Code: %i - %@",[error code], [error localizedDescription]);
      }];
     
-    
 }
-
+//- (void) updateChatList{
+//    NSMutableArray *_arrRoster = [[NSMutableArray alloc] init];
+//    
+//    AFHTTPClient *request = [[AFHTTPClient alloc] initWithOakClubAPI:DOMAIN];
+//    [request getPath:URL_getListChat parameters:nil success:^(__unused AFHTTPRequestOperation *operation, id JSON) {
+//        NSError *e=nil;
+//        NSMutableDictionary *dict_ListChat = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONReadingMutableContainers error:&e];
+//        //        NSMutableDictionary * data= [dict valueForKey:key_data];
+//        
+//        self.myProfile.unread_message = 0;
+//        NSMutableArray* rosterList = [dict_ListChat valueForKey:key_data];
+//        
+//        for (int i = 0; rosterList!=nil && i < [rosterList count]; i++) {
+//            NSMutableDictionary *objectData = [rosterList objectAtIndex:i];
+//            
+//            if(objectData != nil)
+//            {
+//                NSString* profile_id = [objectData valueForKey:key_profileID];
+//                bool deleted = [[objectData valueForKey:@"is_deleted"] boolValue];
+//                bool blocked = [[objectData valueForKey:@"is_blocked"] boolValue];
+//                //bool deleted_by = [[objectData valueForKey:@"is_deleted_by_user"] boolValue];
+//                bool blocked_by = [[objectData valueForKey:@"is_blocked_by_user"] boolValue];
+//                // vanancyLuu : cheat for crash
+//                if(!deleted && !blocked && !blocked_by )
+//                {
+//                    [_arrRoster addObject:profile_id];
+//                    
+//                    int unread_count = [[objectData valueForKey:@"unread_count"] intValue];
+//                    
+//                    NSLog(@"%d. unread message: %d", i, unread_count);
+//                    
+//                    self.myProfile.unread_message += unread_count;
+//                }
+//            }
+//        }
+//        
+//        NSLog(@"unread message: %d", self.myProfile.unread_message);
+//        
+//        self.myProfile.a_RosterList = [NSArray arrayWithArray:_arrRoster];
+//    }failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+//        NSLog(@"Error Code: %i - %@", [error code], [error localizedDescription]);
+//    }];
+//}
 - (void)openSession
 {
     NSArray *permission = [[NSArray alloc] initWithObjects:@"email",@"user_birthday",@"user_location",nil];
@@ -631,7 +682,6 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
 //                                                }];
 //                                            }];
 }
-
 -(void) openSessionWithWebDialogWithhandler:(void(^)(FBSessionState))resultHandler
 {
     FBSession *sessionApp = self.session;
@@ -777,7 +827,25 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
 
 
 }
-
+#if ENABLE_DEMO
+-(void)loadLikeMeList{
+    self.likedMeList = [[NSArray alloc] init];
+    AFHTTPClient *request = [[AFHTTPClient alloc] initWithOakClubAPI:DOMAIN];
+    
+    [request getPath:URL_getListWhoLikeMe parameters:nil success:^(__unused AFHTTPRequestOperation *operation, id JSON)
+     {
+         NSError *e=nil;
+         NSMutableDictionary *dict = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONReadingMutableContainers error:&e];
+         self.likedMeList= [dict valueForKey:key_data];
+         
+     } failure:^(AFHTTPRequestOperation *operation, NSError *error)
+     {
+         NSLog(@"Error Code: %i - %@",[error code], [error localizedDescription]);
+     }];
+    
+//    self.likedMeList = [[NSArray alloc] initWithObjects:@"1lxx2uvvxk",@"1lxx8s7w83",@"1lxwqp7lql",@"1lxx4x6iv6",@"1lxx56o0ht",@"1lxx7aat12", nil];
+}
+#endif
 -(int)countTotalNotifications
 {
     return [self.myProfile countTotalNotifications];
@@ -879,7 +947,6 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
         [[NSUserDefaults standardUserDefaults] removeObjectForKey:key];
     }
 }
-
 - (void)setupStream
 {
 	NSAssert(xmppStream == nil, @"Method setupStream invoked multiple times");

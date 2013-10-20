@@ -12,6 +12,7 @@
 
 //demo version FLAG
 #define ENABLE_DEMO true
+#define USE_STAGING true
 //Hangout
 #define sOnline @"Online"
 
@@ -19,12 +20,11 @@
 #define answerYES @"YES"
 #define answerNO @"NO"
 #define answerMAYBE @"MAYBE"
-#define STAGING
 
 //================ service API link ================
 //#define DOMAIN @"http://staging.oakclub.com/app_dev.php"
 
-#ifdef STAGING
+#if USE_STAGING
 #define HOSTNAME @"staging.oakclub.com"
 #define DOMAIN @"http://staging.oakclub.com"
 #define DOMAIN_DATA @"http://data1.oakclub.com/" //data2
@@ -72,6 +72,8 @@
 #define URL_setIWantToMeet @"service/setIWantToMeet"
 #define URL_getListBlocking @"service/getListBlocking"
 #define URL_getListChat @"service/getListChat"
+#define URL_getListWhoLikeMe @"service/getListWhoLikeMe"
+#define URL_getListMutualMatch @"service/getListMutualMatch"
 #define URL_setLocationUser @"service/setLocationUser"
 #define URL_checkUserExist @"service/checkUserExist"
 #define URL_sendRegister @"service/sendRegister"
@@ -289,7 +291,6 @@
 typedef enum {
     NAME,
     BIRTHDATE,
-    //INTERESTED_IN,
     GENDER,
     RELATIONSHIP,
     AUTO_LOCATION,
