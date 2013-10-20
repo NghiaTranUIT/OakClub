@@ -294,7 +294,10 @@
     }
     if (indexPath.row == 0 && indexPath.section==4) {
         AppDelegate* appDel = [self appDelegate];
-        [appDel getProfileInfo];
+        [appDel getProfileInfoWithHandler:^(void)
+         {
+             
+         }];
     }
     [self.tableView reloadData];
 }

@@ -528,11 +528,13 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
     }  */  
 }
 
--(void)getProfileInfo{
+-(void)getProfileInfoWithHandler:(void(^)(void))handler
+{
     NSDictionary *params  = [[NSDictionary alloc]initWithObjectsAndKeys:s_DeviceToken, @"device_token", nil];
     
     AFHTTPClient *request = [[AFHTTPClient alloc] initWithOakClubAPI:DOMAIN];
-    [request getPath:URL_getAccountSetting parameters:params success:^(__unused AFHTTPRequestOperation *operation, id JSON) {
+    [request getPath:URL_getAccountSetting parameters:params success:^(__unused AFHTTPRequestOperation *operation, id JSON)
+    {
         
         self.myProfile = [[Profile alloc]init];
         accountSetting = [self.myProfile parseForGetAccountSetting:JSON];
@@ -542,8 +544,14 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
         [self.rootVC setLeftViewController:leftController];
         self.window.rootViewController = self.rootVC;
         
-        [self updateProfile ];
+        [self updateProfile];
 //        [self updateChatList];
+        
+        if (handler)
+        {
+            handler();
+        }
+        
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"GetAccountSetting Error Code: %i - %@",[error code], [error localizedDescription]);

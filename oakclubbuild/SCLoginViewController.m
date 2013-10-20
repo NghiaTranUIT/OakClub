@@ -17,6 +17,7 @@
 - (IBAction)performLogin:(id)sender;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *spinner;
 @property (weak, nonatomic) IBOutlet UIButton *btnLogin;
+@property (weak, nonatomic) IBOutlet UIButton *btnInfo;
 @property (weak, nonatomic) IBOutlet UIPageControl *pageControl;
 
 @end
@@ -55,7 +56,7 @@
     
     if (FBSession.activeSession.state == FBSessionStateCreatedTokenLoaded || FBSession.activeSession.state == FBSessionStateOpen)
     {
-        self.btnLogin.enabled = NO;
+        [self startSpinner];
         [self tryLogin];
     }
 }
@@ -78,11 +79,14 @@
 - (void)startSpinner{
     [self.spinner startAnimating];
     [btnLogin setEnabled:NO];
+    self.btnInfo.enabled = NO;
 }
 - (void)stopSpinner{
     [self.spinner stopAnimating];
     [btnLogin setEnabled:YES];
+    self.btnInfo.enabled = YES;
 }
+
 - (IBAction)performLogin:(id)sender
 {
     if(btnLogin.selected)
@@ -161,7 +165,10 @@
                           NSString *msg = [dict valueForKey:@"msg"];
                           if ([msg isEqualToString:@"This user exists already."])   // string check !=,=
                           {
-                              [appDelegate getProfileInfo];
+                              [appDelegate getProfileInfoWithHandler:^(void)
+                               {
+                                   [self stopSpinner];
+                               }];
                           }
                           else
                           {
@@ -216,7 +223,8 @@
                             work,@"work",//cate_id
                             /*self.s_aboutMe*/@"",@"about_me",//< 256 characters
                             nil];
-    [httpClient getPath:URl_setHangoutProfile parameters:params success:^(__unused AFHTTPRequestOperation *operation, id JSON) {
+    [httpClient getPath:URl_setHangoutProfile parameters:params success:^(__unused AFHTTPRequestOperation *operation, id JSON)
+    {
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@" SaveSetting Profile Error Code: %i - %@",[error code], [error localizedDescription]);
         //        return NO;
