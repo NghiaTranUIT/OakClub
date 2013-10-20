@@ -197,8 +197,7 @@ BOOL isDragging = FALSE;
 //        [self.snapshotView loadView];
         if(answerType >0){
             [self.snapshotView setFavorite:[NSString stringWithFormat:@"%i",answerType]];
-            [self.snapshotView loadCurrentProfile];
-            answerType = -1;
+//            [self.snapshotView loadCurrentProfile];
         }
 		return;
 	}
@@ -442,8 +441,9 @@ BOOL isDragging = FALSE;
 	placardView.transform = CGAffineTransformIdentity;
 }
 
-- (void)animatePlacardViewByAnswer:(int)anwser andDuration:(CGFloat)duration{
+- (void)animatePlacardViewByAnswer:(int)answer andDuration:(CGFloat)duration{
 	
+    answerType = answer;
     APLPlacardView *placardView = self.placardView;
     CALayer *welcomeLayer = placardView.layer;
 	
@@ -456,7 +456,7 @@ BOOL isDragging = FALSE;
 	// Create the path for the bounces.
 	UIBezierPath *bouncePath = [[UIBezierPath alloc] init];
     CGPoint centerPoint;
-    switch (anwser) {
+    switch (answer) {
         case interestedStatusNO:
             centerPoint = LEFT_POINT;
             break;
@@ -503,14 +503,14 @@ BOOL isDragging = FALSE;
      transformAnimation.duration = animationDuration;
      transformAnimation.toValue = [NSValue valueWithCATransform3D:CATransform3DIdentity];
      */
-    /*
+    
 	//create a basic rotate during moving
     CABasicAnimation* rotateAnim = [CABasicAnimation animationWithKeyPath:@"transform.rotation.z"];
     rotateAnim.fromValue = [NSNumber numberWithFloat:0.0f];
     rotateAnim.toValue = [NSNumber numberWithFloat: 2*M_PI];
     rotateAnim.duration = 2.0f;
     rotateAnim.repeatCount = INFINITY;
-    */
+    
 	// Create an animation group to combine the keyframe and basic animations.
 	CAAnimationGroup *theGroup = [CAAnimationGroup animation];
 	
@@ -519,15 +519,15 @@ BOOL isDragging = FALSE;
 	theGroup.duration = animationDuration;
 	theGroup.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseIn];
 	
-	theGroup.animations = @[bounceAnimation/*,rotateAnim, transformAnimation*/];
+	theGroup.animations = @[bounceAnimation,rotateAnim/*, transformAnimation*/];
 	
 	
 	// Add the animation group to the layer.
 	[welcomeLayer addAnimation:theGroup forKey:@"animatePlacardViewToCenter"];
 	
 	// Set the placard view's center and transformation to the original values in preparation for the end of the animation.
-	placardView.center = CENTER_POINT;
-	placardView.transform = CGAffineTransformIdentity;
+//	placardView.center = CENTER_POINT;
+//	placardView.transform = CGAffineTransformIdentity;
 }
 
 
@@ -535,11 +535,15 @@ BOOL isDragging = FALSE;
  Animation delegate method called when the animation's finished: restore the transform and reenable user interaction.
  */
 - (void)animationDidStop:(CAAnimation *)theAnimation finished:(BOOL)flag {
-    
-	self.placardView.transform = CGAffineTransformIdentity;
+//	self.placardView.transform = CGAffineTransformIdentity;
 	self.userInteractionEnabled = YES;
-    [self.snapshotView loadNextProfileByCurrentIndex];
-   
+    if(answerType != -1){
+        [self.snapshotView loadCurrentProfile];
+        [self.snapshotView loadNextProfileByCurrentIndex];
+         answerType = -1;
+//        self.placardView.center = CENTER_POINT;
+//        self.placardView.transform = CGAffineTransformIdentity;
+    }
 }
 
 

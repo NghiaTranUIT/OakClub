@@ -30,7 +30,7 @@
 @implementation VCSimpleSnapshot
 CGFloat pageWidth;
 CGFloat pageHeight;
-@synthesize sv_photos,lbl_indexPhoto, lbl_mutualFriends, lbl_mutualLikes, buttonNO, buttonProfile, buttonYES, imgMutualFriend, imgMutualLike, buttonMAYBE ,lblName, lblAge ,lblPhotoCount, viewProfile,matchView, matchViewController, lblMatchAlert, imgMatcher, imgMyAvatar;
+@synthesize sv_photos,lbl_indexPhoto, lbl_mutualFriends, lbl_mutualLikes, buttonNO, buttonProfile, buttonYES, imgMutualFriend, imgMutualLike, buttonMAYBE ,lblName, lblAge ,lblPhotoCount, viewProfile,matchView, matchViewController, lblMatchAlert, imgMatcher, imgMyAvatar, imgMainProfile, imgNextProfile;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -136,13 +136,14 @@ CGFloat pageHeight;
             [Profile getAvatarSync:profile.s_Avatar
                           callback:^(UIImage *image)
              {
-                 UIImageView *imageView = [[UIImageView alloc]initWithImage:image];
-                 CGRect frame = self.sv_photos.frame;
-                 frame.origin.x = CGRectGetWidth(frame);
-                 frame.origin.y = 0;
-                 imageView.frame = frame;
-                 [imageView setContentMode:UIViewContentModeScaleAspectFit];
-                 [profile.arr_photos replaceObjectAtIndex:0 withObject:imageView];
+//                 UIImageView *imageView = [[UIImageView alloc]initWithImage:image];
+//                 CGRect frame = self.sv_photos.frame;
+//                 frame.origin.x = CGRectGetWidth(frame);
+//                 frame.origin.y = 0;
+//                 imageView.frame = frame;
+//                 [imageView setContentMode:UIViewContentModeScaleAspectFit];
+//                 [self.imgMainProfile setImage:image];
+                 [profile.arr_photos replaceObjectAtIndex:0 withObject:image];
              }];
             [operation start];
         }
@@ -245,13 +246,13 @@ CGFloat pageHeight;
     }
     Profile * temp  =  [[Profile alloc]init];
     temp = [profileList objectAtIndex:currentIndex];
-    [self.imgAvatar setImage:[UIImage imageNamed:@"Default Avatar"]];
+    [self.imgNextProfile setImage:[UIImage imageNamed:@"Default Avatar"]];
     NSLog(@"Name of Profile : %@",currentProfile.s_Name);
     request = [[AFHTTPClient alloc]initWithBaseURL:[NSURL URLWithString:@""]];
     [request getPath:temp.s_Avatar parameters:nil success:^(__unused AFHTTPRequestOperation *operation, id JSON) {
         UIImage *image = [UIImage imageWithData:JSON];
 //        UIImageView *imageView = [[UIImageView alloc]initWithImage:image];
-        [self.imgAvatar setImage:image];
+        [self.imgNextProfile setImage:image];
 //        CGRect frame = self.sv_photos.frame;
 //        imageView.frame = self.sv_photos.frame;
 //        [imageView setContentMode:UIViewContentModeScaleAspectFit];
@@ -310,6 +311,19 @@ CGFloat pageHeight;
     NSDictionary *params = [[NSDictionary alloc]initWithObjectsAndKeys:currentProfile.s_ID,@"profile_id", nil];
     // Vanancy: don't load all photos of profile and don't use scrollview for showing
 //    [self loadDataPhotoScrollView];
+    if([currentProfile.arr_photos[0] isKindOfClass:[UIImage class]]){
+        [self.imgMainProfile setImage:[currentProfile.arr_photos objectAtIndex:0]];
+    }
+    else{
+        AFHTTPRequestOperation *operation =
+        [Profile getAvatarSync:currentProfile.s_Avatar
+                      callback:^(UIImage *image)
+         {
+             [self.imgMainProfile setImage:image];
+             [currentProfile.arr_photos replaceObjectAtIndex:0 withObject:image];
+         }];
+        [operation start];
+    }
     [requestMutual getPath:URL_getHangoutProfile parameters:params success:^(__unused AFHTTPRequestOperation *operation, id JSON)
      {
          [self.spinner stopAnimating];
@@ -637,8 +651,7 @@ CGFloat pageHeight;
     
     NSLog(@"current id = %@",currentProfile.s_ID);
     viewProfile = [[VCProfile alloc] initWithNibName:@"VCProfile" bundle:nil];
-    UIImageView *avatar = [currentProfile.arr_photos objectAtIndex:0];
-    [viewProfile loadProfile:currentProfile andImage:avatar.image];
+    [viewProfile loadProfile:currentProfile andImage:[currentProfile.arr_photos objectAtIndex:0]];
     
     [self.view addSubview:viewProfile.view];
     viewProfile.view.frame = CGRectMake(0, 480, 320, 480);
@@ -779,11 +792,11 @@ CGFloat pageHeight;
     [self setFavorite:[NSString stringWithFormat:@"%i",choose]];
     if(currentIndex < MAX_FREE_SNAPSHOT){
         //increase currentIndex
-        currentIndex ++;
+//        currentIndex ++;
         //go next Profile/reload view with next Profile by next index.
 //        [self loadCurrentProfile:currentIndex];
-        [self loadCurrentProfile];
-        [self loadNextProfileByCurrentIndex];
+//        [self loadCurrentProfile];
+//        [self loadNextProfileByCurrentIndex];
     }else{
         //show warning getting COINS to continue.
         [self showWarning];
