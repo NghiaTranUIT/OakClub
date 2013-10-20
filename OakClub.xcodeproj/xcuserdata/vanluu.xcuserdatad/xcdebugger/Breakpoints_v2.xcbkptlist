@@ -408,13 +408,13 @@
                   continueAfterRunningActions = "No"
                   symbolName = "-[Profile loadPhotosByProfile:]"
                   moduleName = "OakClub"
-                  urlString = "file://localhost/1_Projects/GlassEgg/Git/OakClub/oakclubbuild/Profile.m"
-                  timestampString = "403959492.083121"
+                  urlString = "file://localhost/1_Works/Projects/GitHub/OakClub/oakclubbuild/Profile.m"
+                  timestampString = "403988039.799896"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "695"
                   endingLineNumber = "695"
-                  offsetFromSymbolStart = "40">
+                  offsetFromSymbolStart = "65">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
@@ -422,13 +422,13 @@
                   continueAfterRunningActions = "No"
                   symbolName = "-[Profile loadPhotosByProfile:]"
                   moduleName = "OakClub"
-                  urlString = "file://localhost/1_Projects/GlassEgg/Git/OakClub/oakclubbuild/Profile.m"
-                  timestampString = "403959492.083374"
+                  urlString = "file://localhost/1_Works/Projects/GitHub/OakClub/oakclubbuild/Profile.m"
+                  timestampString = "403988039.80015"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "695"
                   endingLineNumber = "695"
-                  offsetFromSymbolStart = "1444">
+                  offsetFromSymbolStart = "1447">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -446,6 +446,22 @@
             startingLineNumber = "153"
             endingLineNumber = "153"
             landmarkName = "-initWithUser:withProfile:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "oakclubbuild/VCChat.m"
+            timestampString = "403985481.049961"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "336"
+            endingLineNumber = "336"
+            landmarkName = "-fetchedResultsController"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
