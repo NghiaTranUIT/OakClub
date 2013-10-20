@@ -29,14 +29,18 @@
 @property (weak, nonatomic) IBOutlet UILabel *lbl_mutualFriends;
 @property (weak, nonatomic) IBOutlet UIButton *buttonProfile;
 @property (weak, nonatomic) IBOutlet UILabel *lbl_mutualLikes;
-@property (weak, nonatomic) IBOutlet UIImageView *imgAvatar;
+@property (weak, nonatomic) IBOutlet UIImageView *imgNextProfile;
+@property (weak, nonatomic) IBOutlet UIImageView *imgMainProfile;
 @property (strong, nonatomic) IBOutlet UIScrollView *sv_photos;
+// for Mutual match popup
 @property (weak, nonatomic) IBOutlet UIImageView *imgMatcher;
 @property (weak, nonatomic) IBOutlet UIImageView *imgMyAvatar;
 @property (strong, nonatomic) IBOutlet UIViewController *matchViewController;
+@property (weak, nonatomic) IBOutlet UILabel *lblMatchAlert;
+
 @property (weak, nonatomic) IBOutlet UIImageView *imgMutualFriend;
 @property (weak, nonatomic) IBOutlet UIImageView *imgMutualLike;
-@property (weak, nonatomic) IBOutlet UILabel *lblMatchAlert;
+
 @property (weak, nonatomic) IBOutlet UIButton *buttonMAYBE;
 @property (weak, nonatomic) IBOutlet UIButton *buttonYES;
 @property (weak, nonatomic) IBOutlet UILabel *lblName;

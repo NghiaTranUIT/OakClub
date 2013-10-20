@@ -11,9 +11,10 @@
                 <outlet property="buttonProfile" destination="36" id="50"/>
                 <outlet property="buttonYES" destination="35" id="49"/>
                 <outlet property="controlView" destination="105" id="106"/>
-                <outlet property="imgAvatar" destination="23" id="dJE-Yi-kIq"/>
-                <outlet property="imgMatcher" destination="b8g-eu-YxR" id="Wyb-LX-S8j"/>
-                <outlet property="imgMyAvatar" destination="D5D-Ny-ZZr" id="wkc-xc-vvF"/>
+                <outlet property="imgMainProfile" destination="0hi-Qh-GUe" id="B3Z-kw-cit"/>
+                <outlet property="imgMatcher" destination="5Tc-Vx-ANn" id="E9M-9N-jhC"/>
+                <outlet property="imgMyAvatar" destination="4M7-C4-0fu" id="I61-Wo-C9l"/>
+                <outlet property="imgNextProfile" destination="23" id="j2n-7D-Njs"/>
                 <outlet property="lblAge" destination="58" id="59"/>
                 <outlet property="lblMatchAlert" destination="R1c-sV-U2o" id="8uv-p6-2Ec"/>
                 <outlet property="lblName" destination="38" id="57"/>

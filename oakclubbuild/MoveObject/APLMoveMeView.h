@@ -56,7 +56,7 @@
 -(void) addSubViewToCardView:(UIView*)subview;
 -(int) getAnswer;
 -(void) setAnswer:(int)type;
-- (void)animatePlacardViewByAnswer:(int)anwser andDuration:(CGFloat)duration;
+- (void)animatePlacardViewByAnswer:(int)answer andDuration:(CGFloat)duration;
 //-(void) setUserProfile:(Profile*)profile andImage:(UIImage*)image;
 @end
 
