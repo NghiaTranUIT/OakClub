@@ -946,8 +946,16 @@ BOOL allowFullScreen = FALSE;
 }
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
     allowFullScreen = FALSE;
-     float scrollOffset = scrollView.contentOffset.y;
-    NSLog(@"scrollViewDidEndDragging - content offset : %f",scrollOffset);
+//     float scrollOffset = scrollView.contentOffset.y;
+//    NSLog(@"scrollViewDidEndDragging - content offset : %f",scrollOffset);
+    if(self.svPhotos.frame.size.height < self.view.frame.size.height - 80){
+        [self.svPhotos setFrame:CGRectMake(0, 0, self.view.frame.size.width, 275)];
+        self.svPhotos.contentSize =
+        CGSizeMake(CGRectGetWidth(self.svPhotos.frame) * [currentProfile.arr_photos count], CGRectGetHeight(self.svPhotos.frame));
+        [self.infoView setFrame:CGRectMake(0, 275, self.infoView.frame.size.width, self.infoView.frame.size.height)];
+        [self updateSubviewsToCenterScrollView];
+    }
+    
 }
 
 -(void)updateSubviewsToCenterScrollView{
