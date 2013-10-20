@@ -628,11 +628,24 @@ static CGFloat padding_left = 5.0;
 
 
 #pragma mark loadProfile functions
+//-(void) loadProfile:(Profile*) _profile andImage:(UIImage*)_avatar{
+//    img_avatar = _avatar;
+//    currentProfile = _profile;
+//}
 -(void) loadProfile:(Profile*) _profile andImage:(UIImage*)_avatar{
-    img_avatar = _avatar;
     currentProfile = _profile;
+    self.svPhotos.contentSize =
+    CGSizeMake(CGRectGetWidth(self.svPhotos.frame) * ([currentProfile.arr_photos count] + 1), CGRectGetHeight(self.svPhotos.frame));
+    UIImageView *imageView = [[UIImageView alloc]initWithImage:_avatar];
+    CGRect frame = self.svPhotos.frame;
+    frame.origin.x = CGRectGetWidth(frame);
+    frame.origin.y = 0;
+    imageView.frame = frame;
+    [imageView setContentMode:UIViewContentModeScaleAspectFit];
+    [self.svPhotos addSubview:imageView];
+    //    [currentProfile.arr_photos addObject:imageView];
+    [self loadPhotoForScrollview];
 }
-
 -(void) loadProfile:(Profile*) _profile{
     currentProfile = _profile;
     [self loadPhotoForScrollview];
