@@ -17,6 +17,7 @@
 - (IBAction)performLogin:(id)sender;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *spinner;
 @property (weak, nonatomic) IBOutlet UIButton *btnLogin;
+@property (weak, nonatomic) IBOutlet UIButton *btnInfo;
 @property (weak, nonatomic) IBOutlet UIPageControl *pageControl;
 
 @end
@@ -78,10 +79,12 @@
 - (void)startSpinner{
     [self.spinner startAnimating];
     [btnLogin setEnabled:NO];
+    self.btnInfo.enabled = NO;
 }
 - (void)stopSpinner{
     [self.spinner stopAnimating];
     [btnLogin setEnabled:YES];
+    self.btnInfo.enabled = YES;
 }
 
 - (IBAction)performLogin:(id)sender
