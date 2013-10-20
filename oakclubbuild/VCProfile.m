@@ -914,6 +914,9 @@ BOOL allowFullScreen = FALSE;
                 self.svPhotos.contentSize =
                 CGSizeMake(CGRectGetWidth(self.svPhotos.frame) * [currentProfile.arr_photos count], CGRectGetHeight(self.svPhotos.frame));
                 [self.infoView setFrame:CGRectMake(0, self.view.frame.size.height, self.infoView.frame.size.width, self.infoView.frame.size.height)];
+
+                CGRect interestFrame = scrollViewInterest.frame;
+                [scrollViewInterest setFrame:CGRectMake(interestFrame.origin.x, self.view.frame.size.height , interestFrame.size.width, interestFrame.size.height)];
             }
             else{
                 [self.svPhotos setFrame:CGRectMake(0, 0, 320, self.svPhotos.frame.size.height +  fabsf(scrollOffset))];
@@ -921,6 +924,9 @@ BOOL allowFullScreen = FALSE;
                 CGSizeMake(CGRectGetWidth(self.svPhotos.frame) * [currentProfile.arr_photos count], CGRectGetHeight(self.svPhotos.frame));
                 [self.infoView setFrame:CGRectMake(0, self.infoView.frame.origin.y +fabsf(scrollOffset), self.infoView.frame.size.width, self.infoView.frame.size.height)];
                 [scrollView setContentOffset:CGPointMake(0, 0)];
+                
+                CGRect interestFrame = scrollViewInterest.frame;
+                [scrollViewInterest setFrame:CGRectMake(interestFrame.origin.x, fabsf(scrollOffset) + interestFrame.origin.y, interestFrame.size.width, interestFrame.size.height)];
             }
         }
         else{
@@ -930,6 +936,8 @@ BOOL allowFullScreen = FALSE;
                 CGSizeMake(CGRectGetWidth(self.svPhotos.frame) * [currentProfile.arr_photos count], CGRectGetHeight(self.svPhotos.frame));
                 [self.infoView setFrame:CGRectMake(0, self.infoView.frame.origin.y -  fabsf(scrollOffset), self.infoView.frame.size.width, self.infoView.frame.size.height)];
                 [scrollView setContentOffset:CGPointMake(0, 0)];
+                CGRect interestFrame = scrollViewInterest.frame;
+                [scrollViewInterest setFrame:CGRectMake(interestFrame.origin.x, interestFrame.origin.y - fabsf(scrollOffset), interestFrame.size.width, interestFrame.size.height)];
             }
         }
         [self updateSubviewsToCenterScrollView];
@@ -949,6 +957,9 @@ BOOL allowFullScreen = FALSE;
 //     float scrollOffset = scrollView.contentOffset.y;
 //    NSLog(@"scrollViewDidEndDragging - content offset : %f",scrollOffset);
     if(self.svPhotos.frame.size.height < self.view.frame.size.height - 80){
+        CGRect interestFrame = scrollViewInterest.frame;
+        [scrollViewInterest setFrame:CGRectMake(interestFrame.origin.x, self.infoView.frame.origin.y +  self.interestsView.frame.origin.y + 29, interestFrame.size.width, interestFrame.size.height)];
+        
         [self.svPhotos setFrame:CGRectMake(0, 0, self.view.frame.size.width, 275)];
         self.svPhotos.contentSize =
         CGSizeMake(CGRectGetWidth(self.svPhotos.frame) * [currentProfile.arr_photos count], CGRectGetHeight(self.svPhotos.frame));
