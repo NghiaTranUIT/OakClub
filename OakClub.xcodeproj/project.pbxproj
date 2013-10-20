@@ -1649,9 +1649,6 @@
 				CD8AA1FD170C1E2C00A97C47 /* Hangout */,
 				CD12C1AD170AEB9C006B13B8 /* Menu */,
 				CD12C1AA170AEB27006B13B8 /* Login */,
-				9775A75A1813CF2C00BCF28D /* SCLoginViewController.h */,
-				9775A75B1813CF2C00BCF28D /* SCLoginViewController.m */,
-				9775A75C1813CF2C00BCF28D /* SCLoginViewController.xib */,
 				CD12C1A7170AEB01006B13B8 /* SnapShot */,
 				CD12C1A8170AEB10006B13B8 /* Visitors */,
 				CD12C1A6170AEAF2006B13B8 /* MyLink */,
@@ -1725,6 +1722,9 @@
 		CD12C1AA170AEB27006B13B8 /* Login */ = {
 			isa = PBXGroup;
 			children = (
+				9775A75A1813CF2C00BCF28D /* SCLoginViewController.h */,
+				9775A75B1813CF2C00BCF28D /* SCLoginViewController.m */,
+				9775A75C1813CF2C00BCF28D /* SCLoginViewController.xib */,
 			);
 			name = Login;
 			sourceTree = "<group>";

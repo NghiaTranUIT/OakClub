@@ -647,8 +647,6 @@ CGFloat pageHeight;
 }
 
 -(void) gotoPROFILE{
-    //self.view = self.profileView;
-    
     NSLog(@"current id = %@",currentProfile.s_ID);
     viewProfile = [[VCProfile alloc] initWithNibName:@"VCProfile" bundle:nil];
     [viewProfile loadProfile:currentProfile andImage:[currentProfile.arr_photos objectAtIndex:0]];
@@ -659,26 +657,29 @@ CGFloat pageHeight;
                      animations:^{
                          viewProfile.view.frame = CGRectMake(0, 0, 320, 480);
                      }];
-    [self.sv_photos removeFromSuperview];
-    [self.view addSubview:self.sv_photos];
-
-    self.sv_photos.frame = CGRectMake(50, 30, 228 , 228);
+    [self.imgMainProfile removeFromSuperview];
+    [self.view addSubview:imgMainProfile];
+    [self.imgMainProfile setFrame:CGRectMake(50, 30, 228, 228)];
+//    [self.sv_photos removeFromSuperview];
+//    [self.view addSubview:self.sv_photos];
+//    self.sv_photos.frame = CGRectMake(50, 30, 228 , 228);
     [UIView animateWithDuration: 0.4
                           delay: 0
                         options: (UIViewAnimationOptionCurveLinear | UIViewAnimationOptionAllowUserInteraction)
                      animations:^{
                          [self.navigationController setNavigationBarHidden:YES animated:YES];
-                         self.sv_photos.frame = CGRectMake(0, 0, 320, 275);
-                         self.sv_photos.contentSize =
-                         CGSizeMake(CGRectGetWidth(self.sv_photos.frame) * [currentProfile.arr_photos count], CGRectGetHeight(self.sv_photos.frame));
-//                         [self loadDataForPhotos];
-                         [self loadDataPhotoScrollView];
+                         imgMainProfile.frame = CGRectMake(0, 0, 320, 275);
+//                         self.sv_photos.frame = CGRectMake(0, 0, 320, 275);
+//                         self.sv_photos.contentSize =
+//                         CGSizeMake(CGRectGetWidth(self.sv_photos.frame) * [currentProfile.arr_photos count], CGRectGetHeight(self.sv_photos.frame));
+//                         [self loadDataPhotoScrollView];
                      }
                      completion:^(BOOL finished) {
                          [self.moveMeView removeFromSuperview];
-                         [self.sv_photos setUserInteractionEnabled:YES];
-                         [self.sv_photos removeFromSuperview];
-                         [viewProfile.scrollview addSubview:self.sv_photos];
+                         [imgMainProfile setAlpha:1];
+//                         [self.sv_photos setUserInteractionEnabled:YES];
+//                         [self.sv_photos removeFromSuperview];
+//                         [viewProfile.scrollview addSubview:self.sv_photos];
                      }
      ];
     [UIView animateWithDuration:0.4
@@ -690,8 +691,8 @@ CGFloat pageHeight;
 }
 
 -(void)backToSnapshotView{
-    [self.sv_photos setUserInteractionEnabled:NO];
-    [self.sv_photos scrollRectToVisible:CGRectMake(0, 0, 228, 228) animated:NO];
+//    [self.sv_photos setUserInteractionEnabled:NO];
+//    [self.sv_photos scrollRectToVisible:CGRectMake(0, 0, 228, 228) animated:NO];
     [UIView animateWithDuration:0.4
                      animations:^{
                          [viewProfile.view removeFromSuperview];
@@ -703,14 +704,17 @@ CGFloat pageHeight;
                         options: (UIViewAnimationOptionCurveLinear | UIViewAnimationOptionAllowUserInteraction)
                      animations:^{
                          [self.navigationController setNavigationBarHidden:NO animated:YES];
-                         self.sv_photos.frame = CGRectMake(46, 30, 228, 228);
-//                         [self loadDataForPhotos];
-                         [self loadDataPhotoScrollView];
+//                         self.sv_photos.frame = CGRectMake(46, 30, 228, 228);
+                         [self.imgMainProfile setFrame:CGRectMake(46, 30, 228, 228)];
+//                         [self loadDataPhotoScrollView];
                      }
                      completion:^(BOOL finished) {
-                         [self.sv_photos removeFromSuperview];
-                         [self.moveMeView addSubViewToCardView:self.sv_photos];
-                         self.sv_photos.frame = CGRectMake(4, 5, 228 , 228);
+                         [imgMainProfile setAlpha:1];
+//                         [self.sv_photos removeFromSuperview];
+//                         [self.moveMeView addSubViewToCardView:self.sv_photos];
+//                         self.sv_photos.frame = CGRectMake(4, 5, 228 , 228);
+                         [self.moveMeView addSubViewToCardView:imgMainProfile];
+                         [self.imgMainProfile setFrame:CGRectMake(4, 5, 228, 228)];
                          
                      }
      ];

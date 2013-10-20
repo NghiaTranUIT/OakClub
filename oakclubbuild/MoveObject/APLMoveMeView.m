@@ -548,11 +548,11 @@ BOOL isDragging = FALSE;
 - (void)animationDidStop:(CAAnimation *)theAnimation finished:(BOOL)flag {
 	self.placardView.transform = CGAffineTransformIdentity;
 	self.userInteractionEnabled = YES;
+    [self.placardView setAlpha:1];
     if(answerType != -1){
         [self.snapshotView loadCurrentProfile];
         [self.snapshotView loadNextProfileByCurrentIndex];
          answerType = -1;
-        [self.placardView setAlpha:1];
 //        self.placardView.center = CENTER_POINT;
 //        self.placardView.transform = CGAffineTransformIdentity;
     }
