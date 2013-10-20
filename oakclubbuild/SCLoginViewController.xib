@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="4510" systemVersion="12F37" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="4510" systemVersion="12F45" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
     <dependencies>
         <deployment defaultVersion="1280" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3742"/>
@@ -10,7 +10,6 @@
                 <outlet property="btnLogin" destination="39" id="74"/>
                 <outlet property="pageControl" destination="eKY-f1-FTR" id="R9t-lK-YEb"/>
                 <outlet property="spinner" destination="71" id="73"/>
-                <outlet property="splashImage" destination="BKR-T8-OOg" id="Hj8-RW-QcI"/>
                 <outlet property="view" destination="1" id="75"/>
             </connections>
         </placeholder>
@@ -64,22 +63,20 @@
                     <state key="normal" backgroundImage="btn-info.png">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
+                    <connections>
+                        <action selector="showInfoPanel:" destination="-1" eventType="touchUpInside" id="ngp-NS-ht4"/>
+                    </connections>
                 </button>
                 <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" id="eKY-f1-FTR">
                     <rect key="frame" x="141" y="471" width="39" height="37"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
                 </pageControl>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg-black.png" id="BKR-T8-OOg">
-                    <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                </imageView>
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
         </view>
     </objects>
     <resources>
-        <image name="bg-black.png" width="320" height="460"/>
         <image name="bg-bottom.png" width="320" height="93"/>
         <image name="btn-fb.png" width="305" height="37"/>
         <image name="btn-info.png" width="19" height="19"/>

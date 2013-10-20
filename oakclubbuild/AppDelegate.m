@@ -68,7 +68,6 @@ NSString *const kXMPPmyPassword = @"kXMPPmyPassword";
 #if ENABLE_DEMO
 @synthesize simpleSnapShot = _simpleSnapShot;
 @synthesize snapShotSettings = _snapShotSettings;
-@synthesize mutualMatches = _mutualMatches;
 #endif
 @synthesize visitor = _visitor;
 @synthesize rootVC = _rootVC;
@@ -79,6 +78,8 @@ NSString *const kXMPPmyPassword = @"kXMPPmyPassword";
 @synthesize friendChatList;
 @synthesize accountSetting;
 @synthesize activeVC;
+
+@synthesize session = _session;
 
 // Log levels: off, error, warn, info, verbose
 #if DEBUG
@@ -124,8 +125,6 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
 {
     
     [self changeFontStyle];
-
-    
 //    NSURL *url = [NSURL URLWithString:@"http://httpbin.org/ip"];
 //    NSURLRequest *request = [NSURLRequest requestWithURL:url];
     
@@ -142,11 +141,10 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
     self.simpleSnapShot = [self createNavigationByClass:@"VCSimpleSnapshot" AndHeaderName:@"Snapshot" andRightButton:@"VCChat" andIsStoryBoard:NO];
 //     self.snapShotSettings = [self.storyboard instantiateViewControllerWithIdentifier:@"SnapshotSettings"];
         self.snapShotSettings = [self createNavigationByClass:@"VCSimpleSnapshotSetting" AndHeaderName:@"Settings" andRightButton:nil andIsStoryBoard:NO];
-    self.mutualMatches = [self createNavigationByClass:@"VCMutualMatch" AndHeaderName:@"Mutual Matches" andRightButton:nil andIsStoryBoard:NO];
 #endif
     self.visitor = [self createNavigationByClass:@"VCVisitor" AndHeaderName:@"Visitors" andRightButton:nil andIsStoryBoard:NO];
     self.hangOut = [self createNavigationByClass:@"VCHangOut" AndHeaderName:@"Meet people around" andRightButton:@"HangoutSetting" andIsStoryBoard:YES];
-    self.myProfileVC = [self createNavigationByClass:@"VCMyProfile" AndHeaderName:@"Edit Profile" andRightButton:@"VCMyProfile" andIsStoryBoard:NO];
+    self.myProfileVC = [self createNavigationByClass:@"VCMyProfile" AndHeaderName:@"Edit Profile" andRightButton:nil andIsStoryBoard:NO];
     self.getPoints = [self createNavigationByClass:@"VCGetPoints" AndHeaderName:@"Get Coins" andRightButton:nil andIsStoryBoard:NO];
     self.loginView = [[SCLoginViewController alloc] initWithNibName:@"SCLoginViewController" bundle:nil];
 
@@ -169,16 +167,16 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
     self.window.rootViewController = self.loginView;
     [self.window makeKeyAndVisible];
 
-    BOOL hasInternet = [self checkInternetConnection];
-    // See if we have a valid token for the current state.
-    if (hasInternet && (FBSession.activeSession.state == FBSessionStateCreatedTokenLoaded || FBSession.activeSession.state == FBSessionStateOpen)) {
-        // To-do, show logged in view
-        [self.loginView startSpinner];
-        [self openSession];
-    } else {
-        // No, display the login page.
-        [self showLoginView];
-    }
+//    BOOL hasInternet = [self checkInternetConnection];
+//    // See if we have a valid token for the current state.
+//    if (hasInternet && (FBSession.activeSession.state == FBSessionStateCreatedTokenLoaded || FBSession.activeSession.state == FBSessionStateOpen)) {
+//        // To-do, show logged in view
+//        [self.loginView startSpinner];
+//        [self openSession];
+//    } else {
+//        // No, display the login page.
+//        [self showLoginView];
+//    }
     
     [[UIApplication sharedApplication] registerForRemoteNotificationTypes:
      (UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeBadge)];
@@ -309,14 +307,6 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
     //    [self.rootVC setContentViewController:self.snapShoot snapToContentViewController:YES animated:YES];
     activeVC = _simpleSnapShot;
     [self.rootVC setFrontViewController:self.simpleSnapShot focusAfterChange:YES completion:^(BOOL finished) {
-        
-    }];
-}
--(void)showMutualMatches {
-    //    [self.rootVC setRootController:self.myLink animated:YES];
-    //    [self.rootVC setContentViewController:self.myLink snapToContentViewController:YES animated:YES];
-    activeVC = _mutualMatches;
-    [self.rootVC setFrontViewController:self.mutualMatches focusAfterChange:YES completion:^(BOOL finished) {
         
     }];
 }
@@ -471,32 +461,28 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
         case FBSessionStateOpen: {
             NSLog(@"Logged in!");
             
-            [self.loginView dismissModalViewControllerAnimated:YES];
+//            [self.loginView dismissModalViewControllerAnimated:YES];
 //            self.loginView = nil;
-            
-            [FBRequestConnection startForMeWithCompletionHandler:
-             ^(FBRequestConnection *connection, id result, NSError *error)
-             {
-                 self.myFBProfile = (id<FBGraphUser>)result;
-                 [self loadDataForList];
+//            
+//            [FBRequestConnection startForMeWithCompletionHandler:
+//             ^(FBRequestConnection *connection, id result, NSError *error)
+//             {
+//                 self.myFBProfile = (id<FBGraphUser>)result;
 //                 NSLog(@"%@",[result objectForKey:@"gender"]);
 //                 NSLog(@"%@",[result objectForKey:@"gender"]);
 //                 NSLog(@"%@",[result objectForKey:@"relationship_status"]);
 //                 NSLog(@"%@",[result objectForKey:@"about"]);
-#if ENABLE_DEMO
-                 [self  getProfileInfo];
-                 [self loadLikeMeList];
-#else
-                 UIStoryboard *registerStoryboard = [UIStoryboard
-                                                     storyboardWithName:@"RegisterConfirmation"
-                                                     bundle:nil];
-                 UIViewController *registerViewConroller = [registerStoryboard
-                                                            instantiateInitialViewController];
-                 self.window.rootViewController = registerViewConroller;
-#endif
-                 
-                 NSLog(@"FB Login request completed!");
-             }];
+//#if ENABLE_DEMO
+//                 [self  getProfileInfo];
+//#else
+//                 UIStoryboard *registerStoryboard = [UIStoryboard
+//                                                     storyboardWithName:@"RegisterConfirmation"
+//                                                     bundle:nil];
+//                 UIViewController *registerViewConroller = [registerStoryboard
+//                                                            instantiateInitialViewController];
+//                 self.window.rootViewController = registerViewConroller;
+//#endif
+//             }];
         }
             break;
         case FBSessionStateClosed:
@@ -509,7 +495,7 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
             //[self showLoginView];
             [self logOut];
             
-            NSLog(@"Login failed! %@",[error description] );
+            NSLog(@"Login failed! %@",error.fberrorUserMessage );
 
             break;
         default:
@@ -546,7 +532,7 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
         self.window.rootViewController = self.rootVC;
         
         [self updateProfile ];
-//        [self updateChatList];
+        
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"GetAccountSetting Error Code: %i - %@",[error code], [error localizedDescription]);
@@ -603,6 +589,7 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
               [navbar setNotifications:[self countTotalNotifications]];
           }];
          
+         
          AFHTTPClient *requestPhoto = [[AFHTTPClient alloc] initWithOakClubAPI:DOMAIN];
          NSDictionary *params  = [[NSDictionary alloc]initWithObjectsAndKeys:self.myProfile.s_ID, key_profileID, nil];
          self.myProfile.arr_photos = [[NSMutableArray alloc] init];
@@ -619,50 +606,9 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
          NSLog(@"URL_getHangoutProfile Error Code: %i - %@",[error code], [error localizedDescription]);
      }];
     
+    
 }
-//- (void) updateChatList{
-//    NSMutableArray *_arrRoster = [[NSMutableArray alloc] init];
-//    
-//    AFHTTPClient *request = [[AFHTTPClient alloc] initWithOakClubAPI:DOMAIN];
-//    [request getPath:URL_getListChat parameters:nil success:^(__unused AFHTTPRequestOperation *operation, id JSON) {
-//        NSError *e=nil;
-//        NSMutableDictionary *dict_ListChat = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONReadingMutableContainers error:&e];
-//        //        NSMutableDictionary * data= [dict valueForKey:key_data];
-//        
-//        self.myProfile.unread_message = 0;
-//        NSMutableArray* rosterList = [dict_ListChat valueForKey:key_data];
-//        
-//        for (int i = 0; rosterList!=nil && i < [rosterList count]; i++) {
-//            NSMutableDictionary *objectData = [rosterList objectAtIndex:i];
-//            
-//            if(objectData != nil)
-//            {
-//                NSString* profile_id = [objectData valueForKey:key_profileID];
-//                bool deleted = [[objectData valueForKey:@"is_deleted"] boolValue];
-//                bool blocked = [[objectData valueForKey:@"is_blocked"] boolValue];
-//                //bool deleted_by = [[objectData valueForKey:@"is_deleted_by_user"] boolValue];
-//                bool blocked_by = [[objectData valueForKey:@"is_blocked_by_user"] boolValue];
-//                // vanancyLuu : cheat for crash
-//                if(!deleted && !blocked && !blocked_by )
-//                {
-//                    [_arrRoster addObject:profile_id];
-//                    
-//                    int unread_count = [[objectData valueForKey:@"unread_count"] intValue];
-//                    
-//                    NSLog(@"%d. unread message: %d", i, unread_count);
-//                    
-//                    self.myProfile.unread_message += unread_count;
-//                }
-//            }
-//        }
-//        
-//        NSLog(@"unread message: %d", self.myProfile.unread_message);
-//        
-//        self.myProfile.a_RosterList = [NSArray arrayWithArray:_arrRoster];
-//    }failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-//        NSLog(@"Error Code: %i - %@", [error code], [error localizedDescription]);
-//    }];
-//}
+
 - (void)openSession
 {
     NSArray *permission = [[NSArray alloc] initWithObjects:@"email",@"user_birthday",@"user_location",nil];
@@ -686,6 +632,83 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
 //                                            }];
 }
 
+-(void) openSessionWithWebDialogWithhandler:(void(^)(FBSessionState))resultHandler
+{
+    FBSession *sessionApp = self.session;
+    if (!sessionApp.isOpen)
+    {
+        [FBSession setActiveSession:sessionApp];
+        sessionApp = [[FBSession alloc] initWithPermissions:[NSArray arrayWithObject:@"email, user_about_me, user_birthday, user_interests, user_location, user_relationship_details"]];
+        
+        [sessionApp openWithBehavior:FBSessionLoginBehaviorForcingWebView completionHandler:^(FBSession *session,
+                                                                                              FBSessionState status,
+                                                                                              NSError *error) {
+            // and here we make sure to update our UX according to the new session state
+            [FBSession setActiveSession:sessionApp];
+            [self sessionStateChanged:session state:status error:error];
+            if(resultHandler != nil){
+                resultHandler(status);
+            }
+        }];
+    }
+    else
+    {
+        [FBSession setActiveSession:sessionApp];
+        if(resultHandler != nil)
+            resultHandler(sessionApp.state);
+    }
+
+}
+
+-(void)loadFBUserInfo:(void(^)(id))resultHandler{
+    //self.myProfile = [[Profile alloc] init];
+    NSDictionary* params = [NSDictionary dictionaryWithObject:@"id,name,gender,relationship_status,about,location,interested_in,birthday,email,picture" forKey:@"fields"];
+    [FBRequestConnection startWithGraphPath:@"me" parameters:params HTTPMethod:@"GET" completionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
+        NSLog(@"USER INFO _ error : %@",error);
+        if(result == NULL)
+            return;
+        NSLog(@"USER INFO _ %@",result);
+        self.myFBProfile = result;
+        
+        [self loadDataForList];
+        
+        if(resultHandler != nil)
+        {
+            resultHandler(result);
+        }
+    }];
+}
+-(void)parseFBInfoToProfile:(id)fbProfile
+{
+    id result = fbProfile;
+    self.myProfile = [[Profile alloc] init];
+    self.myProfile.s_ID = [result objectForKey:@"id"];
+    self.myProfile.s_Name = [result objectForKey:@"name"];
+    self.myProfile.s_gender = [[Gender alloc] initWithNSString:[result objectForKey:@"gender"]];
+    self.myProfile.s_relationShip = [[RelationShip alloc] initWithNSString:[result objectForKey:@"relationship_status"]];
+    NSArray *interests = [result objectForKey:@"interested_in"];
+    int countInterest = [interests count];
+    if(countInterest == 2)
+        self.myProfile.s_interested = [[Gender alloc] initWithNSString:@"Both"];
+    else
+        if(countInterest == 0 && [self.myProfile.s_gender.text length]!= 0){
+            if(self.myProfile.s_gender.ID == MALE)
+                self.myProfile.s_interested = [[Gender alloc] initWithID:FEMALE];
+            else
+                if(self.myProfile.s_gender.ID ==FEMALE)
+                    self.myProfile.s_interested = [[Gender alloc] initWithID:MALE];
+        }
+        else{
+            self.myProfile.s_interested = [[Gender alloc] initWithNSString:[interests objectAtIndex:0]];
+        }
+    
+    self.myProfile.s_FB_id = [result objectForKey:@"id"];
+    //        self.myFBProfile.id = newAccount.s_FB_id;
+    self.myProfile.s_birthdayDate = [result objectForKey:@"birthday"];
+    self.myProfile.s_Email = [result objectForKey:@"email"];
+    NSMutableDictionary *dict_Location = [result valueForKey:key_location];
+    self.myProfile.s_location = [[Location alloc] initWithNSDictionaryFromFB:dict_Location];
+}
 
 -(NavConOakClub *) createNavigationByClass:(NSString *)className AndHeaderName:(NSString*) headerName andRightButton:(NSString*)rightViewControll andIsStoryBoard:(BOOL)isStoryBoard{
     NavConOakClub *nvOakClub = [[NavConOakClub alloc] initWithNavigationBarClass:[NavBarOakClub class] toolbarClass:nil];
@@ -754,25 +777,7 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
 
 
 }
-#if ENABLE_DEMO
--(void)loadLikeMeList{
-    self.likedMeList = [[NSArray alloc] init];
-    AFHTTPClient *request = [[AFHTTPClient alloc] initWithOakClubAPI:DOMAIN];
-    
-    [request getPath:URL_getListWhoLikeMe parameters:nil success:^(__unused AFHTTPRequestOperation *operation, id JSON)
-     {
-         NSError *e=nil;
-         NSMutableDictionary *dict = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONReadingMutableContainers error:&e];
-         self.likedMeList= [dict valueForKey:key_data];
-         
-     } failure:^(AFHTTPRequestOperation *operation, NSError *error)
-     {
-         NSLog(@"Error Code: %i - %@",[error code], [error localizedDescription]);
-     }];
-    
-//    self.likedMeList = [[NSArray alloc] initWithObjects:@"1lxx2uvvxk",@"1lxx8s7w83",@"1lxwqp7lql",@"1lxx4x6iv6",@"1lxx56o0ht",@"1lxx7aat12", nil];
-}
-#endif
+
 -(int)countTotalNotifications
 {
     return [self.myProfile countTotalNotifications];
@@ -874,6 +879,7 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
         [[NSUserDefaults standardUserDefaults] removeObjectForKey:key];
     }
 }
+
 - (void)setupStream
 {
 	NSAssert(xmppStream == nil, @"Method setupStream invoked multiple times");

@@ -15,10 +15,26 @@
     [location setName:[loc valueForKey:key_locationName]];
     [location setCountry:[loc valueForKey:key_locationCountry]];
     [location setCountryCode:[loc valueForKey:key_locationCountryCode]];
-    [location setLatitude:[[loc valueForKey:key_coordinatesLatitude] doubleValue]];
-    [location setLongitude:[[loc valueForKey:key_coordinatesLongitude] doubleValue]];
+    NSMutableDictionary *coord = [loc valueForKey:key_locationCoordinates];
+    [location setLatitude:[[coord valueForKey:key_coordinatesLatitude] doubleValue]];
+    [location setLongitude:[[coord valueForKey:key_coordinatesLongitude] doubleValue]];
+    NSLog(@"%@", loc);
     return location;
 }
+-(Location *) initWithNSDictionaryFromFB:(NSMutableDictionary *)loc
+{
+    Location *location = [Location alloc];
+    [location setID:[loc valueForKey:key_locationID]];
+    [location setName:[loc valueForKey:key_locationName]];
+    [location setCountry:[loc valueForKey:key_locationCountry]];
+    [location setCountryCode:[loc valueForKey:key_locationCountryCode]];
+    NSMutableDictionary *coord = [loc valueForKey:key_locationCoordinates];
+    [location setLatitude:[[coord valueForKey:key_coordinatesLatitude] doubleValue]];
+    [location setLongitude:[[coord valueForKey:key_coordinatesLongitude] doubleValue]];
+    NSLog(@"%@", loc);
+    return location;
+}
+
 -(id) copyWithZone: (NSZone *) zone{
     Location *copyObj = [[Location allocWithZone: zone] init];
     copyObj.ID = self.ID;

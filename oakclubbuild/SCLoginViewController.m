@@ -9,6 +9,8 @@
 #import "SCLoginViewController.h"
 #import "AppDelegate.h"
 #import "CycleScrollView.h"
+#import "UAModelPanelEx.h"
+
 @interface SCLoginViewController (){
     AppDelegate* appDelegate;
 }
@@ -16,7 +18,7 @@
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *spinner;
 @property (weak, nonatomic) IBOutlet UIButton *btnLogin;
 @property (weak, nonatomic) IBOutlet UIPageControl *pageControl;
-@property (weak, nonatomic) IBOutlet UIImageView* splashImage;
+
 @end
 
 @implementation SCLoginViewController
@@ -26,7 +28,7 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
-        appDelegate = [UIApplication sharedApplication].delegate;
+        appDelegate = (id) [UIApplication sharedApplication].delegate;
     }
     return self;
 }
@@ -40,7 +42,6 @@
                   [UIImage imageNamed:@"second-screen"],
                   [UIImage imageNamed:@"third-screen"],
                   nil];
-    
     CycleScrollView *cycle = [[CycleScrollView alloc] initWithFrame:CGRectMake(0, 0, 320, 455)
                                                      cycleDirection:CycleDirectionLandscape
                                                            pictures:pageImages];
@@ -52,15 +53,13 @@
     pageControl.numberOfPages = pageImages.count;
     pageControl.currentPage = 0;
     
-    [NSTimer scheduledTimerWithTimeInterval:4.0f
-                                     target:self
-                                   selector:@selector(dismissSplashScreen)
-                                   userInfo:nil
-                                    repeats:NO];
+    if (FBSession.activeSession.state == FBSessionStateCreatedTokenLoaded || FBSession.activeSession.state == FBSessionStateOpen)
+    {
+        self.btnLogin.enabled = NO;
+        [self tryLogin];
+    }
 }
--(void)dismissSplashScreen{
-    [self.splashImage removeFromSuperview];
-}
+
 - (NSUInteger)supportedInterfaceOrientations
 {
     return UIInterfaceOrientationMaskPortrait;
@@ -84,12 +83,13 @@
     [self.spinner stopAnimating];
     [btnLogin setEnabled:YES];
 }
-- (IBAction)performLogin:(id)sender {
+- (IBAction)performLogin:(id)sender
+{
     if(btnLogin.selected)
         return;
     [self.spinner startAnimating];
     [btnLogin setEnabled:NO];
-    [appDelegate openSession];
+    [self tryLogin];
 }
 
 - (void)loginFailed
@@ -98,8 +98,6 @@
     // stop the spinner.
     [self.spinner stopAnimating];
 }
-
-
 
 - (void)viewDidUnload {
     [self setBtnLogin:nil];
@@ -111,4 +109,126 @@
     pageControl.currentPage = index-1;
 }
 
+#pragma mark Facebook Login
+- (void) tryLogin
+{
+    [appDelegate openSessionWithWebDialogWithhandler:^(FBSessionState status)
+    {
+        if(status == FBSessionStateOpen)
+        {
+            //[self updateView];
+            // register
+            [appDelegate loadFBUserInfo:^(id status)
+             {
+                 NSLog(@"FB Login request completed!");
+//                 NSLog(@"s_FB_id : %@",appDelegate.myFBProfile.id);
+//                 NSLog(@"access_token : %@",[FBSession activeSession].accessTokenData.accessToken);
+//                 NSLog(@"s_FB_id : %@",appDelegate.myProfile.s_FB_id);
+//                 NSLog(@"s_Email : %@",appDelegate.myProfile.s_Email);
+//                 NSLog(@"s_Name : %@",appDelegate.myProfile.s_Name);
+//                 NSLog(@"s_gender :%@",appDelegate.myProfile.s_gender.text);
+//                 NSLog(@"s_interested : %@",appDelegate.myProfile.s_interested.text);
+//                 NSLog(@"s_birthdayDate : %@",appDelegate.myProfile.s_birthdayDate);
+//                 NSLog(@"s_location.ID : %@",appDelegate.myProfile.s_location.ID);
+//                 NSLog(@"s_location.name : %@",appDelegate.myProfile.s_location.name);
+                 
+                 AFHTTPClient *request = [[AFHTTPClient alloc] initWithOakClubAPI:DOMAIN];
+                 NSLog(@"Init API completed");
+                 
+                 // check if user exists
+                 
+                 [appDelegate parseFBInfoToProfile:appDelegate.myFBProfile];
+                 NSDictionary *params = [[NSDictionary alloc]initWithObjectsAndKeys:
+                                         [FBSession activeSession].accessTokenData.accessToken, @"access_token",
+                                         appDelegate.myProfile.s_FB_id, @"user_id",
+                                         //                                                  appDelegate.myProfile.s_Name, @"name",
+                                         //                                                  appDelegate.myProfile.s_Email, @"email",
+                                         //                                                  [NSString stringWithFormat:@"%i",appDelegate.myProfile.s_gender.ID], @"sex",
+                                         //                                                  [NSString stringWithFormat:@"%i",appDelegate.myProfile.s_interested.ID], @"interested_in",
+                                         //                                                  appDelegate.myProfile.s_birthdayDate, @"birthdate",
+                                         //                                                  appDelegate.myProfile.s_location.ID, @"location_id",
+                                         //                                                  appDelegate.myProfile.s_location.name, @"location_name",
+                                         nil];
+                 NSLog(@"Params: %@", params);
+                 [request getPath:URL_sendRegister parameters:params success:^(__unused AFHTTPRequestOperation *operation, id JSON)
+                  {
+                      [self.view setUserInteractionEnabled:YES];
+                      [self.spinner stopAnimating];
+                      NSError *e=nil;
+                      NSMutableDictionary *dict = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONReadingMutableContainers error:&e];
+                      int status = [[dict valueForKey:key_status] integerValue];
+                      if (status == 0) {
+                          NSString *msg = [dict valueForKey:@"msg"];
+                          if ([msg isEqualToString:@"This user exists already."])   // string check !=,=
+                          {
+                              [appDelegate getProfileInfo];
+                          }
+                          else
+                          {
+                              UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Error"
+                                                                                  message:msg
+                                                                                 delegate:nil
+                                                                        cancelButtonTitle:@"Ok"
+                                                                        otherButtonTitles:nil];
+                              [alertView show];
+                          }
+                      }
+                      else
+                      {
+                          [self saveDefaultSettings];
+                          NSLog(@"Goto profile comfirmation");
+                          UIStoryboard *registerStoryboard = [UIStoryboard
+                                                              storyboardWithName:@"RegisterConfirmation"
+                                                              bundle:nil];
+                          UIViewController *registerViewConroller = [registerStoryboard
+                                                                     instantiateInitialViewController];
+                          appDelegate.window.rootViewController = registerViewConroller;
+                      }
+                  } failure:^(AFHTTPRequestOperation *operation, NSError *error)
+                  {
+                      NSLog(@"Send reg error Code: %i - %@",[error code], [error localizedDescription]);
+                  }];
+             }];
+        }
+        else
+        {
+            NSLog(@"Try open session in login error %u", status);
+        }
+    }];
+}
+
+- (void) saveDefaultSettings
+{
+    NSString *height = @"";//[NSString stringWithFormat:@"%i",self.i_height];
+    NSString *weight= @"";//[NSString stringWithFormat:@"%i",self.i_weight];
+    NSString *ethnicity = @"";//self.s_ethnicity;
+    NSString *lang = @"";//[self.a_language componentsJoinedByString:@","];
+    NSString *loc = @"0";
+    NSString *work = @"";//[NSString stringWithFormat:@"%i",newAccount.i_work.cate_id];
+    
+    AFHTTPClient* httpClient = [[AFHTTPClient alloc]initWithOakClubAPI:DOMAIN];
+    NSDictionary *params = [[NSDictionary alloc]initWithObjectsAndKeys:
+                            height,@"height",//100 < h <300
+                            weight,@"weight",//30 < w < 120
+                            ethnicity,@"ethnicity",// string value
+                            lang,@"language",
+                            loc,@"location_id",//location_id
+                            work,@"work",//cate_id
+                            /*self.s_aboutMe*/@"",@"about_me",//< 256 characters
+                            nil];
+    [httpClient getPath:URl_setHangoutProfile parameters:params success:^(__unused AFHTTPRequestOperation *operation, id JSON) {
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@" SaveSetting Profile Error Code: %i - %@",[error code], [error localizedDescription]);
+        //        return NO;
+    }];
+}
+
+#define padding 15
+- (IBAction)showInfoPanel:(id)sender
+{
+    UAModalPanel *popup = [[UAModelPanelEx alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
+    [self.view addSubview:popup];
+    
+    [popup showFromPoint:[self.view center]];
+}
 @end
