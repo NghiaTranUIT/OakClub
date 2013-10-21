@@ -199,6 +199,50 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
     return YES;
 }
 
+#if ENABLE_DEMO
+-(void)uploadImageToServer{
+    NSURL *url = [NSURL URLWithString:@"my_base_url"];
+    AFHTTPClient *httpClient = [[AFHTTPClient alloc] initWithBaseURL:url];
+    NSData *imageData = UIImageJPEGRepresentation([UIImage imageNamed:@"MainMedia"], 0.5);
+    NSMutableURLRequest *request = [httpClient multipartFormRequestWithMethod:@"POST" path:@"/upload" parameters:nil constructingBodyWithBlock: ^(id <AFMultipartFormData>formData) {
+        [formData appendPartWithFileData:imageData name:@"MainMedia" fileName:@"MainMedia" mimeType:@"image/jpeg"];
+    }];
+    
+//    AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
+//    [operation setUploadProgressBlock:^(NSInteger bytesWritten, long long totalBytesWritten, long long totalBytesExpectedToWrite) {
+//        NSLog(@"Sent %lld of %lld bytes", totalBytesWritten, totalBytesExpectedToWrite);
+//    }];
+//    [operation start];
+}
+-(IBAction)uploadButtonClicked:(id)sender
+{
+    
+    NSData *imageToUpload = UIImageJPEGRepresentation([UIImage imageNamed:@"bg.png"], 90);
+    AFHTTPClient *client= [[AFHTTPClient alloc]initWithOakClubAPI:DOMAIN];
+    
+    NSMutableURLRequest *request = [client multipartFormRequestWithMethod:@"POST" path:@"/service/upload" parameters:nil constructingBodyWithBlock: ^(id <AFMultipartFormData>formData) {
+        [formData appendPartWithFileData: imageToUpload name:@"file" fileName:@"temp.jpeg" mimeType:@"image/jpeg"];
+    }];
+    
+    AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
+    
+    [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSString *response = [operation responseString];
+        NSLog(@"response: [%@]",response);
+//        [MBProgressHUD hideHUDForView:self.view animated:YES];
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+//        [MBProgressHUD hideHUDForView:self.view animated:YES];
+        if([operation.response statusCode] == 403){
+            NSLog(@"Upload Failed");
+            return;
+        }
+        NSLog(@"error: %@", [operation error]);
+        
+    }];
+    
+    [operation start];
+}
+#endif
 - (void)application:(UIApplication*)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)deviceToken
 {
 	// We have received a new device token. This method is usually called right
@@ -595,8 +639,9 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
              NavBarOakClub* navbar = (NavBarOakClub*)self.snapShoot.navigationBar;
              [navbar setNotifications:[self countTotalNotifications]];
          }];
-         
-         [Profile getListPeople:URL_getListMutualMatch handler:^(NSMutableArray* list, int count)
+         // API - unuse
+         /*NSDictionary *mutualMatchParams  = [[NSDictionary alloc]initWithObjectsAndKeys:@"0",@"start",@"999",@"limit",@"1",@"is_viewed", nil];
+         [Profile getListPeople:URL_getListMutualMatch andParams:mutualMatchParams handler:^(NSMutableArray* list, int count)
           {
               menuViewController* menuVC = (menuViewController*)self.rootVC.leftViewController;
               [menuVC setMyLinksNotification:count];
@@ -607,7 +652,7 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
               NavBarOakClub* navbar = (NavBarOakClub*)self.snapShoot.navigationBar;
               [navbar setNotifications:[self countTotalNotifications]];
           }];
-         
+         */
          AFHTTPClient *requestPhoto = [[AFHTTPClient alloc] initWithOakClubAPI:DOMAIN];
          NSDictionary *params  = [[NSDictionary alloc]initWithObjectsAndKeys:self.myProfile.s_ID, key_profileID, nil];
          self.myProfile.arr_photos = [[NSMutableArray alloc] init];

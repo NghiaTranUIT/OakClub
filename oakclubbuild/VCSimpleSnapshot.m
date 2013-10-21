@@ -649,8 +649,15 @@ CGFloat pageHeight;
 -(void) gotoPROFILE{
     NSLog(@"current id = %@",currentProfile.s_ID);
     viewProfile = [[VCProfile alloc] initWithNibName:@"VCProfile" bundle:nil];
-//    [viewProfile loadProfile:currentProfile andImage:[currentProfile.arr_photos objectAtIndex:0]];
-    [viewProfile loadProfile:currentProfile];
+    if([[currentProfile.arr_photos objectAtIndex:0] isKindOfClass:[UIImage class]]){
+        [viewProfile loadProfile:currentProfile andImage:[currentProfile.arr_photos objectAtIndex:0]];
+    }
+    else{
+        UIImageView * avatar =[currentProfile.arr_photos objectAtIndex:0];
+        [viewProfile loadProfile:currentProfile andImage:avatar.image];
+    }
+    
+//    [viewProfile loadProfile:currentProfile];
     [self.view addSubview:viewProfile.view];
     viewProfile.view.frame = CGRectMake(0, 480, 320, 480);
     [viewProfile.svPhotos setHidden:YES];

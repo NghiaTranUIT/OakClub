@@ -57,11 +57,15 @@ BOOL isEditing;
     _requestsImage = [[NSMutableDictionary alloc] init];
     _selectedSection = -1;
     self.sections = [[NSMutableDictionary alloc]init];
-    AFHTTPClient *request = [[AFHTTPClient alloc] initWithOakClubAPI:DOMAIN];
-
-    [Profile getListPeople:URL_getListWhoWantsToMeetMe handler:^(NSMutableArray *list, int count) {
-        self.mutualMatches = list;
-        self.unviewed_mutualMatches = list;
+    NSDictionary *mutualMatchParams  = [[NSDictionary alloc]initWithObjectsAndKeys:@"0",@"start",@"999",@"limit",@"1",@"is_viewed", nil];
+    [Profile getListPeople:URL_getListMutualMatch andParams:mutualMatchParams handler:^(NSMutableArray* list, int count)
+     {
+         for(Profile* _profile in list){
+             if(_profile.is_newMutualMatch)
+                 [self.unviewed_mutualMatches addObject:_profile];
+             else
+                 [self.mutualMatches addObject:_profile];
+         }
         //        [self.sections replaceObjectAtIndex:0 withObject:self.mutualMatches];
         [self.sections setObject:self.unviewed_mutualMatches forKey:@"0"];
         [self.sections setObject:self.mutualMatches forKey:@"1"];

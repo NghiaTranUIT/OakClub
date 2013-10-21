@@ -15,6 +15,7 @@
 @synthesize is_deleted;
 @synthesize is_blocked;
 @synthesize is_available;
+@synthesize is_newMutualMatch;
 @synthesize unread_message;
 
 
@@ -40,6 +41,55 @@
         _profile.num_Photos =[objectData valueForKey:key_countPhotos];
     }
     return _profile;
+}
+
++(void) getListPeople:(NSString*)service andParams:(NSDictionary*)params handler:(void(^)(NSMutableArray*,int))resultHandler
+{
+    AFHTTPClient *request = [[AFHTTPClient alloc] initWithOakClubAPI:DOMAIN];
+    
+    [request getPath:service parameters:params success:^(__unused AFHTTPRequestOperation *operation, id JSON) {
+        
+        NSError *e=nil;
+        NSMutableDictionary *dict = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONReadingMutableContainers error:&e];
+        NSMutableArray * data= [dict valueForKey:key_data];
+        
+        
+        if(![data isKindOfClass:[NSNull class]])
+        {
+            int count = 0;
+            NSMutableArray* list = [[NSMutableArray alloc] init];
+            for (int i = 0; i < [data count]; i++)
+            {
+                NSMutableDictionary *objectData = [data objectAtIndex:i];
+                Profile *_profile = [[Profile alloc] init];
+//                _profile.s_Name = [objectData valueForKey:key_name];
+//                _profile.s_Avatar = [objectData valueForKey:key_avatar];
+                _profile.s_FB_id = [objectData valueForKey:key_facebookID];
+                _profile.s_ID = [objectData valueForKey:key_profileID];
+//                int is_viewed = [[objectData valueForKey:@"is_viewed"] intValue];
+//                if(is_viewed == 0){
+                    _profile.is_newMutualMatch = true;
+//                }
+//                _profile.s_ProfileStatus = [objectData valueForKey:key_online];
+////                _profile.num_Photos =[objectData valueForKey:key_countPhotos];
+//                int is_viewed = [[objectData valueForKey:@"is_viewed"] intValue];
+//                
+//                if( is_viewed == 0)
+//                {
+//                    count++;
+//                }
+                
+                [list addObject:_profile];
+            }
+            
+            if(resultHandler != nil)
+                resultHandler(list, count);
+        }
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"%@ Error Code: %i - %@", service, [error code], [error localizedDescription]);
+    }];
+    
 }
 
 +(void) getListPeople:(NSString*)service handler:(void(^)(NSMutableArray*,int))resultHandler
@@ -680,6 +730,7 @@
     accountCopy.is_deleted = is_deleted;
     accountCopy.is_blocked = is_blocked ;
     accountCopy.is_available = is_available ;
+    accountCopy.is_available = is_newMutualMatch;
     return accountCopy;
 }
 

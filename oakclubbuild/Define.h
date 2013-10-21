@@ -48,7 +48,7 @@
 #define URL_getListWhoCheckedMeOut @"service/getListWhoCheckedMeOut"
 #define URL_getListMyFavorites @"service/getListMyFavorites"
 #define URL_getListFeature @"service/getListFeature"
-#define URL_getListMutualMatch @"service/getListMutualAttractions"
+//#define URL_getListMutualMatch @"service/getListMutualAttractions"
 #define URL_getListIWantToMeet @"service/getListIWantToMeet"
 #define URL_getSnapShot @"service/getSnapshot"
 #define URL_setFavorite @"service/setFavorite"
