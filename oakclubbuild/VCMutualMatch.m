@@ -30,6 +30,8 @@ BOOL isEditing;
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
+        self.unviewed_mutualMatches = [[NSMutableArray alloc] init];
+        self.mutualMatches = [[NSMutableArray alloc] init];
     }
     return self;
 }
@@ -57,7 +59,7 @@ BOOL isEditing;
     _requestsImage = [[NSMutableDictionary alloc] init];
     _selectedSection = -1;
     self.sections = [[NSMutableDictionary alloc]init];
-    NSDictionary *mutualMatchParams  = [[NSDictionary alloc]initWithObjectsAndKeys:@"0",@"start",@"999",@"limit",@"1",@"is_viewed", nil];
+    NSDictionary *mutualMatchParams  = [[NSDictionary alloc]initWithObjectsAndKeys:@"0",@"start",@"999",@"limit",@"0",@"is_viewed", nil];
     [Profile getListPeople:URL_getListMutualMatch andParams:mutualMatchParams handler:^(NSMutableArray* list, int count)
      {
          for(Profile* _profile in list){
@@ -67,8 +69,10 @@ BOOL isEditing;
                  [self.mutualMatches addObject:_profile];
          }
         //        [self.sections replaceObjectAtIndex:0 withObject:self.mutualMatches];
-        [self.sections setObject:self.unviewed_mutualMatches forKey:@"0"];
-        [self.sections setObject:self.mutualMatches forKey:@"1"];
+         if(self.unviewed_mutualMatches != nil)
+             [self.sections setObject:self.unviewed_mutualMatches forKey:@"0"];
+         if(self.mutualMatches != nil)
+             [self.sections setObject:self.mutualMatches forKey:@"1"];
         
         [self.gridView reloadData];
     }];
