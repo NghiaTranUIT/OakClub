@@ -11,13 +11,16 @@
 #import "AppDelegate.h"
 #import <QuartzCore/QuartzCore.h>
 #import "UITableView+Custom.h"
-@interface VCMyProfile (){
+#import "PickPhotoFromGarelly.h"
+
+@interface VCMyProfile () <PickPhotoFromGarellyDelegate, UIAlertViewDelegate>{
     GroupButtons* genderGroup;
      AppDelegate *appDelegate;
     NSMutableArray *profileItemList;
     NSArray *weightOptionList;
     NSArray *heightOptionList;
     Profile* profileObj;
+    PickPhotoFromGarelly *picker;
 }
 
 @end
@@ -63,13 +66,17 @@ CLLocationManager *locationManager;
     locationManager = [[CLLocationManager alloc] init];
     locationManager.delegate = self;
     locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+    
+    picker = [[PickPhotoFromGarelly alloc] initWithParentWindow:appDelegate.window];
+    
+    [self initAvatarImage];
 }
 
 - (void) viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
     
-    [self initSaveButton];
+    //[self initSaveButton];
 }
 
 -(void)initSaveButton
@@ -81,6 +88,10 @@ CLLocationManager *locationManager;
     [btn addTarget:self action:@selector(saveSetting) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *Item = [[UIBarButtonItem alloc] initWithCustomView:btn];
     self.navigationItem.rightBarButtonItem=Item;
+}
+
+- (void)initAvatarImage
+{
 }
 
 -(NavBarOakClub*)navBarOakClub
@@ -142,7 +153,7 @@ CLLocationManager *locationManager;
         {       // check if this is a valid link
             request = [[AFHTTPClient alloc]initWithBaseURL:[NSURL URLWithString:DOMAIN_DATA]];
             [request getPath:link parameters:nil success:^(__unused AFHTTPRequestOperation *operation, id JSON) {
-                [imgAvatar setImage: [UIImage imageWithData:JSON]];
+                [imgAvatar setBackgroundImage:[UIImage imageWithData:JSON] forState:UIControlStateNormal];
                 [imgAvatar setContentMode:UIViewContentModeScaleAspectFit];
             } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                 NSLog(@"Error Code: %i - %@",[error code], [error localizedDescription]);
@@ -151,7 +162,7 @@ CLLocationManager *locationManager;
         else{
             request = [[AFHTTPClient alloc]initWithBaseURL:[NSURL URLWithString:@""]];
             [request getPath:link parameters:nil success:^(__unused AFHTTPRequestOperation *operation, id JSON) {
-                [imgAvatar setImage: [UIImage imageWithData:JSON]];
+                [imgAvatar setBackgroundImage:[UIImage imageWithData:JSON] forState:UIControlStateNormal];
                 [imgAvatar setContentMode:UIViewContentModeScaleAspectFit];
             } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                 NSLog(@"Error Code: %i - %@",[error code], [error localizedDescription]);
@@ -812,6 +823,18 @@ CLLocationManager *locationManager;
     
     [self tryUpdateLocation];
     [self.tableView reloadData];
+}
+
+- (IBAction)avatarTouched:(id)sender
+{
+    [picker showPickerWithDelegate:self];
+}
+
+-(void)receiveImage:(UIImage *)image
+{
+    if (image)
+    {
+    }
 }
 
 @end
