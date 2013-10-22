@@ -43,6 +43,7 @@
         // Custom initialization
         request= [[AFHTTPClient alloc] initWithOakClubAPI:DOMAIN];
         tableSource = [[NSMutableArray alloc] init];
+//        self.svPhotos = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, 320, 275)];
     }
     return self;
 }
@@ -227,6 +228,13 @@ static CGFloat padding_left = 5.0;
 //    self.navigationController.navigationBar.alpha = 1.0f;
 //    
 //    [UIView commitAnimations];
+    UIImageView *imageView = [[UIImageView alloc]initWithImage:img_avatar];
+    CGRect frame = self.svPhotos.frame;
+    frame.origin.x = 0;
+    frame.origin.y = 0;
+    imageView.frame = frame;
+    [imageView setContentMode:UIViewContentModeScaleAspectFit];
+    [self.svPhotos addSubview:imageView];
     
     [self changeFontStyle];
     loadingAvatar.hidden = NO;
@@ -635,31 +643,29 @@ static CGFloat padding_left = 5.0;
 //}
 -(void) loadProfile:(Profile*) _profile andImage:(UIImage*)_avatar{
     currentProfile = _profile;
-    self.svPhotos.contentSize =
-    CGSizeMake(CGRectGetWidth(self.svPhotos.frame) * ([currentProfile.arr_photos count] + 1), CGRectGetHeight(self.svPhotos.frame));
-    UIImageView *imageView = [[UIImageView alloc]initWithImage:_avatar];
-    CGRect frame = self.svPhotos.frame;
-    frame.origin.x = CGRectGetWidth(frame);
-    frame.origin.y = 0;
-    imageView.frame = frame;
-    [imageView setContentMode:UIViewContentModeScaleAspectFit];
-    [self.svPhotos addSubview:imageView];
-    //    [currentProfile.arr_photos addObject:imageView];
+    img_avatar = _avatar;
     [self loadPhotoForScrollview];
 }
 -(void) loadProfile:(Profile*) _profile{
     currentProfile = _profile;
+    [self refreshScrollView];
     [self loadPhotoForScrollview];
 //    [currentProfile loadPhotosByProfile:^(NSMutableArray* photoList){
 //        [self loadPhotoDataForScrollView];
 //    }];
 }
 
--(void)loadPhotoForScrollview{
+-(void)refreshScrollView{
     for (UIImageView * view in self.svPhotos.subviews) {
         [view removeFromSuperview];
     }
     self.svPhotos.frame = CGRectMake(0, 0, 320, 275);
+}
+-(void)loadPhotoForScrollview{
+//    for (UIImageView * view in self.svPhotos.subviews) {
+//        [view removeFromSuperview];
+//    }
+//    self.svPhotos.frame = CGRectMake(0, 0, 320, 275);
     
     AFHTTPClient *request = [[AFHTTPClient alloc] initWithOakClubAPI:DOMAIN];
     NSDictionary *params  = [[NSDictionary alloc]initWithObjectsAndKeys:currentProfile.s_ID, key_profileID, nil];
@@ -679,7 +685,7 @@ static CGFloat padding_left = 5.0;
              photos = [[NSMutableDictionary alloc] init];
              self.svPhotos.contentSize =
              CGSizeMake(CGRectGetWidth(self.svPhotos.frame) * [_imagesData count], CGRectGetHeight(self.svPhotos.frame));
-//             kNumImages = 0;
+
              
              if([_imagesData count] == 0)
              {

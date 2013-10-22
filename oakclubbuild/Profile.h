@@ -56,6 +56,7 @@
     bool is_deleted;
     bool is_blocked;
     bool is_available;
+    bool is_newMutualMatch;
     
     int unread_message;
     int new_visitors;
@@ -101,6 +102,7 @@
 @property (assign, nonatomic) bool is_deleted;
 @property (assign, nonatomic) bool is_blocked;
 @property (assign, nonatomic) bool is_available;
+@property (assign, nonatomic) bool is_newMutualMatch;
 @property int unread_message;
 @property int new_visitors;
 @property int new_gifts;
@@ -122,7 +124,7 @@
 +(AFHTTPRequestOperation*)getAvatarSync:(NSString*)url callback:(void(^)(UIImage*))handler;
 
 +(void) getListPeople:(NSString*)service handler:(void(^)(NSMutableArray*,int))resultHandler;
-
++(void) getListPeople:(NSString*)service andParams:(NSDictionary*)params handler:(void(^)(NSMutableArray*,int))resultHandler;
 -(int) countTotalNotifications;
 
 -(void)loadPhotosByProfile:(void(^)(NSMutableArray*))handler;

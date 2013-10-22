@@ -367,7 +367,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "698"
             endingLineNumber = "698"
-            landmarkName = "-loadPhotosByProfile:"
+            landmarkName = "-copyWithZone:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -383,7 +383,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "720"
             endingLineNumber = "720"
-            landmarkName = "-loadPhotosByProfile:"
+            landmarkName = "-copyWithZone:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -399,38 +399,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "695"
             endingLineNumber = "695"
-            landmarkName = "-loadPhotosByProfile:"
+            landmarkName = "-copyWithZone:"
             landmarkType = "5">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "-[Profile loadPhotosByProfile:]"
-                  moduleName = "OakClub"
-                  urlString = "file://localhost/1_Works/Projects/GitHub/OakClub/oakclubbuild/Profile.m"
-                  timestampString = "403992206.188871"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "695"
-                  endingLineNumber = "695"
-                  offsetFromSymbolStart = "65">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "-[Profile loadPhotosByProfile:]"
-                  moduleName = "OakClub"
-                  urlString = "file://localhost/1_Works/Projects/GitHub/OakClub/oakclubbuild/Profile.m"
-                  timestampString = "403992206.189101"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "695"
-                  endingLineNumber = "695"
-                  offsetFromSymbolStart = "1447">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy

@@ -204,6 +204,50 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
     return YES;
 }
 
+#if ENABLE_DEMO
+-(void)uploadImageToServer{
+    NSURL *url = [NSURL URLWithString:@"my_base_url"];
+    AFHTTPClient *httpClient = [[AFHTTPClient alloc] initWithBaseURL:url];
+    NSData *imageData = UIImageJPEGRepresentation([UIImage imageNamed:@"MainMedia"], 0.5);
+    NSMutableURLRequest *request = [httpClient multipartFormRequestWithMethod:@"POST" path:@"/upload" parameters:nil constructingBodyWithBlock: ^(id <AFMultipartFormData>formData) {
+        [formData appendPartWithFileData:imageData name:@"MainMedia" fileName:@"MainMedia" mimeType:@"image/jpeg"];
+    }];
+    
+//    AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
+//    [operation setUploadProgressBlock:^(NSInteger bytesWritten, long long totalBytesWritten, long long totalBytesExpectedToWrite) {
+//        NSLog(@"Sent %lld of %lld bytes", totalBytesWritten, totalBytesExpectedToWrite);
+//    }];
+//    [operation start];
+}
+-(IBAction)uploadButtonClicked:(id)sender
+{
+    
+    NSData *imageToUpload = UIImageJPEGRepresentation([UIImage imageNamed:@"bg.png"], 90);
+    AFHTTPClient *client= [[AFHTTPClient alloc]initWithOakClubAPI:DOMAIN];
+    
+    NSMutableURLRequest *request = [client multipartFormRequestWithMethod:@"POST" path:@"/service/upload" parameters:nil constructingBodyWithBlock: ^(id <AFMultipartFormData>formData) {
+        [formData appendPartWithFileData: imageToUpload name:@"file" fileName:@"temp.jpeg" mimeType:@"image/jpeg"];
+    }];
+    
+    AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
+    
+    [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSString *response = [operation responseString];
+        NSLog(@"response: [%@]",response);
+//        [MBProgressHUD hideHUDForView:self.view animated:YES];
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+//        [MBProgressHUD hideHUDForView:self.view animated:YES];
+        if([operation.response statusCode] == 403){
+            NSLog(@"Upload Failed");
+            return;
+        }
+        NSLog(@"error: %@", [operation error]);
+        
+    }];
+    
+    [operation start];
+}
+#endif
 - (void)application:(UIApplication*)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)deviceToken
 {
 	// We have received a new device token. This method is usually called right

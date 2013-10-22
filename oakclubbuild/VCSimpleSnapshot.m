@@ -16,6 +16,7 @@
     UILabel *lblHeaderFreeNum;
     AppDelegate *appDel;
     NSMutableDictionary* photos;
+    BOOL is_loadingProfileList;
 }
 @property (nonatomic, strong) IBOutlet APLMoveMeView *moveMeView;
 @property (nonatomic, weak) IBOutlet UIView *profileView;
@@ -39,6 +40,7 @@ CGFloat pageHeight;
         // Custom initialization
         currentProfile = [[Profile alloc]init];
         appDel = (AppDelegate *) [UIApplication sharedApplication].delegate;
+        is_loadingProfileList = FALSE;
     }
     return self;
 }
@@ -49,7 +51,10 @@ CGFloat pageHeight;
     // load profile List
     currentIndex = 0;
     profileList = [[NSMutableArray alloc] init];
-    [self loadProfileList];
+    [self loadProfileList:^(void){
+        [self loadCurrentProfile];
+        [self loadNextProfileByCurrentIndex];
+    }];
     [self.view addSubview:self.moveMeView];
     self.moveMeView.frame = CGRectMake(0, 0, 320, 548);
     // Do any additional setup after loading the view from its nib.
@@ -82,7 +87,7 @@ CGFloat pageHeight;
         [self  disableAllControl:YES];
         UIAlertView *alert = [[UIAlertView alloc]
                               initWithTitle:@"Warning"
-                              message:@"out of index"
+                              message:@"There is no more profile to show ..."
                               delegate:self
                               cancelButtonTitle:@"OK"
                               otherButtonTitles:nil];
@@ -102,12 +107,15 @@ CGFloat pageHeight;
     
     [[self navBarOakClub] setNotifications:totalNotifications];
 }
--(void)loadProfileList{
+-(void)loadProfileList:(void(^)(void))handler{
+    if(is_loadingProfileList)
+        return;
+    is_loadingProfileList = TRUE;
     [self.spinner setHidden:NO];
     [self.spinner startAnimating];
     [self disableAllControl:YES];
     request = [[AFHTTPClient alloc] initWithOakClubAPI:DOMAIN];
-    NSDictionary *params = [[NSDictionary alloc]initWithObjectsAndKeys:@"0",@"start",@"40",@"limit", nil];
+    NSDictionary *params = [[NSDictionary alloc]initWithObjectsAndKeys:@"0",@"start",@"35",@"limit", nil];
     [request getPath:URL_getSnapShot parameters:params success:^(__unused AFHTTPRequestOperation *operation, id JSON)
     {
         NSError *e=nil;
@@ -147,8 +155,9 @@ CGFloat pageHeight;
              }];
             [operation start];
         }
-        [self loadCurrentProfile];
-        [self loadNextProfileByCurrentIndex];
+        if(handler != nil)
+            handler();
+        is_loadingProfileList = FALSE;
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Error Code: %i - %@",[error code], [error localizedDescription]);
     }];
@@ -649,8 +658,15 @@ CGFloat pageHeight;
 -(void) gotoPROFILE{
     NSLog(@"current id = %@",currentProfile.s_ID);
     viewProfile = [[VCProfile alloc] initWithNibName:@"VCProfile" bundle:nil];
-//    [viewProfile loadProfile:currentProfile andImage:[currentProfile.arr_photos objectAtIndex:0]];
-    [viewProfile loadProfile:currentProfile];
+    if([[currentProfile.arr_photos objectAtIndex:0] isKindOfClass:[UIImage class]]){
+        [viewProfile loadProfile:currentProfile andImage:[currentProfile.arr_photos objectAtIndex:0]];
+    }
+    else{
+        UIImageView * avatar =[currentProfile.arr_photos objectAtIndex:0];
+        [viewProfile loadProfile:currentProfile andImage:avatar.image];
+    }
+    
+//    [viewProfile loadProfile:currentProfile];
     [self.view addSubview:viewProfile.view];
     viewProfile.view.frame = CGRectMake(0, 480, 320, 480);
     [viewProfile.svPhotos setHidden:YES];
@@ -800,21 +816,15 @@ CGFloat pageHeight;
 -(void) doAnswer:(int) choose{
     [self.moveMeView animatePlacardViewByAnswer:choose andDuration:0.4f];
     [self setFavorite:[NSString stringWithFormat:@"%i",choose]];
-    if(currentIndex < MAX_FREE_SNAPSHOT){
-        //increase currentIndex
-//        currentIndex ++;
-        //go next Profile/reload view with next Profile by next index.
-//        [self loadCurrentProfile:currentIndex];
-//        [self loadCurrentProfile];
-//        [self loadNextProfileByCurrentIndex];
-    }else{
-        //show warning getting COINS to continue.
-        [self showWarning];
-    }
 }
 
 
 -(void)setFavorite:(NSString*)answerChoice{
+    if(currentIndex > [profileList count] - 10){
+        [self loadProfileList:^(void){
+            is_loadingProfileList = FALSE;
+        }];
+    }
     request = [[AFHTTPClient alloc]initWithOakClubAPI:DOMAIN];
     NSLog(@"current id = %@",currentProfile.s_Name);
     NSDictionary *params = [[NSDictionary alloc]initWithObjectsAndKeys:currentProfile.s_snapshotID,@"snapshot_id",answerChoice,@"set", nil];
