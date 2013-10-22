@@ -13,6 +13,6 @@
 @end
 
 @interface PickPhotoFromGarelly : NSObject
--(id)initWithParentWindow:(UIWindow *)parentWindow;
+-(id)initWithParentWindow:(UIViewController *)parentWindow;
 -(void)showPickerWithDelegate:(id<PickPhotoFromGarellyDelegate>)_delegate;
 @end

@@ -67,7 +67,7 @@ CLLocationManager *locationManager;
     locationManager.delegate = self;
     locationManager.desiredAccuracy = kCLLocationAccuracyBest;
     
-    picker = [[PickPhotoFromGarelly alloc] initWithParentWindow:appDelegate.window];
+    picker = [[PickPhotoFromGarelly alloc] initWithParentWindow:self];
     
     [self initAvatarImage];
 }
@@ -416,16 +416,20 @@ CLLocationManager *locationManager;
     }
 }
 
--(void)saveSetting
+-(void)saveSettingWithWarning:(BOOL)warning
 {
     appDelegate.myProfile = [profileObj copy];
     [appDelegate.myProfile SaveSetting];
     
-    [self showWarning:@"Profile saved"];
+    if (warning)
+    {
+        [self showWarning:@"Profile saved"];
+    }
 }
+
 - (void)showWarning:(NSString*)warningText{
     UIAlertView *alert = [[UIAlertView alloc]
-                          initWithTitle:@"Warning"
+                          initWithTitle:@"Message"
                           message:warningText
                           delegate:self
                           cancelButtonTitle:@"OK"
@@ -718,7 +722,7 @@ CLLocationManager *locationManager;
 }
 
 -(void)updateProfileItemListAtIndex:(NSString*)value andIndex:(EditItems)keyEnum{
-    [profileItemList replaceObjectAtIndex:keyEnum withObject:[[NSMutableDictionary alloc] initWithObjectsAndKeys:value==nil?@"":value,@"value",[MyProfileItemList objectAtIndex:keyEnum],@"key", nil]];
+    [profileItemList replaceObjectAtIndex:keyEnum withObject:[[NSMutableDictionary alloc] initWithObjectsAndKeys:(value==nil || [value isKindOfClass:[NSNull class]])?@"":value,@"value",[MyProfileItemList objectAtIndex:keyEnum],@"key", nil]];
     
 }
 - (void)saveChangedEditting:(EditText *)editObject{

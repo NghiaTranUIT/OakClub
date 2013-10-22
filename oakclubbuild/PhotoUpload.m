@@ -64,22 +64,29 @@ NSString *name;
     NSLog(@"Encoding: %@", [imgData base64Encoding]);
     NSString *imgFileName = [NSString stringWithFormat:@"%@%@",name,@".png"];
     
+    NSDictionary *params = [[NSDictionary alloc] initWithObjectsAndKeys:@"file", [imgData base64Encoding], nil];
+    
     AFHTTPClient *client= [[AFHTTPClient alloc] initWithOakClubAPI:DOMAIN];
     
-    NSMutableURLRequest *myRequest = [client multipartFormRequestWithMethod:@"POST" path:URL_uploadPhoto
-                                                                 parameters:nil constructingBodyWithBlock: ^(id <AFMultipartFormData>formData) {
-                                                                     [formData appendPartWithFileData:imgData name:name fileName:imgFileName mimeType:@"images/png"];
-                                                                 }];
+    NSMutableURLRequest *myRequest = [client requestWithMethod:@"POST" path:URL_uploadPhoto parameters:params];
+    
+    NSLog(@"UPLOAD PHOTO HEADER: %@", [myRequest allHTTPHeaderFields]);
+    NSLog(@"request {%@} {%@}", [myRequest HTTPMethod], [myRequest description]);
     
     AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:myRequest];
-    [operation setUploadProgressBlock:^(NSUInteger bytesWritten, long long totalBytesWritten, long long totalBytesExpectedToWrite) {
-        
-        NSLog(@"UPLOAD PHOTO: Sent %lld of %lld bytes", totalBytesWritten, totalBytesExpectedToWrite);
-    }];
+//    [operation setUploadProgressBlock:^(NSUInteger bytesWritten, long long totalBytesWritten, long long totalBytesExpectedToWrite) {
+//        
+//        NSLog(@"UPLOAD PHOTO: Sent %lld of %lld bytes", totalBytesWritten, totalBytesExpectedToWrite);
+//    }];
     
-    [operation setCompletionBlock:^{
-        NSLog(@"Send image completed"); //Lets us know the result including failures
-    }];
+    [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *op, id JSON)
+     {
+         NSError *e;
+         NSMutableDictionary *dict = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONReadingMutableContainers error:&e];
+         NSLog(@"Send image completed; return %@ - %@", [JSON base64Encoding], dict); //Lets us know the result including failures
+     }failure:^(AFHTTPRequestOperation *op, NSError *err){
+         
+     }];
     
     NSOperationQueue *queue = [[NSOperationQueue alloc] init];
     [queue addOperation:operation];

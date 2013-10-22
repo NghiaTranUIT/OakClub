@@ -64,6 +64,7 @@ NSString *const kXMPPmyPassword = @"kXMPPmyPassword";
 @synthesize myProfile = _myProfile;
 //@synthesize hangoutView = _hangout;
 @synthesize loginView = _loginView;
+@synthesize confirmVC = _confirmVC;
 @synthesize myLink = _myLink;
 @synthesize chat = _chat;
 @synthesize snapShoot = _snapShoot;
@@ -153,7 +154,8 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
     self.myProfileVC = [self createNavigationByClass:@"VCMyProfile" AndHeaderName:@"Edit Profile" andRightButton:@"VCMyProfile" andIsStoryBoard:NO];
     self.getPoints = [self createNavigationByClass:@"VCGetPoints" AndHeaderName:@"Get Coins" andRightButton:nil andIsStoryBoard:NO];
     self.loginView = [[SCLoginViewController alloc] initWithNibName:@"SCLoginViewController" bundle:nil];
-
+    self.confirmVC = [[ConfirmViewController alloc] initWithNibName:@"VCMyProfile" bundle:nil];
+    
 //    menuViewController *leftController = [[menuViewController alloc] init];
     // PKRevealController
 #if ENABLE_DEMO
@@ -466,6 +468,11 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
     }
 }
 
+-(void)showConfirm
+{
+    [self.confirmVC setDefaultEditProfile:self.myProfile];
+    self.window.rootViewController = self.confirmVC;
+}
 
 - (void)sessionStateChanged:(FBSession *)session
                       state:(FBSessionState) state
@@ -596,17 +603,17 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
              [navbar setNotifications:[self countTotalNotifications]];
          }];
          
-         [Profile getListPeople:URL_getListMutualMatch handler:^(NSMutableArray* list, int count)
-          {
-              menuViewController* menuVC = (menuViewController*)self.rootVC.leftViewController;
-              [menuVC setMyLinksNotification:count];
-              
-              self.myProfile.new_mutual_attractions = count;
-              //NSLog(@"new visitors: %d", count);
-              
-              NavBarOakClub* navbar = (NavBarOakClub*)self.snapShoot.navigationBar;
-              [navbar setNotifications:[self countTotalNotifications]];
-          }];
+//         [Profile getListPeople:URL_getListMutualMatch handler:^(NSMutableArray* list, int count)
+//          {
+//              menuViewController* menuVC = (menuViewController*)self.rootVC.leftViewController;
+//              [menuVC setMyLinksNotification:count];
+//              
+//              self.myProfile.new_mutual_attractions = count;
+//              //NSLog(@"new visitors: %d", count);
+//              
+//              NavBarOakClub* navbar = (NavBarOakClub*)self.snapShoot.navigationBar;
+//              [navbar setNotifications:[self countTotalNotifications]];
+//          }];
          
          AFHTTPClient *requestPhoto = [[AFHTTPClient alloc] initWithOakClubAPI:DOMAIN];
          NSDictionary *params  = [[NSDictionary alloc]initWithObjectsAndKeys:self.myProfile.s_ID, key_profileID, nil];
@@ -730,15 +737,20 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
         
         [self loadDataForList];
         
-//        if(resultHandler != nil)
-//        {
-//            resultHandler(result);
-//        }
+//#define UPLOAD_PHOTO
         
+#ifndef UPLOAD_PHOTO
+        if(resultHandler != nil)
+        {
+            resultHandler(result);
+        }
+#else
         ///////// TEST UPLOAD PHOTO /////////////
         UIImage *photo = [UIImage imageNamed:@"bg"];
         PhotoUpload *uploader = [[PhotoUpload alloc] initWithPhoto:photo andName:@"bg"];
         [uploader uploadPhoto];
+#endif
+        
     }];
 }
 -(void)parseFBInfoToProfile:(id)fbProfile

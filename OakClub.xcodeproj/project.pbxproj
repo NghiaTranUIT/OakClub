@@ -40,6 +40,7 @@
 		9775A78E1813D5DE00BCF28D /* UAGradientBackground.m in Sources */ = {isa = PBXBuildFile; fileRef = 9775A7801813D5DE00BCF28D /* UAGradientBackground.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		9775A78F1813D5DE00BCF28D /* UANoisyGradientBackground.m in Sources */ = {isa = PBXBuildFile; fileRef = 9775A7821813D5DE00BCF28D /* UANoisyGradientBackground.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		9775A7901813D5DE00BCF28D /* UARoundedRectView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9775A7841813D5DE00BCF28D /* UARoundedRectView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		97DEDD02181623A5001B0E53 /* ConfirmViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 97DEDD01181623A5001B0E53 /* ConfirmViewController.m */; };
 		CD005D42181267F000238920 /* amazed.png in Resources */ = {isa = PBXBuildFile; fileRef = CD005D1E181267F000238920 /* amazed.png */; };
 		CD005D43181267F000238920 /* angel.png in Resources */ = {isa = PBXBuildFile; fileRef = CD005D1F181267F000238920 /* angel.png */; };
 		CD005D44181267F000238920 /* angry.png in Resources */ = {isa = PBXBuildFile; fileRef = CD005D20181267F000238920 /* angry.png */; };
@@ -620,6 +621,8 @@
 		9775A7821813D5DE00BCF28D /* UANoisyGradientBackground.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UANoisyGradientBackground.m; sourceTree = "<group>"; };
 		9775A7831813D5DE00BCF28D /* UARoundedRectView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UARoundedRectView.h; sourceTree = "<group>"; };
 		9775A7841813D5DE00BCF28D /* UARoundedRectView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UARoundedRectView.m; sourceTree = "<group>"; };
+		97DEDD00181623A5001B0E53 /* ConfirmViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConfirmViewController.h; sourceTree = "<group>"; };
+		97DEDD01181623A5001B0E53 /* ConfirmViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConfirmViewController.m; sourceTree = "<group>"; };
 		CD005D1E181267F000238920 /* amazed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = amazed.png; sourceTree = "<group>"; };
 		CD005D1F181267F000238920 /* angel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = angel.png; sourceTree = "<group>"; };
 		CD005D20181267F000238920 /* angry.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = angry.png; sourceTree = "<group>"; };
@@ -2313,6 +2316,8 @@
 				CDF1AF8E1782DDE500C8FCE9 /* ProfileConfirmation.m */,
 				CDF1AF921782E9C000C8FCE9 /* PreferencesSettings.h */,
 				CDF1AF931782E9C000C8FCE9 /* PreferencesSettings.m */,
+				97DEDD00181623A5001B0E53 /* ConfirmViewController.h */,
+				97DEDD01181623A5001B0E53 /* ConfirmViewController.m */,
 			);
 			name = Registers;
 			sourceTree = "<group>";
@@ -3584,6 +3589,7 @@
 				CD18AAF517F2DC5300A1C7E8 /* CycleScrollView.m in Sources */,
 				CDC492A91702CEAB00E83DE3 /* main.m in Sources */,
 				CD12C164170A9067006B13B8 /* menuViewController.m in Sources */,
+				97DEDD02181623A5001B0E53 /* ConfirmViewController.m in Sources */,
 				CD12C166170A9067006B13B8 /* Profile.m in Sources */,
 				9775A7851813D5DE00BCF28D /* UIView+JMNoise.m in Sources */,
 				CD12C16A170A908B006B13B8 /* DDMenuController.m in Sources */,

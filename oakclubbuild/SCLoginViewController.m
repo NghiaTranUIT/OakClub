@@ -197,7 +197,7 @@
                               [appDelegate.rootVC setRightViewController:appDelegate.chat];
                               [appDelegate.rootVC setLeftViewController:leftController];
                               appDelegate.window.rootViewController = appDelegate.rootVC;
-                              [appDelegate showMyProfile];
+                              [appDelegate showConfirm];
                           }];
                       }
                   } failure:^(AFHTTPRequestOperation *operation, NSError *error)
@@ -213,11 +213,6 @@
     }];
 }
 
-- (void) saveDefaultSettings
-{
-}
-
-#define padding 15
 - (IBAction)showInfoPanel:(id)sender
 {
     UAModalPanel *popup = [[UAModelPanelEx alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];

@@ -12,7 +12,7 @@
 #import "EditText.h"
 #import <CoreLocation/CoreLocation.h>
 
-@interface VCMyProfile : UIViewController<UIPickerViewDelegate, UIPickerViewDataSource,ListForChooseDelegate,EditTextViewDelegate, CLLocationManagerDelegate>
+@interface VCMyProfile : UIViewController<UIPickerViewDelegate, UIPickerViewDataSource, UITableViewDataSource, UITableViewDelegate, ListForChooseDelegate,EditTextViewDelegate, CLLocationManagerDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UIButton *rbnMale;
 @property (weak, nonatomic) IBOutlet UIButton *rbnFemale;
@@ -44,7 +44,7 @@
 @property (strong, nonatomic) UIImageView *avatar;
 @property (weak, nonatomic) IBOutlet UITableView *tbEditProfile;
 
--(void)saveSetting;
+-(void)saveSettingWithWarning:(BOOL)warning;
 -(void)setDefaultEditProfile:(Profile*)profile;
 @end
 

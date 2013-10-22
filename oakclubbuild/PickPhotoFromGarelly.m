@@ -26,17 +26,6 @@ id<PickPhotoFromGarellyDelegate> delegate;
     return self;
 }
 
-- (void)imagePickerController:(UIImagePickerController *)picker
-        didFinishPickingImage:(UIImage *)image
-                  editingInfo:(NSDictionary *)editingInfo
-{
-    [picker dismissModalViewControllerAnimated:YES];
-    if (delegate)
-    {
-        [delegate receiveImage:image];
-    }
-}
-
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
 {
     [picker dismissModalViewControllerAnimated:YES];
@@ -46,12 +35,21 @@ id<PickPhotoFromGarellyDelegate> delegate;
     }
 }
 
+-(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
+{
+    [picker dismissModalViewControllerAnimated:YES];
+    if (delegate)
+    {
+        NSLog(@"Pick item: %@", info);
+    }
+}
+
 @end
 
 @implementation PickPhotoFromGarelly : NSObject
-UIWindow *parentWindow;
+UIViewController *parentWindow;
 
--(id)initWithParentWindow:(UIWindow *)_parentWindow
+-(id)initWithParentWindow:(UIViewController *)_parentWindow
 {
     if (self = [super init])
     {
@@ -67,7 +65,6 @@ UIWindow *parentWindow;
     picker.delegate = (id) [[PickerDelegate alloc] initWithDelegate:_delegate];
     picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
     
-    [parentWindow setRootViewController:picker];
-    [parentWindow makeKeyAndVisible];
+    [parentWindow presentModalViewController:picker animated:YES];
 }
 @end
