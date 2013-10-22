@@ -11,6 +11,7 @@
                 <outlet property="buttonProfile" destination="36" id="50"/>
                 <outlet property="buttonYES" destination="35" id="49"/>
                 <outlet property="controlView" destination="105" id="106"/>
+                <outlet property="imgLoading" destination="dOI-Ht-cCI" id="Nx0-U4-IkN"/>
                 <outlet property="imgMainProfile" destination="0hi-Qh-GUe" id="B3Z-kw-cit"/>
                 <outlet property="imgMatcher" destination="5Tc-Vx-ANn" id="E9M-9N-jhC"/>
                 <outlet property="imgMyAvatar" destination="4M7-C4-0fu" id="I61-Wo-C9l"/>
@@ -179,6 +180,10 @@
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <color key="color" red="0.2196078598" green="0.7607843876" blue="0.82745105029999999" alpha="1" colorSpace="deviceRGB"/>
                 </activityIndicatorView>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="dOI-Ht-cCI">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="586"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                </imageView>
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <connections>

@@ -116,7 +116,7 @@
                 _profile.s_Avatar = [objectData valueForKey:key_avatar];
                 _profile.s_FB_id = [objectData valueForKey:key_facebookID];
                 _profile.s_ID = [objectData valueForKey:key_profileID];
-                _profile.s_ProfileStatus = [objectData valueForKey:key_online];
+                _profile.s_ProfileStatus = [objectData valueForKey:key_status];
                 _profile.num_Photos =[objectData valueForKey:key_countPhotos];
                 int is_viewed = [[objectData valueForKey:@"is_viewed"] intValue];
                 

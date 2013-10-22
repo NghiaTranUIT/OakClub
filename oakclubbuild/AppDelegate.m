@@ -628,17 +628,17 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
          menuViewController* menuVC = (menuViewController*)self.rootVC.leftViewController;
          [menuVC setChatNotification:self.myProfile.unread_message];
          
-         [Profile getListPeople:URL_getListWhoCheckedMeOut handler:^(NSMutableArray* list, int count)
-         {
-             menuViewController* menuVC = (menuViewController*)self.rootVC.leftViewController;
-             [menuVC setVisitorsNotification:count];
-             
-             self.myProfile.new_visitors = count;
-             //NSLog(@"new visitors: %d", count);
-             
-             NavBarOakClub* navbar = (NavBarOakClub*)self.snapShoot.navigationBar;
-             [navbar setNotifications:[self countTotalNotifications]];
-         }];
+//         [Profile getListPeople:URL_getListWhoCheckedMeOut handler:^(NSMutableArray* list, int count)
+//         {
+//             menuViewController* menuVC = (menuViewController*)self.rootVC.leftViewController;
+//             [menuVC setVisitorsNotification:count];
+//             
+//             self.myProfile.new_visitors = count;
+//             //NSLog(@"new visitors: %d", count);
+//             
+//             NavBarOakClub* navbar = (NavBarOakClub*)self.snapShoot.navigationBar;
+//             [navbar setNotifications:[self countTotalNotifications]];
+//         }];
          // API - unuse
          /*NSDictionary *mutualMatchParams  = [[NSDictionary alloc]initWithObjectsAndKeys:@"0",@"start",@"999",@"limit",@"1",@"is_viewed", nil];
          [Profile getListPeople:URL_getListMutualMatch andParams:mutualMatchParams handler:^(NSMutableArray* list, int count)

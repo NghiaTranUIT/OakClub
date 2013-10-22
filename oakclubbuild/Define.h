@@ -33,8 +33,12 @@
 #define DOMAIN @"http://oakclub.com"
 #define DOMAIN_DATA @"http://data1.oakclub.com/" //data2
 #endif
-
-//============== CHAT=============
+//============== application key =============
+#define key_appLanguage @"appLanguage"
+//============== application value =============
+#define value_appLanguage_VI @"vi"
+#define value_appLanguage_EN @"en"
+//============== APIs =============
 #define DOMAIN_AT @"@oakclub.com"
 #define DOMAIN_AT_FMT @"%@@oakclub.com"
 #define URL_getHangoutProfile @"service/getHangoutProfile"

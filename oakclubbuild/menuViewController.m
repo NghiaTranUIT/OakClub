@@ -31,7 +31,10 @@
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    NSString* path= [[NSBundle mainBundle] pathForResource:@"vi" ofType:@"lproj"];
+    NSBundle* languageBundle = [NSBundle bundleWithPath:path];
+    
+    self = [super initWithNibName:nibNameOrNil bundle:languageBundle];
     if (self) {
         // Custom initialization
         appDel = (AppDelegate *) [UIApplication sharedApplication].delegate;

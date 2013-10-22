@@ -26,7 +26,11 @@
 @synthesize spinner,btnLogin,pageControl;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+//    self = [super initWithNibName:[NSString stringWithFormat:@"%@%@",nibNameOrNil,@"vi"]  bundle:[NSBundle mainBundle]];
+    NSString* path= [[NSBundle mainBundle] pathForResource:@"vi" ofType:@"lproj"];
+    
+    NSBundle* languageBundle = [NSBundle bundleWithPath:path];
+    self = [super initWithNibName:nibNameOrNil bundle:languageBundle];
     if (self) {
         // Custom initialization
         appDelegate = (id) [UIApplication sharedApplication].delegate;
@@ -37,6 +41,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [self showMenuLanguage];
     // Do any additional setup after loading the view from its nib.
     NSArray* pageImages = [NSArray arrayWithObjects:
                   [UIImage imageNamed:@"first-screen"],
@@ -54,11 +59,11 @@
     pageControl.numberOfPages = pageImages.count;
     pageControl.currentPage = 0;
     
-    if (FBSession.activeSession.state == FBSessionStateCreatedTokenLoaded || FBSession.activeSession.state == FBSessionStateOpen)
-    {
-        [self startSpinner];
-        [self tryLogin];
-    }
+//    if (FBSession.activeSession.state == FBSessionStateCreatedTokenLoaded || FBSession.activeSession.state == FBSessionStateOpen)
+//    {
+//        [self startSpinner];
+//        [self tryLogin];
+//    }
 }
 
 - (NSUInteger)supportedInterfaceOrientations
@@ -236,5 +241,43 @@
     [self.view addSubview:popup];
     
     [popup showFromPoint:[self.view center]];
+}
+
+#pragma mark Language
+-(void) showMenuLanguage{
+    UIAlertView *alert = [[UIAlertView alloc]
+                          initWithTitle:@"Welcome"
+                          message:@""
+                          delegate:self
+                          cancelButtonTitle:nil
+                          otherButtonTitles:@"Vietnamese",@"English",nil];
+    [alert show];
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (FBSession.activeSession.state == FBSessionStateCreatedTokenLoaded || FBSession.activeSession.state == FBSessionStateOpen)
+    {
+        [self startSpinner];
+        [self tryLogin];
+    }
+    
+    NSString *title = [alertView buttonTitleAtIndex:buttonIndex];
+    if([title isEqualToString:@"Vietnamese"])
+    {
+        [[NSUserDefaults standardUserDefaults] setObject:value_appLanguage_VI forKey:key_appLanguage];
+        
+        NSString *path= [[NSBundle mainBundle] pathForResource:[[NSUserDefaults standardUserDefaults] objectForKey:key_appLanguage] ofType:@"lproj"];
+        NSBundle* languageBundle = [NSBundle bundleWithPath:path];
+        NSString* str=[languageBundle localizedStringForKey:@"was selected" value:@"" table:nil];
+    }
+    else if([title isEqualToString:@"English"])
+    {
+        [[NSUserDefaults standardUserDefaults] setObject:value_appLanguage_EN forKey:key_appLanguage];
+        
+        NSString *path= [[NSBundle mainBundle] pathForResource:[[NSUserDefaults standardUserDefaults] objectForKey:key_appLanguage] ofType:@"lproj"];
+        NSBundle* languageBundle = [NSBundle bundleWithPath:path];
+        NSString* str=[languageBundle localizedStringForKey:@"was selected" value:@"" table:nil];
+    }
 }
 @end
