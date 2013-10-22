@@ -12,7 +12,7 @@
 #import <QuartzCore/QuartzCore.h>
 #import "UITableView+Custom.h"
 #import "PickPhotoFromGarelly.h"
-
+#import "NSString+Utils.h"
 @interface VCMyProfile () <PickPhotoFromGarellyDelegate, UIAlertViewDelegate>{
     GroupButtons* genderGroup;
      AppDelegate *appDelegate;
@@ -146,6 +146,7 @@ CLLocationManager *locationManager;
         [self updateProfileItemListAtIndex:@"" andIndex:RELATIONSHIP];
     }
 
+    profileObj.s_gender.text = [NSString localizeString:profileObj.s_gender.text];
     AFHTTPClient *request;
     NSString* link = profileObj.s_Avatar;
     if(![link isEqualToString:@""]){
@@ -617,7 +618,8 @@ CLLocationManager *locationManager;
     cell.selectedBackgroundView = [tableView customSelectdBackgroundViewForCellAtIndexPath:indexPath];
 
     // Configure the cell...
-    cell.textLabel.text = [[profileItemList objectAtIndex:indexPath.row] valueForKey:@"key"];
+    NSString *textLabel =[[profileItemList objectAtIndex:indexPath.row] valueForKey:@"key"];
+    cell.textLabel.text = [NSString localizeString:textLabel];
     switch (indexPath.row) {
         case WEIGHT:
             cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ kg",[[profileItemList objectAtIndex:indexPath.row] valueForKey:@"value"]] ;
@@ -632,11 +634,11 @@ CLLocationManager *locationManager;
             if (autoLocationCell == nil)
             {
                 autoLocationCell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:AutoLocationID];
-                autoLocationCell.textLabel.text = @"Auto location";
+                autoLocationCell.textLabel.text = [NSString localizeString:@"Auto location"] ;
                 autoLocationCell.selectionStyle = UITableViewCellSelectionStyleNone;
                 UISwitch *autoSwitch = [[UISwitch alloc] init];
                 [autoSwitch addTarget:self action:@selector(switchAutoUpdateLocation:) forControlEvents:UIControlEventValueChanged];
-                autoSwitch.frame = CGRectMake(cell.frame.size.width - autoSwitch.frame.size.width - 50, (cell.frame.size.height - autoSwitch.frame.size.height) / 2, autoSwitch.frame.size.width, autoSwitch.frame.size.height);
+                autoSwitch.frame = CGRectMake(cell.frame.size.width - autoSwitch.frame.size.width - 30, (cell.frame.size.height - autoSwitch.frame.size.height) / 2, autoSwitch.frame.size.width, autoSwitch.frame.size.height);
                 autoSwitch.tag = 100;
                 [autoLocationCell.contentView addSubview:autoSwitch];
             }

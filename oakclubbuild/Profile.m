@@ -7,7 +7,7 @@
 //
 
 #import "Profile.h"
-
+#import "NSString+Utils.h"
 
 @implementation Profile
 
@@ -327,7 +327,7 @@
     self.s_interested = [self parseGender:[data valueForKey:key_interested]] ;
     self.a_language = [data valueForKey:key_language];
     if(a_language == nil || [a_language count]==0)
-        a_language = [[NSMutableArray alloc] initWithObjects:@"Vietnamese", nil];
+        a_language = [[NSMutableArray alloc] initWithObjects: [NSString localizeString:@"Vietnamese"] , nil];
     self.i_work = [WorkCate alloc];
     self.i_work.cate_id = [[data valueForKey:key_work] integerValue];
     self.i_weight =[[data valueForKey:key_weight] integerValue];

@@ -9,7 +9,7 @@
 #import "NSString+Utils.h"
 #import "ChatEmoticon.h"
 #import "WordWarpParse.h"
-
+#import "AppDelegate.h"
 
 @implementation NSString (Utils)
 
@@ -74,6 +74,11 @@
     return result;
 }
 
++(NSString* )localizeString:(NSString*)text{
+    AppDelegate *appDelegate = (AppDelegate *) [UIApplication sharedApplication].delegate;
+    text =[appDelegate.languageBundle localizedStringForKey:text value:@"" table:nil];
+    return text;
+}
 @end
 
 

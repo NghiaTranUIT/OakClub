@@ -235,7 +235,7 @@
 #define LocationList  ([NSArray arrayWithObjects:@"Country", @"City", nil])
 
 #define GenderList ([[NSArray alloc]initWithObjects:[[NSDictionary alloc] initWithObjectsAndKeys:@"Female",@"text",@"0",@"ID", nil],[[NSDictionary alloc] initWithObjectsAndKeys:@"Male",@"text",@"1",@"ID", nil], nil])
-
+#define GenderList_vi ([[NSArray alloc]initWithObjects:[[NSDictionary alloc] initWithObjectsAndKeys:@"Nữ",@"text",@"0",@"ID", nil],[[NSDictionary alloc] initWithObjectsAndKeys:@"Nam",@"text",@"1",@"ID", nil], nil])
 #define WithWhoOptionList  ([NSArray arrayWithObjects:value_Male, value_Female,@"Both", nil])
 
 #define HereToOptionList  ([[NSArray alloc]initWithObjects:[[NSDictionary alloc] initWithObjectsAndKeys:@"Date",@"text",value_Date,@"key", nil],[[NSDictionary alloc] initWithObjectsAndKeys:@"Make New Friends",@"text",value_MakeFriend,@"key", nil],[[NSDictionary alloc] initWithObjectsAndKeys:@"Chat",@"text",value_Chat,@"key", nil], nil])

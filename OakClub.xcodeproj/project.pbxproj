@@ -121,7 +121,7 @@
 		CD09E0EC170EBC01000BC104 /* menu_invite.png in Resources */ = {isa = PBXBuildFile; fileRef = CD09E0DB170EBC01000BC104 /* menu_invite.png */; };
 		CD09E0EF170EBC01000BC104 /* pink.png in Resources */ = {isa = PBXBuildFile; fileRef = CD09E0DE170EBC01000BC104 /* pink.png */; };
 		CD09E0F0170EBC01000BC104 /* menu_editprofile.png in Resources */ = {isa = PBXBuildFile; fileRef = CD09E0DF170EBC01000BC104 /* menu_editprofile.png */; };
-		CD09E0F1170EBC01000BC104 /* menu_snapshots.png in Resources */ = {isa = PBXBuildFile; fileRef = CD09E0E0170EBC01000BC104 /* menu_snapshots.png */; };
+		CD09E0F1170EBC01000BC104 /* menu_snapshot.png in Resources */ = {isa = PBXBuildFile; fileRef = CD09E0E0170EBC01000BC104 /* menu_snapshot.png */; };
 		CD09E0F2170EBC01000BC104 /* stroke black.png in Resources */ = {isa = PBXBuildFile; fileRef = CD09E0E1170EBC01000BC104 /* stroke black.png */; };
 		CD09E0F4170EBC01000BC104 /* menu_visitors.png in Resources */ = {isa = PBXBuildFile; fileRef = CD09E0E3170EBC01000BC104 /* menu_visitors.png */; };
 		CD1134AC17E0277600C56616 /* VCSimpleSnapshot.m in Sources */ = {isa = PBXBuildFile; fileRef = CD1134AA17E0277600C56616 /* VCSimpleSnapshot.m */; };
@@ -219,6 +219,7 @@
 		CD8B47021816B82F00A272B7 /* menuViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CD8B47041816B82F00A272B7 /* menuViewController.xib */; };
 		CD8B47071816B91D00A272B7 /* VCChat.xib in Resources */ = {isa = PBXBuildFile; fileRef = CD8B47091816B91D00A272B7 /* VCChat.xib */; };
 		CDBD3F1A17744A69000B2FC8 /* UTM Nokia Standard Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CDBD3F1917744A69000B2FC8 /* UTM Nokia Standard Bold.ttf */; };
+		CDBF8DBD1817165000CDBCF7 /* UIView+Localize.m in Sources */ = {isa = PBXBuildFile; fileRef = CDBF8DBC1817165000CDBCF7 /* UIView+Localize.m */; };
 		CDC4929D1702CEAB00E83DE3 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CDC4929C1702CEAB00E83DE3 /* UIKit.framework */; };
 		CDC4929F1702CEAB00E83DE3 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CDC4929E1702CEAB00E83DE3 /* Foundation.framework */; };
 		CDC492A11702CEAB00E83DE3 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CDC492A01702CEAB00E83DE3 /* CoreGraphics.framework */; };
@@ -715,7 +716,7 @@
 		CD09E0DB170EBC01000BC104 /* menu_invite.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = menu_invite.png; sourceTree = "<group>"; };
 		CD09E0DE170EBC01000BC104 /* pink.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pink.png; sourceTree = "<group>"; };
 		CD09E0DF170EBC01000BC104 /* menu_editprofile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = menu_editprofile.png; sourceTree = "<group>"; };
-		CD09E0E0170EBC01000BC104 /* menu_snapshots.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = menu_snapshots.png; sourceTree = "<group>"; };
+		CD09E0E0170EBC01000BC104 /* menu_snapshot.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = menu_snapshot.png; sourceTree = "<group>"; };
 		CD09E0E1170EBC01000BC104 /* stroke black.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "stroke black.png"; sourceTree = "<group>"; };
 		CD09E0E3170EBC01000BC104 /* menu_visitors.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = menu_visitors.png; sourceTree = "<group>"; };
 		CD1134A917E0277600C56616 /* VCSimpleSnapshot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VCSimpleSnapshot.h; sourceTree = "<group>"; };
@@ -737,7 +738,6 @@
 		CD13D4271816254F00F63F65 /* AnimatedGif.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnimatedGif.m; sourceTree = "<group>"; };
 		CD13D43618162F2D00F63F65 /* GPS_Finding_demo.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = GPS_Finding_demo.gif; path = oakclubbuild/AnimatedGif/Resources/GPS_Finding_demo.gif; sourceTree = SOURCE_ROOT; };
 		CD13D439181652A700F63F65 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/SCLoginViewController.xib; sourceTree = "<group>"; };
-		CD13D43B181652AF00F63F65 /* vi */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = vi; path = vi.lproj/SCLoginViewController.xib; sourceTree = "<group>"; };
 		CD17B23417E1A1D1008F7291 /* background_buttons.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = background_buttons.png; sourceTree = "<group>"; };
 		CD17B23517E1A1D1008F7291 /* btnInfo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btnInfo.png; sourceTree = "<group>"; };
 		CD17B23617E1A1D1008F7291 /* btnInfo_pressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btnInfo_pressed.png; sourceTree = "<group>"; };
@@ -844,13 +844,13 @@
 		CD8AA1F8170C1B3E00A97C47 /* VCHangOut.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VCHangOut.h; sourceTree = "<group>"; };
 		CD8AA1F9170C1B3E00A97C47 /* VCHangOut.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VCHangOut.m; sourceTree = "<group>"; };
 		CD8AA1FA170C1B3F00A97C47 /* VCHangOut.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VCHangOut.xib; sourceTree = "<group>"; };
-		CD8B46FF18169CD200A272B7 /* en */ = {isa = PBXFileReference; lastKnownFileType = file; name = en; path = en.lproj/VCSimpleSnapshot.xib; sourceTree = "<group>"; };
-		CD8B470118169CD800A272B7 /* vi */ = {isa = PBXFileReference; lastKnownFileType = file; name = vi; path = vi.lproj/VCSimpleSnapshot.xib; sourceTree = "<group>"; };
-		CD8B47031816B82F00A272B7 /* en */ = {isa = PBXFileReference; lastKnownFileType = file; name = en; path = en.lproj/menuViewController.xib; sourceTree = "<group>"; };
-		CD8B47061816B8F800A272B7 /* vi */ = {isa = PBXFileReference; lastKnownFileType = file; name = vi; path = vi.lproj/menuViewController.xib; sourceTree = "<group>"; };
-		CD8B47081816B91D00A272B7 /* en */ = {isa = PBXFileReference; lastKnownFileType = file; name = en; path = en.lproj/VCChat.xib; sourceTree = "<group>"; };
-		CD8B470A1816B92200A272B7 /* vi */ = {isa = PBXFileReference; lastKnownFileType = file; name = vi; path = vi.lproj/VCChat.xib; sourceTree = "<group>"; };
+		CD8B46FF18169CD200A272B7 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/VCSimpleSnapshot.xib; sourceTree = "<group>"; };
+		CD8B47031816B82F00A272B7 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/menuViewController.xib; sourceTree = "<group>"; };
+		CD8B47081816B91D00A272B7 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/VCChat.xib; sourceTree = "<group>"; };
+		CD8B470A1816B92200A272B7 /* vi */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = vi; path = vi.lproj/VCChat.xib; sourceTree = "<group>"; };
 		CDBD3F1917744A69000B2FC8 /* UTM Nokia Standard Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "UTM Nokia Standard Bold.ttf"; sourceTree = "<group>"; };
+		CDBF8DBB1817165000CDBCF7 /* UIView+Localize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Localize.h"; sourceTree = "<group>"; };
+		CDBF8DBC1817165000CDBCF7 /* UIView+Localize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Localize.m"; sourceTree = "<group>"; };
 		CDC492991702CEAB00E83DE3 /* OakClub.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OakClub.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CDC4929C1702CEAB00E83DE3 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		CDC4929E1702CEAB00E83DE3 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -1095,8 +1095,8 @@
 		CDF99AA71713D629008D8BAC /* NSNumber+XMPP.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSNumber+XMPP.m"; sourceTree = "<group>"; };
 		CDF99AA81713D629008D8BAC /* NSXMLElement+XMPP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSXMLElement+XMPP.h"; sourceTree = "<group>"; };
 		CDF99AA91713D629008D8BAC /* NSXMLElement+XMPP.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSXMLElement+XMPP.m"; sourceTree = "<group>"; };
-		CDF99AAD1713D629008D8BAC /* NSString+Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Utils.h"; sourceTree = "<group>"; };
-		CDF99AAE1713D629008D8BAC /* NSString+Utils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Utils.m"; sourceTree = "<group>"; };
+		CDF99AAD1713D629008D8BAC /* NSString+Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString+Utils.h"; path = "XMPP-Chat/Classes/NSString+Utils.h"; sourceTree = "<group>"; };
+		CDF99AAE1713D629008D8BAC /* NSString+Utils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSString+Utils.m"; path = "XMPP-Chat/Classes/NSString+Utils.m"; sourceTree = "<group>"; };
 		CDF99AB41713D629008D8BAC /* SMChatViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMChatViewController.h; sourceTree = "<group>"; };
 		CDF99AB51713D629008D8BAC /* SMChatViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMChatViewController.m; sourceTree = "<group>"; };
 		CDF99AB61713D629008D8BAC /* SMChatViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SMChatViewController.xib; sourceTree = "<group>"; };
@@ -1610,7 +1610,7 @@
 				CD09E0DB170EBC01000BC104 /* menu_invite.png */,
 				CD09E0DE170EBC01000BC104 /* pink.png */,
 				CD09E0DF170EBC01000BC104 /* menu_editprofile.png */,
-				CD09E0E0170EBC01000BC104 /* menu_snapshots.png */,
+				CD09E0E0170EBC01000BC104 /* menu_snapshot.png */,
 				CD09E0E1170EBC01000BC104 /* stroke black.png */,
 				CD09E0E3170EBC01000BC104 /* menu_visitors.png */,
 			);
@@ -1751,6 +1751,8 @@
 		CD12C1AB170AEB57006B13B8 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				CDF99AAD1713D629008D8BAC /* NSString+Utils.h */,
+				CDF99AAE1713D629008D8BAC /* NSString+Utils.m */,
 				CDD38A9B173A350100D583DD /* ProfileSetting.h */,
 				CDD38A9C173A350100D583DD /* ProfileSetting.m */,
 				CDFED5E11738DA4000158756 /* GroupButtons.h */,
@@ -1775,6 +1777,8 @@
 				CDE4A0011774070800DED9EB /* UITableView+Custom.m */,
 				CDEE8E571785668C003EB1C4 /* UIViewController+Custom.h */,
 				CDEE8E581785668C003EB1C4 /* UIViewController+Custom.m */,
+				CDBF8DBB1817165000CDBCF7 /* UIView+Localize.h */,
+				CDBF8DBC1817165000CDBCF7 /* UIView+Localize.m */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -1782,6 +1786,8 @@
 		CD12C1AC170AEB83006B13B8 /* Delegates */ = {
 			isa = PBXGroup;
 			children = (
+				9775A76A1813D5B600BCF28D /* AppDelegate.h */,
+				9775A76B1813D5B600BCF28D /* AppDelegate.m */,
 			);
 			name = Delegates;
 			sourceTree = "<group>";
@@ -2054,8 +2060,6 @@
 				CDEEFAF1170D5369001F9C36 /* Resources */,
 				CD12C1AE170AEC4C006B13B8 /* References */,
 				CD12C1AC170AEB83006B13B8 /* Delegates */,
-				9775A76A1813D5B600BCF28D /* AppDelegate.h */,
-				9775A76B1813D5B600BCF28D /* AppDelegate.m */,
 				CD12C1AB170AEB57006B13B8 /* Classes */,
 				CD12C19B170AD948006B13B8 /* ServiceAPI */,
 				CD12C19E170AD948006B13B8 /* Define */,
@@ -2461,8 +2465,6 @@
 		CDF99AAA1713D629008D8BAC /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				CDF99AAD1713D629008D8BAC /* NSString+Utils.h */,
-				CDF99AAE1713D629008D8BAC /* NSString+Utils.m */,
 				CDF99AB41713D629008D8BAC /* SMChatViewController.h */,
 				CDF99AB51713D629008D8BAC /* SMChatViewController.m */,
 				CDF99AB61713D629008D8BAC /* SMChatViewController.xib */,
@@ -3290,7 +3292,7 @@
 				CD09E0EC170EBC01000BC104 /* menu_invite.png in Resources */,
 				CD09E0EF170EBC01000BC104 /* pink.png in Resources */,
 				CD09E0F0170EBC01000BC104 /* menu_editprofile.png in Resources */,
-				CD09E0F1170EBC01000BC104 /* menu_snapshots.png in Resources */,
+				CD09E0F1170EBC01000BC104 /* menu_snapshot.png in Resources */,
 				CD09E0F2170EBC01000BC104 /* stroke black.png in Resources */,
 				CD09E0F4170EBC01000BC104 /* menu_visitors.png in Resources */,
 				CDD98227170EC6D100F6BF46 /* menu_demo.plist in Resources */,
@@ -3806,6 +3808,7 @@
 				CDF530811768699C0065701F /* EditText.m in Sources */,
 				CDEFB9131769B10A0033F94E /* SettingObject.m in Sources */,
 				CDEFB91A1769E0060033F94E /* SnapshotSetting.m in Sources */,
+				CDBF8DBD1817165000CDBCF7 /* UIView+Localize.m in Sources */,
 				CD286265176B0FAF00E81E73 /* HangoutSetting.m in Sources */,
 				CDE4A0021774070800DED9EB /* UITableView+Custom.m in Sources */,
 				CDFA306217795A280023CEBE /* AdvancedSetting.m in Sources */,
@@ -3856,7 +3859,6 @@
 			isa = PBXVariantGroup;
 			children = (
 				CD13D439181652A700F63F65 /* en */,
-				CD13D43B181652AF00F63F65 /* vi */,
 			);
 			name = SCLoginViewController.xib;
 			sourceTree = "<group>";
@@ -3884,7 +3886,6 @@
 			isa = PBXVariantGroup;
 			children = (
 				CD8B46FF18169CD200A272B7 /* en */,
-				CD8B470118169CD800A272B7 /* vi */,
 			);
 			name = VCSimpleSnapshot.xib;
 			sourceTree = "<group>";
@@ -3893,7 +3894,6 @@
 			isa = PBXVariantGroup;
 			children = (
 				CD8B47031816B82F00A272B7 /* en */,
-				CD8B47061816B8F800A272B7 /* vi */,
 			);
 			name = menuViewController.xib;
 			sourceTree = "<group>";
@@ -3956,7 +3956,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				ONLY_ACTIVE_ARCH = YES;
-				PROVISIONING_PROFILE = "188F52AD-16F6-4F97-B2B4-991FB25DF642";
+				PROVISIONING_PROFILE = "DD1E5747-3162-482F-9F8A-6C1A6D2F1231";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -3984,7 +3984,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
-				PROVISIONING_PROFILE = "188F52AD-16F6-4F97-B2B4-991FB25DF642";
+				PROVISIONING_PROFILE = "DD1E5747-3162-482F-9F8A-6C1A6D2F1231";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
@@ -3995,8 +3995,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_WARN__ARC_BRIDGE_CAST_NONARC = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: STEVE REID (Y8V6LRC76N)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: STEVE REID (Y8V6LRC76N)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -4017,8 +4017,8 @@
 					"-ObjC",
 				);
 				PRODUCT_NAME = OakClub;
-				PROVISIONING_PROFILE = "188F52AD-16F6-4F97-B2B4-991FB25DF642";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "188F52AD-16F6-4F97-B2B4-991FB25DF642";
+				PROVISIONING_PROFILE = "";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "DD1E5747-3162-482F-9F8A-6C1A6D2F1231";
 				TARGETED_DEVICE_FAMILY = 1;
 				VALIDATE_PRODUCT = YES;
 				WRAPPER_EXTENSION = app;
@@ -4029,8 +4029,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_WARN__ARC_BRIDGE_CAST_NONARC = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: STEVE REID (Y8V6LRC76N)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: STEVE REID (Y8V6LRC76N)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/oakclubbuild\"",
@@ -4050,8 +4050,8 @@
 					"-ObjC",
 				);
 				PRODUCT_NAME = OakClub;
-				PROVISIONING_PROFILE = "188F52AD-16F6-4F97-B2B4-991FB25DF642";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "188F52AD-16F6-4F97-B2B4-991FB25DF642";
+				PROVISIONING_PROFILE = "";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "DD1E5747-3162-482F-9F8A-6C1A6D2F1231";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};

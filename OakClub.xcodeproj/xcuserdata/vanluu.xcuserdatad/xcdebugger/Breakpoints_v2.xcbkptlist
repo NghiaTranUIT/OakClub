@@ -408,13 +408,13 @@
                   continueAfterRunningActions = "No"
                   symbolName = "-[Profile loadPhotosByProfile:]"
                   moduleName = "OakClub"
-                  urlString = "file://localhost/1_Projects/GlassEgg/Git/OakClub/oakclubbuild/Profile.m"
-                  timestampString = "404142480.904985"
+                  urlString = "file://localhost/1_Works/Projects/GitHub/OakClub/oakclubbuild/Profile.m"
+                  timestampString = "404174402.871936"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "746"
                   endingLineNumber = "746"
-                  offsetFromSymbolStart = "40">
+                  offsetFromSymbolStart = "65">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
@@ -422,13 +422,13 @@
                   continueAfterRunningActions = "No"
                   symbolName = "-[Profile loadPhotosByProfile:]"
                   moduleName = "OakClub"
-                  urlString = "file://localhost/1_Projects/GlassEgg/Git/OakClub/oakclubbuild/Profile.m"
-                  timestampString = "404142480.90525"
+                  urlString = "file://localhost/1_Works/Projects/GitHub/OakClub/oakclubbuild/Profile.m"
+                  timestampString = "404174402.872189"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "746"
                   endingLineNumber = "746"
-                  offsetFromSymbolStart = "1444">
+                  offsetFromSymbolStart = "1447">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -471,45 +471,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "oakclubbuild/AppDelegate.m"
-            timestampString = "404022612.87542"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "204"
-            endingLineNumber = "204"
-            landmarkName = "-uploadImageToServer"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "oakclubbuild/VCSimpleSnapshotSetting.m"
-            timestampString = "404043420.134408"
+            timestampString = "404173162.824143"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "543"
-            endingLineNumber = "543"
+            startingLineNumber = "547"
+            endingLineNumber = "547"
             landmarkName = "-saveSetting"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "oakclubbuild/VCSimpleSnapshotSetting.m"
-            timestampString = "404103240.647967"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "453"
-            endingLineNumber = "453"
-            landmarkName = "-loadSetting"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

@@ -11,6 +11,7 @@
 #import "AppDelegate.h"
 #import "AFHTTPClient+OakClub.h"
 #import "AnimatedGif.h"
+#import "UIView+Localize.h"
 @interface VCSimpleSnapshot (){
     UIView *headerView;
     UILabel *lblHeaderName;
@@ -54,6 +55,7 @@ CGFloat pageHeight;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [self.moveMeView localizeAllViews];
     [self downloadAvatarImage:appDel.myProfile.s_Avatar];
     // load profile List
     currentIndex = 0;
@@ -81,6 +83,7 @@ CGFloat pageHeight;
     }
     
 }
+
 
 -(void)disableAllControl:(BOOL)value{
     [buttonYES setEnabled:!value];

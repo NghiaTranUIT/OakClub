@@ -10,7 +10,8 @@
 #import "AppDelegate.h"
 #import "menuCell.h"
 #import "Define.h"
-
+#import "UIView+Localize.h"
+#import "NSString+Utils.h"
 @interface menuViewController () {
     AppDelegate *appDel;
     
@@ -41,8 +42,6 @@
         imageNames = [self getListMenuItems];
         // getAccountSetting
         
-        
-        
         NSMutableArray *m_index = [NSMutableArray array];
         numberNotifications = [NSMutableArray array];
         for (int i = 0; i < [imageNames count]; i++)
@@ -65,7 +64,7 @@
 
 -(void) setUIInfo:(Profile*)profile{
     username = profile.s_Name;
-    numPoints = [NSString stringWithFormat:@"%@ coins", [profile.num_points stringValue]];
+    numPoints = [NSString stringWithFormat:@"%@ %@", [profile.num_points stringValue],[NSString localizeString:@"coins"]];
     [self downloadAvatarImage:profile.s_Avatar ];
 }
 
@@ -98,6 +97,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [self.view localizeAllViews];
     self.numCoins.text =  numPoints;
     self.name.text = username;
 //    self.avatar.image = imageAvatar;
@@ -166,7 +166,7 @@
         }
     
 //        UIImage *thumbImage = [UIImage imageNamed:[NSString stringWithFormat:@"%menu_@.png", name]];
-        [cell setItemMenu:icon AndlabelName:label];
+        [cell setItemMenu:icon AndlabelName:[NSString localizeString:label]];
     
     NSNumber* number = [numberNotifications objectAtIndex:indexPath.row];
     [cell setNotification:[number unsignedIntValue]];

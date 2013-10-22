@@ -27,7 +27,7 @@
 #import "HistoryMessage.h"
 #import "FacebookSDK/FBWebDialogs.h"
 #import "PhotoUpload.h"
-
+#import "NSString+Utils.h"
 NSString *const SCSessionStateChangedNotification =
 @"com.facebook.Scrumptious:SCSessionStateChangedNotification";
 @interface AppDelegate()
@@ -72,6 +72,8 @@ NSString *const kXMPPmyPassword = @"kXMPPmyPassword";
 @synthesize simpleSnapShot = _simpleSnapShot;
 @synthesize snapShotSettings = _snapShotSettings;
 @synthesize mutualMatches = _mutualMatches;
+// multi language
+@synthesize languageBundle = _languageBundle;
 #endif
 @synthesize visitor = _visitor;
 @synthesize rootVC = _rootVC;
@@ -140,38 +142,15 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
     // Override point for customization after application launch.
     self.window.backgroundColor = [UIColor whiteColor];
 
-    self.chat = [self createNavigationByClass:@"VCChat" AndHeaderName:@"Chat History" andRightButton:nil andIsStoryBoard:NO];
-    self.myLink = [self createNavigationByClass:@"VCMyLink" AndHeaderName:@"My Links" andRightButton:nil andIsStoryBoard:NO];
-    self.snapShoot = [self createNavigationByClass:@"VCSnapshoot" AndHeaderName:@"Snapshot" andRightButton:@"SnapshotSetting" andIsStoryBoard:YES];
-#if ENABLE_DEMO
-    self.simpleSnapShot = [self createNavigationByClass:@"VCSimpleSnapshot" AndHeaderName:@"Snapshot" andRightButton:@"VCChat" andIsStoryBoard:NO];
-//     self.snapShotSettings = [self.storyboard instantiateViewControllerWithIdentifier:@"SnapshotSettings"];
-        self.snapShotSettings = [self createNavigationByClass:@"VCSimpleSnapshotSetting" AndHeaderName:@"Settings" andRightButton:nil andIsStoryBoard:NO];
-    self.mutualMatches = [self createNavigationByClass:@"VCMutualMatch" AndHeaderName:@"Mutual Matches" andRightButton:nil andIsStoryBoard:NO];
-#endif
-    self.visitor = [self createNavigationByClass:@"VCVisitor" AndHeaderName:@"Visitors" andRightButton:nil andIsStoryBoard:NO];
-    self.hangOut = [self createNavigationByClass:@"VCHangOut" AndHeaderName:@"Meet people around" andRightButton:@"HangoutSetting" andIsStoryBoard:YES];
-    self.myProfileVC = [self createNavigationByClass:@"VCMyProfile" AndHeaderName:@"Edit Profile" andRightButton:@"VCMyProfile" andIsStoryBoard:NO];
-    self.getPoints = [self createNavigationByClass:@"VCGetPoints" AndHeaderName:@"Get Coins" andRightButton:nil andIsStoryBoard:NO];
-    self.loginView = [[SCLoginViewController alloc] initWithNibName:@"SCLoginViewController" bundle:nil];
-    self.confirmVC = [[ConfirmViewController alloc] initWithNibName:@"VCMyProfile" bundle:nil];
+   
     
 //    menuViewController *leftController = [[menuViewController alloc] init];
-    // PKRevealController
-#if ENABLE_DEMO
-    activeVC = _simpleSnapShot;
-    self.rootVC = [PKRevealController revealControllerWithFrontViewController:self.simpleSnapShot
-                                                           rightViewController:self.chat
-                                                                      options:nil];
-#else
-    activeVC = _snapShoot;
-    self.rootVC = [PKRevealController revealControllerWithFrontViewController:self.snapShoot
-                                                           leftViewController:nil
-                                                                      options:nil];
-#endif
+
     
 //    UIViewController * test = [[VCHangoutSetting alloc] initWithNibName:@"VCHangoutSetting" bundle:nil];
 //    self.window.rootViewController = test;
+    
+    self.loginView = [[SCLoginViewController alloc] initWithNibName:@"SCLoginViewController" bundle:nil];
     self.window.rootViewController = self.loginView;
     [self.window makeKeyAndVisible];
 
@@ -202,6 +181,34 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
 	}
     
     return YES;
+}
+-(void)loadAllViewControllers{
+    self.chat = [self createNavigationByClass:@"VCChat" AndHeaderName:@"Chat History" andRightButton:nil andIsStoryBoard:NO];
+    self.myLink = [self createNavigationByClass:@"VCMyLink" AndHeaderName:@"My Links" andRightButton:nil andIsStoryBoard:NO];
+    self.snapShoot = [self createNavigationByClass:@"VCSnapshoot" AndHeaderName:@"Snapshot" andRightButton:@"SnapshotSetting" andIsStoryBoard:YES];
+#if ENABLE_DEMO
+    self.simpleSnapShot = [self createNavigationByClass:@"VCSimpleSnapshot" AndHeaderName:[NSString localizeString:@"Snapshot"] andRightButton:@"VCChat" andIsStoryBoard:NO];
+    //     self.snapShotSettings = [self.storyboard instantiateViewControllerWithIdentifier:@"SnapshotSettings"];
+    self.snapShotSettings = [self createNavigationByClass:@"VCSimpleSnapshotSetting" AndHeaderName:@"Settings" andRightButton:nil andIsStoryBoard:NO];
+    self.mutualMatches = [self createNavigationByClass:@"VCMutualMatch" AndHeaderName:@"Mutual Matches" andRightButton:nil andIsStoryBoard:NO];
+#endif
+    self.visitor = [self createNavigationByClass:@"VCVisitor" AndHeaderName:@"Visitors" andRightButton:nil andIsStoryBoard:NO];
+    self.hangOut = [self createNavigationByClass:@"VCHangOut" AndHeaderName:@"Meet people around" andRightButton:@"HangoutSetting" andIsStoryBoard:YES];
+    self.myProfileVC = [self createNavigationByClass:@"VCMyProfile" AndHeaderName:[NSString localizeString:@"Edit Profile"] andRightButton:@"VCMyProfile" andIsStoryBoard:NO];
+    self.getPoints = [self createNavigationByClass:@"VCGetPoints" AndHeaderName:@"Get Coins" andRightButton:nil andIsStoryBoard:NO];
+    self.confirmVC = [[ConfirmViewController alloc] initWithNibName:@"VCMyProfile" bundle:nil];
+    // PKRevealController
+#if ENABLE_DEMO
+    activeVC = _simpleSnapShot;
+    self.rootVC = [PKRevealController revealControllerWithFrontViewController:self.simpleSnapShot
+                                                          rightViewController:self.chat
+                                                                      options:nil];
+#else
+    activeVC = _snapShoot;
+    self.rootVC = [PKRevealController revealControllerWithFrontViewController:self.snapShoot
+                                                           leftViewController:nil
+                                                                      options:nil];
+#endif
 }
 
 #if ENABLE_DEMO
@@ -878,8 +885,9 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
     if(self.relationshipList != nil && [self.relationshipList count] > 0)
         return;
     AFHTTPClient *request = [[AFHTTPClient alloc] initWithOakClubAPI:DOMAIN];
-    
-    [request getPath:URL_getListLangRelWrkEth parameters:nil success:^(__unused AFHTTPRequestOperation *operation, id JSON)
+     NSString* selectedLanguage =[[NSUserDefaults standardUserDefaults] stringForKey:key_appLanguage];
+      NSDictionary *params  = [[NSDictionary alloc]initWithObjectsAndKeys:selectedLanguage, @"country", nil];
+    [request getPath:URL_getListLangRelWrkEth parameters:params success:^(__unused AFHTTPRequestOperation *operation, id JSON)
      {
          
          NSError *e=nil;
@@ -889,7 +897,10 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
          self.workList = [data valueForKey:key_WorkCate];
          self.languageList = [data valueForKey:key_language];
          self.relationshipList = [data valueForKey:key_relationship];
-         self.genderList = GenderList;
+         if([selectedLanguage isEqualToString:value_appLanguage_VI])
+             self.genderList = GenderList_vi;
+         else
+             self.genderList = GenderList;
      } failure:^(AFHTTPRequestOperation *operation, NSError *error)
      {
          NSLog(@"Error Code: %i - %@",[error code], [error localizedDescription]);
@@ -1598,4 +1609,13 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
 	}
 	
 }
+
+#if ENABLE_DEMO
+#pragma mark Multi Language
+-(void)updateLanguageBundle{
+    NSString* selectedLanguage =[[NSUserDefaults standardUserDefaults] stringForKey:key_appLanguage];
+    NSString *path= [[NSBundle mainBundle] pathForResource:selectedLanguage ofType:@"lproj"];
+    self.languageBundle = [NSBundle bundleWithPath:path];
+}
+#endif
 @end

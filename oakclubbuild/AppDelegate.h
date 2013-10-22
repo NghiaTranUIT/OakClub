@@ -105,6 +105,9 @@ extern NSString *const SCSessionStateChangedNotification;
 @property (strong, nonatomic) UINavigationController *snapShotSettings;
 @property (strong, nonatomic) UINavigationController *simpleSnapShot;
 @property (strong, nonatomic) UINavigationController *mutualMatches;
+//multi Language
+@property (strong, nonatomic) NSBundle *languageBundle;
+
 #endif
 @property (strong, nonatomic) UINavigationController *visitor;
 @property (strong, nonatomic) UINavigationController *hangOut;
@@ -127,12 +130,14 @@ extern NSString *const SCSessionStateChangedNotification;
 -(void)loadFBUserInfo:(void(^)(id))resultHandler;
 -(void)parseFBInfoToProfile:(id)fbProfile;
 
+-(void)loadAllViewControllers;
 -(void)showChat;
 -(void)showSnapshoot;
 #if ENABLE_DEMO
 -(void)showSnapshotSettings;
 -(void)showSimpleSnapshot;
 -(void)showMutualMatches;
+-(void)updateLanguageBundle;
 #endif
 -(void)showMylink;
 -(void)showVisitor;
