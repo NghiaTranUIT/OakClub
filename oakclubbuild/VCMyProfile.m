@@ -20,7 +20,7 @@
     NSArray *weightOptionList;
     NSArray *heightOptionList;
     Profile* profileObj;
-    PickPhotoFromGarelly *picker;
+    PickPhotoFromGarelly *avatarPicker;
 }
 
 @end
@@ -67,7 +67,7 @@ CLLocationManager *locationManager;
     locationManager.delegate = self;
     locationManager.desiredAccuracy = kCLLocationAccuracyBest;
     
-    picker = [[PickPhotoFromGarelly alloc] initWithParentWindow:self];
+    avatarPicker = [[PickPhotoFromGarelly alloc] initWithParentWindow:self andDelegate:self];
     
     [self initAvatarImage];
 }
@@ -831,13 +831,14 @@ CLLocationManager *locationManager;
 
 - (IBAction)avatarTouched:(id)sender
 {
-    [picker showPickerWithDelegate:self];
+    [avatarPicker showPicker];
 }
 
 -(void)receiveImage:(UIImage *)image
 {
     if (image)
     {
+        [self.imgAvatar setBackgroundImage:image forState:UIControlStateNormal];
     }
 }
 

@@ -9,21 +9,38 @@
 #import "PickPhotoFromGarelly.h"
 
 
-@interface PickerDelegate : NSObject <UIImagePickerControllerDelegate>
--(id)initWithDelegate:(id<PickPhotoFromGarellyDelegate>)_delegate;
+@interface PickerDelegate : NSObject
 @end
 
 @implementation PickerDelegate
+
+@end
+
+@interface PickPhotoFromGarelly() <UIImagePickerControllerDelegate, UINavigationControllerDelegate>
+@end
+
+@implementation PickPhotoFromGarelly
+UIViewController *parentWindow;
 id<PickPhotoFromGarellyDelegate> delegate;
 
--(id)initWithDelegate:(id<PickPhotoFromGarellyDelegate>)_delegate
+-(id)initWithParentWindow:(UIViewController *)_parentWindow andDelegate:(id<PickPhotoFromGarellyDelegate>)_delegate
 {
     if (self = [super init])
     {
+        parentWindow = _parentWindow;
         delegate = _delegate;
     }
     
     return self;
+}
+
+-(void)showPicker
+{
+    UIImagePickerController *picker = [[UIImagePickerController alloc] init];
+    picker.delegate = self;
+    picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+    
+    [parentWindow presentModalViewController:picker animated:YES];
 }
 
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
@@ -40,31 +57,7 @@ id<PickPhotoFromGarellyDelegate> delegate;
     [picker dismissModalViewControllerAnimated:YES];
     if (delegate)
     {
-        NSLog(@"Pick item: %@", info);
+        [delegate receiveImage:[info objectForKey:UIImagePickerControllerOriginalImage]];
     }
-}
-
-@end
-
-@implementation PickPhotoFromGarelly : NSObject
-UIViewController *parentWindow;
-
--(id)initWithParentWindow:(UIViewController *)_parentWindow
-{
-    if (self = [super init])
-    {
-        parentWindow = _parentWindow;
-    }
-    
-    return self;
-}
-
--(void)showPickerWithDelegate:(id<PickPhotoFromGarellyDelegate>)_delegate
-{
-    UIImagePickerController *picker = [[UIImagePickerController alloc] init];
-    picker.delegate = (id) [[PickerDelegate alloc] initWithDelegate:_delegate];
-    picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-    
-    [parentWindow presentModalViewController:picker animated:YES];
 }
 @end
