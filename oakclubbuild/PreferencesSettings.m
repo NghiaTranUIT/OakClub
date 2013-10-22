@@ -293,10 +293,14 @@
             break;
     }
     if (indexPath.row == 0 && indexPath.section==4) {
-        AppDelegate* appDel = [self appDelegate];
-        [appDel getProfileInfoWithHandler:^(void)
+        AppDelegate* appDelegate = [self appDelegate];
+        [appDelegate getProfileInfoWithHandler:^(void)
          {
-             
+             menuViewController *leftController = [[menuViewController alloc] init];
+             [leftController setUIInfo:appDelegate.myProfile];
+             [appDelegate.rootVC setRightViewController:appDelegate.chat];
+             [appDelegate.rootVC setLeftViewController:leftController];
+             appDelegate.window.rootViewController = appDelegate.rootVC;
          }];
     }
     [self.tableView reloadData];
@@ -390,5 +394,10 @@
     [self setLblHeader:nil];
     [self setLblFinish:nil];
     [super viewDidUnload];
+}
+
+- (void)saveSettings
+{
+    
 }
 @end

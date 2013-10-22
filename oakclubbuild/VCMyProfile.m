@@ -11,13 +11,16 @@
 #import "AppDelegate.h"
 #import <QuartzCore/QuartzCore.h>
 #import "UITableView+Custom.h"
-@interface VCMyProfile (){
+#import "PickPhotoFromGarelly.h"
+
+@interface VCMyProfile () <PickPhotoFromGarellyDelegate, UIAlertViewDelegate>{
     GroupButtons* genderGroup;
      AppDelegate *appDelegate;
     NSMutableArray *profileItemList;
     NSArray *weightOptionList;
     NSArray *heightOptionList;
     Profile* profileObj;
+    PickPhotoFromGarelly *avatarPicker;
 }
 
 @end
@@ -63,13 +66,17 @@ CLLocationManager *locationManager;
     locationManager = [[CLLocationManager alloc] init];
     locationManager.delegate = self;
     locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+    
+    avatarPicker = [[PickPhotoFromGarelly alloc] initWithParentWindow:self andDelegate:self];
+    
+    [self initAvatarImage];
 }
 
 - (void) viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
     
-    [self initSaveButton];
+    //[self initSaveButton];
 }
 
 -(void)initSaveButton
@@ -81,6 +88,10 @@ CLLocationManager *locationManager;
     [btn addTarget:self action:@selector(saveSetting) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *Item = [[UIBarButtonItem alloc] initWithCustomView:btn];
     self.navigationItem.rightBarButtonItem=Item;
+}
+
+- (void)initAvatarImage
+{
 }
 
 -(NavBarOakClub*)navBarOakClub
@@ -142,7 +153,7 @@ CLLocationManager *locationManager;
         {       // check if this is a valid link
             request = [[AFHTTPClient alloc]initWithBaseURL:[NSURL URLWithString:DOMAIN_DATA]];
             [request getPath:link parameters:nil success:^(__unused AFHTTPRequestOperation *operation, id JSON) {
-                [imgAvatar setImage: [UIImage imageWithData:JSON]];
+                [imgAvatar setBackgroundImage:[UIImage imageWithData:JSON] forState:UIControlStateNormal];
                 [imgAvatar setContentMode:UIViewContentModeScaleAspectFit];
             } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                 NSLog(@"Error Code: %i - %@",[error code], [error localizedDescription]);
@@ -151,7 +162,7 @@ CLLocationManager *locationManager;
         else{
             request = [[AFHTTPClient alloc]initWithBaseURL:[NSURL URLWithString:@""]];
             [request getPath:link parameters:nil success:^(__unused AFHTTPRequestOperation *operation, id JSON) {
-                [imgAvatar setImage: [UIImage imageWithData:JSON]];
+                [imgAvatar setBackgroundImage:[UIImage imageWithData:JSON] forState:UIControlStateNormal];
                 [imgAvatar setContentMode:UIViewContentModeScaleAspectFit];
             } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                 NSLog(@"Error Code: %i - %@",[error code], [error localizedDescription]);
@@ -405,16 +416,20 @@ CLLocationManager *locationManager;
     }
 }
 
--(void)saveSetting
+-(void)saveSettingWithWarning:(BOOL)warning
 {
     appDelegate.myProfile = [profileObj copy];
     [appDelegate.myProfile SaveSetting];
     
-    [self showWarning:@"Profile saved"];
+    if (warning)
+    {
+        [self showWarning:@"Profile saved"];
+    }
 }
+
 - (void)showWarning:(NSString*)warningText{
     UIAlertView *alert = [[UIAlertView alloc]
-                          initWithTitle:@"Warning"
+                          initWithTitle:@"Message"
                           message:warningText
                           delegate:self
                           cancelButtonTitle:@"OK"
@@ -707,7 +722,7 @@ CLLocationManager *locationManager;
 }
 
 -(void)updateProfileItemListAtIndex:(NSString*)value andIndex:(EditItems)keyEnum{
-    [profileItemList replaceObjectAtIndex:keyEnum withObject:[[NSMutableDictionary alloc] initWithObjectsAndKeys:value==nil?@"":value,@"value",[MyProfileItemList objectAtIndex:keyEnum],@"key", nil]];
+    [profileItemList replaceObjectAtIndex:keyEnum withObject:[[NSMutableDictionary alloc] initWithObjectsAndKeys:(value==nil || [value isKindOfClass:[NSNull class]])?@"":value,@"value",[MyProfileItemList objectAtIndex:keyEnum],@"key", nil]];
     
 }
 - (void)saveChangedEditting:(EditText *)editObject{
@@ -812,6 +827,19 @@ CLLocationManager *locationManager;
     
     [self tryUpdateLocation];
     [self.tableView reloadData];
+}
+
+- (IBAction)avatarTouched:(id)sender
+{
+    [avatarPicker showPicker];
+}
+
+-(void)receiveImage:(UIImage *)image
+{
+    if (image)
+    {
+        [self.imgAvatar setBackgroundImage:image forState:UIControlStateNormal];
+    }
 }
 
 @end

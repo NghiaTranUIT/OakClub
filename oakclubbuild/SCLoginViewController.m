@@ -163,6 +163,10 @@
                       [self.view setUserInteractionEnabled:YES];
                       NSError *e=nil;
                       NSMutableDictionary *dict = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONReadingMutableContainers error:&e];
+                      
+                      NSLog(@"Login parsed data: %@", dict);
+                      NSLog(@"Login string data: %@", [[NSString alloc] initWithData:JSON encoding:NSUTF8StringEncoding]);
+                      
                       int status = [[dict valueForKey:key_status] integerValue];
                       if (status == 0) {
                           NSString *msg = [dict valueForKey:@"msg"];
@@ -171,6 +175,11 @@
                               [appDelegate getProfileInfoWithHandler:^(void)
                                {
                                    [self stopSpinner];
+                                   menuViewController *leftController = [[menuViewController alloc] init];
+                                   [leftController setUIInfo:appDelegate.myProfile];
+                                   [appDelegate.rootVC setRightViewController:appDelegate.chat];
+                                   [appDelegate.rootVC setLeftViewController:leftController];
+                                   appDelegate.window.rootViewController = appDelegate.rootVC;
                                }];
                           }
                           else
@@ -185,14 +194,16 @@
                       }
                       else
                       {
-                          [self saveDefaultSettings];
                           NSLog(@"Goto profile comfirmation");
-                          UIStoryboard *registerStoryboard = [UIStoryboard
-                                                              storyboardWithName:@"RegisterConfirmation"
-                                                              bundle:nil];
-                          UIViewController *registerViewConroller = [registerStoryboard
-                                                                     instantiateInitialViewController];
-                          appDelegate.window.rootViewController = registerViewConroller;
+                          [appDelegate getProfileInfoWithHandler:^(void)
+                          {
+                              menuViewController *leftController = [[menuViewController alloc] init];
+                              [leftController setUIInfo:appDelegate.myProfile];
+                              [appDelegate.rootVC setRightViewController:appDelegate.chat];
+                              [appDelegate.rootVC setLeftViewController:leftController];
+                              appDelegate.window.rootViewController = appDelegate.rootVC;
+                              [appDelegate showConfirm];
+                          }];
                       }
                   } failure:^(AFHTTPRequestOperation *operation, NSError *error)
                   {
@@ -207,34 +218,6 @@
     }];
 }
 
-- (void) saveDefaultSettings
-{
-    NSString *height = @"";//[NSString stringWithFormat:@"%i",self.i_height];
-    NSString *weight= @"";//[NSString stringWithFormat:@"%i",self.i_weight];
-    NSString *ethnicity = @"";//self.s_ethnicity;
-    NSString *lang = @"";//[self.a_language componentsJoinedByString:@","];
-    NSString *loc = @"0";
-    NSString *work = @"";//[NSString stringWithFormat:@"%i",newAccount.i_work.cate_id];
-    
-    AFHTTPClient* httpClient = [[AFHTTPClient alloc]initWithOakClubAPI:DOMAIN];
-    NSDictionary *params = [[NSDictionary alloc]initWithObjectsAndKeys:
-                            height,@"height",//100 < h <300
-                            weight,@"weight",//30 < w < 120
-                            ethnicity,@"ethnicity",// string value
-                            lang,@"language",
-                            loc,@"location_id",//location_id
-                            work,@"work",//cate_id
-                            /*self.s_aboutMe*/@"",@"about_me",//< 256 characters
-                            nil];
-    [httpClient getPath:URl_setHangoutProfile parameters:params success:^(__unused AFHTTPRequestOperation *operation, id JSON)
-    {
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@" SaveSetting Profile Error Code: %i - %@",[error code], [error localizedDescription]);
-        //        return NO;
-    }];
-}
-
-#define padding 15
 - (IBAction)showInfoPanel:(id)sender
 {
     UAModalPanel *popup = [[UAModelPanelEx alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];

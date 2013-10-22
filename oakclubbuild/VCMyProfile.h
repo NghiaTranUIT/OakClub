@@ -12,7 +12,7 @@
 #import "EditText.h"
 #import <CoreLocation/CoreLocation.h>
 
-@interface VCMyProfile : UIViewController<UIPickerViewDelegate, UIPickerViewDataSource,ListForChooseDelegate,EditTextViewDelegate, CLLocationManagerDelegate>
+@interface VCMyProfile : UIViewController<UIPickerViewDelegate, UIPickerViewDataSource, UITableViewDataSource, UITableViewDelegate, ListForChooseDelegate,EditTextViewDelegate, CLLocationManagerDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UIButton *rbnMale;
 @property (weak, nonatomic) IBOutlet UIButton *rbnFemale;
@@ -40,11 +40,11 @@
 @property (weak, nonatomic) IBOutlet UIButton *btnBirthdate;
 @property (weak, nonatomic) IBOutlet UITextView *textviewAbout;
 - (IBAction)onTouchBirthdate:(id)sender;
-@property (strong, nonatomic) IBOutlet UIImageView *imgAvatar;
+@property (strong, nonatomic) IBOutlet UIButton *imgAvatar;
 @property (strong, nonatomic) UIImageView *avatar;
 @property (weak, nonatomic) IBOutlet UITableView *tbEditProfile;
 
--(void)saveSetting;
+-(void)saveSettingWithWarning:(BOOL)warning;
 -(void)setDefaultEditProfile:(Profile*)profile;
 @end
 

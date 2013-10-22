@@ -23,6 +23,7 @@
 #import "NavBarOakClub.h"
 #import "VCHangoutSetting.h" // for test
 // ==== chatting
+#import "ConfirmViewController.h"
 #import <CoreData/CoreData.h>
 #import "XMPPFramework.h"
 #import "SMMessageDelegate.h"
@@ -111,6 +112,7 @@ extern NSString *const SCSessionStateChangedNotification;
 @property (strong, nonatomic) UINavigationController *getPoints;
 @property (strong, nonatomic) PKRevealController *rootVC;
 @property (strong, nonatomic) SCLoginViewController *loginView;
+@property (strong, nonatomic) ConfirmViewController *confirmVC;
 
 @property (strong, nonatomic) NSArray *countryList;
 @property (strong, nonatomic) NSMutableDictionary *cityList;
@@ -138,6 +140,7 @@ extern NSString *const SCSessionStateChangedNotification;
 -(void)logOut;
 -(void)showHangOut;
 -(void)showMyProfile;
+-(void)showConfirm;
 -(void)showInvite;
 -(void)showGetPoints;
 -(NavConOakClub *) createNavigationByClass:(NSString *)className;

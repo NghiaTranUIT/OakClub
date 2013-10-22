@@ -26,6 +26,8 @@
 
 #import "HistoryMessage.h"
 #import "FacebookSDK/FBWebDialogs.h"
+#import "PhotoUpload.h"
+
 NSString *const SCSessionStateChangedNotification =
 @"com.facebook.Scrumptious:SCSessionStateChangedNotification";
 @interface AppDelegate()
@@ -62,6 +64,7 @@ NSString *const kXMPPmyPassword = @"kXMPPmyPassword";
 @synthesize myProfile = _myProfile;
 //@synthesize hangoutView = _hangout;
 @synthesize loginView = _loginView;
+@synthesize confirmVC = _confirmVC;
 @synthesize myLink = _myLink;
 @synthesize chat = _chat;
 @synthesize snapShoot = _snapShoot;
@@ -124,6 +127,7 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     
+    
     [self changeFontStyle];
 
     
@@ -150,7 +154,8 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
     self.myProfileVC = [self createNavigationByClass:@"VCMyProfile" AndHeaderName:@"Edit Profile" andRightButton:@"VCMyProfile" andIsStoryBoard:NO];
     self.getPoints = [self createNavigationByClass:@"VCGetPoints" AndHeaderName:@"Get Coins" andRightButton:nil andIsStoryBoard:NO];
     self.loginView = [[SCLoginViewController alloc] initWithNibName:@"SCLoginViewController" bundle:nil];
-
+    self.confirmVC = [[ConfirmViewController alloc] initWithNibName:@"VCMyProfile" bundle:nil];
+    
 //    menuViewController *leftController = [[menuViewController alloc] init];
     // PKRevealController
 #if ENABLE_DEMO
@@ -507,6 +512,11 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
     }
 }
 
+-(void)showConfirm
+{
+    [self.confirmVC setDefaultEditProfile:self.myProfile];
+    self.window.rootViewController = self.confirmVC;
+}
 
 - (void)sessionStateChanged:(FBSession *)session
                       state:(FBSessionState) state
@@ -574,6 +584,7 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
 
 -(void)getProfileInfoWithHandler:(void(^)(void))handler
 {
+    
     NSDictionary *params  = [[NSDictionary alloc]initWithObjectsAndKeys:s_DeviceToken, @"device_token", nil];
     
     AFHTTPClient *request = [[AFHTTPClient alloc] initWithOakClubAPI:DOMAIN];
@@ -582,11 +593,6 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
         
         self.myProfile = [[Profile alloc]init];
         accountSetting = [self.myProfile parseForGetAccountSetting:JSON];
-        menuViewController *leftController = [[menuViewController alloc] init];
-        [leftController setUIInfo:self.myProfile];
-        [self.rootVC setRightViewController:self.chat];
-        [self.rootVC setLeftViewController:leftController];
-        self.window.rootViewController = self.rootVC;
         
         [self updateProfile];
 //        [self updateChatList];
@@ -597,7 +603,8 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
         }
         
         
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error)
+    {
         NSLog(@"GetAccountSetting Error Code: %i - %@",[error code], [error localizedDescription]);
     }];
 
@@ -775,10 +782,20 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
         
         [self loadDataForList];
         
+//#define UPLOAD_PHOTO
+        
+#ifndef UPLOAD_PHOTO
         if(resultHandler != nil)
         {
             resultHandler(result);
         }
+#else
+        ///////// TEST UPLOAD PHOTO /////////////
+        UIImage *photo = [UIImage imageNamed:@"bg"];
+        PhotoUpload *uploader = [[PhotoUpload alloc] initWithPhoto:photo andName:@"bg"];
+        [uploader uploadPhoto];
+#endif
+        
     }];
 }
 -(void)parseFBInfoToProfile:(id)fbProfile

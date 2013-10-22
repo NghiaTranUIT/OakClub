@@ -101,7 +101,7 @@
     if([currentView isKindOfClass:[VCMyProfile class]])
     {
         VCMyProfile *profileView= (VCMyProfile*)currentView;
-        [profileView saveSetting];
+        [profileView saveSettingWithWarning:YES];
     }
 }
 
