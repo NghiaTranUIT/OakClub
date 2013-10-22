@@ -646,19 +646,20 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
              NavBarOakClub* navbar = (NavBarOakClub*)self.snapShoot.navigationBar;
              [navbar setNotifications:[self countTotalNotifications]];
          }];
-         
-//         [Profile getListPeople:URL_getListMutualMatch handler:^(NSMutableArray* list, int count)
-//          {
-//              menuViewController* menuVC = (menuViewController*)self.rootVC.leftViewController;
-//              [menuVC setMyLinksNotification:count];
-//              
-//              self.myProfile.new_mutual_attractions = count;
-//              //NSLog(@"new visitors: %d", count);
-//              
-//              NavBarOakClub* navbar = (NavBarOakClub*)self.snapShoot.navigationBar;
-//              [navbar setNotifications:[self countTotalNotifications]];
-//          }];
-         
+         // API - unuse
+         /*NSDictionary *mutualMatchParams  = [[NSDictionary alloc]initWithObjectsAndKeys:@"0",@"start",@"999",@"limit",@"1",@"is_viewed", nil];
+         [Profile getListPeople:URL_getListMutualMatch andParams:mutualMatchParams handler:^(NSMutableArray* list, int count)
+          {
+              menuViewController* menuVC = (menuViewController*)self.rootVC.leftViewController;
+              [menuVC setMyLinksNotification:count];
+              
+              self.myProfile.new_mutual_attractions = count;
+              //NSLog(@"new visitors: %d", count);
+              
+              NavBarOakClub* navbar = (NavBarOakClub*)self.snapShoot.navigationBar;
+              [navbar setNotifications:[self countTotalNotifications]];
+          }];
+         */
          AFHTTPClient *requestPhoto = [[AFHTTPClient alloc] initWithOakClubAPI:DOMAIN];
          NSDictionary *params  = [[NSDictionary alloc]initWithObjectsAndKeys:self.myProfile.s_ID, key_profileID, nil];
          self.myProfile.arr_photos = [[NSMutableArray alloc] init];
