@@ -362,12 +362,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "oakclubbuild/Profile.m"
-            timestampString = "403695096.022356"
+            timestampString = "404047176.371635"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "698"
-            endingLineNumber = "698"
-            landmarkName = "-copyWithZone:"
+            startingLineNumber = "749"
+            endingLineNumber = "749"
+            landmarkName = "-loadPhotosByProfile:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -378,12 +378,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "oakclubbuild/Profile.m"
-            timestampString = "403694773.083537"
+            timestampString = "404047176.371635"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "720"
-            endingLineNumber = "720"
-            landmarkName = "-copyWithZone:"
+            startingLineNumber = "771"
+            endingLineNumber = "771"
+            landmarkName = "-loadPhotosByProfile:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -394,13 +394,43 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "oakclubbuild/Profile.m"
-            timestampString = "403695085.921697"
+            timestampString = "404047176.371635"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "695"
-            endingLineNumber = "695"
-            landmarkName = "-copyWithZone:"
+            startingLineNumber = "746"
+            endingLineNumber = "746"
+            landmarkName = "-loadPhotosByProfile:"
             landmarkType = "5">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[Profile loadPhotosByProfile:]"
+                  moduleName = "OakClub"
+                  urlString = "file://localhost/1_Works/Projects/GitHub/OakClub/oakclubbuild/Profile.m"
+                  timestampString = "404174402.871936"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "746"
+                  endingLineNumber = "746"
+                  offsetFromSymbolStart = "65">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[Profile loadPhotosByProfile:]"
+                  moduleName = "OakClub"
+                  urlString = "file://localhost/1_Works/Projects/GitHub/OakClub/oakclubbuild/Profile.m"
+                  timestampString = "404174402.872189"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "746"
+                  endingLineNumber = "746"
+                  offsetFromSymbolStart = "1447">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -426,12 +456,28 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "oakclubbuild/VCChat.m"
-            timestampString = "403985481.049961"
+            timestampString = "404142480.840654"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "336"
-            endingLineNumber = "336"
+            startingLineNumber = "338"
+            endingLineNumber = "338"
             landmarkName = "-fetchedResultsController"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "oakclubbuild/VCSimpleSnapshotSetting.m"
+            timestampString = "404173162.824143"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "547"
+            endingLineNumber = "547"
+            landmarkName = "-saveSetting"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

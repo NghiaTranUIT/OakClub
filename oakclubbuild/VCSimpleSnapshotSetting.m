@@ -11,6 +11,8 @@
 #import "AppDelegate.h"
 #import "UITableView+Custom.h"
 #import "UIViewController+Custom.h"
+#import "NSString+Utils.h"
+#import "UIView+Localize.h"
 @interface VCSimpleSnapshotSetting (){
     SettingObject* snapshotObj;
     AFHTTPClient *request;
@@ -224,7 +226,7 @@ UITapGestureRecognizer *tap;
                 cell.accessoryType = UITableViewCellAccessoryCheckmark;
             }
             if(row == 2){
-                cell.detailTextLabel.text = [NSString stringWithFormat:@"%d-%d year old",fromAge,toAge];
+                cell.detailTextLabel.text = [NSString stringWithFormat:@"%d-%d %@",fromAge,toAge,[NSString localizeString:@"year old"]];
             }
             
             switch (row) {
@@ -249,6 +251,7 @@ UITapGestureRecognizer *tap;
             cell.textLabel.text = @"Where";
             break;
     }
+    cell.textLabel.text = [NSString localizeString:cell.textLabel.text];
     [cell.detailTextLabel setFont: FONT_NOKIA(17.0)];
     [cell.textLabel setFont: FONT_NOKIA(17.0)];
     cell.textLabel.highlightedTextColor = [UIColor blackColor];
@@ -282,6 +285,7 @@ UITapGestureRecognizer *tap;
             headerLbl.text = nil;
             break;
     }
+    [headerLbl localizeText];
     [headerImage addSubview:headerLbl];
     
     headerImage.frame = CGRectMake(0, 0, tableView.bounds.size.width, 20);
@@ -511,7 +515,7 @@ UITapGestureRecognizer *tap;
     NSDictionary *params = [[NSDictionary alloc]initWithObjectsAndKeys:
                             @"date",@"purpose_of_search",
                             @"off",@"filter_female",
-                            @"off",@"filter_male",
+                            @"on",@"filter_male",
                             300,@"range",
                             18,@"age_from",
                             32,@"age_to",

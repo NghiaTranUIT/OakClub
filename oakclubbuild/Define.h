@@ -33,8 +33,12 @@
 #define DOMAIN @"http://oakclub.com"
 #define DOMAIN_DATA @"http://data1.oakclub.com/" //data2
 #endif
-
-//============== CHAT=============
+//============== application key =============
+#define key_appLanguage @"appLanguage"
+//============== application value =============
+#define value_appLanguage_VI @"vi"
+#define value_appLanguage_EN @"en"
+//============== APIs =============
 #define DOMAIN_AT @"@oakclub.com"
 #define DOMAIN_AT_FMT @"%@@oakclub.com"
 #define URL_getHangoutProfile @"service/getHangoutProfile"
@@ -233,7 +237,7 @@
 #define LocationList  ([NSArray arrayWithObjects:@"Country", @"City", nil])
 
 #define GenderList ([[NSArray alloc]initWithObjects:[[NSDictionary alloc] initWithObjectsAndKeys:@"Female",@"text",@"0",@"ID", nil],[[NSDictionary alloc] initWithObjectsAndKeys:@"Male",@"text",@"1",@"ID", nil], nil])
-
+#define GenderList_vi ([[NSArray alloc]initWithObjects:[[NSDictionary alloc] initWithObjectsAndKeys:@"Nữ",@"text",@"0",@"ID", nil],[[NSDictionary alloc] initWithObjectsAndKeys:@"Nam",@"text",@"1",@"ID", nil], nil])
 #define WithWhoOptionList  ([NSArray arrayWithObjects:value_Male, value_Female,@"Both", nil])
 
 #define HereToOptionList  ([[NSArray alloc]initWithObjects:[[NSDictionary alloc] initWithObjectsAndKeys:@"Date",@"text",value_Date,@"key", nil],[[NSDictionary alloc] initWithObjectsAndKeys:@"Make New Friends",@"text",value_MakeFriend,@"key", nil],[[NSDictionary alloc] initWithObjectsAndKeys:@"Chat",@"text",value_Chat,@"key", nil], nil])

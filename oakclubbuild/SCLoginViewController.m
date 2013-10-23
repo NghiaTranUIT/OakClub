@@ -10,7 +10,7 @@
 #import "AppDelegate.h"
 #import "CycleScrollView.h"
 #import "UAModelPanelEx.h"
-
+#import "UIView+Localize.h"
 @interface SCLoginViewController (){
     AppDelegate* appDelegate;
 }
@@ -26,17 +26,24 @@
 @synthesize spinner,btnLogin,pageControl;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+//    self = [super initWithNibName:[NSString stringWithFormat:@"%@%@",nibNameOrNil,@"vi"]  bundle:[NSBundle mainBundle]];
+    NSString* language = [[NSUserDefaults standardUserDefaults] objectForKey:key_language];
+    NSString* path= [[NSBundle mainBundle] pathForResource:@"en" ofType:@"lproj"];
+    NSBundle* languageBundle = [NSBundle bundleWithPath:path];
+    
+    self = [super initWithNibName:nibNameOrNil bundle:nil];
     if (self) {
         // Custom initialization
         appDelegate = (id) [UIApplication sharedApplication].delegate;
     }
+
     return self;
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [self showMenuLanguage];
     // Do any additional setup after loading the view from its nib.
     NSArray* pageImages = [NSArray arrayWithObjects:
                   [UIImage imageNamed:@"first-screen"],
@@ -54,11 +61,11 @@
     pageControl.numberOfPages = pageImages.count;
     pageControl.currentPage = 0;
     
-    if (FBSession.activeSession.state == FBSessionStateCreatedTokenLoaded || FBSession.activeSession.state == FBSessionStateOpen)
-    {
-        [self startSpinner];
-        [self tryLogin];
-    }
+//    if (FBSession.activeSession.state == FBSessionStateCreatedTokenLoaded || FBSession.activeSession.state == FBSessionStateOpen)
+//    {
+//        [self startSpinner];
+//        [self tryLogin];
+//    }
 }
 
 - (NSUInteger)supportedInterfaceOrientations
@@ -219,5 +226,62 @@
     [self.view addSubview:popup];
     
     [popup showFromPoint:[self.view center]];
+}
+
+#pragma mark Language
+-(void) showMenuLanguage{
+    if([[NSUserDefaults standardUserDefaults] objectForKey:key_language] != nil){
+        [appDelegate loadAllViewControllers];
+        return;
+    }
+
+    UIAlertView *alert = [[UIAlertView alloc]
+                          initWithTitle:@"Welcome"
+                          message:@""
+                          delegate:self
+                          cancelButtonTitle:nil
+                          otherButtonTitles:@"Vietnamese",@"English",nil];
+    [alert show];
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (FBSession.activeSession.state == FBSessionStateCreatedTokenLoaded || FBSession.activeSession.state == FBSessionStateOpen)
+    {
+        [self startSpinner];
+        [self tryLogin];
+    }
+    
+    NSString *title = [alertView buttonTitleAtIndex:buttonIndex];
+    if([title isEqualToString:@"Vietnamese"])
+    {
+        [[NSUserDefaults standardUserDefaults] setObject:value_appLanguage_VI forKey:key_appLanguage];
+//        NSString* selectedLanguage =[[NSUserDefaults standardUserDefaults] stringForKey:key_appLanguage];
+        [appDelegate updateLanguageBundle];
+        NSString* str=[appDelegate.languageBundle localizedStringForKey:@"was selected" value:@"" table:nil];
+        NSLog(@"Vietnamese %@",str);
+    }
+    else if([title isEqualToString:@"English"])
+    {
+        [[NSUserDefaults standardUserDefaults] setObject:value_appLanguage_EN forKey:key_appLanguage];
+        [appDelegate updateLanguageBundle];
+        NSString* str=[appDelegate.languageBundle localizedStringForKey:@"was selected" value:@"" table:nil];
+        NSLog(@"English %@",str);
+    }
+    [self.view localizeAllViews];
+    
+    [appDelegate loadAllViewControllers];
+}
+
+#pragma mark Load TEXT for all control
+-(void) localizeAllText{
+    for(UIView* view in [self.view subviews]){
+        [view localizeText];
+    }
+//    self.lblNote = (UILabel*)[NSString localizeStringByObject:self.lblNote];
+//    NSString* loginText =[appDelegate.languageBundle localizedStringForKey:btnLogin.titleLabel.text value:@"" table:nil];
+//    NSString* noteText =[appDelegate.languageBundle localizedStringForKey:self.lblNote.text value:@"" table:nil];
+//    [btnLogin setTitle:loginText forState:UIControlStateNormal];
+//    [self.lblNote setText:noteText];
 }
 @end

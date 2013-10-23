@@ -10,6 +10,8 @@
 #import "APLMoveMeView.h"
 #import "AppDelegate.h"
 #import "AFHTTPClient+OakClub.h"
+#import "AnimatedGif.h"
+#import "UIView+Localize.h"
 @interface VCSimpleSnapshot (){
     UIView *headerView;
     UILabel *lblHeaderName;
@@ -17,6 +19,7 @@
     AppDelegate *appDel;
     NSMutableDictionary* photos;
     BOOL is_loadingProfileList;
+    UIImageView* loadingAnim;
 }
 @property (nonatomic, strong) IBOutlet APLMoveMeView *moveMeView;
 @property (nonatomic, weak) IBOutlet UIView *profileView;
@@ -31,22 +34,28 @@
 @implementation VCSimpleSnapshot
 CGFloat pageWidth;
 CGFloat pageHeight;
-@synthesize sv_photos,lbl_indexPhoto, lbl_mutualFriends, lbl_mutualLikes, buttonNO, buttonProfile, buttonYES, imgMutualFriend, imgMutualLike, buttonMAYBE ,lblName, lblAge ,lblPhotoCount, viewProfile,matchView, matchViewController, lblMatchAlert, imgMatcher, imgMyAvatar, imgMainProfile, imgNextProfile;
+@synthesize sv_photos,lbl_indexPhoto, lbl_mutualFriends, lbl_mutualLikes, buttonNO, buttonProfile, buttonYES, imgMutualFriend, imgMutualLike, buttonMAYBE ,lblName, lblAge ,lblPhotoCount, viewProfile,matchView, matchViewController, lblMatchAlert, imgMatcher, imgMyAvatar, imgMainProfile, imgNextProfile, imgLoading;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
+    NSString* keyLanguage =[[NSUserDefaults standardUserDefaults] objectForKey:key_appLanguage];
+    NSString* path= [[NSBundle mainBundle] pathForResource:@"vi" ofType:@"lproj"];
+    NSBundle* languageBundle = [NSBundle bundleWithPath:path];
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
         currentProfile = [[Profile alloc]init];
         appDel = (AppDelegate *) [UIApplication sharedApplication].delegate;
         is_loadingProfileList = FALSE;
+        NSURL *fileURL = [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"GPS_Finding_demo.gif" ofType:nil]];
+        loadingAnim = 	[AnimatedGif getAnimationForGifAtUrl: fileURL];
     }
     return self;
 }
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [self.moveMeView localizeAllViews];
     [self downloadAvatarImage:appDel.myProfile.s_Avatar];
     // load profile List
     currentIndex = 0;
@@ -75,6 +84,7 @@ CGFloat pageHeight;
     
 }
 
+
 -(void)disableAllControl:(BOOL)value{
     [buttonYES setEnabled:!value];
     [buttonProfile setEnabled:!value];
@@ -83,8 +93,7 @@ CGFloat pageHeight;
 }
 - (void)showWarning{
     if ([self isViewLoaded] && self.view.window) {
-        [self.spinner stopAnimating];
-        [self  disableAllControl:YES];
+        [self stopLoadingAnim];
         UIAlertView *alert = [[UIAlertView alloc]
                               initWithTitle:@"Warning"
                               message:@"There is no more profile to show ..."
@@ -111,9 +120,7 @@ CGFloat pageHeight;
     if(is_loadingProfileList)
         return;
     is_loadingProfileList = TRUE;
-    [self.spinner setHidden:NO];
-    [self.spinner startAnimating];
-    [self disableAllControl:YES];
+    [self startLoadingAnim];
     request = [[AFHTTPClient alloc] initWithOakClubAPI:DOMAIN];
     NSDictionary *params = [[NSDictionary alloc]initWithObjectsAndKeys:@"0",@"start",@"35",@"limit", nil];
     [request getPath:URL_getSnapShot parameters:params success:^(__unused AFHTTPRequestOperation *operation, id JSON)
@@ -335,8 +342,7 @@ CGFloat pageHeight;
     }
     [requestMutual getPath:URL_getHangoutProfile parameters:params success:^(__unused AFHTTPRequestOperation *operation, id JSON)
      {
-         [self.spinner stopAnimating];
-         [self disableAllControl:NO];
+         [self stopLoadingAnim];
          NSError *e=nil;
          NSMutableDictionary *dict = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONReadingMutableContainers error:&e];
          NSMutableDictionary * data= [dict valueForKey:key_data];
@@ -365,9 +371,7 @@ CGFloat pageHeight;
 }
 
 -(BOOL)loadCurrentProfile:(int)index{
-    [self.spinner setHidden:NO];
-    [self.spinner startAnimating];
-    [self disableAllControl:YES];
+    [self startLoadingAnim];
     if(currentIndex > MAX_FREE_SNAPSHOT)
     {
         [self showWarning];
@@ -405,8 +409,7 @@ CGFloat pageHeight;
         infoHeader.backgroundColor = [UIColor clearColor];
         
         if(currentProfile.s_interestedStatus != nil) {     // Vanancy --- check if answer or not
-            [self.spinner stopAnimating];
-            [self disableAllControl:NO];
+            [self stopLoadingAnim];
             // AGE text
             UILabel *titleAge = [[UILabel alloc] initWithFrame:CGRectMake(infoHeader.frame.size.width/3*2 - 20 , 0, infoHeader.frame.size.width/6, 44)];
             titleAge.backgroundColor = [UIColor clearColor];
@@ -610,6 +613,7 @@ CGFloat pageHeight;
     
 }
 - (void) viewWillAppear:(BOOL)animated{
+    [self.view addSubview:loadingAnim];
 //    currentIndex = 0;
 //    currentIndex = [[[NSUserDefaults standardUserDefaults] objectForKey:@"snapshotIndex"] integerValue];
 //    if ([[NSUserDefaults standardUserDefaults] objectForKey:@"snapshotIndex"] == nil)
@@ -636,7 +640,13 @@ CGFloat pageHeight;
     
    
 }
-
+- (void)viewDidUnload {
+    [self setLblName:nil];
+    [self setLblName:nil];
+    [self setLblAge:nil];
+    [self setLblPhotoCount:nil];
+    [super viewDidUnload];
+}
 #pragma mark Button Event Handle
 
 - (IBAction)btnYES:(id)sender {
@@ -906,12 +916,17 @@ CGFloat pageHeight;
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
-- (void)viewDidUnload {
-    [self setLblName:nil];
-    [self setLblName:nil];
-    [self setLblAge:nil];
-    [self setLblPhotoCount:nil];
-    [super viewDidUnload];
+#pragma mark LOADING - animation
+-(void)startLoadingAnim{
+    [self.spinner startAnimating];
+    [self disableAllControl:YES];
+    
 }
+
+-(void)stopLoadingAnim{
+    [self.spinner stopAnimating];
+    [self disableAllControl:NO];
+    [loadingAnim removeFromSuperview];
+}
+
 @end

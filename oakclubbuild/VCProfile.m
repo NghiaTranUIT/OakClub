@@ -14,6 +14,8 @@
 
 #import "AppDelegate.h"
 #import "PhotoViewController.h"
+#import "NSString+Utils.h"
+#import "UIView+Localize.h"
 #import <math.h>
 @interface VCProfile (){
 //    BOOL popoverShowing;
@@ -221,6 +223,10 @@ static CGFloat padding_left = 5.0;
 }
 - (void)viewDidLoad
 {
+    [self.infoView localizeAllViews];
+    [self.interestsView localizeAllViews];
+    [self.mutualFriendsView localizeAllViews];
+    [self.profileView localizeAllViews];
     //show navigation bar
 //    [UIView beginAnimations:nil context:NULL];
 //    [UIView setAnimationDuration:1.0f]; //Animation duration in seconds
@@ -251,10 +257,11 @@ static CGFloat padding_left = 5.0;
     [request getPath:URL_getHangoutProfile parameters:params success:^(__unused AFHTTPRequestOperation *operation, id JSON) {
         [currentProfile parseForGetHangOutProfile:JSON];
         lbl_name.text = currentProfile.s_Name;
-        lblAge.text = [NSString stringWithFormat:@"%@ , near %@",currentProfile.s_age,currentProfile.s_location.name];
+        lblAge.text = [NSString stringWithFormat:@"%@ , %@ %@",currentProfile.s_age,[NSString localizeString:@"near"],currentProfile.s_location.name];
         lblWanttoMake.text = [NSString stringWithFormat:@"Want to %@",currentProfile.s_meetType];
         lblWanttoMake.text = [lblWanttoMake.text capitalizedString];
         lblWanttoMake.text = [lblWanttoMake.text stringByReplacingOccurrencesOfString:@"_" withString:@" "];
+        lblWanttoMake.text = [NSString localizeString:lblWanttoMake.text];
         if(currentProfile.s_Name.length > 0){
             [tableSource addObject:[NSDictionary dictionaryWithObjectsAndKeys:currentProfile.s_Name,@"value",@"Name",@"key", nil]];
         }
@@ -262,7 +269,7 @@ static CGFloat padding_left = 5.0;
             [tableSource addObject:[NSDictionary dictionaryWithObjectsAndKeys:currentProfile.s_birthdayDate,@"value",@"Birthdate",@"key" ,nil]];
         }
         if(currentProfile.s_interested.text.length > 0){
-            [tableSource addObject:[NSDictionary dictionaryWithObjectsAndKeys:currentProfile.s_interested.text,@"value",@"Intersted In",@"key",nil]];
+            [tableSource addObject:[NSDictionary dictionaryWithObjectsAndKeys:currentProfile.s_interested.text,@"value",@"Interested In",@"key",nil]];
         }
         if(currentProfile.s_gender.text.length > 0){
             [tableSource addObject:[NSDictionary dictionaryWithObjectsAndKeys:currentProfile.s_gender.text,@"value",@"Gender",@"key",nil]];
@@ -866,7 +873,8 @@ static CGFloat padding_left = 5.0;
 		cell = [[ProfileCell alloc] initWithStyle:UITableViewCellStyleDefault
                                           reuseIdentifier:CellIdentifier];
 	}
-    [cell setNames:[[tableSource objectAtIndex:indexPath.row] valueForKey:@"value"] AndKeyName:[[tableSource objectAtIndex:indexPath.row] valueForKey:@"key"]];
+    NSString* cellKeyName = [[tableSource objectAtIndex:indexPath.row] valueForKey:@"key"];
+    [cell setNames:[[tableSource objectAtIndex:indexPath.row] valueForKey:@"value"] AndKeyName:[NSString localizeString:cellKeyName]];
     return cell;
 }
 

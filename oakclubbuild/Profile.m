@@ -125,7 +125,7 @@
                 _profile.s_Avatar = [objectData valueForKey:key_avatar];
                 _profile.s_FB_id = [objectData valueForKey:key_facebookID];
                 _profile.s_ID = [objectData valueForKey:key_profileID];
-                _profile.s_ProfileStatus = [objectData valueForKey:key_online];
+                _profile.s_ProfileStatus = [objectData valueForKey:key_status];
                 _profile.num_Photos =[objectData valueForKey:key_countPhotos];
                 int is_viewed = [[objectData valueForKey:@"is_viewed"] intValue];
                 
@@ -336,7 +336,7 @@
     self.s_interested = [self parseGender:[data valueForKey:key_interested]] ;
     self.a_language = [data valueForKey:key_language];
     if(a_language == nil || [a_language count]==0)
-        a_language = [[NSMutableArray alloc] initWithObjects:@"Vietnamese", nil];
+        a_language = [[NSMutableArray alloc] initWithObjects: [NSString localizeString:@"Vietnamese"] , nil];
     self.i_work = [WorkCate alloc];
     self.i_work.cate_id = [[data valueForKey:key_work] integerValue];
     self.i_weight =[[data valueForKey:key_weight] integerValue];

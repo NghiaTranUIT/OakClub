@@ -10,7 +10,8 @@
 #import "AppDelegate.h"
 #import "menuCell.h"
 #import "Define.h"
-
+#import "UIView+Localize.h"
+#import "NSString+Utils.h"
 @interface menuViewController () {
     AppDelegate *appDel;
     
@@ -31,14 +32,15 @@
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    NSString* path= [[NSBundle mainBundle] pathForResource:@"vi" ofType:@"lproj"];
+    NSBundle* languageBundle = [NSBundle bundleWithPath:path];
+    
+    self = [super initWithNibName:nibNameOrNil bundle:languageBundle];
     if (self) {
         // Custom initialization
         appDel = (AppDelegate *) [UIApplication sharedApplication].delegate;
         imageNames = [self getListMenuItems];
         // getAccountSetting
-        
-        
         
         NSMutableArray *m_index = [NSMutableArray array];
         numberNotifications = [NSMutableArray array];
@@ -96,6 +98,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [self.view localizeAllViews];
     self.numCoins.text =  numPoints;
     self.name.text = username;
 //    self.avatar.image = imageAvatar;
@@ -164,7 +167,7 @@
         }
     
 //        UIImage *thumbImage = [UIImage imageNamed:[NSString stringWithFormat:@"%menu_@.png", name]];
-        [cell setItemMenu:icon AndlabelName:label];
+        [cell setItemMenu:icon AndlabelName:[NSString localizeString:label]];
     
     NSNumber* number = [numberNotifications objectAtIndex:indexPath.row];
     [cell setNotification:[number unsignedIntValue]];

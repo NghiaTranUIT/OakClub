@@ -12,4 +12,5 @@
 - (void)loginFailed;
 - (void)startSpinner;
 - (void)stopSpinner;
+@property (weak, nonatomic) IBOutlet UILabel *lblNote;
 @end

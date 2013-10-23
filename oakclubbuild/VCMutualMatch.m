@@ -59,8 +59,10 @@ BOOL isEditing;
     _requestsImage = [[NSMutableDictionary alloc] init];
     _selectedSection = -1;
     self.sections = [[NSMutableDictionary alloc]init];
-    NSDictionary *mutualMatchParams  = [[NSDictionary alloc]initWithObjectsAndKeys:@"0",@"start",@"999",@"limit",@"0",@"is_viewed", nil];
-    [Profile getListPeople:URL_getListMutualMatch andParams:mutualMatchParams handler:^(NSMutableArray* list, int count)
+//    NSDictionary *mutualMatchParams  = [[NSDictionary alloc]initWithObjectsAndKeys:@"0",@"start",@"999",@"limit",@"0",@"is_viewed", nil];
+//    [Profile getListPeople:URL_getListMutualMatch andParams:mutualMatchParams handler:^(NSMutableArray* list, int count)
+//     {
+    [Profile getListPeople:URL_getListMutualMatch handler:^(NSMutableArray* list, int count)
      {
          for(Profile* _profile in list){
              if(_profile.is_newMutualMatch)

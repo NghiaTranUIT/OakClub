@@ -9,6 +9,7 @@
 #import "VCSnapshotSetting.h"
 #import "AppDelegate.h"
 #import "SettingObject.h"
+#import "NSString+Utils.h"
 @interface VCSnapshotSetting (){
     NSMutableArray *snapshotItemList;
     SettingObject* snapshotObj;
@@ -70,7 +71,7 @@ NSIndexPath * whereIndexPath;
 //    titleName.textAlignment = UITextAlignmentRight;
 //    titleName.text = @"Snapshot";
 //    [infoHeader addSubview:titleName];
-    self.navigationItem.title = @"Snapshot";
+    self.navigationItem.title = [NSString localizeString:@"Snapshot"];
 //    btnAgeAround.titleLabel.text = [NSString stringWithFormat:@"%d-%d year old",fromAge,toAge];
 //    [self initCityList];
 //    [self initAgeList];

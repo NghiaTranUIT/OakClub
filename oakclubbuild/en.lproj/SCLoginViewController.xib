@@ -9,6 +9,7 @@
             <connections>
                 <outlet property="btnInfo" destination="FDX-l8-RWJ" id="66b-Q6-h3v"/>
                 <outlet property="btnLogin" destination="39" id="74"/>
+                <outlet property="lblNote" destination="vCU-qP-nRz" id="TKi-KW-2Gh"/>
                 <outlet property="pageControl" destination="eKY-f1-FTR" id="R9t-lK-YEb"/>
                 <outlet property="spinner" destination="71" id="73"/>
                 <outlet property="view" destination="1" id="75"/>
