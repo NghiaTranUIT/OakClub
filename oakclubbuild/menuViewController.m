@@ -63,7 +63,8 @@
 -(void) setUIInfo:(Profile*)profile{
     username = profile.s_Name;
     numPoints = [NSString stringWithFormat:@"%@ coins", [profile.num_points stringValue]];
-    [self downloadAvatarImage:profile.s_Avatar ];
+    //[self downloadAvatarImage:profile.s_Avatar ];
+    [self.avatar setImage:profile.img_Avatar];
 }
 
 -(void) downloadAvatarImage:(NSString*)link{

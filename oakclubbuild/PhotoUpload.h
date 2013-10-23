@@ -14,7 +14,7 @@
 
 @interface PhotoUpload : NSObject
 -(id)initWithPhoto:(UIImage *)_photo andName:(NSString *)photoName;
--(void)uploadPhoto;
+-(void)uploadPhotoWithCompletion:(void(^)(NSString *))completionHandler;
 
 @property id<PhotoUploadDelegate> delegate;
 @end

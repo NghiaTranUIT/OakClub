@@ -122,7 +122,6 @@
         
         if( ![link isEqualToString:@""] )
         {
-            
             AFHTTPRequestOperation* operation = [Profile getAvatarSync:link callback:^(UIImage *avatar) {
                 avatar_me = avatar;
             }];

@@ -77,6 +77,7 @@
 #define URL_setLocationUser @"service/setLocationUser"
 #define URL_checkUserExist @"service/checkUserExist"
 #define URL_sendRegister @"service/sendRegister"
+#define URL_uploadPhoto @"service/uploadPhotoUser"
 //================ service API keys ================
 //root
 #define key_status @"status"
@@ -139,6 +140,7 @@
 #define key_StrProfileID @"str_profile_id"
 #define key_MutualFriends @"key_mutualFriends"
 #define key_MutualLikes @"mutualLikes"
+#define key_URL @"URL"
 // list chat of profile
 #define key_rosters @"rosters"
 #define key_match @"matches"

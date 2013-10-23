@@ -12,6 +12,7 @@
 #import <QuartzCore/QuartzCore.h>
 #import "UITableView+Custom.h"
 #import "PickPhotoFromGarelly.h"
+#import "PhotoUpload.h"
 
 @interface VCMyProfile () <PickPhotoFromGarellyDelegate, UIAlertViewDelegate>{
     GroupButtons* genderGroup;
@@ -199,7 +200,8 @@ CLLocationManager *locationManager;
     [self updateProfileItemListAtIndex:profileObj.s_aboutMe andIndex:ABOUT_ME];
     [self.tbEditProfile reloadData];
     
-    [self updateProfileItemListAtIndex:@"NO" andIndex:AUTO_LOCATION];
+    NSString *autoLocationState = [[NSUserDefaults standardUserDefaults] objectForKey:@"AutoLocationSwitch"];
+    [self updateProfileItemListAtIndex:autoLocationState andIndex:AUTO_LOCATION];
 }
 //-(void) initGenderGroup{
 //    genderGroup = [[GroupButtons alloc] initWithMultipleChoice:FALSE];
@@ -603,6 +605,11 @@ CLLocationManager *locationManager;
     // Return the number of rows in the section.
     return [profileItemList count];
 }
+
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 60;
+}
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *MyIdentifier = @"MyIdentifier";
@@ -643,6 +650,10 @@ CLLocationManager *locationManager;
             {
                 UISwitch *autoSwitch = (id) [autoLocationCell viewWithTag:100];
                 autoSwitch.on = [[[profileItemList objectAtIndex:indexPath.row] valueForKey:@"value"] isEqualToString:@"YES"];
+                if (autoSwitch.on)
+                {
+                    [self tryUpdateLocation];
+                }
             }
             
             return autoLocationCell;
@@ -824,6 +835,7 @@ CLLocationManager *locationManager;
     BOOL state = [sender isOn];
     NSString *rez = state == YES ? @"YES" : @"NO";
     [[profileItemList objectAtIndex:AUTO_LOCATION] setValue:rez forKey:@"value"];
+    [[NSUserDefaults standardUserDefaults] setObject:rez forKey:@"AutoLocationSwitch"];
     
     [self tryUpdateLocation];
     [self.tableView reloadData];
@@ -838,7 +850,25 @@ CLLocationManager *locationManager;
 {
     if (image)
     {
-        [self.imgAvatar setBackgroundImage:image forState:UIControlStateNormal];
+        PhotoUpload *uploader = [[PhotoUpload alloc] initWithPhoto:image andName:@"uploadedfile"];
+        [uploader uploadPhotoWithCompletion:^(NSString *imgLink)
+        {
+            [self.imgAvatar setBackgroundImage:image forState:UIControlStateNormal];
+            
+            AFHTTPClient *request = [[AFHTTPClient alloc] initWithOakClubAPI:DOMAIN];
+            
+            NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:imgLink, key_URL, nil];
+            
+            [request getPath:URL_uploadPhoto parameters:params success:^(__unused AFHTTPRequestOperation *operation, id JSON)
+             {
+                 NSLog(@"Upload photo completed");
+             } failure:^(AFHTTPRequestOperation *operation, NSError *error)
+             {
+                 NSLog(@"Upload photo error with code: %i - %@",[error code], [error localizedDescription]);
+             }];
+
+            
+        }];
     }
 }
 
