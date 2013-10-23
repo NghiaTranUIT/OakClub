@@ -13,7 +13,7 @@
 @end
 
 @interface PhotoUpload : NSObject
--(id)initWithPhoto:(UIImage *)_photo andName:(NSString *)photoName;
+-(id)initWithPhoto:(UIImage *)_photo andName:(NSString *)photoName isAvatar:(BOOL)_isAvatar;
 -(void)uploadPhotoWithCompletion:(void(^)(NSString *))completionHandler;
 
 @property id<PhotoUploadDelegate> delegate;

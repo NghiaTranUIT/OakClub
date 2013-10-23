@@ -71,6 +71,7 @@
 -(void)setImage:(UIImage *)img
 {
     imageAvatar = img;
+    [self.avatar setImage:img];
 }
 
 -(void) downloadAvatarImage:(NSString*)link{
@@ -118,6 +119,9 @@
     self.numCoins.text =  numPoints;
     [self.view localizeAllViews];
     [tableView reloadData];
+    
+    Profile *myProfile = ((AppDelegate *) [UIApplication sharedApplication].delegate).myProfile;
+    [self.avatar setImage:myProfile.img_Avatar];
 }
 - (void)didReceiveMemoryWarning
 {

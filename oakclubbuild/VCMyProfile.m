@@ -1,4 +1,4 @@
-//
+	//
 //  VCMyProfile.m
 //  oakclubbuild
 //
@@ -24,6 +24,7 @@
     Profile* profileObj;
     PickPhotoFromGarelly *avatarPicker;
     UIImage *avatarImage;
+    UIImage *newAvatarImage;
 }
 
 @end
@@ -837,23 +838,14 @@ CLLocationManager *locationManager;
 {
     if (_image)
     {
-        PhotoUpload *uploader = [[PhotoUpload alloc] initWithPhoto:_image andName:@"uploadedfile"];
+        PhotoUpload *uploader = [[PhotoUpload alloc] initWithPhoto:_image andName:@"uploadedfile" isAvatar:YES];
         [uploader uploadPhotoWithCompletion:^(NSString *imgLink)
         {
             [self.imgAvatar setBackgroundImage:_image forState:UIControlStateNormal];
             self.imgAvatar.contentMode = UIViewContentModeScaleAspectFit;
             
-            AFHTTPClient *request = [[AFHTTPClient alloc] initWithOakClubAPI:DOMAIN];
-            
-            NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:imgLink, key_URL, nil];
-            
-            [request getPath:URL_uploadPhoto parameters:params success:^(__unused AFHTTPRequestOperation *operation, id JSON)
-             {
-                 NSLog(@"Upload photo completed");
-             } failure:^(AFHTTPRequestOperation *operation, NSError *error)
-             {
-                 NSLog(@"Upload photo error with code: %i - %@",[error code], [error localizedDescription]);
-             }];
+            profileObj.img_Avatar = _image;
+            //newAvatarLink = imgLink;
         }];
     }
 }

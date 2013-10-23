@@ -14,7 +14,7 @@
     NSMutableArray *requester;
 }
 //@property (strong, nonatomic) NSString *s_Avatar;
-@property (weak, nonatomic) UIImage *img_Avatar;
+//@property (weak, nonatomic) UIImage *img_Avatar;
 @end
 
 @implementation Profile
@@ -31,6 +31,7 @@
     self = [super init];
     self.i_weight=0;
     self.i_height=0;
+    self.img_Avatar = [[UIImage alloc] init];
     return self;
 }
 
@@ -710,7 +711,7 @@
 -(id) copyWithZone: (NSZone *) zone
 {
     Profile *accountCopy = [[Profile allocWithZone: zone] init];
-    accountCopy.img_Avatar = [img_Avatar copy];
+    accountCopy.img_Avatar = img_Avatar;
     accountCopy.s_ID = [s_ID copyWithZone:zone];
     accountCopy.s_school = [s_school copyWithZone:zone];
     accountCopy.s_Name = [s_Name copyWithZone:zone];
@@ -813,10 +814,7 @@
     {
         self.img_Avatar = avatar;
         
-        for (id<ImageRequester> _requester in requester)
-        {
-            [_requester setImage:avatar];
-        }
+        [self dispatchAvatar];
     }];
     [operation start];
 }
@@ -833,6 +831,20 @@
         [requester addObject:_requester];
     }
     else
+    {
+        [_requester setImage:self.img_Avatar];
+    }
+}
+
+-(void)trySetImageSync:(UIImage *)img
+{
+    self.img_Avatar = img;
+    [self dispatchAvatar];
+}
+
+-(void)dispatchAvatar
+{
+    for (id<ImageRequester> _requester in requester)
     {
         [_requester setImage:self.img_Avatar];
     }
