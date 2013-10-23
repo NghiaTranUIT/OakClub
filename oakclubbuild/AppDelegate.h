@@ -131,6 +131,7 @@ extern NSString *const SCSessionStateChangedNotification;
 -(void)parseFBInfoToProfile:(id)fbProfile;
 
 -(void)loadAllViewControllers;
+-(void)loadDataForList;
 -(void)showChat;
 -(void)showSnapshoot;
 #if ENABLE_DEMO

@@ -408,13 +408,13 @@
                   continueAfterRunningActions = "No"
                   symbolName = "-[Profile loadPhotosByProfile:]"
                   moduleName = "OakClub"
-                  urlString = "file://localhost/1_Works/Projects/GitHub/OakClub/oakclubbuild/Profile.m"
-                  timestampString = "404174402.871936"
+                  urlString = "file://localhost/1_Projects/GlassEgg/Git/OakClub/oakclubbuild/Profile.m"
+                  timestampString = "404203298.122466"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "746"
                   endingLineNumber = "746"
-                  offsetFromSymbolStart = "65">
+                  offsetFromSymbolStart = "40">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
@@ -422,13 +422,13 @@
                   continueAfterRunningActions = "No"
                   symbolName = "-[Profile loadPhotosByProfile:]"
                   moduleName = "OakClub"
-                  urlString = "file://localhost/1_Works/Projects/GitHub/OakClub/oakclubbuild/Profile.m"
-                  timestampString = "404174402.872189"
+                  urlString = "file://localhost/1_Projects/GlassEgg/Git/OakClub/oakclubbuild/Profile.m"
+                  timestampString = "404203298.122885"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "746"
                   endingLineNumber = "746"
-                  offsetFromSymbolStart = "1447">
+                  offsetFromSymbolStart = "1444">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -472,11 +472,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "oakclubbuild/VCSimpleSnapshotSetting.m"
-            timestampString = "404173162.824143"
+            timestampString = "404201905.546895"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "547"
-            endingLineNumber = "547"
+            startingLineNumber = "593"
+            endingLineNumber = "593"
             landmarkName = "-saveSetting"
             landmarkType = "5">
          </BreakpointContent>

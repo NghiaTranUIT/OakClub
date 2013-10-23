@@ -32,10 +32,7 @@
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
-    NSString* path= [[NSBundle mainBundle] pathForResource:@"vi" ofType:@"lproj"];
-    NSBundle* languageBundle = [NSBundle bundleWithPath:path];
-    
-    self = [super initWithNibName:nibNameOrNil bundle:languageBundle];
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
         appDel = (AppDelegate *) [UIApplication sharedApplication].delegate;
@@ -98,14 +95,23 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self.view localizeAllViews];
     self.numCoins.text =  numPoints;
     self.name.text = username;
 //    self.avatar.image = imageAvatar;
     [self.avatar setImage:imageAvatar];
     [self.btnAvatar setBackgroundImage:imageAvatar forState:UIControlStateNormal];
 }
-
+-(void)viewWillAppear:(BOOL)animated{
+    NSString* strCoins;
+    if([[[NSUserDefaults standardUserDefaults] objectForKey:key_appLanguage] isEqualToString:value_appLanguage_VI])
+        strCoins = @"coins";
+    else
+        strCoins = @"xu";
+    numPoints = [numPoints stringByReplacingOccurrencesOfString:strCoins withString:[NSString localizeString:strCoins]];
+    self.numCoins.text =  numPoints;
+    [self.view localizeAllViews];
+    [tableView reloadData];
+}
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];

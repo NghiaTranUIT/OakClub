@@ -10,6 +10,7 @@
 #import "AFHTTPClient+OakClub.h"
 #import "ODRefreshControl.h"
 #import "AppDelegate.h"
+#import "NSString+Utils.h"
 @interface VCMutualMatch (){
     __strong NSMutableDictionary *_requestsImage;
     int _selectedSection;
@@ -54,6 +55,8 @@ BOOL isEditing;
 }
 -(void) viewWillAppear:(BOOL)animated{
     [self.navigationController setNavigationBarHidden:NO];
+    [[self navBarOakClub] setHeaderName:[NSString localizeString:@"Mutual Matches"]];
+    [self.gridView reloadData];
 }
 -(void)loadDataForAllList{
     _requestsImage = [[NSMutableDictionary alloc] init];
@@ -132,11 +135,11 @@ BOOL isEditing;
     NSString *headerName = [NSString stringWithFormat:@"Header %d", section];
     switch (section) {
         case 0:
-           headerName = [NSString stringWithFormat:@"\tNew Mutual Matches (%d)", [self.unviewed_mutualMatches count]];
+           headerName = [NSString stringWithFormat:@"\t%@ (%d)",[NSString localizeString:@"New Mutual Matches"], [self.unviewed_mutualMatches count]];
             break;
         case 1:
             
-             headerName = [NSString stringWithFormat:@"\tMutual matches (%d)", [self.mutualMatches count]];
+             headerName = [NSString stringWithFormat:@"\t%@ (%d)",[NSString localizeString:@"Mutual Matches"], [self.mutualMatches count]];
             break;
         default:
             NSLog(@"Bug here, there is no section : %d", section);

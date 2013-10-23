@@ -117,6 +117,7 @@ CLLocationManager *locationManager;
     [tbEditProfile reloadData];
 //    [self loadProfile];
     [self showNotifications];
+    [[self navBarOakClub] setHeaderName:[NSString localizeString:@"Edit Profile"]];
 }
 
 -(void)setDefaultEditProfile:(Profile*)profile{
@@ -171,7 +172,9 @@ CLLocationManager *locationManager;
             }];
         }
     }
-
+    for (int i =0 ; i < [profileObj.a_language count]; i++) {
+        [profileObj.a_language replaceObjectAtIndex:i withObject:[NSString localizeString:profileObj.a_language[i]]];
+    }
     [self updateProfileItemListAtIndex:[profileObj.a_language componentsJoinedByString:@", "] andIndex:LANGUAGE];
 
     [self updateProfileItemListAtIndex:profileObj.s_birthdayDate andIndex:BIRTHDATE];
@@ -641,7 +644,7 @@ CLLocationManager *locationManager;
             if (autoLocationCell == nil)
             {
                 autoLocationCell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:AutoLocationID];
-                autoLocationCell.textLabel.text = [NSString localizeString:@"Auto location"] ;
+                
                 autoLocationCell.selectionStyle = UITableViewCellSelectionStyleNone;
                 UISwitch *autoSwitch = [[UISwitch alloc] init];
                 [autoSwitch addTarget:self action:@selector(switchAutoUpdateLocation:) forControlEvents:UIControlEventValueChanged];
@@ -657,7 +660,7 @@ CLLocationManager *locationManager;
                     [self tryUpdateLocation];
                 }
             }
-            
+            autoLocationCell.textLabel.text = [NSString localizeString:@"Auto location"] ;
             return autoLocationCell;
         }
             break;

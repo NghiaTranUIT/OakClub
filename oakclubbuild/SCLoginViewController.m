@@ -26,12 +26,11 @@
 @synthesize spinner,btnLogin,pageControl;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
-//    self = [super initWithNibName:[NSString stringWithFormat:@"%@%@",nibNameOrNil,@"vi"]  bundle:[NSBundle mainBundle]];
-    NSString* language = [[NSUserDefaults standardUserDefaults] objectForKey:key_language];
-    NSString* path= [[NSBundle mainBundle] pathForResource:@"en" ofType:@"lproj"];
-    NSBundle* languageBundle = [NSBundle bundleWithPath:path];
+//    NSString* language = [[NSUserDefaults standardUserDefaults] objectForKey:key_language];
+//    NSString* path= [[NSBundle mainBundle] pathForResource:@"en" ofType:@"lproj"];
+//    NSBundle* languageBundle = [NSBundle bundleWithPath:path];
     
-    self = [super initWithNibName:nibNameOrNil bundle:nil];
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
         appDelegate = (id) [UIApplication sharedApplication].delegate;

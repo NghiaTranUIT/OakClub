@@ -12,6 +12,7 @@
 #import "AFHTTPClient+OakClub.h"
 #import "AnimatedGif.h"
 #import "UIView+Localize.h"
+#import "NSString+Utils.h"
 @interface VCSimpleSnapshot (){
     UIView *headerView;
     UILabel *lblHeaderName;
@@ -38,9 +39,9 @@ CGFloat pageHeight;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
-    NSString* keyLanguage =[[NSUserDefaults standardUserDefaults] objectForKey:key_appLanguage];
-    NSString* path= [[NSBundle mainBundle] pathForResource:@"vi" ofType:@"lproj"];
-    NSBundle* languageBundle = [NSBundle bundleWithPath:path];
+//    NSString* keyLanguage =[[NSUserDefaults standardUserDefaults] objectForKey:key_appLanguage];
+//    NSString* path= [[NSBundle mainBundle] pathForResource:@"vi" ofType:@"lproj"];
+//    NSBundle* languageBundle = [NSBundle bundleWithPath:path];
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
@@ -49,13 +50,13 @@ CGFloat pageHeight;
         is_loadingProfileList = FALSE;
         NSURL *fileURL = [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"GPS_Finding_demo.gif" ofType:nil]];
         loadingAnim = 	[AnimatedGif getAnimationForGifAtUrl: fileURL];
+        [loadingAnim setHidden:YES];
     }
     return self;
 }
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self.moveMeView localizeAllViews];
     [self downloadAvatarImage:appDel.myProfile.s_Avatar];
     // load profile List
     currentIndex = 0;
@@ -121,6 +122,7 @@ CGFloat pageHeight;
         return;
     is_loadingProfileList = TRUE;
     [self startLoadingAnim];
+    [loadingAnim setHidden:NO];
     request = [[AFHTTPClient alloc] initWithOakClubAPI:DOMAIN];
     NSDictionary *params = [[NSDictionary alloc]initWithObjectsAndKeys:@"0",@"start",@"35",@"limit", nil];
     [request getPath:URL_getSnapShot parameters:params success:^(__unused AFHTTPRequestOperation *operation, id JSON)
@@ -614,6 +616,9 @@ CGFloat pageHeight;
 }
 - (void) viewWillAppear:(BOOL)animated{
     [self.view addSubview:loadingAnim];
+    [self.moveMeView localizeAllViews];
+    [self.controlView localizeAllViews];
+    [[self navBarOakClub] setHeaderName:[NSString localizeString:@"Snapshot"]];
 //    currentIndex = 0;
 //    currentIndex = [[[NSUserDefaults standardUserDefaults] objectForKey:@"snapshotIndex"] integerValue];
 //    if ([[NSUserDefaults standardUserDefaults] objectForKey:@"snapshotIndex"] == nil)
@@ -926,7 +931,7 @@ CGFloat pageHeight;
 -(void)stopLoadingAnim{
     [self.spinner stopAnimating];
     [self disableAllControl:NO];
-    [loadingAnim removeFromSuperview];
+    [loadingAnim setHidden:YES];
 }
 
 @end
