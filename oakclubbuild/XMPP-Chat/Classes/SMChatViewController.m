@@ -19,6 +19,10 @@
 #import "ChatEmoticon.h"
 #import "HistoryMessage+init.h"
 
+@interface SMChatViewController() <ImageRequester>
+
+@end
+
 @implementation SMChatViewController
 {
     __strong NSMutableDictionary *_requestsImage;
@@ -45,7 +49,7 @@
     lblTyping.hidden=!show;
 }
 
--(NSString*)getAvatarUrl:(NSString*)profile_id
+-(Profile*)getProfilebyID:(NSString*)profile_id
 {
     AppDelegate* appDel = [self appDelegate];
     
@@ -60,7 +64,7 @@
         profile = [appDel.friendChatList objectForKey:profile_id];
     }
     
-    return profile.s_Avatar;
+    return profile;
 }
 
 //-(void)getUserInfo:(NSString*)profile_id
@@ -118,24 +122,19 @@
         
         avatar_friend = avatar;
         
-        NSString* link = [self getAvatarUrl:nil];
+        Profile* myProfile = [self getProfilebyID:nil];
         
-        if( ![link isEqualToString:@""] )
-        {
-            AFHTTPRequestOperation* operation = [Profile getAvatarSync:link callback:^(UIImage *avatar) {
-                avatar_me = avatar;
-            }];
-            [operation start];
-            //[queue addOperation:operation];
-        }
-        else
-        {
-            avatar_me = [UIImage imageNamed:@"Default Avatar.png"];
-        }
+        avatar_me = [UIImage imageNamed:@"Default Avatar.png"];
+        [myProfile tryGetImageAsync:self];
         
 	}
 	
 	return self;
+}
+
+-(void)setImage:(UIImage *)img
+{
+    avatar_me = img;
 }
 
 - (id) initWithUser:(NSString *) _userName withProfile:(Profile*)_profile 
@@ -183,7 +182,7 @@
             avatar_friend = [UIImage imageNamed:@"Default Avatar.png"];
         }
         
-        link = [self getAvatarUrl:nil];
+        link = [self getProfilebyID:nil];
         
         if( ![link isEqualToString:@""] )
         {

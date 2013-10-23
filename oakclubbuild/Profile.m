@@ -7,8 +7,14 @@
 //
 
 #import "Profile.h"
+#import "NSString+Utils.h"
+
 @interface Profile()
-@property (strong, nonatomic) NSString *s_Avatar;
+{
+    NSMutableArray *requester;
+}
+//@property (strong, nonatomic) NSString *s_Avatar;
+@property (weak, nonatomic) UIImage *img_Avatar;
 @end
 
 @implementation Profile
@@ -30,8 +36,11 @@
 
 -(void)setS_Avatar:(NSString *)avatar
 {
-    _s_avatar = avatar;
-    [self downloadAvatarImage];
+    if (![avatar isEqualToString:_s_avatar])
+    {
+        _s_avatar = avatar;
+        [self downloadAvatarImage];
+    }
 }
 
 -(Profile*) parseProfile:(NSString *)responeString{
@@ -701,6 +710,7 @@
 -(id) copyWithZone: (NSZone *) zone
 {
     Profile *accountCopy = [[Profile allocWithZone: zone] init];
+    accountCopy.img_Avatar = [img_Avatar copy];
     accountCopy.s_ID = [s_ID copyWithZone:zone];
     accountCopy.s_school = [s_school copyWithZone:zone];
     accountCopy.s_Name = [s_Name copyWithZone:zone];
@@ -802,8 +812,29 @@
     AFHTTPRequestOperation* operation = [Profile getAvatarSync:self.s_Avatar callback:^(UIImage *avatar)
     {
         self.img_Avatar = avatar;
+        
+        for (id<ImageRequester> _requester in requester)
+        {
+            [_requester setImage:avatar];
+        }
     }];
     [operation start];
 }
 
+-(void)tryGetImageAsync:(id<ImageRequester>)_requester
+{
+    if (self.img_Avatar == nil)
+    {
+        if (!requester)
+        {
+            requester = [[NSMutableArray alloc] init];
+        }
+        
+        [requester addObject:_requester];
+    }
+    else
+    {
+        [_requester setImage:self.img_Avatar];
+    }
+}
 @end

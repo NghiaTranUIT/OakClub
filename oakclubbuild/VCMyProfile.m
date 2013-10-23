@@ -13,8 +13,9 @@
 #import "UITableView+Custom.h"
 #import "PickPhotoFromGarelly.h"
 #import "PhotoUpload.h"
+#import "NSString+Utils.h"
 
-@interface VCMyProfile () <PickPhotoFromGarellyDelegate, UIAlertViewDelegate>{
+@interface VCMyProfile () <PickPhotoFromGarellyDelegate, UIAlertViewDelegate, ImageRequester>{
     GroupButtons* genderGroup;
      AppDelegate *appDelegate;
     NSMutableArray *profileItemList;
@@ -22,6 +23,7 @@
     NSArray *heightOptionList;
     Profile* profileObj;
     PickPhotoFromGarelly *avatarPicker;
+    UIImage *avatarImage;
 }
 
 @end
@@ -29,7 +31,7 @@
 @implementation VCMyProfile
 UITapGestureRecognizer *tap;
 
-@synthesize rbnFemale, rbnMale, btnLocation, btnRelationShip, btnEthnicity, btnLanguage, btnWork, scrollview,labelAge, labelName, labelPurposeSearch, textFieldName,textFieldHeight,textfieldSchool,textFieldWeight, btnBirthdate,imgAvatar, pickerView, textviewAbout, tbEditProfile, pickerWeight, pickerHeight;
+@synthesize rbnFemale, rbnMale, btnLocation, btnRelationShip, btnEthnicity, btnLanguage, btnWork, scrollview,labelAge, labelName, labelPurposeSearch, textFieldName,textFieldHeight,textfieldSchool,textFieldWeight, btnBirthdate, pickerView, textviewAbout, tbEditProfile, pickerWeight, pickerHeight, imgAvatar;
 
 CLLocationManager *locationManager;
 
@@ -69,8 +71,6 @@ CLLocationManager *locationManager;
     locationManager.desiredAccuracy = kCLLocationAccuracyBest;
     
     avatarPicker = [[PickPhotoFromGarelly alloc] initWithParentWindow:self andDelegate:self];
-    
-    [self initAvatarImage];
 }
 
 - (void) viewDidAppear:(BOOL)animated
@@ -78,6 +78,8 @@ CLLocationManager *locationManager;
     [super viewDidAppear:animated];
     
     //[self initSaveButton];
+    [self.imgAvatar setBackgroundImage:avatarImage forState:UIControlStateNormal];
+    self.imgAvatar.contentMode = UIViewContentModeScaleAspectFit;
 }
 
 -(void)initSaveButton
@@ -89,10 +91,6 @@ CLLocationManager *locationManager;
     [btn addTarget:self action:@selector(saveSetting) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *Item = [[UIBarButtonItem alloc] initWithCustomView:btn];
     self.navigationItem.rightBarButtonItem=Item;
-}
-
-- (void)initAvatarImage
-{
 }
 
 -(NavBarOakClub*)navBarOakClub
@@ -126,7 +124,13 @@ CLLocationManager *locationManager;
     [self loadProfile];
 }
 
--(void)loadProfile{
+-(void)setImage:(UIImage *)img
+{
+    avatarImage = img;
+}
+
+-(void)loadProfile
+{
     for (NSDictionary * object in appDelegate.relationshipList) {
         if ([[object valueForKey:@"rel_status_id"] integerValue] == profileObj.s_relationShip.rel_status_id) {
             profileObj.s_relationShip.rel_text = [object valueForKey:@"rel_text"];
@@ -149,29 +153,7 @@ CLLocationManager *locationManager;
     }
 
     profileObj.s_gender.text = [NSString localizeString:profileObj.s_gender.text];
-    AFHTTPClient *request;
-    NSString* link = profileObj.s_Avatar;
-    if(![link isEqualToString:@""]){
-        if(!([link hasPrefix:@"http://"] || [link hasPrefix:@"https://"]))
-        {       // check if this is a valid link
-            request = [[AFHTTPClient alloc]initWithBaseURL:[NSURL URLWithString:DOMAIN_DATA]];
-            [request getPath:link parameters:nil success:^(__unused AFHTTPRequestOperation *operation, id JSON) {
-                [imgAvatar setBackgroundImage:[UIImage imageWithData:JSON] forState:UIControlStateNormal];
-                [imgAvatar setContentMode:UIViewContentModeScaleAspectFit];
-            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                NSLog(@"Error Code: %i - %@",[error code], [error localizedDescription]);
-            }];
-        }
-        else{
-            request = [[AFHTTPClient alloc]initWithBaseURL:[NSURL URLWithString:@""]];
-            [request getPath:link parameters:nil success:^(__unused AFHTTPRequestOperation *operation, id JSON) {
-                [imgAvatar setBackgroundImage:[UIImage imageWithData:JSON] forState:UIControlStateNormal];
-                [imgAvatar setContentMode:UIViewContentModeScaleAspectFit];
-            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                NSLog(@"Error Code: %i - %@",[error code], [error localizedDescription]);
-            }];
-        }
-    }
+    [profileObj tryGetImageAsync:self];
     for (int i =0 ; i < [profileObj.a_language count]; i++) {
         [profileObj.a_language replaceObjectAtIndex:i withObject:[NSString localizeString:profileObj.a_language[i]]];
     }
@@ -851,14 +833,15 @@ CLLocationManager *locationManager;
     [avatarPicker showPicker];
 }
 
--(void)receiveImage:(UIImage *)image
+-(void)receiveImage:(UIImage *)_image
 {
-    if (image)
+    if (_image)
     {
-        PhotoUpload *uploader = [[PhotoUpload alloc] initWithPhoto:image andName:@"uploadedfile"];
+        PhotoUpload *uploader = [[PhotoUpload alloc] initWithPhoto:_image andName:@"uploadedfile"];
         [uploader uploadPhotoWithCompletion:^(NSString *imgLink)
         {
-            [self.imgAvatar setBackgroundImage:image forState:UIControlStateNormal];
+            [self.imgAvatar setBackgroundImage:_image forState:UIControlStateNormal];
+            self.imgAvatar.contentMode = UIViewContentModeScaleAspectFit;
             
             AFHTTPClient *request = [[AFHTTPClient alloc] initWithOakClubAPI:DOMAIN];
             
@@ -871,8 +854,6 @@ CLLocationManager *locationManager;
              {
                  NSLog(@"Upload photo error with code: %i - %@",[error code], [error localizedDescription]);
              }];
-
-            
         }];
     }
 }
