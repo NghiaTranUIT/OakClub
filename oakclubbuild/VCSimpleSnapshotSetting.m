@@ -13,6 +13,7 @@
 #import "UIViewController+Custom.h"
 #import "NSString+Utils.h"
 #import "UIView+Localize.h"
+#import "AppDelegate.h"
 @interface VCSimpleSnapshotSetting (){
     SettingObject* snapshotObj;
     AFHTTPClient *request;
@@ -56,6 +57,12 @@ UITapGestureRecognizer *tap;
     self.tableView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"bg.png"]];
     
 }
+-(NavBarOakClub*)navBarOakClub
+{
+    NavConOakClub* navcon = (NavConOakClub*)self.navigationController;
+    return (NavBarOakClub*)navcon.navigationBar;
+}
+
 -(void)viewDidAppear:(BOOL)animated{
     [self initSaveButton];
     isPickerShowing = false;
@@ -131,7 +138,7 @@ UITapGestureRecognizer *tap;
 }
 #pragma mark - Table view datasource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return 4;
+    return 5;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     return 40.0f;
@@ -151,6 +158,9 @@ UITapGestureRecognizer *tap;
             break;
         case 3:
             rowCount = 1;
+            break;
+        case 4:
+            rowCount = 2;
             break;
     }
     return rowCount;
@@ -250,6 +260,25 @@ UITapGestureRecognizer *tap;
             }
             cell.textLabel.text = @"Where";
             break;
+        case 4:
+        {
+            NSString* selectedLanguage =[[NSUserDefaults standardUserDefaults] stringForKey:key_appLanguage];
+            if (row == 0) {
+                cell.textLabel.text = @"Vietnamese";
+                
+            }
+            if(row == 1){
+                cell.textLabel.text = @"English";
+            }
+            
+            if( ([selectedLanguage isEqualToString:value_appLanguage_VI] && row ==0)
+               || ([selectedLanguage isEqualToString:value_appLanguage_EN] && row ==1) ){
+                cell.accessoryType = UITableViewCellAccessoryCheckmark;
+            }
+            else
+                cell.accessoryType = UITableViewCellAccessoryNone;
+            break;
+        }
     }
     cell.textLabel.text = [NSString localizeString:cell.textLabel.text];
     [cell.detailTextLabel setFont: FONT_NOKIA(17.0)];
@@ -281,6 +310,9 @@ UITapGestureRecognizer *tap;
             if(!isPickerShowing)
                 headerLbl.text = @"Where";
             break;
+        case 4:
+            headerLbl.text = @"Language";
+            break;
         default:
             headerLbl.text = nil;
             break;
@@ -303,6 +335,20 @@ UITapGestureRecognizer *tap;
     UITableViewCell* cell = [tableView cellForRowAtIndexPath:indexPath];
     switch (section)
     {
+        case 4:{
+            AppDelegate *appDelegate = (AppDelegate *) [UIApplication sharedApplication].delegate;
+            if(row == 0){
+                [[NSUserDefaults standardUserDefaults] setObject:value_appLanguage_VI forKey:key_appLanguage];
+            }
+            if(row == 1){
+                [[NSUserDefaults standardUserDefaults] setObject:value_appLanguage_EN forKey:key_appLanguage];
+            }
+            [appDelegate updateLanguageBundle];
+            [tableView reloadData];
+            [[self navBarOakClub] setHeaderName:[NSString localizeString:@"Setting"]];
+            [appDelegate loadDataForList];
+            break;
+        }
         case 3:
             if (row==0) {
                 [self gotoChooseCity];

@@ -11,10 +11,14 @@
 "We'll never post anything to Facebook."="Không tự động đăng tin lên tường nhà bạn.";
 "LIKE"="THÍCH";
 "NOPE"="KHÔNG";
+"THÍCH"="THÍCH";
+"KHÔNG"="KHÔNG";
 "Edit Profile"="Chỉnh sửa thông tin";
+"Chỉnh sửa thông tin"="Chỉnh sửa thông tin";
 "Snapshot"="Tình Cờ";
 "Chat"="Trò Chuyện";
 "Mutual Matches"="Cùng Thích Nhau";
+"New Mutual Matches"="Cùng Thích Nhau Mới";
 "Setting"="Thiết Lập";
 "Logout"="Đăng Xuất";
 "coins"="xu";
@@ -59,3 +63,8 @@
 "Female"="Nữ";
 "Send"="Gửi";
 "Vietnamese"="Tiếng Việt";
+"English"="Tiếng Anh";
+"Tiếng Việt"="Tiếng Việt";
+"Tiếng Anh"="Tiếng Anh";
+"Done"="Đóng";
+"Đóng"="Đóng";

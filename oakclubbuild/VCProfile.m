@@ -223,10 +223,6 @@ static CGFloat padding_left = 5.0;
 }
 - (void)viewDidLoad
 {
-    [self.infoView localizeAllViews];
-    [self.interestsView localizeAllViews];
-    [self.mutualFriendsView localizeAllViews];
-    [self.profileView localizeAllViews];
     //show navigation bar
 //    [UIView beginAnimations:nil context:NULL];
 //    [UIView setAnimationDuration:1.0f]; //Animation duration in seconds
@@ -444,6 +440,11 @@ static CGFloat padding_left = 5.0;
 -(void) viewWillAppear:(BOOL)animated{
     [self.navigationController setNavigationBarHidden:YES];
 //    popoverShowing = NO;
+    [self.infoView localizeAllViews];
+    [self.interestsView localizeAllViews];
+    [self.mutualFriendsView localizeAllViews];
+    [self.profileView localizeAllViews];
+    [self.view localizeAllViews];
 }
 //- (void)viewWillDisappear:(BOOL)animated{
 //    [self.navigationController setNavigationBarHidden:NO];

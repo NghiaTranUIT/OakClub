@@ -189,8 +189,8 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
 #if ENABLE_DEMO
     self.simpleSnapShot = [self createNavigationByClass:@"VCSimpleSnapshot" AndHeaderName:[NSString localizeString:@"Snapshot"] andRightButton:@"VCChat" andIsStoryBoard:NO];
     //     self.snapShotSettings = [self.storyboard instantiateViewControllerWithIdentifier:@"SnapshotSettings"];
-    self.snapShotSettings = [self createNavigationByClass:@"VCSimpleSnapshotSetting" AndHeaderName:@"Settings" andRightButton:nil andIsStoryBoard:NO];
-    self.mutualMatches = [self createNavigationByClass:@"VCMutualMatch" AndHeaderName:@"Mutual Matches" andRightButton:nil andIsStoryBoard:NO];
+    self.snapShotSettings = [self createNavigationByClass:@"VCSimpleSnapshotSetting" AndHeaderName:[NSString localizeString:@"Setting"] andRightButton:nil andIsStoryBoard:NO];
+    self.mutualMatches = [self createNavigationByClass:@"VCMutualMatch" AndHeaderName:[NSString localizeString:@"Mutual Matches"] andRightButton:nil andIsStoryBoard:NO];
 #endif
     self.visitor = [self createNavigationByClass:@"VCVisitor" AndHeaderName:@"Visitors" andRightButton:nil andIsStoryBoard:NO];
     self.hangOut = [self createNavigationByClass:@"VCHangOut" AndHeaderName:@"Meet people around" andRightButton:@"HangoutSetting" andIsStoryBoard:YES];
@@ -882,8 +882,8 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
 -(void)loadDataForList{
     self.cityList = [[NSMutableDictionary alloc] init];
     [[NSUserDefaults standardUserDefaults] setObject:@"Never" forKey:@"key_EmailSetting"] ;
-    if(self.relationshipList != nil && [self.relationshipList count] > 0)
-        return;
+//    if(self.relationshipList != nil && [self.relationshipList count] > 0)
+//        return;
     AFHTTPClient *request = [[AFHTTPClient alloc] initWithOakClubAPI:DOMAIN];
      NSString* selectedLanguage =[[NSUserDefaults standardUserDefaults] stringForKey:key_appLanguage];
       NSDictionary *params  = [[NSDictionary alloc]initWithObjectsAndKeys:selectedLanguage, @"country", nil];
