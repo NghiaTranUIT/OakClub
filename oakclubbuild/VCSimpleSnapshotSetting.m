@@ -546,47 +546,49 @@ UITapGestureRecognizer *tap;
     }
     
     request = [[AFHTTPClient alloc] initWithOakClubAPI:DOMAIN];
-    NSString * s_isInterest= [self BoolToString:false];
-    NSString * s_isLikes= [self BoolToString:false];
-    NSString * s_isWork= [self BoolToString:false];
-    NSString * s_isSchool= [self BoolToString:false];
-    NSString * s_isNewPeople= [self BoolToString:snapshotObj.interested_new_people];
-    NSString * s_isFOF= [self BoolToString:snapshotObj.interested_friend_of_friends];
-    NSString * s_isFriend= [self BoolToString:snapshotObj.interested_friends];
+//    NSString * s_isInterest= [self BoolToString:false];
+//    NSString * s_isLikes= [self BoolToString:false];
+//    NSString * s_isWork= [self BoolToString:false];
+//    NSString * s_isSchool= [self BoolToString:false];
+    NSString * s_isNewPeople= snapshotObj.interested_new_people?@"1":@"0";
+    NSString * s_isFOF= snapshotObj.interested_friend_of_friends?@"1":@"0";
+    NSString * s_isFriend= snapshotObj.interested_friends?@"1":@"0";
     NSString *s_hereto = snapshotObj.purpose_of_search;
-    NSString *s_gender= snapshotObj.gender_of_search;
-    NSString *s_showFOF= [self BoolToString:false];
+    NSString *s_gender = snapshotObj.gender_of_search;
+    NSString *isMale = ([s_gender isEqualToString:value_All] || [s_gender isEqualToString:value_Male])?@"on":@"off";
+    NSString *isFemale = ([s_gender isEqualToString:value_All] || [s_gender isEqualToString:value_Female])?@"on":@"off";
+//    NSString *s_showFOF= [self BoolToString:false];
     //    NSString *s_fromAge = [NSString stringWithFormat:@"%i",fromAge];
 #if ENABLE_DEMO
     NSDictionary *params = [[NSDictionary alloc]initWithObjectsAndKeys:
-                            @"date",@"purpose_of_search",
-                            @"off",@"filter_female",
-                            @"on",@"filter_male",
-                            300,@"range",
-                            18,@"age_from",
-                            32,@"age_to",
-                            @"true",@"new_people",
-                            @"true",@"fof",
-                            @"108458769184495",@"location_id",
-                            @"true",@"friends",
+                            s_hereto,@"purpose_of_search",
+                            isFemale,@"filter_female",
+                            isMale,@"filter_male",
+                            [NSNumber numberWithInt:300],@"range",
+                            [NSNumber numberWithInt:fromAge],@"age_from",
+                            [NSNumber numberWithInt:toAge],@"age_to",
+                            s_isNewPeople,@"new_people",
+                            s_isFOF,@"fof",
+                            s_isFriend,@"friends",
+                            snapshotObj.location.ID,@"location_id",
                             nil];
 #else
     NSDictionary *params = [[NSDictionary alloc]initWithObjectsAndKeys:
-                            s_hereto,key_purpose_of_search,
-                            s_gender,key_gender_of_search,
-                            [NSString stringWithFormat:@"%i",i_range],key_range,
-                            [NSString stringWithFormat:@"%i",fromAge], key_age_from,
-                            [NSString stringWithFormat:@"%i",toAge], key_age_to,
-                            s_isNewPeople,key_new_people_status,
-                            s_isFOF,key_FOF_status,
-                            snapshotObj.location.ID,key_locationID,
-                            s_isInterest,key_is_interests,
-                            s_isLikes,key_is_likes,
-                            s_isWork,key_is_work,
-                            s_isSchool,key_is_school,
-                            s_showFOF,key_show_fof,
-                            @"",key_BlockList,
-                            @"",key_PriorityList,
+                            s_hereto,key_purpose_of_search, //
+                            s_gender,key_gender_of_search,  //
+                            [NSString stringWithFormat:@"%i",i_range],key_range,    //
+                            [NSString stringWithFormat:@"%i",fromAge], key_age_from,    //
+                            [NSString stringWithFormat:@"%i",toAge], key_age_to,    //
+                            s_isNewPeople,key_new_people_status,//
+                            s_isFOF,key_FOF_status, //
+                            snapshotObj.location.ID,key_locationID, //
+                            s_isInterest,key_is_interests,  //
+                            s_isLikes,key_is_likes, //
+                            s_isWork,key_is_work,   //
+                            s_isSchool,key_is_school,   //
+                            s_showFOF,key_show_fof, //
+                            @"",key_BlockList,  //
+                            @"",key_PriorityList,   //
                             nil];
 #endif
     
@@ -613,13 +615,13 @@ UITapGestureRecognizer *tap;
         NSLog(@"Error Code: %i - %@",[error code], [error localizedDescription]);
     }];
 #if ENABLE_DEMO
-    UIAlertView *alert = [[UIAlertView alloc]
-                          initWithTitle:@"Warning"
-                          message:@"The new settings will take effect within one day."
-                          delegate:self
-                          cancelButtonTitle:@"OK"
-                          otherButtonTitles:nil];
-    [alert show];
+//    UIAlertView *alert = [[UIAlertView alloc]
+//                          initWithTitle:@"Warning"
+//                          message:@"The new settings will take effect within one day."
+//                          delegate:self
+//                          cancelButtonTitle:@"OK"
+//                          otherButtonTitles:nil];
+//    [alert show];
 #endif
 }
 
