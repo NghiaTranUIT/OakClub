@@ -20,6 +20,7 @@
 #import "HistoryMessage.h"
 #import "Profile.h"
 
+#import "NSString+Utils.h"
 // Log levels: off, error, warn, info, verbose
 #if DEBUG
 static const int ddLogLevel = LOG_LEVEL_VERBOSE;
@@ -47,9 +48,7 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
 int cellCountinSection=0;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
-    NSString* path= [[NSBundle mainBundle] pathForResource:@"vi" ofType:@"lproj"];
-    NSBundle* languageBundle = [NSBundle bundleWithPath:path];
-    self = [super initWithNibName:nibNameOrNil bundle:languageBundle];
+    self = [super initWithNibName:nibNameOrNil bundle:[appDel languageBundle]];
     if (self) {
         // Custom initialization
         appDel = (AppDelegate *) [UIApplication sharedApplication].delegate;
@@ -266,6 +265,14 @@ int cellCountinSection=0;
 	[super viewWillAppear:animated];
     fetchedResultsController = nil;
     [self.navigationController setNavigationBarHidden:YES];
+    NSString* title_1 = [NSString localizeString:@"Matches"];
+    NSString* title_2 = [NSString localizeString:@"Non Matches"];
+    NSString* title_3 = [NSString localizeString:@"All"];
+    NSString* searchText =[NSString localizeString:@"Search"];
+    [self.searchBar setScopeButtonTitles:[NSArray arrayWithObjects:title_1,title_2,title_3,nil]];
+    [self.searchBar setText:searchText];
+    [self.searchBar setShowsCancelButton:NO];
+    [self.searchBar setShowsSearchResultsButton:NO];
     /*
 	UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 400, 44)];
 	titleLabel.backgroundColor = [UIColor clearColor];

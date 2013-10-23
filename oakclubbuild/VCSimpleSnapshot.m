@@ -153,16 +153,35 @@ CGFloat pageHeight;
             [Profile getAvatarSync:profile.s_Avatar
                           callback:^(UIImage *image)
              {
-//                 UIImageView *imageView = [[UIImageView alloc]initWithImage:image];
-//                 CGRect frame = self.sv_photos.frame;
-//                 frame.origin.x = CGRectGetWidth(frame);
-//                 frame.origin.y = 0;
-//                 imageView.frame = frame;
-//                 [imageView setContentMode:UIViewContentModeScaleAspectFit];
-//                 [self.imgMainProfile setImage:image];
                  [profile.arr_photos replaceObjectAtIndex:0 withObject:image];
              }];
             [operation start];
+            if(profile.numberMutualFriends == -1)
+            {
+                NSDictionary *params = [[NSDictionary alloc]initWithObjectsAndKeys:profile.s_ID,@"str_profile_id", nil];
+                
+                AFHTTPClient *request = [[AFHTTPClient alloc] initWithOakClubAPI:DOMAIN];
+                [request getPath:URL_getMutualInfo parameters:params success:^(__unused AFHTTPRequestOperation *operation, id JSON) {
+                    
+                    NSError *e=nil;
+                    NSMutableDictionary *dict = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONReadingMutableContainers error:&e];
+                    NSMutableDictionary * data= [dict valueForKey:key_data];
+                    if(data != nil)
+                    {
+                        NSMutableDictionary * friendData= [data valueForKey:profile.s_ID];
+                        
+                        if(friendData != nil)
+                        {
+                            profile.numberMutualFriends = [[friendData valueForKey:@"mutualFriend"] intValue];
+                            
+                        }
+                    }
+                    
+                    
+                } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                    NSLog(@"Error Code: %i - %@",[error code], [error localizedDescription]);
+                }];
+            }
         }
         if(handler != nil)
             handler();

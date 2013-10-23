@@ -595,7 +595,7 @@ CLLocationManager *locationManager;
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 60;
+    return 44;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -627,7 +627,7 @@ CLLocationManager *locationManager;
             if (autoLocationCell == nil)
             {
                 autoLocationCell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:AutoLocationID];
-                
+                autoLocationCell.textLabel.text = [NSString localizeString:@"Auto location"] ;
                 autoLocationCell.selectionStyle = UITableViewCellSelectionStyleNone;
                 UISwitch *autoSwitch = [[UISwitch alloc] init];
                 [autoSwitch addTarget:self action:@selector(switchAutoUpdateLocation:) forControlEvents:UIControlEventValueChanged];
@@ -635,7 +635,9 @@ CLLocationManager *locationManager;
                 autoSwitch.tag = 100;
                 [autoLocationCell.contentView addSubview:autoSwitch];
             }
+            else
             {
+                autoLocationCell.textLabel.text = [NSString localizeString:@"Auto location"] ;
                 UISwitch *autoSwitch = (id) [autoLocationCell viewWithTag:100];
                 autoSwitch.on = [[[profileItemList objectAtIndex:indexPath.row] valueForKey:@"value"] isEqualToString:@"YES"];
                 if (autoSwitch.on)
@@ -643,7 +645,7 @@ CLLocationManager *locationManager;
                     [self tryUpdateLocation];
                 }
             }
-            autoLocationCell.textLabel.text = [NSString localizeString:@"Auto location"] ;
+            
             return autoLocationCell;
         }
             break;

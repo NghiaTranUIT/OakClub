@@ -846,7 +846,6 @@
 		CD8B46FF18169CD200A272B7 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/VCSimpleSnapshot.xib; sourceTree = "<group>"; };
 		CD8B47031816B82F00A272B7 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/menuViewController.xib; sourceTree = "<group>"; };
 		CD8B47081816B91D00A272B7 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/VCChat.xib; sourceTree = "<group>"; };
-		CD8B470A1816B92200A272B7 /* vi */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = vi; path = vi.lproj/VCChat.xib; sourceTree = "<group>"; };
 		CDBD3F1917744A69000B2FC8 /* UTM Nokia Standard Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "UTM Nokia Standard Bold.ttf"; sourceTree = "<group>"; };
 		CDBF8DBB1817165000CDBCF7 /* UIView+Localize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Localize.h"; sourceTree = "<group>"; };
 		CDBF8DBC1817165000CDBCF7 /* UIView+Localize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Localize.m"; sourceTree = "<group>"; };
@@ -3898,7 +3897,6 @@
 			isa = PBXVariantGroup;
 			children = (
 				CD8B47081816B91D00A272B7 /* en */,
-				CD8B470A1816B92200A272B7 /* vi */,
 			);
 			name = VCChat.xib;
 			sourceTree = "<group>";
