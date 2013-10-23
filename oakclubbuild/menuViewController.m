@@ -12,7 +12,9 @@
 #import "Define.h"
 #import "UIView+Localize.h"
 #import "NSString+Utils.h"
-@interface menuViewController () {
+
+@interface menuViewController () <ImageRequester>
+{
     AppDelegate *appDel;
     
 }
@@ -61,8 +63,15 @@
 
 -(void) setUIInfo:(Profile*)profile{
     username = profile.s_Name;
-    numPoints = [NSString stringWithFormat:@"%@ %@", [profile.num_points stringValue],[NSString localizeString:@"coins"]];
-    [self downloadAvatarImage:profile.s_Avatar ];
+    numPoints = [NSString stringWithFormat:@"%@ coins", [profile.num_points stringValue]];
+    //[self downloadAvatarImage:profile.s_Avatar ];
+    [profile tryGetImageAsync:self];
+}
+
+-(void)setImage:(UIImage *)img
+{
+    imageAvatar = img;
+    [self.avatar setImage:img];
 }
 
 -(void) downloadAvatarImage:(NSString*)link{
@@ -110,6 +119,9 @@
     self.numCoins.text =  numPoints;
     [self.view localizeAllViews];
     [tableView reloadData];
+    
+    Profile *myProfile = ((AppDelegate *) [UIApplication sharedApplication].delegate).myProfile;
+    [self.avatar setImage:myProfile.img_Avatar];
 }
 - (void)didReceiveMemoryWarning
 {

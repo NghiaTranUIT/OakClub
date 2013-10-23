@@ -17,10 +17,18 @@
 #import "WorkCate.h"
 #import "RelationShip.h"
 #import "Gender.h"
+
+@protocol ImageRequester <NSObject>
+
+-(void)setImage:(UIImage *)img;
+
+@end
+
 @interface Profile : NSObject <NSCopying> {
     NSString *s_Name; // name of profile. < 20 characters
     NSString *s_ID; // profile ID.
     NSString *s_Avatar; // image link.
+    UIImage *img_Avatar; //avatar image
     NSString *s_ProfileStatus; // "Online".
     int i_Points; // points of profile.
     NSString * s_FB_id; // Facebook ID
@@ -67,7 +75,8 @@
 @property (strong, nonatomic) NSString *s_Name;
 @property (strong, nonatomic) NSString *s_Email;
 @property (strong, nonatomic) NSString *s_ID; 
-@property (strong, nonatomic) NSString *s_Avatar; 
+@property (strong, nonatomic) NSString *s_Avatar;
+@property (strong, nonatomic) UIImage *img_Avatar;
 @property (strong, nonatomic) NSString *s_ProfileStatus;
 @property (strong, nonatomic) NSString *s_birthdayDate;
 @property (strong, nonatomic) NSString *s_age;
@@ -128,4 +137,8 @@
 -(int) countTotalNotifications;
 
 -(void)loadPhotosByProfile:(void(^)(NSMutableArray*))handler;
+
+-(void)tryGetImageAsync:(id<ImageRequester>)requester;
+-(void)trySetImageSync:(UIImage *)img;
+-(void)dispatchAvatar;
 @end

@@ -9,22 +9,41 @@
 #import "Profile.h"
 #import "NSString+Utils.h"
 
+@interface Profile()
+{
+    NSMutableArray *requester;
+}
+//@property (strong, nonatomic) NSString *s_Avatar;
+//@property (weak, nonatomic) UIImage *img_Avatar;
+@end
+
 @implementation Profile
 
-@synthesize s_Name, s_Avatar, i_Points, s_ProfileStatus, s_FB_id, s_ID, dic_Roster,num_Photos, s_gender, num_points, num_unreadMessage, s_passwordXMPP, s_usenameXMPP, arr_photos, s_aboutMe, s_birthdayDate, s_interested,a_language, s_location,s_relationShip, s_ethnicity, s_age, s_meetType, s_popularity, s_interestedStatus, s_snapshotID, a_favorites, s_user_id,s_school,i_work, i_height,i_weight, numberMutualFriends;
+@synthesize s_Name, img_Avatar, i_Points, s_ProfileStatus, s_FB_id, s_ID, dic_Roster,num_Photos, s_gender, num_points, num_unreadMessage, s_passwordXMPP, s_usenameXMPP, arr_photos, s_aboutMe, s_birthdayDate, s_interested,a_language, s_location,s_relationShip, s_ethnicity, s_age, s_meetType, s_popularity, s_interestedStatus, s_snapshotID, a_favorites, s_user_id,s_school,i_work, i_height,i_weight, numberMutualFriends, new_gifts, s_Email;
 @synthesize is_deleted;
 @synthesize is_blocked;
 @synthesize is_available;
 @synthesize is_newMutualMatch;
 @synthesize unread_message;
-
+@synthesize s_Avatar = _s_avatar;
 
 -(id)init {
     self = [super init];
     self.i_weight=0;
     self.i_height=0;
+    self.img_Avatar = [[UIImage alloc] init];
     return self;
 }
+
+-(void)setS_Avatar:(NSString *)avatar
+{
+    if (![avatar isEqualToString:_s_avatar])
+    {
+        _s_avatar = avatar;
+        [self downloadAvatarImage];
+    }
+}
+
 -(Profile*) parseProfile:(NSString *)responeString{
     Profile *_profile = [[Profile alloc] init];
     NSData *jsonData = [responeString dataUsingEncoding:NSUTF8StringEncoding];
@@ -692,6 +711,7 @@
 -(id) copyWithZone: (NSZone *) zone
 {
     Profile *accountCopy = [[Profile allocWithZone: zone] init];
+    accountCopy.img_Avatar = img_Avatar;
     accountCopy.s_ID = [s_ID copyWithZone:zone];
     accountCopy.s_school = [s_school copyWithZone:zone];
     accountCopy.s_Name = [s_Name copyWithZone:zone];
@@ -786,7 +806,47 @@
             }
         }
     }
-    
 }
 
+-(void)downloadAvatarImage
+{
+    AFHTTPRequestOperation* operation = [Profile getAvatarSync:self.s_Avatar callback:^(UIImage *avatar)
+    {
+        self.img_Avatar = avatar;
+        
+        [self dispatchAvatar];
+    }];
+    [operation start];
+}
+
+-(void)tryGetImageAsync:(id<ImageRequester>)_requester
+{
+    if (self.img_Avatar == nil)
+    {
+        if (!requester)
+        {
+            requester = [[NSMutableArray alloc] init];
+        }
+        
+        [requester addObject:_requester];
+    }
+    else
+    {
+        [_requester setImage:self.img_Avatar];
+    }
+}
+
+-(void)trySetImageSync:(UIImage *)img
+{
+    self.img_Avatar = img;
+    [self dispatchAvatar];
+}
+
+-(void)dispatchAvatar
+{
+    for (id<ImageRequester> _requester in requester)
+    {
+        [_requester setImage:self.img_Avatar];
+    }
+}
 @end

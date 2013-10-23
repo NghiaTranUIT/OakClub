@@ -233,7 +233,6 @@
 		CDC492BD1702CEAB00E83DE3 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CDC4929E1702CEAB00E83DE3 /* Foundation.framework */; };
 		CDC492C51702CEAB00E83DE3 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = CDC492C31702CEAB00E83DE3 /* InfoPlist.strings */; };
 		CDC492C81702CEAB00E83DE3 /* oakclubbuildTests.m in Sources */ = {isa = PBXBuildFile; fileRef = CDC492C71702CEAB00E83DE3 /* oakclubbuildTests.m */; };
-		CDC492E21702CF0D00E83DE3 /* action-eating.png in Resources */ = {isa = PBXBuildFile; fileRef = CDC492D61702CF0D00E83DE3 /* action-eating.png */; };
 		CDC492E31702CF0D00E83DE3 /* action-location.png in Resources */ = {isa = PBXBuildFile; fileRef = CDC492D71702CF0D00E83DE3 /* action-location.png */; };
 		CDC492E41702CF0D00E83DE3 /* action-people.png in Resources */ = {isa = PBXBuildFile; fileRef = CDC492D81702CF0D00E83DE3 /* action-people.png */; };
 		CDC492EB1702CF7100E83DE3 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CDC492EA1702CF7100E83DE3 /* FacebookSDK.framework */; };
@@ -868,7 +867,6 @@
 		CDC492C41702CEAB00E83DE3 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		CDC492C61702CEAB00E83DE3 /* oakclubbuildTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = oakclubbuildTests.h; sourceTree = "<group>"; };
 		CDC492C71702CEAB00E83DE3 /* oakclubbuildTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = oakclubbuildTests.m; sourceTree = "<group>"; };
-		CDC492D61702CF0D00E83DE3 /* action-eating.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "action-eating.png"; sourceTree = "<group>"; };
 		CDC492D71702CF0D00E83DE3 /* action-location.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "action-location.png"; sourceTree = "<group>"; };
 		CDC492D81702CF0D00E83DE3 /* action-people.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "action-people.png"; sourceTree = "<group>"; };
 		CDC492EA1702CF7100E83DE3 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FacebookSDK.framework; path = oakclubbuild/FacebookSDK.framework; sourceTree = "<group>"; };
@@ -2128,7 +2126,6 @@
 				CD252DBF177C4B66004145A4 /* Nearnow */,
 				CD060B22177318EF006AB41E /* NearNowSetting */,
 				CDD98225170EBEDD00F6BF46 /* Hangout */,
-				CDC492D61702CF0D00E83DE3 /* action-eating.png */,
 				CDC492D71702CF0D00E83DE3 /* action-location.png */,
 				CDC492D81702CF0D00E83DE3 /* action-people.png */,
 			);
@@ -3261,7 +3258,6 @@
 				CD18AB0517F2E01300A1C7E8 /* btn-info@2x.png in Resources */,
 				CDE5DB471807E8AD00A96D78 /* match-frame@2x.png in Resources */,
 				CDC492B31702CEAB00E83DE3 /* Default-568h@2x.png in Resources */,
-				CDC492E21702CF0D00E83DE3 /* action-eating.png in Resources */,
 				CDC492E31702CF0D00E83DE3 /* action-location.png in Resources */,
 				CDC492E41702CF0D00E83DE3 /* action-people.png in Resources */,
 				CDC492ED1702CF8700E83DE3 /* FacebookSDKResources.bundle in Resources */,

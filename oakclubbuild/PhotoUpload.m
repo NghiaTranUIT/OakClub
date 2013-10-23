@@ -7,89 +7,78 @@
 //
 
 #import "PhotoUpload.h"
-#import "Define.h"
-#import "AFHTTPClient+OakClub.h"
-#import "AFHTTPRequestOperation.h"
+#import "AppDelegate.h"
 
 @interface PhotoUpload() <UIAlertViewDelegate>
-
+{
+    UIImage *photo;
+    NSString *name;
+    BOOL isAvatar;
+}
 @end
 
 @implementation PhotoUpload
-UIImage *photo;
-NSString *name;
 
 @synthesize delegate;
 
--(id)initWithPhoto:(UIImage *)_photo andName:(NSString *)photoName
+-(id)initWithPhoto:(UIImage *)_photo andName:(NSString *)photoName isAvatar:(BOOL)_isAvatar
 {
     if (self = [super init])
     {
         photo = _photo;
         name = photoName;
+        isAvatar = _isAvatar;
     }
     
     return self;
 }
 
--(void)uploadPhoto
+-(void)uploadPhotoWithCompletion:(void(^)(NSString *))completionHandler
 {
-//    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Upload photo"
-//                                                        message:@"Do you want to set this photo as avatar"
-//                                                       delegate:self
-//                                              cancelButtonTitle:@"Yes"
-//                                              otherButtonTitles:@"No", nil];
-//    [alertView show];
-    
-    [self sendPhoto];
-}
-
-#define URL_uploadPhoto @"service/uploadPhotoUser"
-
-- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
-{
-    if (buttonIndex == 0)
-    {
-        [self sendPhoto];
-    }
-    else
-    {
-        
-    }
-}
-
--(void)sendPhoto
-{
+    //NSData *imgData = UIImageJPEGRepresentation([UIImage imageNamed:@"minus_sign"], 0.4);
     NSData *imgData = UIImagePNGRepresentation(photo);
-    NSLog(@"Encoding: %@", [imgData base64Encoding]);
-    NSString *imgFileName = [NSString stringWithFormat:@"%@%@",name,@".png"];
-    
     AFHTTPClient *client= [[AFHTTPClient alloc] initWithOakClubAPI:DOMAIN];
+    [client setParameterEncoding:AFFormURLParameterEncoding];
+    [client registerHTTPOperationClass:[AFHTTPRequestOperation class]];
     
-    NSMutableURLRequest *myRequest = [client multipartFormRequestWithMethod:@"POST" path:URL_uploadPhoto
-                                                                 parameters:nil constructingBodyWithBlock: ^(id <AFMultipartFormData>formData) {
-                                                                     [formData appendPartWithFileData:imgData name:name fileName:imgFileName mimeType:@"images/png"];
-                                                                 }];
-    
-    NSLog(@"UPLOAD PHOTO HEADER: %@", [myRequest allHTTPHeaderFields]);
-    NSLog(@"request {%@} {%@}", [myRequest HTTPMethod], [myRequest description]);
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] initWithObjectsAndKeys:@"images/png", @"mime_type", [imgData base64Encoding], @"uploadedfile", nil];
+    if (isAvatar)
+    {
+        [params setObject:[NSNumber numberWithBool:isAvatar] forKey:@"is_avatar"];
+    }
+    NSMutableURLRequest *myRequest = [client requestWithMethod:@"POST" path:URL_uploadPhoto parameters:params];
     
     AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:myRequest];
-    [operation setUploadProgressBlock:^(NSUInteger bytesWritten, long long totalBytesWritten, long long totalBytesExpectedToWrite) {
-        
-        NSLog(@"UPLOAD PHOTO: Sent %lld of %lld bytes", totalBytesWritten, totalBytesExpectedToWrite);
-    }];
-    
     [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *op, id JSON)
      {
          NSError *e;
          NSMutableDictionary *dict = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONReadingMutableContainers error:&e];
          NSLog(@"Send image completed; return %@\n%@", [JSON base64Encoding], dict); //Lets us know the result including failures
-     }failure:^(AFHTTPRequestOperation *op, NSError *err){
+         NSDictionary *data = [dict objectForKey:key_data];
+         NSString *link = [data objectForKey:@"file"];
          
+         
+         if (completionHandler)
+         {
+             completionHandler(link);
+         }
+     }failure:^(AFHTTPRequestOperation *op, NSError *err)
+     {
+         NSLog(@"Upload photo error: %@", err);
      }];
     
-    NSOperationQueue *queue = [[NSOperationQueue alloc] init];
-    [queue addOperation:operation];
+    [operation start];
+}
+
+- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == 0)
+    {
+        //[self sendPhoto];
+    }
+    else
+    {
+        
+    }
 }
 @end
