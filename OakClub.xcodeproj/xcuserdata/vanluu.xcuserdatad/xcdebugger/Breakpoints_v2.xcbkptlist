@@ -409,12 +409,12 @@
                   symbolName = "-[Profile loadPhotosByProfile:]"
                   moduleName = "OakClub"
                   urlString = "file://localhost/1_Projects/GlassEgg/Git/OakClub/oakclubbuild/Profile.m"
-                  timestampString = "404203298.122466"
+                  timestampString = "404208282.121812"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "746"
                   endingLineNumber = "746"
-                  offsetFromSymbolStart = "40">
+                  offsetFromSymbolStart = "65">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
@@ -423,12 +423,12 @@
                   symbolName = "-[Profile loadPhotosByProfile:]"
                   moduleName = "OakClub"
                   urlString = "file://localhost/1_Projects/GlassEgg/Git/OakClub/oakclubbuild/Profile.m"
-                  timestampString = "404203298.122885"
+                  timestampString = "404208282.122049"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "746"
                   endingLineNumber = "746"
-                  offsetFromSymbolStart = "1444">
+                  offsetFromSymbolStart = "1447">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -472,11 +472,27 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "oakclubbuild/VCSimpleSnapshotSetting.m"
-            timestampString = "404201905.546895"
+            timestampString = "404207846.812055"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "593"
-            endingLineNumber = "593"
+            startingLineNumber = "595"
+            endingLineNumber = "595"
+            landmarkName = "-saveSetting"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "oakclubbuild/VCSimpleSnapshotSetting.m"
+            timestampString = "404207846.812055"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "563"
+            endingLineNumber = "563"
             landmarkName = "-saveSetting"
             landmarkType = "5">
          </BreakpointContent>

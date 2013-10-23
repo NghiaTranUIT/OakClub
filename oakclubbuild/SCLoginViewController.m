@@ -229,7 +229,10 @@
 
 #pragma mark Language
 -(void) showMenuLanguage{
-    if([[NSUserDefaults standardUserDefaults] objectForKey:key_language] != nil){
+    NSString* language = [[NSUserDefaults standardUserDefaults] objectForKey:key_appLanguage];
+    if(language != nil){
+        [appDelegate updateLanguageBundle];
+        [self.view localizeAllViews];
         [appDelegate loadAllViewControllers];
         return;
     }
@@ -255,6 +258,7 @@
     if([title isEqualToString:@"Vietnamese"])
     {
         [[NSUserDefaults standardUserDefaults] setObject:value_appLanguage_VI forKey:key_appLanguage];
+        [[NSUserDefaults standardUserDefaults] synchronize];
 //        NSString* selectedLanguage =[[NSUserDefaults standardUserDefaults] stringForKey:key_appLanguage];
         [appDelegate updateLanguageBundle];
         NSString* str=[appDelegate.languageBundle localizedStringForKey:@"was selected" value:@"" table:nil];
@@ -263,6 +267,7 @@
     else if([title isEqualToString:@"English"])
     {
         [[NSUserDefaults standardUserDefaults] setObject:value_appLanguage_EN forKey:key_appLanguage];
+        [[NSUserDefaults standardUserDefaults] synchronize];
         [appDelegate updateLanguageBundle];
         NSString* str=[appDelegate.languageBundle localizedStringForKey:@"was selected" value:@"" table:nil];
         NSLog(@"English %@",str);

@@ -339,9 +339,11 @@ UITapGestureRecognizer *tap;
             AppDelegate *appDelegate = (AppDelegate *) [UIApplication sharedApplication].delegate;
             if(row == 0){
                 [[NSUserDefaults standardUserDefaults] setObject:value_appLanguage_VI forKey:key_appLanguage];
+                [[NSUserDefaults standardUserDefaults] synchronize];
             }
             if(row == 1){
                 [[NSUserDefaults standardUserDefaults] setObject:value_appLanguage_EN forKey:key_appLanguage];
+                [[NSUserDefaults standardUserDefaults] synchronize];
             }
             [appDelegate updateLanguageBundle];
             [tableView reloadData];
@@ -562,9 +564,9 @@ UITapGestureRecognizer *tap;
                             @"date",@"purpose_of_search",
                             @"off",@"filter_female",
                             @"on",@"filter_male",
-                            300,@"range",
-                            18,@"age_from",
-                            32,@"age_to",
+                            @"300",@"range",
+                            @"18",@"age_from",
+                            @"32",@"age_to",
                             @"true",@"new_people",
                             @"true",@"fof",
                             @"108458769184495",@"location_id",
