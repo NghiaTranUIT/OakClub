@@ -58,7 +58,6 @@
     NavBarOakClub *navBar = (NavBarOakClub *) self.navigationBar;
     if(viewController == self.viewControllers[0]) {
         navBar.customView.hidden = NO;
-        
     }
 }
 
