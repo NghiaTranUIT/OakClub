@@ -18,6 +18,7 @@
 #import "WordWarpParse.h"
 #import "ChatEmoticon.h"
 #import "HistoryMessage+init.h"
+#import "VCSimpleSnapshot.h"
 
 @interface SMChatViewController() <ImageRequester>
 
@@ -756,6 +757,35 @@ NSMutableArray *cellHeight;
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
     return 0;
+}
+
+-(void)backToPreviousView{
+#if ENABLE_DEMO
+    AppDelegate *appDel = (AppDelegate *) [UIApplication sharedApplication].delegate;
+    UINavigationController* activeVC = [appDel activeViewController];
+    UIViewController* vc = [activeVC.viewControllers objectAtIndex:0];
+    if(![vc isKindOfClass:[VCSimpleSnapshot class]] )
+    {
+        [self.navigationController popViewControllerAnimated:YES];
+        [appDel.rootVC setFrontViewController:activeVC focusAfterChange:NO completion:^(BOOL finished) {
+        }];
+//        menuViewController *leftController = [[menuViewController alloc] init];
+//        [leftController setUIInfo:appDelegate.myProfile];
+//        [appDelegate.rootVC setRightViewController:appDelegate.chat];
+//        [appDelegate.rootVC setLeftViewController:leftController];
+//        appDelegate.window.rootViewController = appDelegate.rootVC;
+
+    }
+    else
+    {
+        [self.navigationController popViewControllerAnimated:YES];
+        [appDel.rootVC setFrontViewController:activeVC focusAfterChange:NO completion:^(BOOL finished) {
+        }];
+        [appDel.rootVC showViewController:appDel.chat];
+    }
+#else
+    [self.navigationController popViewControllerAnimated:YES];
+#endif
 }
 
 @end

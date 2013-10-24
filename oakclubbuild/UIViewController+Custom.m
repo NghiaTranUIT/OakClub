@@ -49,7 +49,8 @@
     {
         [self.navigationController popViewControllerAnimated:YES];
     }
-    else{
+    else
+    {
         [self.navigationController popViewControllerAnimated:YES];
         [appDel.rootVC setFrontViewController:activeVC focusAfterChange:NO completion:^(BOOL finished) {
         }];

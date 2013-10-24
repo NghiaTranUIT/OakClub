@@ -205,8 +205,8 @@
 
 -(void)setChatNotification:(int)num
 {
-    NSNumber* index = [nameIndex objectForKey:@"Chat"];
-    [self setNotificationValue:num atIndex:index];
+//    NSNumber* index = [nameIndex objectForKey:@"Chat"];
+//    [self setNotificationValue:num atIndex:index];
 }
 
 -(void)setVisitorsNotification:(int)num
@@ -255,15 +255,12 @@
             [appDel  showSimpleSnapshot];
             break;
         case 1:
-            [appDel  showChat];
-            break;
-        case 2:
             [appDel  showMutualMatches];
             break;
-        case 3:
+        case 2:
             [appDel  showSnapshotSettings];
             break;
-        case 4:
+        case 3:
             [appDel  logOut];
             break;
         default:
