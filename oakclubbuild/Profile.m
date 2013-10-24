@@ -351,6 +351,7 @@
     self.i_work.cate_id = [[data valueForKey:key_work] integerValue];
     self.i_weight =[[data valueForKey:key_weight] integerValue];
     self.i_height = [[data valueForKey:key_height] integerValue];
+    self.s_school = [data valueForKey:key_school];
     
     NSMutableDictionary *dict_Location = [data valueForKey:key_location];
     self.s_location = [[Location alloc] initWithNSDictionary:dict_Location];
@@ -677,6 +678,7 @@
     NSString *relationship = [NSString stringWithFormat:@"%i",self.s_relationShip.rel_status_id];
     NSString *height = [NSString stringWithFormat:@"%i",self.i_height];
     NSString *weight= [NSString stringWithFormat:@"%i",self.i_weight];
+    NSString *school = self.s_school;
     NSString *ethnicity = self.s_ethnicity;
     NSString *lang = [self.a_language componentsJoinedByString:@","];
     NSString *loc = [NSString stringWithFormat:@"%@",self.s_location.ID];
@@ -690,13 +692,13 @@
                                                                         relationship,@"relationship_status",//rel_status_id
                                                                         height,@"height",//100 < h <300
                                                                         weight,@"weight",//30 < w < 120
-                                                                        self.s_school,@"school",
+                                                                        school,@"school",
                                                                         ethnicity,@"ethnicity",// string value
                                                                         lang,@"language",
-                                                                        loc,@"location",//location_id
-                                                                        work,@"work",//cate_id
-                                                                        /*self.s_aboutMe*/self.s_aboutMe,@"about_me",//< 256 characters
+                                                                        loc,@"location_id",//location_id
+                                                                        work,@"work",//cate_idself.s_aboutMe,@"about_me",//< 256 characters
                                                                         nil];
+    NSLog(@"Set hangout profile params: %@", params);
     [httpClient getPath:URl_setHangoutProfile parameters:params success:^(__unused AFHTTPRequestOperation *operation, id JSON) {
         NSError *e=nil;
         NSMutableDictionary *dict = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONReadingMutableContainers error:&e];

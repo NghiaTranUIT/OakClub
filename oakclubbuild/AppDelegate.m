@@ -1005,7 +1005,7 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
             
             
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            NSLog(@"Error: %@", error);
+            NSLog(@"Get friend hangout profile error: %@", error);
         }];
         
         
