@@ -526,7 +526,19 @@ int cellCountinSection=0;
             bool v_isMatch = [[appDel.myProfile.dic_Roster valueForKey:jid] boolValue];
             if ([self isValidFriendWithMatch:v_isMatch])
             {
-                [friendChatIDs addObject:jid];
+                bool isContained = NO;
+                for (NSString *_jid in friendChatIDs)
+                {
+                    if ([_jid isEqualToString:jid])
+                    {
+                        isContained = YES;
+                        break;
+                    }
+                }
+                if (!isContained)
+                {
+                    [friendChatIDs addObject:jid];
+                }
             }
         }
         
