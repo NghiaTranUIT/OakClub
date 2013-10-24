@@ -61,6 +61,7 @@ CGFloat pageHeight;
     // load profile List
     currentIndex = 0;
     profileList = [[NSMutableArray alloc] init];
+    [loadingAnim setHidden:NO];
     [self loadProfileList:^(void){
         [self loadCurrentProfile];
         [self loadNextProfileByCurrentIndex];
@@ -122,7 +123,6 @@ CGFloat pageHeight;
         return;
     is_loadingProfileList = TRUE;
     [self startLoadingAnim];
-    [loadingAnim setHidden:NO];
     request = [[AFHTTPClient alloc] initWithOakClubAPI:DOMAIN];
     NSDictionary *params = [[NSDictionary alloc]initWithObjectsAndKeys:@"0",@"start",@"35",@"limit", nil];
     [request getPath:URL_getSnapShot parameters:params success:^(__unused AFHTTPRequestOperation *operation, id JSON)

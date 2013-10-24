@@ -409,29 +409,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "oakclubbuild/VCSimpleSnapshotSetting.m"
-            timestampString = "404207846.812055"
+            filePath = "oakclubbuild/XMPP-Chat/Classes/SMChatViewController.m"
+            timestampString = "404284511.450955"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "595"
-            endingLineNumber = "595"
-            landmarkName = "-saveSetting"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "oakclubbuild/VCSimpleSnapshotSetting.m"
-            timestampString = "404207846.812055"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "563"
-            endingLineNumber = "563"
-            landmarkName = "-saveSetting"
+            startingLineNumber = "526"
+            endingLineNumber = "526"
+            landmarkName = "-newMessageReceived:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

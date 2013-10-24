@@ -1,13 +1,13 @@
 <?php
 
 // Put your device token here (without spaces):
-$deviceToken = '76bf7f1b9f6c7c5b2d983cd80d0a4c53cfc04ce8880603097e62ac15309477d5';
+$deviceToken = 'a9130a668df3fe8aab6e36cda532dd80b2d1248b61ebdf06647e9c5287386b05';
 
 // Put your private key's passphrase here:
 $passphrase = '321123';
 
 // Put your alert message here:
-$message = 'Hello!';
+$message = 'how are u!';
 
 ////////////////////////////////////////////////////////////////////////////////
 
