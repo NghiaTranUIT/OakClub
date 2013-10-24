@@ -340,7 +340,8 @@ int cellCountinSection=0;
             [moc save:&contexterror];
         }];
         
-        if (contexterror) {
+        if (contexterror)
+        {
             // handle the error.
             NSLog(@"Error on NSManagedObjectContext");
         }
@@ -360,10 +361,10 @@ int cellCountinSection=0;
 		[fetchRequest setFetchBatchSize:10];
 		
         //searchResult is a NSString
-        if(self.searchResult != nil){
-            NSPredicate *predicate = [NSPredicate predicateWithFormat:@"displayName CONTAINS[cd] %@",self.searchResult];
-            [fetchRequest setPredicate:predicate];
-        }
+//        if(self.searchResult != nil){
+//            NSPredicate *predicate = [NSPredicate predicateWithFormat:@"displayName CONTAINS[cd] %@",self.searchResult];
+//            [fetchRequest setPredicate:predicate];
+//        }
 		fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest
 		                                                               managedObjectContext:moc
 		                                                                 sectionNameKeyPath:@"sectionNum"
@@ -509,18 +510,19 @@ int cellCountinSection=0;
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)sectionIndex
 {
     friendChatIDs = [[NSMutableArray alloc] init];
+    
     NSArray *sections = [[self fetchedResultsController] sections];
-	
-	if (sectionIndex < [sections count])
-	{
-		id <NSFetchedResultsSectionInfo> sectionInfo = [sections objectAtIndex:sectionIndex];
+    for (int i = 0; i < [sections count]; ++i)
+    {
+		id <NSFetchedResultsSectionInfo> sectionInfo = [sections objectAtIndex:i];
         
-        for (int i = 0; i < sectionInfo.numberOfObjects; ++i)
+        NSLog(@"Number of objects: %d in section %d", sectionInfo.numberOfObjects, i);
+            
+        for (int j = 0; j < sectionInfo.numberOfObjects; ++j)
         {
-            XMPPUserCoreDataStorageObject *user = [[self fetchedResultsController] objectAtIndexPath:[NSIndexPath indexPathForRow:i inSection:sectionIndex]];
+            XMPPUserCoreDataStorageObject *user = [[self fetchedResultsController] objectAtIndexPath:[NSIndexPath indexPathForRow:j inSection:i]];
             XMPPJID* xmpp_jid = [user jid];
             NSString* jid = [xmpp_jid user];//[NSString stringWithFormat:@"%@@%@", [xmpp_jid user], [xmpp_jid domain]];
-            NSLog(@"%@", appDel.myProfile.dic_Roster);
             bool v_isMatch = [[appDel.myProfile.dic_Roster valueForKey:jid] boolValue];
             if ([self isValidFriendWithMatch:v_isMatch])
             {
@@ -528,10 +530,9 @@ int cellCountinSection=0;
             }
         }
         
-		return friendChatIDs.count;
-	}
-    return 0;
-     
+    }
+    
+    return friendChatIDs.count;
 }
 
 - (BOOL) isValidFriendWithMatch:(BOOL)isMatch
