@@ -908,25 +908,7 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
 
 
 }
-#if ENABLE_DEMO
--(void)loadLikeMeList{
-    self.likedMeList = [[NSArray alloc] init];
-    AFHTTPClient *request = [[AFHTTPClient alloc] initWithOakClubAPI:DOMAIN];
-    
-    [request getPath:URL_getListWhoLikeMe parameters:nil success:^(__unused AFHTTPRequestOperation *operation, id JSON)
-     {
-         NSError *e=nil;
-         NSMutableDictionary *dict = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONReadingMutableContainers error:&e];
-         self.likedMeList= [dict valueForKey:key_data];
-         
-     } failure:^(AFHTTPRequestOperation *operation, NSError *error)
-     {
-         NSLog(@"Error Code: %i - %@",[error code], [error localizedDescription]);
-     }];
-    
-//    self.likedMeList = [[NSArray alloc] initWithObjects:@"1lxx2uvvxk",@"1lxx8s7w83",@"1lxwqp7lql",@"1lxx4x6iv6",@"1lxx56o0ht",@"1lxx7aat12", nil];
-}
-#endif
+
 -(int)countTotalNotifications
 {
     return [self.myProfile countTotalNotifications];

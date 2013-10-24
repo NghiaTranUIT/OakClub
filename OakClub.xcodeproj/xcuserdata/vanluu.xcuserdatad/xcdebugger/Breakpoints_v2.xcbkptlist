@@ -409,13 +409,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "oakclubbuild/XMPP-Chat/Classes/SMChatViewController.m"
-            timestampString = "404284511.450955"
+            filePath = "oakclubbuild/VCSimpleSnapshot.m"
+            timestampString = "404299917.244041"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "526"
-            endingLineNumber = "526"
-            landmarkName = "-newMessageReceived:"
+            startingLineNumber = "842"
+            endingLineNumber = "842"
+            landmarkName = "-showMatchView"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

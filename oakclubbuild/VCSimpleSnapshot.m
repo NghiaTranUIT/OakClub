@@ -118,6 +118,29 @@ CGFloat pageHeight;
     
     [[self navBarOakClub] setNotifications:totalNotifications];
 }
+
+#if ENABLE_DEMO
+-(void)loadLikeMeList{
+    appDel.likedMeList = [[NSArray alloc] init];
+    /*
+     // get list from server
+     AFHTTPClient *request = [[AFHTTPClient alloc] initWithOakClubAPI:DOMAIN];
+     [request getPath:URL_getListWhoLikeMe parameters:nil success:^(__unused AFHTTPRequestOperation *operation, id JSON)
+     {
+     NSError *e=nil;
+     NSMutableDictionary *dict = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONReadingMutableContainers error:&e];
+     self.likedMeList= [dict valueForKey:key_data];
+     
+     } failure:^(AFHTTPRequestOperation *operation, NSError *error)
+     {
+     NSLog(@"Error Code: %i - %@",[error code], [error localizedDescription]);
+     }];
+     */
+    //test list
+    appDel.likedMeList = [[NSArray alloc] initWithObjects:@"1lxx1h4r1m",@"1lxx11ne6i",@"1lxx12vg5k",@"1lxx1e1oc6",@"1lxx1krg8a",@"1lxx1mtuh3", nil];
+}
+#endif
+
 -(void)loadProfileList:(void(^)(void))handler{
     if(is_loadingProfileList)
         return;
@@ -638,6 +661,10 @@ CGFloat pageHeight;
     [self.moveMeView localizeAllViews];
     [self.controlView localizeAllViews];
     [[self navBarOakClub] setHeaderName:[NSString localizeString:@"Snapshot"]];
+    
+    //load data
+    [self loadLikeMeList];
+    
 //    currentIndex = 0;
 //    currentIndex = [[[NSUserDefaults standardUserDefaults] objectForKey:@"snapshotIndex"] integerValue];
 //    if ([[NSUserDefaults standardUserDefaults] objectForKey:@"snapshotIndex"] == nil)
@@ -864,7 +891,7 @@ CGFloat pageHeight;
     NSDictionary *params = [[NSDictionary alloc]initWithObjectsAndKeys:currentProfile.s_snapshotID,@"snapshot_id",answerChoice,@"set", nil];
     NSString *value = [[NSUserDefaults standardUserDefaults] objectForKey:@"currentSnapShotID"];
     if ([answerChoice isEqualToString:@"1"]) {
-        if([appDel.likedMeList containsObject:value]){
+        if([appDel.likedMeList indexOfObject:value]){
             [self showMatchView];
         }
     }
