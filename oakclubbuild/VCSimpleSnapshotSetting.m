@@ -563,16 +563,16 @@ UITapGestureRecognizer *tap;
     //    NSString *s_fromAge = [NSString stringWithFormat:@"%i",fromAge];
 #if ENABLE_DEMO
     NSDictionary *params = [[NSDictionary alloc]initWithObjectsAndKeys:
-                            @"date",@"purpose_of_search",
-                            @"off",@"filter_female",
-                            @"on",@"filter_male",
-                            @"300",@"range",
-                            @"18",@"age_from",
-                            @"32",@"age_to",
-                            @"true",@"new_people",
-                            @"true",@"fof",
-                            @"108458769184495",@"location_id",
-                            @"true",@"friends",
+                            s_hereto,@"purpose_of_search",
+                            isFemale,@"filter_female",
+                            isMale,@"filter_male",
+                            [NSNumber numberWithInt:300],@"range",
+                            [NSNumber numberWithInt:fromAge],@"age_from",
+                            [NSNumber numberWithInt:toAge],@"age_to",
+                            s_isNewPeople,@"new_people",
+                            s_isFOF,@"fof",
+                            s_isFriend,@"friends",
+                            snapshotObj.location.ID,@"location_id",
                             nil];
 #else
     NSDictionary *params = [[NSDictionary alloc]initWithObjectsAndKeys:
