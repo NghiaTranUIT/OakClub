@@ -254,13 +254,13 @@
         case 0:
             [appDel  showSimpleSnapshot];
             break;
+//        case 1:
+//            [appDel  showMutualMatches];
+//            break;
         case 1:
-            [appDel  showMutualMatches];
-            break;
-        case 2:
             [appDel  showSnapshotSettings];
             break;
-        case 3:
+        case 2:
             [appDel  logOut];
             break;
         default:
