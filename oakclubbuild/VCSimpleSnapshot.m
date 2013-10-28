@@ -847,7 +847,6 @@ CGFloat pageHeight;
     }else{
         [imgMatcher setImage:imgMainProfile.image];
     }
-
 }
 - (IBAction)dismissMatchView:(id)sender {
     [matchViewController.view removeFromSuperview];
