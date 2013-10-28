@@ -21,6 +21,7 @@
     NSMutableDictionary* photos;
     BOOL is_loadingProfileList;
     UIImageView* loadingAnim;
+    BOOL reloadProfileList;
 }
 @property (nonatomic, strong) IBOutlet APLMoveMeView *moveMeView;
 @property (nonatomic, weak) IBOutlet UIView *profileView;
@@ -57,15 +58,9 @@ CGFloat pageHeight;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self downloadAvatarImage:appDel.myProfile.s_Avatar];
     // load profile List
-    currentIndex = 0;
-    profileList = [[NSMutableArray alloc] init];
-    [loadingAnim setHidden:NO];
-    [self loadProfileList:^(void){
-        [self loadCurrentProfile];
-        [self loadNextProfileByCurrentIndex];
-    }];
+    [self refreshSnapshot];
+    
     [self.view addSubview:self.moveMeView];
     self.moveMeView.frame = CGRectMake(0, 0, 320, 548);
     // Do any additional setup after loading the view from its nib.
@@ -86,7 +81,16 @@ CGFloat pageHeight;
     
 }
 
-
+-(void) refreshSnapshot{
+    currentIndex = 0;
+    profileList = [[NSMutableArray alloc] init];
+    [loadingAnim setHidden:NO];
+    [self loadProfileList:^(void){
+        [self.imgMyAvatar setImage:appDel.myProfile.img_Avatar];
+        [self loadCurrentProfile];
+        [self loadNextProfileByCurrentIndex];
+    }];
+}
 -(void)disableAllControl:(BOOL)value{
     [buttonYES setEnabled:!value];
     [buttonProfile setEnabled:!value];
@@ -122,7 +126,6 @@ CGFloat pageHeight;
 #if ENABLE_DEMO
 -(void)loadLikeMeList{
     appDel.likedMeList = [[NSArray alloc] init];
-    
      // get list from server
      AFHTTPClient *request = [[AFHTTPClient alloc] initWithOakClubAPI:DOMAIN];
      [request getPath:URL_getListWhoLikeMe parameters:nil success:^(__unused AFHTTPRequestOperation *operation, id JSON)
@@ -137,17 +140,20 @@ CGFloat pageHeight;
      }];
     
     //test list
-//    appDel.likedMeList = [[NSArray alloc] initWithObjects:@"1lxx1h4r1m",@"1lxx11ne6i",@"1lxx12vg5k",@"1lxx1e1oc6",@"1lxx1krg8a",@"1lxx1mtuh3", nil];
+//    appDel.likedMeList = [[NSArray alloc] initWithObjects:@"1lxx3glu7e",@"1lxx3wvhml",@"1lxx54u24n",@"1lxx3nhvut",@"1lxx48tf37",@"1lxx4qtd56", nil];
 }
 #endif
 
++(void) setReloadProfileList:(BOOL)flag{
+    
+}
 -(void)loadProfileList:(void(^)(void))handler{
     if(is_loadingProfileList)
         return;
     is_loadingProfileList = TRUE;
     [self startLoadingAnim];
     request = [[AFHTTPClient alloc] initWithOakClubAPI:DOMAIN];
-    NSDictionary *params = [[NSDictionary alloc]initWithObjectsAndKeys:@"0",@"start",@"35",@"limit", nil];
+    NSDictionary *params = [[NSDictionary alloc]initWithObjectsAndKeys:[[NSNumber alloc]initWithInt:currentIndex],@"start",@"35",@"limit", nil];
     [request getPath:URL_getSnapShot parameters:params success:^(__unused AFHTTPRequestOperation *operation, id JSON)
     {
         NSError *e=nil;
@@ -214,6 +220,7 @@ CGFloat pageHeight;
     }];
 }
 
+/*
 -(Profile*)loadPhotosByProfile:(Profile*)profile{
     for (int proIndex=0; proIndex < [profile.arr_photos count]; proIndex++) {
         if(![profile.arr_photos isKindOfClass:[UIImageView class]]) {
@@ -298,6 +305,8 @@ CGFloat pageHeight;
         
     }
 }
+ */
+
 -(void)loadNextProfileByCurrentIndex{
     if(currentIndex >= [profileList count])
     {
@@ -311,14 +320,7 @@ CGFloat pageHeight;
     request = [[AFHTTPClient alloc]initWithBaseURL:[NSURL URLWithString:@""]];
     [request getPath:temp.s_Avatar parameters:nil success:^(__unused AFHTTPRequestOperation *operation, id JSON) {
         UIImage *image = [UIImage imageWithData:JSON];
-//        UIImageView *imageView = [[UIImageView alloc]initWithImage:image];
         [self.imgNextProfile setImage:image];
-//        CGRect frame = self.sv_photos.frame;
-//        imageView.frame = self.sv_photos.frame;
-//        [imageView setContentMode:UIViewContentModeScaleAspectFit];
-//        [self.view addSubview:imageView];
-//        [self.view sendSubviewToBack:imageView];
-        
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Error Code: %i - %@",[error code], [error localizedDescription]);
     }];
@@ -359,7 +361,6 @@ CGFloat pageHeight;
         [self showWarning];
         return;
     }
-    self.sv_photos.contentSize = CGSizeMake(0, CGRectGetHeight(self.sv_photos.frame));
     currentProfile = [[Profile alloc]init];
     currentProfile = [profileList objectAtIndex:currentIndex];
     [[NSUserDefaults standardUserDefaults] setObject:currentProfile.s_ID forKey:@"currentSnapShotID"];
@@ -369,8 +370,6 @@ CGFloat pageHeight;
     [lblPhotoCount setText:[NSString stringWithFormat:@"%i",[currentProfile.arr_photos count]]];
     AFHTTPClient *requestMutual = [[AFHTTPClient alloc] initWithOakClubAPI:DOMAIN];
     NSDictionary *params = [[NSDictionary alloc]initWithObjectsAndKeys:currentProfile.s_ID,@"profile_id", nil];
-    // Vanancy: don't load all photos of profile and don't use scrollview for showing
-//    [self loadDataPhotoScrollView];
     if([currentProfile.arr_photos[0] isKindOfClass:[UIImage class]]){
         [self.imgMainProfile setImage:[currentProfile.arr_photos objectAtIndex:0]];
     }
@@ -404,8 +403,7 @@ CGFloat pageHeight;
              [imgMutualLike setHidden:NO];
          }
 //         [self loadDataForPhotos];
-         
-         
+   
      } failure:^(AFHTTPRequestOperation *operation, NSError *error)
      {
          NSLog(@"Error Code: %i - %@",[error code], [error localizedDescription]);
@@ -414,6 +412,7 @@ CGFloat pageHeight;
 //    [self loadNextProfileByIndex:currentIndex];
 }
 
+/*
 -(BOOL)loadCurrentProfile:(int)index{
     [self startLoadingAnim];
     if(currentIndex > MAX_FREE_SNAPSHOT)
@@ -546,7 +545,9 @@ CGFloat pageHeight;
         NSLog(@"Error Code: %i - %@",[error code], [error localizedDescription]);
     }];
 }
+*/
 
+/*
 -(void)loadDataForPhotos{
 //    NSUInteger numberPages = [currentProfile.arr_photos count];
 //    
@@ -562,6 +563,7 @@ CGFloat pageHeight;
 //    [self loadScrollViewWithPage:0];
 //    [self loadScrollViewWithPage:1];
 }
+
 -(void)loadScrollViewWithPage:(NSUInteger)pagenum{
     if (pagenum >= [currentProfile.arr_photos count])
         return;
@@ -656,6 +658,7 @@ CGFloat pageHeight;
 //    [self loadScrollViewWithPage:page + 1];
     
 }
+ */
 - (void) viewWillAppear:(BOOL)animated{
     [self.view addSubview:loadingAnim];
     [self.moveMeView localizeAllViews];
@@ -664,7 +667,11 @@ CGFloat pageHeight;
     
     //load data
     [self loadLikeMeList];
-    
+    //load profile list if needed
+    if(appDel.reloadSnapshot){
+        [self refreshSnapshot];
+        appDel.reloadSnapshot = FALSE;
+    }
 //    currentIndex = 0;
 //    currentIndex = [[[NSUserDefaults standardUserDefaults] objectForKey:@"snapshotIndex"] integerValue];
 //    if ([[NSUserDefaults standardUserDefaults] objectForKey:@"snapshotIndex"] == nil)
@@ -812,32 +819,7 @@ CGFloat pageHeight;
                          self.moveMeView.frame = CGRectMake(0, 0, 320, 548);
                      }];
 }
--(void) downloadAvatarImage:(NSString*)link{
-    AFHTTPClient *request;
-    if(![link isEqualToString:@""]){
-        if(!([link hasPrefix:@"http://"] || [link hasPrefix:@"https://"]))
-        {       // check if this is a valid link
-            request = [[AFHTTPClient alloc]initWithBaseURL:[NSURL URLWithString:DOMAIN_DATA]];
-            [request getPath:link parameters:nil success:^(__unused AFHTTPRequestOperation *operation, id JSON) {
-                UIImage *imageAvatar = [UIImage imageWithData:JSON];
-                //                [self.btnAvatar setBackgroundImage:imageAvatar forState:UIControlStateDisabled];
-                [self.imgMyAvatar setImage:imageAvatar];
-            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                NSLog(@"Error Code: %i - %@",[error code], [error localizedDescription]);
-            }];
-        }
-        else{
-            request = [[AFHTTPClient alloc]initWithBaseURL:[NSURL URLWithString:@""]];
-            [request getPath:link parameters:nil success:^(__unused AFHTTPRequestOperation *operation, id JSON) {
-                UIImage* imageAvatar = [UIImage imageWithData:JSON];
-                [self.imgMyAvatar setImage:imageAvatar];
-                //                [self.btnAvatar setBackgroundImage:imageAvatar forState:UIControlStateDisabled];
-            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                NSLog(@"Error Code: %i - %@",[error code], [error localizedDescription]);
-            }];
-        }
-    }
-}
+
 -(void)showMatchView{
     [self.view addSubview:matchViewController.view];
     [lblMatchAlert setText:[NSString stringWithFormat:@"You and %@ have liked each other!",currentProfile.s_Name]];
@@ -923,6 +905,8 @@ CGFloat pageHeight;
         //        [appDel showHangOut];
     }
 }
+
+/*
 -(void)backToPreviousProfile{
     if(currentIndex > 1){
         //increase currentIndex
@@ -947,6 +931,8 @@ CGFloat pageHeight;
         
     }
 }
+ */
+
 -(NSString*)formatTextWithName:(NSString*)name andAge:(NSString*)age{
     NSString* result;
     if([name length] > 10){

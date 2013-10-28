@@ -73,7 +73,7 @@
     imageAvatar = img;
     [self.avatar setImage:img];
 }
-
+/*
 -(void) downloadAvatarImage:(NSString*)link{
     AFHTTPClient *request;
     if(![link isEqualToString:@""]){
@@ -100,6 +100,7 @@
         }
     }
 }
+*/
 - (void)viewDidLoad
 {
     [super viewDidLoad];

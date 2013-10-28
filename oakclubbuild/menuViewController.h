@@ -33,7 +33,7 @@
 //- (IBAction)goToVisitor:(id)sender;
 //- (IBAction)logOut:(id)sender;
 //- (IBAction)goToHangOut:(id)sender;
-+(void) downloadAvatarImage:(NSString*)link;
+//+(void) downloadAvatarImage:(NSString*)link;
 
 
 -(void)setChatNotification:(int)n_messages;

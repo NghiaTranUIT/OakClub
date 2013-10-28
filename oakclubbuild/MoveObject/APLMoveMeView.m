@@ -73,7 +73,7 @@
 
 CGPoint startLocation;
 CGPoint centerPoint;
-int deltaMove = 2;
+int deltaMove = 20;
 int answerType = -1;
 BOOL isDragging = FALSE;
 -(void) addSubViewToCardView:(UIView*)subview{
@@ -129,48 +129,46 @@ BOOL isDragging = FALSE;
         CGFloat dx = location.x - startLocation.x;
         CGFloat dy = location.y - startLocation.y;
         NSLog(@"dx:%f - dy:%f",dx, dy);
-//        if(dx < (deltaMove*-1)){
+        if(dx < (deltaMove*-1)){
 //            [self.placardView setAlphaNOPEView:1];
-//            answerType = interestedStatusNO;
-//        }
-//        else{
-//            if(dx > deltaMove){
+            answerType = interestedStatusNO;
+        }
+        else{
+            if(dx > deltaMove){
 //                [self.placardView setAlphaLIKEView:1];
-//                answerType = interestedStatusYES;
-//            }
-//            else{
-//                answerType = -1;
-//            }
-//                
-//        }
+                answerType = interestedStatusYES;
+            }
+            else{
+                answerType = -1;
+            }
+                
+        }
         if (touchLocation.x < 160){
             [self.placardView setAlphaNOPEView:(160 - touchLocation.x) / 120];
         }
         else{
             [self.placardView setAlphaLIKEView:(touchLocation.x - 160) / 120];
         }
-        
-        if(touchLocation.x < 60){
-//            [self.placardView setAlphaNOPEView:1];
-            answerType = interestedStatusNO;
-        }
-        else{
-            if(touchLocation.x > 260){
-//                [self.placardView setAlphaLIKEView:1];
-                answerType = interestedStatusYES;
-            }
-            else{
-//                [self.placardView setAlphaNOPEView:0];
-//                [self.placardView setAlphaLIKEView:0];
-                answerType = -1;
-            }
-           
-        }
-        CGPoint newCenter = CGPointMake(self.placardView.center.x + dx, self.placardView.center.y + dy);
+
+//        if(touchLocation.x < 60){
+//            answerType = interestedStatusNO;
+//        }
+//        else{
+//            if(touchLocation.x > 260){
+//                answerType = interestedStatusYES;
+//            }
+//            else{
+//                answerType = -1;
+//            }
+//           
+//        }
+        CGPoint newCenter = CGPointMake(self.placardView.center.x + dx, self.placardView.center.y);
 		self.placardView.center = newCenter;
-//        self.placardView.center = CGPointMake(320/2,480/2);
+        /*
+        // make a curve when draging
         CGAffineTransform transforms = CGAffineTransformConcat(self.placardView.transform,CGAffineTransformMakeRotation(M_PI/900*(dx>0?-1:1)));
         self.placardView.transform = transforms;
+        */
 		return;
 	}
 }
