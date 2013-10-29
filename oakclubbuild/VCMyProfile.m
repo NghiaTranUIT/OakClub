@@ -25,7 +25,12 @@
     PickPhotoFromGarelly *avatarPicker;
     UIImage *avatarImage;
     UIImage *newAvatarImage;
+    NSMutableArray *photos;
+    NSMutableArray *photosID;
+    int selectedPhoto;
+    UIImage *uploadImage;
 }
+@property (weak, nonatomic) IBOutlet UIScrollView *photoScrollView;
 
 @end
 
@@ -72,6 +77,8 @@ CLLocationManager *locationManager;
     locationManager.desiredAccuracy = kCLLocationAccuracyBest;
     
     avatarPicker = [[PickPhotoFromGarelly alloc] initWithParentWindow:self andDelegate:self];
+    
+    [self reloadPhotos];
 }
 
 - (void) viewDidAppear:(BOOL)animated
@@ -189,6 +196,12 @@ CLLocationManager *locationManager;
     
     NSString *autoLocationState = [[NSUserDefaults standardUserDefaults] objectForKey:@"AutoLocationSwitch"];
     [self updateProfileItemListAtIndex:autoLocationState andIndex:AUTO_LOCATION];
+    
+    photos = [[NSMutableArray alloc] init];
+    photosID = [[NSMutableArray alloc] init];
+    selectedPhoto = -1;
+    uploadImage = nil;
+    [self loadProfilePhotos];
 }
 //-(void) initGenderGroup{
 //    genderGroup = [[GroupButtons alloc] initWithMultipleChoice:FALSE];
@@ -412,30 +425,88 @@ CLLocationManager *locationManager;
     
     if (warning)
     {
-        [self showWarning:@"Profile saved"];
+        [self showWarning:@"Profile saved" withTag:0];
     }
 }
 
-- (void)showWarning:(NSString*)warningText{
+- (void)showOKCancelWarning:(NSString*)warningText withTag:(int)tag{
+    UIAlertView *alert = [[UIAlertView alloc]
+                          initWithTitle:@"Message"
+                          message:warningText
+                          delegate:self
+                          cancelButtonTitle:@"OK"
+                          otherButtonTitles:@"Cancel", nil];
+    alert.tag = tag;
+    [alert show];
+}
+
+- (void)showWarning:(NSString*)warningText withTag:(int)tag{
     UIAlertView *alert = [[UIAlertView alloc]
                           initWithTitle:@"Message"
                           message:warningText
                           delegate:self
                           cancelButtonTitle:@"OK"
                           otherButtonTitles:nil];
+    alert.tag = tag;
     [alert show];
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-    NSString *alertIndex = [alertView buttonTitleAtIndex:buttonIndex];
-    
-    if([alertIndex isEqualToString:@"OK"])
+    if (alertView.tag == 0) // save profile
     {
-        //Do something
-//        [appDel showHangOut];
+        
+    }
+    else if (alertView.tag == 1) // delete photo
+    {
+        if (buttonIndex == 0 && selectedPhoto > 0)
+        {
+            AFHTTPClient *client = [[AFHTTPClient alloc] initWithOakClubAPI:DOMAIN];
+            NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:[photosID objectAtIndex:selectedPhoto], @"photo_id", nil];
+            [client getPath:URL_deletePhoto parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject)
+            {
+                [photos removeObjectAtIndex:selectedPhoto];
+                [photosID removeObjectAtIndex:selectedPhoto];
+                [self reloadPhotos];
+                selectedPhoto = -1;
+            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                NSLog(@"Delete photo error %@", error);
+                selectedPhoto = -1;
+            }];
+        }
+        else
+        {
+            selectedPhoto = -1;
+        }
+    }
+    else if (alertView.tag == 2) // upload photo
+    {
+        if (buttonIndex == 0 && selectedPhoto > 0 && uploadImage != nil)
+        {
+            bool isAvatar = (selectedPhoto == photosID.count + 2);
+            PhotoUpload *uploader = [[PhotoUpload alloc] initWithPhoto:uploadImage andName:@"uploadedfile" isAvatar:isAvatar];
+            [uploader uploadPhotoWithCompletion:^(NSString *imgLink, NSString *imgID)
+             {
+                 if (isAvatar)
+                 {
+                     [self.imgAvatar setBackgroundImage:uploadImage forState:UIControlStateNormal];
+                     self.imgAvatar.contentMode = UIViewContentModeScaleAspectFit;
+                     
+                     profileObj.img_Avatar = uploadImage;
+                     profileObj.s_Avatar = imgLink;
+                 }
+                 
+                 [photos addObject:uploadImage];
+                 [photosID addObject:imgID];
+                 
+                 uploadImage = nil;
+                 selectedPhoto = -1;
+                 [self reloadPhotos];
+             }];
+        }
     }
 }
+
 #pragma mark DatePicker DataSource/Delegate
 
 -(IBAction)onTouchUpDatePicker:(id)sender{
@@ -833,22 +904,113 @@ CLLocationManager *locationManager;
 
 - (IBAction)avatarTouched:(id)sender
 {
-    [avatarPicker showPicker];
+    if (selectedPhoto < 0 && uploadImage == nil)
+    {
+        selectedPhoto = photos.count + 2;
+        [avatarPicker showPicker];
+    }
 }
 
 -(void)receiveImage:(UIImage *)_image
 {
     if (_image)
     {
-        PhotoUpload *uploader = [[PhotoUpload alloc] initWithPhoto:_image andName:@"uploadedfile" isAvatar:YES];
-        [uploader uploadPhotoWithCompletion:^(NSString *imgLink)
-        {
-            [self.imgAvatar setBackgroundImage:_image forState:UIControlStateNormal];
-            self.imgAvatar.contentMode = UIViewContentModeScaleAspectFit;
-            
-            profileObj.img_Avatar = _image;
-            //newAvatarLink = imgLink;
-        }];
+        uploadImage = _image;
+        [self showOKCancelWarning:@"Do you want to upload this photo ?" withTag:2];
+    }
+    else
+    {
+        selectedPhoto = -1;
+        uploadImage = nil;
+    }
+}
+
+#define H_PADDING 5
+#define V_PADDING 2
+#define  PHOTO_WIDTH 112
+#define  PHOTO_HEIGHT 112
+-(void)reloadPhotos
+{
+    [self.photoScrollView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+    self.photoScrollView.contentSize = CGSizeMake(0, PHOTO_HEIGHT);
+    
+    for (int i = 0; i < photos.count; ++i)
+    {
+        UIButton *photoButton = [[UIButton alloc] initWithFrame:CGRectMake(self.photoScrollView.contentSize.width, V_PADDING, PHOTO_WIDTH, PHOTO_HEIGHT)];
+        [photoButton setBackgroundImage:[photos objectAtIndex:i] forState:UIControlStateNormal];
+        photoButton.layer.cornerRadius = 1;
+        photoButton.tag = i;
+        [photoButton addTarget:self action:@selector(photoButtonTouched:) forControlEvents:UIControlEventTouchUpInside];
+        
+        self.photoScrollView.contentSize = CGSizeMake(self.photoScrollView.contentSize.width + PHOTO_WIDTH + H_PADDING, self.photoScrollView.contentSize.height);
+        [self.photoScrollView addSubview:photoButton];
+    }
+    
+    UIButton *photoButton = [[UIButton alloc] initWithFrame:CGRectMake(self.photoScrollView.contentSize.width, V_PADDING, PHOTO_WIDTH, PHOTO_HEIGHT)];
+    [photoButton setBackgroundImage:[UIImage imageNamed:@"plus_sign"] forState:UIControlStateNormal];
+    photoButton.layer.cornerRadius = 1;
+    [photoButton addTarget:self action:@selector(addPhotoButtonTouched:) forControlEvents:UIControlEventTouchUpInside];
+    
+    self.photoScrollView.contentSize = CGSizeMake(self.photoScrollView.contentSize.width + PHOTO_WIDTH + H_PADDING, self.photoScrollView.contentSize.height);
+    [self.photoScrollView addSubview:photoButton];
+}
+
+- (void)loadProfilePhotos
+{
+    AFHTTPClient *request = [[AFHTTPClient alloc] initWithOakClubAPI:DOMAIN];
+    NSDictionary *params  = [[NSDictionary alloc]initWithObjectsAndKeys:profileObj.s_ID, key_profileID, nil];
+    [request getPath:URL_getListPhotos parameters:params
+             success:^(__unused AFHTTPRequestOperation *operation, id JSON)
+     {
+         NSMutableDictionary* dictPhotos = [Profile parseListPhotosIncludeID:JSON];
+         if(dictPhotos != nil)
+         {
+             NSArray *keys = [dictPhotos allKeys];
+             __block int i = [dictPhotos count];
+             for (NSString *key in keys)
+             {
+                 NSString *link = [dictPhotos valueForKey:key];
+                 
+                 if( ![link isEqualToString:@""] )
+                 {
+                     AFHTTPRequestOperation *operation =
+                     [Profile getAvatarSyncWithOperation:link
+                                   callback:^(AFHTTPRequestOperation *op, UIImage *image)
+                      {
+                          [photos addObject:image];
+                          [photosID addObject:key];
+                          --i;
+                          if (i == 0)
+                          {
+                              [self reloadPhotos];
+                          }
+                      }];
+                     [operation start];
+                     
+                 }
+
+             }
+         }
+     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+         NSLog(@"Get list photo Error Code: %i - %@",[error code], [error localizedDescription]);
+     }];
+}
+
+-(void)photoButtonTouched:(UIButton *)photoButton
+{
+    if (selectedPhoto < 0)
+    {
+        selectedPhoto = photoButton.tag;
+        [self showOKCancelWarning:@"Do you want to delete this photo ?" withTag:1];
+    }
+}
+
+-(void)addPhotoButtonTouched:(UIButton *)addPhotoButton
+{
+    if (selectedPhoto < 0 && uploadImage == nil)
+    {
+        selectedPhoto = photos.count + 1;
+        [avatarPicker showPicker];
     }
 }
 

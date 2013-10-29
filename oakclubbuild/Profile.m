@@ -332,6 +332,38 @@
     return photos;
 }
 
++(NSMutableDictionary*) parseListPhotosIncludeID:(NSData *)jsonData
+{
+    NSError *e=nil;
+    NSMutableDictionary *dict = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingMutableContainers error:&e];
+    
+    NSMutableDictionary *data= [dict valueForKey:key_data];
+    NSMutableDictionary* photos = [[NSMutableDictionary alloc] init];
+    
+    if(data != nil)
+    {
+        NSMutableArray *photosData = [data valueForKey:key_data];
+        
+        if(photosData != nil && ![photosData isKindOfClass:[NSNull class]])
+        {
+            for(int i = 0 ; i < [photosData count]; i++)
+            {
+                NSMutableDictionary* photo = [photosData objectAtIndex:i];
+                NSString* photoLink = [photo valueForKey:@"tweet_image_link"];
+                NSString* photoID = [photo valueForKey:@"id"];
+                if(photoLink != nil)
+                {
+                    [photos setValue:photoLink forKey:photoID];
+                }
+            }
+        }
+        
+    }
+    
+    
+    return photos;
+}
+
 -(void) parseProfileWithDictionary:(NSMutableDictionary*)data
 {
     self.s_Name = [data valueForKey:key_name];
@@ -640,6 +672,41 @@
         
          if(handler != nil)
              handler(avatar);
+         
+     } failure:^(AFHTTPRequestOperation *operation, NSError *error)
+     {
+         NSLog(@"Download image Error: %@", error);
+     }];
+    
+    return operation;
+}
+
+
++(AFHTTPRequestOperation*)getAvatarSyncWithOperation:(NSString*)url callback:(void(^)(AFHTTPRequestOperation*, UIImage*))handler
+{
+    AFHTTPClient *httpClient;
+    
+    if(!([url hasPrefix:@"http://"] || [url hasPrefix:@"https://"]))
+    {       // check if this is a valid link
+        httpClient = [[AFHTTPClient alloc]initWithBaseURL:[NSURL URLWithString:DOMAIN_DATA]];
+    }
+    else{
+        httpClient = [[AFHTTPClient alloc]initWithBaseURL:[NSURL URLWithString:@""]];
+    }
+    
+    NSMutableURLRequest *request = [httpClient requestWithMethod:@"GET"
+                                                            path:url
+                                                      parameters:nil];
+    
+    AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
+    [httpClient registerHTTPOperationClass:[AFHTTPRequestOperation class]];
+    
+    [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject)
+     {
+         UIImage *avatar = [UIImage imageWithData:responseObject];
+         
+         if(handler != nil)
+             handler(operation, avatar);
          
      } failure:^(AFHTTPRequestOperation *operation, NSError *error)
      {

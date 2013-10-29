@@ -33,7 +33,7 @@
     return self;
 }
 
--(void)uploadPhotoWithCompletion:(void(^)(NSString *))completionHandler
+-(void)uploadPhotoWithCompletion:(void(^)(NSString *, NSString *))completionHandler
 {
     //NSData *imgData = UIImageJPEGRepresentation([UIImage imageNamed:@"minus_sign"], 0.4);
     NSData *imgData = UIImagePNGRepresentation(photo);
@@ -56,11 +56,11 @@
          NSLog(@"Send image completed; return %@\n%@", [JSON base64Encoding], dict); //Lets us know the result including failures
          NSDictionary *data = [dict objectForKey:key_data];
          NSString *link = [data objectForKey:@"file"];
-         
+         NSString *imgID = [data objectForKey:@"id"];
          
          if (completionHandler)
          {
-             completionHandler(link);
+             completionHandler(link, imgID);
          }
      }failure:^(AFHTTPRequestOperation *op, NSError *err)
      {

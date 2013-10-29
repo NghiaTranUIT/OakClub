@@ -128,9 +128,11 @@
 -(void) parseGetSnapshotToProfile:(NSData *)jsonData;
 - (void) SaveSetting;
 +(NSMutableArray*) parseListPhotos:(NSData *)jsonData;
++(NSMutableDictionary*) parseListPhotosIncludeID:(NSData *)jsonData;
 
 +(void) countMutualFriends:(NSString*)profileID callback:(void(^)(NSString*))handler;
 +(AFHTTPRequestOperation*)getAvatarSync:(NSString*)url callback:(void(^)(UIImage*))handler;
++(AFHTTPRequestOperation*)getAvatarSyncWithOperation:(NSString*)url callback:(void(^)(AFHTTPRequestOperation*, UIImage*))handler;
 
 +(void) getListPeople:(NSString*)service handler:(void(^)(NSMutableArray*,int))resultHandler;
 +(void) getListPeople:(NSString*)service andParams:(NSDictionary*)params handler:(void(^)(NSMutableArray*,int))resultHandler;

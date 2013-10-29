@@ -82,6 +82,7 @@
 #define URL_checkUserExist @"service/checkUserExist"
 #define URL_sendRegister @"service/sendRegister"
 #define URL_uploadPhoto @"service/uploadPhotoUser"
+#define URL_deletePhoto @"service/deletePhoto"
 //================ service API keys ================
 //root
 #define key_status @"status"
