@@ -73,7 +73,7 @@
 
 CGPoint startLocation;
 CGPoint centerPoint;
-int deltaMove = 20;
+int deltaMove = 100;
 int answerType = -1;
 BOOL isDragging = FALSE;
 -(void) addSubViewToCardView:(UIView*)subview{
@@ -97,7 +97,7 @@ BOOL isDragging = FALSE;
 //        else{
             // Animate the first touch.
             CGPoint touchPoint = [touch locationInView:self];
-            startLocation = [touch locationInView:self.placardView];
+            startLocation = [touch locationInView:self];
 //        startLocation = CGPointMake(160, 240);
             [self animateFirstTouchAtPoint:touchPoint];
 //        }
@@ -125,17 +125,18 @@ BOOL isDragging = FALSE;
         isDragging = TRUE;
 		CGPoint location = [touch previousLocationInView:self.placardView];
         CGPoint touchLocation = [touch locationInView:self];
-        NSLog(@"%f",[touch locationInView:self].x);
-        CGFloat dx = location.x - startLocation.x;
-        CGFloat dy = location.y - startLocation.y;
-        NSLog(@"dx:%f - dy:%f",dx, dy);
+//        NSLog(@"%f",[touch locationInView:self].x);
+        CGFloat dx = touchLocation.x - startLocation.x;
+//        CGFloat dy = location.y - startLocation.y;
+        NSLog(@"location.x:%f - startLocation.x:%f",touchLocation.x,startLocation.x);
+        NSLog(@"dx:%f",dx);
         if(dx < (deltaMove*-1)){
-//            [self.placardView setAlphaNOPEView:1];
+//            [self.placardView setAlphaNOPEView:fabsf(dx)/100];
             answerType = interestedStatusNO;
         }
         else{
             if(dx > deltaMove){
-//                [self.placardView setAlphaLIKEView:1];
+//                [self.placardView setAlphaLIKEView:dx/100];
                 answerType = interestedStatusYES;
             }
             else{
@@ -143,11 +144,11 @@ BOOL isDragging = FALSE;
             }
                 
         }
-        if (touchLocation.x < 160){
-            [self.placardView setAlphaNOPEView:(160 - touchLocation.x) / 120];
+        if (dx < 0){
+            [self.placardView setAlphaNOPEView:fabsf(dx)/100];
         }
         else{
-            [self.placardView setAlphaLIKEView:(touchLocation.x - 160) / 120];
+            [self.placardView setAlphaLIKEView:dx/100];
         }
 
 //        if(touchLocation.x < 60){
@@ -162,7 +163,7 @@ BOOL isDragging = FALSE;
 //            }
 //           
 //        }
-        CGPoint newCenter = CGPointMake(self.placardView.center.x + dx, self.placardView.center.y);
+        CGPoint newCenter = CGPointMake(self.placardView.center.x + (location.x-startLocation.x), self.placardView.center.y);
 		self.placardView.center = newCenter;
         /*
         // make a curve when draging
