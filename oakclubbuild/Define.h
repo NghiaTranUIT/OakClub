@@ -35,6 +35,7 @@
 #endif
 //============== application key =============
 #define key_appLanguage @"appLanguage"
+#define key_ChosenLanguage @"appChosenLanguage"
 //============== application value =============
 #define value_appLanguage_VI @"vi"
 #define value_appLanguage_EN @"en"
@@ -79,7 +80,6 @@
 #define URL_getListWhoLikeMe @"service/getListWhoLikeMe"
 #define URL_getListMutualMatch @"service/getListMutualMatch"
 #define URL_setLocationUser @"service/setLocationUser"
-#define URL_checkUserExist @"service/checkUserExist"
 #define URL_sendRegister @"service/sendRegister"
 #define URL_uploadPhoto @"service/uploadPhotoUser"
 #define URL_deletePhoto @"service/deletePhoto"

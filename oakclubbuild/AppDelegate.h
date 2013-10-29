@@ -22,6 +22,7 @@
 #import "NavConOakClub.h"
 #import "NavBarOakClub.h"
 #import "VCHangoutSetting.h" // for test
+#import "FlashIntro.h"
 // ==== chatting
 #import "ConfirmViewController.h"
 #import <CoreData/CoreData.h>
@@ -116,6 +117,7 @@ extern NSString *const SCSessionStateChangedNotification;
 @property (strong, nonatomic) PKRevealController *rootVC;
 @property (strong, nonatomic) SCLoginViewController *loginView;
 @property (strong, nonatomic) ConfirmViewController *confirmVC;
+@property (strong, nonatomic) FlashIntro *flashIntro;
 
 @property (strong, nonatomic) NSArray *countryList;
 @property (strong, nonatomic) NSMutableDictionary *cityList;
@@ -137,6 +139,7 @@ extern NSString *const SCSessionStateChangedNotification;
 -(void)loadDataForList;
 -(void)showChat;
 -(void)showSnapshoot;
+-(void)gotoLogin;
 #if ENABLE_DEMO
 -(void)showSnapshotSettings;
 -(void)showSimpleSnapshot;

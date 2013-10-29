@@ -11,6 +11,9 @@
 #import "CycleScrollView.h"
 #import "UAModelPanelEx.h"
 #import "UIView+Localize.h"
+#import "VCPrivacy.h"
+#import "TutorialViewController.h"
+
 @interface SCLoginViewController (){
     AppDelegate* appDelegate;
 }
@@ -45,9 +48,9 @@
     [self showMenuLanguage];
     // Do any additional setup after loading the view from its nib.
     NSArray* pageImages = [NSArray arrayWithObjects:
-                  [UIImage imageNamed:@"first-screen"],
-                  [UIImage imageNamed:@"second-screen"],
-                  [UIImage imageNamed:@"third-screen"],
+                  [UIImage imageNamed:@"intropage_snap.png"],
+                  [UIImage imageNamed:@"intropage_chat.png"],
+                  [UIImage imageNamed:@"intropage_match.png"],
                   nil];
     CycleScrollView *cycle = [[CycleScrollView alloc] initWithFrame:CGRectMake(0, 0, 320, 455)
                                                      cycleDirection:CycleDirectionLandscape
@@ -97,8 +100,19 @@
 {
     if(btnLogin.selected)
         return;
-    [self startSpinner];
-    [self tryLogin];
+    
+    if (FBSession.activeSession.state == FBSessionStateCreatedTokenLoaded || FBSession.activeSession.state == FBSessionStateOpen)
+    {
+        [self startSpinner];
+        [self tryLogin];
+    }
+    else
+    {
+        UAModalPanel *popup = [[VCPrivacy alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height) andLoginPage:self];
+        [self.view addSubview:popup];
+        
+        [popup showFromPoint:[self.view center]];
+    }
 }
 
 - (void)loginFailed
@@ -125,38 +139,17 @@
     {
         if(status == FBSessionStateOpen)
         {
-            //[self updateView];
-            // register
             [appDelegate loadFBUserInfo:^(id status)
              {
                  NSLog(@"FB Login request completed!");
-//                 NSLog(@"s_FB_id : %@",appDelegate.myFBProfile.id);
-//                 NSLog(@"access_token : %@",[FBSession activeSession].accessTokenData.accessToken);
-//                 NSLog(@"s_FB_id : %@",appDelegate.myProfile.s_FB_id);
-//                 NSLog(@"s_Email : %@",appDelegate.myProfile.s_Email);
-//                 NSLog(@"s_Name : %@",appDelegate.myProfile.s_Name);
-//                 NSLog(@"s_gender :%@",appDelegate.myProfile.s_gender.text);
-//                 NSLog(@"s_interested : %@",appDelegate.myProfile.s_interested.text);
-//                 NSLog(@"s_birthdayDate : %@",appDelegate.myProfile.s_birthdayDate);
-//                 NSLog(@"s_location.ID : %@",appDelegate.myProfile.s_location.ID);
-//                 NSLog(@"s_location.name : %@",appDelegate.myProfile.s_location.name);
                  
                  AFHTTPClient *request = [[AFHTTPClient alloc] initWithOakClubAPI:DOMAIN];
                  NSLog(@"Init API completed");
-                 
-                 // check if user exists
                  
                  [appDelegate parseFBInfoToProfile:appDelegate.myFBProfile];
                  NSDictionary *params = [[NSDictionary alloc]initWithObjectsAndKeys:
                                          [FBSession activeSession].accessTokenData.accessToken, @"access_token",
                                          appDelegate.myProfile.s_FB_id, @"user_id",
-                                         //                                                  appDelegate.myProfile.s_Name, @"name",
-                                         //                                                  appDelegate.myProfile.s_Email, @"email",
-                                         //                                                  [NSString stringWithFormat:@"%i",appDelegate.myProfile.s_gender.ID], @"sex",
-                                         //                                                  [NSString stringWithFormat:@"%i",appDelegate.myProfile.s_interested.ID], @"interested_in",
-                                         //                                                  appDelegate.myProfile.s_birthdayDate, @"birthdate",
-                                         //                                                  appDelegate.myProfile.s_location.ID, @"location_id",
-                                         //                                                  appDelegate.myProfile.s_location.name, @"location_name",
                                          nil];
                  NSLog(@"Params: %@", params);
                  [request getPath:URL_sendRegister parameters:params success:^(__unused AFHTTPRequestOperation *operation, id JSON)
@@ -176,11 +169,22 @@
                               [appDelegate getProfileInfoWithHandler:^(void)
                                {
                                    [self stopSpinner];
-                                   menuViewController *leftController = [[menuViewController alloc] init];
-                                   [leftController setUIInfo:appDelegate.myProfile];
-                                   [appDelegate.rootVC setRightViewController:appDelegate.chat];
-                                   [appDelegate.rootVC setLeftViewController:leftController];
-                                   appDelegate.window.rootViewController = appDelegate.rootVC;
+                                   if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"isFirstLogin"] boolValue])
+                                   {
+                                       menuViewController *leftController = [[menuViewController alloc] init];
+                                       [leftController setUIInfo:appDelegate.myProfile];
+                                       [appDelegate.rootVC setRightViewController:appDelegate.chat];
+                                       [appDelegate.rootVC setLeftViewController:leftController];
+                                       appDelegate.window.rootViewController = appDelegate.rootVC;
+                                   }
+                                   else
+                                   {
+                                       [[NSUserDefaults standardUserDefaults] setValue:[NSNumber numberWithBool:YES] forKey:@"isFirstLogin"];
+                                       
+                                       TutorialViewController *tut = [[TutorialViewController alloc] init];
+                                       appDelegate.window.rootViewController = tut;
+                                       [appDelegate.window makeKeyAndVisible];
+                                   }
                                }];
                           }
                           else
@@ -206,6 +210,8 @@
                               [appDelegate showConfirm];
                           }];
                       }
+                      
+                      [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithBool:YES] forKey:key_ChosenLanguage];
                   } failure:^(AFHTTPRequestOperation *operation, NSError *error)
                   {
                       NSLog(@"Send reg error Code: %i - %@",[error code], [error localizedDescription]);
@@ -221,7 +227,7 @@
 
 - (IBAction)showInfoPanel:(id)sender
 {
-    UAModalPanel *popup = [[UAModelPanelEx alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
+    UAModalPanel *popup = [[UAModelPanelEx alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height) andLoginPage:self];
     [self.view addSubview:popup];
     
     [popup showFromPoint:[self.view center]];
@@ -229,6 +235,13 @@
 
 #pragma mark Language
 -(void) showMenuLanguage{
+    BOOL isSetLanguage = [[[NSUserDefaults standardUserDefaults] objectForKey:key_ChosenLanguage] boolValue];
+    if (!isSetLanguage)
+    {
+        [[NSUserDefaults standardUserDefaults] setObject:value_appLanguage_VI forKey:key_appLanguage];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+    }
+    
     NSString* language = [[NSUserDefaults standardUserDefaults] objectForKey:key_appLanguage];
     if(language != nil){
         [appDelegate updateLanguageBundle];
@@ -236,23 +249,26 @@
         [appDelegate loadAllViewControllers];
         return;
     }
-
-    UIAlertView *alert = [[UIAlertView alloc]
-                          initWithTitle:@"Welcome"
-                          message:@""
-                          delegate:self
-                          cancelButtonTitle:nil
-                          otherButtonTitles:@"Vietnamese",@"English",nil];
-    [alert show];
+    
+    if (!isSetLanguage)
+    {
+        UIAlertView *alert = [[UIAlertView alloc]
+                              initWithTitle:@"Welcome"
+                              message:@""
+                              delegate:self
+                              cancelButtonTitle:nil
+                              otherButtonTitles:@"Vietnamese",@"English",nil];
+        [alert show];
+    }
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-    if (FBSession.activeSession.state == FBSessionStateCreatedTokenLoaded || FBSession.activeSession.state == FBSessionStateOpen)
-    {
-        [self startSpinner];
-        [self tryLogin];
-    }
+//    if (FBSession.activeSession.state == FBSessionStateCreatedTokenLoaded || FBSession.activeSession.state == FBSessionStateOpen)
+//    {
+//        [self startSpinner];
+//        [self tryLogin];
+//    }
     
     NSString *title = [alertView buttonTitleAtIndex:buttonIndex];
     if([title isEqualToString:@"Vietnamese"])

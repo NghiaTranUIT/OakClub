@@ -24,7 +24,7 @@
                     <rect key="frame" x="0.0" y="0.0" width="320" height="455"/>
                     <autoresizingMask key="autoresizingMask"/>
                 </imageView>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg-bottom.png" id="c5S-kU-1P1">
+                <imageView userInteractionEnabled="NO" alpha="0.69999999999999996" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg-bottom.png" id="c5S-kU-1P1">
                     <rect key="frame" x="0.0" y="475" width="320" height="93"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -33,7 +33,7 @@
                     <rect key="frame" x="8" y="502" width="305" height="37"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                    <state key="normal" title="SIGN IN WITH FACEBOOK" backgroundImage="btn-fb.png">
+                    <state key="normal" title="SIGN IN WITH FACEBOOK" backgroundImage="btn-fb-inactive_intro.png">
                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
@@ -62,7 +62,7 @@
                     <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                    <state key="normal" backgroundImage="btn-info.png">
+                    <state key="normal" backgroundImage="icon_info.png">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
                     <connections>
@@ -80,8 +80,9 @@
     </objects>
     <resources>
         <image name="bg-bottom.png" width="320" height="93"/>
+        <image name="btn-fb-inactive_intro.png" width="254" height="41"/>
         <image name="btn-fb.png" width="305" height="37"/>
-        <image name="btn-info.png" width="19" height="19"/>
         <image name="first-screen.png" width="320" height="455"/>
+        <image name="icon_info.png" width="15" height="15"/>
     </resources>
 </document>
