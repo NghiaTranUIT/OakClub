@@ -23,6 +23,7 @@
 -(void)loadCurrentProfile;
 -(void)loadNextProfileByCurrentIndex;
 -(void) gotoPROFILE;
+-(void)loadProfileList:(void(^)(void))handler;
 -(void)showMatchView;
 -(void)setFavorite:(NSString*)answerChoice;
 @property (weak, nonatomic) IBOutlet UILabel *lbl_indexPhoto;
@@ -48,4 +49,5 @@
 @property (weak, nonatomic) IBOutlet UILabel *lblPhotoCount;
 @property (weak, nonatomic) IBOutlet UIImageView *imgLoading;
 @property (weak, nonatomic) IBOutlet UIButton *buttonNO;
+
 @end

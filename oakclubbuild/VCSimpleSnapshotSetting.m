@@ -608,7 +608,8 @@ UITapGestureRecognizer *tap;
                                   cancelButtonTitle:@"OK"
                                   otherButtonTitles:nil];
             [alert show];
-            
+            AppDelegate* appDel = (AppDelegate *) [UIApplication sharedApplication].delegate;
+            appDel.reloadSnapshot = TRUE;
         }
         else
             NSLog(@"POST FAIL...");

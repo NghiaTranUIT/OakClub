@@ -149,6 +149,7 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
     
 //    UIViewController * test = [[VCHangoutSetting alloc] initWithNibName:@"VCHangoutSetting" bundle:nil];
 //    self.window.rootViewController = test;
+    self.reloadSnapshot = FALSE;
     
     self.loginView = [[SCLoginViewController alloc] initWithNibName:@"SCLoginViewController" bundle:nil];
     self.window.rootViewController = self.loginView;

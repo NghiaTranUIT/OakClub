@@ -125,6 +125,9 @@ extern NSString *const SCSessionStateChangedNotification;
 @property (strong, nonatomic) NSArray *relationshipList;
 @property (strong, nonatomic) NSArray *genderList;
 @property (strong, nonatomic) NSArray *likedMeList;
+
+@property BOOL reloadSnapshot;
+
 -(void)openSession;
 -(void)openSessionWithWebDialogWithhandler:(void(^)(FBSessionState))resultHandler;
 -(void)loadFBUserInfo:(void(^)(id))resultHandler;
