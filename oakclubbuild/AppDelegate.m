@@ -199,7 +199,7 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
     self.myLink = [self createNavigationByClass:@"VCMyLink" AndHeaderName:@"My Links" andRightButton:nil andIsStoryBoard:NO];
     self.snapShoot = [self createNavigationByClass:@"VCSnapshoot" AndHeaderName:@"Snapshot" andRightButton:@"SnapshotSetting" andIsStoryBoard:YES];
 #if ENABLE_DEMO
-    self.simpleSnapShot = [self createNavigationByClass:@"VCSimpleSnapshot" AndHeaderName:[NSString localizeString:@"Snapshot"] andRightButton:@"VCChat" andIsStoryBoard:NO];
+    self.simpleSnapShot = [self createNavigationByClass:@"VCSimpleSnapshot" AndHeaderName:nil/*[NSString localizeString:@"Snapshot"]*/ andRightButton:@"VCChat" andIsStoryBoard:NO];
     //     self.snapShotSettings = [self.storyboard instantiateViewControllerWithIdentifier:@"SnapshotSettings"];
     self.snapShotSettings = [self createNavigationByClass:@"VCSimpleSnapshotSetting" AndHeaderName:[NSString localizeString:@"Setting"] andRightButton:nil andIsStoryBoard:NO];
     self.mutualMatches = [self createNavigationByClass:@"VCMutualMatch" AndHeaderName:[NSString localizeString:@"Mutual Matches"] andRightButton:nil andIsStoryBoard:NO];

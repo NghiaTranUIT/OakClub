@@ -72,7 +72,7 @@
 @implementation APLMoveMeView
 
 CGPoint startLocation;
-CGPoint centerPoint;
+CGPoint startCardPoint;
 int deltaMove = 100;
 int answerType = -1;
 BOOL isDragging = FALSE;
@@ -98,6 +98,7 @@ BOOL isDragging = FALSE;
             // Animate the first touch.
             CGPoint touchPoint = [touch locationInView:self];
             startLocation = [touch locationInView:self];
+        startCardPoint =[touch locationInView:self.placardView];
 //        startLocation = CGPointMake(160, 240);
             [self animateFirstTouchAtPoint:touchPoint];
 //        }
@@ -163,7 +164,7 @@ BOOL isDragging = FALSE;
 //            }
 //           
 //        }
-        CGPoint newCenter = CGPointMake(self.placardView.center.x + (location.x-startLocation.x), self.placardView.center.y);
+        CGPoint newCenter = CGPointMake(self.placardView.center.x + (location.x-startCardPoint.x), self.placardView.center.y);
 		self.placardView.center = newCenter;
         /*
         // make a curve when draging
