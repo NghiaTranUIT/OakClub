@@ -96,7 +96,6 @@
     </objects>
     <resources>
         <image name="action-people.png" width="80" height="80"/>
-        <image name="action-people.png" width="80" height="80"/>
         <image name="menu_coin.png" width="34" height="30"/>
         <image name="menu_editprofile.png" width="27" height="36"/>
         <image name="menu_profileBG.png" width="320" height="97"/>
