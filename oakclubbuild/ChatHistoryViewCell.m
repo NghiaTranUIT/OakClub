@@ -18,11 +18,14 @@
     if (self) {
         // Initialization code
         NSArray *array = [[NSBundle mainBundle] loadNibNamed:@"ChatHistoryViewCell" owner:self options:nil];
-        
+        avatar.layer.masksToBounds = YES;
+        avatar.layer.cornerRadius = avatar.frame.size.width/2;
+        avatar.layer.borderWidth = 2.0;
+        avatar.layer.borderColor = [[UIColor lightGrayColor] CGColor];
         if ([array count]>0) {
             UIView* view = [array objectAtIndex:0];
             
-            self.frame = CGRectMake(0, 0, 320, 70);
+            self.frame = CGRectMake(0, 0, 320, 75);
 
             //NSLog(@"view name : %f", self.frame.size.height);
             [self.contentView addSubview:view];

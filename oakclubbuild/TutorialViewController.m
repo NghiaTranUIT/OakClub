@@ -33,9 +33,9 @@
 	// Do any additional setup after loading the view.
     
     UIButton *closeButton = [[UIButton alloc] init];
-    [closeButton setBackgroundImage:[UIImage imageNamed:@"tutorial_cancel.png"] forState:UIControlStateNormal];
+    [closeButton setBackgroundImage:[UIImage imageNamed:@"tutorial_btn_cancel.png"] forState:UIControlStateNormal];
     [closeButton sizeToFit];
-    closeButton.frame = CGRectMake(self.view.frame.size.width - closeButton.frame.size.width - 10, 10, closeButton.frame.size.width, closeButton.frame.size.height);
+    closeButton.frame = CGRectMake(10, 10, 20, 20);
     [closeButton addTarget:self action:@selector(closeButtonTouched:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:closeButton];
     

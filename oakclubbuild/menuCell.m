@@ -51,7 +51,13 @@ static CGFloat padding_left = 4.0;
     [itemMenu setImage:image];
     [itemMenu setHighlightedImage:highlightImage];
 }
-
+-(void) setItemIcon:(UIImage*)image{
+    iconMenu.layer.masksToBounds = YES;
+    iconMenu.layer.cornerRadius = iconMenu.frame.size.width/2;
+    iconMenu.layer.borderWidth = 2.0;
+    iconMenu.layer.borderColor = [[UIColor whiteColor] CGColor];
+    [iconMenu setImage:image];
+}
 
 +(UIImageView*)getLabelWithBackground:(NSString*) text
                             textColor:(UIColor*) textColor

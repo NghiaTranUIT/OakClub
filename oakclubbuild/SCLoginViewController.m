@@ -50,9 +50,9 @@
     NSArray* pageImages = [NSArray arrayWithObjects:
                   [UIImage imageNamed:@"intropage_snap.png"],
                   [UIImage imageNamed:@"intropage_chat.png"],
-                  [UIImage imageNamed:@"intropage_match.png"],
+                  [UIImage imageNamed:@"intropage_snap.png"],
                   nil];
-    CycleScrollView *cycle = [[CycleScrollView alloc] initWithFrame:CGRectMake(0, 0, 320, 455)
+    CycleScrollView *cycle = [[CycleScrollView alloc] initWithFrame:CGRectMake(0, 0, 320, 460)
                                                      cycleDirection:CycleDirectionLandscape
                                                            pictures:pageImages];
     cycle.delegate = self;

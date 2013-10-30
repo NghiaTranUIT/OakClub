@@ -151,6 +151,7 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
     self.reloadSnapshot = FALSE;
     
     self.flashIntro = [[FlashIntro alloc] init];
+    [self.flashIntro.view setFrame:CGRectMake(0, 0, self.window.frame.size.width, self.window.frame.size.height)];
     self.window.rootViewController = self.flashIntro;
     [self.window makeKeyAndVisible];
 

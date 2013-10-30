@@ -61,6 +61,7 @@ CGFloat pageHeight;
     // load profile List
     [self refreshSnapshot];
     [self loadHeaderLogo];
+    [self formatAvatarToCircleView];
     [self.view addSubview:self.moveMeView];
     self.moveMeView.frame = CGRectMake(0, 0, 320, 548);
     // Do any additional setup after loading the view from its nib.
@@ -81,6 +82,20 @@ CGFloat pageHeight;
     
 }
 
+
+-(void) formatAvatarToCircleView{
+    //matcher image view
+    imgMatcher.layer.masksToBounds = YES;
+    imgMatcher.layer.cornerRadius = imgMatcher.frame.size.width/2;
+    imgMatcher.layer.borderWidth = 3.0;
+    imgMatcher.layer.borderColor = [[UIColor whiteColor] CGColor];
+    
+    //my avatar view
+    imgMyAvatar.layer.masksToBounds = YES;
+    imgMyAvatar.layer.cornerRadius = imgMyAvatar.frame.size.width/2;
+    imgMyAvatar.layer.borderWidth = 3.0;
+    imgMyAvatar.layer.borderColor = [[UIColor whiteColor] CGColor];
+}
 -(void)loadHeaderLogo{
     UIImage* logo = [UIImage imageNamed:@"Snapshot_logo.png"];
     UIImageView *logoView = [[UIImageView alloc]initWithFrame:CGRectMake(98, 10, 125, 26)];
@@ -133,6 +148,7 @@ CGFloat pageHeight;
 #if ENABLE_DEMO
 -(void)loadLikeMeList{
     appDel.likedMeList = [[NSArray alloc] init];
+    
      // get list from server
      AFHTTPClient *request = [[AFHTTPClient alloc] initWithOakClubAPI:DOMAIN];
      [request getPath:URL_getListWhoLikeMe parameters:nil success:^(__unused AFHTTPRequestOperation *operation, id JSON)
@@ -147,7 +163,7 @@ CGFloat pageHeight;
      }];
     
     //test list
-//    appDel.likedMeList = [[NSArray alloc] initWithObjects:@"1lxx3glu7e",@"1lxx3wvhml",@"1lxx54u24n",@"1lxx3nhvut",@"1lxx48tf37",@"1lxx4qtd56", nil];
+//    appDel.likedMeList = [[NSArray alloc] initWithObjects:@"1lxwk74pgu",@"1lxx1xqqs0",@"1lxwtq9jd0",@"1lxx3nhvut",@"1lxx48tf37",@"1lxx4qtd56", nil];
 }
 #endif
 
@@ -829,6 +845,7 @@ CGFloat pageHeight;
 
 -(void)showMatchView{
     [self.view addSubview:matchViewController.view];
+    [matchViewController.view setFrame:CGRectMake(0, 0, matchViewController.view.frame.size.width, matchViewController.view.frame.size.height)];
     [lblMatchAlert setText:[NSString stringWithFormat:@"You and %@ have liked each other!",currentProfile.s_Name]];
     if([currentProfile.arr_photos[0] isKindOfClass:[UIImageView class]]){
         UIImageView * photoView =currentProfile.arr_photos[0];

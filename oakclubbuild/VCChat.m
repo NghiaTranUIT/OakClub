@@ -475,7 +475,7 @@ int cellCountinSection=0;
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 70;
+    return 75;
 }
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {

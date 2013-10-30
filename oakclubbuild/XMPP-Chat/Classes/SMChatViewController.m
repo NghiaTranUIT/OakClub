@@ -33,7 +33,7 @@
 }
 
 
-@synthesize messageField, chatWithUser, tView, scrollView,lblTyping, avatar_me, avatar_friend, label_header, label_Age;
+@synthesize messageField, chatWithUser, tView, scrollView,lblTyping, avatar_me, avatar_friend, label_header, label_Age,btnMoreOption, btnShowProfile, imgLogo, btnBackToPrevious;
 
 
 - (AppDelegate *)appDelegate {
@@ -124,9 +124,10 @@
         avatar_friend = avatar;
         
         Profile* myProfile = [self getProfilebyID:nil];
-        
-        avatar_me = [UIImage imageNamed:@"Default Avatar.png"];
-        [myProfile tryGetImageAsync:self];
+        //Vanancy - change load avatar
+        avatar_me = myProfile.img_Avatar;
+//        avatar_me = [UIImage imageNamed:@"Default Avatar.png"];
+//        [myProfile tryGetImageAsync:self];
         
 	}
 	
@@ -229,15 +230,26 @@
 
     [self scrollToLastAnimated:NO];
     
-    UIView *infoHeader= [[UIView alloc]initWithFrame:CGRectMake(0, 0, 230, 44)];
-    
-    label_header.frame = CGRectMake(0, -2, label_header.frame.size.width, 44);
-    label_Age.frame = CGRectMake(label_header.frame.size.width , -2, label_Age.frame.size.width, 44);
-    
+    UIView *infoHeader= [[UIView alloc]initWithFrame:CGRectMake(0, 0, 300, 44)];
+    [btnBackToPrevious setFrame:CGRectMake(8, 14, btnBackToPrevious.frame.size.width, btnBackToPrevious.frame.size.height)];
+    [infoHeader addSubview:btnBackToPrevious];
+    label_header.frame = CGRectMake(60, 0, label_header.frame.size.width, 44);
     [infoHeader addSubview:label_header];
-//    [infoHeader addSubview:label_Age];
+
+    [btnShowProfile setFrame:CGRectMake(244, 8, btnShowProfile.frame.size.width, btnShowProfile.frame.size.height)];
+    [infoHeader addSubview:btnShowProfile];
+    [btnMoreOption setFrame:CGRectMake(282, 8, btnMoreOption.frame.size.width, btnMoreOption.frame.size.height)];
+    [infoHeader addSubview:btnMoreOption];
+    [imgLogo setFrame:CGRectMake(22, 8, imgLogo.frame.size.width, imgLogo.frame.size.height)];
+    [infoHeader addSubview:imgLogo];
     
-    self.navigationItem.titleView = infoHeader;
+//    label_Age.frame = CGRectMake(label_header.frame.size.width , -2, label_Age.frame.size.width, 44);
+//    [infoHeader addSubview:label_Age];
+    for(UIView* subview in [self.navigationController.navigationBar subviews]){
+        [subview removeFromSuperview];
+    }
+    [self.navigationController.navigationBar addSubview:infoHeader];
+//    self.navigationItem.titleView = infoHeader;
 }
 
 - (void)viewDidLoad
@@ -246,15 +258,17 @@
 	self.tView.delegate = self;
 	self.tView.dataSource = self;
 	[self.tView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
-	[self customBackButtonBarItem];
+//	[self customBackButtonBarItem];
+    [self.navigationItem setHidesBackButton:YES];
 	AppDelegate *del = [self appDelegate];
 	del._messageDelegate = self;
 	[self.messageField becomeFirstResponder];
     
-//    [label_header setText:userName];
-    [label_header setTitle:userName forState:UIControlStateNormal];
+    [label_header setText:userName];
+//    [label_header setTitle:userName forState:UIControlStateNormal];
     [label_Age setText:userAge];
-    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"bg.png"]];
+//    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"bg.png"]];
+    
 //	XMPPJID *jid = [XMPPJID jidWithString:@"cesare@doolik.com"];
 //	XMPPJID *jid = del.xmppStream.myJID;
     
@@ -306,14 +320,20 @@
 #pragma mark Actions
 
 - (IBAction) closeChat {
-
-//    UINavigationController* activeVC = [[self appDelegate] activeViewController];
-//    UIViewController* vc = (VCChat*)[activeVC.viewControllers objectAtIndex:0];
-//    
-//    if(vc != nil && [vc isKindOfClass:[VCChat class]])
-//        ((VCChat*)vc).isChatLoaded = FALSE;
-//    
-//	[self dismissModalViewControllerAnimated:YES];
+    AppDelegate *appDel = (AppDelegate *) [UIApplication sharedApplication].delegate;
+    UINavigationController* activeVC = [appDel activeViewController];
+    UIViewController* vc = [activeVC.viewControllers objectAtIndex:0];
+    if(![vc isKindOfClass:[VCSimpleSnapshot class]] )
+    {
+        [self.navigationController popViewControllerAnimated:YES];
+    }
+    else
+    {
+        [self.navigationController popViewControllerAnimated:YES];
+        [appDel.rootVC setFrontViewController:activeVC focusAfterChange:NO completion:^(BOOL finished) {
+        }];
+        [appDel.rootVC showViewController:appDel.chat];
+    }
 }
 
 - (void)addMessage:(NSString*)body atTime:(NSString*)time fromUser:(NSString*)from toUser:(NSString*)to

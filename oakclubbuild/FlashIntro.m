@@ -31,8 +31,8 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
-    background = [[UIImageView alloc] initWithFrame:self.view.frame];
-    UIImage *backgroundImg = [UIImage imageNamed:@"FlashIntro_background.jpg"];
+    background = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
+    UIImage *backgroundImg = [UIImage imageNamed:@"spashscreen"];
     [background setImage:backgroundImg];
     [background setContentMode:UIViewContentModeScaleAspectFit];
     [self.view addSubview:background];

@@ -42,12 +42,12 @@
  // An empty implementation adversely affects performance during animation.
  - (void)drawRect:(CGRect)rect
  {
-//     // Drawing code
-//     UIImage *image = [UIImage imageNamed: @"header.png"];
-//     [image drawInRect:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)];
-//     
-//     //for iOS5
-//     [self setBackgroundImage:[UIImage imageNamed: @"header.png"] forBarMetrics:UIBarMetricsDefault];
+     // Drawing code
+     UIImage *image = [UIImage imageNamed: @"Navbar_BG.png"];
+     [image drawInRect:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)];
+     
+     //for iOS5
+     [self setBackgroundImage:[UIImage imageNamed: @"Navbar_BG.png"] forBarMetrics:UIBarMetricsDefault];
  }
 
 -(void)initRightButtonBar{

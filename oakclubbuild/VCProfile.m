@@ -903,10 +903,10 @@ static CGFloat padding_left = 5.0;
 -(void)addTopLeftButtonWithAction:(SEL)action
 {
     UIButton* buttonBack = [UIButton buttonWithType:UIButtonTypeCustom];
-    buttonBack.frame = CGRectMake(0, 0, 35, 30);
+    buttonBack.frame = CGRectMake(0, 0, 10, 17);
     [buttonBack addTarget:self action:action forControlEvents:UIControlEventTouchUpInside];
-    [buttonBack setBackgroundImage:[UIImage imageNamed:@"header_btn_back.png"] forState:UIControlStateNormal];
-    [buttonBack setBackgroundImage:[UIImage imageNamed:@"header_btn_back_pressed.png"] forState:UIControlStateHighlighted];
+    [buttonBack setBackgroundImage:[UIImage imageNamed:@"Navbar_btn_back.png"] forState:UIControlStateNormal];
+    [buttonBack setBackgroundImage:[UIImage imageNamed:@"Navbar_btn_back_pressed.png"] forState:UIControlStateHighlighted];
     
     
     UIBarButtonItem *buttonItem = [[UIBarButtonItem alloc] initWithCustomView:buttonBack];

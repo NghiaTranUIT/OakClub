@@ -9,7 +9,6 @@
             <connections>
                 <outlet property="avatar" destination="28" id="57"/>
                 <outlet property="btnAvatar" destination="47" id="48"/>
-                <outlet property="confirmLogoutView" destination="Gid-gb-m80" id="X1a-nN-2of"/>
                 <outlet property="name" destination="34" id="41"/>
                 <outlet property="numCoins" destination="38" id="43"/>
                 <outlet property="tableView" destination="24" id="58"/>
@@ -110,44 +109,6 @@
                 <action selector="onTouchAvatar:" destination="-1" eventType="touchUpInside" id="51"/>
             </connections>
         </button>
-        <view contentMode="scaleToFill" id="Gid-gb-m80">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-            <subviews>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="3YW-nV-HK5">
-                    <rect key="frame" x="0.0" y="363" width="320" height="205"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                </imageView>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="3oy-TZ-05h">
-                    <rect key="frame" x="88" y="463" width="129" height="30"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    <state key="normal" title="Logout"/>
-                    <connections>
-                        <action selector="onTouchConfirmLogout:" destination="-1" eventType="touchUpInside" id="g6H-Ws-7f4"/>
-                    </connections>
-                </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="3kw-W0-m3r">
-                    <rect key="frame" x="88" y="510" width="129" height="30"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    <state key="normal" title="Cancel"/>
-                    <connections>
-                        <action selector="onTouchCancelLogout:" destination="-1" eventType="touchUpInside" id="9se-Bi-kQQ"/>
-                    </connections>
-                </button>
-                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Are you sure to want to logout? You will continue to be seen by compatible users in your last know location." textAlignment="center" lineBreakMode="characterWrap" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="tvY-TL-Nb8">
-                    <rect key="frame" x="26" y="373" width="268" height="67"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    <nil key="highlightedColor"/>
-                </label>
-            </subviews>
-            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-            <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
-        </view>
     </objects>
     <resources>
         <image name="Menu_BG.png" width="246" height="460"/>

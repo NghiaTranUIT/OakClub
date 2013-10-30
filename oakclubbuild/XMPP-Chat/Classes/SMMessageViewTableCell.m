@@ -33,9 +33,14 @@
 		[self.customView addSubview:senderAndTimeLabel];
 		
 		bgImageView = [[UIImageView alloc] initWithFrame:CGRectZero];
-		[self.customView addSubview:bgImageView];
+        [self.customView addSubview:bgImageView];
         
 		avatarImageView =[UIButton buttonWithType:UIButtonTypeRoundedRect];
+        avatarImageView.layer.masksToBounds = YES;
+        avatarImageView.layer.cornerRadius = 20;
+        avatarImageView.layer.borderWidth = 2.0;
+        avatarImageView.layer.borderColor = [[UIColor lightGrayColor] CGColor];
+
         [self.customView addSubview:avatarImageView];
         
 		messageContentView = [[UIView alloc] init];

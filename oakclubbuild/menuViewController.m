@@ -12,6 +12,7 @@
 #import "Define.h"
 #import "UIView+Localize.h"
 #import "NSString+Utils.h"
+#import "VCLogout.h"
 
 @interface menuViewController () <ImageRequester>
 {
@@ -120,10 +121,12 @@
     numPoints = [numPoints stringByReplacingOccurrencesOfString:strCoins withString:[NSString localizeString:strCoins]];
     self.numCoins.text =  numPoints;
     [self.view localizeAllViews];
-    [tableView reloadData];
+    
     
     Profile *myProfile = ((AppDelegate *) [UIApplication sharedApplication].delegate).myProfile;
     [self.avatar setImage:myProfile.img_Avatar];
+    
+    [tableView reloadData];
 }
 - (void)didReceiveMemoryWarning
 {
@@ -193,6 +196,10 @@
         UIImage* tellFriend_BG = [UIImage imageNamed:@"Menu_btn_Facebook.png"];
         [cell setItemBackground:tellFriend_BG andHighlight:tellFriend_BG];
     }
+    /*
+    if(indexPath.row == 1){
+        [cell setItemIcon:imageAvatar];
+    }*/
     NSNumber* number = [numberNotifications objectAtIndex:indexPath.row];
     [cell setNotification:[number unsignedIntValue]];
 //    }
@@ -316,26 +323,16 @@
 */
 #pragma mark handle button touch
 - (IBAction)onTouchLogout:(id)sender {
-
-    [self.confirmLogoutView setFrame:CGRectMake(0, self.view.frame.size.height+self.confirmLogoutView.frame.size.height, self.confirmLogoutView.frame.size.width, self.confirmLogoutView.frame.size.height)];
-    [self.view addSubview:self.confirmLogoutView];
-    [UIView animateWithDuration:0.4
-                     animations:^{
-                         [self.confirmLogoutView setFrame:CGRectMake(0, self.view.frame.size.height-self.confirmLogoutView.frame.size.height, self.confirmLogoutView.frame.size.width, self.confirmLogoutView.frame.size.height)];
-                     }completion:^(BOOL finished) {
-                     }];
-}
-- (IBAction)onTouchConfirmLogout:(id)sender {
-    [appDel  logOut];
-}
-- (IBAction)onTouchCancelLogout:(id)sender {
-    [UIView animateWithDuration:0.4
-                     animations:^{
-                         [self.confirmLogoutView setFrame:CGRectMake(0, self.view.frame.size.height+self.confirmLogoutView.frame.size.height, self.confirmLogoutView.frame.size.width, self.confirmLogoutView.frame.size.height)];
-                     }completion:^(BOOL finished) {
-                         [self.confirmLogoutView removeFromSuperview];
-                     }];
+    VCLogout* logoutView= [[VCLogout alloc]init];
     
+    [logoutView.view setFrame:CGRectMake(0, self.view.frame.size.height+logoutView.view.frame.size.height, 246, logoutView.view.frame.size.height)];
+    [self.view addSubview:logoutView.view];
+    [UIView animateWithDuration:0.4
+                     animations:^{
+                         [logoutView.view setFrame:CGRectMake(0, self.view.frame.size.height-logoutView.view.frame.size.height, 246, logoutView.view.frame.size.height)];
+                     }completion:^(BOOL finished) {
+                     }];
 }
+
 
 @end

@@ -17,5 +17,5 @@
 - (void) setItemMenu:(NSString *)imageName AndlabelName:(NSString*)label;
 - (void) setNotification:(int)nNotifications;
 - (void) setItemBackground:(UIImage*)image andHighlight:(UIImage*)highlightImage;
-
+- (void) setItemIcon:(UIImage*)image;
 @end

@@ -16,9 +16,9 @@
 #endif
 @implementation UIViewController (Custom)
 -(void)customBackButtonBarItem{
-    UIButton *backButton = [[UIButton alloc] initWithFrame:CGRectMake(10, 0, 35, 30)];
-    [backButton setImage:[UIImage imageNamed:@"header_btn_back.png"] forState:UIControlStateNormal];
-    [backButton setImage:[UIImage imageNamed:@"header_btn_back_pressed.png"] forState:UIControlStateHighlighted];
+    UIButton *backButton = [[UIButton alloc] initWithFrame:CGRectMake(10, 0, 10, 17)];
+    [backButton setImage:[UIImage imageNamed:@"Navbar_btn_back.png"] forState:UIControlStateNormal];
+    [backButton setImage:[UIImage imageNamed:@"Navbar_btn_back_pressed.png"] forState:UIControlStateHighlighted];
     [backButton addTarget:self action:@selector(backToPreviousView) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *barBackItem = [[UIBarButtonItem alloc] initWithCustomView:backButton];
     self.navigationItem.leftBarButtonItem = barBackItem;
