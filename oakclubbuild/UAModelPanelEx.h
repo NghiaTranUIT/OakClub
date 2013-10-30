@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import "UAModalPanel.h"
+#import "SCLoginViewController.h"
 
 @interface UAModelPanelEx : UAModalPanel
+- (id) initWithFrame:(CGRect)frame andLoginPage:(SCLoginViewController *)login;
 @end

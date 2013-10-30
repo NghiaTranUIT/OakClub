@@ -60,11 +60,11 @@ CGFloat pageHeight;
     [super viewDidLoad];
     // load profile List
     [self refreshSnapshot];
-    
+    [self loadHeaderLogo];
     [self.view addSubview:self.moveMeView];
     self.moveMeView.frame = CGRectMake(0, 0, 320, 548);
     // Do any additional setup after loading the view from its nib.
-    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"bg.png"]];
+//    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"bg.png"]];
     // Load the display strings.
     NSURL *stringsFileURL = [[NSBundle mainBundle] URLForResource:@"DisplayStrings" withExtension:@"txt"];
     NSError *error;
@@ -81,6 +81,13 @@ CGFloat pageHeight;
     
 }
 
+-(void)loadHeaderLogo{
+    UIImage* logo = [UIImage imageNamed:@"Snapshot_logo.png"];
+    UIImageView *logoView = [[UIImageView alloc]initWithFrame:CGRectMake(98, 10, 125, 26)];
+    [logoView setImage:logo];
+    [self.navigationController.navigationBar  addSubview:logoView];
+//    [[self navBarOakClub] addToHeader:logoView];
+}
 -(void) refreshSnapshot{
     currentIndex = 0;
     profileList = [[NSMutableArray alloc] init];
@@ -663,7 +670,7 @@ CGFloat pageHeight;
     [self.view addSubview:loadingAnim];
     [self.moveMeView localizeAllViews];
     [self.controlView localizeAllViews];
-    [[self navBarOakClub] setHeaderName:[NSString localizeString:@"Snapshot"]];
+//    [[self navBarOakClub] setHeaderName:[NSString localizeString:@"Snapshot"]];
     
     //load data
     [self loadLikeMeList];

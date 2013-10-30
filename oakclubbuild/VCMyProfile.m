@@ -938,7 +938,7 @@ CLLocationManager *locationManager;
     {
         UIButton *photoButton = [[UIButton alloc] initWithFrame:CGRectMake(self.photoScrollView.contentSize.width, V_PADDING, PHOTO_WIDTH, PHOTO_HEIGHT)];
         [photoButton setBackgroundImage:[photos objectAtIndex:i] forState:UIControlStateNormal];
-        photoButton.layer.cornerRadius = 1;
+        photoButton.layer.cornerRadius = 4.0;
         photoButton.tag = i;
         [photoButton addTarget:self action:@selector(photoButtonTouched:) forControlEvents:UIControlEventTouchUpInside];
         
@@ -948,7 +948,7 @@ CLLocationManager *locationManager;
     
     UIButton *photoButton = [[UIButton alloc] initWithFrame:CGRectMake(self.photoScrollView.contentSize.width, V_PADDING, PHOTO_WIDTH, PHOTO_HEIGHT)];
     [photoButton setBackgroundImage:[UIImage imageNamed:@"plus_sign"] forState:UIControlStateNormal];
-    photoButton.layer.cornerRadius = 1;
+    photoButton.layer.cornerRadius = 4.0;
     [photoButton addTarget:self action:@selector(addPhotoButtonTouched:) forControlEvents:UIControlEventTouchUpInside];
     
     self.photoScrollView.contentSize = CGSizeMake(self.photoScrollView.contentSize.width + PHOTO_WIDTH + H_PADDING, self.photoScrollView.contentSize.height);

@@ -64,6 +64,7 @@ NSString *const kXMPPmyPassword = @"kXMPPmyPassword";
 @synthesize myProfile = _myProfile;
 //@synthesize hangoutView = _hangout;
 @synthesize loginView = _loginView;
+@synthesize flashIntro = _flashIntro;
 @synthesize confirmVC = _confirmVC;
 @synthesize myLink = _myLink;
 @synthesize chat = _chat;
@@ -128,8 +129,6 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    
-    
     [self changeFontStyle];
 
     
@@ -151,8 +150,8 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
 //    self.window.rootViewController = test;
     self.reloadSnapshot = FALSE;
     
-    self.loginView = [[SCLoginViewController alloc] initWithNibName:@"SCLoginViewController" bundle:nil];
-    self.window.rootViewController = self.loginView;
+    self.flashIntro = [[FlashIntro alloc] init];
+    self.window.rootViewController = self.flashIntro;
     [self.window makeKeyAndVisible];
 
 //    BOOL hasInternet = [self checkInternetConnection];
@@ -183,12 +182,24 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
     
     return YES;
 }
+
+-(void)gotoLogin
+{
+    if (!self.loginView)
+    {
+        self.loginView = [[SCLoginViewController alloc] initWithNibName:@"SCLoginViewController" bundle:nil];
+    }
+    
+    self.window.rootViewController = self.loginView;
+    [self.window makeKeyAndVisible];
+}
+
 -(void)loadAllViewControllers{
     self.chat = [self createNavigationByClass:@"VCChat" AndHeaderName:@"Chat History" andRightButton:nil andIsStoryBoard:NO];
     self.myLink = [self createNavigationByClass:@"VCMyLink" AndHeaderName:@"My Links" andRightButton:nil andIsStoryBoard:NO];
     self.snapShoot = [self createNavigationByClass:@"VCSnapshoot" AndHeaderName:@"Snapshot" andRightButton:@"SnapshotSetting" andIsStoryBoard:YES];
 #if ENABLE_DEMO
-    self.simpleSnapShot = [self createNavigationByClass:@"VCSimpleSnapshot" AndHeaderName:[NSString localizeString:@"Snapshot"] andRightButton:@"VCChat" andIsStoryBoard:NO];
+    self.simpleSnapShot = [self createNavigationByClass:@"VCSimpleSnapshot" AndHeaderName:nil/*[NSString localizeString:@"Snapshot"]*/ andRightButton:@"VCChat" andIsStoryBoard:NO];
     //     self.snapShotSettings = [self.storyboard instantiateViewControllerWithIdentifier:@"SnapshotSettings"];
     self.snapShotSettings = [self createNavigationByClass:@"VCSimpleSnapshotSetting" AndHeaderName:[NSString localizeString:@"Setting"] andRightButton:nil andIsStoryBoard:NO];
     self.mutualMatches = [self createNavigationByClass:@"VCMutualMatch" AndHeaderName:[NSString localizeString:@"Mutual Matches"] andRightButton:nil andIsStoryBoard:NO];

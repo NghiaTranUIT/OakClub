@@ -42,12 +42,12 @@
  // An empty implementation adversely affects performance during animation.
  - (void)drawRect:(CGRect)rect
  {
-     // Drawing code
-     UIImage *image = [UIImage imageNamed: @"header.png"];
-     [image drawInRect:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)];
-     
-     //for iOS5
-     [self setBackgroundImage:[UIImage imageNamed: @"header.png"] forBarMetrics:UIBarMetricsDefault];
+//     // Drawing code
+//     UIImage *image = [UIImage imageNamed: @"header.png"];
+//     [image drawInRect:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)];
+//     
+//     //for iOS5
+//     [self setBackgroundImage:[UIImage imageNamed: @"header.png"] forBarMetrics:UIBarMetricsDefault];
  }
 
 -(void)initRightButtonBar{
@@ -55,8 +55,8 @@
     [rightButton setHidden:NO];
 #if ENABLE_DEMO
     if([rightButtonClass isEqualToString:@"VCChat"]){
-        [rightButton setImage:[UIImage imageNamed:@"btn-chat.png"] forState:UIControlStateNormal];
-        [rightButton setImage:[UIImage imageNamed:@"btn-chat-pressed.png"] forState:UIControlStateHighlighted];
+        [rightButton setImage:[UIImage imageNamed:@"Navbar_btn_chat_up.png"] forState:UIControlStateNormal];
+        [rightButton setImage:[UIImage imageNamed:@"Navbar_btn_chat_up.png"] forState:UIControlStateHighlighted];
     }
     if([rightButtonClass isEqualToString:@"VCMyProfile"]){
         [rightButton setImage:[UIImage imageNamed:@"header_btn_save.png"] forState:UIControlStateNormal];
