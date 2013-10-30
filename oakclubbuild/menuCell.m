@@ -41,11 +41,16 @@ static CGFloat padding_left = 4.0;
 }
 //@synthesize iconMenu, labelMenu;
 - (void) setItemMenu:(NSString *)imageName AndlabelName:(NSString*)label{
-    iconMenu.image = [UIImage imageNamed:[NSString stringWithFormat:@"menu_%@.png",[[imageName stringByReplacingOccurrencesOfString:@" " withString:@""] lowercaseString]]];
+    NSString* formatImageName=[[imageName stringByReplacingOccurrencesOfString:@" " withString:@""] lowercaseString];
+    formatImageName=[formatImageName stringByReplacingOccurrencesOfString:@"!" withString:@""];
+    iconMenu.image = [UIImage imageNamed:[NSString stringWithFormat:@"Menu_icon_%@.png",formatImageName]];
     labelMenu.text = label;
 }
 
-
+-(void) setItemBackground:(UIImage*)image andHighlight:(UIImage*)highlightImage{
+    [itemMenu setImage:image];
+    [itemMenu setHighlightedImage:highlightImage];
+}
 
 
 +(UIImageView*)getLabelWithBackground:(NSString*) text
@@ -133,5 +138,4 @@ static CGFloat padding_left = 4.0;
     
 
 }
-
 @end

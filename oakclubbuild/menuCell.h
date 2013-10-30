@@ -9,13 +9,13 @@
 #import <UIKit/UIKit.h>
 
 @interface menuCell : UITableViewCell{
-
+    IBOutlet UIImageView *itemMenu;
     IBOutlet UIImageView *iconMenu;
     IBOutlet UILabel *labelMenu;
     UIView *view;
 }
 - (void) setItemMenu:(NSString *)imageName AndlabelName:(NSString*)label;
 - (void) setNotification:(int)nNotifications;
-
+- (void) setItemBackground:(UIImage*)image andHighlight:(UIImage*)highlightImage;
 
 @end

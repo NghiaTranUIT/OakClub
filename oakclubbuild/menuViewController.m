@@ -19,6 +19,7 @@
     
 }
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (strong, nonatomic) IBOutlet UIView *confirmLogoutView;
 
 @end
 
@@ -164,11 +165,13 @@
     [self setTableView:nil];
     [super viewDidUnload];
 }
+
+#pragma mark tableview Delegate
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     return [imageNames count];
 }
 -(float)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 35;
+    return 44;
 }
 
 
@@ -186,68 +189,16 @@
     
 //        UIImage *thumbImage = [UIImage imageNamed:[NSString stringWithFormat:@"%menu_@.png", name]];
         [cell setItemMenu:icon AndlabelName:[NSString localizeString:label]];
-    
+    if(indexPath.row == 3){
+        UIImage* tellFriend_BG = [UIImage imageNamed:@"Menu_btn_Facebook.png"];
+        [cell setItemBackground:tellFriend_BG andHighlight:tellFriend_BG];
+    }
     NSNumber* number = [numberNotifications objectAtIndex:indexPath.row];
     [cell setNotification:[number unsignedIntValue]];
 //    }
     return cell;
      
 }
-
--(void)setNotificationValue:(int)value atIndex:(NSNumber*)index
-{
-    uint indexValue = [index unsignedIntValue];
-    NSNumber* number = [NSNumber numberWithUnsignedInt:value];
-    [numberNotifications removeObjectAtIndex:indexValue];
-    [numberNotifications insertObject:number atIndex:indexValue];
-    
-    [tableView reloadData];
-}
-
--(void)setChatNotification:(int)num
-{
-//    NSNumber* index = [nameIndex objectForKey:@"Chat"];
-//    [self setNotificationValue:num atIndex:index];
-}
-
--(void)setVisitorsNotification:(int)num
-{
-    NSNumber* index = [nameIndex objectForKey:@"Visitors"];
-    [self setNotificationValue:num atIndex:index];
-}
-
--(void)setMyLinksNotification:(int)num
-{
-    NSNumber* index = [nameIndex objectForKey:@"My Links"];
-    [self setNotificationValue:num atIndex:index];
-}
-
-
-- (NSArray *)getListMenuItems{
-#if ENABLE_DEMO
-    NSString *path = [[NSBundle mainBundle] pathForResource:@"menu_demo" ofType:@"plist"];
-    NSData *plistData = [NSData dataWithContentsOfFile:path];
-    NSString *error; NSPropertyListFormat format;
-    NSArray *imageNames = [NSPropertyListSerialization propertyListFromData:plistData
-                                                           mutabilityOption:NSPropertyListImmutable
-                                                                     format:&format
-                                                           errorDescription:&error];
-#else
-    NSString *path = [[NSBundle mainBundle] pathForResource:@"menu" ofType:@"plist"];
-    NSData *plistData = [NSData dataWithContentsOfFile:path];
-    NSString *error; NSPropertyListFormat format;
-    NSArray *imageNames = [NSPropertyListSerialization propertyListFromData:plistData
-                                                           mutabilityOption:NSPropertyListImmutable
-                                                                     format:&format
-                                                           errorDescription:&error];
-#endif
-    
-    if (!imageNames) {
-        NSLog(@"Failed to read image names. Error: %@", error);
-    }
-    return imageNames;
-}
-
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     NSLog(@"selected id %i",indexPath.row);
 #if ENABLE_DEMO
@@ -255,14 +206,14 @@
         case 0:
             [appDel  showSimpleSnapshot];
             break;
-//        case 1:
-//            [appDel  showMutualMatches];
-//            break;
         case 1:
-            [appDel  showSnapshotSettings];
+            [appDel  showMyProfile];
             break;
         case 2:
-            [appDel  logOut];
+            [appDel  showSnapshotSettings];
+            break;
+        case 3:
+            //            [appDel  logOut];
             break;
         default:
             break;
@@ -300,11 +251,91 @@
     
 }
 
+#pragma mark Notification
+
+-(void)setNotificationValue:(int)value atIndex:(NSNumber*)index
+{
+    uint indexValue = [index unsignedIntValue];
+    NSNumber* number = [NSNumber numberWithUnsignedInt:value];
+    [numberNotifications removeObjectAtIndex:indexValue];
+    [numberNotifications insertObject:number atIndex:indexValue];
+    
+    [tableView reloadData];
+}
+
+-(void)setChatNotification:(int)num
+{
+//    NSNumber* index = [nameIndex objectForKey:@"Chat"];
+//    [self setNotificationValue:num atIndex:index];
+}
+
+-(void)setVisitorsNotification:(int)num
+{
+    NSNumber* index = [nameIndex objectForKey:@"Visitors"];
+    [self setNotificationValue:num atIndex:index];
+}
+
+-(void)setMyLinksNotification:(int)num
+{
+    NSNumber* index = [nameIndex objectForKey:@"My Links"];
+    [self setNotificationValue:num atIndex:index];
+}
+
+
+- (NSArray *)getListMenuItems{
+#if ENABLE_DEMO
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"menu_simple" ofType:@"plist"];
+    NSData *plistData = [NSData dataWithContentsOfFile:path];
+    NSString *error; NSPropertyListFormat format;
+    NSArray *imageNames = [NSPropertyListSerialization propertyListFromData:plistData
+                                                           mutabilityOption:NSPropertyListImmutable
+                                                                     format:&format
+                                                           errorDescription:&error];
+#else
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"menu" ofType:@"plist"];
+    NSData *plistData = [NSData dataWithContentsOfFile:path];
+    NSString *error; NSPropertyListFormat format;
+    NSArray *imageNames = [NSPropertyListSerialization propertyListFromData:plistData
+                                                           mutabilityOption:NSPropertyListImmutable
+                                                                     format:&format
+                                                           errorDescription:&error];
+#endif
+    
+    if (!imageNames) {
+        NSLog(@"Failed to read image names. Error: %@", error);
+    }
+    return imageNames;
+}
+
+
 /*
 - (NSUInteger)supportedInterfaceOrientations
 {
     return UIInterfaceOrientationMaskPortrait;
 }
 */
+#pragma mark handle button touch
+- (IBAction)onTouchLogout:(id)sender {
+
+    [self.confirmLogoutView setFrame:CGRectMake(0, self.view.frame.size.height+self.confirmLogoutView.frame.size.height, self.confirmLogoutView.frame.size.width, self.confirmLogoutView.frame.size.height)];
+    [self.view addSubview:self.confirmLogoutView];
+    [UIView animateWithDuration:0.4
+                     animations:^{
+                         [self.confirmLogoutView setFrame:CGRectMake(0, self.view.frame.size.height-self.confirmLogoutView.frame.size.height, self.confirmLogoutView.frame.size.width, self.confirmLogoutView.frame.size.height)];
+                     }completion:^(BOOL finished) {
+                     }];
+}
+- (IBAction)onTouchConfirmLogout:(id)sender {
+    [appDel  logOut];
+}
+- (IBAction)onTouchCancelLogout:(id)sender {
+    [UIView animateWithDuration:0.4
+                     animations:^{
+                         [self.confirmLogoutView setFrame:CGRectMake(0, self.view.frame.size.height+self.confirmLogoutView.frame.size.height, self.confirmLogoutView.frame.size.width, self.confirmLogoutView.frame.size.height)];
+                     }completion:^(BOOL finished) {
+                         [self.confirmLogoutView removeFromSuperview];
+                     }];
+    
+}
 
 @end
