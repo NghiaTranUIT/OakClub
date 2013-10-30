@@ -19,6 +19,7 @@
 #import "ChatEmoticon.h"
 #import "HistoryMessage+init.h"
 #import "VCSimpleSnapshot.h"
+#import "VCReportPopup.h"
 
 @interface SMChatViewController() <ImageRequester>
 
@@ -229,13 +230,16 @@
     [tView reloadData];
 
     [self scrollToLastAnimated:NO];
-    
-    UIView *infoHeader= [[UIView alloc]initWithFrame:CGRectMake(0, 0, 300, 44)];
+//    self.navigationItem.titleView = infoHeader;
+}
+
+-(void)customNavigationHeader{
+    UIView *infoHeader= [[UIView alloc]initWithFrame:CGRectMake(0, 0, 320, 44)];
     [btnBackToPrevious setFrame:CGRectMake(8, 14, btnBackToPrevious.frame.size.width, btnBackToPrevious.frame.size.height)];
     [infoHeader addSubview:btnBackToPrevious];
     label_header.frame = CGRectMake(60, 0, label_header.frame.size.width, 44);
     [infoHeader addSubview:label_header];
-
+    
     [btnShowProfile setFrame:CGRectMake(244, 8, btnShowProfile.frame.size.width, btnShowProfile.frame.size.height)];
     [infoHeader addSubview:btnShowProfile];
     [btnMoreOption setFrame:CGRectMake(282, 8, btnMoreOption.frame.size.width, btnMoreOption.frame.size.height)];
@@ -243,15 +247,14 @@
     [imgLogo setFrame:CGRectMake(22, 8, imgLogo.frame.size.width, imgLogo.frame.size.height)];
     [infoHeader addSubview:imgLogo];
     
-//    label_Age.frame = CGRectMake(label_header.frame.size.width , -2, label_Age.frame.size.width, 44);
-//    [infoHeader addSubview:label_Age];
+    //    label_Age.frame = CGRectMake(label_header.frame.size.width , -2, label_Age.frame.size.width, 44);
+    //    [infoHeader addSubview:label_Age];
     for(UIView* subview in [self.navigationController.navigationBar subviews]){
         [subview removeFromSuperview];
     }
+    [self.navigationItem setHidesBackButton:YES];
     [self.navigationController.navigationBar addSubview:infoHeader];
-//    self.navigationItem.titleView = infoHeader;
 }
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -259,7 +262,8 @@
 	self.tView.dataSource = self;
 	[self.tView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
 //	[self customBackButtonBarItem];
-    [self.navigationItem setHidesBackButton:YES];
+    [self customNavigationHeader];
+    
 	AppDelegate *del = [self appDelegate];
 	del._messageDelegate = self;
 	[self.messageField becomeFirstResponder];
@@ -380,7 +384,32 @@
 		
     }
 }
+- (IBAction)onTouchMoreOption:(id)sender {
+    [self.navigationController.navigationBar setUserInteractionEnabled:NO];
+    VCReportPopup* reportPopup= [[VCReportPopup alloc]init];
+    [self dismissKeyboard:sender];
+    [reportPopup.view setFrame:CGRectMake(0, 0, reportPopup.view.frame.size.width, reportPopup.view.frame.size.height)];
+//    [self.view addSubview:reportPopup.view];
+    [self.navigationController pushViewController:reportPopup animated:NO];
+}
 
+- (IBAction)onTapViewProfile:(id)sender {
+    
+    //    UIButton* button = sender;
+    
+    UINavigationController* activeVC = [[self appDelegate] activeViewController];
+    UIViewController* vc = [activeVC.viewControllers objectAtIndex:0];
+    if( [vc isKindOfClass:[VCChat class]] )
+    {
+        VCProfile *viewProfile = [[VCProfile alloc] initWithNibName:@"VCProfile" bundle:nil];
+        [viewProfile loadProfile:userProfile andImage:avatar_friend];
+        
+        [vc.navigationController pushViewController:viewProfile animated:YES];
+    }
+    else
+        [vc.navigationController popViewControllerAnimated:YES];
+    
+}
 #pragma mark -
 #pragma mark Table view delegates
 
@@ -430,7 +459,7 @@ static float cellWidth = 320;
 		
 	if (![sender isEqualToString:@"you"]) { // left aligned
 	
-		bgImage = [[UIImage imageNamed:@"chat_me.png"] stretchableImageWithLeftCapWidth:14  topCapHeight:14];
+		bgImage = [[UIImage imageNamed:@"ChatView_blue_speech.png"] stretchableImageWithLeftCapWidth:14  topCapHeight:14];
 		
 		[cell.messageContentView setFrame:CGRectMake(padding_left, padding_top, cell.messageContentView.frame.size.width, cell.messageContentView.frame.size.height)];
         
@@ -452,7 +481,7 @@ static float cellWidth = 320;
                                 cell.avatarImageView.frame.origin.y + cell.avatarImageView.frame.size.height + padding_top);
 	} else {
         
-		bgImage = [[UIImage imageNamed:@"chat_friend.png"] stretchableImageWithLeftCapWidth:14  topCapHeight:14];
+		bgImage = [[UIImage imageNamed:@"ChatView_white_speech.png"] stretchableImageWithLeftCapWidth:14  topCapHeight:14];
 		
 		[cell.messageContentView setFrame:CGRectMake(padding_left, padding_top, cell.messageContentView.frame.size.width, cell.messageContentView.frame.size.height)];
         
@@ -746,24 +775,6 @@ NSMutableArray *cellHeight;
     [self.scrollView addGestureRecognizer:tap];
 }
 
-- (IBAction)onTapViewProfile:(id)sender {
-
-//    UIButton* button = sender;
-    
-    UINavigationController* activeVC = [[self appDelegate] activeViewController];
-    UIViewController* vc = [activeVC.viewControllers objectAtIndex:0];
-    if( [vc isKindOfClass:[VCChat class]] )
-    {
-        VCProfile *viewProfile = [[VCProfile alloc] initWithNibName:@"VCProfile" bundle:nil];
-        [viewProfile loadProfile:userProfile andImage:avatar_friend];
-        
-        [vc.navigationController pushViewController:viewProfile animated:YES];
-    }
-    else
-        [vc.navigationController popViewControllerAnimated:YES];
-    
-}
-
 - (NSUInteger)supportedInterfaceOrientations
 {
     return UIInterfaceOrientationMaskPortrait;
@@ -787,14 +798,6 @@ NSMutableArray *cellHeight;
     if(![vc isKindOfClass:[VCSimpleSnapshot class]] )
     {
         [self.navigationController popViewControllerAnimated:YES];
-        [appDel.rootVC setFrontViewController:activeVC focusAfterChange:NO completion:^(BOOL finished) {
-        }];
-//        menuViewController *leftController = [[menuViewController alloc] init];
-//        [leftController setUIInfo:appDelegate.myProfile];
-//        [appDelegate.rootVC setRightViewController:appDelegate.chat];
-//        [appDelegate.rootVC setLeftViewController:leftController];
-//        appDelegate.window.rootViewController = appDelegate.rootVC;
-
     }
     else
     {

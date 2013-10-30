@@ -54,7 +54,7 @@ UITapGestureRecognizer *tap;
     
     snapshotObj = [[SettingObject alloc] init];
     [self loadSetting];
-    self.tableView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"bg.png"]];
+//    self.tableView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"bg.png"]];
     
 }
 -(NavBarOakClub*)navBarOakClub
@@ -227,6 +227,7 @@ UITapGestureRecognizer *tap;
             }
             break;
         case 2:
+            /*
             if (row == 0 && ([snapshotObj.gender_of_search isEqualToString:value_Male] || [snapshotObj.gender_of_search isEqualToString:value_All]))
             {
                 cell.accessoryType = UITableViewCellAccessoryCheckmark;
@@ -235,16 +236,64 @@ UITapGestureRecognizer *tap;
             {
                 cell.accessoryType = UITableViewCellAccessoryCheckmark;
             }
+             */
             if(row == 2){
                 cell.detailTextLabel.text = [NSString stringWithFormat:@"%d-%d %@",fromAge,toAge,[NSString localizeString:@"year old"]];
             }
             
+            
             switch (row) {
                 case 0:
-                    cell.textLabel.text = @"Guys";
+                {
+                    static NSString *filterGuysID = @"FilterGuysID";
+                    UITableViewCell *filterGuysCell = [tableView dequeueReusableCellWithIdentifier:filterGuysID];
+                    if (filterGuysCell == nil)
+                    {
+                        filterGuysCell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:filterGuysID];
+                        filterGuysCell.textLabel.text = [NSString localizeString:@"Guys"] ;
+                        filterGuysCell.selectionStyle = UITableViewCellSelectionStyleNone;
+                        UISwitch *autoSwitch = [[UISwitch alloc] init];
+                        [autoSwitch addTarget:self action:nil forControlEvents:UIControlEventValueChanged];
+                        autoSwitch.frame = CGRectMake(cell.frame.size.width - autoSwitch.frame.size.width - 30, (cell.frame.size.height - autoSwitch.frame.size.height) / 2, autoSwitch.frame.size.width, autoSwitch.frame.size.height);
+                        [autoSwitch setOnTintColor:COLOR_PURPLE];
+                        autoSwitch.tag = 100;
+                        [filterGuysCell.contentView addSubview:autoSwitch];
+                    }
+                    else
+                    {
+                        filterGuysCell.textLabel.text = [NSString localizeString:@"Guys"] ;
+                        UISwitch *autoSwitch = (id) [filterGuysCell viewWithTag:100];
+                        autoSwitch.on = [snapshotObj.gender_of_search isEqualToString:value_Male] || [snapshotObj.gender_of_search isEqualToString:value_All];
+                    }
+                    
+                    return filterGuysCell;
+                }
                     break;
                 case 1:
-                    cell.textLabel.text = @"Girls";
+                {
+                    static NSString *filterGirlsID = @"FilterGirlsID";
+                    UITableViewCell *filterGirlsCell = [tableView dequeueReusableCellWithIdentifier:filterGirlsID];
+                    if (filterGirlsCell == nil)
+                    {
+                        filterGirlsCell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:filterGirlsID];
+                        filterGirlsCell.textLabel.text = [NSString localizeString:@"Girls"] ;
+                        filterGirlsCell.selectionStyle = UITableViewCellSelectionStyleNone;
+                        UISwitch *autoSwitch = [[UISwitch alloc] init];
+                        [autoSwitch addTarget:self action:nil forControlEvents:UIControlEventValueChanged];
+                        autoSwitch.frame = CGRectMake(cell.frame.size.width - autoSwitch.frame.size.width - 30, (cell.frame.size.height - autoSwitch.frame.size.height) / 2, autoSwitch.frame.size.width, autoSwitch.frame.size.height);
+                        [autoSwitch setOnTintColor:COLOR_PURPLE];
+                        autoSwitch.tag = 101;
+                        [filterGirlsCell.contentView addSubview:autoSwitch];
+                    }
+                    else
+                    {
+                        filterGirlsCell.textLabel.text = [NSString localizeString:@"Girls"] ;
+                        UISwitch *autoSwitch = (id) [filterGirlsCell viewWithTag:101];
+                        autoSwitch.on = [snapshotObj.gender_of_search isEqualToString:value_Female] || [snapshotObj.gender_of_search isEqualToString:value_All];
+                    }
+                    
+                    return filterGirlsCell;
+                }
                     break;
                 case 2:
                     cell.textLabel.text = @"Age around";

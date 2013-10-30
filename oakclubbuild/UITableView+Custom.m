@@ -8,6 +8,7 @@
 
 #import "UITableView+Custom.h"
 #import <QuartzCore/QuartzCore.h>
+#import "Define.h"
 @implementation UITableView (Custom)
 -(UIView* )customSelectdBackgroundViewForCellAtIndexPath:(NSIndexPath *)indexPath{
     CGRect frame = [self  rectForRowAtIndexPath:indexPath];
@@ -20,9 +21,9 @@
     CAShapeLayer *maskLayer;
     if (row == 0) {
         if([self numberOfRowsInSection:section] == 1){
-            backgroundView.backgroundColor = [UIColor colorWithRed:(190/255.0) green:(237/255.0) blue:(248/255.0) alpha:1];
+            backgroundView.backgroundColor = COLOR_PURPLE;
             backgroundView.layer.cornerRadius = 9.0;
-            backgroundView.layer.borderColor = [UIColor lightGrayColor].CGColor;
+            backgroundView.layer.borderColor = CGCOLOR_PURPLE;//[UIColor lightGrayColor].CGColor;
             backgroundView.layer.borderWidth = 1;
 //            CGRect tophalfCellRect = CGRectMake(0, selectedBackground.frame.size.height/2, selectedBackground.frame.size.width, selectedBackground.frame.size.height/2);
 //            maskPath = [UIBezierPath bezierPathWithRoundedRect:tophalfCellRect
@@ -54,8 +55,8 @@
         maskLayer = [CAShapeLayer layer];
         maskLayer.frame = selectedBackground.bounds;
         maskLayer.path = maskPath.CGPath;
-        maskLayer.fillColor = [UIColor colorWithRed:(190/255.0) green:(237/255.0) blue:(248/255.0) alpha:1].CGColor;
-        maskLayer.strokeColor = [UIColor lightGrayColor].CGColor;
+            maskLayer.fillColor = CGCOLOR_PURPLE;//[UIColor colorWithRed:(190/255.0) green:(237/255.0) blue:(248/255.0) alpha:1].CGColor;
+            maskLayer.strokeColor = CGCOLOR_PURPLE;//[UIColor lightGrayColor].CGColor;
         maskLayer.lineWidth = 1;
         [selectedBackground.layer addSublayer:maskLayer];
         }
@@ -69,8 +70,8 @@
             maskLayer = [CAShapeLayer layer];
             maskLayer.frame = selectedBackground.bounds;
             maskLayer.path = maskPath.CGPath;
-            maskLayer.fillColor = [UIColor colorWithRed:(190/255.0) green:(237/255.0) blue:(248/255.0) alpha:1].CGColor;
-            maskLayer.strokeColor = [UIColor lightGrayColor].CGColor;
+            maskLayer.fillColor = CGCOLOR_PURPLE;//[UIColor colorWithRed:(190/255.0) green:(237/255.0) blue:(248/255.0) alpha:1].CGColor;
+            maskLayer.strokeColor = CGCOLOR_PURPLE;//[UIColor lightGrayColor].CGColor;
             maskLayer.lineWidth = 1;
             [selectedBackground.layer addSublayer:maskLayer];
         }
@@ -79,8 +80,8 @@
             maskLayer = [CAShapeLayer layer];
             maskLayer.frame = selectedBackground.bounds;
             maskLayer.path = maskPath.CGPath;
-            maskLayer.fillColor = [UIColor colorWithRed:(190/255.0) green:(237/255.0) blue:(248/255.0) alpha:1].CGColor;
-            maskLayer.strokeColor = [UIColor lightGrayColor].CGColor;
+            maskLayer.fillColor = CGCOLOR_PURPLE;//[UIColor colorWithRed:(190/255.0) green:(237/255.0) blue:(248/255.0) alpha:1].CGColor;
+            maskLayer.strokeColor = CGCOLOR_PURPLE;//[UIColor lightGrayColor].CGColor;
             maskLayer.lineWidth = 1;
             [selectedBackground.layer addSublayer:maskLayer];
         }
@@ -89,7 +90,7 @@
         CAShapeLayer *lineMaskLayer = [CAShapeLayer layer];
         lineMaskLayer.frame = topLineBG.bounds;
         lineMaskLayer.path = lineMaskPath.CGPath;
-        lineMaskLayer.fillColor = [UIColor colorWithRed:(190/255.0) green:(237/255.0) blue:(248/255.0) alpha:1].CGColor;
+        lineMaskLayer.fillColor = CGCOLOR_PURPLE;//[UIColor colorWithRed:(190/255.0) green:(237/255.0) blue:(248/255.0) alpha:1].CGColor;
         [topLineBG.layer addSublayer:lineMaskLayer];
         [selectedBackground addSubview:topLineBG];
     }

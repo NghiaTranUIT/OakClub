@@ -270,6 +270,10 @@
 
 
 #define COLOR_BLUE_CELLTEXT [UIColor colorWithRed:(56/255.0) green:(84/255.0) blue:(135/255.0) alpha:1]
+#define COLOR_BLUE_CELLBG [UIColor colorWithRed:(190/255.0) green:(237/255.0) blue:(248/255.0) alpha:1]
+#define CGCOLOR_BLUE_CELLBG [UIColor colorWithRed:(190/255.0) green:(237/255.0) blue:(248/255.0) alpha:1].CGColor
+#define COLOR_PURPLE [UIColor colorWithRed:(121/255.0) green:(1/255.0) blue:(88/255.0) alpha:1]
+#define CGCOLOR_PURPLE ([UIColor colorWithRed:(121/255.0) green:(1/255.0) blue:(88/255.0) alpha:1].CGColor)
 
 #define key_isUseGPS @"useGPS"
 
