@@ -8,6 +8,7 @@
 
 #import "Profile.h"
 #import "NSString+Utils.h"
+#import "AppDelegate.h"
 
 @interface Profile()
 {
@@ -378,12 +379,15 @@
     self.s_interested = [self parseGender:[data valueForKey:key_interested]] ;
     self.a_language = [data valueForKey:key_language];
     if(a_language == nil || [a_language count]==0)
-        a_language = [[NSMutableArray alloc] initWithObjects: [NSString localizeString:@"Vietnamese"] , nil];
+    {
+        a_language = [[NSMutableArray alloc] initWithObjects: [NSNumber numberWithInt:Vietnamese] , nil];
+    }
     self.i_work = [WorkCate alloc];
     self.i_work.cate_id = [[data valueForKey:key_work] integerValue];
     self.i_weight =[[data valueForKey:key_weight] integerValue];
     self.i_height = [[data valueForKey:key_height] integerValue];
     self.s_school = [data valueForKey:key_school];
+    self.s_Email = [data valueForKey:key_email];
     
     NSMutableDictionary *dict_Location = [data valueForKey:key_location];
     self.s_location = [[Location alloc] initWithNSDictionary:dict_Location];
@@ -750,12 +754,14 @@
     NSString *lang = [self.a_language componentsJoinedByString:@","];
     NSString *loc = [NSString stringWithFormat:@"%@",self.s_location.ID];
     NSString *work = [NSString stringWithFormat:@"%i",self.i_work.cate_id];
+    NSString *email = self.s_Email;
     
     AFHTTPClient* httpClient = [[AFHTTPClient alloc]initWithOakClubAPI:DOMAIN];
     NSDictionary *params = [[NSDictionary alloc]initWithObjectsAndKeys: name,@"name",// < 20 characters
                                                                         gender,@"gender",// 0/1
                                                                         birthday,@"birthday",// dd/mm/yyyy
-                                                                        interested,@"interested_in",// 0/1
+                                                                        email,@"email",
+                                                                        interested,@"interested",// 0/1
                                                                         relationship,@"relationship_status",//rel_status_id
                                                                         height,@"height",//100 < h <300
                                                                         weight,@"weight",//30 < w < 120
@@ -917,5 +923,32 @@
     {
         [_requester setImage:self.img_Avatar];
     }
+}
+-(NSInteger)age
+{
+    NSDate *now = [NSDate date];
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"dd/MM/yyyy"];
+    NSDate *birthDate = [[NSDate alloc] init];
+    birthDate = [dateFormatter dateFromString:self.s_birthdayDate];
+    NSDateComponents* ageComponents = [[NSCalendar currentCalendar]
+                                       components:NSYearCalendarUnit
+                                       fromDate:birthDate
+                                       toDate:now
+                                       options:0];
+    return [ageComponents year];
+}
+
+-(NSString*)languagesDescription
+{
+    AppDelegate *appDel = (id) [UIApplication sharedApplication].delegate;
+    NSArray *languagesList = appDel.languageList;
+    NSMutableArray *langDesc = [[NSMutableArray alloc] init];
+    for (NSNumber *lang in self.a_language)
+    {
+        [langDesc addObject:[languagesList objectAtIndex:lang.intValue]];
+    }
+    
+    return [langDesc componentsJoinedByString:@","];
 }
 @end

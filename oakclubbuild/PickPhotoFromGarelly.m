@@ -7,6 +7,7 @@
 //
 
 #import "PickPhotoFromGarelly.h"
+#import <AssetsLibrary/AssetsLibrary.h>
 
 
 @interface PickerDelegate : NSObject
@@ -55,9 +56,40 @@ id<PickPhotoFromGarellyDelegate> delegate;
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
     [picker dismissModalViewControllerAnimated:YES];
+    picker = nil;
     if (delegate)
     {
-        [delegate receiveImage:[info objectForKey:UIImagePickerControllerOriginalImage]];
+        UIImage *img = [info objectForKey:UIImagePickerControllerEditedImage];
+        if (!img)
+        {
+            img = [info objectForKey:UIImagePickerControllerOriginalImage];
+        }
+        
+        if (!img)
+        {
+            [PickPhotoFromGarelly loadImageFromAssertByUrl:[info objectForKey:UIImagePickerControllerReferenceURL] completion:^(UIImage *_img) {
+                [delegate receiveImage:_img];
+            }];
+        }
+        else
+        {
+            [delegate receiveImage:img];
+        }
     }
+}
+
++(void) loadImageFromAssertByUrl:(NSURL *)url completion:(void (^)(UIImage*)) completion
+{
+    ALAssetsLibrary *assetLibrary=[[ALAssetsLibrary alloc] init];
+    [assetLibrary assetForURL:url resultBlock:^(ALAsset *asset) {
+        ALAssetRepresentation *rep = [asset defaultRepresentation];
+        Byte *buffer = (Byte*)malloc(rep.size);
+        NSUInteger buffered = [rep getBytes:buffer fromOffset:0.0 length:rep.size error:nil];
+        NSData *data = [NSData dataWithBytesNoCopy:buffer length:buffered freeWhenDone:YES];
+        UIImage* img = [UIImage imageWithData:data];
+        completion(img);
+    } failureBlock:^(NSError *err) {
+        NSLog(@"Error: %@",[err localizedDescription]);
+    }];
 }
 @end
