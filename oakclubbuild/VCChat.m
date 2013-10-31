@@ -168,6 +168,8 @@ int cellCountinSection=0;
     [NSThread detachNewThreadSelector:@selector(loadFriendsInfo:) toTarget:self withObject:nil];
     
     isChatLoaded = FALSE;
+    
+    [self customSearchBar];
 }
 
 -(void)addTopRightButtonWithAction:(SEL)action
@@ -723,6 +725,20 @@ int cellCountinSection=0;
 }
 
 #pragma mark SearchBar delegate
+
+-(void) customSearchBar{
+    [self.searchBar setTintColor:COLOR_PURPLE];
+//    self.searchBar.scopeBar.segmentedControlStyle = UISegmentedControlStyleBar; //required for color change
+    for (id subview in self.searchDisplayController.searchBar.subviews )
+    {
+        if([subview isMemberOfClass:[UISegmentedControl class]])
+        {
+            UISegmentedControl *scopeBar=(UISegmentedControl *) subview;
+            scopeBar.tintColor =  COLOR_PURPLE;
+//            scopeBar.segmentedControlStyle = UISegmentedControlStyleBar;
+        }
+    }
+}
 - (BOOL)searchBarShouldEndEditing:(UISearchBar *)searchBar
 {
     self.searchBar.showsScopeBar = YES;

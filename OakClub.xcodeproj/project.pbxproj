@@ -40,7 +40,6 @@
 		9775A78F1813D5DE00BCF28D /* UANoisyGradientBackground.m in Sources */ = {isa = PBXBuildFile; fileRef = 9775A7821813D5DE00BCF28D /* UANoisyGradientBackground.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		9775A7901813D5DE00BCF28D /* UARoundedRectView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9775A7841813D5DE00BCF28D /* UARoundedRectView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		977853E418221BBF00CBB5DB /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 977853E318221BBF00CBB5DB /* AssetsLibrary.framework */; };
-		977853EF182228A900CBB5DB /* myprofile_addphoto.png in Resources */ = {isa = PBXBuildFile; fileRef = 977853E6182228A900CBB5DB /* myprofile_addphoto.png */; };
 		977853F0182228A900CBB5DB /* myprofile_addphoto@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 977853E7182228A900CBB5DB /* myprofile_addphoto@2x.png */; };
 		977853F1182228A900CBB5DB /* myprofile_background.png in Resources */ = {isa = PBXBuildFile; fileRef = 977853E8182228A900CBB5DB /* myprofile_background.png */; };
 		977853F2182228A900CBB5DB /* myprofile_deleteButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 977853E9182228A900CBB5DB /* myprofile_deleteButton.png */; };
@@ -4917,7 +4916,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				ONLY_ACTIVE_ARCH = YES;
-				PROVISIONING_PROFILE = "1C002BBD-0651-47BA-BDFC-F438391B2AED";
+				PROVISIONING_PROFILE = "1F6FED1E-8B46-48D5-AEA8-B5558C1D2D46";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -4945,7 +4944,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
-				PROVISIONING_PROFILE = "1C002BBD-0651-47BA-BDFC-F438391B2AED";
+				PROVISIONING_PROFILE = "1F6FED1E-8B46-48D5-AEA8-B5558C1D2D46";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
@@ -4978,8 +4977,8 @@
 					"-ObjC",
 				);
 				PRODUCT_NAME = OakClub;
-				PROVISIONING_PROFILE = "1C002BBD-0651-47BA-BDFC-F438391B2AED";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "1C002BBD-0651-47BA-BDFC-F438391B2AED";
+				PROVISIONING_PROFILE = "1F6FED1E-8B46-48D5-AEA8-B5558C1D2D46";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "1F6FED1E-8B46-48D5-AEA8-B5558C1D2D46";
 				TARGETED_DEVICE_FAMILY = 1;
 				VALIDATE_PRODUCT = YES;
 				WRAPPER_EXTENSION = app;
@@ -5011,8 +5010,8 @@
 					"-ObjC",
 				);
 				PRODUCT_NAME = OakClub;
-				PROVISIONING_PROFILE = "1C002BBD-0651-47BA-BDFC-F438391B2AED";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "1C002BBD-0651-47BA-BDFC-F438391B2AED";
+				PROVISIONING_PROFILE = "1F6FED1E-8B46-48D5-AEA8-B5558C1D2D46";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "1F6FED1E-8B46-48D5-AEA8-B5558C1D2D46";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
