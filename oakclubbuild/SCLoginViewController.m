@@ -247,7 +247,6 @@
         [appDelegate updateLanguageBundle];
         [self.view localizeAllViews];
         [appDelegate loadAllViewControllers];
-        return;
     }
     
     if (!isSetLanguage)
@@ -288,8 +287,8 @@
         NSString* str=[appDelegate.languageBundle localizedStringForKey:@"was selected" value:@"" table:nil];
         NSLog(@"English %@",str);
     }
-    [self.view localizeAllViews];
     
+    [self.view localizeAllViews];
     [appDelegate loadAllViewControllers];
 }
 

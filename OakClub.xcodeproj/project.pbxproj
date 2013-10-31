@@ -39,6 +39,18 @@
 		9775A78E1813D5DE00BCF28D /* UAGradientBackground.m in Sources */ = {isa = PBXBuildFile; fileRef = 9775A7801813D5DE00BCF28D /* UAGradientBackground.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		9775A78F1813D5DE00BCF28D /* UANoisyGradientBackground.m in Sources */ = {isa = PBXBuildFile; fileRef = 9775A7821813D5DE00BCF28D /* UANoisyGradientBackground.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		9775A7901813D5DE00BCF28D /* UARoundedRectView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9775A7841813D5DE00BCF28D /* UARoundedRectView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		977853E418221BBF00CBB5DB /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 977853E318221BBF00CBB5DB /* AssetsLibrary.framework */; };
+		977853EF182228A900CBB5DB /* myprofile_addphoto.png in Resources */ = {isa = PBXBuildFile; fileRef = 977853E6182228A900CBB5DB /* myprofile_addphoto.png */; };
+		977853F0182228A900CBB5DB /* myprofile_addphoto@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 977853E7182228A900CBB5DB /* myprofile_addphoto@2x.png */; };
+		977853F1182228A900CBB5DB /* myprofile_background.png in Resources */ = {isa = PBXBuildFile; fileRef = 977853E8182228A900CBB5DB /* myprofile_background.png */; };
+		977853F2182228A900CBB5DB /* myprofile_deleteButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 977853E9182228A900CBB5DB /* myprofile_deleteButton.png */; };
+		977853F3182228A900CBB5DB /* myprofile_deleteButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 977853EA182228A900CBB5DB /* myprofile_deleteButton@2x.png */; };
+		977853F4182228A900CBB5DB /* myprofile_doneButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 977853EB182228A900CBB5DB /* myprofile_doneButton.png */; };
+		977853F5182228A900CBB5DB /* myprofile_doneButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 977853EC182228A900CBB5DB /* myprofile_doneButton@2x.png */; };
+		977853FE18224F2F00CBB5DB /* myprofile_editAvatar.png in Resources */ = {isa = PBXBuildFile; fileRef = 977853FC18224F2F00CBB5DB /* myprofile_editAvatar.png */; };
+		977853FF18224F2F00CBB5DB /* myprofile_editAvatar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 977853FD18224F2F00CBB5DB /* myprofile_editAvatar@2x.png */; };
+		977854021822551100CBB5DB /* myprofile_photoLayout.png in Resources */ = {isa = PBXBuildFile; fileRef = 977854001822551100CBB5DB /* myprofile_photoLayout.png */; };
+		977854031822551100CBB5DB /* myprofile_photoLayout@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 977854011822551100CBB5DB /* myprofile_photoLayout@2x.png */; };
 		97C5767B181FB5AA00D8510D /* FlashIntro.m in Sources */ = {isa = PBXBuildFile; fileRef = 97C5767A181FB5AA00D8510D /* FlashIntro.m */; };
 		97C57683181FCA1C00D8510D /* icon_info.png in Resources */ = {isa = PBXBuildFile; fileRef = 97C57682181FCA1C00D8510D /* icon_info.png */; };
 		97C57685181FCA4900D8510D /* btn-fb-inactive_intro.png in Resources */ = {isa = PBXBuildFile; fileRef = 97C57684181FCA4900D8510D /* btn-fb-inactive_intro.png */; };
@@ -770,6 +782,19 @@
 		9775A7821813D5DE00BCF28D /* UANoisyGradientBackground.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UANoisyGradientBackground.m; sourceTree = "<group>"; };
 		9775A7831813D5DE00BCF28D /* UARoundedRectView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UARoundedRectView.h; sourceTree = "<group>"; };
 		9775A7841813D5DE00BCF28D /* UARoundedRectView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UARoundedRectView.m; sourceTree = "<group>"; };
+		977853E318221BBF00CBB5DB /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
+		977853E6182228A900CBB5DB /* myprofile_addphoto.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = myprofile_addphoto.png; sourceTree = "<group>"; };
+		977853E7182228A900CBB5DB /* myprofile_addphoto@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "myprofile_addphoto@2x.png"; sourceTree = "<group>"; };
+		977853E8182228A900CBB5DB /* myprofile_background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = myprofile_background.png; sourceTree = "<group>"; };
+		977853E9182228A900CBB5DB /* myprofile_deleteButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = myprofile_deleteButton.png; sourceTree = "<group>"; };
+		977853EA182228A900CBB5DB /* myprofile_deleteButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "myprofile_deleteButton@2x.png"; sourceTree = "<group>"; };
+		977853EB182228A900CBB5DB /* myprofile_doneButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = myprofile_doneButton.png; sourceTree = "<group>"; };
+		977853EC182228A900CBB5DB /* myprofile_doneButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "myprofile_doneButton@2x.png"; sourceTree = "<group>"; };
+		977853FC18224F2F00CBB5DB /* myprofile_editAvatar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = myprofile_editAvatar.png; sourceTree = "<group>"; };
+		977853FD18224F2F00CBB5DB /* myprofile_editAvatar@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "myprofile_editAvatar@2x.png"; sourceTree = "<group>"; };
+		977854001822551100CBB5DB /* myprofile_photoLayout.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = myprofile_photoLayout.png; sourceTree = "<group>"; };
+		977854011822551100CBB5DB /* myprofile_photoLayout@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "myprofile_photoLayout@2x.png"; sourceTree = "<group>"; };
+		97785404182258C100CBB5DB /* Language.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Language.h; sourceTree = "<group>"; };
 		97C57679181FB5A900D8510D /* FlashIntro.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlashIntro.h; sourceTree = "<group>"; };
 		97C5767A181FB5AA00D8510D /* FlashIntro.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlashIntro.m; sourceTree = "<group>"; };
 		97C57682181FCA1C00D8510D /* icon_info.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_info.png; sourceTree = "<group>"; };
@@ -1669,6 +1694,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				977853E418221BBF00CBB5DB /* AssetsLibrary.framework in Frameworks */,
 				CD02C68A1756132600B1ED6A /* AudioToolbox.framework in Frameworks */,
 				CDF99C471713D862008D8BAC /* CoreLocation.framework in Frameworks */,
 				CDF99C451713D7BD008D8BAC /* libresolv.dylib in Frameworks */,
@@ -1778,6 +1804,24 @@
 				9775A7841813D5DE00BCF28D /* UARoundedRectView.m */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		977853E5182228A900CBB5DB /* MyProfile */ = {
+			isa = PBXGroup;
+			children = (
+				977853E6182228A900CBB5DB /* myprofile_addphoto.png */,
+				977853E7182228A900CBB5DB /* myprofile_addphoto@2x.png */,
+				977853E8182228A900CBB5DB /* myprofile_background.png */,
+				977853E9182228A900CBB5DB /* myprofile_deleteButton.png */,
+				977853EA182228A900CBB5DB /* myprofile_deleteButton@2x.png */,
+				977853EB182228A900CBB5DB /* myprofile_doneButton.png */,
+				977853EC182228A900CBB5DB /* myprofile_doneButton@2x.png */,
+				977853FC18224F2F00CBB5DB /* myprofile_editAvatar.png */,
+				977853FD18224F2F00CBB5DB /* myprofile_editAvatar@2x.png */,
+				977854001822551100CBB5DB /* myprofile_photoLayout.png */,
+				977854011822551100CBB5DB /* myprofile_photoLayout@2x.png */,
+			);
+			path = MyProfile;
 			sourceTree = "<group>";
 		};
 		97C57670181FB32F00D8510D /* FlashIntro */ = {
@@ -2117,6 +2161,7 @@
 				CDEE8E581785668C003EB1C4 /* UIViewController+Custom.m */,
 				CDBF8DBB1817165000CDBCF7 /* UIView+Localize.h */,
 				CDBF8DBC1817165000CDBCF7 /* UIView+Localize.m */,
+				97785404182258C100CBB5DB /* Language.h */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -2334,6 +2379,7 @@
 		CD50E32D181FBF3C0036A23B /* images */ = {
 			isa = PBXGroup;
 			children = (
+				977853E5182228A900CBB5DB /* MyProfile */,
 				CD877CEF182128EC0067D478 /* Login */,
 				CD877CC8182114560067D478 /* Chat */,
 				CD877CB31820FF690067D478 /* Turotial */,
@@ -2660,6 +2706,7 @@
 		CDC4929B1702CEAB00E83DE3 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				977853E318221BBF00CBB5DB /* AssetsLibrary.framework */,
 				CD02C6891756132600B1ED6A /* AudioToolbox.framework */,
 				CDF99C461713D862008D8BAC /* CoreLocation.framework */,
 				CDF99C441713D7BD008D8BAC /* libresolv.dylib */,
@@ -3879,6 +3926,7 @@
 				CD877CFD18212BAE0067D478 /* Info_background@2x.png in Resources */,
 				CDE5DB471807E8AD00A96D78 /* match-frame@2x.png in Resources */,
 				CDC492B31702CEAB00E83DE3 /* Default-568h@2x.png in Resources */,
+				977853F2182228A900CBB5DB /* myprofile_deleteButton.png in Resources */,
 				CDC492E31702CF0D00E83DE3 /* action-location.png in Resources */,
 				CD50E36B181FBF3C0036A23B /* Snapshot_separators.png in Resources */,
 				CDC492E41702CF0D00E83DE3 /* action-people.png in Resources */,
@@ -3912,6 +3960,7 @@
 				CD09E0E5170EBC01000BC104 /* background alpha.png in Resources */,
 				CD09E0E6170EBC01000BC104 /* menu_background.png in Resources */,
 				CD09E0E7170EBC01000BC104 /* itemBG.png in Resources */,
+				977853F4182228A900CBB5DB /* myprofile_doneButton.png in Resources */,
 				CD09E0E8170EBC01000BC104 /* menu_chat.png in Resources */,
 				CD09E0E9170EBC01000BC104 /* menu_coin.png in Resources */,
 				CD877C8D1820E7AB0067D478 /* Snapshot_transBG@2x.png in Resources */,
@@ -4035,6 +4084,7 @@
 				CD877CC018210B380067D478 /* tutorial_options.png in Resources */,
 				CDECD3341733C3E800A6B17F /* stoke gray.png in Resources */,
 				CD50E35C181FBF3C0036A23B /* Snapshot_no_stamp@2x.png in Resources */,
+				977853F5182228A900CBB5DB /* myprofile_doneButton@2x.png in Resources */,
 				CD877CE0182114560067D478 /* HistoryChat_icon_on@2x.png in Resources */,
 				CDECD3351733C3E800A6B17F /* stroke.png in Resources */,
 				CD877C891820E7AB0067D478 /* Snapshot_btn_KeepPlaying@2x.png in Resources */,
@@ -4068,6 +4118,7 @@
 				CD005D4E181267F000238920 /* frozen.png in Resources */,
 				CD02C67B1755F98D00B1ED6A /* AddMeHere_arrow.png in Resources */,
 				CD02C67C1755F98D00B1ED6A /* AddMeHere_BG.png in Resources */,
+				977853F1182228A900CBB5DB /* myprofile_background.png in Resources */,
 				CD02C67D1755F98D00B1ED6A /* AddMeHere_Close.png in Resources */,
 				CD005D5E181267F000238920 /* sick.png in Resources */,
 				CD02C67E1755F98D00B1ED6A /* AddMeHere_Button.png in Resources */,
@@ -4077,11 +4128,13 @@
 				CD02C6801755F98D00B1ED6A /* AddMeHere_Default.png in Resources */,
 				CD877CFE18212BAE0067D478 /* intropage_chat.png in Resources */,
 				CD02C6811755F98D00B1ED6A /* AddMeHere_Close_Press.png in Resources */,
+				977853F0182228A900CBB5DB /* myprofile_addphoto@2x.png in Resources */,
 				CD02C6821755F98D00B1ED6A /* stroke small - blue avatar.png in Resources */,
 				CD02C68817560ED300B1ED6A /* OverlayViewController.xib in Resources */,
 				CD01781D176199EB00F2AD32 /* cell_selected.png in Resources */,
 				CD09E03C17715A7F004FD9F0 /* ProfileSettings.storyboard in Resources */,
 				CD18AB0717F2E01300A1C7E8 /* bg-bottom@2x.png in Resources */,
+				977854031822551100CBB5DB /* myprofile_photoLayout@2x.png in Resources */,
 				CDE5DB431807E8AD00A96D78 /* btn-keep@2x.png in Resources */,
 				CD877CB11820FBDD0067D478 /* spashscreen.png in Resources */,
 				CD50E36A181FBF3C0036A23B /* Snapshot_popup_no_pressed@2x.png in Resources */,
@@ -4149,6 +4202,7 @@
 				CD252DB2177C1FFC004145A4 /* info_photo.png in Resources */,
 				CD252DB3177C1FFC004145A4 /* viewPhoto_btn_bg.png in Resources */,
 				CD005D61181267F000238920 /* sweating.png in Resources */,
+				977853F3182228A900CBB5DB /* myprofile_deleteButton@2x.png in Resources */,
 				CD252DB4177C1FFC004145A4 /* viewPhoto_btn_maybe_pressed.png in Resources */,
 				CD877CA71820EF260067D478 /* Logout_btn_inactive.png in Resources */,
 				CD50E358181FBF3C0036A23B /* Snapshot_like_stamp@2x.png in Resources */,
@@ -4166,6 +4220,7 @@
 				CD877D121821374C0067D478 /* ChatView_btn_viewprofile_pressed.png in Resources */,
 				97C57685181FCA4900D8510D /* btn-fb-inactive_intro.png in Resources */,
 				CD252DBA177C1FFC004145A4 /* viewPhoto_btn_yes.png in Resources */,
+				977853FF18224F2F00CBB5DB /* myprofile_editAvatar@2x.png in Resources */,
 				CD252DBD177C3058004145A4 /* menu_logout.png in Resources */,
 				CD252DCE177C4B6B004145A4 /* btn_addme.png in Resources */,
 				CD252DCF177C4B6B004145A4 /* btn_addme_pressed.png in Resources */,
@@ -4177,6 +4232,7 @@
 				CD877CE1182114560067D478 /* HistoryChat_item_active.png in Resources */,
 				CD13D43718162F2D00F63F65 /* GPS_Finding_demo.gif in Resources */,
 				CD877CE4182114560067D478 /* HistoryChat_item_inactive@2x.png in Resources */,
+				977853FE18224F2F00CBB5DB /* myprofile_editAvatar.png in Resources */,
 				CD1AB06D1821804200B0FA10 /* Report_BG.png in Resources */,
 				CD252DD1177C4B6B004145A4 /* frame_photo_140x140.png in Resources */,
 				CD252DD2177C4B6B004145A4 /* frame_photo_198x198.png in Resources */,
@@ -4277,6 +4333,7 @@
 				CD17B23D17E1A1D1008F7291 /* btnInfo.png in Resources */,
 				CD17B23E17E1A1D1008F7291 /* btnInfo_pressed.png in Resources */,
 				CD17B23F17E1A1D1008F7291 /* btnNope.png in Resources */,
+				977854021822551100CBB5DB /* myprofile_photoLayout.png in Resources */,
 				CD17B24017E1A1D1008F7291 /* btnNope_pressed.png in Resources */,
 				CD877C811820B5080067D478 /* menu_simple.plist in Resources */,
 				CD005D4F181267F000238920 /* grin.png in Resources */,
@@ -4287,6 +4344,7 @@
 				CD17B24217E1A1D1008F7291 /* btnYes_pressed.png in Resources */,
 				CD877D0118212BAE0067D478 /* intropage_match@2x.png in Resources */,
 				CD17B24317E1A1D1008F7291 /* imgFrame.png in Resources */,
+				977853EF182228A900CBB5DB /* myprofile_addphoto.png in Resources */,
 				CD17B24517E1D44E008F7291 /* frame-under@2x.png in Resources */,
 				CDE3B54317E2C29E005D254B /* liked.png in Resources */,
 				CD005D42181267F000238920 /* amazed.png in Resources */,
@@ -4720,7 +4778,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				ONLY_ACTIVE_ARCH = YES;
-				PROVISIONING_PROFILE = "1F6FED1E-8B46-48D5-AEA8-B5558C1D2D46";
+				PROVISIONING_PROFILE = "1C002BBD-0651-47BA-BDFC-F438391B2AED";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -4748,7 +4806,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
-				PROVISIONING_PROFILE = "1F6FED1E-8B46-48D5-AEA8-B5558C1D2D46";
+				PROVISIONING_PROFILE = "1C002BBD-0651-47BA-BDFC-F438391B2AED";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
@@ -4781,8 +4839,8 @@
 					"-ObjC",
 				);
 				PRODUCT_NAME = OakClub;
-				PROVISIONING_PROFILE = "1F6FED1E-8B46-48D5-AEA8-B5558C1D2D46";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "1F6FED1E-8B46-48D5-AEA8-B5558C1D2D46";
+				PROVISIONING_PROFILE = "1C002BBD-0651-47BA-BDFC-F438391B2AED";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "1C002BBD-0651-47BA-BDFC-F438391B2AED";
 				TARGETED_DEVICE_FAMILY = 1;
 				VALIDATE_PRODUCT = YES;
 				WRAPPER_EXTENSION = app;
@@ -4814,8 +4872,8 @@
 					"-ObjC",
 				);
 				PRODUCT_NAME = OakClub;
-				PROVISIONING_PROFILE = "1F6FED1E-8B46-48D5-AEA8-B5558C1D2D46";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "1F6FED1E-8B46-48D5-AEA8-B5558C1D2D46";
+				PROVISIONING_PROFILE = "1C002BBD-0651-47BA-BDFC-F438391B2AED";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "1C002BBD-0651-47BA-BDFC-F438391B2AED";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};

@@ -207,7 +207,7 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
 #endif
     self.visitor = [self createNavigationByClass:@"VCVisitor" AndHeaderName:@"Visitors" andRightButton:nil andIsStoryBoard:NO];
     self.hangOut = [self createNavigationByClass:@"VCHangOut" AndHeaderName:@"Meet people around" andRightButton:@"HangoutSetting" andIsStoryBoard:YES];
-    self.myProfileVC = [self createNavigationByClass:@"VCMyProfile" AndHeaderName:[NSString localizeString:@"Edit Profile"] andRightButton:@"VCMyProfile" andIsStoryBoard:NO];
+    self.myProfileVC = [self createNavigationByClass:@"VCMyProfile" AndHeaderName:[NSString localizeString:@"Edit Profile"] andRightButton:@"VCChat" andIsStoryBoard:NO];
     self.getPoints = [self createNavigationByClass:@"VCGetPoints" AndHeaderName:@"Get Coins" andRightButton:nil andIsStoryBoard:NO];
     self.confirmVC = [[ConfirmViewController alloc] initWithNibName:@"VCMyProfile" bundle:nil];
     // PKRevealController
@@ -430,7 +430,6 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
 }
 -(void)showMyProfile {
     activeVC = _myProfileVC;
-    NSLog(@" 000 - %@",self.myProfile.s_relationShip.rel_text);
     [[self.myProfileVC.viewControllers objectAtIndex:0] setDefaultEditProfile:self.myProfile];
     [self.rootVC setFrontViewController:self.myProfileVC focusAfterChange:YES completion:^(BOOL finished) {
     }];

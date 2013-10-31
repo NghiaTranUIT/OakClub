@@ -106,6 +106,7 @@
 #define key_ethnicity @"ethnicity"
 #define key_work @"work"
 #define key_school @"school"
+#define key_email @"email"
 #define key_weight @"weight"
 #define key_height @"height"
 #define key_meet_type @"meet_type"
@@ -252,7 +253,7 @@
 #define WantToSeeOptionList  ([NSArray arrayWithObjects:@"New People", @"Friends",@"Friends of Friends", nil])
 
 #define ProfileItems  ([NSArray arrayWithObjects:@"Name", @"Birthdate",@"Interested In", @"Gender",@"Relationship",@"Location",@"Height",@"Weight",@"Ethnicity",@"School",@"Language",@"Work",@"About me",@"Popularity",  nil])
-#define MyProfileItemList  ([NSArray arrayWithObjects:@"Name", @"Birthdate",@"Gender", @"Relationship",@"Update location automatically",@"Location",@"Height",@"Weight",@"Ethnicity",@"School",@"Language",@"Work",@"About me", nil])
+#define MyProfileItemList  ([NSArray arrayWithObjects:@"Name", @"Birthdate",@"Email",@"Gender", @"Relationship",@"Height",@"Weight", @"Interested In", @"Location",@"Ethnicity",@"School",@"Language",@"Work",@"About me", nil])
 #define SnapshotSettingItemList  ([NSArray arrayWithObjects:@"I'm here to", @"I want to see",@"With who", @"Age around",@"Nearby GPS",@"Where",@"Range", nil])
 //==============================
 #define MAXLENGTH_NAME 20
@@ -302,12 +303,13 @@
 typedef enum {
     NAME,
     BIRTHDATE,
+    EMAIL,
     GENDER,
     RELATIONSHIP,
-    AUTO_LOCATION,
-    LOCATION,
     HEIGHT,
     WEIGHT,
+    INTERESTED_IN,
+    LOCATION,
     ETHNICITY,
     SCHOOL,
     LANGUAGE,

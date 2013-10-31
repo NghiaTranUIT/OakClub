@@ -17,6 +17,7 @@
 #import "WorkCate.h"
 #import "RelationShip.h"
 #import "Gender.h"
+#import "Language.h"
 
 @protocol ImageRequester <NSObject>
 
@@ -143,4 +144,6 @@
 -(void)tryGetImageAsync:(id<ImageRequester>)requester;
 -(void)trySetImageSync:(UIImage *)img;
 -(void)dispatchAvatar;
+-(NSInteger)age;
+-(NSString*)languagesDescription;
 @end

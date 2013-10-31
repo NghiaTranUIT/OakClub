@@ -67,7 +67,6 @@
 }
 - (IBAction)textFieldFinished:(id)sender
 {
-    
     [sender resignFirstResponder];
 }
 

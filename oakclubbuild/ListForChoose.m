@@ -335,12 +335,11 @@ NSIndexPath* oldIndex;
                     UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
                     if(cell.accessoryType == UITableViewCellAccessoryNone){
                         cell.accessoryType = UITableViewCellAccessoryCheckmark;
-                        NSString* lang = [dataSource objectAtIndex:indexPath.row];
-                        [currentValue.a_language addObject:lang];
+                        [currentValue.a_language addObject:[NSNumber numberWithInt:indexPath.row]];
                     }
                     else{
                         cell.accessoryType = UITableViewCellAccessoryNone;
-                        [currentValue.a_language removeObject:[dataSource objectAtIndex:indexPath.row]];
+                        [currentValue.a_language removeObject:[NSNumber numberWithInt:indexPath.row]];
                     }
                     break;
                 }

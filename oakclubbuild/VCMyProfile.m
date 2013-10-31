@@ -32,6 +32,9 @@
 }
 @property (weak, nonatomic) IBOutlet UIScrollView *photoScrollView;
 
+@property (weak, nonatomic) IBOutlet UILabel *nameLabel;
+@property (weak, nonatomic) IBOutlet UILabel *age_workLabel;
+@property (weak, nonatomic) IBOutlet UILabel *locationLabel;
 @end
 
 @implementation VCMyProfile
@@ -70,13 +73,14 @@ CLLocationManager *locationManager;
     
     [pickerView setMaximumDate:[[NSDate alloc] init]];
     
-    scrollview.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"bg.png"]];
-    
     locationManager = [[CLLocationManager alloc] init];
     locationManager.delegate = self;
     locationManager.desiredAccuracy = kCLLocationAccuracyBest;
     
     avatarPicker = [[PickPhotoFromGarelly alloc] initWithParentWindow:self andDelegate:self];
+    
+    [self.imgAvatar setBackgroundImage:avatarImage forState:UIControlStateNormal];
+    self.imgAvatar.contentMode = UIViewContentModeScaleAspectFit;
     
     [self reloadPhotos];
 }
@@ -85,20 +89,9 @@ CLLocationManager *locationManager;
 {
     [super viewDidAppear:animated];
     
-    //[self initSaveButton];
-    [self.imgAvatar setBackgroundImage:avatarImage forState:UIControlStateNormal];
-    self.imgAvatar.contentMode = UIViewContentModeScaleAspectFit;
-}
-
--(void)initSaveButton
-{
-    UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
-    btn.frame = CGRectMake(0, 0, 37, 31);
-    [btn setImage:[UIImage imageNamed:@"header_btn_save.png"] forState:UIControlStateNormal];
-    [btn setImage:[UIImage imageNamed:@"header_btn_save_pressed.png"] forState:UIControlStateHighlighted];
-    [btn addTarget:self action:@selector(saveSetting) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem *Item = [[UIBarButtonItem alloc] initWithCustomView:btn];
-    self.navigationItem.rightBarButtonItem=Item;
+    self.nameLabel.text = profileObj.s_Name;
+    self.age_workLabel.text = [NSString stringWithFormat:@"%d, %@", profileObj.age, profileObj.i_work.cate_name];
+    self.locationLabel.text = profileObj.s_location.name;
 }
 
 -(NavBarOakClub*)navBarOakClub
@@ -165,13 +158,15 @@ CLLocationManager *locationManager;
     for (int i =0 ; i < [profileObj.a_language count]; i++) {
         [profileObj.a_language replaceObjectAtIndex:i withObject:[NSString localizeString:profileObj.a_language[i]]];
     }
-    [self updateProfileItemListAtIndex:[profileObj.a_language componentsJoinedByString:@", "] andIndex:LANGUAGE];
+    [self updateProfileItemListAtIndex:profileObj.languagesDescription andIndex:LANGUAGE];
 
     [self updateProfileItemListAtIndex:profileObj.s_birthdayDate andIndex:BIRTHDATE];
     
 
 //    [profileItemList replaceObjectAtIndex:GENDER withObject:[[NSMutableDictionary alloc] initWithObjectsAndKeys:profileObj.s_gender.text,@"value",@"Gender",@"key", nil]];
     [self updateProfileItemListAtIndex:profileObj.s_gender.text andIndex:GENDER];
+    
+    [self updateProfileItemListAtIndex:profileObj.s_interested.text andIndex:INTERESTED_IN];
 
 //    textFieldName.text = profileObj.s_Name;
 //    [profileItemList replaceObjectAtIndex:NAME withObject:[[NSMutableDictionary alloc] initWithObjectsAndKeys:profileObj.s_Name,@"value",@"Name",@"key", nil]];
@@ -189,13 +184,12 @@ CLLocationManager *locationManager;
 //    [profileItemList replaceObjectAtIndex:HEIGHT withObject:[[NSMutableDictionary alloc] initWithObjectsAndKeys:[NSString stringWithFormat:@"%i", profileObj.i_height],@"value",@"Height",@"key", nil]];
     [self updateProfileItemListAtIndex:[NSString stringWithFormat:@"%i", profileObj.i_height] andIndex:HEIGHT];
     
+    [self updateProfileItemListAtIndex:profileObj.s_Email andIndex:EMAIL];
+    
 //    textviewAbout.text = profileObj.s_aboutMe;
 //    [profileItemList replaceObjectAtIndex:ABOUT_ME withObject:[[NSMutableDictionary alloc] initWithObjectsAndKeys:profileObj.s_aboutMe,@"value",@"About me",@"key", nil]];
     [self updateProfileItemListAtIndex:profileObj.s_aboutMe andIndex:ABOUT_ME];
     [self.tbEditProfile reloadData];
-    
-    NSString *autoLocationState = [[NSUserDefaults standardUserDefaults] objectForKey:@"AutoLocationSwitch"];
-    [self updateProfileItemListAtIndex:autoLocationState andIndex:AUTO_LOCATION];
     
     photos = [[NSMutableArray alloc] init];
     photosID = [[NSMutableArray alloc] init];
@@ -246,6 +240,14 @@ CLLocationManager *locationManager;
     genderView.delegate=self;
     [self.navigationController pushViewController:genderView animated:YES];
 }
+
+-(void)gotoInterestedSetting{
+    ListForChoose *intersetedView = [[ListForChoose alloc]initWithNibName:@"ListForChoose" bundle:nil];
+    [intersetedView setListType:LISTTYPE_INTERESTED];
+    intersetedView.delegate=self;
+    [self.navigationController pushViewController:intersetedView animated:YES];
+}
+
 - (void)gotoRelatioshipSetting{
     ListForChoose *relationshipView = [[ListForChoose alloc]initWithNibName:@"ListForChoose" bundle:nil];
     [relationshipView setListType:LISTTYPE_RELATIONSHIP];
@@ -277,6 +279,7 @@ CLLocationManager *locationManager;
     ListForChoose *languageView = [[ListForChoose alloc]initWithNibName:@"ListForChoose" bundle:nil];
     [languageView setListType:LISTTYPE_LANGUAGE];
     languageView.delegate=self;
+    [profileObj.a_language removeAllObjects];
     [self.navigationController pushViewController:languageView animated:YES];
 }
 
@@ -300,6 +303,13 @@ CLLocationManager *locationManager;
     [nameEditView initForEditting:profileObj.s_Name andStyle:0];
     nameEditView.delegate = self;
     [self.navigationController pushViewController:nameEditView animated:YES];
+}
+
+- (void)gotoEmail{
+    EditText *emailEditView = [[EditText alloc]initWithNibName:@"EditText" bundle:nil];
+    [emailEditView initForEditting:profileObj.s_Email andStyle:3];
+    emailEditView.delegate = self;
+    [self.navigationController pushViewController:emailEditView animated:YES];
 }
 - (void)gotoSchoolEditText{
     EditText *schoolEditView = [[EditText alloc]initWithNibName:@"EditText" bundle:nil];
@@ -416,6 +426,11 @@ CLLocationManager *locationManager;
         profileObj.s_birthdayDate = theDate;
         [pickerView setHidden:YES];
     }
+}
+
+-(void)doneButtonTouched:(id)doneButton
+{
+    [self saveSettingWithWarning:YES];
 }
 
 -(void)saveSettingWithWarning:(BOOL)warning
@@ -588,6 +603,10 @@ CLLocationManager *locationManager;
             profileObj.s_gender = selected.s_gender;
             [self updateProfileItemListAtIndex:profileObj.s_gender.text andIndex:GENDER];
             break;
+        case LISTTYPE_INTERESTED:
+            profileObj.s_interested = selected.s_interested;
+            [self updateProfileItemListAtIndex:profileObj.s_interested.text andIndex:INTERESTED_IN];
+            break;
         case LISTTYPE_WORK:
             profileObj.i_work = selected.i_work;
             [self updateProfileItemListAtIndex:profileObj.i_work.cate_name andIndex:WORK];
@@ -598,7 +617,7 @@ CLLocationManager *locationManager;
             break;
         case LISTTYPE_LANGUAGE:
             profileObj.a_language = selected.a_language;
-            [self updateProfileItemListAtIndex:[profileObj.a_language componentsJoinedByString:@", "] andIndex:LANGUAGE];
+            [self updateProfileItemListAtIndex:profileObj.languagesDescription andIndex:LANGUAGE];
             break;
         case LISTTYPE_COUNTRY:{
             ListForChoose *locationSubview = [[ListForChoose alloc]initWithNibName:@"ListForChoose" bundle:nil];
@@ -612,7 +631,8 @@ CLLocationManager *locationManager;
     }
     [tbEditProfile reloadData];
 }
--(Profile *)setDefaultValue:(ListForChoose *)uvcList{
+-(Profile *)setDefaultValue:(ListForChoose *)uvcList
+{
     return profileObj;
 }
 
@@ -661,17 +681,40 @@ CLLocationManager *locationManager;
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
-    return [profileItemList count];
+    return [profileItemList count] + 1;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 44;
+    return (indexPath.row < profileItemList.count)?44:88;
 }
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *MyIdentifier = @"MyIdentifier";
+    static NSString *DoneID = @"DoneButtonIndentifier";
 	
+    if (indexPath.row >= [profileItemList count])
+    {
+        UITableViewCell *doneCell = [tableView dequeueReusableCellWithIdentifier:DoneID];
+        if (!doneCell)
+        {
+            doneCell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:DoneID];
+            
+            UIButton *doneButton = [[UIButton alloc] init];
+            [doneButton setBackgroundImage:[UIImage imageNamed:@"myprofile_doneButton"] forState:UIControlStateNormal];
+            [doneButton sizeToFit];
+            doneButton.frame = CGRectMake((doneCell.frame.size.width - doneButton.frame.size.width) / 2, (88 - doneButton.frame.size.height) / 2, doneButton.frame.size.width, doneButton.frame.size.height);
+            [doneButton setTitle:@"Done" forState:UIControlStateNormal];
+            [doneButton addTarget:self action:@selector(doneButtonTouched:) forControlEvents:UIControlEventTouchUpInside];
+            
+            [doneCell addSubview:doneButton];
+            [doneCell setSelectionStyle:UITableViewCellSelectionStyleNone];
+        }
+        
+        return doneCell;
+    }
+    
 	UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:MyIdentifier];
 	if (cell == nil) {
 		cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1
@@ -691,40 +734,6 @@ CLLocationManager *locationManager;
         case HEIGHT:
             cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ cm",[[profileItemList objectAtIndex:indexPath.row] valueForKey:@"value"]] ;
             break;
-        case AUTO_LOCATION:
-        {
-            static NSString *AutoLocationID = @"ALID";
-            UITableViewCell *autoLocationCell = [tableView dequeueReusableCellWithIdentifier:AutoLocationID];
-            if (autoLocationCell == nil)
-            {
-                autoLocationCell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:AutoLocationID];
-                autoLocationCell.textLabel.text = [NSString localizeString:@"Auto location"] ;
-                autoLocationCell.selectionStyle = UITableViewCellSelectionStyleNone;
-                UISwitch *autoSwitch = [[UISwitch alloc] init];
-                [autoSwitch addTarget:self action:@selector(switchAutoUpdateLocation:) forControlEvents:UIControlEventValueChanged];
-                autoSwitch.frame = CGRectMake(cell.frame.size.width - autoSwitch.frame.size.width - 30, (cell.frame.size.height - autoSwitch.frame.size.height) / 2, autoSwitch.frame.size.width, autoSwitch.frame.size.height);
-                autoSwitch.tag = 100;
-                [autoLocationCell.contentView addSubview:autoSwitch];
-            }
-            else
-            {
-                autoLocationCell.textLabel.text = [NSString localizeString:@"Auto location"] ;
-                UISwitch *autoSwitch = (id) [autoLocationCell viewWithTag:100];
-                autoSwitch.on = [[[profileItemList objectAtIndex:indexPath.row] valueForKey:@"value"] isEqualToString:@"YES"];
-                if (autoSwitch.on)
-                {
-                    [self tryUpdateLocation];
-                }
-            }
-            
-            return autoLocationCell;
-        }
-            break;
-        case LOCATION:
-            if ([[[profileItemList objectAtIndex:AUTO_LOCATION] valueForKey:@"value"] isEqualToString:@"YES"])
-            {
-                cell.selectionStyle = UITableViewCellSelectionStyleNone;
-            }
         default:
             cell.detailTextLabel.text = [[profileItemList objectAtIndex:indexPath.row] valueForKey:@"value"];
             break;
@@ -745,24 +754,17 @@ CLLocationManager *locationManager;
         case GENDER:
             [self gotoGenderSetting];
             break;
+        case INTERESTED_IN:
+            [self gotoInterestedSetting];
+            break;
         case ETHNICITY:
             [self gotoEthnicitySetting];
             break;
-        case AUTO_LOCATION:
+        case EMAIL:
+            [self gotoEmail];
             break;
         case LOCATION:
-        {
-            NSString *autoLoc = [[profileItemList objectAtIndex:AUTO_LOCATION] valueForKey:@"value"];
-            if (![autoLoc isEqualToString:@"YES"])
-            {
-                [self gotoLocationSetting];
-            }
-            else
-            {
-                [self tryUpdateLocation];
-            }
-        }
-            //[self tryUpdateLocation];
+            [self tryUpdateLocation];
             break;
         case WORK:
             [self gotoWorkSetting];
@@ -810,6 +812,22 @@ CLLocationManager *locationManager;
         case 1:
             profileObj.s_school = editObject.texfieldEdit.text;
             [self updateProfileItemListAtIndex:editObject.texfieldEdit.text andIndex:SCHOOL];
+            break;
+        case 3:
+        {
+            NSPredicate *emailTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", @"[-0-9a-zA-Z.+_]+@[-0-9a-zA-Z.+_]+.[a-zA-Z]{2,4}"];
+            
+            if ([emailTest evaluateWithObject:editObject.texfieldEdit.text])
+            {
+                [self updateProfileItemListAtIndex:editObject.texfieldEdit.text andIndex:EMAIL];
+                profileObj.s_Email = editObject.texfieldEdit.text;
+            }
+            else
+            {
+                UIAlertView *alerView = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Email is invalid" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+                [alerView show];
+            }
+        }
             break;
         default:
             break;
@@ -891,17 +909,6 @@ CLLocationManager *locationManager;
 
 #pragma mark Switch Delegate
 
-- (void)switchAutoUpdateLocation:(id)sender
-{
-    BOOL state = [sender isOn];
-    NSString *rez = state == YES ? @"YES" : @"NO";
-    [[profileItemList objectAtIndex:AUTO_LOCATION] setValue:rez forKey:@"value"];
-    [[NSUserDefaults standardUserDefaults] setObject:rez forKey:@"AutoLocationSwitch"];
-    
-    [self tryUpdateLocation];
-    [self.tableView reloadData];
-}
-
 - (IBAction)avatarTouched:(id)sender
 {
     if (selectedPhoto < 0 && uploadImage == nil)
@@ -925,7 +932,7 @@ CLLocationManager *locationManager;
     }
 }
 
-#define H_PADDING 5
+#define H_PADDING 30
 #define V_PADDING 2
 #define  PHOTO_WIDTH 112
 #define  PHOTO_HEIGHT 112
@@ -938,17 +945,18 @@ CLLocationManager *locationManager;
     {
         UIButton *photoButton = [[UIButton alloc] initWithFrame:CGRectMake(self.photoScrollView.contentSize.width, V_PADDING, PHOTO_WIDTH, PHOTO_HEIGHT)];
         [photoButton setBackgroundImage:[photos objectAtIndex:i] forState:UIControlStateNormal];
-        photoButton.layer.cornerRadius = 4.0;
         photoButton.tag = i;
         [photoButton addTarget:self action:@selector(photoButtonTouched:) forControlEvents:UIControlEventTouchUpInside];
+        UIImageView *photoImgView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"myprofile_photoLayout"]];
+        photoImgView.frame = photoButton.frame;
         
         self.photoScrollView.contentSize = CGSizeMake(self.photoScrollView.contentSize.width + PHOTO_WIDTH + H_PADDING, self.photoScrollView.contentSize.height);
         [self.photoScrollView addSubview:photoButton];
+        [self.photoScrollView addSubview:photoImgView];
     }
     
     UIButton *photoButton = [[UIButton alloc] initWithFrame:CGRectMake(self.photoScrollView.contentSize.width, V_PADDING, PHOTO_WIDTH, PHOTO_HEIGHT)];
-    [photoButton setBackgroundImage:[UIImage imageNamed:@"plus_sign"] forState:UIControlStateNormal];
-    photoButton.layer.cornerRadius = 4.0;
+    [photoButton setBackgroundImage:[UIImage imageNamed:@"myprofile_addphoto"] forState:UIControlStateNormal];
     [photoButton addTarget:self action:@selector(addPhotoButtonTouched:) forControlEvents:UIControlEventTouchUpInside];
     
     self.photoScrollView.contentSize = CGSizeMake(self.photoScrollView.contentSize.width + PHOTO_WIDTH + H_PADDING, self.photoScrollView.contentSize.height);

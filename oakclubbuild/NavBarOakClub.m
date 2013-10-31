@@ -95,13 +95,7 @@
         {
 
             [currentView.navigationController pushViewController:rightView animated:YES];
-   
         }
-    }
-    if([currentView isKindOfClass:[VCMyProfile class]])
-    {
-        VCMyProfile *profileView= (VCMyProfile*)currentView;
-        [profileView saveSettingWithWarning:YES];
     }
 }
 
