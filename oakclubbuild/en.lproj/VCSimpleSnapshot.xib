@@ -25,6 +25,7 @@
                 <outlet property="matchView" destination="e5g-mH-tS9" id="aOl-Ff-xMe"/>
                 <outlet property="matchViewController" destination="e5g-mH-tS9" id="NNh-kx-guF"/>
                 <outlet property="moveMeView" destination="4" id="18"/>
+                <outlet property="popupFirstTimeView" destination="xNI-f9-zcu" id="ja6-5R-Aem"/>
                 <outlet property="spinner" destination="133" id="134"/>
                 <outlet property="sv_photos" destination="61" id="62"/>
                 <outlet property="view" destination="99" id="100"/>
@@ -330,14 +331,143 @@
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
             </view>
-            <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
+            <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="blackOpaque"/>
             <nil key="simulatedTopBarMetrics"/>
             <nil key="simulatedBottomBarMetrics"/>
             <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
             <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
         </viewController>
+        <viewController id="xNI-f9-zcu" customClass="VCSimpleSnapshotPopup">
+            <view key="view" contentMode="scaleToFill" id="KrL-CA-0pg">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                <subviews>
+                    <view hidden="YES" contentMode="scaleToFill" id="Y1m-a3-YL3">
+                        <rect key="frame" x="25" y="78" width="270" height="210"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Snapshot_popup_box.png" id="Fae-6f-c5d">
+                                <rect key="frame" x="0.0" y="0.0" width="270" height="210"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="NgB-iu-oks">
+                                <rect key="frame" x="141" y="138" width="95" height="38"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Reject" backgroundImage="Snapshot_popup_no.png">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="selected" backgroundImage="Snapshot_popup_no_pressed.png"/>
+                                <state key="highlighted" backgroundImage="Snapshot_popup_no_pressed.png"/>
+                                <connections>
+                                    <action selector="onTouchReject:" destination="xNI-f9-zcu" eventType="touchUpInside" id="22j-CY-u4K"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Not interested?" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="g45-Pv-mjF">
+                                <rect key="frame" x="34" y="32" width="203" height="32"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Dragging a picture to the left indicates you are not interested in Van Trang." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="f7S-Vm-ATS">
+                                <rect key="frame" x="34" y="67" width="203" height="50"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="dwS-1R-e4V">
+                                <rect key="frame" x="33" y="138" width="95" height="38"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Cancel" backgroundImage="Snapshot_popup_cancel.png">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="selected" backgroundImage="Snapshot_popup_cancel_pressed.png">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted" backgroundImage="Snapshot_popup_cancel_pressed.png"/>
+                                <connections>
+                                    <action selector="onTouchCancel:" destination="xNI-f9-zcu" eventType="touchUpInside" id="WZQ-8P-e0D"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <view hidden="YES" contentMode="scaleToFill" id="xmA-N4-VKs">
+                        <rect key="frame" x="25" y="78" width="270" height="210"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Snapshot_popup_box.png" id="toq-ey-Id3">
+                                <rect key="frame" x="0.0" y="0.0" width="270" height="210"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="toj-ca-w6R">
+                                <rect key="frame" x="141" y="138" width="95" height="38"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Like" backgroundImage="Snapshot_popup_like.png">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="selected" backgroundImage="Snapshot_popup_no_pressed.png"/>
+                                <state key="highlighted" backgroundImage="Snapshot_popup_no_pressed.png"/>
+                                <connections>
+                                    <action selector="onTouchLike:" destination="xNI-f9-zcu" eventType="touchUpInside" id="57P-sz-gi1"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Like?" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="hE6-Fc-9eR">
+                                <rect key="frame" x="34" y="32" width="203" height="32"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                <color key="textColor" red="0.0" green="0.51764708757400513" blue="0.94117653369903564" alpha="1" colorSpace="deviceRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Dragging a picture to the right indicates you liked Van Trang." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="gWh-0V-v8Q">
+                                <rect key="frame" x="34" y="67" width="203" height="50"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="I6B-ZH-rci">
+                                <rect key="frame" x="33" y="138" width="95" height="38"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Cancel" backgroundImage="Snapshot_popup_cancel.png">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="selected" backgroundImage="Snapshot_popup_cancel_pressed.png">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted" backgroundImage="Snapshot_popup_cancel_pressed.png"/>
+                                <connections>
+                                    <action selector="onTouchCancel:" destination="xNI-f9-zcu" eventType="touchUpInside" id="d1Q-Ju-QVJ"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                </subviews>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            </view>
+            <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
+            <nil key="simulatedTopBarMetrics"/>
+            <nil key="simulatedBottomBarMetrics"/>
+            <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
+            <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+            <connections>
+                <outlet property="likePopupView" destination="xmA-N4-VKs" id="RqV-eE-f9z"/>
+                <outlet property="moveMeView" destination="4" id="zPr-bT-usj"/>
+                <outlet property="notInterestedPopupView" destination="Y1m-a3-YL3" id="eNg-sV-Vod"/>
+                <outlet property="snapshotView" destination="-1" id="ql3-S0-UYJ"/>
+            </connections>
+        </viewController>
     </objects>
     <resources>
+        <image name="Default Avatar.png" width="71" height="71"/>
+        <image name="Default Avatar.png" width="71" height="71"/>
+        <image name="Default Avatar.png" width="71" height="71"/>
         <image name="Default Avatar.png" width="71" height="71"/>
         <image name="Snapshot_bg_profiles.png" width="270" height="292"/>
         <image name="Snapshot_btnSendMessage.png" width="154" height="34"/>
@@ -345,10 +475,27 @@
         <image name="Snapshot_btn_info.png" width="28" height="28"/>
         <image name="Snapshot_btn_no.png" width="70" height="70"/>
         <image name="Snapshot_btn_no_preesed.png" width="70" height="70"/>
+        <image name="Snapshot_btn_no_preesed.png" width="70" height="70"/>
         <image name="Snapshot_btn_yes.png" width="70" height="70"/>
+        <image name="Snapshot_btn_yes_pressed.PNG" width="70" height="70"/>
         <image name="Snapshot_btn_yes_pressed.PNG" width="70" height="70"/>
         <image name="Snapshot_like_stamp.png" width="92" height="47"/>
         <image name="Snapshot_no_stamp.png" width="92" height="47"/>
+        <image name="Snapshot_popup_box.png" width="270" height="210"/>
+        <image name="Snapshot_popup_box.png" width="270" height="210"/>
+        <image name="Snapshot_popup_cancel.png" width="95" height="38"/>
+        <image name="Snapshot_popup_cancel.png" width="95" height="38"/>
+        <image name="Snapshot_popup_cancel_pressed.png" width="95" height="38"/>
+        <image name="Snapshot_popup_cancel_pressed.png" width="95" height="38"/>
+        <image name="Snapshot_popup_cancel_pressed.png" width="95" height="38"/>
+        <image name="Snapshot_popup_cancel_pressed.png" width="95" height="38"/>
+        <image name="Snapshot_popup_like.png" width="95" height="38"/>
+        <image name="Snapshot_popup_no.png" width="94" height="37"/>
+        <image name="Snapshot_popup_no_pressed.png" width="94" height="37"/>
+        <image name="Snapshot_popup_no_pressed.png" width="94" height="37"/>
+        <image name="Snapshot_popup_no_pressed.png" width="94" height="37"/>
+        <image name="Snapshot_popup_no_pressed.png" width="94" height="37"/>
+        <image name="Snapshot_top_polaroid.png" width="246" height="283"/>
         <image name="Snapshot_top_polaroid.png" width="246" height="283"/>
         <image name="Snapshot_transBG.png" width="320" height="480"/>
         <image name="bg-profile-tab.png" width="320" height="46"/>

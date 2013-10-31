@@ -276,7 +276,7 @@
 #define CGCOLOR_PURPLE ([UIColor colorWithRed:(121/255.0) green:(1/255.0) blue:(88/255.0) alpha:1].CGColor)
 
 #define key_isUseGPS @"useGPS"
-
+#define key_isFirstSnapshot @"isFirstSnapshot"
 //=============== Advanced setting=============
 #define FriendList  ([NSArray arrayWithObjects:@"Tran Van Quy", @"Vanancy Luu",@"Van Khanh", @"Thu Ha",@"RuaCon ChayCham",@"Phuong Lovely Nguyen",@"Mai Xuan Tham", nil])
 

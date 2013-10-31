@@ -21,12 +21,13 @@
 }
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) IBOutlet UIView *confirmLogoutView;
+@property (strong, nonatomic) IBOutlet VCLogout *logoutViewController;
 
 @end
 
 @implementation menuViewController
 @synthesize name, numCoins, btnAvatar, avatar;
-@synthesize tableView;
+@synthesize tableView, logoutViewController;
 
 
 - (IBAction)onTouchAvatar:(id)sender {
@@ -196,10 +197,10 @@
         UIImage* tellFriend_BG = [UIImage imageNamed:@"Menu_btn_Facebook.png"];
         [cell setItemBackground:tellFriend_BG andHighlight:tellFriend_BG];
     }
-    /*
-    if(indexPath.row == 1){
-        [cell setItemIcon:imageAvatar];
-    }*/
+    
+    if(indexPath.row == 1 && self.avatar.image != nil){
+        [cell setItemIcon:self.avatar.image];
+    }
     NSNumber* number = [numberNotifications objectAtIndex:indexPath.row];
     [cell setNotification:[number unsignedIntValue]];
 //    }
@@ -323,13 +324,14 @@
 */
 #pragma mark handle button touch
 - (IBAction)onTouchLogout:(id)sender {
-    VCLogout* logoutView= [[VCLogout alloc]init];
+//    VCLogout* logoutView= [[VCLogout alloc]init];
     
-    [logoutView.view setFrame:CGRectMake(0, self.view.frame.size.height+logoutView.view.frame.size.height, 246, logoutView.view.frame.size.height)];
-    [self.view addSubview:logoutView.view];
+    [logoutViewController.view setFrame:CGRectMake(0, self.view.frame.size.height-logoutViewController.view.frame.size.height, 246, logoutViewController.view.frame.size.height)];
+    [self.view addSubview:logoutViewController.view];
+//    [self.navigationController pushViewController:logoutViewController animated:NO];
     [UIView animateWithDuration:0.4
                      animations:^{
-                         [logoutView.view setFrame:CGRectMake(0, self.view.frame.size.height-logoutView.view.frame.size.height, 246, logoutView.view.frame.size.height)];
+                         [logoutViewController.view setFrame:CGRectMake(0, self.view.frame.size.height-logoutViewController.view.frame.size.height, 246, logoutViewController.view.frame.size.height)];
                      }completion:^(BOOL finished) {
                      }];
 }

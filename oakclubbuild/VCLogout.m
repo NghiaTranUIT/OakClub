@@ -37,10 +37,13 @@
 
 #pragma mark handle on touch
 - (IBAction)onTouchConfirmLogout:(id)sender {
+//    [self.navigationController popViewControllerAnimated:NO];
+    [self.view removeFromSuperview];
     AppDelegate *appDel = (AppDelegate *) [UIApplication sharedApplication].delegate;
     [appDel  logOut];
 }
 - (IBAction)onTouchCancelLogout:(id)sender {
+//    [self.navigationController popViewControllerAnimated:NO];
     [UIView animateWithDuration:0.4
                      animations:^{
                          [self.view setFrame:CGRectMake(0, self.view.frame.size.height*2, self.view.frame.size.width, self.view.frame.size.height)];

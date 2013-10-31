@@ -13,6 +13,8 @@
 #import "AnimatedGif.h"
 #import "UIView+Localize.h"
 #import "NSString+Utils.h"
+#import "VCSimpleSnapshotLoading.h"
+#import "VCSimpleSnapshotPopup.h"
 @interface VCSimpleSnapshot (){
     UIView *headerView;
     UILabel *lblHeaderName;
@@ -20,6 +22,7 @@
     AppDelegate *appDel;
     NSMutableDictionary* photos;
     BOOL is_loadingProfileList;
+    VCSimpleSnapshotLoading* loadingView;
     UIImageView* loadingAnim;
     BOOL reloadProfileList;
 }
@@ -27,6 +30,7 @@
 @property (nonatomic, weak) IBOutlet UIView *profileView;
 @property (nonatomic, weak) IBOutlet UIView *controlView;
 @property (nonatomic, weak) IBOutlet UIViewController *matchView;
+@property (strong, nonatomic) IBOutlet VCSimpleSnapshotPopup *popupFirstTimeView;
 @property (nonatomic, strong) VCProfile *viewProfile;
 @property (unsafe_unretained, nonatomic) IBOutlet UIPageControl *pageControl;
 @property (nonatomic, strong) NSMutableArray *pageViews;
@@ -36,7 +40,7 @@
 @implementation VCSimpleSnapshot
 CGFloat pageWidth;
 CGFloat pageHeight;
-@synthesize sv_photos,lbl_indexPhoto, lbl_mutualFriends, lbl_mutualLikes, buttonNO, buttonProfile, buttonYES, imgMutualFriend, imgMutualLike, buttonMAYBE ,lblName, lblAge ,lblPhotoCount, viewProfile,matchView, matchViewController, lblMatchAlert, imgMatcher, imgMyAvatar, imgMainProfile, imgNextProfile, imgLoading;
+@synthesize sv_photos,lbl_indexPhoto, lbl_mutualFriends, lbl_mutualLikes, buttonNO, buttonProfile, buttonYES, imgMutualFriend, imgMutualLike, buttonMAYBE ,lblName, lblAge ,lblPhotoCount, viewProfile,matchView, matchViewController, lblMatchAlert, imgMatcher, imgMyAvatar, imgMainProfile, imgNextProfile, imgLoading, popupFirstTimeView;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -49,9 +53,9 @@ CGFloat pageHeight;
         currentProfile = [[Profile alloc]init];
         appDel = (AppDelegate *) [UIApplication sharedApplication].delegate;
         is_loadingProfileList = FALSE;
-        NSURL *fileURL = [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"GPS_Finding_demo.gif" ofType:nil]];
+        NSURL *fileURL = [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"Snapshot_gps_loading.gif" ofType:nil]];
         loadingAnim = 	[AnimatedGif getAnimationForGifAtUrl: fileURL];
-        [loadingAnim setHidden:YES];
+//        [loadingAnim setHidden:YES];
     }
     return self;
 }
@@ -106,7 +110,7 @@ CGFloat pageHeight;
 -(void) refreshSnapshot{
     currentIndex = 0;
     profileList = [[NSMutableArray alloc] init];
-    [loadingAnim setHidden:NO];
+//    [loadingAnim setHidden:NO];
     [self loadProfileList:^(void){
         [self.imgMyAvatar setImage:appDel.myProfile.img_Avatar];
         [self loadCurrentProfile];
@@ -121,7 +125,10 @@ CGFloat pageHeight;
 }
 - (void)showWarning{
     if ([self isViewLoaded] && self.view.window) {
-        [self stopLoadingAnim];
+        loadingView = [[VCSimpleSnapshotLoading alloc]init];
+        [loadingView setTypeOfAlert:1 andAnim:loadingAnim];
+        [self.navigationController pushViewController:loadingView animated:NO];
+        /*[self stopLoadingAnim];
         UIAlertView *alert = [[UIAlertView alloc]
                               initWithTitle:@"Warning"
                               message:@"There is no more profile to show ..."
@@ -129,6 +136,7 @@ CGFloat pageHeight;
                               cancelButtonTitle:@"OK"
                               otherButtonTitles:nil];
         [alert show];
+         */
     }
 }
 
@@ -683,7 +691,7 @@ CGFloat pageHeight;
 }
  */
 - (void) viewWillAppear:(BOOL)animated{
-    [self.view addSubview:loadingAnim];
+//    [self.view addSubview:loadingAnim];
     [self.moveMeView localizeAllViews];
     [self.controlView localizeAllViews];
 //    [[self navBarOakClub] setHeaderName:[NSString localizeString:@"Snapshot"]];
@@ -891,6 +899,13 @@ CGFloat pageHeight;
 
 
 -(void)setFavorite:(NSString*)answerChoice{
+    BOOL isFirstTime = [[[NSUserDefaults standardUserDefaults] objectForKey:key_isFirstSnapshot] boolValue];
+    if(!isFirstTime){
+        [self showFirstSnapshotPopup:answerChoice];
+        [self.moveMeView setAnswer:-1];
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:key_isFirstSnapshot];
+        return;
+    }
     if(currentIndex > [profileList count] - 10){
         [self loadProfileList:^(void){
             is_loadingProfileList = FALSE;
@@ -983,15 +998,29 @@ CGFloat pageHeight;
 }
 #pragma mark LOADING - animation
 -(void)startLoadingAnim{
-    [self.spinner startAnimating];
-    [self disableAllControl:YES];
-    
+//    [self.spinner startAnimating];
+//    [self disableAllControl:YES];
+    loadingView = [[VCSimpleSnapshotLoading alloc]init];
+    [loadingView setTypeOfAlert:0 andAnim:loadingAnim];
+    [self.navigationController pushViewController:loadingView animated:NO];
 }
 
 -(void)stopLoadingAnim{
     [self.spinner stopAnimating];
     [self disableAllControl:NO];
-    [loadingAnim setHidden:YES];
+//    [loadingAnim setHidden:YES];
+    [self.navigationController popViewControllerAnimated:NO];
+}
+
+#pragma mark First time Popup
+-(void)showFirstSnapshotPopup:(NSString*)answerChoice{
+    int answer= [answerChoice integerValue];
+    if(answer > -1){
+        [popupFirstTimeView enableViewbyType:answer];
+        [popupFirstTimeView.view setFrame:CGRectMake(0, 0, popupFirstTimeView.view.frame.size.width, popupFirstTimeView.view.frame.size.height)];
+        [self.view addSubview:popupFirstTimeView.view];
+    }
+    
 }
 
 @end

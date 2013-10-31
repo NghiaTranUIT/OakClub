@@ -117,7 +117,7 @@ float timerDuration = 8.0f;
     
     int x = aScrollView.contentOffset.x;
     int y = aScrollView.contentOffset.y;
-    NSLog(@"did  x=%d  y=%d", x, y);
+//    NSLog(@"did  x=%d  y=%d", x, y);
     
     // 水平滚动
     if(scrollDirection == CycleDirectionLandscape) {
@@ -155,7 +155,7 @@ float timerDuration = 8.0f;
     int x = aScrollView.contentOffset.x;
     int y = aScrollView.contentOffset.y;
     
-    NSLog(@"--end  x=%d  y=%d", x, y);
+//    NSLog(@"--end  x=%d  y=%d", x, y);
     
     if (scrollDirection == CycleDirectionLandscape) {
             [scrollView setContentOffset:CGPointMake(scrollFrame.size.width, 0) animated:YES];
