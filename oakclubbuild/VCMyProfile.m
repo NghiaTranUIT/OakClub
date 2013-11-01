@@ -31,6 +31,7 @@
     UIImage *uploadImage;
 }
 @property (weak, nonatomic) IBOutlet UIScrollView *photoScrollView;
+@property (weak, nonatomic) IBOutlet UIImageView *avatarLayout;
 
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *age_workLabel;
@@ -81,6 +82,7 @@ CLLocationManager *locationManager;
     
     [self.imgAvatar setBackgroundImage:avatarImage forState:UIControlStateNormal];
     self.imgAvatar.contentMode = UIViewContentModeScaleAspectFit;
+    [self.imgAvatar setFrame:self.avatarLayout.frame];
     
     [self reloadPhotos];
 }
@@ -506,6 +508,7 @@ CLLocationManager *locationManager;
                  {
                      [self.imgAvatar setBackgroundImage:uploadImage forState:UIControlStateNormal];
                      self.imgAvatar.contentMode = UIViewContentModeScaleAspectFit;
+                     [self.imgAvatar setFrame:self.avatarLayout.frame];
                      
                      profileObj.img_Avatar = uploadImage;
                      profileObj.s_Avatar = imgLink;
@@ -708,7 +711,7 @@ CLLocationManager *locationManager;
             [doneButton setTitle:@"Done" forState:UIControlStateNormal];
             [doneButton addTarget:self action:@selector(doneButtonTouched:) forControlEvents:UIControlEventTouchUpInside];
             
-            [doneCell addSubview:doneButton];
+            [doneCell.contentView addSubview:doneButton];
             [doneCell setSelectionStyle:UITableViewCellSelectionStyleNone];
         }
         
@@ -949,6 +952,8 @@ CLLocationManager *locationManager;
         [photoButton addTarget:self action:@selector(photoButtonTouched:) forControlEvents:UIControlEventTouchUpInside];
         UIImageView *photoImgView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"myprofile_photoLayout"]];
         photoImgView.frame = photoButton.frame;
+        photoImgView.backgroundColor = [UIColor clearColor];
+        photoButton.backgroundColor = [UIColor clearColor];
         
         self.photoScrollView.contentSize = CGSizeMake(self.photoScrollView.contentSize.width + PHOTO_WIDTH + H_PADDING, self.photoScrollView.contentSize.height);
         [self.photoScrollView addSubview:photoButton];

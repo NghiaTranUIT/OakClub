@@ -600,10 +600,8 @@ static CGFloat padding_left = 5.0;
 	return (AppDelegate *)[[UIApplication sharedApplication] delegate];
 }
 
--(IBAction)gotoChat:(id)sender {
-
-
-    
+-(IBAction)gotoChat:(id)sender
+{
     UINavigationController* activeVC = [[self appDelegate] activeViewController];
     UIViewController* vc = [activeVC.viewControllers objectAtIndex:0];
     if( ![vc isKindOfClass:[VCChat class]] )
