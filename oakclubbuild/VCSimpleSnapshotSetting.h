@@ -10,8 +10,7 @@
 #import "ListForChoose.h"
 @interface VCSimpleSnapshotSetting : UITableViewController<UITableViewDelegate,ListForChooseDelegate, UIPickerViewDataSource, UIPickerViewDelegate, UIAlertViewDelegate>
 
-@property (weak, nonatomic) IBOutlet NYSliderPopover *sliderRange;
-@property (weak, nonatomic) IBOutlet UILabel *lblRange;
+@property UILabel *lblRange;
 @property (weak, nonatomic) UIPickerView *pickerAge;
 @property (weak, nonatomic) IBOutlet UILabel *btnAdvance;
 

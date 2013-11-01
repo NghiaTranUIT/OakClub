@@ -352,3 +352,15 @@ typedef enum{
     FEMALE,
     MALE
 }GenderEnum;
+
+typedef enum {
+    LanguageGroup               = 0,
+    GenderSearchGroup           = 1,
+    HereToGroup                 = 2,
+    ShowMeGroup                 = 3,
+    AgeGroup                    = 4,
+    RangeGroup                  = 5,
+    MoreGroup                   = 6,
+    NumOfSettingGroup           = 7,
+} SettingGroup;
+
