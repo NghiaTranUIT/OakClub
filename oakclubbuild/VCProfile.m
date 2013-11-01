@@ -130,7 +130,10 @@ static CGFloat padding_left = 5.0;
              //update height of scrollview to fit screen.
              CGFloat offset  = self.profileView.frame.origin.y + ( ([tableSource count]+1) * tableViewProfile.rowHeight) + 22*2;
              [self.infoView setFrame:CGRectMake(0, 275, 320, offset)];
-             [self.scrollview setContentSize:CGSizeMake(320, self.infoView.frame.size.height+ self.infoView.frame.origin.y)];
+             
+             //SCROLL SIZE
+             //[self.scrollview setContentSize:CGSizeMake(320, self.interestsView.frame.size.height+ self.interestsView.frame.origin.y)];
+             [self.scrollview setContentSize:CGSizeMake(320, 800)];
          }
          else
          {
@@ -249,7 +252,7 @@ static CGFloat padding_left = 5.0;
     
     // Do any additional setup after loading the view from its nib.
     AFHTTPClient *request = [[AFHTTPClient alloc] initWithOakClubAPI:DOMAIN];
-    NSDictionary *params = [[NSDictionary alloc]initWithObjectsAndKeys:currentProfile.s_ID,@"hangout_id", nil];
+    NSDictionary *params = [[NSDictionary alloc]initWithObjectsAndKeys:currentProfile.s_ID,@"profile_id", nil];
     [request getPath:URL_getHangoutProfile parameters:params success:^(__unused AFHTTPRequestOperation *operation, id JSON) {
         [currentProfile parseForGetHangOutProfile:JSON];
         lbl_name.text = currentProfile.s_Name;
@@ -302,6 +305,7 @@ static CGFloat padding_left = 5.0;
         [buttonAvatar setContentMode:UIViewContentModeScaleAspectFit];
         [buttonAvatar setImage:img_avatar forState:UIControlStateNormal];
         
+        // SCROOL SIZE
         [scrollview setContentSize:CGSizeMake(320, 800)];//:CGRectMake(0, 0, 320, 480)];
 
         // load interest List
@@ -878,7 +882,6 @@ static CGFloat padding_left = 5.0;
 }
 
 #pragma mark left item bar
-
 -(void)backToPreviousView
 {
     UINavigationController* activeVC = [[self appDelegate] activeViewController];

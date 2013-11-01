@@ -727,10 +727,10 @@ CGFloat pageHeight;
 -(void)viewDidAppear:(BOOL)animated
 {
     [self showNotifications];
-    
-   
 }
-- (void)viewDidUnload {
+
+- (void)viewDidUnload
+{
     [self setLblName:nil];
     [self setLblName:nil];
     [self setLblAge:nil];
@@ -773,7 +773,6 @@ CGFloat pageHeight;
     [UIView animateWithDuration:0.4
                      animations:^{
                          viewProfile.view.frame = CGRectMake(0, 0, 320, 480);
-                        
                      }completion:^(BOOL finished) {
                           [viewProfile.svPhotos setHidden:NO];
                      }];
