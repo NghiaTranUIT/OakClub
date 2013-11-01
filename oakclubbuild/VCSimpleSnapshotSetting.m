@@ -21,6 +21,8 @@
     AFHTTPClient *request;
     int fromAge;
     int toAge;
+    BOOL hasMale;
+    BOOL hasFemale;
     int i_range;
     NSArray *ageOptions;
     UIPickerView* picker;
@@ -28,7 +30,7 @@
 }
 @property (nonatomic) NSUInteger hereTo;
 @property NYSliderPopover *rangeSlider;
-@property VCLogout* logoutViewController;
+@property (weak,nonatomic) IBOutlet VCLogout* logoutViewController;
 @end
 
 @implementation VCSimpleSnapshotSetting
@@ -247,7 +249,7 @@ UITapGestureRecognizer *tap;
                         filterGuysCell.textLabel.text = [NSString localizeString:@"Guys"] ;
                         filterGuysCell.selectionStyle = UITableViewCellSelectionStyleNone;
                         UISwitch *autoSwitch = [[UISwitch alloc] init];
-                        [autoSwitch addTarget:self action:nil forControlEvents:UIControlEventValueChanged];
+                        [autoSwitch addTarget:self action:@selector(onSwitchChangedValue:) forControlEvents:UIControlEventValueChanged];
                         autoSwitch.frame = CGRectMake(cell.frame.size.width - autoSwitch.frame.size.width - 30, (cell.frame.size.height - autoSwitch.frame.size.height) / 2, autoSwitch.frame.size.width, autoSwitch.frame.size.height);
                         [autoSwitch setOnTintColor:COLOR_PURPLE];
                         autoSwitch.tag = 100;
@@ -257,7 +259,8 @@ UITapGestureRecognizer *tap;
                     {
                         filterGuysCell.textLabel.text = [NSString localizeString:@"Guys"] ;
                         UISwitch *autoSwitch = (id) [filterGuysCell viewWithTag:100];
-                        autoSwitch.on = [snapshotObj.gender_of_search isEqualToString:value_Male] || [snapshotObj.gender_of_search isEqualToString:value_All];
+//                        autoSwitch.on = [snapshotObj.gender_of_search isEqualToString:value_Male] || [snapshotObj.gender_of_search isEqualToString:value_All];
+                        autoSwitch.on = hasMale;
                     }
                     cell.textLabel.text = [NSString localizeString:cell.textLabel.text];
                     [cell.textLabel setFont: FONT_NOKIA(17.0)];
@@ -275,7 +278,7 @@ UITapGestureRecognizer *tap;
                         filterGirlsCell.textLabel.text = [NSString localizeString:@"Girls"] ;
                         filterGirlsCell.selectionStyle = UITableViewCellSelectionStyleNone;
                         UISwitch *autoSwitch = [[UISwitch alloc] init];
-                        [autoSwitch addTarget:self action:nil forControlEvents:UIControlEventValueChanged];
+                        [autoSwitch addTarget:self action:@selector(onSwitchChangedValue:) forControlEvents:UIControlEventValueChanged];
                         autoSwitch.frame = CGRectMake(cell.frame.size.width - autoSwitch.frame.size.width - 30, (cell.frame.size.height - autoSwitch.frame.size.height) / 2, autoSwitch.frame.size.width, autoSwitch.frame.size.height);
                         [autoSwitch setOnTintColor:COLOR_PURPLE];
                         autoSwitch.tag = 101;
@@ -285,7 +288,7 @@ UITapGestureRecognizer *tap;
                     {
                         filterGirlsCell.textLabel.text = [NSString localizeString:@"Girls"] ;
                         UISwitch *autoSwitch = (id) [filterGirlsCell viewWithTag:101];
-                        autoSwitch.on = [snapshotObj.gender_of_search isEqualToString:value_Female] || [snapshotObj.gender_of_search isEqualToString:value_All];
+                        autoSwitch.on = hasFemale;
                     }
                     cell.textLabel.text = [NSString localizeString:cell.textLabel.text];
                     [cell.textLabel setFont: FONT_NOKIA(17.0)];
@@ -626,6 +629,8 @@ UITapGestureRecognizer *tap;
         NSMutableDictionary *location = [data valueForKey:key_location];
         snapshotObj.location = [[Location alloc] initWithNSDictionary:location];
         
+        hasMale = [snapshotObj.gender_of_search isEqualToString:value_Male] || [snapshotObj.gender_of_search isEqualToString:value_All];
+        hasFemale = [snapshotObj.gender_of_search isEqualToString:value_Female] || [snapshotObj.gender_of_search isEqualToString:value_All];
         // advance settings
         //        [self loadShowFOF:[[data valueForKey:key_show_fof] boolValue]];
         //
@@ -832,6 +837,7 @@ UITapGestureRecognizer *tap;
     int intValue = round(value);
     [self.rangeSlider setValue:intValue];
     snapshotObj.range = intValue * 100;
+    i_range = snapshotObj.range;
     NSString* sRange = [self getRangeValue:snapshotObj.range];
 //    self.rangeSlider.popover.textLabel.text = sRange;
     lblRange.text = sRange;
@@ -854,15 +860,53 @@ UITapGestureRecognizer *tap;
 -(void)onTouchLogout{
 //    [self.tableView setUserInteractionEnabled:NO];
     [self.tableView setScrollEnabled:NO];
-    self.logoutViewController = [[VCLogout alloc]init];
+//    self.logoutViewController = [[VCLogout alloc]init];
     CGPoint viewPoint = [self.tableView contentOffset];
-    [self.logoutViewController.view setFrame:CGRectMake(0, self.view.frame.size.height-self.logoutViewController.view.frame.size.height, self.logoutViewController.view.frame.size.width, self.logoutViewController.view.frame.size.height-44)];
-    [self.view addSubview:self.logoutViewController.view];
-    [self.view bringSubviewToFront:self.logoutViewController.view];
+    [self.logoutController.view setFrame:CGRectMake(0,self.tableView.contentSize.height , self.logoutController.view.frame.size.width, self.view.frame.size.height-44)];
+    [self.view addSubview:self.logoutController.view];
+    [self.view bringSubviewToFront:self.logoutController.view];
     [UIView animateWithDuration:0.4
                      animations:^{
-                         [self.logoutViewController.view setFrame:CGRectMake(0, viewPoint.y, self.logoutViewController.view.frame.size.width, self.logoutViewController.view.frame.size.height-44)];
+                         [self.logoutController.view setFrame:CGRectMake(0, viewPoint.y, self.logoutController.view.frame.size.width, self.view.frame.size.height-44)];
                      }completion:^(BOOL finished) {
                      }];
+}
+#pragma mark handle on touch
+- (IBAction)onTouchConfirmLogout:(id)sender {
+    //    [self.navigationController popViewControllerAnimated:NO];
+    [self.logoutViewController.view removeFromSuperview];
+    AppDelegate *appDel = (AppDelegate *) [UIApplication sharedApplication].delegate;
+    [appDel  logOut];
+}
+- (IBAction)onTouchCancelLogout:(id)sender {
+    //    [self.navigationController popViewControllerAnimated:NO];
+    [UIView animateWithDuration:0.4
+                     animations:^{
+                         [self.logoutViewController.view setFrame:CGRectMake(0, self.tableView.contentSize.height, self.logoutViewController.view.frame.size.width, self.view.frame.size.height-44)];
+                     }completion:^(BOOL finished) {
+                         [self.logoutViewController.view removeFromSuperview];
+                         [self.tableView setScrollEnabled:YES];
+                     }];
+    
+}
+
+#pragma mark Switch delegate
+-(void)onSwitchChangedValue:(id)sender{
+    int tag= [(UISwitch*)sender tag];
+    switch (tag) {
+        case 100:
+        {
+            hasMale = [sender isOn];
+            break;
+        }
+        case 101:
+        {
+            hasFemale = [sender isOn];
+            break;
+        }
+        default:
+            break;
+    }
+    [self.tableView reloadData];
 }
 @end

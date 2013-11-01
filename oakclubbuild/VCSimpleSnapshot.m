@@ -907,6 +907,7 @@ CGFloat pageHeight;
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:key_isFirstSnapshot];
         return;
     }
+    
     if(currentIndex > [profileList count] - 10){
         [self loadProfileList:^(void){
             is_loadingProfileList = FALSE;

@@ -707,7 +707,7 @@ CLLocationManager *locationManager;
             UIButton *doneButton = [[UIButton alloc] init];
             [doneButton setBackgroundImage:[UIImage imageNamed:@"myprofile_doneButton"] forState:UIControlStateNormal];
             [doneButton sizeToFit];
-            doneButton.frame = CGRectMake((doneCell.frame.size.width - doneButton.frame.size.width) / 2, (88 - doneButton.frame.size.height) / 2, doneButton.frame.size.width, doneButton.frame.size.height);
+            doneButton.frame = CGRectMake((self.tableView.frame.size.width - doneButton.frame.size.width) / 2, (88 - doneButton.frame.size.height) / 2, doneButton.frame.size.width, doneButton.frame.size.height);
             [doneButton setTitle:@"Done" forState:UIControlStateNormal];
             [doneButton addTarget:self action:@selector(doneButtonTouched:) forControlEvents:UIControlEventTouchUpInside];
             

@@ -161,45 +161,64 @@ NSIndexPath* oldIndex;
 //    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"bg.png"]];
     [self customBackButtonBarItem];
     // Do any additional setup after loading the view from its nib.
-    
+    NSString* titleText;
     switch (type) {
         case LISTTYPE_COUNTRY:
-//            self.navigationItem.title = @"Country";
-            [self setTitle:@"Country"];
+//            [self setTitle:@"Country"];
+            titleText = @"Country";
             break;
         case LISTTYPE_CITY:
-            self.navigationItem.title = @"City";
+            titleText = @"City";
+//            self.navigationItem.title = @"City";
             break;
         case LISTTYPE_ETHNICITY:
-            self.navigationItem.title = @"Ethnicity";
+            titleText = @"Ethnicity";
+//            self.navigationItem.title = @"Ethnicity";
             break;
         case LISTTYPE_WORK:
-            self.navigationItem.title = @"Work";
+            titleText = @"Work";
+//            self.navigationItem.title = @"Work";
             break;
         case LISTTYPE_LANGUAGE:
-            self.navigationItem.title = @"Languages";
+            titleText = @"Languages";
+//            self.navigationItem.title = @"Languages";
             break;
         case LISTTYPE_RELATIONSHIP:
-            self.navigationItem.title = @"Relationship";
+            titleText = @"Relationship";
+//            self.navigationItem.title = @"Relationship";
             break;
         case LISTTYPE_GENDER:
-            self.navigationItem.title = @"Gender";
+            titleText = @"Gender";
+//            self.navigationItem.title = @"Gender";
             break;
         case LISTTYPE_INTERESTED:
-            self.navigationItem.title = @"Interested In";
+            titleText = @"Interested In";
+//            self.navigationItem.title = @"Interested In";
             break;
         case LISTTYPE_HERETO:
-            self.navigationItem.title = @"I'm Here To";
+            titleText = @"I'm Here To";
+//            self.navigationItem.title = @"I'm Here To";
             break;
         case LISTTYPE_EMAILSETTING:
-            self.navigationItem.title = @"Email Setting";
+            titleText = @"Email Setting";
+//            self.navigationItem.title = @"Email Setting";
             break;
         case LISTTYPE_WITHWHO:
-            self.navigationItem.title = @"With Who";
+            titleText = @"With Who";
+//            self.navigationItem.title = @"With Who";
             break;
         default:
             break;
     }
+    
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectZero] ;
+    label.backgroundColor = [UIColor clearColor];
+    label.font = [UIFont boldSystemFontOfSize:20.0];
+    label.shadowColor = [UIColor colorWithWhite:0.0 alpha:0.5];
+    label.textAlignment = NSTextAlignmentCenter;
+    [label setText:titleText];
+    label.textColor = [UIColor darkGrayColor]; // change this color
+    self.navigationItem.titleView = label;
 }
 
 - (void)didReceiveMemoryWarning
