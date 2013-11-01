@@ -436,7 +436,6 @@
 		CDD38A9D173A350100D583DD /* ProfileSetting.m in Sources */ = {isa = PBXBuildFile; fileRef = CDD38A9C173A350100D583DD /* ProfileSetting.m */; };
 		CDD5EDA01714265A008C3327 /* chat_background.png in Resources */ = {isa = PBXBuildFile; fileRef = CDD5ED951714265A008C3327 /* chat_background.png */; };
 		CDD5EDA31714265A008C3327 /* chat_me.png in Resources */ = {isa = PBXBuildFile; fileRef = CDD5ED981714265A008C3327 /* chat_me.png */; };
-		CDD5EDA41714265A008C3327 /* frame send.png in Resources */ = {isa = PBXBuildFile; fileRef = CDD5ED991714265A008C3327 /* frame send.png */; };
 		CDD5EDA51714265A008C3327 /* chat_friend.png in Resources */ = {isa = PBXBuildFile; fileRef = CDD5ED9A1714265A008C3327 /* chat_friend.png */; };
 		CDD5EDA61714265A008C3327 /* icon friend.png in Resources */ = {isa = PBXBuildFile; fileRef = CDD5ED9B1714265A008C3327 /* icon friend.png */; };
 		CDD5EDA71714265A008C3327 /* pink.png in Resources */ = {isa = PBXBuildFile; fileRef = CDD5ED9C1714265A008C3327 /* pink.png */; };
@@ -536,7 +535,6 @@
 		CDECD3231733C3E800A6B17F /* button 1.png in Resources */ = {isa = PBXBuildFile; fileRef = CDECD30E1733C3E800A6B17F /* button 1.png */; };
 		CDECD3241733C3E800A6B17F /* button 2.png in Resources */ = {isa = PBXBuildFile; fileRef = CDECD30F1733C3E800A6B17F /* button 2.png */; };
 		CDECD3251733C3E800A6B17F /* frame chat.png in Resources */ = {isa = PBXBuildFile; fileRef = CDECD3101733C3E800A6B17F /* frame chat.png */; };
-		CDECD3261733C3E800A6B17F /* frame send.png in Resources */ = {isa = PBXBuildFile; fileRef = CDECD3111733C3E800A6B17F /* frame send.png */; };
 		CDECD3271733C3E800A6B17F /* frame white.png in Resources */ = {isa = PBXBuildFile; fileRef = CDECD3121733C3E800A6B17F /* frame white.png */; };
 		CDECD3281733C3E800A6B17F /* icon friend.png in Resources */ = {isa = PBXBuildFile; fileRef = CDECD3131733C3E800A6B17F /* icon friend.png */; };
 		CDECD3291733C3E800A6B17F /* pic (44 x 44).png in Resources */ = {isa = PBXBuildFile; fileRef = CDECD3141733C3E800A6B17F /* pic (44 x 44).png */; };
@@ -4128,7 +4126,6 @@
 				CDD5EDA01714265A008C3327 /* chat_background.png in Resources */,
 				CDD5EDA31714265A008C3327 /* chat_me.png in Resources */,
 				CD50E3BC181FE62C0036A23B /* Navbar_btn_chat_up@2x.png in Resources */,
-				CDD5EDA41714265A008C3327 /* frame send.png in Resources */,
 				CDD5EDA51714265A008C3327 /* chat_friend.png in Resources */,
 				CD877C731820B06B0067D478 /* Menu_element_inactive.png in Resources */,
 				CD50E369181FBF3C0036A23B /* Snapshot_popup_no_pressed.png in Resources */,
@@ -4176,7 +4173,6 @@
 				CDECD3251733C3E800A6B17F /* frame chat.png in Resources */,
 				CD877C511820AD490067D478 /* Snapshot_btn_yes_pressed@2x.PNG in Resources */,
 				CD005D43181267F000238920 /* angel.png in Resources */,
-				CDECD3261733C3E800A6B17F /* frame send.png in Resources */,
 				CDECD3271733C3E800A6B17F /* frame white.png in Resources */,
 				CDE5DB411807E8AD00A96D78 /* bg-black@2x.png in Resources */,
 				CD877C701820B06B0067D478 /* Menu_divider@2x.png in Resources */,
@@ -4916,7 +4912,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				ONLY_ACTIVE_ARCH = YES;
-				PROVISIONING_PROFILE = "1F6FED1E-8B46-48D5-AEA8-B5558C1D2D46";
+				PROVISIONING_PROFILE = "1C002BBD-0651-47BA-BDFC-F438391B2AED";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -4944,7 +4940,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
-				PROVISIONING_PROFILE = "1F6FED1E-8B46-48D5-AEA8-B5558C1D2D46";
+				PROVISIONING_PROFILE = "1C002BBD-0651-47BA-BDFC-F438391B2AED";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
@@ -4977,8 +4973,8 @@
 					"-ObjC",
 				);
 				PRODUCT_NAME = OakClub;
-				PROVISIONING_PROFILE = "1F6FED1E-8B46-48D5-AEA8-B5558C1D2D46";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "1F6FED1E-8B46-48D5-AEA8-B5558C1D2D46";
+				PROVISIONING_PROFILE = "1C002BBD-0651-47BA-BDFC-F438391B2AED";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "1C002BBD-0651-47BA-BDFC-F438391B2AED";
 				TARGETED_DEVICE_FAMILY = 1;
 				VALIDATE_PRODUCT = YES;
 				WRAPPER_EXTENSION = app;
@@ -5010,8 +5006,8 @@
 					"-ObjC",
 				);
 				PRODUCT_NAME = OakClub;
-				PROVISIONING_PROFILE = "1F6FED1E-8B46-48D5-AEA8-B5558C1D2D46";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "1F6FED1E-8B46-48D5-AEA8-B5558C1D2D46";
+				PROVISIONING_PROFILE = "1C002BBD-0651-47BA-BDFC-F438391B2AED";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "1C002BBD-0651-47BA-BDFC-F438391B2AED";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
