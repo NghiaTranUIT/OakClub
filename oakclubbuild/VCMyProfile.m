@@ -144,7 +144,7 @@ CLLocationManager *locationManager;
         [self updateProfileItemListAtIndex:@"" andIndex:RELATIONSHIP];
     }
     [self updateProfileItemListAtIndex:profileObj.s_location.name andIndex:LOCATION];
-        [self updateProfileItemListAtIndex:profileObj.s_ethnicity andIndex:ETHNICITY];
+    [self updateProfileItemListAtIndex:profileObj.c_ethnicity.text andIndex:ETHNICITY];
     for (NSDictionary * object in appDelegate.workList) {
         if ([[object valueForKey:@"cate_id"] integerValue] == profileObj.i_work.cate_id) {
             profileObj.i_work.cate_name = [object valueForKey:@"cate_name"];
@@ -615,8 +615,8 @@ CLLocationManager *locationManager;
             [self updateProfileItemListAtIndex:profileObj.i_work.cate_name andIndex:WORK];
             break;
         case LISTTYPE_ETHNICITY:
-            profileObj.s_ethnicity = selected.s_ethnicity;
-            [self updateProfileItemListAtIndex:profileObj.s_ethnicity andIndex:ETHNICITY];
+            profileObj.c_ethnicity = selected.c_ethnicity;
+            [self updateProfileItemListAtIndex:profileObj.c_ethnicity.text andIndex:ETHNICITY];
             break;
         case LISTTYPE_LANGUAGE:
             profileObj.a_language = selected.a_language;

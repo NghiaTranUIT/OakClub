@@ -18,6 +18,7 @@
 #import "RelationShip.h"
 #import "Gender.h"
 #import "Language.h"
+#import "Ethnicity.h"
 
 @protocol ImageRequester <NSObject>
 
@@ -49,7 +50,7 @@
     Location *s_location; //location_id
     NSMutableArray *a_language;
     NSString *s_aboutMe; // 256 characters
-    NSString *s_ethnicity; // string
+    Ethnicity *c_ethnicity; // string
     NSString *s_meetType;
     NSString *s_popularity;
     NSString *s_snapshotID;
@@ -90,7 +91,7 @@
 @property (strong, nonatomic) Location *s_location;
 @property (strong, nonatomic) NSMutableArray *a_language;
 @property (strong, nonatomic) NSString *s_aboutMe;
-@property (strong, nonatomic) NSString *s_ethnicity;
+@property (strong, nonatomic) Ethnicity *c_ethnicity;
 @property (strong, nonatomic) NSString *s_meetType;
 @property (strong, nonatomic) NSString *s_popularity;
 @property (strong, nonatomic) NSString *s_interestedStatus;

@@ -68,18 +68,21 @@
     switch (typeOfAlert) {
         case 0:
         {
-            [imgNOPEDisable setHidden:NO];
-            [imgLIKEDisable setHidden:NO]; 
-            [imgiDisable setHidden:NO];
+            [self.view addSubview:imgNOPEDisable];
+            [self.view addSubview:imgLIKEDisable];
+            [self.view addSubview:imgiDisable];
+//            [imgNOPEDisable setHidden:NO];
+//            [imgLIKEDisable setHidden:NO]; 
+//            [imgiDisable setHidden:NO];
             [btnContentAlert setHidden:YES];
             [lblContentAlert setText:@"Finding nearby people..."];
             break;
         }
         case 1:
         {
-            [imgNOPEDisable setHidden:YES];
-            [imgLIKEDisable setHidden:YES];
-            [imgiDisable setHidden:YES];
+//            [imgNOPEDisable setHidden:YES];
+//            [imgLIKEDisable setHidden:YES];
+//            [imgiDisable setHidden:YES];
             [btnContentAlert setHidden:NO];
             [lblContentAlert setText:@"You've seen all the recommendation near you."];
             [imgLoading setImage:[UIImage imageNamed:@"SnapshotLoading_map_loaded.png"]];

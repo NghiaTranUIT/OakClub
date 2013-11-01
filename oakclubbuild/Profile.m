@@ -20,7 +20,7 @@
 
 @implementation Profile
 
-@synthesize s_Name, img_Avatar, i_Points, s_ProfileStatus, s_FB_id, s_ID, dic_Roster,num_Photos, s_gender, num_points, num_unreadMessage, s_passwordXMPP, s_usenameXMPP, arr_photos, s_aboutMe, s_birthdayDate, s_interested,a_language, s_location,s_relationShip, s_ethnicity, s_age, s_meetType, s_popularity, s_interestedStatus, s_snapshotID, a_favorites, s_user_id,s_school,i_work, i_height,i_weight, numberMutualFriends, new_gifts, s_Email;
+@synthesize s_Name, img_Avatar, i_Points, s_ProfileStatus, s_FB_id, s_ID, dic_Roster,num_Photos, s_gender, num_points, num_unreadMessage, s_passwordXMPP, s_usenameXMPP, arr_photos, s_aboutMe, s_birthdayDate, s_interested,a_language, s_location,s_relationShip, c_ethnicity, s_age, s_meetType, s_popularity, s_interestedStatus, s_snapshotID, a_favorites, s_user_id,s_school,i_work, i_height,i_weight, numberMutualFriends, new_gifts, s_Email;
 @synthesize is_deleted;
 @synthesize is_blocked;
 @synthesize is_available;
@@ -367,10 +367,11 @@
 
 -(void) parseProfileWithDictionary:(NSMutableDictionary*)data
 {
+     AppDelegate *appDel = (id) [UIApplication sharedApplication].delegate;
     self.s_Name = [data valueForKey:key_name];
     self.s_Avatar = [data valueForKey:key_avatar];
-
-    self.s_ethnicity=[data valueForKey:key_ethnicity];
+    int ethnicityIndex =[[data valueForKey:key_ethnicity] integerValue];
+    self.c_ethnicity= [[Ethnicity alloc]initWithID:ethnicityIndex andName:[appDel.ethnicityList objectAtIndex:ethnicityIndex]];
     self.s_birthdayDate =[data valueForKey:key_birthday];
     self.s_age = [self  pareAgeFromDateString:self.s_birthdayDate];
     self.s_meetType = [data valueForKey:key_meet_type];
@@ -750,7 +751,7 @@
     NSString *height = [NSString stringWithFormat:@"%i",self.i_height];
     NSString *weight= [NSString stringWithFormat:@"%i",self.i_weight];
     NSString *school = self.s_school;
-    NSString *ethnicity = self.s_ethnicity;
+    NSString *ethnicity = [NSString stringWithFormat:@"%i",self.c_ethnicity.ID];
     NSString *lang = [self.a_language componentsJoinedByString:@","];
     NSString *loc = [NSString stringWithFormat:@"%@",self.s_location.ID];
     NSString *work = [NSString stringWithFormat:@"%i",self.i_work.cate_id];
@@ -810,7 +811,7 @@
     accountCopy.s_location = [s_location copy];
     accountCopy.a_language = [a_language mutableCopy];
     accountCopy.s_aboutMe = [s_aboutMe copyWithZone:zone];
-    accountCopy.s_ethnicity = [s_ethnicity copyWithZone:zone];
+    accountCopy.c_ethnicity = [c_ethnicity copy];
     accountCopy.s_meetType = [s_meetType copyWithZone:zone];
     accountCopy.s_popularity = [s_popularity copyWithZone:zone];
     accountCopy.s_snapshotID = [s_snapshotID copyWithZone:zone];

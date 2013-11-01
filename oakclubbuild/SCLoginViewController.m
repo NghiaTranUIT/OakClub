@@ -37,6 +37,8 @@
     if (self) {
         // Custom initialization
         appDelegate = (id) [UIApplication sharedApplication].delegate;
+        CGRect screenBounds = [[UIScreen mainScreen] applicationFrame];
+        self.view.center = CGPointMake(screenBounds.size.width/2,screenBounds.size.height/2);
     }
 
     return self;

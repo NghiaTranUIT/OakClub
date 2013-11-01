@@ -321,10 +321,12 @@ NSIndexPath* oldIndex;
                     
                 break;
             case LISTTYPE_ETHNICITY:
-                cell.textLabel.text = [dataSource objectAtIndex:indexPath.row];
-                if([[[currentValue.s_ethnicity stringByReplacingOccurrencesOfString:@" " withString:@""] lowercaseString] isEqualToString:[[cell.textLabel.text stringByReplacingOccurrencesOfString:@" " withString:@""] lowercaseString]]){
+                cell.textLabel.text = [[dataSource objectAtIndex:indexPath.row] valueForKey:@"text"];
+                if(currentValue.c_ethnicity.ID ==[[[dataSource objectAtIndex:indexPath.row] valueForKey:@"ID"] integerValue] ){
+                    oldIndex = indexPath;
+                    currentValue.c_ethnicity.text = [[dataSource objectAtIndex:indexPath.row] valueForKey:@"text"] ;
+                    currentValue.c_ethnicity.ID = [[[dataSource objectAtIndex:indexPath.row] valueForKey:@"ID"] integerValue];
                     cell.accessoryType = UITableViewCellAccessoryCheckmark;
-                     oldIndex = indexPath;
                 }
                 break;
                 
@@ -382,7 +384,6 @@ NSIndexPath* oldIndex;
                 case LISTTYPE_RELATIONSHIP:
                     currentValue.s_relationShip.rel_status_id = [[[dataSource objectAtIndex:indexPath.row] valueForKey:@"rel_status_id"] integerValue];
                     currentValue.s_relationShip.rel_text = [[dataSource objectAtIndex:indexPath.row] valueForKey:@"rel_text"];
-//                    [self.navigationController popToViewController:[self.navigationController.viewControllers objectAtIndex:[self.navigationController.viewControllers count]-2] animated:YES];
                     break;
                 case LISTTYPE_CITY:
                     currentValue.s_location.ID = [[dataSource objectAtIndex:indexPath.row] valueForKey:@"location_id"];
@@ -390,18 +391,19 @@ NSIndexPath* oldIndex;
 
                     break;
                 case LISTTYPE_ETHNICITY:
-                    currentValue.s_ethnicity = [dataSource objectAtIndex:indexPath.row] ;
-//                    [self.navigationController popToViewController:[self.navigationController.viewControllers objectAtIndex:[self.navigationController.viewControllers count]-2] animated:YES];
+                {
+                    int index = [[[dataSource objectAtIndex:indexPath.row] valueForKey:@"ID"] integerValue];
+                    NSString* name =[[dataSource objectAtIndex:indexPath.row] valueForKey:@"text"] ;
+                    currentValue.c_ethnicity = [[Ethnicity alloc] initWithID:index andName:name];
                     break;
+                }
                 case LISTTYPE_GENDER:
                     currentValue.s_gender.text = [[dataSource objectAtIndex:indexPath.row] valueForKey:@"text"] ;
                     currentValue.s_gender.ID = [[[dataSource objectAtIndex:indexPath.row] valueForKey:@"ID"] integerValue];
-//                    [self.navigationController popToViewController:[self.navigationController.viewControllers objectAtIndex:[self.navigationController.viewControllers count]-2] animated:YES];
                     break;
                 case LISTTYPE_INTERESTED:
                     currentValue.s_interested.text = [[dataSource objectAtIndex:indexPath.row] valueForKey:@"text"] ;
                     currentValue.s_interested.ID = [[[dataSource objectAtIndex:indexPath.row] valueForKey:@"ID"] integerValue];
-                    //                    [self.navigationController popToViewController:[self.navigationController.viewControllers objectAtIndex:[self.navigationController.viewControllers count]-2] animated:YES];
                     break;
                 case LISTTYPE_EMAILSETTING:
                     [[NSUserDefaults standardUserDefaults] setObject:[dataSource objectAtIndex:indexPath.row] forKey:@"key_EmailSetting"] ;
@@ -409,12 +411,10 @@ NSIndexPath* oldIndex;
                 case LISTTYPE_WORK:
                     currentValue.i_work.cate_id = [[[dataSource objectAtIndex:indexPath.row] valueForKey:@"cate_id"] integerValue];
                     currentValue.i_work.cate_name = [[dataSource objectAtIndex:indexPath.row] valueForKey:@"cate_name"] ;
-//                    [self.navigationController popToViewController:[self.navigationController.viewControllers objectAtIndex:[self.navigationController.viewControllers count]-2] animated:YES];
                     break;
                 default:
                     break;
             }
-//            currentChoose = indexPath.row;
         }
     }
     if (delegate) {

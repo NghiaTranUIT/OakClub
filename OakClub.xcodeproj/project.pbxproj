@@ -764,6 +764,7 @@
 		CDFF638D1823564400C8031F /* SnapshotSetting_check@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CDFF63811823564400C8031F /* SnapshotSetting_check@2x.png */; };
 		CDFF638E1823564400C8031F /* SnapshotSetting_oakclub_logo.png in Resources */ = {isa = PBXBuildFile; fileRef = CDFF63821823564400C8031F /* SnapshotSetting_oakclub_logo.png */; };
 		CDFF638F1823564400C8031F /* SnapshotSetting_oakclub_logo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CDFF63831823564400C8031F /* SnapshotSetting_oakclub_logo@2x.png */; };
+		CDFF63921823CBB800C8031F /* Ethnicity.m in Sources */ = {isa = PBXBuildFile; fileRef = CDFF63911823CBB800C8031F /* Ethnicity.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1766,6 +1767,8 @@
 		CDFF63811823564400C8031F /* SnapshotSetting_check@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SnapshotSetting_check@2x.png"; sourceTree = "<group>"; };
 		CDFF63821823564400C8031F /* SnapshotSetting_oakclub_logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SnapshotSetting_oakclub_logo.png; sourceTree = "<group>"; };
 		CDFF63831823564400C8031F /* SnapshotSetting_oakclub_logo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SnapshotSetting_oakclub_logo@2x.png"; sourceTree = "<group>"; };
+		CDFF63901823CBB800C8031F /* Ethnicity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Ethnicity.h; sourceTree = "<group>"; };
+		CDFF63911823CBB800C8031F /* Ethnicity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Ethnicity.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -2246,6 +2249,8 @@
 				CDBF8DBB1817165000CDBCF7 /* UIView+Localize.h */,
 				CDBF8DBC1817165000CDBCF7 /* UIView+Localize.m */,
 				97785404182258C100CBB5DB /* Language.h */,
+				CDFF63901823CBB800C8031F /* Ethnicity.h */,
+				CDFF63911823CBB800C8031F /* Ethnicity.m */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -4790,6 +4795,7 @@
 				CDE2EA25171D31F900ECCEA3 /* AFHTTPClient+OakClub.m in Sources */,
 				CD3E749D1725B3A6002D8207 /* UIPopoverController+iPhone.m in Sources */,
 				CD819576172864C400D86C0B /* VCHangoutSetting.m in Sources */,
+				CDFF63921823CBB800C8031F /* Ethnicity.m in Sources */,
 				CDEC0215172A706E00C3E615 /* HistoryMessage.m in Sources */,
 				CD04190417327A5C000D40D8 /* VCSnapshotSetting.m in Sources */,
 				CDECD30A1733C3D900A6B17F /* ChatHistoryViewCell.m in Sources */,

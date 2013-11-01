@@ -12,6 +12,8 @@
 #import "Profile.h"
 #import "SettingObject.h"
 #import "UIViewController+Custom.h"
+#import "Ethnicity.h"
+
 @protocol ListForChooseDelegate;
 @interface ListForChoose : UIViewController<UITableViewDelegate,UITableViewDataSource>{
     NSArray *dataSource;
