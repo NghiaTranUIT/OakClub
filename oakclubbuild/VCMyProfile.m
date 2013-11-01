@@ -14,8 +14,9 @@
 #import "PickPhotoFromGarelly.h"
 #import "PhotoUpload.h"
 #import "NSString+Utils.h"
+#import "PhotoScrollView.h"
 
-@interface VCMyProfile () <PickPhotoFromGarellyDelegate, UIAlertViewDelegate, ImageRequester>{
+@interface VCMyProfile () <PickPhotoFromGarellyDelegate, UIAlertViewDelegate, ImageRequester, PhotoScrollViewDelegate>{
     GroupButtons* genderGroup;
      AppDelegate *appDelegate;
     NSMutableArray *profileItemList;
@@ -30,7 +31,7 @@
     int selectedPhoto;
     UIImage *uploadImage;
 }
-@property (weak, nonatomic) IBOutlet UIScrollView *photoScrollView;
+@property (weak, nonatomic) IBOutlet PhotoScrollView *photoScrollView;
 @property (weak, nonatomic) IBOutlet UIImageView *avatarLayout;
 
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
@@ -83,6 +84,8 @@ CLLocationManager *locationManager;
     [self.imgAvatar setBackgroundImage:avatarImage forState:UIControlStateNormal];
     self.imgAvatar.contentMode = UIViewContentModeScaleAspectFit;
     [self.imgAvatar setFrame:self.avatarLayout.frame];
+    
+    self.photoScrollView.photoDelegate = self;
     
     [self reloadPhotos];
 }
@@ -941,31 +944,7 @@ CLLocationManager *locationManager;
 #define  PHOTO_HEIGHT 112
 -(void)reloadPhotos
 {
-    [self.photoScrollView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
-    self.photoScrollView.contentSize = CGSizeMake(0, PHOTO_HEIGHT);
-    
-    for (int i = 0; i < photos.count; ++i)
-    {
-        UIButton *photoButton = [[UIButton alloc] initWithFrame:CGRectMake(self.photoScrollView.contentSize.width, V_PADDING, PHOTO_WIDTH, PHOTO_HEIGHT)];
-        [photoButton setBackgroundImage:[photos objectAtIndex:i] forState:UIControlStateNormal];
-        photoButton.tag = i;
-        [photoButton addTarget:self action:@selector(photoButtonTouched:) forControlEvents:UIControlEventTouchUpInside];
-        UIImageView *photoImgView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"myprofile_photoLayout"]];
-        photoImgView.frame = photoButton.frame;
-        photoImgView.backgroundColor = [UIColor clearColor];
-        photoButton.backgroundColor = [UIColor clearColor];
-        
-        self.photoScrollView.contentSize = CGSizeMake(self.photoScrollView.contentSize.width + PHOTO_WIDTH + H_PADDING, self.photoScrollView.contentSize.height);
-        [self.photoScrollView addSubview:photoButton];
-        [self.photoScrollView addSubview:photoImgView];
-    }
-    
-    UIButton *photoButton = [[UIButton alloc] initWithFrame:CGRectMake(self.photoScrollView.contentSize.width, V_PADDING, PHOTO_WIDTH, PHOTO_HEIGHT)];
-    [photoButton setBackgroundImage:[UIImage imageNamed:@"myprofile_addphoto"] forState:UIControlStateNormal];
-    [photoButton addTarget:self action:@selector(addPhotoButtonTouched:) forControlEvents:UIControlEventTouchUpInside];
-    
-    self.photoScrollView.contentSize = CGSizeMake(self.photoScrollView.contentSize.width + PHOTO_WIDTH + H_PADDING, self.photoScrollView.contentSize.height);
-    [self.photoScrollView addSubview:photoButton];
+    [[self photoScrollView] reloadScrollView];
 }
 
 - (void)loadProfilePhotos
@@ -1009,22 +988,66 @@ CLLocationManager *locationManager;
      }];
 }
 
--(void)photoButtonTouched:(UIButton *)photoButton
+-(void)photoButtonTouchedAtIndex:(int)index
 {
     if (selectedPhoto < 0)
     {
-        selectedPhoto = photoButton.tag;
+        selectedPhoto = index;
         [self showOKCancelWarning:@"Do you want to delete this photo ?" withTag:1];
     }
 }
 
--(void)addPhotoButtonTouched:(UIButton *)addPhotoButton
+-(void)addPhotoButtonTouched
 {
     if (selectedPhoto < 0 && uploadImage == nil)
     {
         selectedPhoto = photos.count + 1;
         [avatarPicker showPicker];
     }
+}
+
+-(void)photoButton:(UIButton *)button touchedAtIndex:(int)index
+{
+    if (index < photos.count)
+    {
+        [self photoButtonTouchedAtIndex:index];
+    }
+    else
+    {
+        [self addPhotoButtonTouched];
+    }
+}
+
+-(UIImage*)photoAtIndex:(int)index
+{
+    if (index < photos.count)
+    {
+        return [photos objectAtIndex:index];
+    }
+    
+    return [UIImage imageNamed:@"myprofile_addphoto"];
+}
+-(int)numberOfPhoto
+{
+    return photos.count + 1;
+}
+-(UIImage*)borderAtIndex:(int)index
+{
+    if (index < photos.count)
+    {
+        return [UIImage imageNamed:@"myprofile_photoLayout"];
+    }
+    
+    return nil;
+}
+
+-(CGSize)elementSize
+{
+    return CGSizeMake(112, 112);
+}
+-(CGSize)elementPadding
+{
+    return CGSizeMake(30, 3);
 }
 
 @end

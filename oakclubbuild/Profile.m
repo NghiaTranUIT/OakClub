@@ -762,7 +762,7 @@
                                                                         gender,@"gender",// 0/1
                                                                         birthday,@"birthday",// dd/mm/yyyy
                                                                         email,@"email",
-                                                                        interested,@"interested",// 0/1
+                                                                        interested,@"interested_in",// 0/1
                                                                         relationship,@"relationship_status",//rel_status_id
                                                                         height,@"height",//100 < h <300
                                                                         weight,@"weight",//30 < w < 120
