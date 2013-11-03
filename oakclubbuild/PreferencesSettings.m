@@ -41,7 +41,7 @@
     toAge = 40;
     newSetting = [self newDefaultSetting];
     
-    self.view.backgroundColor =  [UIColor colorWithPatternImage:[UIImage imageNamed:@"bg.png"]];
+//    self.view.backgroundColor =  [UIColor colorWithPatternImage:[UIImage imageNamed:@"bg.png"]];
     lblHeader.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"header_small"]];
     [lblHeader setFont:FONT_NOKIA(20.0)];
     [lblFinish setFont:FONT_NOKIA(17.0)];

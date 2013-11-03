@@ -15,7 +15,7 @@
 
 @property (nonatomic, strong) IBOutlet UIImageView *avatar;
 @property (nonatomic, weak) IBOutlet UILabel *name;
-@property (nonatomic, weak) IBOutlet UILabel *age_near;
+@property (nonatomic, weak) IBOutlet UILabel *lblMatched;
 @property (nonatomic, weak) IBOutlet UILabel *last_message;
 @property (nonatomic, weak) IBOutlet UILabel *date_history;
 @property (weak, nonatomic) IBOutlet UILabel *labelMutualFriends;
@@ -24,4 +24,5 @@
 
 - (void)setMutualFriends:(NSUInteger)nMutualFriends;
 -(void)setStatus:(int)status;
+-(void)setMatched:(BOOL)isMatch;
 @end

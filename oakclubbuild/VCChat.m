@@ -647,7 +647,8 @@ int cellCountinSection=0;
 //        }
         
         cell.name.text = profile.s_Name;
-        cell.age_near.text = [NSString stringWithFormat:@"%@, %@", profile.s_age, profile.s_location.name];
+//        cell.age_near.text = [NSString stringWithFormat:@"%@, %@", profile.s_age, profile.s_location.name];
+        [cell setMatched:profile.is_match];
         [cell setStatus:profile.status];
         UIImage* avatar = [a_avatar objectForKey:profile.s_ID];
         

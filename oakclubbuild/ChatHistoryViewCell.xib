@@ -7,13 +7,13 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ChatHistoryViewCell">
             <connections>
-                <outlet property="age_near" destination="43" id="119"/>
                 <outlet property="avatar" destination="3" id="120"/>
                 <outlet property="date_history" destination="49" id="121"/>
                 <outlet property="imgChat" destination="buD-sT-eSP" id="7gX-uM-IZh"/>
                 <outlet property="imgMatched" destination="62" id="hTp-u4-sbF"/>
                 <outlet property="labelMutualFriends" destination="125" id="126"/>
                 <outlet property="last_message" destination="110" id="122"/>
+                <outlet property="lblMatched" destination="43" id="BCv-ZV-4US"/>
                 <outlet property="name" destination="26" id="123"/>
             </connections>
         </placeholder>
@@ -28,7 +28,7 @@
                     <color key="tintColor" red="0.47450980390000003" green="0.0039215686269999999" blue="0.34509803919999998" alpha="1" colorSpace="calibratedRGB"/>
                 </imageView>
                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="26">
-                    <rect key="frame" x="130" y="8" width="130" height="25"/>
+                    <rect key="frame" x="130" y="11" width="130" height="25"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="18"/>
                     <color key="textColor" red="0.47450980392156861" green="0.0039215686274509803" blue="0.34509803921568627" alpha="1" colorSpace="calibratedRGB"/>
@@ -39,6 +39,13 @@
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Matched" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="43">
+                    <rect key="frame" x="130" y="29" width="121" height="21"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
                 </label>
@@ -79,13 +86,6 @@
             <rect key="frame" x="0.0" y="0.0" width="33" height="18"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
         </imageView>
-        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="43">
-            <rect key="frame" x="0.0" y="0.0" width="172" height="21"/>
-            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-            <fontDescription key="fontDescription" type="system" pointSize="14"/>
-            <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-            <nil key="highlightedColor"/>
-        </label>
     </objects>
     <resources>
         <image name="HistoryChat_icon_off.png" width="28" height="20"/>

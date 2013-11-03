@@ -45,7 +45,7 @@ CGFloat priorityList_Y = 8;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    mainScrollView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"bg.png"]];
+//    mainScrollView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"bg.png"]];
     nameScrollList.delegate = self;
     tb_suggestList.delegate = self;
     tb_suggestList.dataSource = self;

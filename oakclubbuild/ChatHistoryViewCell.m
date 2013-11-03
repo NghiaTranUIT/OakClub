@@ -11,7 +11,7 @@
 
 @implementation ChatHistoryViewCell
 
-@synthesize avatar, name, age_near, last_message, date_history, labelMutualFriends,imgChat, imgMatched;
+@synthesize avatar, name, lblMatched, last_message, date_history, labelMutualFriends,imgChat, imgMatched;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
@@ -43,6 +43,15 @@
     [labelMutualFriends setText:[NSString stringWithFormat:@"%d", nMutualFriends]];
 }
 
+-(void)setMatched:(BOOL)isMatch{
+    if(isMatch){
+        [lblMatched setHidden:NO];
+    }
+    else{
+        [lblMatched setHidden:YES];
+    }
+       
+}
 -(void)setStatus:(int)status{
     switch (status) {
         case MatchUnViewed:

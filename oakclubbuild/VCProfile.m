@@ -251,7 +251,7 @@ static CGFloat padding_left = 5.0;
     [self addTopLeftButtonWithAction:@selector(backToPreviousView)];
     
     [super viewDidLoad];
-    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"bg.png"]];
+//    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"bg.png"]];
     
     // Do any additional setup after loading the view from its nib.
     AFHTTPClient *request = [[AFHTTPClient alloc] initWithOakClubAPI:DOMAIN];
