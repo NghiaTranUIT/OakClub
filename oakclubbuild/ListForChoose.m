@@ -27,6 +27,7 @@ NSIndexPath* oldIndex;
         currentValue = [Profile alloc];
         currentValue.s_location = [Location alloc];
         currentValue.s_gender = [Gender alloc];
+        currentValue.a_language = [[NSMutableArray alloc]init];
         currentValue.s_interested = [Gender alloc];
         currentValue.s_relationShip = [RelationShip alloc];
     }
@@ -161,45 +162,64 @@ NSIndexPath* oldIndex;
 //    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"bg.png"]];
     [self customBackButtonBarItem];
     // Do any additional setup after loading the view from its nib.
-    
+    NSString* titleText;
     switch (type) {
         case LISTTYPE_COUNTRY:
-//            self.navigationItem.title = @"Country";
-            [self setTitle:@"Country"];
+//            [self setTitle:@"Country"];
+            titleText = @"Country";
             break;
         case LISTTYPE_CITY:
-            self.navigationItem.title = @"City";
+            titleText = @"City";
+//            self.navigationItem.title = @"City";
             break;
         case LISTTYPE_ETHNICITY:
-            self.navigationItem.title = @"Ethnicity";
+            titleText = @"Ethnicity";
+//            self.navigationItem.title = @"Ethnicity";
             break;
         case LISTTYPE_WORK:
-            self.navigationItem.title = @"Work";
+            titleText = @"Work";
+//            self.navigationItem.title = @"Work";
             break;
         case LISTTYPE_LANGUAGE:
-            self.navigationItem.title = @"Languages";
+            titleText = @"Languages";
+//            self.navigationItem.title = @"Languages";
             break;
         case LISTTYPE_RELATIONSHIP:
-            self.navigationItem.title = @"Relationship";
+            titleText = @"Relationship";
+//            self.navigationItem.title = @"Relationship";
             break;
         case LISTTYPE_GENDER:
-            self.navigationItem.title = @"Gender";
+            titleText = @"Gender";
+//            self.navigationItem.title = @"Gender";
             break;
         case LISTTYPE_INTERESTED:
-            self.navigationItem.title = @"Interested In";
+            titleText = @"Interested In";
+//            self.navigationItem.title = @"Interested In";
             break;
         case LISTTYPE_HERETO:
-            self.navigationItem.title = @"I'm Here To";
+            titleText = @"I'm Here To";
+//            self.navigationItem.title = @"I'm Here To";
             break;
         case LISTTYPE_EMAILSETTING:
-            self.navigationItem.title = @"Email Setting";
+            titleText = @"Email Setting";
+//            self.navigationItem.title = @"Email Setting";
             break;
         case LISTTYPE_WITHWHO:
-            self.navigationItem.title = @"With Who";
+            titleText = @"With Who";
+//            self.navigationItem.title = @"With Who";
             break;
         default:
             break;
     }
+    
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectZero] ;
+    label.backgroundColor = [UIColor clearColor];
+    label.font = [UIFont boldSystemFontOfSize:20.0];
+    label.shadowColor = [UIColor colorWithWhite:0.0 alpha:0.5];
+    label.textAlignment = NSTextAlignmentCenter;
+    [label setText:titleText];
+    label.textColor = [UIColor darkGrayColor]; // change this color
+    self.navigationItem.titleView = label;
 }
 
 - (void)didReceiveMemoryWarning
@@ -294,18 +314,22 @@ NSIndexPath* oldIndex;
                 break;
             }
             case LISTTYPE_LANGUAGE:
-                cell.textLabel.text = [dataSource objectAtIndex:indexPath.row];
-                if([currentValue.a_language indexOfObject:[dataSource objectAtIndex:indexPath.row]]  < [dataSource count]){
-                     oldIndex = indexPath;
-                    cell.accessoryType = UITableViewCellAccessoryCheckmark;
+                cell.textLabel.text = [[dataSource objectAtIndex:indexPath.row] valueForKey:@"name"];
+                for (Language* item in currentValue.a_language){
+                    if(item.ID == [[[dataSource objectAtIndex:indexPath.row] valueForKey:@"id"] integerValue]){
+                        oldIndex = indexPath;
+                        cell.accessoryType = UITableViewCellAccessoryCheckmark;
+                        break;
+                    }
                 }
-                    
                 break;
             case LISTTYPE_ETHNICITY:
-                cell.textLabel.text = [dataSource objectAtIndex:indexPath.row];
-                if([[[currentValue.s_ethnicity stringByReplacingOccurrencesOfString:@" " withString:@""] lowercaseString] isEqualToString:[[cell.textLabel.text stringByReplacingOccurrencesOfString:@" " withString:@""] lowercaseString]]){
+                cell.textLabel.text = [[dataSource objectAtIndex:indexPath.row] valueForKey:@"name"];
+                if(currentValue.c_ethnicity.ID ==[[[dataSource objectAtIndex:indexPath.row] valueForKey:@"id"] integerValue] ){
+                    oldIndex = indexPath;
+                    currentValue.c_ethnicity.name = [[dataSource objectAtIndex:indexPath.row] valueForKey:@"name"] ;
+                    currentValue.c_ethnicity.ID = [[[dataSource objectAtIndex:indexPath.row] valueForKey:@"id"] integerValue];
                     cell.accessoryType = UITableViewCellAccessoryCheckmark;
-                     oldIndex = indexPath;
                 }
                 break;
                 
@@ -335,11 +359,18 @@ NSIndexPath* oldIndex;
                     UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
                     if(cell.accessoryType == UITableViewCellAccessoryNone){
                         cell.accessoryType = UITableViewCellAccessoryCheckmark;
-                        [currentValue.a_language addObject:[NSNumber numberWithInt:indexPath.row]];
+                        Language* newLang = [[Language alloc]initWithID:[[[dataSource objectAtIndex:indexPath.row] valueForKey:@"id"] integerValue]];
+                        [currentValue.a_language addObject:newLang];
                     }
                     else{
                         cell.accessoryType = UITableViewCellAccessoryNone;
-                        [currentValue.a_language removeObject:[NSNumber numberWithInt:indexPath.row]];
+                        int currentLangID =[[[dataSource objectAtIndex:indexPath.row] valueForKey:@"id"] integerValue];
+                        for(int i =0; i < [currentValue.a_language count]; i++){
+                            Language* oldLang = [currentValue.a_language objectAtIndex:i];
+                            if(oldLang.ID == currentLangID){
+                                [currentValue.a_language removeObjectAtIndex:i];
+                            }
+                        }
                     }
                     break;
                 }
@@ -363,7 +394,6 @@ NSIndexPath* oldIndex;
                 case LISTTYPE_RELATIONSHIP:
                     currentValue.s_relationShip.rel_status_id = [[[dataSource objectAtIndex:indexPath.row] valueForKey:@"rel_status_id"] integerValue];
                     currentValue.s_relationShip.rel_text = [[dataSource objectAtIndex:indexPath.row] valueForKey:@"rel_text"];
-//                    [self.navigationController popToViewController:[self.navigationController.viewControllers objectAtIndex:[self.navigationController.viewControllers count]-2] animated:YES];
                     break;
                 case LISTTYPE_CITY:
                     currentValue.s_location.ID = [[dataSource objectAtIndex:indexPath.row] valueForKey:@"location_id"];
@@ -371,18 +401,19 @@ NSIndexPath* oldIndex;
 
                     break;
                 case LISTTYPE_ETHNICITY:
-                    currentValue.s_ethnicity = [dataSource objectAtIndex:indexPath.row] ;
-//                    [self.navigationController popToViewController:[self.navigationController.viewControllers objectAtIndex:[self.navigationController.viewControllers count]-2] animated:YES];
+                {
+                    int index = [[[dataSource objectAtIndex:indexPath.row] valueForKey:@"ID"] integerValue];
+                    NSString* name =[[dataSource objectAtIndex:indexPath.row] valueForKey:@"text"] ;
+                    currentValue.c_ethnicity = [[Ethnicity alloc] initWithID:index andName:name];
                     break;
+                }
                 case LISTTYPE_GENDER:
                     currentValue.s_gender.text = [[dataSource objectAtIndex:indexPath.row] valueForKey:@"text"] ;
                     currentValue.s_gender.ID = [[[dataSource objectAtIndex:indexPath.row] valueForKey:@"ID"] integerValue];
-//                    [self.navigationController popToViewController:[self.navigationController.viewControllers objectAtIndex:[self.navigationController.viewControllers count]-2] animated:YES];
                     break;
                 case LISTTYPE_INTERESTED:
                     currentValue.s_interested.text = [[dataSource objectAtIndex:indexPath.row] valueForKey:@"text"] ;
                     currentValue.s_interested.ID = [[[dataSource objectAtIndex:indexPath.row] valueForKey:@"ID"] integerValue];
-                    //                    [self.navigationController popToViewController:[self.navigationController.viewControllers objectAtIndex:[self.navigationController.viewControllers count]-2] animated:YES];
                     break;
                 case LISTTYPE_EMAILSETTING:
                     [[NSUserDefaults standardUserDefaults] setObject:[dataSource objectAtIndex:indexPath.row] forKey:@"key_EmailSetting"] ;
@@ -390,12 +421,10 @@ NSIndexPath* oldIndex;
                 case LISTTYPE_WORK:
                     currentValue.i_work.cate_id = [[[dataSource objectAtIndex:indexPath.row] valueForKey:@"cate_id"] integerValue];
                     currentValue.i_work.cate_name = [[dataSource objectAtIndex:indexPath.row] valueForKey:@"cate_name"] ;
-//                    [self.navigationController popToViewController:[self.navigationController.viewControllers objectAtIndex:[self.navigationController.viewControllers count]-2] animated:YES];
                     break;
                 default:
                     break;
             }
-//            currentChoose = indexPath.row;
         }
     }
     if (delegate) {

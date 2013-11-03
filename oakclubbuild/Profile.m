@@ -20,7 +20,7 @@
 
 @implementation Profile
 
-@synthesize s_Name, img_Avatar, i_Points, s_ProfileStatus, s_FB_id, s_ID, dic_Roster,num_Photos, s_gender, num_points, num_unreadMessage, s_passwordXMPP, s_usenameXMPP, arr_photos, s_aboutMe, s_birthdayDate, s_interested,a_language, s_location,s_relationShip, s_ethnicity, s_age, s_meetType, s_popularity, s_interestedStatus, s_snapshotID, a_favorites, s_user_id,s_school,i_work, i_height,i_weight, numberMutualFriends, new_gifts, s_Email;
+@synthesize s_Name, img_Avatar, i_Points, s_ProfileStatus, s_FB_id, s_ID, dic_Roster,num_Photos, s_gender, num_points, num_unreadMessage, s_passwordXMPP, s_usenameXMPP, arr_photos, s_aboutMe, s_birthdayDate, s_interested,a_language, s_location,s_relationShip, c_ethnicity, s_age, s_meetType, s_popularity, s_interestedStatus, s_snapshotID, a_favorites, s_user_id,s_school,i_work, i_height,i_weight, numberMutualFriends, new_gifts, s_Email;
 @synthesize is_deleted;
 @synthesize is_blocked;
 @synthesize is_available;
@@ -369,21 +369,22 @@
 {
     self.s_Name = [data valueForKey:key_name];
     self.s_Avatar = [data valueForKey:key_avatar];
-
-    self.s_ethnicity=[data valueForKey:key_ethnicity];
+    int ethnicityIndex =[[data valueForKey:key_ethnicity] integerValue];
+    self.c_ethnicity= [[Ethnicity alloc]initWithID:ethnicityIndex];
     self.s_birthdayDate =[data valueForKey:key_birthday];
     self.s_age = [self  pareAgeFromDateString:self.s_birthdayDate];
     self.s_meetType = [data valueForKey:key_meet_type];
     self.s_popularity = [self parsePopolarityFromInt:[[data valueForKey:key_popularity] integerValue]];
     self.s_interested = [Gender alloc];// [self parseGender:[data valueForKey:key_interested]] ;
     self.s_interested = [self parseGender:[data valueForKey:key_interested]] ;
-    self.a_language = [data valueForKey:key_language];
+    self.a_language = [Language initArrayLanguageWithArray:[data valueForKey:key_language]];// [data valueForKey:key_language];
     if(a_language == nil || [a_language count]==0)
     {
-        a_language = [[NSMutableArray alloc] initWithObjects: [NSNumber numberWithInt:Vietnamese] , nil];
+        Language* langDefault = [[Language alloc]initWithID:0];
+        a_language = [[NSMutableArray alloc] initWithObjects:langDefault , nil];
     }
-    self.i_work = [WorkCate alloc];
-    self.i_work.cate_id = [[data valueForKey:key_work] integerValue];
+    self.i_work = [[WorkCate alloc]initWithID:[[data valueForKey:key_work] integerValue]];
+//    self.i_work.cate_id = [[data valueForKey:key_work] integerValue];
     self.i_weight =[[data valueForKey:key_weight] integerValue];
     self.i_height = [[data valueForKey:key_height] integerValue];
     self.s_school = [data valueForKey:key_school];
@@ -439,7 +440,7 @@
     NSMutableDictionary *rosterDict = [[NSMutableDictionary alloc] init];
 
     self.unread_message = 0;
-    
+    self.new_mutual_attractions = 0;
     for (int i = 0; rosterList!=nil && i < [rosterList count]; i++) {
         NSMutableDictionary *objectData = [rosterList objectAtIndex:i];
         
@@ -456,6 +457,10 @@
             if(!deleted && !blocked && !blocked_by )
             {
                 bool isMatch = [[objectData valueForKey:key_match] boolValue];
+                BOOL isViewMatch =[[objectData valueForKey:@"status"] intValue] == MatchUnViewed?YES:NO;
+                if(isViewMatch){
+                   self.new_mutual_attractions ++;
+                }
                 [rosterDict setObject:[NSNumber numberWithBool:isMatch] forKey:profile_id];
                 
                 int unread_count = [[objectData valueForKey:@"unread_count"] intValue];
@@ -750,8 +755,15 @@
     NSString *height = [NSString stringWithFormat:@"%i",self.i_height];
     NSString *weight= [NSString stringWithFormat:@"%i",self.i_weight];
     NSString *school = self.s_school;
-    NSString *ethnicity = self.s_ethnicity;
-    NSString *lang = [self.a_language componentsJoinedByString:@","];
+    NSString *ethnicity = [NSString stringWithFormat:@"%i",self.c_ethnicity.ID];
+    NSString *lang = @"";
+    for(Language* langItem in self.a_language){
+        if([lang length]==0)
+            lang = langItem.name;
+        else
+            lang = [NSString stringWithFormat:@"%@, %@",lang,langItem.name ];
+    }
+//    NSString *lang = [self.a_language componentsJoinedByString:@","];
     NSString *loc = [NSString stringWithFormat:@"%@",self.s_location.ID];
     NSString *work = [NSString stringWithFormat:@"%i",self.i_work.cate_id];
     NSString *email = self.s_Email;
@@ -810,7 +822,7 @@
     accountCopy.s_location = [s_location copy];
     accountCopy.a_language = [a_language mutableCopy];
     accountCopy.s_aboutMe = [s_aboutMe copyWithZone:zone];
-    accountCopy.s_ethnicity = [s_ethnicity copyWithZone:zone];
+    accountCopy.c_ethnicity = [c_ethnicity copy];
     accountCopy.s_meetType = [s_meetType copyWithZone:zone];
     accountCopy.s_popularity = [s_popularity copyWithZone:zone];
     accountCopy.s_snapshotID = [s_snapshotID copyWithZone:zone];
@@ -832,7 +844,12 @@
 
 -(int) countTotalNotifications
 {
+#if ENABLE_DEMO
+    return self.new_mutual_attractions + self.unread_message;
+#else
     return self.new_visitors + self.new_mutual_attractions + self.new_gifts + self.unread_message;
+#endif
+    
 }
 
 
@@ -941,12 +958,12 @@
 
 -(NSString*)languagesDescription
 {
-    AppDelegate *appDel = (id) [UIApplication sharedApplication].delegate;
-    NSArray *languagesList = appDel.languageList;
+//    AppDelegate *appDel = (id) [UIApplication sharedApplication].delegate;
+//    NSArray *languagesList = appDel.languageList;
     NSMutableArray *langDesc = [[NSMutableArray alloc] init];
-    for (NSNumber *lang in self.a_language)
+    for (Language *lang in self.a_language)
     {
-        [langDesc addObject:[languagesList objectAtIndex:lang.intValue]];
+        [langDesc addObject:lang.name];
     }
     
     return [langDesc componentsJoinedByString:@","];

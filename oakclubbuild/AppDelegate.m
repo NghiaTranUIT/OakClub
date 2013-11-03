@@ -202,7 +202,7 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
 #if ENABLE_DEMO
     self.simpleSnapShot = [self createNavigationByClass:@"VCSimpleSnapshot" AndHeaderName:nil/*[NSString localizeString:@"Snapshot"]*/ andRightButton:@"VCChat" andIsStoryBoard:NO];
     //     self.snapShotSettings = [self.storyboard instantiateViewControllerWithIdentifier:@"SnapshotSettings"];
-    self.snapShotSettings = [self createNavigationByClass:@"VCSimpleSnapshotSetting" AndHeaderName:[NSString localizeString:@"Setting"] andRightButton:nil andIsStoryBoard:NO];
+    self.snapShotSettings = [self createNavigationByClass:@"VCSimpleSnapshotSetting" AndHeaderName:[NSString localizeString:@"Setting"] andRightButton:@"VCChat" andIsStoryBoard:NO];
     self.mutualMatches = [self createNavigationByClass:@"VCMutualMatch" AndHeaderName:[NSString localizeString:@"Mutual Matches"] andRightButton:nil andIsStoryBoard:NO];
 #endif
     self.visitor = [self createNavigationByClass:@"VCVisitor" AndHeaderName:@"Visitors" andRightButton:nil andIsStoryBoard:NO];
@@ -371,7 +371,7 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
     //    [self.rootVC setContentViewController:self.snapShoot snapToContentViewController:YES animated:YES];
     activeVC = _snapShotSettings;
     [self.rootVC setFrontViewController:self.snapShotSettings focusAfterChange:YES completion:^(BOOL finished) {
-        
+        [self.rootVC setRightViewController:self.chat];
     }];
 }
 -(void)showSimpleSnapshot {

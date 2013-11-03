@@ -11,6 +11,8 @@
 #import "AppDelegate.h"
 #import "UITableView+Custom.h"
 #import "UIViewController+Custom.h"
+#import "VCLogout.h"
+
 @interface SnapshotSetting (){
     SettingObject* snapshotObj;
     AFHTTPClient *request;
@@ -20,6 +22,7 @@
     NSArray *ageOptions;
     UIPickerView* picker;
 }
+@property (strong, nonatomic) IBOutlet VCLogout *logoutViewController;
 @property (nonatomic) NSUInteger hereTo;
 @end
 

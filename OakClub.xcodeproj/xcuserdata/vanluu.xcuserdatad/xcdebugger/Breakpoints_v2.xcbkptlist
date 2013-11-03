@@ -25,13 +25,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "oakclubbuild/VCSimpleSnapshot.m"
-            timestampString = "404935449.247344"
+            filePath = "oakclubbuild/UIViewController+Custom.m"
+            timestampString = "405163572.370422"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "910"
-            endingLineNumber = "910"
-            landmarkName = "-setFavorite:"
+            startingLineNumber = "48"
+            endingLineNumber = "48"
+            landmarkName = "-backToPreviousView"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

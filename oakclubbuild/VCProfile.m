@@ -296,8 +296,8 @@ static CGFloat padding_left = 5.0;
         if([currentProfile.a_language count] >0){
             [tableSource addObject:[NSDictionary dictionaryWithObjectsAndKeys:[currentProfile.a_language componentsJoinedByString:@","],@"value",@"Language",@"key" ,nil]];
         }
-        if(!([currentProfile.s_ethnicity isKindOfClass:[NSNull class]] || currentProfile.s_ethnicity.length <= 0)){
-            [tableSource addObject:[NSDictionary dictionaryWithObjectsAndKeys:currentProfile.s_ethnicity,@"value",@"Ethnicity",@"key" ,nil]];
+        if(!([currentProfile.c_ethnicity isKindOfClass:[NSNull class]] || currentProfile.c_ethnicity.text.length <= 0)){
+            [tableSource addObject:[NSDictionary dictionaryWithObjectsAndKeys:currentProfile.c_ethnicity.text,@"value",@"Ethnicity",@"key" ,nil]];
         }
         if(currentProfile.s_popularity.length > 0){
             [tableSource addObject:[NSDictionary dictionaryWithObjectsAndKeys:currentProfile.s_popularity,@"value",@"Popularity",@"key" ,nil]];

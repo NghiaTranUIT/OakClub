@@ -14,17 +14,24 @@
 #import "NSString+Utils.h"
 #import "UIView+Localize.h"
 #import "AppDelegate.h"
+#import "VCLogout.h"
+
 @interface VCSimpleSnapshotSetting (){
     SettingObject* snapshotObj;
     AFHTTPClient *request;
     int fromAge;
     int toAge;
+    BOOL hasMale;
+    BOOL hasFemale;
     int i_range;
     NSArray *ageOptions;
     UIPickerView* picker;
     bool isPickerShowing;
+    AppDelegate *appDel;
 }
 @property (nonatomic) NSUInteger hereTo;
+@property NYSliderPopover *rangeSlider;
+@property (weak,nonatomic) IBOutlet VCLogout* logoutViewController;
 @end
 
 @implementation VCSimpleSnapshotSetting
@@ -37,6 +44,7 @@ UITapGestureRecognizer *tap;
     self = [super initWithStyle:style];
     if (self) {
         // Custom initialization
+         appDel = (AppDelegate *) [UIApplication sharedApplication].delegate;
     }
     return self;
 }
@@ -45,7 +53,7 @@ UITapGestureRecognizer *tap;
 {
     [super viewDidLoad];
 //    [self customBackButtonBarItem];
-    
+    [self initSliderForRange];
     tap = [[UITapGestureRecognizer alloc]
            initWithTarget:self
            action:@selector(dismissKeyboard)];
@@ -57,18 +65,10 @@ UITapGestureRecognizer *tap;
 //    self.tableView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"bg.png"]];
     
 }
--(NavBarOakClub*)navBarOakClub
-{
-    NavConOakClub* navcon = (NavConOakClub*)self.navigationController;
-    return (NavBarOakClub*)navcon.navigationBar;
-}
 
 -(void)viewDidAppear:(BOOL)animated{
     [self initSaveButton];
     isPickerShowing = false;
-}
-- (AppDelegate *)appDelegate {
-	return (AppDelegate *)[[UIApplication sharedApplication] delegate];
 }
 
 - (void)didReceiveMemoryWarning
@@ -77,50 +77,31 @@ UITapGestureRecognizer *tap;
     // Dispose of any resources that can be recreated.
 }
 
-- (IBAction)touchDownOnSlider:(id)sender {
-    [self appDelegate].rootVC.recognizesPanningOnFrontView = NO;
+#pragma mark Intialize
+- (AppDelegate *)appDelegate {
+	return (AppDelegate *)[[UIApplication sharedApplication] delegate];
 }
 
-- (IBAction)touchUpOnSlider:(id)sender {
-    [self appDelegate].rootVC.recognizesPanningOnFrontView = YES;
+-(NavBarOakClub*)navBarOakClub
+{
+    NavConOakClub* navcon = (NavConOakClub*)self.navigationController;
+    return (NavBarOakClub*)navcon.navigationBar;
 }
 
-- (IBAction)sliderValueChanged:(id)sender
+-(void)showNotifications
 {
-    [self updateSliderPopoverText];
-}
-- (void)updateSliderPopoverText
-{
-    double value = self.sliderRange.value;
-    int intValue = round(value);
-    [self.sliderRange setValue:intValue];
-    snapshotObj.range = intValue * 100;
-    NSString* sRange = [self getRangeValue:snapshotObj.range];
-    self.sliderRange.popover.textLabel.text = sRange;
-    lblRange.text = sRange;
-}
-
--(NSString*)getRangeValue:(NSUInteger)value
-{
-    NSString* sRange;
-    if(value < 600)
-        sRange = [NSString stringWithFormat:@"%d km", value];
-    else
-        if(value < 700)
-            sRange = @"Country";//snapshotObj.location.countryCode;
-        else
-            sRange = @"World";
-    return sRange;
+    int totalNotifications = [appDel countTotalNotifications];
+    [[self navBarOakClub] setNotifications:totalNotifications];
 }
 
 -(void)initSaveButton{
-    UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
-    btn.frame = CGRectMake(0, 0, 37, 31);
-    [btn setImage:[UIImage imageNamed:@"header_btn_save.png"] forState:UIControlStateNormal];
-    [btn setImage:[UIImage imageNamed:@"header_btn_save_pressed.png"] forState:UIControlStateHighlighted];
-    [btn addTarget:self action:@selector(saveSetting) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem *Item = [[UIBarButtonItem alloc] initWithCustomView:btn];
-    self.navigationItem.rightBarButtonItem=Item;
+//    UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+//    btn.frame = CGRectMake(0, 0, 37, 31);
+//    [btn setImage:[UIImage imageNamed:@"header_btn_save.png"] forState:UIControlStateNormal];
+//    [btn setImage:[UIImage imageNamed:@"header_btn_save_pressed.png"] forState:UIControlStateHighlighted];
+//    [btn addTarget:self action:@selector(saveSetting) forControlEvents:UIControlEventTouchUpInside];
+//    UIBarButtonItem *Item = [[UIBarButtonItem alloc] initWithCustomView:btn];
+//    self.navigationItem.rightBarButtonItem=Item;
 //    self.navigationItem.title = @"Snapshot Settings";
 }
 - (int) loadHereTo:(NSString*)value{
@@ -138,29 +119,53 @@ UITapGestureRecognizer *tap;
 }
 #pragma mark - Table view datasource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return 5;
+    return NumOfSettingGroup;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    if (section == MoreGroup) {
+        return 0;
+    }
     return 40.0f;
+}
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    CGFloat rowHeight=0;
+    switch (indexPath.section) {
+        case RangeGroup:
+            rowHeight = 80;
+            break;
+        case MoreGroup:
+            rowHeight = 230;
+            break;
+        default:
+            rowHeight = 44;
+            break;
+    }
+    return rowHeight;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     NSInteger rowCount=0;
     switch (section)
     {
-        case 0:
+        case LanguageGroup:
+            rowCount = 2;
+            break;
+        case GenderSearchGroup:
+            rowCount = 2;
+            break;
+        case HereToGroup:
             rowCount = 3;
             break;
-        case 1:
+        case ShowMeGroup:
             rowCount = 3;
             break;
-        case 2:
-            rowCount = 3;
-            break;
-        case 3:
+        case RangeGroup:
             rowCount = 1;
             break;
-        case 4:
-            rowCount = 2;
+        case AgeGroup:
+            rowCount = 1;
+            break;
+        case MoreGroup:
+            rowCount = 1;
             break;
     }
     return rowCount;
@@ -179,7 +184,7 @@ UITapGestureRecognizer *tap;
     
     switch (section)
     {
-        case 0:
+        case HereToGroup:
             if (row == self.hereTo)
             {
                 cell.accessoryType = UITableViewCellAccessoryCheckmark;
@@ -199,7 +204,7 @@ UITapGestureRecognizer *tap;
             }
             break;
             
-        case 1:
+        case ShowMeGroup:
             if (row == 0 && snapshotObj.interested_new_people)
             {
                 cell.accessoryType = UITableViewCellAccessoryCheckmark;
@@ -226,7 +231,11 @@ UITapGestureRecognizer *tap;
                     break;
             }
             break;
-        case 2:
+        case AgeGroup:
+            cell.detailTextLabel.text = [NSString stringWithFormat:@"%d-%d %@",fromAge,toAge,[NSString localizeString:@"year old"]];
+            cell.textLabel.text = @"Age around";
+            break;
+        case GenderSearchGroup:
             /*
             if (row == 0 && ([snapshotObj.gender_of_search isEqualToString:value_Male] || [snapshotObj.gender_of_search isEqualToString:value_All]))
             {
@@ -237,10 +246,6 @@ UITapGestureRecognizer *tap;
                 cell.accessoryType = UITableViewCellAccessoryCheckmark;
             }
              */
-            if(row == 2){
-                cell.detailTextLabel.text = [NSString stringWithFormat:@"%d-%d %@",fromAge,toAge,[NSString localizeString:@"year old"]];
-            }
-            
             
             switch (row) {
                 case 0:
@@ -253,7 +258,7 @@ UITapGestureRecognizer *tap;
                         filterGuysCell.textLabel.text = [NSString localizeString:@"Guys"] ;
                         filterGuysCell.selectionStyle = UITableViewCellSelectionStyleNone;
                         UISwitch *autoSwitch = [[UISwitch alloc] init];
-                        [autoSwitch addTarget:self action:nil forControlEvents:UIControlEventValueChanged];
+                        [autoSwitch addTarget:self action:@selector(onSwitchChangedValue:) forControlEvents:UIControlEventValueChanged];
                         autoSwitch.frame = CGRectMake(cell.frame.size.width - autoSwitch.frame.size.width - 30, (cell.frame.size.height - autoSwitch.frame.size.height) / 2, autoSwitch.frame.size.width, autoSwitch.frame.size.height);
                         [autoSwitch setOnTintColor:COLOR_PURPLE];
                         autoSwitch.tag = 100;
@@ -263,9 +268,12 @@ UITapGestureRecognizer *tap;
                     {
                         filterGuysCell.textLabel.text = [NSString localizeString:@"Guys"] ;
                         UISwitch *autoSwitch = (id) [filterGuysCell viewWithTag:100];
-                        autoSwitch.on = [snapshotObj.gender_of_search isEqualToString:value_Male] || [snapshotObj.gender_of_search isEqualToString:value_All];
+//                        autoSwitch.on = [snapshotObj.gender_of_search isEqualToString:value_Male] || [snapshotObj.gender_of_search isEqualToString:value_All];
+                        autoSwitch.on = hasMale;
                     }
-                    
+                    cell.textLabel.text = [NSString localizeString:cell.textLabel.text];
+                    [cell.textLabel setFont: FONT_NOKIA(17.0)];
+                    cell.textLabel.highlightedTextColor = [UIColor whiteColor];
                     return filterGuysCell;
                 }
                     break;
@@ -279,7 +287,7 @@ UITapGestureRecognizer *tap;
                         filterGirlsCell.textLabel.text = [NSString localizeString:@"Girls"] ;
                         filterGirlsCell.selectionStyle = UITableViewCellSelectionStyleNone;
                         UISwitch *autoSwitch = [[UISwitch alloc] init];
-                        [autoSwitch addTarget:self action:nil forControlEvents:UIControlEventValueChanged];
+                        [autoSwitch addTarget:self action:@selector(onSwitchChangedValue:) forControlEvents:UIControlEventValueChanged];
                         autoSwitch.frame = CGRectMake(cell.frame.size.width - autoSwitch.frame.size.width - 30, (cell.frame.size.height - autoSwitch.frame.size.height) / 2, autoSwitch.frame.size.width, autoSwitch.frame.size.height);
                         [autoSwitch setOnTintColor:COLOR_PURPLE];
                         autoSwitch.tag = 101;
@@ -289,27 +297,44 @@ UITapGestureRecognizer *tap;
                     {
                         filterGirlsCell.textLabel.text = [NSString localizeString:@"Girls"] ;
                         UISwitch *autoSwitch = (id) [filterGirlsCell viewWithTag:101];
-                        autoSwitch.on = [snapshotObj.gender_of_search isEqualToString:value_Female] || [snapshotObj.gender_of_search isEqualToString:value_All];
+                        autoSwitch.on = hasFemale;
                     }
-                    
+                    cell.textLabel.text = [NSString localizeString:cell.textLabel.text];
+                    [cell.textLabel setFont: FONT_NOKIA(17.0)];
+                    cell.textLabel.highlightedTextColor = [UIColor whiteColor];
                     return filterGirlsCell;
                 }
-                    break;
-                case 2:
-                    cell.textLabel.text = @"Age around";
                     break;
                 default:
                     break;
             }
             break;
-        case 3:
-            if(row == 0){
-                cell.detailTextLabel.text = snapshotObj.location.name;
-                cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        case RangeGroup:
+        {
+            static NSString *rangeCellID = @"RangeCell";
+            UITableViewCell *rangeCell = [tableView dequeueReusableCellWithIdentifier:rangeCellID];
+            if (rangeCell == nil)
+            {
+                rangeCell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:rangeCellID];
+                UIView *newCellView= [[UIView alloc]initWithFrame:CGRectMake(0, 0, 320, 80)];
+                lblRange = [[UILabel alloc]initWithFrame:CGRectMake(30, 0, 280, 30)];
+                [lblRange setText: [NSString stringWithFormat: @"Limit my search to this distance: %d km",i_range]];
+                [lblRange setTextColor:[UIColor darkGrayColor]];
+                [lblRange setBackgroundColor:[UIColor clearColor]];
+                [lblRange setFont:FONT_NOKIA(15.0)];
+                [newCellView addSubview:self.rangeSlider];
+                [newCellView addSubview:lblRange];
+                
+                [rangeCell setSelectionStyle:UITableViewCellSelectionStyleNone];
+                rangeCell.accessoryView = newCellView;
             }
-            cell.textLabel.text = @"Where";
+            else{
+                [lblRange setText: [NSString stringWithFormat: @"Limit my search to this distance: %d km",i_range]];
+            }
+            return rangeCell;
             break;
-        case 4:
+        }
+        case LanguageGroup:
         {
             NSString* selectedLanguage =[[NSUserDefaults standardUserDefaults] stringForKey:key_appLanguage];
             if (row == 0) {
@@ -328,39 +353,88 @@ UITapGestureRecognizer *tap;
                 cell.accessoryType = UITableViewCellAccessoryNone;
             break;
         }
+        case MoreGroup:
+        {
+            static NSString *moreCellID = @"MoreCell";
+            UITableViewCell *moreCell = [tableView dequeueReusableCellWithIdentifier:moreCellID];
+            if (moreCell == nil)
+            {
+                moreCell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:moreCellID];
+                UIView *newCellView= [[UIView alloc]initWithFrame:CGRectMake(0, 0, 320, 230)];
+                
+                UIButton* btnContactUs = [[UIButton alloc]initWithFrame:CGRectMake(25, 26, 143, 45)];
+                [btnContactUs setBackgroundImage:[UIImage imageNamed:@"SnapshotSetting_btn_contactus_inactive"] forState:UIControlStateNormal];
+                [btnContactUs setBackgroundImage:[UIImage imageNamed:@"SnapshotSetting_btn_contactus_active"] forState:UIControlStateHighlighted];
+                [btnContactUs setBackgroundImage:[UIImage imageNamed:@"SnapshotSetting_btn_contactus_active"] forState:UIControlStateSelected];
+                [btnContactUs setTitle:@"Contact Us" forState:UIControlStateNormal];
+                [btnContactUs setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+                [btnContactUs setTitleColor:COLOR_PURPLE forState:UIControlStateHighlighted];
+                [btnContactUs setTitleEdgeInsets:UIEdgeInsetsMake(0, 35, 0, 0)];
+                
+                UIButton* btnLogout = [[UIButton alloc]initWithFrame:CGRectMake(172, 26, 143, 45)];
+                [btnLogout setBackgroundImage:[UIImage imageNamed:@"SnapshotSetting_btn_logout_active"] forState:UIControlStateNormal];
+                [btnLogout setBackgroundImage:[UIImage imageNamed:@"SnapshotSetting_btn_logout_inactive"] forState:UIControlStateHighlighted];
+                [btnLogout setBackgroundImage:[UIImage imageNamed:@"SnapshotSetting_btn_logout_inactive"] forState:UIControlStateSelected];
+                [btnLogout setTitle:@"Logout" forState:UIControlStateNormal];
+                [btnLogout setTitleEdgeInsets:UIEdgeInsetsMake(0, 32, 0, 0)];
+                [btnLogout setTitleColor:COLOR_PURPLE forState:UIControlStateNormal];
+                [btnLogout setTitleColor:[UIColor whiteColor] forState:UIControlStateHighlighted];
+                [btnLogout addTarget:self action:@selector(onTouchLogout) forControlEvents:UIControlEventTouchUpInside];
+                
+                UIImage* logoImage = [UIImage imageNamed:@"SnapshotSetting_oakclub_logo.png"];
+                UIImageView* logoImageView = [[UIImageView alloc]initWithImage:logoImage];
+                [logoImageView setFrame:CGRectMake(106, 100, 108, 90)];
+                
+                [newCellView addSubview:btnContactUs];
+                [newCellView addSubview:btnLogout];
+                [newCellView addSubview:logoImageView];
+                
+                [moreCell setSelectionStyle:UITableViewCellSelectionStyleNone];
+                moreCell.accessoryView = newCellView;
+            }
+            return moreCell;
+            
+            break;
+        }
     }
     cell.textLabel.text = [NSString localizeString:cell.textLabel.text];
     [cell.detailTextLabel setFont: FONT_NOKIA(17.0)];
+    cell.detailTextLabel.textColor = COLOR_PURPLE;
     [cell.textLabel setFont: FONT_NOKIA(17.0)];
-    cell.textLabel.highlightedTextColor = [UIColor blackColor];
-    cell.detailTextLabel.highlightedTextColor = COLOR_BLUE_CELLTEXT;
+    cell.textLabel.highlightedTextColor = [UIColor whiteColor];
+    cell.detailTextLabel.highlightedTextColor = [UIColor whiteColor];
     return cell;
 }
 #pragma mark - Table view delegate
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    if(section == MoreGroup)
+        return nil;
     UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.bounds.size.width, 20)];
     UIImageView *headerImage = [[UIImageView alloc] init]; //set your image/
     
-    UILabel *headerLbl = [[UILabel alloc] initWithFrame:CGRectMake(15, 10, 205, 20)];//set as you need
+    UILabel *headerLbl = [[UILabel alloc] initWithFrame:CGRectMake(15, 10, 300, 20)];//set as you need
     headerLbl.backgroundColor = [UIColor clearColor];
     UIFont *newfont = FONT_NOKIA(20.0);
     [headerLbl setFont:newfont];
     switch (section) {
-        case 0:
-            headerLbl.text = @"I'm here to";
+        case HereToGroup:
+            headerLbl.text = @"I'M HERE TO";
             break;
-        case 1:
-            headerLbl.text = @"I want to see";
+        case ShowMeGroup:
+            headerLbl.text = @"SHOW ME";
             break;
-        case 2:
-            headerLbl.text = @"With who";
+        case GenderSearchGroup:
+            headerLbl.text = @"I WOULD LIKE BE MATCHED WITH";
             break;
-        case 3:
+        case RangeGroup:
             if(!isPickerShowing)
-                headerLbl.text = @"Where";
+                headerLbl.text = @"WHERE";
             break;
-        case 4:
-            headerLbl.text = @"Language";
+        case LanguageGroup:
+            headerLbl.text = @"CHOOSE YOUR LANGUAGE";
+            break;
+        case AgeGroup:
+            headerLbl.text = @"SHOW ME PEOPLE AGE OF";
             break;
         default:
             headerLbl.text = nil;
@@ -384,8 +458,7 @@ UITapGestureRecognizer *tap;
     UITableViewCell* cell = [tableView cellForRowAtIndexPath:indexPath];
     switch (section)
     {
-        case 4:{
-            AppDelegate *appDelegate = (AppDelegate *) [UIApplication sharedApplication].delegate;
+        case LanguageGroup:{
             if(row == 0){
                 [[NSUserDefaults standardUserDefaults] setObject:value_appLanguage_VI forKey:key_appLanguage];
                 [[NSUserDefaults standardUserDefaults] synchronize];
@@ -394,18 +467,18 @@ UITapGestureRecognizer *tap;
                 [[NSUserDefaults standardUserDefaults] setObject:value_appLanguage_EN forKey:key_appLanguage];
                 [[NSUserDefaults standardUserDefaults] synchronize];
             }
-            [appDelegate updateLanguageBundle];
+            [appDel updateLanguageBundle];
             [tableView reloadData];
             [[self navBarOakClub] setHeaderName:[NSString localizeString:@"Setting"]];
-            [appDelegate loadDataForList];
+            [appDel loadDataForList];
             break;
         }
-        case 3:
-            if (row==0) {
-                [self gotoChooseCity];
-            }
-            break;
-        case 0:
+//        case RangeGroup:
+//            if (row==0) {
+//                [self gotoChooseCity];
+//            }
+//            break;
+        case HereToGroup:
             self.hereTo = row;
             switch (row) {
                 case 0:
@@ -421,7 +494,7 @@ UITapGestureRecognizer *tap;
                     break;
             }
             break;
-        case 1:
+        case ShowMeGroup:
             if(row == 0){
                 snapshotObj.interested_new_people = !snapshotObj.interested_new_people;
             }
@@ -432,7 +505,7 @@ UITapGestureRecognizer *tap;
                 snapshotObj.interested_friends = !snapshotObj.interested_friends;
             }
             break;
-        case 2:
+        case GenderSearchGroup:
             if(row == 0){
                 if(cell.accessoryType == UITableViewCellAccessoryCheckmark){
                     if([snapshotObj.gender_of_search isEqualToString:value_Male])
@@ -462,8 +535,10 @@ UITapGestureRecognizer *tap;
                         snapshotObj.gender_of_search = value_Female;
                 }
             }
-            if(row == 2){
-                //                [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:4] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
+                
+            break;
+        case AgeGroup:
+            {
                 [self.tableView scrollToNearestSelectedRowAtScrollPosition:UITableViewScrollPositionMiddle animated:YES];
                 
                 if(isPickerShowing){
@@ -475,22 +550,15 @@ UITapGestureRecognizer *tap;
                     picker.dataSource =self;
                     picker.showsSelectionIndicator = YES;
                     picker.frame = CGRectMake(0, cell.frame.origin.y + 52, 320, 200);
-                    
-                    //                    UIToolbar *toolbar = [[UIToolbar alloc] initWithFrame: CGRectMake(0, 0, picker.frame.size.width, 30)];
-                    //                    toolbar.barStyle = UIBarStyleBlackOpaque;
-                    //                    toolbar.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-                    //                    UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithTitle: @"Done" style: UIBarButtonItemStyleBordered target: self action: @selector(donePressed)];
-                    //                    UIBarButtonItem* flexibleSpace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
-                    //                    toolbar.items = [NSArray arrayWithObjects:flexibleSpace, doneButton, nil];
-                    //
+
                     [self initAgeList];
-                    //                    [picker addSubview: toolbar];
+                    
                     [self.view addSubview: picker];
                     [picker setNeedsDisplay];
                     
                 }
                 isPickerShowing = !isPickerShowing;
-                //                [self.tableView.tableHeaderView setHidden:isPickerShowing];// setSectionHeaderHeight:0];
+
                 [self.tableView reloadData];
                 
             }
@@ -500,7 +568,6 @@ UITapGestureRecognizer *tap;
 }
 
 - (void)viewDidUnload {
-    [self setSliderRange:nil];
     [self setLblRange:nil];
     [self setPickerAge:nil];
     [self setBtnAdvance:nil];
@@ -564,12 +631,14 @@ UITapGestureRecognizer *tap;
         
         i_range = [[data valueForKey:key_range] integerValue];
         
-        [self.sliderRange setValue:i_range/100];
+        [self.rangeSlider setValue:i_range/100];
         lblRange.text = [self getRangeValue:i_range];
         
         NSMutableDictionary *location = [data valueForKey:key_location];
         snapshotObj.location = [[Location alloc] initWithNSDictionary:location];
         
+        hasMale = [snapshotObj.gender_of_search isEqualToString:value_Male] || [snapshotObj.gender_of_search isEqualToString:value_All];
+        hasFemale = [snapshotObj.gender_of_search isEqualToString:value_Female] || [snapshotObj.gender_of_search isEqualToString:value_All];
         // advance settings
         //        [self loadShowFOF:[[data valueForKey:key_show_fof] boolValue]];
         //
@@ -615,7 +684,7 @@ UITapGestureRecognizer *tap;
                             s_hereto,@"purpose_of_search",
                             isFemale,@"filter_female",
                             isMale,@"filter_male",
-                            [NSNumber numberWithInt:300],@"range",
+                            [NSNumber numberWithInt:i_range],@"range",
                             [NSNumber numberWithInt:fromAge],@"age_from",
                             [NSNumber numberWithInt:toAge],@"age_to",
                             s_isNewPeople,@"new_people",
@@ -657,7 +726,7 @@ UITapGestureRecognizer *tap;
                                   cancelButtonTitle:@"OK"
                                   otherButtonTitles:nil];
             [alert show];
-            AppDelegate* appDel = (AppDelegate *) [UIApplication sharedApplication].delegate;
+//            AppDelegate* appDel = (AppDelegate *) [UIApplication sharedApplication].delegate;
             appDel.reloadSnapshot = TRUE;
         }
         else
@@ -745,5 +814,107 @@ UITapGestureRecognizer *tap;
 //        [self.navigationController popViewControllerAnimated:YES];
 //    }
 
+}
+
+#pragma mark SLIDE -delegate/init
+-(void)initSliderForRange{
+    self.rangeSlider = [[NYSliderPopover alloc] initWithFrame:CGRectMake(30, 40, 280, 23)];
+    self.rangeSlider.minimumTrackTintColor = COLOR_PURPLE;
+    [self.rangeSlider addTarget:self action:@selector(updateSliderPopoverText) forControlEvents:UIControlEventValueChanged ];
+    [self.rangeSlider addTarget:self action:@selector(touchDownOnSlider:) forControlEvents:UIControlEventTouchDown ];
+    [self.rangeSlider addTarget:self action:@selector(touchUpOnSlider:) forControlEvents:UIControlEventTouchUpInside ];
+    self.rangeSlider.minimumValue=0;
+    self.rangeSlider.maximumValue=7;
+}
+
+- (IBAction)touchDownOnSlider:(id)sender {
+    appDel.rootVC.recognizesPanningOnFrontView = NO;
+}
+
+- (IBAction)touchUpOnSlider:(id)sender {
+    appDel.rootVC.recognizesPanningOnFrontView = YES;
+}
+
+- (IBAction)sliderValueChanged:(id)sender
+{
+    [self updateSliderPopoverText];
+}
+- (void)updateSliderPopoverText
+{
+    double value = self.rangeSlider.value;
+    int intValue = round(value);
+    [self.rangeSlider setValue:intValue];
+    snapshotObj.range = intValue * 100;
+    i_range = snapshotObj.range;
+    NSString* sRange = [self getRangeValue:snapshotObj.range];
+//    self.rangeSlider.popover.textLabel.text = sRange;
+    lblRange.text = sRange;
+}
+
+-(NSString*)getRangeValue:(NSUInteger)value
+{
+    NSString* sRange;
+    if(value < 600)
+        sRange = [NSString stringWithFormat: @"Limit my search to this distance: %d km",value];
+    else
+        if(value < 700)
+            sRange = @"Limit my search to this distance: Country";//snapshotObj.location.countryCode;
+        else
+            sRange = @"Limit my search to this distance: World";
+    return sRange;
+}
+
+#pragma mark handle OnTouch Events
+-(void)onTouchLogout{
+//    [self.tableView setUserInteractionEnabled:NO];
+    [self.tableView setScrollEnabled:NO];
+//    self.logoutViewController = [[VCLogout alloc]init];
+    CGPoint viewPoint = [self.tableView contentOffset];
+    [self.logoutController.view setFrame:CGRectMake(0,self.tableView.contentSize.height , self.logoutController.view.frame.size.width, self.view.frame.size.height-44)];
+    [self.view addSubview:self.logoutController.view];
+    [self.view bringSubviewToFront:self.logoutController.view];
+    [UIView animateWithDuration:0.4
+                     animations:^{
+                         [self.logoutController.view setFrame:CGRectMake(0, viewPoint.y, self.logoutController.view.frame.size.width, self.view.frame.size.height-44)];
+                     }completion:^(BOOL finished) {
+                     }];
+}
+#pragma mark handle on touch
+- (IBAction)onTouchConfirmLogout:(id)sender {
+    //    [self.navigationController popViewControllerAnimated:NO];
+    [self.logoutViewController.view removeFromSuperview];
+//    AppDelegate *appDel = (AppDelegate *) [UIApplication sharedApplication].delegate;
+    [appDel  logOut];
+}
+- (IBAction)onTouchCancelLogout:(id)sender {
+    //    [self.navigationController popViewControllerAnimated:NO];
+    [UIView animateWithDuration:0.4
+                     animations:^{
+                         [self.logoutViewController.view setFrame:CGRectMake(0, self.tableView.contentSize.height, self.logoutViewController.view.frame.size.width, self.view.frame.size.height-44)];
+                     }completion:^(BOOL finished) {
+                         [self.logoutViewController.view removeFromSuperview];
+                         [self.tableView setScrollEnabled:YES];
+                     }];
+    
+}
+
+#pragma mark Switch delegate
+-(void)onSwitchChangedValue:(id)sender{
+    int tag= [(UISwitch*)sender tag];
+    switch (tag) {
+        case 100:
+        {
+            hasMale = [sender isOn];
+            break;
+        }
+        case 101:
+        {
+            hasFemale = [sender isOn];
+            break;
+        }
+        default:
+            break;
+    }
+    [self.tableView reloadData];
 }
 @end

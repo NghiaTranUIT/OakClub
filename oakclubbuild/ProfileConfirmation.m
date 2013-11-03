@@ -154,7 +154,7 @@
                 cell.detailTextLabel.text = newAccount.s_location.name;
                 break;
             case 6:
-                cell.detailTextLabel.text = newAccount.s_ethnicity;
+                cell.detailTextLabel.text = newAccount.c_ethnicity.name;
                 break;
             case 7:
                 cell.detailTextLabel.text = newAccount.s_aboutMe;
@@ -335,7 +335,7 @@
             newAccount.s_interested = selected.s_interested;
             break;
         case LISTTYPE_ETHNICITY:
-            newAccount.s_ethnicity = selected.s_ethnicity;
+            newAccount.c_ethnicity = selected.c_ethnicity;
             break;
 //        case LISTTYPE_LANGUAGE:
 //            profileObj.a_language = selected.a_language;

@@ -53,6 +53,11 @@
 #pragma mark Load view by typeOfAlert
 -(void) setTypeOfAlert:(int)type andAnim:(UIImageView*)imgAnim{
     typeOfAlert = type;
+    for (UIView * subview in [self.view subviews]){
+        if([subview isKindOfClass:[UIImageView class]]){
+            [subview removeFromSuperview];
+        }
+    }
     if(imgAnim != nil){
         [imgAnim setFrame:CGRectMake(48, 35, imgAnim.frame.size.width, imgAnim.frame.size.height)];
         [self.view  addSubview:imgAnim];
@@ -63,24 +68,25 @@
     switch (typeOfAlert) {
         case 0:
         {
-            [imgNOPEDisable setHidden:NO];
-            [imgLIKEDisable setHidden:NO]; 
-            [imgiDisable setHidden:NO];
+            [self.view addSubview:imgNOPEDisable];
+            [self.view addSubview:imgLIKEDisable];
+            [self.view addSubview:imgiDisable];
+//            [imgNOPEDisable setHidden:NO];
+//            [imgLIKEDisable setHidden:NO]; 
+//            [imgiDisable setHidden:NO];
             [btnContentAlert setHidden:YES];
             [lblContentAlert setText:@"Finding nearby people..."];
-//            imgLoading = loadingAnim;
-//            [loadingAnim setFrame:imgLoading.frame];
-//            [self.view  addSubview:loadingAnim];
             break;
         }
         case 1:
         {
-            [imgNOPEDisable setHidden:YES];
-            [imgLIKEDisable setHidden:YES];
-            [imgiDisable setHidden:YES];
+//            [imgNOPEDisable setHidden:YES];
+//            [imgLIKEDisable setHidden:YES];
+//            [imgiDisable setHidden:YES];
             [btnContentAlert setHidden:NO];
             [lblContentAlert setText:@"You've seen all the recommendation near you."];
             [imgLoading setImage:[UIImage imageNamed:@"SnapshotLoading_map_loaded.png"]];
+            [self.view addSubview:imgLoading];
             break;
         }
         default:

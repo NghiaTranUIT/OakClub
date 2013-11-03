@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="4510" systemVersion="13A603" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="4510" systemVersion="12F37" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
     <dependencies>
         <deployment defaultVersion="1280" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3742"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SnapshotSetting">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="VCSimpleSnapshotSetting">
             <connections>
+                <outlet property="logoutController" destination="N4i-fF-zaN" id="pCl-nk-Lt7"/>
+                <outlet property="logoutViewController" destination="N4i-fF-zaN" id="hEA-yf-UPR"/>
                 <outlet property="view" destination="RJI-AJ-6pI" id="axb-zH-bqW"/>
             </connections>
         </placeholder>
@@ -15,11 +17,78 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+            <color key="tintColor" red="0.47450980390000003" green="0.0039215686269999999" blue="0.34509803919999998" alpha="1" colorSpace="calibratedRGB"/>
+            <color key="sectionIndexColor" red="0.47450980390000003" green="0.0039215686269999999" blue="0.34509803919999998" alpha="1" colorSpace="calibratedRGB"/>
             <sections/>
             <connections>
                 <outlet property="dataSource" destination="-1" id="KPf-Rj-RHd"/>
                 <outlet property="delegate" destination="-1" id="MgT-Kk-LZF"/>
             </connections>
         </tableView>
+        <viewController id="N4i-fF-zaN" customClass="VCLogout">
+            <view key="view" contentMode="scaleToFill" placeholderIntrinsicWidth="320" placeholderIntrinsicHeight="568" id="WZo-PC-3NG">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="trans-bg.png" id="7IX-sq-rGR">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    </imageView>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Logout_BG.png" id="ncS-eH-wQ6">
+                        <rect key="frame" x="-7" y="265" width="334" height="156"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </imageView>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="uKR-VU-NPt">
+                        <rect key="frame" x="11" y="359" width="298" height="44"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <state key="normal" title="Logout" backgroundImage="Logout_btn_inactive.png">
+                            <color key="titleColor" red="0.5" green="0.0" blue="0.5" alpha="1" colorSpace="calibratedRGB"/>
+                        </state>
+                        <state key="selected" backgroundImage="Logout_btn_active.png"/>
+                        <state key="highlighted" backgroundImage="Logout_btn_active.png"/>
+                        <connections>
+                            <action selector="onTouchConfirmLogout:" destination="-1" eventType="touchUpInside" id="qTM-RS-0a4"/>
+                        </connections>
+                    </button>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="8TX-bt-uUg">
+                        <rect key="frame" x="0.0" y="414" width="320" height="66"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <state key="normal" title="Cancel" backgroundImage="Logout_btn_cancel_inactive.png"/>
+                        <state key="selected" backgroundImage="Logout_btn_cancel_active.png"/>
+                        <state key="highlighted" backgroundImage="Logout_btn_cancel_active.png"/>
+                        <connections>
+                            <action selector="onTouchCancelLogout:" destination="-1" eventType="touchUpInside" id="0Zm-W2-whj"/>
+                        </connections>
+                    </button>
+                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Are you sure to want to logout? You will continue to be seen by compatible users in your last know location." textAlignment="center" lineBreakMode="wordWrap" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="gJs-Md-BZR">
+                        <rect key="frame" x="26" y="283" width="266" height="82"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
+            </view>
+            <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
+            <nil key="simulatedTopBarMetrics"/>
+            <nil key="simulatedBottomBarMetrics"/>
+            <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
+            <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
+        </viewController>
     </objects>
+    <resources>
+        <image name="Logout_BG.png" width="334" height="156"/>
+        <image name="Logout_btn_active.png" width="298" height="44"/>
+        <image name="Logout_btn_cancel_active.png" width="320" height="66"/>
+        <image name="Logout_btn_cancel_inactive.png" width="320" height="66"/>
+        <image name="Logout_btn_inactive.png" width="298" height="44"/>
+        <image name="trans-bg.png" width="320" height="480"/>
+    </resources>
 </document>

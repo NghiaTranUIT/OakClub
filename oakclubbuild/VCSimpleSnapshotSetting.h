@@ -8,11 +8,12 @@
 #import <UIKit/UIKit.h>
 #import "NYSliderPopover.h"
 #import "ListForChoose.h"
+#import "VCLogout.h"
 @interface VCSimpleSnapshotSetting : UITableViewController<UITableViewDelegate,ListForChooseDelegate, UIPickerViewDataSource, UIPickerViewDelegate, UIAlertViewDelegate>
 
-@property (weak, nonatomic) IBOutlet NYSliderPopover *sliderRange;
-@property (weak, nonatomic) IBOutlet UILabel *lblRange;
+@property UILabel *lblRange;
 @property (weak, nonatomic) UIPickerView *pickerAge;
 @property (weak, nonatomic) IBOutlet UILabel *btnAdvance;
+@property (strong, nonatomic) IBOutlet VCLogout *logoutController;
 
 @end
