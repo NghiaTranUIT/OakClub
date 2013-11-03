@@ -154,7 +154,7 @@
                 cell.detailTextLabel.text = newAccount.s_location.name;
                 break;
             case 6:
-                cell.detailTextLabel.text = newAccount.c_ethnicity.text;
+                cell.detailTextLabel.text = newAccount.c_ethnicity.name;
                 break;
             case 7:
                 cell.detailTextLabel.text = newAccount.s_aboutMe;

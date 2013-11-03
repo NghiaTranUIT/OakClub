@@ -367,24 +367,24 @@
 
 -(void) parseProfileWithDictionary:(NSMutableDictionary*)data
 {
-     AppDelegate *appDel = (id) [UIApplication sharedApplication].delegate;
     self.s_Name = [data valueForKey:key_name];
     self.s_Avatar = [data valueForKey:key_avatar];
     int ethnicityIndex =[[data valueForKey:key_ethnicity] integerValue];
-    self.c_ethnicity= [[Ethnicity alloc]initWithID:ethnicityIndex andName:[appDel.ethnicityList objectAtIndex:ethnicityIndex]];
+    self.c_ethnicity= [[Ethnicity alloc]initWithID:ethnicityIndex];
     self.s_birthdayDate =[data valueForKey:key_birthday];
     self.s_age = [self  pareAgeFromDateString:self.s_birthdayDate];
     self.s_meetType = [data valueForKey:key_meet_type];
     self.s_popularity = [self parsePopolarityFromInt:[[data valueForKey:key_popularity] integerValue]];
     self.s_interested = [Gender alloc];// [self parseGender:[data valueForKey:key_interested]] ;
     self.s_interested = [self parseGender:[data valueForKey:key_interested]] ;
-    self.a_language = [data valueForKey:key_language];
+    self.a_language = [Language initArrayLanguageWithArray:[data valueForKey:key_language]];// [data valueForKey:key_language];
     if(a_language == nil || [a_language count]==0)
     {
-        a_language = [[NSMutableArray alloc] initWithObjects: [NSNumber numberWithInt:Vietnamese] , nil];
+        Language* langDefault = [[Language alloc]initWithID:0];
+        a_language = [[NSMutableArray alloc] initWithObjects:langDefault , nil];
     }
-    self.i_work = [WorkCate alloc];
-    self.i_work.cate_id = [[data valueForKey:key_work] integerValue];
+    self.i_work = [[WorkCate alloc]initWithID:[[data valueForKey:key_work] integerValue]];
+//    self.i_work.cate_id = [[data valueForKey:key_work] integerValue];
     self.i_weight =[[data valueForKey:key_weight] integerValue];
     self.i_height = [[data valueForKey:key_height] integerValue];
     self.s_school = [data valueForKey:key_school];
@@ -752,7 +752,14 @@
     NSString *weight= [NSString stringWithFormat:@"%i",self.i_weight];
     NSString *school = self.s_school;
     NSString *ethnicity = [NSString stringWithFormat:@"%i",self.c_ethnicity.ID];
-    NSString *lang = [self.a_language componentsJoinedByString:@","];
+    NSString *lang = @"";
+    for(Language* langItem in self.a_language){
+        if([lang length]==0)
+            lang = langItem.name;
+        else
+            lang = [NSString stringWithFormat:@"%@, %@",lang,langItem.name ];
+    }
+//    NSString *lang = [self.a_language componentsJoinedByString:@","];
     NSString *loc = [NSString stringWithFormat:@"%@",self.s_location.ID];
     NSString *work = [NSString stringWithFormat:@"%i",self.i_work.cate_id];
     NSString *email = self.s_Email;
@@ -942,12 +949,12 @@
 
 -(NSString*)languagesDescription
 {
-    AppDelegate *appDel = (id) [UIApplication sharedApplication].delegate;
-    NSArray *languagesList = appDel.languageList;
+//    AppDelegate *appDel = (id) [UIApplication sharedApplication].delegate;
+//    NSArray *languagesList = appDel.languageList;
     NSMutableArray *langDesc = [[NSMutableArray alloc] init];
-    for (NSNumber *lang in self.a_language)
+    for (Language *lang in self.a_language)
     {
-        [langDesc addObject:[languagesList objectAtIndex:lang.intValue]];
+        [langDesc addObject:lang.name];
     }
     
     return [langDesc componentsJoinedByString:@","];

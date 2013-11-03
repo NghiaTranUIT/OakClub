@@ -147,7 +147,13 @@ CLLocationManager *locationManager;
         [self updateProfileItemListAtIndex:@"" andIndex:RELATIONSHIP];
     }
     [self updateProfileItemListAtIndex:profileObj.s_location.name andIndex:LOCATION];
-    [self updateProfileItemListAtIndex:profileObj.c_ethnicity.text andIndex:ETHNICITY];
+    //[self updateProfileItemListAtIndex:profileObj.c_ethnicity.text andIndex:ETHNICITY];
+    for (NSDictionary * object in appDelegate.ethnicityList) {
+        if ([[object valueForKey:@"id"] integerValue] == profileObj.c_ethnicity.ID) {
+            profileObj.c_ethnicity.name = [object valueForKey:@"name"];
+            [self updateProfileItemListAtIndex:profileObj.c_ethnicity.name andIndex:ETHNICITY];
+        }
+    }
     for (NSDictionary * object in appDelegate.workList) {
         if ([[object valueForKey:@"cate_id"] integerValue] == profileObj.i_work.cate_id) {
             profileObj.i_work.cate_name = [object valueForKey:@"cate_name"];
@@ -161,7 +167,8 @@ CLLocationManager *locationManager;
     profileObj.s_gender.text = [NSString localizeString:profileObj.s_gender.text];
     [profileObj tryGetImageAsync:self];
     for (int i =0 ; i < [profileObj.a_language count]; i++) {
-        [profileObj.a_language replaceObjectAtIndex:i withObject:[NSString localizeString:profileObj.a_language[i]]];
+        [[profileObj.a_language objectAtIndex:i] localizeNameOfLanguage];
+//        [profileObj.a_language replaceObjectAtIndex:i withObject:[NSString localizeString:profileObj.a_language[i]]];
     }
     [self updateProfileItemListAtIndex:profileObj.languagesDescription andIndex:LANGUAGE];
 
@@ -284,7 +291,7 @@ CLLocationManager *locationManager;
     ListForChoose *languageView = [[ListForChoose alloc]initWithNibName:@"ListForChoose" bundle:nil];
     [languageView setListType:LISTTYPE_LANGUAGE];
     languageView.delegate=self;
-    [profileObj.a_language removeAllObjects];
+//    [profileObj.a_language removeAllObjects];
     [self.navigationController pushViewController:languageView animated:YES];
 }
 
@@ -619,7 +626,7 @@ CLLocationManager *locationManager;
             break;
         case LISTTYPE_ETHNICITY:
             profileObj.c_ethnicity = selected.c_ethnicity;
-            [self updateProfileItemListAtIndex:profileObj.c_ethnicity.text andIndex:ETHNICITY];
+            [self updateProfileItemListAtIndex:profileObj.c_ethnicity.name andIndex:ETHNICITY];
             break;
         case LISTTYPE_LANGUAGE:
             profileObj.a_language = selected.a_language;
@@ -710,11 +717,11 @@ CLLocationManager *locationManager;
             UIButton *doneButton = [[UIButton alloc] init];
             [doneButton setBackgroundImage:[UIImage imageNamed:@"myprofile_doneButton"] forState:UIControlStateNormal];
             [doneButton sizeToFit];
-            doneButton.frame = CGRectMake((self.tableView.frame.size.width - doneButton.frame.size.width) / 2, (88 - doneButton.frame.size.height) / 2, doneButton.frame.size.width, doneButton.frame.size.height);
+            doneButton.frame = CGRectMake((doneCell.frame.size.width - doneButton.frame.size.width) / 2, (88 - doneButton.frame.size.height) / 2, doneButton.frame.size.width, doneButton.frame.size.height);
             [doneButton setTitle:@"Done" forState:UIControlStateNormal];
             [doneButton addTarget:self action:@selector(doneButtonTouched:) forControlEvents:UIControlEventTouchUpInside];
             
-            [doneCell.contentView addSubview:doneButton];
+            [doneCell addSubview:doneButton];
             [doneCell setSelectionStyle:UITableViewCellSelectionStyleNone];
         }
         

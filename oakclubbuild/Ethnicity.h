@@ -10,6 +10,7 @@
 
 @interface Ethnicity : NSObject
 @property (assign, nonatomic) int ID;
-@property (strong, nonatomic) NSString *text;
+@property (strong, nonatomic) NSString *name;
 -(Ethnicity*)initWithID:(int)ethnicityID andName:(NSString*)nameText;
+-(Ethnicity*) initWithID:(int)ethnicityID;
 @end

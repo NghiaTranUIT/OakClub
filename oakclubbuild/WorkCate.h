@@ -12,4 +12,6 @@
 
 @property (assign, nonatomic) int cate_id;
 @property (strong, nonatomic) NSString *cate_name;
+
+-(WorkCate*) initWithID:(int)workID;
 @end

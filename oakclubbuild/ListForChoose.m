@@ -27,6 +27,7 @@ NSIndexPath* oldIndex;
         currentValue = [Profile alloc];
         currentValue.s_location = [Location alloc];
         currentValue.s_gender = [Gender alloc];
+        currentValue.a_language = [[NSMutableArray alloc]init];
         currentValue.s_interested = [Gender alloc];
         currentValue.s_relationShip = [RelationShip alloc];
     }
@@ -313,19 +314,21 @@ NSIndexPath* oldIndex;
                 break;
             }
             case LISTTYPE_LANGUAGE:
-                cell.textLabel.text = [dataSource objectAtIndex:indexPath.row];
-                if([currentValue.a_language indexOfObject:[dataSource objectAtIndex:indexPath.row]]  < [dataSource count]){
-                     oldIndex = indexPath;
-                    cell.accessoryType = UITableViewCellAccessoryCheckmark;
+                cell.textLabel.text = [[dataSource objectAtIndex:indexPath.row] valueForKey:@"name"];
+                for (Language* item in currentValue.a_language){
+                    if(item.ID == [[[dataSource objectAtIndex:indexPath.row] valueForKey:@"id"] integerValue]){
+                        oldIndex = indexPath;
+                        cell.accessoryType = UITableViewCellAccessoryCheckmark;
+                        break;
+                    }
                 }
-                    
                 break;
             case LISTTYPE_ETHNICITY:
-                cell.textLabel.text = [[dataSource objectAtIndex:indexPath.row] valueForKey:@"text"];
-                if(currentValue.c_ethnicity.ID ==[[[dataSource objectAtIndex:indexPath.row] valueForKey:@"ID"] integerValue] ){
+                cell.textLabel.text = [[dataSource objectAtIndex:indexPath.row] valueForKey:@"name"];
+                if(currentValue.c_ethnicity.ID ==[[[dataSource objectAtIndex:indexPath.row] valueForKey:@"id"] integerValue] ){
                     oldIndex = indexPath;
-                    currentValue.c_ethnicity.text = [[dataSource objectAtIndex:indexPath.row] valueForKey:@"text"] ;
-                    currentValue.c_ethnicity.ID = [[[dataSource objectAtIndex:indexPath.row] valueForKey:@"ID"] integerValue];
+                    currentValue.c_ethnicity.name = [[dataSource objectAtIndex:indexPath.row] valueForKey:@"name"] ;
+                    currentValue.c_ethnicity.ID = [[[dataSource objectAtIndex:indexPath.row] valueForKey:@"id"] integerValue];
                     cell.accessoryType = UITableViewCellAccessoryCheckmark;
                 }
                 break;
@@ -356,11 +359,18 @@ NSIndexPath* oldIndex;
                     UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
                     if(cell.accessoryType == UITableViewCellAccessoryNone){
                         cell.accessoryType = UITableViewCellAccessoryCheckmark;
-                        [currentValue.a_language addObject:[NSNumber numberWithInt:indexPath.row]];
+                        Language* newLang = [[Language alloc]initWithID:[[[dataSource objectAtIndex:indexPath.row] valueForKey:@"id"] integerValue]];
+                        [currentValue.a_language addObject:newLang];
                     }
                     else{
                         cell.accessoryType = UITableViewCellAccessoryNone;
-                        [currentValue.a_language removeObject:[NSNumber numberWithInt:indexPath.row]];
+                        int currentLangID =[[[dataSource objectAtIndex:indexPath.row] valueForKey:@"id"] integerValue];
+                        for(int i =0; i < [currentValue.a_language count]; i++){
+                            Language* oldLang = [currentValue.a_language objectAtIndex:i];
+                            if(oldLang.ID == currentLangID){
+                                [currentValue.a_language removeObjectAtIndex:i];
+                            }
+                        }
                     }
                     break;
                 }
