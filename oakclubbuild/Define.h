@@ -364,3 +364,9 @@ typedef enum {
     NumOfSettingGroup           = 7,
 } SettingGroup;
 
+typedef enum{
+    MatchViewed,
+    MatchUnViewed,
+    ChatViewed,
+    ChatUnviewed,
+}ListChatStatus;

@@ -440,7 +440,7 @@
     NSMutableDictionary *rosterDict = [[NSMutableDictionary alloc] init];
 
     self.unread_message = 0;
-    
+    self.new_mutual_attractions = 0;
     for (int i = 0; rosterList!=nil && i < [rosterList count]; i++) {
         NSMutableDictionary *objectData = [rosterList objectAtIndex:i];
         
@@ -457,6 +457,10 @@
             if(!deleted && !blocked && !blocked_by )
             {
                 bool isMatch = [[objectData valueForKey:key_match] boolValue];
+                BOOL isViewMatch =[[objectData valueForKey:@"status"] intValue] == MatchUnViewed?YES:NO;
+                if(isViewMatch){
+                   self.new_mutual_attractions ++;
+                }
                 [rosterDict setObject:[NSNumber numberWithBool:isMatch] forKey:profile_id];
                 
                 int unread_count = [[objectData valueForKey:@"unread_count"] intValue];
@@ -840,7 +844,12 @@
 
 -(int) countTotalNotifications
 {
+#if ENABLE_DEMO
+    return self.new_mutual_attractions + self.unread_message;
+#else
     return self.new_visitors + self.new_mutual_attractions + self.new_gifts + self.unread_message;
+#endif
+    
 }
 
 

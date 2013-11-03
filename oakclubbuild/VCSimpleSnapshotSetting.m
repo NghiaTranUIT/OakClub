@@ -27,6 +27,7 @@
     NSArray *ageOptions;
     UIPickerView* picker;
     bool isPickerShowing;
+    AppDelegate *appDel;
 }
 @property (nonatomic) NSUInteger hereTo;
 @property NYSliderPopover *rangeSlider;
@@ -43,6 +44,7 @@ UITapGestureRecognizer *tap;
     self = [super initWithStyle:style];
     if (self) {
         // Custom initialization
+         appDel = (AppDelegate *) [UIApplication sharedApplication].delegate;
     }
     return self;
 }
@@ -85,6 +87,13 @@ UITapGestureRecognizer *tap;
     NavConOakClub* navcon = (NavConOakClub*)self.navigationController;
     return (NavBarOakClub*)navcon.navigationBar;
 }
+
+-(void)showNotifications
+{
+    int totalNotifications = [appDel countTotalNotifications];
+    [[self navBarOakClub] setNotifications:totalNotifications];
+}
+
 -(void)initSaveButton{
 //    UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
 //    btn.frame = CGRectMake(0, 0, 37, 31);
@@ -450,7 +459,6 @@ UITapGestureRecognizer *tap;
     switch (section)
     {
         case LanguageGroup:{
-            AppDelegate *appDelegate = (AppDelegate *) [UIApplication sharedApplication].delegate;
             if(row == 0){
                 [[NSUserDefaults standardUserDefaults] setObject:value_appLanguage_VI forKey:key_appLanguage];
                 [[NSUserDefaults standardUserDefaults] synchronize];
@@ -459,10 +467,10 @@ UITapGestureRecognizer *tap;
                 [[NSUserDefaults standardUserDefaults] setObject:value_appLanguage_EN forKey:key_appLanguage];
                 [[NSUserDefaults standardUserDefaults] synchronize];
             }
-            [appDelegate updateLanguageBundle];
+            [appDel updateLanguageBundle];
             [tableView reloadData];
             [[self navBarOakClub] setHeaderName:[NSString localizeString:@"Setting"]];
-            [appDelegate loadDataForList];
+            [appDel loadDataForList];
             break;
         }
 //        case RangeGroup:
@@ -718,7 +726,7 @@ UITapGestureRecognizer *tap;
                                   cancelButtonTitle:@"OK"
                                   otherButtonTitles:nil];
             [alert show];
-            AppDelegate* appDel = (AppDelegate *) [UIApplication sharedApplication].delegate;
+//            AppDelegate* appDel = (AppDelegate *) [UIApplication sharedApplication].delegate;
             appDel.reloadSnapshot = TRUE;
         }
         else
@@ -820,11 +828,11 @@ UITapGestureRecognizer *tap;
 }
 
 - (IBAction)touchDownOnSlider:(id)sender {
-    [self appDelegate].rootVC.recognizesPanningOnFrontView = NO;
+    appDel.rootVC.recognizesPanningOnFrontView = NO;
 }
 
 - (IBAction)touchUpOnSlider:(id)sender {
-    [self appDelegate].rootVC.recognizesPanningOnFrontView = YES;
+    appDel.rootVC.recognizesPanningOnFrontView = YES;
 }
 
 - (IBAction)sliderValueChanged:(id)sender
@@ -875,7 +883,7 @@ UITapGestureRecognizer *tap;
 - (IBAction)onTouchConfirmLogout:(id)sender {
     //    [self.navigationController popViewControllerAnimated:NO];
     [self.logoutViewController.view removeFromSuperview];
-    AppDelegate *appDel = (AppDelegate *) [UIApplication sharedApplication].delegate;
+//    AppDelegate *appDel = (AppDelegate *) [UIApplication sharedApplication].delegate;
     [appDel  logOut];
 }
 - (IBAction)onTouchCancelLogout:(id)sender {
