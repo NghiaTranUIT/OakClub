@@ -29,6 +29,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *lblActive;
 @property (weak, nonatomic) IBOutlet UILabel *lblnViews;
 @property (weak, nonatomic) IBOutlet UILabel *lblnLikes;
+@property (weak, nonatomic) IBOutlet UIView *lblsPhoto;
 
 @end
 
@@ -310,9 +311,6 @@ static CGFloat padding_left = 5.0;
         [buttonAvatar setContentMode:UIViewContentModeScaleAspectFit];
         [buttonAvatar setImage:img_avatar forState:UIControlStateNormal];
         
-        // SCROLL SIZE
-        [scrollview setContentSize:CGSizeMake(320, 750)];//:CGRectMake(0, 0, 320, 480)];
-        NSLog(@"Init Content size: %f - %f", scrollview.contentSize.width, infoView.frame.origin.y);
         // load interest List
         NSArray* favoritesList = currentProfile.a_favorites;
         
@@ -321,6 +319,13 @@ static CGFloat padding_left = 5.0;
         NSMutableDictionary *dict = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONReadingMutableContainers error:&e];
         
         NSMutableDictionary * data= [dict valueForKey:key_data];
+        
+        // SCROLL SIZE
+        [scrollview setContentSize:CGSizeMake(320, 750)];//:CGRectMake(0, 0, 320, 480)];
+        NSLog(@"Init Content size: %f - %f", scrollview.contentSize.width, infoView.frame.origin.y);
+        
+        self.lblAboutMe.text = [currentProfile s_aboutMe];
+        
         
         if( favoritesList && [favoritesList count] > 0)
         {
@@ -349,7 +354,6 @@ static CGFloat padding_left = 5.0;
         
         loadingAvatar.hidden = YES;
         [loadingAvatar stopAnimating];
-        self.lblAboutMe.text = [currentProfile s_aboutMe];
         self.lblnViews.text = [NSString stringWithFormat:@"%@", [data valueForKey:@"viewed"]];
         self.lblnLikes.text = [NSString stringWithFormat:@"%@", [data valueForKey:@"like"]];
         
@@ -364,47 +368,59 @@ static CGFloat padding_left = 5.0;
     
     
 }
--(void)loadInterestedThumbnailList:(NSArray*)favList{
+-(void)loadInterestedThumbnailList:(NSArray*)favList
+{
+    AFHTTPClient *downloadFAVIcon = [[AFHTTPClient alloc] initWithBaseURL:[NSURL URLWithString:@"https://graph.facebook.com/"]];
+    [downloadFAVIcon registerHTTPOperationClass:[AFHTTPRequestOperation class]];
+    
     for(int i = 0 ; i < [favList count]; i++)
     {
-//        Profile* p = [mutual_friends objectAtIndex:i];
         NSDictionary *fav = [favList objectAtIndex:i];
-//        NSString* link = @"";
-//        if(![link isEqualToString:@""])
-//        {
-//            AFHTTPRequestOperation *operation =
-//            [Profile getAvatarSync:link
-//                          callback:^(UIImage *avatar)
-//             {
-                 UIImageView *imageView = [[UIImageView alloc] initWithImage: [UIImage imageNamed:@"viewprofile_avatarBorder"]];
-                 
-                 // setup each frame to a default height and width, it will be properly placed when we call "updateScrollList"
-                 CGRect rect = imageView.frame;
-                 rect.size.height = 58;
-                 rect.size.width = 58;
-                 
-                 imageView.tag = i;	// tag our images for later use when we place them in serial fashion
-                 
-                 rect.origin.y = ( scrollViewInterest.frame.size.height - rect.size.height - 15) / 2;
-                 rect.origin.x = i * (58 + 5);
-                 
-                 imageView.frame = rect;
-                 
-                 UILabel* name = [[UILabel alloc] initWithFrame:CGRectMake(rect.origin.x, rect.origin.y + rect.size.height, 58, 15)];
-                 [name setBackgroundColor:[UIColor clearColor]];
-                 [name setFont:FONT_NOKIA(10.0)];
-                 name.text = [fav objectForKey:@"fav_name"] ;
-                 [scrollViewInterest addSubview:imageView];
-                 [scrollViewInterest addSubview:name];
-//             }];
-//            [operation start];
-//            
-//        }
-//        
+        UIImageView *imageView = [[UIImageView alloc] initWithImage: [UIImage imageNamed:@"viewprofile_avatarBorder"]];
+        
+        // setup each frame to a default height and width, it will be properly placed when we call "updateScrollList"
+        CGRect rect = imageView.frame;
+        rect.size.height = 58;
+        rect.size.width = 58;
+        
+        imageView.tag = i;	// tag our images for later use when we place them in serial fashion
+        
+        rect.origin.y = (scrollViewInterest.frame.size.height - rect.size.height - 15) / 2;
+        rect.origin.x = i * (58 + 5);
+        
+        imageView.frame = rect;
+        
+        UIImageView *favIcon = [[UIImageView alloc] initWithFrame:imageView.frame];
+        NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInt:((int) rect.size.width)], @"width",
+                                [NSNumber numberWithInt:((int) rect.size.height)], @"height", nil];
+        
+        NSMutableURLRequest *iconRequest = [downloadFAVIcon requestWithMethod:@"GET"
+                                                                path:[NSString stringWithFormat:@"%@/picture", [fav objectForKey:@"fav_id"]]
+                                            parameters:params];
+        
+        AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:iconRequest];
+        [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject)
+         {
+             UIImage *img = [UIImage imageWithData:responseObject];
+             
+             [favIcon setImage:img];
+         } failure:^(AFHTTPRequestOperation *operation, NSError *error)
+         {
+             NSLog(@"Download image Error: %@", error);
+         }];
+        
+        [operation start];
+        
+        UILabel* name = [[UILabel alloc] initWithFrame:CGRectMake(rect.origin.x, rect.origin.y + rect.size.height, 58, 15)];
+        [name setBackgroundColor:[UIColor clearColor]];
+        [name setFont:FONT_NOKIA(10.0)];
+        name.text = [fav objectForKey:@"fav_name"];
+        [scrollViewInterest addSubview:favIcon];
+        [scrollViewInterest addSubview:imageView];
+        [scrollViewInterest addSubview:name];
     }
     
     scrollViewInterest.contentSize = CGSizeMake( [favList count] * (58 + 5), 58 + 5);
-//    [scrollViewInterest removeFromSuperview];
     
     scrollViewInterest.frame = [self addRelative:scrollViewInterest.frame addPoint:CGPointMake(self.infoView.frame.origin.x, self.infoView.frame.origin.y + self.interestsView.frame.origin.y) ];
     [scrollview addSubview:scrollViewInterest];
@@ -935,35 +951,42 @@ static CGFloat padding_left = 5.0;
 }
 #pragma mark Scrollview delegate
 BOOL allowFullScreen = FALSE;
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView{
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
     float scrollOffset = scrollView.contentOffset.y;
     if(scrollView.tag ==2)
     {
         int index =scrollView.contentOffset.x/scrollView.frame.size.width;
         [photoCount setText:[NSString stringWithFormat:@"%i/%i",index + 1,[currentProfile.arr_photos count]]];
     }
+    
     if(scrollView.tag == 1 && allowFullScreen)
     {
         NSLog(@"content offset : %f",scrollOffset);
-        if(self.svPhotos.frame.size.height < self.view.frame.size.height  && scrollOffset < 0){
+        if(self.svPhotos.frame.size.height < self.view.frame.size.height  && scrollOffset < 0)
+        {
             if(self.svPhotos.frame.size.height >= self.view.frame.size.height - 80){
                 [self.svPhotos setFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
                 self.svPhotos.contentSize =
                 CGSizeMake(CGRectGetWidth(self.svPhotos.frame) * [currentProfile.arr_photos count], CGRectGetHeight(self.svPhotos.frame));
                 [self.infoView setFrame:CGRectMake(0, self.view.frame.size.height, self.infoView.frame.size.width, self.infoView.frame.size.height)];
+                [self.lblsPhoto setFrame:CGRectMake(0, self.svPhotos.frame.origin.y + self.svPhotos.frame.size.height - 2*self.lblsPhoto.frame.size.height, self.lblsPhoto.frame.size.width,  self.lblsPhoto.frame.size.height)];
 
-                CGRect interestFrame = scrollViewInterest.frame;
-                [scrollViewInterest setFrame:CGRectMake(interestFrame.origin.x, self.view.frame.size.height , interestFrame.size.width, interestFrame.size.height)];
+//                CGRect interestFrame = scrollViewInterest.frame;
+//                [scrollViewInterest setFrame:CGRectMake(interestFrame.origin.x, self.view.frame.size.height , interestFrame.size.width, interestFrame.size.height)];
             }
-            else{
+            else
+            {
                 [self.svPhotos setFrame:CGRectMake(0, 0, 320, self.svPhotos.frame.size.height +  fabsf(scrollOffset))];
                 self.svPhotos.contentSize =
                 CGSizeMake(CGRectGetWidth(self.svPhotos.frame) * [currentProfile.arr_photos count], CGRectGetHeight(self.svPhotos.frame));
                 [self.infoView setFrame:CGRectMake(0, self.infoView.frame.origin.y +fabsf(scrollOffset), self.infoView.frame.size.width, self.infoView.frame.size.height)];
                 [scrollView setContentOffset:CGPointMake(0, 0)];
                 
-                CGRect interestFrame = scrollViewInterest.frame;
-                [scrollViewInterest setFrame:CGRectMake(interestFrame.origin.x, fabsf(scrollOffset) + interestFrame.origin.y, interestFrame.size.width, interestFrame.size.height)];
+                [self.lblsPhoto setFrame:CGRectMake(0, self.svPhotos.frame.origin.y + self.svPhotos.frame.size.height - self.lblsPhoto.frame.size.height, self.lblsPhoto.frame.size.width, self.lblsPhoto.frame.size.height)];
+                
+//                CGRect interestFrame = scrollViewInterest.frame;
+//                [scrollViewInterest setFrame:CGRectMake(interestFrame.origin.x, fabsf(scrollOffset) + interestFrame.origin.y, interestFrame.size.width, interestFrame.size.height)];
             }
         }
         else
@@ -973,15 +996,15 @@ BOOL allowFullScreen = FALSE;
                 self.svPhotos.contentSize =
                 CGSizeMake(CGRectGetWidth(self.svPhotos.frame) * [currentProfile.arr_photos count], CGRectGetHeight(self.svPhotos.frame));
                 [self.infoView setFrame:CGRectMake(0, self.infoView.frame.origin.y -  fabsf(scrollOffset), self.infoView.frame.size.width, self.infoView.frame.size.height)];
+                [self.lblsPhoto setFrame:CGRectMake(0, self.svPhotos.frame.origin.y + self.svPhotos.frame.size.height - self.lblsPhoto.frame.size.height, self.lblsPhoto.frame.size.width, self.lblsPhoto.frame.size.height)];
                 [scrollView setContentOffset:CGPointMake(0, 0)];
-                CGRect interestFrame = scrollViewInterest.frame;
-                [scrollViewInterest setFrame:CGRectMake(interestFrame.origin.x, interestFrame.origin.y - fabsf(scrollOffset), interestFrame.size.width, interestFrame.size.height)];
+//                CGRect interestFrame = scrollViewInterest.frame;
+//                [scrollViewInterest setFrame:CGRectMake(interestFrame.origin.x, interestFrame.origin.y - fabsf(scrollOffset), interestFrame.size.width, interestFrame.size.height)];
             }
         }
         [self updateSubviewsToCenterScrollView];
     }
 }
-
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView{
     float scrollOffset = scrollView.contentOffset.y;
     if(scrollOffset == 0)
@@ -991,19 +1014,19 @@ BOOL allowFullScreen = FALSE;
 }
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
     allowFullScreen = FALSE;
-//     float scrollOffset = scrollView.contentOffset.y;
+     float scrollOffset = scrollView.contentOffset.y;
 //    NSLog(@"scrollViewDidEndDragging - content offset : %f",scrollOffset);
     if(self.svPhotos.frame.size.height < self.view.frame.size.height - 80){
-        CGRect interestFrame = scrollViewInterest.frame;
-        [scrollViewInterest setFrame:CGRectMake(interestFrame.origin.x, self.infoView.frame.origin.y +  self.interestsView.frame.origin.y + 29, interestFrame.size.width, interestFrame.size.height)];
+//        CGRect interestFrame = scrollViewInterest.frame;
+//        [scrollViewInterest setFrame:CGRectMake(interestFrame.origin.x, self.infoView.frame.origin.y +  self.interestsView.frame.origin.y + 29, interestFrame.size.width, interestFrame.size.height)];
         
         [self.svPhotos setFrame:CGRectMake(0, 0, self.view.frame.size.width, 275)];
         self.svPhotos.contentSize =
         CGSizeMake(CGRectGetWidth(self.svPhotos.frame) * [currentProfile.arr_photos count], CGRectGetHeight(self.svPhotos.frame));
         [self.infoView setFrame:CGRectMake(0, 275, self.infoView.frame.size.width, self.infoView.frame.size.height)];
+        [self.lblsPhoto setFrame:CGRectMake(0, self.svPhotos.frame.origin.y + self.svPhotos.frame.size.height - self.lblsPhoto.frame.size.height, self.lblsPhoto.frame.size.width, self.lblsPhoto.frame.size.height)];
         [self updateSubviewsToCenterScrollView];
     }
-    
 }
 
 -(void)updateSubviewsToCenterScrollView
