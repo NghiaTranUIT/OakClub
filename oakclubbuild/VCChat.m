@@ -80,6 +80,7 @@ int cellCountinSection=0;
                                       callback:^(NSMutableArray * array)
          {
              [a_messages setObject:array forKey:profile.s_ID];
+
              NSLog(@"Get H Msg completed");
          }];
         //[operation start];
@@ -103,7 +104,7 @@ int cellCountinSection=0;
     }
     
     [queue waitUntilAllOperationsAreFinished];
-    
+    /*
     NSString* s_profile_id = [a_profile_id componentsJoinedByString:@"|"];
     
     NSDictionary *params = [[NSDictionary alloc]initWithObjectsAndKeys:s_profile_id,@"str_profile_id", nil];
@@ -145,7 +146,7 @@ int cellCountinSection=0;
     [queue addOperation:operation];
     
     [queue waitUntilAllOperationsAreFinished];
-    
+    */
     NSLog(@"***** loadFriendsInfo end!");
     
     [[self tableView] reloadData];
@@ -525,7 +526,8 @@ int cellCountinSection=0;
             XMPPUserCoreDataStorageObject *user = [[self fetchedResultsController] objectAtIndexPath:[NSIndexPath indexPathForRow:j inSection:i]];
             XMPPJID* xmpp_jid = [user jid];
             NSString* jid = [xmpp_jid user];//[NSString stringWithFormat:@"%@@%@", [xmpp_jid user], [xmpp_jid domain]];
-            bool v_isMatch = [[appDel.myProfile.dic_Roster valueForKey:jid] boolValue];
+            Profile* profile =[appDel.myProfile.dic_Roster valueForKey:jid];
+            bool v_isMatch = profile.is_match;
             if ([self isValidFriendWithMatch:v_isMatch])
             {
                 bool isContained = NO;
@@ -646,18 +648,15 @@ int cellCountinSection=0;
         
         cell.name.text = profile.s_Name;
         cell.age_near.text = [NSString stringWithFormat:@"%@, %@", profile.s_age, profile.s_location.name];
-        
+        [cell setStatus:profile.status];
         UIImage* avatar = [a_avatar objectForKey:profile.s_ID];
         
         if(avatar != nil)
         {
             [cell.avatar setImage:avatar];
         }
-        
-        //NSNumber* mutual_friends = [a_mutual_friends objectForKey:profile.s_ID];
-        
-        //if(mutual_friends != nil)
-        [cell setMutualFriends:profile.numberMutualFriends];
+
+//        [cell setMutualFriends:profile.numberMutualFriends];
         
         cell.last_message.text = @"";
         cell.date_history.text = @"";
@@ -693,7 +692,10 @@ int cellCountinSection=0;
         return;
     
     selectedProfile = profile;
-	[self loadChatView:profile animated:YES];
+    // Vanancy - reset count of Notification of new chat unread
+    [appDel.myProfile resetUnreadMessageWithFriend:profile];
+    profile.status = ChatViewed;
+    [self loadChatView:profile animated:YES];
     
     //isChatLoaded = TRUE;
 }
@@ -744,7 +746,7 @@ int cellCountinSection=0;
     self.searchBar.showsScopeBar = YES;
 //    [self.searchBar sizeThatFits:CGSizeMake(272, 88)];
     [self.searchBar sizeToFit];
-    self.tableView.tableHeaderView = self.searchBar;
+//    self.tableView.tableHeaderView = self.searchBar;
     return YES;
 }
 -(void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText{

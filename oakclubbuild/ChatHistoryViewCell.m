@@ -7,10 +7,11 @@
 //
 
 #import "ChatHistoryViewCell.h"
+#import "Define.h"
 
 @implementation ChatHistoryViewCell
 
-@synthesize avatar, name, age_near, last_message, date_history, labelMutualFriends;
+@synthesize avatar, name, age_near, last_message, date_history, labelMutualFriends,imgChat, imgMatched;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
@@ -40,6 +41,41 @@
 - (void)setMutualFriends:(NSUInteger)nMutualFriends
 {
     [labelMutualFriends setText:[NSString stringWithFormat:@"%d", nMutualFriends]];
+}
+
+-(void)setStatus:(int)status{
+    switch (status) {
+        case MatchUnViewed:
+        {
+            [imgMatched setHidden:NO];
+            [imgMatched setHighlighted:YES];
+            [imgChat setHidden:YES];
+            break;
+        }
+        case MatchViewed:
+        {
+            [imgMatched setHidden:NO];
+            [imgMatched setHighlighted:NO];
+            [imgChat setHidden:YES];
+            break;
+        }
+        case ChatUnviewed:
+        {
+            [imgChat setHidden:NO];
+            [imgChat setHighlighted:YES];
+            [imgMatched setHidden:YES];
+            break;
+        }
+        case ChatViewed:
+        {
+            [imgChat setHidden:NO];
+            [imgChat setHighlighted:NO];
+            [imgMatched setHidden:YES];
+            break;
+        }
+        default:
+            break;
+    }
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated

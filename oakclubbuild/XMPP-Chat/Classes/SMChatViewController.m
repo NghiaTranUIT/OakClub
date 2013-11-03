@@ -31,6 +31,7 @@
     NSMutableArray* a_messages;
     EmoticonString *textMsg;
     NSMutableArray *smileyLayers;
+    AppDelegate* appDel;
 }
 
 
@@ -53,7 +54,7 @@
 
 -(Profile*)getProfilebyID:(NSString*)profile_id
 {
-    AppDelegate* appDel = [self appDelegate];
+    appDel = [self appDelegate];
     
     Profile* profile;
     
@@ -265,8 +266,8 @@
 //	[self customBackButtonBarItem];
     [self customNavigationHeader];
     
-	AppDelegate *del = [self appDelegate];
-	del._messageDelegate = self;
+	appDel = [self appDelegate];
+	appDel._messageDelegate = self;
 	[self.messageField becomeFirstResponder];
     
     [label_header setText:userName];
@@ -325,7 +326,7 @@
 #pragma mark Actions
 
 - (IBAction) closeChat {
-    AppDelegate *appDel = (AppDelegate *) [UIApplication sharedApplication].delegate;
+//    AppDelegate *appDel = (AppDelegate *) [UIApplication sharedApplication].delegate;
     UINavigationController* activeVC = [appDel activeViewController];
     UIViewController* vc = [activeVC.viewControllers objectAtIndex:0];
     if(![vc isKindOfClass:[VCSimpleSnapshot class]] )
@@ -359,7 +360,7 @@
 	
     if([messageStr length] > 0)
     {
-        [[self appDelegate] sendMessageContent:messageStr to:chatWithUser];
+        [appDel sendMessageContent:messageStr to:chatWithUser];
         
         NSArray *chunks = [chatWithUser componentsSeparatedByString: @"@"];
         NSString* hangout_id = [chunks objectAtIndex:0];
@@ -398,7 +399,7 @@
     
     //    UIButton* button = sender;
     
-    UINavigationController* activeVC = [[self appDelegate] activeViewController];
+    UINavigationController* activeVC = [appDel activeViewController];
     UIViewController* vc = [activeVC.viewControllers objectAtIndex:0];
     if( [vc isKindOfClass:[VCChat class]] )
     {
@@ -574,6 +575,9 @@ NSMutableArray *cellHeight;
 
 
 - (void)newMessageReceived:(NSDictionary *)messageContent {
+    
+    // Vanancy - reset count of Notification of new chat unread
+    appDel.myProfile.unread_message = 0;
 	NSString* sender = [messageContent objectForKey:@"sender"];
     
     if(![sender isEqualToString:chatWithUser])
@@ -589,8 +593,8 @@ NSMutableArray *cellHeight;
     //NSDate *date = [dateFormat dateFromString:item.timeStr];
     NSString* time = [NSString getCurrentTime];
     
-	[messages addMessage:[[HistoryMessage alloc] initMessageFrom:[chunks objectAtIndex:0] atTime:time toHangout:[self appDelegate].myProfile.s_ID withContent:m]];
-    [self addMessage:m atTime:time fromUser:hangout_id toUser:[self appDelegate].myProfile.s_ID ];
+	[messages addMessage:[[HistoryMessage alloc] initMessageFrom:[chunks objectAtIndex:0] atTime:time toHangout:appDel.myProfile.s_ID withContent:m]];
+    [self addMessage:m atTime:time fromUser:hangout_id toUser:appDel.myProfile.s_ID ];
 	[self.tView reloadData];
 
 	NSIndexPath *topIndexPath = [NSIndexPath indexPathForRow:messages.count-1 
@@ -793,7 +797,7 @@ NSMutableArray *cellHeight;
 
 -(void)backToPreviousView{
 #if ENABLE_DEMO
-    AppDelegate *appDel = (AppDelegate *) [UIApplication sharedApplication].delegate;
+//    AppDelegate *appDel = (AppDelegate *) [UIApplication sharedApplication].delegate;
     UINavigationController* activeVC = [appDel activeViewController];
     UIViewController* vc = [activeVC.viewControllers objectAtIndex:0];
     if(![vc isKindOfClass:[VCSimpleSnapshot class]] )

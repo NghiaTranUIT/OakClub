@@ -67,12 +67,12 @@ BOOL isEditing;
 //     {
     [Profile getListPeople:URL_getListMutualMatch handler:^(NSMutableArray* list, int count)
      {
-         for(Profile* _profile in list){
-             if(_profile.is_newMutualMatch)
-                 [self.unviewed_mutualMatches addObject:_profile];
-             else
-                 [self.mutualMatches addObject:_profile];
-         }
+//         for(Profile* _profile in list){
+//             if(_profile.is_match)
+//                 [self.unviewed_mutualMatches addObject:_profile];
+//             else
+//                 [self.mutualMatches addObject:_profile];
+//         }
         //        [self.sections replaceObjectAtIndex:0 withObject:self.mutualMatches];
          if(self.unviewed_mutualMatches != nil)
              [self.sections setObject:self.unviewed_mutualMatches forKey:@"0"];

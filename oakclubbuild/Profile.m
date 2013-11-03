@@ -20,12 +20,13 @@
 
 @implementation Profile
 
-@synthesize s_Name, img_Avatar, i_Points, s_ProfileStatus, s_FB_id, s_ID, dic_Roster,num_Photos, s_gender, num_points, num_unreadMessage, s_passwordXMPP, s_usenameXMPP, arr_photos, s_aboutMe, s_birthdayDate, s_interested,a_language, s_location,s_relationShip, c_ethnicity, s_age, s_meetType, s_popularity, s_interestedStatus, s_snapshotID, a_favorites, s_user_id,s_school,i_work, i_height,i_weight, numberMutualFriends, new_gifts, s_Email;
+@synthesize s_Name, img_Avatar, i_Points, s_ProfileStatus, s_FB_id, s_ID, dic_Roster,num_Photos, s_gender, num_points,/* num_unreadMessage,*/ s_passwordXMPP, s_usenameXMPP, arr_photos, s_aboutMe, s_birthdayDate, s_interested,a_language, s_location,s_relationShip, c_ethnicity, s_age, s_meetType, s_popularity, s_interestedStatus, s_snapshotID, a_favorites, s_user_id,s_school,i_work, i_height,i_weight, numberMutualFriends, new_gifts, s_Email;
 @synthesize is_deleted;
 @synthesize is_blocked;
 @synthesize is_available;
-@synthesize is_newMutualMatch;
+@synthesize is_match;
 @synthesize unread_message;
+@synthesize status;
 @synthesize s_Avatar = _s_avatar;
 
 -(id)init {
@@ -88,7 +89,7 @@
                 _profile.s_ID = [objectData valueForKey:key_profileID];
 //                int is_viewed = [[objectData valueForKey:@"is_viewed"] intValue];
 //                if(is_viewed == 0){
-                    _profile.is_newMutualMatch = true;
+//                    _profile.is_match = true;
 //                }
 //                _profile.s_ProfileStatus = [objectData valueForKey:key_online];
 ////                _profile.num_Photos =[objectData valueForKey:key_countPhotos];
@@ -461,9 +462,18 @@
                 if(isViewMatch){
                    self.new_mutual_attractions ++;
                 }
-                [rosterDict setObject:[NSNumber numberWithBool:isMatch] forKey:profile_id];
-                
                 int unread_count = [[objectData valueForKey:@"unread_count"] intValue];
+                
+                Profile *profile = [[Profile alloc] init];
+                profile.s_ID =profile_id;
+                profile.unread_message = unread_count;
+                profile.is_deleted = deleted;
+                profile.is_blocked = blocked;
+                profile.is_match = isMatch;
+                profile.status =[[objectData valueForKey:@"status"] intValue];
+                [rosterDict setObject:profile forKey:profile.s_ID];
+                
+                
                 
                 NSLog(@"%d. unread message: %d", i, unread_count);
                 
@@ -811,7 +821,7 @@
     accountCopy.arr_photos = [arr_photos copyWithZone:zone];
     accountCopy.num_points = [num_points copyWithZone:zone];
     accountCopy.s_gender = [s_gender copy];
-    accountCopy.num_unreadMessage = [num_unreadMessage copyWithZone:zone];
+//    accountCopy.num_unreadMessage = [num_unreadMessage copyWithZone:zone];
     accountCopy.s_birthdayDate = [s_birthdayDate copyWithZone:zone];
     accountCopy.s_age = [s_age copyWithZone:zone];
     accountCopy.s_interested = s_interested;
@@ -830,14 +840,16 @@
     accountCopy.s_passwordXMPP = [s_passwordXMPP copyWithZone:zone];
     accountCopy.s_usenameXMPP = [s_usenameXMPP copyWithZone:zone];
     accountCopy.dic_Roster = [dic_Roster copyWithZone:zone];
-    
     accountCopy.a_favorites = [a_favorites copyWithZone:zone];
     accountCopy.s_user_id = [s_user_id copyWithZone:zone];
     accountCopy.numberMutualFriends = numberMutualFriends ;
     accountCopy.is_deleted = is_deleted;
     accountCopy.is_blocked = is_blocked ;
     accountCopy.is_available = is_available ;
-    accountCopy.is_available = is_newMutualMatch;
+    accountCopy.is_match = is_match;
+    accountCopy.status = status;
+    accountCopy.unread_message = unread_message;
+    
     return accountCopy;
 }
 
@@ -967,5 +979,21 @@
     }
     
     return [langDesc componentsJoinedByString:@","];
+}
+
+-(void)resetUnreadMessageWithFriend:(Profile*)friend{
+    self.unread_message -= friend.unread_message;
+    friend.unread_message = 0;
+    AFHTTPClient* httpClient = [[AFHTTPClient alloc]initWithOakClubAPI:DOMAIN];
+    NSDictionary *params = [[NSDictionary alloc]initWithObjectsAndKeys:friend.s_ID,key_profileID, nil];
+    [httpClient getPath:URL_setReadMessages parameters:params success:^(__unused AFHTTPRequestOperation *operation, id JSON) {
+        NSError *e=nil;
+        NSMutableDictionary *dict = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONReadingMutableContainers error:&e];
+        self.unread_message -= friend.unread_message;
+        friend.unread_message = 0;
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"Error Code: %i - %@",[error code], [error localizedDescription]);
+    }];
+
 }
 @end

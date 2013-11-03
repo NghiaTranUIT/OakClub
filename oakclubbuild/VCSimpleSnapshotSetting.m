@@ -44,7 +44,6 @@ UITapGestureRecognizer *tap;
     self = [super initWithStyle:style];
     if (self) {
         // Custom initialization
-         appDel = (AppDelegate *) [UIApplication sharedApplication].delegate;
     }
     return self;
 }
@@ -63,12 +62,14 @@ UITapGestureRecognizer *tap;
     snapshotObj = [[SettingObject alloc] init];
     [self loadSetting];
 //    self.tableView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"bg.png"]];
-    
+    appDel = [self appDelegate];
+     [self showNotifications];
 }
 
 -(void)viewDidAppear:(BOOL)animated{
-    [self initSaveButton];
+//    [self initSaveButton];
     isPickerShowing = false;
+    [self showNotifications];
 }
 
 - (void)didReceiveMemoryWarning

@@ -66,7 +66,7 @@ CGFloat priorityList_Y = 8;
     [priorityScrollGesture setCancelsTouchesInView:NO];
     [prioriryScrollList addGestureRecognizer:priorityScrollGesture];
     
-    [mainScrollView setContentSize:CGSizeMake(320, 548)];
+    [mainScrollView setContentSize:CGSizeMake(320, 480)];
 	// Do any additional setup after loading the view.
 //    [self addNewItemIntoNameList];
     [lblPriorityList setFont:FONT_NOKIA(18.0)];

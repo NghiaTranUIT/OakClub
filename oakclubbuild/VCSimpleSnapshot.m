@@ -59,6 +59,7 @@ CGFloat pageHeight;
     }
     return self;
 }
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];

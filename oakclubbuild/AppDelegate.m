@@ -139,7 +139,7 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
    
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
-    self.window.backgroundColor = [UIColor whiteColor];
+    self.window.backgroundColor = [UIColor blackColor];
 
    
     
@@ -920,12 +920,15 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
 
 
 }
-
+#pragma mark Notification
 -(int)countTotalNotifications
 {
     return [self.myProfile countTotalNotifications];
 }
 
+-(void)updateNavigationWithNotification{
+    [(NavBarOakClub*)self.activeVC.navigationBar setNotifications:[self countTotalNotifications]];
+}
 
 -(void)loadFriendsList
 {
@@ -947,8 +950,8 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
         AFHTTPClient *httpClient = [[AFHTTPClient alloc]initWithOakClubAPI:DOMAIN];
         
         
-        Profile *profile = [[Profile alloc] init];
-        profile.s_ID = [IDs objectAtIndex:i];
+        Profile *profile = [self.myProfile.dic_Roster objectForKey:[IDs objectAtIndex:i]];
+//        profile.s_ID = [IDs objectAtIndex:i];
         
         NSString* xmpp_id = [NSString stringWithFormat:@"%@%@", profile.s_ID, DOMAIN_AT];
         
@@ -1433,6 +1436,13 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
         return;
     }
 	//NSString *from = [[message attributeForName:@"from"] stringValue];
+
+    //Vanancy - setNotification for new chat
+    int lastViewIndex =[[self.activeVC viewControllers] count] -1;
+    if(![[[self.activeVC viewControllers]objectAtIndex:lastViewIndex] isKindOfClass:[SMChatViewController class]]){
+        self.myProfile.unread_message++;
+        [self updateNavigationWithNotification];
+    }
     
 	NSMutableDictionary *m = [[NSMutableDictionary alloc] init];
 	[m setObject:msg forKey:@"msg"];

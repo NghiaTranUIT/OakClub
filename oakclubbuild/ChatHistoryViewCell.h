@@ -19,7 +19,9 @@
 @property (nonatomic, weak) IBOutlet UILabel *last_message;
 @property (nonatomic, weak) IBOutlet UILabel *date_history;
 @property (weak, nonatomic) IBOutlet UILabel *labelMutualFriends;
+@property (weak, nonatomic) IBOutlet UIImageView *imgMatched;
+@property (weak, nonatomic) IBOutlet UIImageView *imgChat;
 
 - (void)setMutualFriends:(NSUInteger)nMutualFriends;
-
+-(void)setStatus:(int)status;
 @end

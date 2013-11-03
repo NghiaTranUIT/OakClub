@@ -39,7 +39,7 @@
     NSMutableArray *arr_photos;
     NSNumber *num_points;
     Gender *s_gender; // 0 - 1
-    NSNumber *num_unreadMessage;
+//    NSNumber *num_unreadMessage;
     NSString *s_birthdayDate; // dd/mm/yyyy
     NSString *s_age;
     Gender *s_interested;
@@ -67,8 +67,9 @@
     bool is_deleted;
     bool is_blocked;
     bool is_available;
-    bool is_newMutualMatch;
+    bool is_match;
     
+    int status;// status is chat list: 0 - NewMatch, 1-MatchViewed, 2-NewChat, 3-ChatViewed
     int unread_message;
     int new_visitors;
     int new_gifts;
@@ -105,7 +106,7 @@
 @property (strong, nonatomic) NSMutableArray *arr_photos;
 @property (strong, nonatomic) NSNumber *num_points;
 @property (strong, nonatomic) Gender *s_gender;
-@property (strong, nonatomic) NSNumber *num_unreadMessage;
+//@property (strong, nonatomic) NSNumber *num_unreadMessage;
 
 @property (strong, nonatomic) NSDictionary *dic_Roster;
 @property NSArray* a_favorites;
@@ -114,7 +115,8 @@
 @property (assign, nonatomic) bool is_deleted;
 @property (assign, nonatomic) bool is_blocked;
 @property (assign, nonatomic) bool is_available;
-@property (assign, nonatomic) bool is_newMutualMatch;
+@property (assign, nonatomic) bool is_match;
+@property int status;
 @property int unread_message;
 @property int new_visitors;
 @property int new_gifts;
@@ -148,4 +150,7 @@
 -(void)dispatchAvatar;
 -(NSInteger)age;
 -(NSString*)languagesDescription;
+
+-(void)resetUnreadMessageWithFriend:(Profile*)friend;
+-(void) getRosterListIDSync;
 @end

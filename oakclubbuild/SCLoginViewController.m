@@ -37,16 +37,21 @@
     if (self) {
         // Custom initialization
         appDelegate = (id) [UIApplication sharedApplication].delegate;
-        CGRect screenBounds = [[UIScreen mainScreen] applicationFrame];
-        self.view.center = CGPointMake(screenBounds.size.width/2,screenBounds.size.height/2);
     }
 
     return self;
 }
 
+//-(void)viewDidLayoutSubviews{
+//    [self.view setFrame:CGRectMake(0, 0, 320, 480)];
+//    CGRect screenBounds = [[UIScreen mainScreen] applicationFrame];
+//    self.view.center = CGPointMake(screenBounds.size.width/2 + screenBounds.origin.x,screenBounds.size.height/2 + screenBounds.origin.y);
+//    
+//}
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
     [self showMenuLanguage];
     // Do any additional setup after loading the view from its nib.
     NSArray* pageImages = [NSArray arrayWithObjects:

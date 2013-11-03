@@ -83,6 +83,7 @@
 #define URL_sendRegister @"service/sendRegister"
 #define URL_uploadPhoto @"service/uploadPhotoUser"
 #define URL_deletePhoto @"service/deletePhoto"
+#define URL_setReadMessages @"service/setReadMessages"
 //================ service API keys ================
 //root
 #define key_status @"status"
