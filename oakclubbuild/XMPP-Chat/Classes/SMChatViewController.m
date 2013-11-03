@@ -236,6 +236,7 @@
 -(void)customNavigationHeader{
     UIView *infoHeader= [[UIView alloc]initWithFrame:CGRectMake(0, 0, 320, 44)];
     [btnBackToPrevious setFrame:CGRectMake(8, 14, btnBackToPrevious.frame.size.width, btnBackToPrevious.frame.size.height)];
+    [btnBackToPrevious addTarget:self action:@selector(backToPreviousView) forControlEvents:UIControlEventTouchUpInside];
     [infoHeader addSubview:btnBackToPrevious];
     label_header.frame = CGRectMake(60, 0, label_header.frame.size.width, 44);
     [infoHeader addSubview:label_header];
@@ -797,10 +798,10 @@ NSMutableArray *cellHeight;
     UIViewController* vc = [activeVC.viewControllers objectAtIndex:0];
     if(![vc isKindOfClass:[VCSimpleSnapshot class]] )
     {
-        [self.navigationController popViewControllerAnimated:YES];
-    }
-    else
-    {
+//        [self.navigationController popViewControllerAnimated:YES];
+//    }
+//    else
+//    {
         [self.navigationController popViewControllerAnimated:YES];
         [appDel.rootVC setFrontViewController:activeVC focusAfterChange:NO completion:^(BOOL finished) {
         }];
