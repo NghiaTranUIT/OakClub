@@ -512,7 +512,6 @@ static float cellWidth = 320;
 											  cell.messageContentView.frame.size.width + 2 * padding_left,
 											  cell.messageContentView.frame.size.height + padding_top)];
         
-        [cell.avatarImageView setHidden:YES];
         [cell.avatarImageView setFrame:CGRectMake(padding_left + cell.bgImageView.frame.origin.x + cell.bgImageView.frame.size.width,
                                                   padding_top + cell.bgImageView.frame.size.height - defaultAvatarHeight, defaultAvatarWidth, defaultAvatarHeight)];
         [cell.avatarImageView setImage:avatar_me forState:UIControlStateNormal];
