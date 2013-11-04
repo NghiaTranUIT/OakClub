@@ -736,13 +736,13 @@ UITapGestureRecognizer *tap;
         BOOL status= [[dict valueForKey:key_status] boolValue];
         if(status){
             NSLog(@"POST SUCCESS!!!");
-            UIAlertView *alert = [[UIAlertView alloc]
-                                  initWithTitle:@"Warning"
-                                  message:@"The new settings will take effect within one day."
-                                  delegate:self
-                                  cancelButtonTitle:@"OK"
-                                  otherButtonTitles:nil];
-            [alert show];
+//            UIAlertView *alert = [[UIAlertView alloc]
+//                                  initWithTitle:@"Warning"
+//                                  message:@"The new settings will take effect within one day."
+//                                  delegate:self
+//                                  cancelButtonTitle:@"OK"
+//                                  otherButtonTitles:nil];
+//            [alert show];
 //            AppDelegate* appDel = (AppDelegate *) [UIApplication sharedApplication].delegate;
             appDel.reloadSnapshot = TRUE;
         }
