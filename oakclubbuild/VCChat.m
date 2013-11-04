@@ -303,9 +303,6 @@ int cellCountinSection=0;
 //    {
 //        [self loadChatView:selectedProfile animated:YES];
 //    }
-    
-    [appDel.myProfile getRosterListIDSync];
-    [tableView reloadData];
 #if ENABLE_DEMO
 #else
     [self showNotifications];
@@ -327,6 +324,10 @@ int cellCountinSection=0;
 {
     [super viewDidAppear:animated];
     [self addTopRightButtonWithAction:@selector(enterEditing)];
+    
+    [appDel.myProfile getRosterListIDSync];
+    [appDel loadFriendsList];
+    [tableView reloadData];
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

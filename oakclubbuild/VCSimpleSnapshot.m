@@ -125,7 +125,8 @@ CGFloat pageHeight;
     [buttonMAYBE setEnabled:!value];
 }
 - (void)showWarning{
-    if ([self isViewLoaded] && self.view.window) {
+//    if ([self isViewLoaded] && self.view.window) {
+    [self stopLoadingAnim];
         loadingView = [[VCSimpleSnapshotLoading alloc]init];
         [loadingView.view setFrame:CGRectMake(0, 0, 320, 480)];
         [loadingView setTypeOfAlert:1 andAnim:loadingAnim];
@@ -139,7 +140,7 @@ CGFloat pageHeight;
                               otherButtonTitles:nil];
         [alert show];
          */
-    }
+//    }
 }
 
 -(NavBarOakClub*)navBarOakClub
@@ -195,12 +196,13 @@ CGFloat pageHeight;
         NSInteger * status= [[dict valueForKey:@"status"] integerValue];
         if (status == 0)
         {
-            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Error"
-                                                                message:[dict valueForKey:@"msg"]
-                                                               delegate:nil
-                                                      cancelButtonTitle:@"Ok"
-                                                      otherButtonTitles:nil];
-            [alertView show];
+            [self showWarning];
+//            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Error"
+//                                                                message:[dict valueForKey:@"msg"]
+//                                                               delegate:nil
+//                                                      cancelButtonTitle:@"Ok"
+//                                                      otherButtonTitles:nil];
+//            [alertView show];
             return;
         }
         for( id profileJSON in [dict objectForKey:key_data])
