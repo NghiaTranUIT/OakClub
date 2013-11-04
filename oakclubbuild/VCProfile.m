@@ -30,6 +30,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *lblnViews;
 @property (weak, nonatomic) IBOutlet UILabel *lblnLikes;
 @property (weak, nonatomic) IBOutlet UIView *lblsPhoto;
+@property (strong, nonatomic) IBOutlet UIImageView *oakClubLogo;
+@property (strong, nonatomic) IBOutlet UILabel *lblTabBarName;
 
 @end
 
@@ -248,7 +250,6 @@ static CGFloat padding_left = 5.0;
     loadingAvatar.hidden = NO;
     [loadingAvatar startAnimating];
     [self  disableControllerButtons:YES];
-    [self addTopLeftButtonWithAction:@selector(backToPreviousView)];
     
     [super viewDidLoad];
 //    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"bg.png"]];
@@ -484,7 +485,21 @@ static CGFloat padding_left = 5.0;
     [self.mutualFriendsView localizeAllViews];
     [self.profileView localizeAllViews];
     [self.view localizeAllViews];
+    
+    [self customNavHeader];
 }
+
+-(void)customNavHeader
+{
+    [self customBackButtonBarItem];
+    self.lblTabBarName.frame = CGRectMake(60, 0, self.lblTabBarName.frame.size.width, 44);
+    self.lblTabBarName.text = currentProfile.s_Name;
+    [self.navigationController.navigationBar addSubview:self.lblTabBarName];
+    
+    [self.oakClubLogo setFrame:CGRectMake(22, 8, self.oakClubLogo.frame.size.width, self.oakClubLogo.frame.size.height)];
+    [self.navigationController.navigationBar addSubview:self.oakClubLogo];
+}
+
 //- (void)viewWillDisappear:(BOOL)animated{
 //    [self.navigationController setNavigationBarHidden:NO];
 //}
@@ -689,8 +704,10 @@ static CGFloat padding_left = 5.0;
 -(void) loadProfile:(Profile*) _profile andImage:(UIImage*)_avatar{
     currentProfile = _profile;
     img_avatar = _avatar;
+    
     [self loadPhotoForScrollview];
 }
+
 -(void) loadProfile:(Profile*) _profile{
     currentProfile = _profile;
     [self refreshScrollView];
@@ -749,7 +766,6 @@ static CGFloat padding_left = 5.0;
                          [Profile getAvatarSync:link
                                        callback:^(UIImage *image)
                           {
-//                              [photos setObject:image forKey:link];
                               UIImageView *imageView = [[UIImageView alloc]initWithImage:image];
                               CGRect frame = self.svPhotos.frame;
                               frame.origin.x = CGRectGetWidth(frame) * i;
@@ -759,10 +775,9 @@ static CGFloat padding_left = 5.0;
                               [self.svPhotos addSubview:imageView];
                               [currentProfile.arr_photos addObject:imageView];
                               [photoCount setText:[NSString stringWithFormat:@"%i/%i",0,[currentProfile.arr_photos count]]];
-//                              photoPageControl.numberOfPages = [currentProfile.arr_photos count];
+                              
                               if( i == 0)
                               {
-//                                  [self initView];
                                   [loadingAvatar stopAnimating];
                               }
                           }];
