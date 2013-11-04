@@ -31,8 +31,10 @@
 }
 
 -(void)localizeAllViews{
-    for(UIView* view in [self subviews]){
-        [view localizeText];
+    [self localizeText];
+    for(UIView* view in [self subviews])
+    {
+        [view localizeAllViews];
     }
 }
 @end

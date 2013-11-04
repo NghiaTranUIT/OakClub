@@ -15,6 +15,7 @@
 #import "PhotoUpload.h"
 #import "NSString+Utils.h"
 #import "PhotoScrollView.h"
+#import "UIView+Localize.h"
 
 @interface VCMyProfile () <PickPhotoFromGarellyDelegate, UIAlertViewDelegate, ImageRequester, PhotoScrollViewDelegate>{
     GroupButtons* genderGroup;
@@ -97,6 +98,8 @@ CLLocationManager *locationManager;
     self.nameLabel.text = profileObj.s_Name;
     self.age_workLabel.text = [NSString stringWithFormat:@"%d, %@", profileObj.age, profileObj.i_work.cate_name];
     self.locationLabel.text = profileObj.s_location.name;
+    
+    [self.view localizeAllViews];
 }
 
 -(NavBarOakClub*)navBarOakClub

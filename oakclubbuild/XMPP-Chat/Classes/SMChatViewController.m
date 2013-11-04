@@ -233,11 +233,15 @@
 
     [self scrollToLastAnimated:NO];
 //    self.navigationItem.titleView = infoHeader;
+    
+    [self customNavigationHeader];
 }
 -(void)viewWillDisappear:(BOOL)animated{
     appDel._messageDelegate =nil;
 }
 -(void)customNavigationHeader{
+    [self.navigationController.navigationBar.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+    
     UIView *infoHeader= [[UIView alloc]initWithFrame:CGRectMake(0, 0, 320, 44)];
     [btnBackToPrevious setFrame:CGRectMake(8, 14, btnBackToPrevious.frame.size.width, btnBackToPrevious.frame.size.height)];
     [btnBackToPrevious addTarget:self action:@selector(backToPreviousView) forControlEvents:UIControlEventTouchUpInside];
@@ -402,21 +406,29 @@
 }
 
 - (IBAction)onTapViewProfile:(id)sender {
+//    UINavigationController* activeVC = [appDel activeViewController];
+//    UIViewController* vc = [activeVC.viewControllers objectAtIndex:0];
+//    if([vc isKindOfClass:[VCSimpleSnapshot class]])
+//    {
+//        VCProfile *viewProfile = [[VCProfile alloc] initWithNibName:@"VCProfile" bundle:nil];
+//        [viewProfile loadProfile:userProfile andImage:avatar_friend];
+//        
+//        [vc.navigationController pushViewController:viewProfile animated:YES];
+//    }
+//    else
+//        [vc.navigationController popViewControllerAnimated:YES];
     
-    //    UIButton* button = sender;
+    VCProfile *viewProfile = [[VCProfile alloc] initWithNibName:@"VCProfile" bundle:nil];
+    [viewProfile loadProfile:userProfile andImage:avatar_friend];
     
-    UINavigationController* activeVC = [appDel activeViewController];
-    UIViewController* vc = [activeVC.viewControllers objectAtIndex:0];
-    if( [vc isKindOfClass:[VCChat class]] )
-    {
-        VCProfile *viewProfile = [[VCProfile alloc] initWithNibName:@"VCProfile" bundle:nil];
-        [viewProfile loadProfile:userProfile andImage:avatar_friend];
-        
-        [vc.navigationController pushViewController:viewProfile animated:YES];
-    }
-    else
-        [vc.navigationController popViewControllerAnimated:YES];
-    
+#if ENABLE_DEMO
+//    [appDel.rootVC setFrontViewController:appDel.chat focusAfterChange:YES completion:^(BOOL finished) {
+//        
+//    }];
+#endif
+	[self.navigationController pushViewController:viewProfile animated:YES];
+    [self.navigationController setNavigationBarHidden:YES];
+    [viewProfile.navigationController setNavigationBarHidden:NO];
 }
 #pragma mark -
 #pragma mark Table view delegates
@@ -487,7 +499,9 @@ static float cellWidth = 320;
         
         cell.customView.frame = CGRectMake(0, 0, cell.senderAndTimeLabel.frame.origin.x + cell.senderAndTimeLabel.frame.size.width + padding_left,
                                 cell.avatarImageView.frame.origin.y + cell.avatarImageView.frame.size.height + padding_top);
-	} else {
+	}
+    else
+    {
         
 		bgImage = [[UIImage imageNamed:@"ChatView_white_speech.png"] stretchableImageWithLeftCapWidth:14  topCapHeight:14];
 		
@@ -501,7 +515,6 @@ static float cellWidth = 320;
         [cell.avatarImageView setFrame:CGRectMake(padding_left + cell.bgImageView.frame.origin.x + cell.bgImageView.frame.size.width,
                                                   padding_top + cell.bgImageView.frame.size.height - defaultAvatarHeight, defaultAvatarWidth, defaultAvatarHeight)];
         [cell.avatarImageView setImage:avatar_me forState:UIControlStateNormal];
-        //[UIImage imageNamed:@"action-people.png"];
         [cell.senderAndTimeLabel setFrame:CGRectMake(padding_left,
                                                      cell.bgImageView.frame.origin.y + cell.bgImageView.frame.size.height - cell.senderAndTimeLabel.frame.size.height,
                                                      cell.senderAndTimeLabel.frame.size.width, cell.senderAndTimeLabel.frame.size.height)];

@@ -44,6 +44,8 @@
         loginPage = login;
     }
     
+    [self localizeAllViews];
+    
     return self;
 }
 

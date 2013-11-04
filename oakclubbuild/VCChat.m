@@ -166,7 +166,7 @@ int cellCountinSection=0;
     [self.view bringSubviewToFront:loadingFriendList];
     loadingFriendList.hidden = NO;
     
-    [NSThread detachNewThreadSelector:@selector(loadFriendsInfo:) toTarget:self withObject:nil];
+    [self loadFriendsInfo:nil];
     
     isChatLoaded = FALSE;
     
