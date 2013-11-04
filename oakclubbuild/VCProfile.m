@@ -496,6 +496,7 @@ static CGFloat padding_left = 5.0;
 
 -(void)customNavHeader
 {
+    [self.navigationController.navigationBar.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
     [self customBackButtonBarItem];
     self.lblTabBarName.frame = CGRectMake(60, 0, self.lblTabBarName.frame.size.width, 44);
     self.lblTabBarName.text = currentProfile.s_Name;

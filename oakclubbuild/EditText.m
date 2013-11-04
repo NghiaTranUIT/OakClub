@@ -39,8 +39,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self.navigationController setNavigationBarHidden:NO];
-    self.navigationItem.title = @"Edit";
      [self addTopLeftButtonWithAction:@selector(enterEditing)];
     // Do any additional setup after loading the view from its nib.
     switch (editStyle) {
@@ -63,8 +61,26 @@
     [texfieldEdit addTarget:self
                        action:@selector(textFieldFinished:)
              forControlEvents:UIControlEventEditingDidEndOnExit];
-//    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"bg.png"]];
+    [self.view setBackgroundColor:[UIColor whiteColor]];
 }
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
+    [self.navigationController setNavigationBarHidden:NO];
+    
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectZero] ;
+    label.backgroundColor = [UIColor clearColor];
+    label.font = [UIFont boldSystemFontOfSize:20.0];
+    label.shadowColor = [UIColor colorWithWhite:0.0 alpha:0.5];
+    label.textAlignment = NSTextAlignmentCenter;
+    [label setText:@"Edit text"];
+    label.textColor = [UIColor blackColor]; // change this color
+    [label sizeToFit];
+    self.navigationItem.titleView = label;
+}
+
 - (IBAction)textFieldFinished:(id)sender
 {
     [sender resignFirstResponder];
@@ -108,7 +124,6 @@
     [buttonBack setBackgroundImage:[UIImage imageNamed:@"Navbar_btn_back.png"] forState:UIControlStateNormal];
     [buttonBack setBackgroundImage:[UIImage imageNamed:@"Navbar_btn_back_pressed.png"] forState:UIControlStateHighlighted];
 
-    
     UIBarButtonItem *buttonItem = [[UIBarButtonItem alloc] initWithCustomView:buttonBack];
     
     self.navigationItem.leftBarButtonItem = buttonItem;
