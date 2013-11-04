@@ -85,6 +85,7 @@
 #define URL_deletePhoto @"service/deletePhoto"
 #define URL_setReadMessages @"service/setReadMessages"
 #define URL_setViewedMatchMutual @"service/setViewedMatchMutual"
+#define URL_reportInvalid @"service/reportInvalid"
 //================ service API keys ================
 //root
 #define key_status @"status"
