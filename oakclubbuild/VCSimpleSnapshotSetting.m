@@ -137,7 +137,7 @@ UITapGestureRecognizer *tap;
             rowHeight = 80;
             break;
         case MoreGroup:
-            rowHeight = 230;
+            rowHeight = 300;
             break;
         default:
             rowHeight = 44;
@@ -363,9 +363,20 @@ UITapGestureRecognizer *tap;
             if (moreCell == nil)
             {
                 moreCell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:moreCellID];
-                UIView *newCellView= [[UIView alloc]initWithFrame:CGRectMake(0, 0, 320, 230)];
+                UIView *newCellView= [[UIView alloc]initWithFrame:CGRectMake(0, 0, 320, 300)];
                 
-                UIButton* btnContactUs = [[UIButton alloc]initWithFrame:CGRectMake(25, 26, 143, 45)];
+                UIButton* btnSave = [[UIButton alloc]initWithFrame:CGRectMake(25, 26, 291, 45)];
+                [btnSave setBackgroundImage:[UIImage imageNamed:@"SnapshotSetting_btn_save_inactive"] forState:UIControlStateNormal];
+                [btnSave setBackgroundImage:[UIImage imageNamed:@"SnapshotSetting_btn_save_active"] forState:UIControlStateHighlighted];
+                [btnSave setBackgroundImage:[UIImage imageNamed:@"SnapshotSetting_btn_save_active"] forState:UIControlStateSelected];
+                [btnSave setTitle:@"Save Your Settings" forState:UIControlStateNormal];
+                [btnSave setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+                [btnSave setTitleColor:COLOR_PURPLE forState:UIControlStateHighlighted];
+                [btnSave setTitleEdgeInsets:UIEdgeInsetsMake(0, 35, 0, 0)];
+                [btnSave addTarget:self action:@selector(onTouchSaveSetting) forControlEvents:UIControlEventTouchUpInside];
+                [newCellView addSubview:btnSave];
+                
+                UIButton* btnContactUs = [[UIButton alloc]initWithFrame:CGRectMake(25, 97, 143, 45)];
                 [btnContactUs setBackgroundImage:[UIImage imageNamed:@"SnapshotSetting_btn_contactus_inactive"] forState:UIControlStateNormal];
                 [btnContactUs setBackgroundImage:[UIImage imageNamed:@"SnapshotSetting_btn_contactus_active"] forState:UIControlStateHighlighted];
                 [btnContactUs setBackgroundImage:[UIImage imageNamed:@"SnapshotSetting_btn_contactus_active"] forState:UIControlStateSelected];
@@ -374,8 +385,9 @@ UITapGestureRecognizer *tap;
                 [btnContactUs setTitleColor:COLOR_PURPLE forState:UIControlStateHighlighted];
                 [btnContactUs setTitleEdgeInsets:UIEdgeInsetsMake(0, 35, 0, 0)];
                 [btnContactUs addTarget:self action:@selector(onTouchContactUs) forControlEvents:UIControlEventTouchUpInside];
+                [newCellView addSubview:btnContactUs];
                 
-                UIButton* btnLogout = [[UIButton alloc]initWithFrame:CGRectMake(172, 26, 143, 45)];
+                UIButton* btnLogout = [[UIButton alloc]initWithFrame:CGRectMake(172, 97, 143, 45)];
                 [btnLogout setBackgroundImage:[UIImage imageNamed:@"SnapshotSetting_btn_logout_active"] forState:UIControlStateNormal];
                 [btnLogout setBackgroundImage:[UIImage imageNamed:@"SnapshotSetting_btn_logout_inactive"] forState:UIControlStateHighlighted];
                 [btnLogout setBackgroundImage:[UIImage imageNamed:@"SnapshotSetting_btn_logout_inactive"] forState:UIControlStateSelected];
@@ -384,13 +396,14 @@ UITapGestureRecognizer *tap;
                 [btnLogout setTitleColor:COLOR_PURPLE forState:UIControlStateNormal];
                 [btnLogout setTitleColor:[UIColor whiteColor] forState:UIControlStateHighlighted];
                 [btnLogout addTarget:self action:@selector(onTouchLogout) forControlEvents:UIControlEventTouchUpInside];
+                [newCellView addSubview:btnLogout];
                 
                 UIImage* logoImage = [UIImage imageNamed:@"SnapshotSetting_oakclub_logo.png"];
                 UIImageView* logoImageView = [[UIImageView alloc]initWithImage:logoImage];
-                [logoImageView setFrame:CGRectMake(106, 100, 108, 90)];
+                [logoImageView setFrame:CGRectMake(106, 168, 108, 90)];
                 
-                [newCellView addSubview:btnContactUs];
-                [newCellView addSubview:btnLogout];
+                
+                
                 [newCellView addSubview:logoImageView];
                 
                 [moreCell setSelectionStyle:UITableViewCellSelectionStyleNone];
@@ -869,6 +882,9 @@ UITapGestureRecognizer *tap;
 }
 
 #pragma mark handle OnTouch Events
+-(void)onTouchSaveSetting{
+    [self saveSetting];
+}
 -(void)onTouchContactUs{
     // From within your active view controller
     if([MFMailComposeViewController canSendMail]) {

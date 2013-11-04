@@ -1448,7 +1448,10 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
 	[m setObject:msg forKey:@"msg"];
 	//[m setObject:from forKey:@"sender"];
     [m setObject:jid forKey:@"sender"];
-	
+    
+	//vanancy update info of list chat in Chat history view
+    
+    
     if(_messageDelegate != nil)
         [_messageDelegate newMessageReceived:m];
 //    else

@@ -66,7 +66,7 @@
             [imgMatched setHidden:NO];
             [imgMatched setHighlighted:NO];
             [imgChat setHidden:YES];
-            break;
+//            break;
         }
         case ChatUnviewed:
         {
