@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface VCReportPopup : UIViewController
-
+-(id)initWithProfileID:(NSString *)_profileID;
 @end

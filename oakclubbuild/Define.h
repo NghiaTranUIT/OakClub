@@ -152,6 +152,8 @@
 // list chat of profile
 #define key_rosters @"rosters"
 #define key_match @"matches"
+
+#define key_reportContent @"content"
 //================ service API values ================
 #define value_online @"Online"
 #define value_offline @"Offline"
