@@ -609,7 +609,6 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
     AFHTTPClient *request = [[AFHTTPClient alloc] initWithOakClubAPI:DOMAIN];
     [request getPath:URL_getAccountSetting parameters:params success:^(__unused AFHTTPRequestOperation *operation, id JSON)
     {
-        
         self.myProfile = [[Profile alloc]init];
         accountSetting = [self.myProfile parseForGetAccountSetting:JSON];
         

@@ -95,6 +95,8 @@ CLLocationManager *locationManager;
 {
     [super viewDidAppear:animated];
     
+    [self.navigationController setNavigationBarHidden:NO];
+    
     self.nameLabel.text = profileObj.s_Name;
     self.age_workLabel.text = [NSString stringWithFormat:@"%d, %@", profileObj.age, profileObj.i_work.cate_name];
     self.locationLabel.text = profileObj.s_location.name;
