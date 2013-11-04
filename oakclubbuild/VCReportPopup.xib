@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="4510" systemVersion="13A603" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="4510" systemVersion="12F45" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
     <dependencies>
         <deployment defaultVersion="1280" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3742"/>
@@ -31,7 +31,7 @@
                     <state key="selected" backgroundImage="Report_bottomItem_active.png"/>
                     <state key="highlighted" backgroundImage="Report_bottomItem_active.png"/>
                     <connections>
-                        <action selector="onTouchSendReport:" destination="-1" eventType="touchUpInside" id="Wil-Ig-SNk"/>
+                        <action selector="onTouchExplainReport:" destination="-1" eventType="touchUpInside" id="jVv-1y-kzG"/>
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="S91-IP-UqT">

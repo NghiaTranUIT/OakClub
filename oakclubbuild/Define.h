@@ -84,6 +84,7 @@
 #define URL_uploadPhoto @"service/uploadPhotoUser"
 #define URL_deletePhoto @"service/deletePhoto"
 #define URL_setReadMessages @"service/setReadMessages"
+#define URL_reportInvalid @"service/reportInvalid"
 //================ service API keys ================
 //root
 #define key_status @"status"
@@ -151,6 +152,8 @@
 // list chat of profile
 #define key_rosters @"rosters"
 #define key_match @"matches"
+
+#define key_reportContent @"content"
 //================ service API values ================
 #define value_online @"Online"
 #define value_offline @"Offline"

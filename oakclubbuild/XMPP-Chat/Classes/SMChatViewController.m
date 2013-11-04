@@ -388,7 +388,10 @@
 }
 - (IBAction)onTouchMoreOption:(id)sender {
     [self.navigationController.navigationBar setUserInteractionEnabled:NO];
-    VCReportPopup* reportPopup= [[VCReportPopup alloc]init];
+    
+    NSArray *chunks = [chatWithUser componentsSeparatedByString: @"@"];
+    NSString* hangout_id = [chunks objectAtIndex:0];
+    VCReportPopup* reportPopup= [[VCReportPopup alloc]initWithProfileID:hangout_id];
     [self dismissKeyboard:sender];
     [reportPopup.view setFrame:CGRectMake(0, 0, reportPopup.view.frame.size.width, reportPopup.view.frame.size.height)];
 //    [self.view addSubview:reportPopup.view];
@@ -640,26 +643,6 @@ NSMutableArray *cellHeight;
                                              selector:@selector(keyboardWillBeHidden:)
                                                  name:UIKeyboardWillHideNotification object:nil];
 }
-
-// Called when the UIKeyboardDidShowNotification is sent.
-//- (void)keyboardWasShown:(NSNotification*)aNotification
-//{
-//    NSDictionary* info = [aNotification userInfo];
-//    CGSize kbSize = [[info objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
-//    
-//    UIEdgeInsets contentInsets = UIEdgeInsetsMake(0.0, 0.0, kbSize.height, 0.0);
-//    scrollView.contentInset = contentInsets;
-//    scrollView.scrollIndicatorInsets = contentInsets;
-//    
-//    // If active text field is hidden by keyboard, scroll it so it's visible
-//    // Your application might not need or want this behavior.
-//    CGRect aRect = self.view.frame;
-//    aRect.size.height -= kbSize.height;
-//    if (!CGRectContainsPoint(aRect, messageField.frame.origin) ) {
-//        CGPoint scrollPoint = CGPointMake(0.0, messageField.frame.origin.y-kbSize.height);
-//        [scrollView setContentOffset:scrollPoint animated:YES];
-//    }
-//}
 
 // Called when the UIKeyboardWillHideNotification is sent
 - (void)keyboardWillBeHidden:(NSNotification*)aNotification
