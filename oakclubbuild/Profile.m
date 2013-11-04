@@ -982,15 +982,21 @@
 }
 
 -(void)resetUnreadMessageWithFriend:(Profile*)friend{
-    self.unread_message -= friend.unread_message;
-    friend.unread_message = 0;
     AFHTTPClient* httpClient = [[AFHTTPClient alloc]initWithOakClubAPI:DOMAIN];
     NSDictionary *params = [[NSDictionary alloc]initWithObjectsAndKeys:friend.s_ID,key_profileID, nil];
-    [httpClient getPath:URL_setReadMessages parameters:params success:^(__unused AFHTTPRequestOperation *operation, id JSON) {
+    [httpClient setParameterEncoding:AFFormURLParameterEncoding];
+    [httpClient postPath:URL_setReadMessages parameters:params success:^(__unused AFHTTPRequestOperation *operation, id JSON) {
         NSError *e=nil;
         NSMutableDictionary *dict = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONReadingMutableContainers error:&e];
-        self.unread_message -= friend.unread_message;
-        friend.unread_message = 0;
+        BOOL status= [[dict valueForKey:key_status] boolValue];
+        if(status){
+            self.unread_message -= friend.unread_message;
+            friend.unread_message = 0;
+            NSLog(@"POST READ-MESSAGES SUCCESS!!!");
+        }
+        else
+            NSLog(@"POST READ-MESSAGES FAIL...");
+        
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Error Code: %i - %@",[error code], [error localizedDescription]);
     }];

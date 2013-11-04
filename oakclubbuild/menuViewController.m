@@ -221,6 +221,7 @@
             [appDel  showSnapshotSettings];
             break;
         case 3:
+            [self activityAction];
             //            [appDel  logOut];
             break;
         default:
@@ -323,6 +324,14 @@
 }
 */
 #pragma mark handle button touch
+-(void)activityAction
+{
+    UIActivityViewController *activityViewController = [[UIActivityViewController alloc]initWithActivityItems:[NSArray arrayWithObjects:@"You are sharing OakClub on your timeline",[UIImage imageNamed:@"SnapshotSetting_oakclub_logo.png"],nil] applicationActivities:nil];
+    
+    activityViewController.excludedActivityTypes = @[/*UIActivityTypePostToFacebook, UIActivityTypePostToTwitter, */UIActivityTypePostToWeibo, UIActivityTypeAssignToContact];
+    [self presentViewController:activityViewController animated:YES completion:nil];
+}
+
 - (IBAction)onTouchLogout:(id)sender {
 //    VCLogout* logoutView= [[VCLogout alloc]init];
     

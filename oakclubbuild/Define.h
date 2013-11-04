@@ -84,7 +84,7 @@
 #define URL_uploadPhoto @"service/uploadPhotoUser"
 #define URL_deletePhoto @"service/deletePhoto"
 #define URL_setReadMessages @"service/setReadMessages"
-#define URL_reportInvalid @"service/reportInvalid"
+#define URL_setViewedMatchMutual @"service/setViewedMatchMutual"
 //================ service API keys ================
 //root
 #define key_status @"status"
@@ -369,8 +369,8 @@ typedef enum {
 } SettingGroup;
 
 typedef enum{
-    MatchViewed,
     MatchUnViewed,
-    ChatViewed,
+    MatchViewed,
     ChatUnviewed,
+    ChatViewed,
 }ListChatStatus;

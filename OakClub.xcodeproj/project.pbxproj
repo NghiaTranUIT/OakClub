@@ -271,6 +271,7 @@
 		CD25624F176718FC001B702D /* ProfileSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = CD25624E176718FC001B702D /* ProfileSettings.m */; };
 		CD286262176B0F7100E81E73 /* HangoutSetting.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CD286261176B0F7100E81E73 /* HangoutSetting.storyboard */; };
 		CD286265176B0FAF00E81E73 /* HangoutSetting.m in Sources */ = {isa = PBXBuildFile; fileRef = CD286264176B0FAF00E81E73 /* HangoutSetting.m */; };
+		CD2DE687182758610043AA91 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD2DE686182758610043AA91 /* MessageUI.framework */; };
 		CD3C7C761758B942004D35E1 /* ODRefreshControl.m in Sources */ = {isa = PBXBuildFile; fileRef = CD3C7C751758B942004D35E1 /* ODRefreshControl.m */; };
 		CD3E749D1725B3A6002D8207 /* UIPopoverController+iPhone.m in Sources */ = {isa = PBXBuildFile; fileRef = CD3E749C1725B3A6002D8207 /* UIPopoverController+iPhone.m */; };
 		CD4119931793B985003850B7 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = CD4119921793B985003850B7 /* Reachability.m */; };
@@ -1108,6 +1109,7 @@
 		CD286261176B0F7100E81E73 /* HangoutSetting.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = HangoutSetting.storyboard; sourceTree = "<group>"; };
 		CD286263176B0FAF00E81E73 /* HangoutSetting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HangoutSetting.h; sourceTree = "<group>"; };
 		CD286264176B0FAF00E81E73 /* HangoutSetting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = HangoutSetting.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		CD2DE686182758610043AA91 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		CD3C7C741758B942004D35E1 /* ODRefreshControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ODRefreshControl.h; sourceTree = "<group>"; };
 		CD3C7C751758B942004D35E1 /* ODRefreshControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ODRefreshControl.m; sourceTree = "<group>"; };
 		CD3E749B1725B3A6002D8207 /* UIPopoverController+iPhone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIPopoverController+iPhone.h"; path = "UIPopover-iPhone/UIPopoverController+iPhone.h"; sourceTree = "<group>"; };
@@ -1816,6 +1818,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CD2DE687182758610043AA91 /* MessageUI.framework in Frameworks */,
 				977853E418221BBF00CBB5DB /* AssetsLibrary.framework in Frameworks */,
 				CD02C68A1756132600B1ED6A /* AudioToolbox.framework in Frameworks */,
 				CDF99C471713D862008D8BAC /* CoreLocation.framework in Frameworks */,
@@ -2922,6 +2925,7 @@
 		CDC4929B1702CEAB00E83DE3 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				CD2DE686182758610043AA91 /* MessageUI.framework */,
 				977853E318221BBF00CBB5DB /* AssetsLibrary.framework */,
 				CD02C6891756132600B1ED6A /* AudioToolbox.framework */,
 				CDF99C461713D862008D8BAC /* CoreLocation.framework */,
