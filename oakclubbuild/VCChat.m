@@ -637,18 +637,8 @@ int cellCountinSection=0;
 		
     if(profile)
     {
-//        if(profile.is_available)
-//        {
-//            [user setSection:0];
-//        }
-//        else
-//        {
-//            [user setSection:2];
-//        }
-        
         cell.name.text = profile.s_Name;
-//        cell.age_near.text = [NSString stringWithFormat:@"%@, %@", profile.s_age, profile.s_location.name];
-        [cell setMatched:profile.is_match];
+//        [cell setMatched:profile.is_match];
         [cell setStatus:profile.status];
         UIImage* avatar = [a_avatar objectForKey:profile.s_ID];
         
@@ -672,11 +662,15 @@ int cellCountinSection=0;
             {
                 cell.last_message.text = m.body;
                 cell.date_history.text = m.timeStr;
+                if(profile.is_match){
+                    cell.lblMatched.text = [NSString stringWithFormat:@"Matched on %@",m.timeStr];
+                }
+                else{
+                    cell.lblMatched.text = [NSString stringWithFormat:@"Last messages on %@",m.timeStr];
+                }
+                
             }
         }
-        
-        //[queue addOperation:operation];
-        //[queue waitUntilAllOperationsAreFinished];
     }
 	
 	return cell;
