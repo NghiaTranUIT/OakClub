@@ -218,7 +218,8 @@ NSIndexPath* oldIndex;
     label.shadowColor = [UIColor colorWithWhite:0.0 alpha:0.5];
     label.textAlignment = NSTextAlignmentCenter;
     [label setText:titleText];
-    label.textColor = [UIColor darkGrayColor]; // change this color
+    label.textColor = [UIColor blackColor]; // change this color
+    [label sizeToFit];
     self.navigationItem.titleView = label;
 }
 
