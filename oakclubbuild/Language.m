@@ -33,7 +33,8 @@
     NSMutableArray *result = [[NSMutableArray alloc]init];
     for (int i =0 ; i< langList.count; i++){
         Language *newLang = [[Language alloc]initWithID:[[langList objectAtIndex:i] integerValue]];
-        [result addObject:newLang];
+        if(newLang != nil)
+            [result addObject:newLang];
     }
     return result;
 }

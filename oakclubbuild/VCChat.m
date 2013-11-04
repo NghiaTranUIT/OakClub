@@ -304,7 +304,8 @@ int cellCountinSection=0;
 //        [self loadChatView:selectedProfile animated:YES];
 //    }
     
-    
+    [appDel.myProfile getRosterListIDSync];
+    [tableView reloadData];
 #if ENABLE_DEMO
 #else
     [self showNotifications];
@@ -663,7 +664,7 @@ int cellCountinSection=0;
                 cell.last_message.text = m.body;
                 cell.date_history.text = m.timeStr;
                 if(profile.is_match){
-                    cell.lblMatched.text = [NSString stringWithFormat:@"Matched on %@",m.timeStr];
+                    cell.lblMatched.text = [NSString stringWithFormat:@"Matched"];
                 }
                 else{
                     cell.lblMatched.text = [NSString stringWithFormat:@"Last messages on %@",m.timeStr];

@@ -15,6 +15,8 @@
 #import "UIView+Localize.h"
 #import "AppDelegate.h"
 #import "VCLogout.h"
+#import <MessageUI/MessageUI.h>
+#import <MessageUI/MFMailComposeViewController.h>
 
 @interface VCSimpleSnapshotSetting (){
     SettingObject* snapshotObj;
@@ -371,6 +373,7 @@ UITapGestureRecognizer *tap;
                 [btnContactUs setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
                 [btnContactUs setTitleColor:COLOR_PURPLE forState:UIControlStateHighlighted];
                 [btnContactUs setTitleEdgeInsets:UIEdgeInsetsMake(0, 35, 0, 0)];
+                [btnContactUs addTarget:self action:@selector(onTouchContactUs) forControlEvents:UIControlEventTouchUpInside];
                 
                 UIButton* btnLogout = [[UIButton alloc]initWithFrame:CGRectMake(172, 26, 143, 45)];
                 [btnLogout setBackgroundImage:[UIImage imageNamed:@"SnapshotSetting_btn_logout_active"] forState:UIControlStateNormal];
@@ -866,6 +869,25 @@ UITapGestureRecognizer *tap;
 }
 
 #pragma mark handle OnTouch Events
+-(void)onTouchContactUs{
+    // From within your active view controller
+    if([MFMailComposeViewController canSendMail]) {
+        MFMailComposeViewController *mailCont = [[MFMailComposeViewController alloc] init];
+        mailCont.mailComposeDelegate = self;        // Required to invoke mailComposeController when send
+        
+        [mailCont setSubject:@"OakClub send a contact"];
+//        [mailCont setToRecipients:[NSArray arrayWithObject:@"myFriends@email.com"]];
+        [mailCont setMessageBody:@"" isHTML:NO];
+        
+        [self presentViewController:mailCont animated:YES completion:nil];
+    }
+}
+
+- (void)mailComposeController:(MFMailComposeViewController*)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError*)error {
+    [controller dismissViewControllerAnimated:YES completion:nil];
+}
+
+
 -(void)onTouchLogout{
 //    [self.tableView setUserInteractionEnabled:NO];
     [self.tableView setScrollEnabled:NO];
