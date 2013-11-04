@@ -365,10 +365,15 @@ static CGFloat padding_left = 5.0;
         loadingAvatar.hidden = YES;
         [loadingAvatar stopAnimating];
     }];
-    
-    
-    
 }
+
+-(void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
+    [self.view localizeAllViews];
+}
+
 -(void)loadInterestedThumbnailList:(NSArray*)favList
 {
     AFHTTPClient *downloadFAVIcon = [[AFHTTPClient alloc] initWithBaseURL:[NSURL URLWithString:@"https://graph.facebook.com/"]];

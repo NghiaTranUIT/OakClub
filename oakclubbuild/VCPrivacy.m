@@ -7,6 +7,7 @@
 //
 
 #import "VCPrivacy.h"
+#import "UIView+Localize.h"
 
 @interface VCPrivacy()
 {
@@ -40,6 +41,9 @@
         
         loginPage = login;
     }
+    
+    [self localizeAllViews];
+    
     return self;
 }
 
