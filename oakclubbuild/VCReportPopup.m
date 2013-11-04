@@ -8,6 +8,7 @@
 
 #import "VCReportPopup.h"
 #import "AppDelegate.h"
+#import "UIView+Localize.h"
 
 @interface VCReportPopup () <UIAlertViewDelegate>
 {
@@ -32,6 +33,13 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     [self.navigationItem setHidesBackButton:YES];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
+    [self.view localizeAllViews];
 }
 
 - (void)didReceiveMemoryWarning
@@ -81,7 +89,7 @@
     [client setParameterEncoding:AFFormURLParameterEncoding];
     [client registerHTTPOperationClass:[AFHTTPRequestOperation class]];
     
-    NSMutableDictionary *params = [[NSMutableDictionary alloc] initWithObjectsAndKeys:profileID, key_snapshotID, content, key_reportContent, nil];
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] initWithObjectsAndKeys:profileID, key_profileID, content, key_reportContent, nil];
     NSMutableURLRequest *myRequest = [client requestWithMethod:@"POST" path:URL_reportInvalid parameters:params];
     
     AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:myRequest];

@@ -70,11 +70,11 @@
     pageControl.numberOfPages = pageImages.count;
     pageControl.currentPage = 0;
     
-//    if (FBSession.activeSession.state == FBSessionStateCreatedTokenLoaded || FBSession.activeSession.state == FBSessionStateOpen)
-//    {
-//        [self startSpinner];
-//        [self tryLogin];
-//    }
+    if (FBSession.activeSession.state == FBSessionStateCreatedTokenLoaded || FBSession.activeSession.state == FBSessionStateOpen)
+    {
+        [self startSpinner];
+        [self tryLogin];
+    }
 }
 
 - (NSUInteger)supportedInterfaceOrientations
