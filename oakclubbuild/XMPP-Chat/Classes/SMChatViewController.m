@@ -223,6 +223,7 @@
 
 -(void)viewWillAppear:(BOOL)animated
 {
+    appDel._messageDelegate = self;
     //NSArray *chunks = [chatWithUser componentsSeparatedByString: @"@"];
     //NSString* hangout_id = [chunks objectAtIndex:0];
     
@@ -233,7 +234,9 @@
     [self scrollToLastAnimated:NO];
 //    self.navigationItem.titleView = infoHeader;
 }
-
+-(void)viewWillDisappear:(BOOL)animated{
+    appDel._messageDelegate =nil;
+}
 -(void)customNavigationHeader{
     UIView *infoHeader= [[UIView alloc]initWithFrame:CGRectMake(0, 0, 320, 44)];
     [btnBackToPrevious setFrame:CGRectMake(8, 14, btnBackToPrevious.frame.size.width, btnBackToPrevious.frame.size.height)];
