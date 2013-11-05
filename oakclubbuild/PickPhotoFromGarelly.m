@@ -8,7 +8,7 @@
 
 #import "PickPhotoFromGarelly.h"
 #import <AssetsLibrary/AssetsLibrary.h>
-
+#import <MobileCoreServices/MobileCoreServices.h>
 
 @interface PickerDelegate : NSObject
 @end
@@ -40,7 +40,7 @@ id<PickPhotoFromGarellyDelegate> delegate;
     UIImagePickerController *picker = [[UIImagePickerController alloc] init];
     picker.delegate = self;
     picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-    
+//    picker.mediaTypes = @[(NSString*)kUTTypeMovie];
     [parentWindow presentModalViewController:picker animated:YES];
 }
 

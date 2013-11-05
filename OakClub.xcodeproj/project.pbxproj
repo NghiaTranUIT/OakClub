@@ -1850,6 +1850,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CDF4D496170404F7005E7B71 /* MobileCoreServices.framework in Frameworks */,
 				CD2DE687182758610043AA91 /* MessageUI.framework in Frameworks */,
 				977853E418221BBF00CBB5DB /* AssetsLibrary.framework in Frameworks */,
 				CD02C68A1756132600B1ED6A /* AudioToolbox.framework in Frameworks */,
@@ -1863,7 +1864,6 @@
 				CDF4D49C170405D2005E7B71 /* SystemConfiguration.framework in Frameworks */,
 				CDF4D49A17040517005E7B71 /* libz.dylib in Frameworks */,
 				CDF4D4981704050B005E7B71 /* libxml2.dylib in Frameworks */,
-				CDF4D496170404F7005E7B71 /* MobileCoreServices.framework in Frameworks */,
 				CDF4D494170403A2005E7B71 /* CFNetwork.framework in Frameworks */,
 				CDC492F11702CF9F00E83DE3 /* Accounts.framework in Frameworks */,
 				CDC492F21702CF9F00E83DE3 /* AdSupport.framework in Frameworks */,

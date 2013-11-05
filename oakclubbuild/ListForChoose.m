@@ -30,6 +30,7 @@ NSIndexPath* oldIndex;
         currentValue.a_language = [[NSMutableArray alloc]init];
         currentValue.s_interested = [Gender alloc];
         currentValue.s_relationShip = [RelationShip alloc];
+        currentValue.c_ethnicity = [Ethnicity alloc];
     }
     return self;
 }
@@ -214,8 +215,7 @@ NSIndexPath* oldIndex;
     
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectZero] ;
     label.backgroundColor = [UIColor clearColor];
-    label.font = [UIFont boldSystemFontOfSize:20.0];
-    label.shadowColor = [UIColor colorWithWhite:0.0 alpha:0.5];
+    label.font = FONT_HELVETICANEUE_LIGHT(24.0);//[UIFont boldSystemFontOfSize:20.0];
     label.textAlignment = NSTextAlignmentCenter;
     [label setText:titleText];
     label.textColor = [UIColor blackColor]; // change this color
@@ -403,8 +403,8 @@ NSIndexPath* oldIndex;
                     break;
                 case LISTTYPE_ETHNICITY:
                 {
-                    int index = [[[dataSource objectAtIndex:indexPath.row] valueForKey:@"ID"] integerValue];
-                    NSString* name =[[dataSource objectAtIndex:indexPath.row] valueForKey:@"text"] ;
+                    int index = [[[dataSource objectAtIndex:indexPath.row] valueForKey:@"id"] integerValue];
+                    NSString* name =[[dataSource objectAtIndex:indexPath.row] valueForKey:@"name"] ;
                     currentValue.c_ethnicity = [[Ethnicity alloc] initWithID:index andName:name];
                     break;
                 }
