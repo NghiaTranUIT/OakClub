@@ -8,6 +8,8 @@
 
 #import "VCSimpleSnapshotLoading.h"
 #import "AnimatedGif.h"
+#import "AppDelegate.h"
+
 @interface VCSimpleSnapshotLoading (){
     int typeOfAlert; // 0-Finding, 1-DoneSearching , 2-Noresult
     UIImageView* loadingAnim;
@@ -44,7 +46,11 @@
     [self  loadViewbyType];
 }
 -(void)viewWillAppear:(BOOL)animated{
-    [self  loadViewbyType];
+//    [self  loadViewbyType];
+    AppDelegate* appdel = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    if(appdel.reloadSnapshot){
+        [self.navigationController popViewControllerAnimated:NO];
+    }
 }
 - (void)didReceiveMemoryWarning
 {
@@ -63,6 +69,7 @@
         [imgAnim setFrame:CGRectMake(48, 35, imgAnim.frame.size.width, imgAnim.frame.size.height)];
         [self.view  addSubview:imgAnim];
     }
+    [self loadViewbyType];
     
 }
 -(void)loadViewbyType

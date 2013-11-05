@@ -33,7 +33,7 @@
     [ (UIButton *)[self.customView viewWithTag:1] addTarget:self action:@selector(menuPressed:) forControlEvents:UIControlEventTouchUpInside];
     [(UIButton *)[self.customView viewWithTag:3] addTarget:self action:@selector(rightItemPressed:) forControlEvents:UIControlEventTouchUpInside];
     
-    [(UILabel *) [self.customView viewWithTag:4] setFont:FONT_NOKIA(20.0)];
+//    [(UILabel *) [self.customView viewWithTag:4] setFont:FONT_NOKIA(20.0)];
     return self;
 }
 

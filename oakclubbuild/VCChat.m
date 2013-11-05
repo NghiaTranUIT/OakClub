@@ -653,7 +653,7 @@ int cellCountinSection=0;
         
         cell.last_message.text = @"";
         cell.date_history.text = @"";
-        
+        cell.lblMatched.text = @"";
         NSMutableArray* messages = [a_messages objectForKey:profile.s_ID];
         
         if(messages != nil)

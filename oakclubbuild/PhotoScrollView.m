@@ -34,7 +34,7 @@
 -(void)reloadScrollView
 {
     [self.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
-    self.contentSize = CGSizeMake(0, self.photoDelegate.elementSize.height);
+    self.contentSize = CGSizeMake(self.photoDelegate.elementPadding.width, self.photoDelegate.elementSize.height);
     
     for (int i = 0; i < [self.photoDelegate numberOfPhoto]; ++i)
     {
@@ -54,7 +54,7 @@
             [self addSubview:photoImgView];
         }
         
-        self.contentSize = CGSizeMake(self.contentSize.width + self.photoDelegate.elementSize.width + self.photoDelegate.elementPadding.width, self.contentSize.height);
+        self.contentSize = CGSizeMake(self.contentSize.width + self.photoDelegate.elementSize.width + self.photoDelegate.elementPadding.width/2, self.contentSize.height);
     }
 }
 

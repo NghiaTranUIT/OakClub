@@ -718,6 +718,7 @@ UITapGestureRecognizer *tap;
             [doneButton sizeToFit];
             doneButton.frame = CGRectMake((doneCell.frame.size.width - doneButton.frame.size.width) / 2, (88 - doneButton.frame.size.height) / 2, doneButton.frame.size.width, doneButton.frame.size.height);
             [doneButton setTitle:@"Done" forState:UIControlStateNormal];
+            [doneButton.titleLabel setFont:FONT_HELVETICANEUE_LIGHT(15.0)];
             [doneButton addTarget:self action:@selector(doneButtonTouched:) forControlEvents:UIControlEventTouchUpInside];
             
             [doneCell addSubview:doneButton];
@@ -751,8 +752,8 @@ UITapGestureRecognizer *tap;
             break;
     }
     
-    [cell.detailTextLabel setFont: FONT_NOKIA(17.0)];
-    [cell.textLabel setFont: FONT_NOKIA(17.0)];
+    [cell.detailTextLabel setFont:FONT_HELVETICANEUE_LIGHT(17.0)];
+    [cell.textLabel setFont: FONT_HELVETICANEUE_LIGHT(17.0)];
     cell.textLabel.highlightedTextColor = [UIColor blackColor];
     cell.detailTextLabel.highlightedTextColor = COLOR_BLUE_CELLTEXT;
     return cell;
@@ -990,11 +991,11 @@ UITapGestureRecognizer *tap;
 
 -(CGSize)elementSize
 {
-    return CGSizeMake(112, 112);
+    return CGSizeMake(74, 74);
 }
 -(CGSize)elementPadding
 {
-    return CGSizeMake(30, 3);
+    return CGSizeMake(15, 15);
 }
 
 @end

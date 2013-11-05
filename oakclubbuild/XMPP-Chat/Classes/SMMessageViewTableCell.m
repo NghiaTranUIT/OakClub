@@ -7,7 +7,7 @@
 //
 
 #import "SMMessageViewTableCell.h"
-
+#import "Define.h"
 
 @implementation SMMessageViewTableCell
 
@@ -28,7 +28,7 @@
 		senderAndTimeLabel = [[UILabel alloc] init];
         senderAndTimeLabel.backgroundColor = [UIColor clearColor];
 		senderAndTimeLabel.textAlignment = UITextAlignmentCenter;
-		senderAndTimeLabel.font = [UIFont systemFontOfSize:12.0];
+		senderAndTimeLabel.font = FONT_HELVETICANEUE_LIGHT(12);//[UIFont systemFontOfSize:12.0];
 		senderAndTimeLabel.textColor = [UIColor lightGrayColor];
 		[self.customView addSubview:senderAndTimeLabel];
 		

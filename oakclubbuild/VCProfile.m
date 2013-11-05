@@ -171,7 +171,7 @@ static CGFloat padding_left = 5.0;
 
                           UILabel* name = [[UILabel alloc] initWithFrame:CGRectMake(rect.origin.x, rect.origin.y + rect.size.height, 58, 15)];
                           [name setBackgroundColor:[UIColor clearColor]];
-                          [name setFont:FONT_NOKIA(10.0)];
+                          [name setFont:FONT_HELVETICANEUE_LIGHT(10.0)];
                           name.text = p.s_Name;
                           [mutualFriendsImageView addSubview:imageView];
                           [mutualFriendsImageView addSubview:name];
@@ -207,25 +207,25 @@ static CGFloat padding_left = 5.0;
     for (UIView *subview in scrollview.subviews) {
         if ([subview isKindOfClass:[UILabel class]]) {
             UILabel* label = (UILabel*)subview;
-            [label setFont:FONT_NOKIA(label.font.pointSize)];
+            [label setFont:FONT_HELVETICANEUE_LIGHT(label.font.pointSize)];
         }
     }
     for (UIView *subview in self.mutualFriendsView.subviews) {
         if ([subview isKindOfClass:[UILabel class]]) {
             UILabel* label = (UILabel*)subview;
-            [label setFont:FONT_NOKIA(label.font.pointSize)];
+            [label setFont:FONT_HELVETICANEUE_LIGHT(label.font.pointSize)];
         }
     }
     for (UIView *subview in self.interestsView.subviews) {
         if ([subview isKindOfClass:[UILabel class]]) {
             UILabel* label = (UILabel*)subview;
-            [label setFont:FONT_NOKIA(label.font.pointSize)];
+            [label setFont:FONT_HELVETICANEUE_LIGHT(label.font.pointSize)];
         }
     }
     for (UIView *subview in self.profileView.subviews) {
         if ([subview isKindOfClass:[UILabel class]]) {
             UILabel* label = (UILabel*)subview;
-            [label setFont:FONT_NOKIA(label.font.pointSize)];
+            [label setFont:FONT_HELVETICANEUE_LIGHT(label.font.pointSize)];
         }
     }
 }
@@ -419,7 +419,7 @@ static CGFloat padding_left = 5.0;
         
         UILabel* name = [[UILabel alloc] initWithFrame:CGRectMake(rect.origin.x, rect.origin.y + rect.size.height, 58, 15)];
         [name setBackgroundColor:[UIColor clearColor]];
-        [name setFont:FONT_NOKIA(10.0)];
+        [name setFont:FONT_HELVETICANEUE_LIGHT(10.0)];
         name.text = [fav objectForKey:@"fav_name"];
         [scrollViewInterest addSubview:favIcon];
         [scrollViewInterest addSubview:imageView];

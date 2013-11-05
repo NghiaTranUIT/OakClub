@@ -12,7 +12,9 @@
 
 //demo version FLAG
 #define ENABLE_DEMO true
-#define USE_STAGING true
+#define USE_STAGING false
+#define USE_MAINHOST false
+#define USE_STAGING_MB true
 //Hangout
 #define sOnline @"Online"
 
@@ -28,10 +30,16 @@
 #define HOSTNAME @"staging-mb.oakclub.com"
 #define DOMAIN @"http://staging-mb.oakclub.com"
 #define DOMAIN_DATA @"http://data1.oakclub.com/" //data2
-#else
+#endif
+#if USE_MAINHOST
 #define HOSTNAME @"oakclub.com"
 #define DOMAIN @"http://oakclub.com"
 #define DOMAIN_DATA @"http://data1.oakclub.com/" //data2
+#endif
+#if USE_STAGING_MB
+#define HOSTNAME @"staging-mb.oakclub.com"
+#define DOMAIN @"http://staging-mb.oakclub.com"
+#define DOMAIN_DATA @"http://data1.oakclub.com/"
 #endif
 //============== application key =============
 #define key_appLanguage @"appLanguage"
@@ -299,6 +307,8 @@
 #define FONT_NOKIA(s) [UIFont fontWithName:@"UTM Nokia Standard" size:s]
 #define FONT_NOKIA_BOLD [UIFont fontWithName:@"UTM Nokia Standard Bold" size:17.0]
 //#define FONT_NOKIA_BOLD(s) [UIFont fontWithName:@"UTM Nokia Standard Bold" size:s]
+
+#define FONT_HELVETICANEUE_LIGHT(s) [UIFont fontWithName:@"HelveticaNeue-Light" size:s]
 
 //====== Strings =====
 #define NSLocalizedString(key, comment) [[NSBundle mainBundle] localizedStringForKey:(key) value:@"" table:nil]
