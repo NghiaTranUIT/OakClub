@@ -27,8 +27,8 @@
 //#define DOMAIN @"http://staging.oakclub.com/app_dev.php"
 
 #if USE_STAGING
-#define HOSTNAME @"staging.oakclub.com"
-#define DOMAIN @"http://staging.oakclub.com"
+#define HOSTNAME @"staging-mb.oakclub.com"
+#define DOMAIN @"http://staging-mb.oakclub.com"
 #define DOMAIN_DATA @"http://data1.oakclub.com/" //data2
 #endif
 #if USE_MAINHOST

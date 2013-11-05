@@ -28,6 +28,9 @@
 #import "FacebookSDK/FBWebDialogs.h"
 #import "PhotoUpload.h"
 #import "NSString+Utils.h"
+
+#import "AppLifeCycleDelegate.h"
+
 NSString *const SCSessionStateChangedNotification =
 @"com.facebook.Scrumptious:SCSessionStateChangedNotification";
 @interface AppDelegate()
@@ -87,6 +90,8 @@ NSString *const kXMPPmyPassword = @"kXMPPmyPassword";
 @synthesize activeVC;
 
 @synthesize session = _session;
+
+@synthesize appLCObservers;
 // Log levels: off, error, warn, info, verbose
 #if DEBUG
 static const int ddLogLevel = LOG_LEVEL_VERBOSE;
@@ -131,7 +136,7 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
 {
     [self changeFontStyle];
 
-    
+    self.appLCObservers = [[NSMutableArray alloc] init];
 //    NSURL *url = [NSURL URLWithString:@"http://httpbin.org/ip"];
 //    NSURLRequest *request = [NSURLRequest requestWithURL:url];
     
@@ -330,6 +335,11 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
 - (void)applicationDidBecomeActive:(UIApplication *)application {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
     [FBSession.activeSession handleDidBecomeActive];
+    
+    for (id<AppLifeCycleDelegate> appLCDel in self.appLCObservers)
+    {
+        [appLCDel applicationDidBecomeActive:application];
+    }
 }
 
 
