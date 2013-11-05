@@ -44,7 +44,7 @@
                         <rect key="frame" x="11" y="359" width="298" height="44"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
                         <state key="normal" title="Logout" backgroundImage="Logout_btn_inactive.png">
                             <color key="titleColor" red="0.5" green="0.0" blue="0.5" alpha="1" colorSpace="calibratedRGB"/>
                         </state>
@@ -58,7 +58,7 @@
                         <rect key="frame" x="0.0" y="414" width="320" height="66"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
                         <state key="normal" title="Cancel" backgroundImage="Logout_btn_cancel_inactive.png"/>
                         <state key="selected" backgroundImage="Logout_btn_cancel_active.png"/>
                         <state key="highlighted" backgroundImage="Logout_btn_cancel_active.png"/>
@@ -70,7 +70,6 @@
                         <rect key="frame" x="26" y="283" width="266" height="82"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>

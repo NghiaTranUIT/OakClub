@@ -258,7 +258,7 @@ UITapGestureRecognizer *tap;
                     if (filterGuysCell == nil)
                     {
                         filterGuysCell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:filterGuysID];
-                        filterGuysCell.textLabel.text = [NSString localizeString:@"Guys"] ;
+//                        filterGuysCell.textLabel.text = [NSString localizeString:@"Guys"] ;
                         filterGuysCell.selectionStyle = UITableViewCellSelectionStyleNone;
                         UISwitch *autoSwitch = [[UISwitch alloc] init];
                         [autoSwitch addTarget:self action:@selector(onSwitchChangedValue:) forControlEvents:UIControlEventValueChanged];
@@ -266,17 +266,18 @@ UITapGestureRecognizer *tap;
                         [autoSwitch setOnTintColor:COLOR_PURPLE];
                         autoSwitch.tag = 100;
                         [filterGuysCell.contentView addSubview:autoSwitch];
+                        filterGuysCell.textLabel.text = [NSString localizeString:@"Guys"];
+                        [filterGuysCell.textLabel setFont: FONT_HELVETICANEUE_LIGHT(15.0)];
+                        filterGuysCell.textLabel.highlightedTextColor = [UIColor whiteColor];
                     }
                     else
                     {
-                        filterGuysCell.textLabel.text = [NSString localizeString:@"Guys"] ;
+//                        filterGuysCell.textLabel.text = [NSString localizeString:@"Guys"] ;
                         UISwitch *autoSwitch = (id) [filterGuysCell viewWithTag:100];
 //                        autoSwitch.on = [snapshotObj.gender_of_search isEqualToString:value_Male] || [snapshotObj.gender_of_search isEqualToString:value_All];
                         autoSwitch.on = hasMale;
                     }
-                    cell.textLabel.text = [NSString localizeString:cell.textLabel.text];
-                    [cell.textLabel setFont: FONT_NOKIA(17.0)];
-                    cell.textLabel.highlightedTextColor = [UIColor whiteColor];
+                    
                     return filterGuysCell;
                 }
                     break;
@@ -287,7 +288,7 @@ UITapGestureRecognizer *tap;
                     if (filterGirlsCell == nil)
                     {
                         filterGirlsCell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:filterGirlsID];
-                        filterGirlsCell.textLabel.text = [NSString localizeString:@"Girls"] ;
+//                        filterGirlsCell.textLabel.text = [NSString localizeString:@"Girls"] ;
                         filterGirlsCell.selectionStyle = UITableViewCellSelectionStyleNone;
                         UISwitch *autoSwitch = [[UISwitch alloc] init];
                         [autoSwitch addTarget:self action:@selector(onSwitchChangedValue:) forControlEvents:UIControlEventValueChanged];
@@ -295,16 +296,17 @@ UITapGestureRecognizer *tap;
                         [autoSwitch setOnTintColor:COLOR_PURPLE];
                         autoSwitch.tag = 101;
                         [filterGirlsCell.contentView addSubview:autoSwitch];
+                        filterGirlsCell.textLabel.text = [NSString localizeString:@"Girls"];
+                        [filterGirlsCell.textLabel setFont: FONT_HELVETICANEUE_LIGHT(15.0)];
+                        filterGirlsCell.textLabel.highlightedTextColor = [UIColor whiteColor];
                     }
                     else
                     {
-                        filterGirlsCell.textLabel.text = [NSString localizeString:@"Girls"] ;
+//                        filterGirlsCell.textLabel.text = [NSString localizeString:@"Girls"] ;
                         UISwitch *autoSwitch = (id) [filterGirlsCell viewWithTag:101];
                         autoSwitch.on = hasFemale;
                     }
-                    cell.textLabel.text = [NSString localizeString:cell.textLabel.text];
-                    [cell.textLabel setFont: FONT_NOKIA(17.0)];
-                    cell.textLabel.highlightedTextColor = [UIColor whiteColor];
+                    
                     return filterGirlsCell;
                 }
                     break;
@@ -322,9 +324,9 @@ UITapGestureRecognizer *tap;
                 UIView *newCellView= [[UIView alloc]initWithFrame:CGRectMake(0, 0, 320, 80)];
                 lblRange = [[UILabel alloc]initWithFrame:CGRectMake(30, 0, 280, 30)];
                 [lblRange setText: [NSString stringWithFormat: @"Limit my search to this distance: %d km",i_range]];
-                [lblRange setTextColor:[UIColor darkGrayColor]];
+//                [lblRange setTextColor:[UIColor blackColor]];
                 [lblRange setBackgroundColor:[UIColor clearColor]];
-                [lblRange setFont:FONT_NOKIA(15.0)];
+                [lblRange setFont:FONT_HELVETICANEUE_LIGHT(15.0)];
                 [newCellView addSubview:self.rangeSlider];
                 [newCellView addSubview:lblRange];
                 
@@ -373,6 +375,7 @@ UITapGestureRecognizer *tap;
                 [btnSave setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
                 [btnSave setTitleColor:COLOR_PURPLE forState:UIControlStateHighlighted];
                 [btnSave setTitleEdgeInsets:UIEdgeInsetsMake(0, 35, 0, 0)];
+                [btnSave.titleLabel setFont:FONT_HELVETICANEUE_LIGHT(15)];
                 [btnSave addTarget:self action:@selector(onTouchSaveSetting) forControlEvents:UIControlEventTouchUpInside];
                 [newCellView addSubview:btnSave];
                 
@@ -384,6 +387,7 @@ UITapGestureRecognizer *tap;
                 [btnContactUs setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
                 [btnContactUs setTitleColor:COLOR_PURPLE forState:UIControlStateHighlighted];
                 [btnContactUs setTitleEdgeInsets:UIEdgeInsetsMake(0, 35, 0, 0)];
+                [btnContactUs.titleLabel setFont:FONT_HELVETICANEUE_LIGHT(15)];
                 [btnContactUs addTarget:self action:@selector(onTouchContactUs) forControlEvents:UIControlEventTouchUpInside];
                 [newCellView addSubview:btnContactUs];
                 
@@ -395,15 +399,14 @@ UITapGestureRecognizer *tap;
                 [btnLogout setTitleEdgeInsets:UIEdgeInsetsMake(0, 32, 0, 0)];
                 [btnLogout setTitleColor:COLOR_PURPLE forState:UIControlStateNormal];
                 [btnLogout setTitleColor:[UIColor whiteColor] forState:UIControlStateHighlighted];
+                [btnLogout.titleLabel setFont:FONT_HELVETICANEUE_LIGHT(15)];
                 [btnLogout addTarget:self action:@selector(onTouchLogout) forControlEvents:UIControlEventTouchUpInside];
                 [newCellView addSubview:btnLogout];
                 
                 UIImage* logoImage = [UIImage imageNamed:@"SnapshotSetting_oakclub_logo.png"];
                 UIImageView* logoImageView = [[UIImageView alloc]initWithImage:logoImage];
                 [logoImageView setFrame:CGRectMake(106, 168, 108, 90)];
-                
-                
-                
+            
                 [newCellView addSubview:logoImageView];
                 
                 [moreCell setSelectionStyle:UITableViewCellSelectionStyleNone];
@@ -415,9 +418,9 @@ UITapGestureRecognizer *tap;
         }
     }
     cell.textLabel.text = [NSString localizeString:cell.textLabel.text];
-    [cell.detailTextLabel setFont: FONT_NOKIA(17.0)];
+    [cell.detailTextLabel setFont: FONT_HELVETICANEUE_LIGHT(15.0)];
     cell.detailTextLabel.textColor = COLOR_PURPLE;
-    [cell.textLabel setFont: FONT_NOKIA(17.0)];
+    [cell.textLabel setFont: FONT_HELVETICANEUE_LIGHT(15.0)];
     cell.textLabel.highlightedTextColor = [UIColor whiteColor];
     cell.detailTextLabel.highlightedTextColor = [UIColor whiteColor];
     return cell;
@@ -431,7 +434,7 @@ UITapGestureRecognizer *tap;
     
     UILabel *headerLbl = [[UILabel alloc] initWithFrame:CGRectMake(15, 10, 300, 20)];//set as you need
     headerLbl.backgroundColor = [UIColor clearColor];
-    UIFont *newfont = FONT_NOKIA(20.0);
+    UIFont *newfont = FONT_HELVETICANEUE_LIGHT(15.0);
     [headerLbl setFont:newfont];
     switch (section) {
         case HereToGroup:

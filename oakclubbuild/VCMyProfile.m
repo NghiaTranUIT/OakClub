@@ -757,8 +757,8 @@ CLLocationManager *locationManager;
             break;
     }
     
-    [cell.detailTextLabel setFont: FONT_NOKIA(17.0)];
-    [cell.textLabel setFont: FONT_NOKIA(17.0)];
+    [cell.detailTextLabel setFont:FONT_HELVETICANEUE_LIGHT(17.0)];
+    [cell.textLabel setFont: FONT_HELVETICANEUE_LIGHT(17.0)];
     cell.textLabel.highlightedTextColor = [UIColor blackColor];
     cell.detailTextLabel.highlightedTextColor = COLOR_BLUE_CELLTEXT;
     return cell;
@@ -1055,11 +1055,11 @@ CLLocationManager *locationManager;
 
 -(CGSize)elementSize
 {
-    return CGSizeMake(112, 112);
+    return CGSizeMake(74, 74);
 }
 -(CGSize)elementPadding
 {
-    return CGSizeMake(30, 3);
+    return CGSizeMake(15, 15);
 }
 
 @end

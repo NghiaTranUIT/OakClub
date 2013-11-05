@@ -30,7 +30,7 @@
     if (!titleView) {
         titleView = [[UILabel alloc] initWithFrame:CGRectZero];
         titleView.backgroundColor = [UIColor clearColor];
-        titleView.font = FONT_NOKIA(20.0);
+        titleView.font = FONT_HELVETICANEUE_LIGHT(20.0);
 //        titleView.shadowColor = [UIColor colorWithWhite:0.0 alpha:0.5];
         
         titleView.textColor = [UIColor whiteColor]; // Change to desired color

@@ -340,7 +340,7 @@ NSIndexPath* oldIndex;
     }
     
     cell.textLabel.highlightedTextColor = [UIColor blackColor];
-    [cell.textLabel setFont: FONT_NOKIA(17.0)];
+    [cell.textLabel setFont: FONT_HELVETICANEUE_LIGHT(17.0)];
     return cell;
 }
 

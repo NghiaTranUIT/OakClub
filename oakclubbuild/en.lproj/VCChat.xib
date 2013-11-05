@@ -34,7 +34,7 @@
                                 <outlet property="delegate" destination="-1" id="64"/>
                             </connections>
                         </tableView>
-                        <searchBar contentMode="scaleAspectFit" placeholder="Search your matches ..." showsScopeBar="YES" id="p1H-sC-1ii">
+                        <searchBar contentMode="center" searchBarStyle="minimal" placeholder="Search your matches ..." showsScopeBar="YES" id="p1H-sC-1ii">
                             <rect key="frame" x="0.0" y="0.0" width="272" height="88"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxY="YES"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>

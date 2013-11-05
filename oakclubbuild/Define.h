@@ -300,6 +300,8 @@
 #define FONT_NOKIA_BOLD [UIFont fontWithName:@"UTM Nokia Standard Bold" size:17.0]
 //#define FONT_NOKIA_BOLD(s) [UIFont fontWithName:@"UTM Nokia Standard Bold" size:s]
 
+#define FONT_HELVETICANEUE_LIGHT(s) [UIFont fontWithName:@"HelveticaNeue-Light" size:s]
+
 //====== Strings =====
 #define NSLocalizedString(key, comment) [[NSBundle mainBundle] localizedStringForKey:(key) value:@"" table:nil]
 
