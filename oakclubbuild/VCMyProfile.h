@@ -12,7 +12,7 @@
 #import "EditText.h"
 #import <CoreLocation/CoreLocation.h>
 
-@interface VCMyProfile : UIViewController<UIPickerViewDelegate, UIPickerViewDataSource, UITableViewDataSource, UITableViewDelegate, ListForChooseDelegate,EditTextViewDelegate, CLLocationManagerDelegate>
+@interface VCMyProfile : UIViewController<UIPickerViewDelegate, UIPickerViewDataSource, UITableViewDataSource, UITableViewDelegate, ListForChooseDelegate,EditTextViewDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UIButton *rbnMale;
 @property (weak, nonatomic) IBOutlet UIButton *rbnFemale;

@@ -40,7 +40,8 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     [self.navigationItem setHidesBackButton:YES];
-     [self  loadViewbyType];
+    [self.navigationController setNavigationBarHidden:YES];
+    [self  loadViewbyType];
 }
 -(void)viewWillAppear:(BOOL)animated{
     [self  loadViewbyType];
@@ -64,30 +65,35 @@
     }
     
 }
--(void)loadViewbyType{
+-(void)loadViewbyType
+{
     switch (typeOfAlert) {
         case 0:
         {
             [self.view addSubview:imgNOPEDisable];
             [self.view addSubview:imgLIKEDisable];
             [self.view addSubview:imgiDisable];
-//            [imgNOPEDisable setHidden:NO];
-//            [imgLIKEDisable setHidden:NO]; 
-//            [imgiDisable setHidden:NO];
             [btnContentAlert setHidden:YES];
             [lblContentAlert setText:@"Finding nearby people..."];
             break;
         }
         case 1:
         {
-//            [imgNOPEDisable setHidden:YES];
-//            [imgLIKEDisable setHidden:YES];
-//            [imgiDisable setHidden:YES];
             [btnContentAlert setHidden:NO];
             [lblContentAlert setText:@"You've seen all the recommendation near you."];
             [imgLoading setImage:[UIImage imageNamed:@"SnapshotLoading_map_loaded.png"]];
             [self.view addSubview:imgLoading];
             break;
+        }
+        case 2:
+        {
+            [self.view addSubview:imgNOPEDisable];
+            [self.view addSubview:imgLIKEDisable];
+            [self.view addSubview:imgiDisable];
+            [imgLoading setImage:[UIImage imageNamed:@"SnapshotLoading_graymap_loaded.png"]];
+            [self.view addSubview:imgLoading];
+            [btnContentAlert setHidden:YES];
+            [lblContentAlert setText:@"Location setting is disabled"];
         }
         default:
             break;

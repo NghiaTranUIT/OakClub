@@ -75,6 +75,7 @@
 		97C5768C181FCFFB00D8510D /* proceed-btn-on.png in Resources */ = {isa = PBXBuildFile; fileRef = 97C5768B181FCFFB00D8510D /* proceed-btn-on.png */; };
 		97C57690181FDDF200D8510D /* TutorialViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 97C5768F181FDDF200D8510D /* TutorialViewController.m */; };
 		97DEDD02181623A5001B0E53 /* ConfirmViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 97DEDD01181623A5001B0E53 /* ConfirmViewController.m */; };
+		97FB5E871828CFE800228140 /* LocationUpdate.m in Sources */ = {isa = PBXBuildFile; fileRef = 97FB5E861828CFE800228140 /* LocationUpdate.m */; };
 		CD005D42181267F000238920 /* amazed.png in Resources */ = {isa = PBXBuildFile; fileRef = CD005D1E181267F000238920 /* amazed.png */; };
 		CD005D43181267F000238920 /* angel.png in Resources */ = {isa = PBXBuildFile; fileRef = CD005D1F181267F000238920 /* angel.png */; };
 		CD005D44181267F000238920 /* angry.png in Resources */ = {isa = PBXBuildFile; fileRef = CD005D20181267F000238920 /* angry.png */; };
@@ -887,6 +888,9 @@
 		97C5768F181FDDF200D8510D /* TutorialViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TutorialViewController.m; sourceTree = "<group>"; };
 		97DEDD00181623A5001B0E53 /* ConfirmViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConfirmViewController.h; sourceTree = "<group>"; };
 		97DEDD01181623A5001B0E53 /* ConfirmViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConfirmViewController.m; sourceTree = "<group>"; };
+		97FB5E851828CFE700228140 /* LocationUpdate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationUpdate.h; sourceTree = "<group>"; };
+		97FB5E861828CFE800228140 /* LocationUpdate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationUpdate.m; sourceTree = "<group>"; };
+		97FB5E88182906BC00228140 /* AppLifeCycleDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppLifeCycleDelegate.h; sourceTree = "<group>"; };
 		CD005D1E181267F000238920 /* amazed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = amazed.png; sourceTree = "<group>"; };
 		CD005D1F181267F000238920 /* angel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = angel.png; sourceTree = "<group>"; };
 		CD005D20181267F000238920 /* angry.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = angry.png; sourceTree = "<group>"; };
@@ -2338,6 +2342,7 @@
 				CDFF63911823CBB800C8031F /* Ethnicity.m */,
 				CD1D562A1826246B002E312A /* Language.h */,
 				CD1D562B1826246B002E312A /* Language.m */,
+				97FB5E88182906BC00228140 /* AppLifeCycleDelegate.h */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -4043,6 +4048,8 @@
 				970B7486181533560091471F /* PickPhotoFromGarelly.m */,
 				970B7488181534090091471F /* PhotoUpload.h */,
 				970B7489181534090091471F /* PhotoUpload.m */,
+				97FB5E851828CFE700228140 /* LocationUpdate.h */,
+				97FB5E861828CFE800228140 /* LocationUpdate.m */,
 			);
 			name = MyProfile;
 			sourceTree = "<group>";
@@ -4815,6 +4822,7 @@
 				9775A78F1813D5DE00BCF28D /* UANoisyGradientBackground.m in Sources */,
 				CDF99BBC1713D629008D8BAC /* XMPPRoomMemoryStorage.m in Sources */,
 				CDF99BBD1713D629008D8BAC /* XMPPRoomMessageMemoryStorageObject.m in Sources */,
+				97FB5E871828CFE800228140 /* LocationUpdate.m in Sources */,
 				CDF99BBE1713D629008D8BAC /* XMPPRoomOccupantMemoryStorageObject.m in Sources */,
 				CDF99BBF1713D629008D8BAC /* XMPPMessage+XEP0045.m in Sources */,
 				CDF99BC01713D629008D8BAC /* XMPPMUC.m in Sources */,

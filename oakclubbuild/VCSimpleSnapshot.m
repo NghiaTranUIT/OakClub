@@ -15,7 +15,10 @@
 #import "NSString+Utils.h"
 #import "VCSimpleSnapshotLoading.h"
 #import "VCSimpleSnapshotPopup.h"
-@interface VCSimpleSnapshot (){
+#import "LocationUpdate.h"
+#import "AppLifeCycleDelegate.h"
+
+@interface VCSimpleSnapshot () <LocationUpdateDelegate, AppLifeCycleDelegate> {
     UIView *headerView;
     UILabel *lblHeaderName;
     UILabel *lblHeaderFreeNum;
@@ -25,6 +28,10 @@
     VCSimpleSnapshotLoading* loadingView;
     UIImageView* loadingAnim;
     BOOL reloadProfileList;
+    LocationUpdate *locUpdate;
+    
+    BOOL isBlockedByGPS;
+    BOOL isLoading;
 }
 @property (nonatomic, strong) IBOutlet APLMoveMeView *moveMeView;
 @property (nonatomic, weak) IBOutlet UIView *profileView;
@@ -64,7 +71,16 @@ CGFloat pageHeight;
 {
     [super viewDidLoad];
     // load profile List
+    
     [self refreshSnapshot];
+    
+    isBlockedByGPS = NO;
+    locUpdate = [[LocationUpdate alloc] init];
+    locUpdate.delegate = self;
+    [appDel.appLCObservers addObject:self];
+    appDel.reloadSnapshot = TRUE;
+    [locUpdate update];
+    
     [self loadHeaderLogo];
     [self formatAvatarToCircleView];
     [self.view addSubview:self.moveMeView];
@@ -84,7 +100,6 @@ CGFloat pageHeight;
         self.moveMeView.displayStrings = displayStrings;
         [self.moveMeView setupNextDisplayString];
     }
-    
 }
 
 
@@ -703,10 +718,8 @@ CGFloat pageHeight;
     //load data
     [self loadLikeMeList];
     //load profile list if needed
-    if(appDel.reloadSnapshot){
-        [self refreshSnapshot];
-        appDel.reloadSnapshot = FALSE;
-    }
+    
+    [locUpdate update];
 //    currentIndex = 0;
 //    currentIndex = [[[NSUserDefaults standardUserDefaults] objectForKey:@"snapshotIndex"] integerValue];
 //    if ([[NSUserDefaults standardUserDefaults] objectForKey:@"snapshotIndex"] == nil)
@@ -861,7 +874,9 @@ CGFloat pageHeight;
     if([currentProfile.arr_photos[0] isKindOfClass:[UIImageView class]]){
         UIImageView * photoView =currentProfile.arr_photos[0];
         [imgMatcher setImage:photoView.image];
-    }else{
+    }
+    else
+    {
         [imgMatcher setImage:imgMainProfile.image];
     }
 }
@@ -1006,14 +1021,35 @@ CGFloat pageHeight;
 //    [self disableAllControl:YES];
     loadingView = [[VCSimpleSnapshotLoading alloc]init];
     [loadingView setTypeOfAlert:0 andAnim:loadingAnim];
+    isLoading = YES;
     [self.navigationController pushViewController:loadingView animated:NO];
 }
 
--(void)stopLoadingAnim{
-    [self.spinner stopAnimating];
+-(void)startDisabledGPS{
+    //    [self.spinner startAnimating];
+    //    [self disableAllControl:YES];
+    loadingView = [[VCSimpleSnapshotLoading alloc]init];
+    [loadingView setTypeOfAlert:2 andAnim:nil];
+    [self.navigationController pushViewController:loadingView animated:NO];
+    isBlockedByGPS = TRUE;
+}
+
+-(void)stopDisabledGPS
+{
     [self disableAllControl:NO];
-//    [loadingAnim setHidden:YES];
+    //    [loadingAnim setHidden:YES];
     [self.navigationController popViewControllerAnimated:NO];
+    isBlockedByGPS = FALSE;
+}
+
+-(void)stopLoadingAnim{
+    if (isLoading)
+    {
+        [self.spinner stopAnimating];
+        [self disableAllControl:NO];
+        isLoading = NO;
+        [self.navigationController popViewControllerAnimated:NO];
+    }
 }
 
 #pragma mark First time Popup
@@ -1024,7 +1060,38 @@ CGFloat pageHeight;
         [popupFirstTimeView.view setFrame:CGRectMake(0, 0, popupFirstTimeView.view.frame.size.width, popupFirstTimeView.view.frame.size.height)];
         [self.view addSubview:popupFirstTimeView.view];
     }
+}
+
+#pragma mark Location delegate
+-(void)location:(LocationUpdate *)location updateFailWithError:(NSError *)e
+{
+    NSLog(@"Location failed");
+    if (isLoading)
+    {
+        [self stopLoadingAnim];
+    }
     
+    [self startDisabledGPS];
+}
+
+-(void)location:(LocationUpdate *)location updateSuccessWithID:(NSString *)locationID andName:(NSString *)name
+{
+    if(false && appDel.reloadSnapshot)
+    {
+        [self refreshSnapshot];
+        appDel.reloadSnapshot = FALSE;
+    }
+}
+
+#pragma mark App life cycle delegate
+-(void)applicationDidBecomeActive:(UIApplication *)application
+{
+    if (isBlockedByGPS)
+    {
+        [self stopDisabledGPS];
+    }
+    
+    [locUpdate update];
 }
 
 @end

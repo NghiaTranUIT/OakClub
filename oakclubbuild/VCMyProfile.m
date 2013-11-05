@@ -16,8 +16,9 @@
 #import "NSString+Utils.h"
 #import "PhotoScrollView.h"
 #import "UIView+Localize.h"
+#import "LocationUpdate.h"
 
-@interface VCMyProfile () <PickPhotoFromGarellyDelegate, UIAlertViewDelegate, ImageRequester, PhotoScrollViewDelegate>{
+@interface VCMyProfile () <PickPhotoFromGarellyDelegate, UIAlertViewDelegate, ImageRequester, PhotoScrollViewDelegate, LocationUpdateDelegate>{
     GroupButtons* genderGroup;
      AppDelegate *appDelegate;
     NSMutableArray *profileItemList;
@@ -31,6 +32,7 @@
     NSMutableArray *photosID;
     int selectedPhoto;
     UIImage *uploadImage;
+    LocationUpdate *locUpdate;
 }
 @property (weak, nonatomic) IBOutlet PhotoScrollView *photoScrollView;
 @property (weak, nonatomic) IBOutlet UIImageView *avatarLayout;
@@ -44,8 +46,6 @@
 UITapGestureRecognizer *tap;
 
 @synthesize rbnFemale, rbnMale, btnLocation, btnRelationShip, btnEthnicity, btnLanguage, btnWork, scrollview,labelAge, labelName, labelPurposeSearch, textFieldName,textFieldHeight,textfieldSchool,textFieldWeight, btnBirthdate, pickerView, textviewAbout, tbEditProfile, pickerWeight, pickerHeight, imgAvatar;
-
-CLLocationManager *locationManager;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -76,9 +76,8 @@ CLLocationManager *locationManager;
     
     [pickerView setMaximumDate:[[NSDate alloc] init]];
     
-    locationManager = [[CLLocationManager alloc] init];
-    locationManager.delegate = self;
-    locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+    locUpdate = [[LocationUpdate alloc] init];
+    locUpdate.delegate = self;
     
     avatarPicker = [[PickPhotoFromGarelly alloc] initWithParentWindow:self andDelegate:self];
     
@@ -278,11 +277,6 @@ CLLocationManager *locationManager;
     [locationView setListType:LISTTYPE_COUNTRY];
     locationView.delegate=self;
     [self.navigationController pushViewController:locationView animated:YES];
-}
-
-- (void) tryUpdateLocation
-{
-    [locationManager startUpdatingLocation];
 }
 
 - (void)gotoEthnicitySetting{
@@ -782,7 +776,7 @@ CLLocationManager *locationManager;
             [self gotoEmail];
             break;
         case LOCATION:
-            [self tryUpdateLocation];
+            [locUpdate update];
             break;
         case WORK:
             [self gotoWorkSetting];
@@ -854,77 +848,18 @@ CLLocationManager *locationManager;
 
 #pragma mark CLLocation Delegate
 
-- (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
+-(void)location:(LocationUpdate *)location updateFailWithError:(NSError *)e
 {
-    NSLog(@"didFailWithError: %@", error);
-    [manager stopUpdatingLocation];
     
-    //[self gotoLocationSetting];
 }
 
-- (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation
+-(void)location:(LocationUpdate *)location updateSuccessWithID:(NSString *)locationID andName:(NSString *)name
 {
-    NSLog(@"didUpdateToLocation: %@", newLocation);
-    CLLocation *currentLocation = newLocation;
-    
-    // Stop Location Manager
-    [manager stopUpdatingLocation];
-    
-    /*if (currentLocation != nil) {
-        //longitudeLabel.text = [NSString stringWithFormat:@"%.8f", currentLocation.coordinate.longitude];
-        //latitudeLabel.text = [NSString stringWithFormat:@"%.8f", currentLocation.coordinate.latitude];
-        
-        NSLog(@"Resolving the Address");
-        CLGeocoder *geocoder = [[CLGeocoder alloc] init];
-        [geocoder reverseGeocodeLocation:currentLocation completionHandler:^(NSArray *placemarks, NSError *error) {
-            NSLog(@"Found placemarks: %@, error: %@", placemarks, error);
-            if (error == nil && [placemarks count] > 0) {
-                CLPlacemark *placemark = [placemarks lastObject];
-                NSString *location = [NSString stringWithFormat:@"%@ %@\n%@ %@\n%@\n%@",
-                                     placemark.subThoroughfare, placemark.thoroughfare,
-                                     placemark.postalCode, placemark.locality,
-                                     placemark.administrativeArea,
-                                     placemark.country];
-                //Message update location automatically
-                //Update or goto Location Setting
-                [[profileItemList objectAtIndex:LOCATION] setObject:location forKey:@"value"];
-                [self.tableView reloadData];
-                NSLog(@"Location %@", location);
-            } else {
-                NSLog(@"Can't resolve location with error:%@", error.debugDescription);
-                //[self gotoLocationSetting];
-            }
-            
-            
-        } ];
-    }
-    else
-    {
-        //[self gotoLocationSetting];
-    }*/
-    
-    
-    AFHTTPClient *request = [[AFHTTPClient alloc] initWithOakClubAPI:DOMAIN];
-    
-    NSMutableDictionary *params = [[NSMutableDictionary alloc] initWithObjects:[NSArray arrayWithObjects:[NSNumber numberWithDouble:currentLocation.coordinate.latitude], [NSNumber numberWithDouble:currentLocation.coordinate.longitude], nil] forKeys:[NSArray arrayWithObjects:@"latitude", @"longitude", nil]];
-    NSLog(@"Coord: %@", params);
-    
-    [request getPath:URL_setLocationUser parameters:params success:^(__unused AFHTTPRequestOperation *operation, id JSON)
-     {
-         NSError *e=nil;
-         NSMutableDictionary *dict = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONReadingMutableContainers error:&e];
-         NSLog(@"Update location: %@", dict);
-         profileObj.s_location.ID = [dict valueForKey:key_data];
-         profileObj.s_location.name = [dict valueForKey:key_msg];
-         [self updateProfileItemListAtIndex:profileObj.s_location.name andIndex:LOCATION];
-         [self.tableView reloadData];
-         
-     } failure:^(AFHTTPRequestOperation *operation, NSError *error)
-     {
-         NSLog(@"Set user location error Code: %i - %@",[error code], [error localizedDescription]);
-     }];
+    profileObj.s_location.ID = locationID;
+    profileObj.s_location.name = name;
+    [self updateProfileItemListAtIndex:profileObj.s_location.name andIndex:LOCATION];
+    [self.tableView reloadData];
 }
-
 #pragma mark Switch Delegate
 
 - (IBAction)avatarTouched:(id)sender
