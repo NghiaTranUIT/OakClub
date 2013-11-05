@@ -58,13 +58,13 @@
 //    [self showPopoverAnimated:YES];
     [super touchesBegan:touches withEvent:event];
     
-    NSLog(@"1. touchesBegan");
+//    NSLog(@"1. touchesBegan");
 }
 
 -(void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
 {
     [super touchesMoved:touches withEvent:event];
-    NSLog(@"2. touchesMoved");
+//    NSLog(@"2. touchesMoved");
 }
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
@@ -72,7 +72,7 @@
 //    [self hidePopoverAnimated:YES];
     [super touchesEnded:touches withEvent:event];
     
-    NSLog(@"3. touchesEnded");
+//    NSLog(@"3. touchesEnded");
 }
 
 - (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event
@@ -81,7 +81,7 @@
     
     //[super touchesCancelled:touches withEvent:event];
     
-    NSLog(@"4. touchesCancelled");
+//    NSLog(@"4. touchesCancelled");
 }
 
 #pragma mark -

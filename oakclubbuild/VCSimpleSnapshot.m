@@ -188,7 +188,7 @@ CGFloat pageHeight;
     is_loadingProfileList = TRUE;
     [self startLoadingAnim];
     request = [[AFHTTPClient alloc] initWithOakClubAPI:DOMAIN];
-    NSDictionary *params = [[NSDictionary alloc]initWithObjectsAndKeys:[[NSNumber alloc]initWithInt:currentIndex],@"start",@"35",@"limit", nil];
+    NSDictionary *params = [[NSDictionary alloc]initWithObjectsAndKeys:@"0",@"start",@"35",@"limit", nil];
     [request getPath:URL_getSnapShot parameters:params success:^(__unused AFHTTPRequestOperation *operation, id JSON)
     {
         NSError *e=nil;

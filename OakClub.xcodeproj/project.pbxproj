@@ -156,6 +156,10 @@
 		CD09E0F1170EBC01000BC104 /* menu_snapshot.png in Resources */ = {isa = PBXBuildFile; fileRef = CD09E0E0170EBC01000BC104 /* menu_snapshot.png */; };
 		CD09E0F2170EBC01000BC104 /* stroke black.png in Resources */ = {isa = PBXBuildFile; fileRef = CD09E0E1170EBC01000BC104 /* stroke black.png */; };
 		CD09E0F4170EBC01000BC104 /* menu_visitors.png in Resources */ = {isa = PBXBuildFile; fileRef = CD09E0E3170EBC01000BC104 /* menu_visitors.png */; };
+		CD0AB827182900CB00385CB9 /* RangeSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = CD0AB826182900CB00385CB9 /* RangeSlider.m */; };
+		CD0AB82B1829025B00385CB9 /* fillrange.png in Resources */ = {isa = PBXBuildFile; fileRef = CD0AB8281829025B00385CB9 /* fillrange.png */; };
+		CD0AB82C1829025B00385CB9 /* fullrange.png in Resources */ = {isa = PBXBuildFile; fileRef = CD0AB8291829025B00385CB9 /* fullrange.png */; };
+		CD0AB82D1829025B00385CB9 /* rangethumb.png in Resources */ = {isa = PBXBuildFile; fileRef = CD0AB82A1829025B00385CB9 /* rangethumb.png */; };
 		CD1134AC17E0277600C56616 /* VCSimpleSnapshot.m in Sources */ = {isa = PBXBuildFile; fileRef = CD1134AA17E0277600C56616 /* VCSimpleSnapshot.m */; };
 		CD12C164170A9067006B13B8 /* menuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CD12C15E170A9067006B13B8 /* menuViewController.m */; };
 		CD12C166170A9067006B13B8 /* Profile.m in Sources */ = {isa = PBXBuildFile; fileRef = CD12C161170A9067006B13B8 /* Profile.m */; };
@@ -990,6 +994,11 @@
 		CD09E0E0170EBC01000BC104 /* menu_snapshot.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = menu_snapshot.png; sourceTree = "<group>"; };
 		CD09E0E1170EBC01000BC104 /* stroke black.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "stroke black.png"; sourceTree = "<group>"; };
 		CD09E0E3170EBC01000BC104 /* menu_visitors.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = menu_visitors.png; sourceTree = "<group>"; };
+		CD0AB825182900CB00385CB9 /* RangeSlider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RangeSlider.h; sourceTree = "<group>"; };
+		CD0AB826182900CB00385CB9 /* RangeSlider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RangeSlider.m; sourceTree = "<group>"; };
+		CD0AB8281829025B00385CB9 /* fillrange.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = fillrange.png; path = "../../../../../../Research/Xcode/demo/CMRangeSlider-master/iPhone/fillrange.png"; sourceTree = "<group>"; };
+		CD0AB8291829025B00385CB9 /* fullrange.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = fullrange.png; path = "../../../../../../Research/Xcode/demo/CMRangeSlider-master/iPhone/fullrange.png"; sourceTree = "<group>"; };
+		CD0AB82A1829025B00385CB9 /* rangethumb.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = rangethumb.png; path = "../../../../../../Research/Xcode/demo/CMRangeSlider-master/iPhone/rangethumb.png"; sourceTree = "<group>"; };
 		CD1134A917E0277600C56616 /* VCSimpleSnapshot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VCSimpleSnapshot.h; sourceTree = "<group>"; };
 		CD1134AA17E0277600C56616 /* VCSimpleSnapshot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VCSimpleSnapshot.m; sourceTree = "<group>"; };
 		CD1134AF17E04DDC00C56616 /* APLMoveMeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = APLMoveMeView.h; path = MoveObject/APLMoveMeView.h; sourceTree = "<group>"; };
@@ -2151,6 +2160,8 @@
 		CD06FBA6173B9A4B007F56E3 /* TrackingSlider */ = {
 			isa = PBXGroup;
 			children = (
+				CD0AB825182900CB00385CB9 /* RangeSlider.h */,
+				CD0AB826182900CB00385CB9 /* RangeSlider.m */,
 				CD06FBA7173B9A4B007F56E3 /* NYPopover.h */,
 				CD06FBA8173B9A4B007F56E3 /* NYPopover.m */,
 				CD06FBA9173B9A4B007F56E3 /* NYSliderPopover.h */,
@@ -2683,6 +2694,9 @@
 		CD50E32D181FBF3C0036A23B /* images */ = {
 			isa = PBXGroup;
 			children = (
+				CD0AB8281829025B00385CB9 /* fillrange.png */,
+				CD0AB8291829025B00385CB9 /* fullrange.png */,
+				CD0AB82A1829025B00385CB9 /* rangethumb.png */,
 				97A55D4C1823C3E700675025 /* ViewProfile */,
 				977853E5182228A900CBB5DB /* MyProfile */,
 				CD877CEF182128EC0067D478 /* Login */,
@@ -4216,6 +4230,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CDC492A71702CEAB00E83DE3 /* InfoPlist.strings in Resources */,
+				CD0AB82D1829025B00385CB9 /* rangethumb.png in Resources */,
 				CDC492AF1702CEAB00E83DE3 /* Default.png in Resources */,
 				CDC492B11702CEAB00E83DE3 /* Default@2x.png in Resources */,
 				CD877CFD18212BAE0067D478 /* Info_background@2x.png in Resources */,
@@ -4454,6 +4469,7 @@
 				977853F0182228A900CBB5DB /* myprofile_addphoto@2x.png in Resources */,
 				CD02C6821755F98D00B1ED6A /* stroke small - blue avatar.png in Resources */,
 				CD02C68817560ED300B1ED6A /* OverlayViewController.xib in Resources */,
+				CD0AB82B1829025B00385CB9 /* fillrange.png in Resources */,
 				CD01781D176199EB00F2AD32 /* cell_selected.png in Resources */,
 				CD09E03C17715A7F004FD9F0 /* ProfileSettings.storyboard in Resources */,
 				CD18AB0717F2E01300A1C7E8 /* bg-bottom@2x.png in Resources */,
@@ -4566,6 +4582,7 @@
 				CD877C761820B06B0067D478 /* Menu_icon_mymatch@2x.png in Resources */,
 				9775A7891813D5DE00BCF28D /* modalButton-selected@2x.png in Resources */,
 				CD877CA21820EF260067D478 /* Logout_btn_active@2x.png in Resources */,
+				CD0AB82C1829025B00385CB9 /* fullrange.png in Resources */,
 				CD252DD0177C4B6B004145A4 /* btn_next.png in Resources */,
 				CD877CE1182114560067D478 /* HistoryChat_item_active.png in Resources */,
 				CD13D43718162F2D00F63F65 /* GPS_Finding_demo.gif in Resources */,
@@ -4816,6 +4833,7 @@
 				CD8AA1F4170C1B2800A97C47 /* NavBarOakClub.m in Sources */,
 				CD8AA1F6170C1B2800A97C47 /* NavConOakClub.m in Sources */,
 				CD8AA1FB170C1B3F00A97C47 /* VCHangOut.m in Sources */,
+				CD0AB827182900CB00385CB9 /* RangeSlider.m in Sources */,
 				CDEEFAF7170D6CCA001F9C36 /* TapDetectingImageView.m in Sources */,
 				CDE5DB361807B46A00A96D78 /* VCSimpleSnapshotSetting.m in Sources */,
 				CDEEFAF8170D6CCA001F9C36 /* ThumbImageView.m in Sources */,
