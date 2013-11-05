@@ -724,6 +724,7 @@ CLLocationManager *locationManager;
             [doneButton sizeToFit];
             doneButton.frame = CGRectMake((doneCell.frame.size.width - doneButton.frame.size.width) / 2, (88 - doneButton.frame.size.height) / 2, doneButton.frame.size.width, doneButton.frame.size.height);
             [doneButton setTitle:@"Done" forState:UIControlStateNormal];
+            [doneButton.titleLabel setFont:FONT_HELVETICANEUE_LIGHT(15.0)];
             [doneButton addTarget:self action:@selector(doneButtonTouched:) forControlEvents:UIControlEventTouchUpInside];
             
             [doneCell addSubview:doneButton];

@@ -694,9 +694,9 @@ UITapGestureRecognizer *tap;
     NSString * s_isFOF= snapshotObj.interested_friend_of_friends?@"1":@"0";
     NSString * s_isFriend= snapshotObj.interested_friends?@"1":@"0";
     NSString *s_hereto = snapshotObj.purpose_of_search;
-    NSString *s_gender = snapshotObj.gender_of_search;
-    NSString *isMale = ([s_gender isEqualToString:value_All] || [s_gender isEqualToString:value_Male])?@"on":@"off";
-    NSString *isFemale = ([s_gender isEqualToString:value_All] || [s_gender isEqualToString:value_Female])?@"on":@"off";
+//    NSString *s_gender = snapshotObj.gender_of_search;
+    NSString *isMale = hasMale?@"on":@"off";//([s_gender isEqualToString:value_All] || [s_gender isEqualToString:value_Male])?@"on":@"off";
+    NSString *isFemale = hasFemale?@"on":@"off";//([s_gender isEqualToString:value_All] || [s_gender isEqualToString:value_Female])?@"on":@"off";
 //    NSString *s_showFOF= [self BoolToString:false];
     //    NSString *s_fromAge = [NSString stringWithFormat:@"%i",fromAge];
 #if ENABLE_DEMO
@@ -731,7 +731,7 @@ UITapGestureRecognizer *tap;
                             @"",key_PriorityList,   //
                             nil];
 #endif
-    
+    NSLog(@"setSnapshot setting params : %@",params);
     [request setParameterEncoding:AFFormURLParameterEncoding];
     [request postPath:URL_setSnapshotSetting parameters:params success:^(__unused AFHTTPRequestOperation *operation, id JSON) {
         NSError *e=nil;

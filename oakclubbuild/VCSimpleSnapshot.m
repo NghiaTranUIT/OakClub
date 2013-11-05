@@ -112,6 +112,7 @@ CGFloat pageHeight;
     currentIndex = 0;
     profileList = [[NSMutableArray alloc] init];
 //    [loadingAnim setHidden:NO];
+    is_loadingProfileList = FALSE;
     [self loadProfileList:^(void){
         [self.imgMyAvatar setImage:appDel.myProfile.img_Avatar];
         [self loadCurrentProfile];
@@ -129,7 +130,7 @@ CGFloat pageHeight;
     [self stopLoadingAnim];
         loadingView = [[VCSimpleSnapshotLoading alloc]init];
         [loadingView.view setFrame:CGRectMake(0, 0, 320, 480)];
-        [loadingView setTypeOfAlert:1 andAnim:loadingAnim];
+        [loadingView setTypeOfAlert:1 andAnim:nil];
         [self.navigationController pushViewController:loadingView animated:NO];
         /*[self stopLoadingAnim];
         UIAlertView *alert = [[UIAlertView alloc]
