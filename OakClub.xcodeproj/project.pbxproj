@@ -158,9 +158,6 @@
 		CD09E0F2170EBC01000BC104 /* stroke black.png in Resources */ = {isa = PBXBuildFile; fileRef = CD09E0E1170EBC01000BC104 /* stroke black.png */; };
 		CD09E0F4170EBC01000BC104 /* menu_visitors.png in Resources */ = {isa = PBXBuildFile; fileRef = CD09E0E3170EBC01000BC104 /* menu_visitors.png */; };
 		CD0AB827182900CB00385CB9 /* RangeSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = CD0AB826182900CB00385CB9 /* RangeSlider.m */; };
-		CD0AB82B1829025B00385CB9 /* fillrange.png in Resources */ = {isa = PBXBuildFile; fileRef = CD0AB8281829025B00385CB9 /* fillrange.png */; };
-		CD0AB82C1829025B00385CB9 /* fullrange.png in Resources */ = {isa = PBXBuildFile; fileRef = CD0AB8291829025B00385CB9 /* fullrange.png */; };
-		CD0AB82D1829025B00385CB9 /* rangethumb.png in Resources */ = {isa = PBXBuildFile; fileRef = CD0AB82A1829025B00385CB9 /* rangethumb.png */; };
 		CD1134AC17E0277600C56616 /* VCSimpleSnapshot.m in Sources */ = {isa = PBXBuildFile; fileRef = CD1134AA17E0277600C56616 /* VCSimpleSnapshot.m */; };
 		CD12C164170A9067006B13B8 /* menuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CD12C15E170A9067006B13B8 /* menuViewController.m */; };
 		CD12C166170A9067006B13B8 /* Profile.m in Sources */ = {isa = PBXBuildFile; fileRef = CD12C161170A9067006B13B8 /* Profile.m */; };
@@ -4237,7 +4234,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				CDC492A71702CEAB00E83DE3 /* InfoPlist.strings in Resources */,
-				CD0AB82D1829025B00385CB9 /* rangethumb.png in Resources */,
 				CDC492AF1702CEAB00E83DE3 /* Default.png in Resources */,
 				CDC492B11702CEAB00E83DE3 /* Default@2x.png in Resources */,
 				CD877CFD18212BAE0067D478 /* Info_background@2x.png in Resources */,
@@ -4476,7 +4472,6 @@
 				977853F0182228A900CBB5DB /* myprofile_addphoto@2x.png in Resources */,
 				CD02C6821755F98D00B1ED6A /* stroke small - blue avatar.png in Resources */,
 				CD02C68817560ED300B1ED6A /* OverlayViewController.xib in Resources */,
-				CD0AB82B1829025B00385CB9 /* fillrange.png in Resources */,
 				CD01781D176199EB00F2AD32 /* cell_selected.png in Resources */,
 				CD09E03C17715A7F004FD9F0 /* ProfileSettings.storyboard in Resources */,
 				CD18AB0717F2E01300A1C7E8 /* bg-bottom@2x.png in Resources */,
@@ -4589,7 +4584,6 @@
 				CD877C761820B06B0067D478 /* Menu_icon_mymatch@2x.png in Resources */,
 				9775A7891813D5DE00BCF28D /* modalButton-selected@2x.png in Resources */,
 				CD877CA21820EF260067D478 /* Logout_btn_active@2x.png in Resources */,
-				CD0AB82C1829025B00385CB9 /* fullrange.png in Resources */,
 				CD252DD0177C4B6B004145A4 /* btn_next.png in Resources */,
 				CD877CE1182114560067D478 /* HistoryChat_item_active.png in Resources */,
 				CD13D43718162F2D00F63F65 /* GPS_Finding_demo.gif in Resources */,
