@@ -17,6 +17,7 @@
 #import "VCLogout.h"
 #import <MessageUI/MessageUI.h>
 #import <MessageUI/MFMailComposeViewController.h>
+#import "RangeSlider.h"
 
 @interface VCSimpleSnapshotSetting (){
     SettingObject* snapshotObj;
@@ -33,13 +34,14 @@
 }
 @property (nonatomic) NSUInteger hereTo;
 @property NYSliderPopover *rangeSlider;
+@property RangeSlider* ageSlider;
 @property (weak,nonatomic) IBOutlet VCLogout* logoutViewController;
 @end
 
 @implementation VCSimpleSnapshotSetting
 
 UITapGestureRecognizer *tap;
-@synthesize lblRange,pickerAge, btnAdvance;
+@synthesize lblRange,pickerAge, btnAdvance,lblRangeOfAge;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -66,6 +68,8 @@ UITapGestureRecognizer *tap;
 //    self.tableView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"bg.png"]];
     appDel = [self appDelegate];
      [self showNotifications];
+    
+    [self initAgeRangeSlider];
 }
 
 -(void)viewDidAppear:(BOOL)animated{
@@ -138,6 +142,9 @@ UITapGestureRecognizer *tap;
             break;
         case MoreGroup:
             rowHeight = 300;
+            break;
+        case AgeGroup:
+            rowHeight = 80;
             break;
         default:
             rowHeight = 44;
@@ -235,9 +242,31 @@ UITapGestureRecognizer *tap;
             }
             break;
         case AgeGroup:
-            cell.detailTextLabel.text = [NSString stringWithFormat:@"%d-%d %@",fromAge,toAge,[NSString localizeString:@"year old"]];
-            cell.textLabel.text = @"Age around";
+//            cell.detailTextLabel.text = [NSString stringWithFormat:@"%d-%d %@",fromAge,toAge,[NSString localizeString:@"year old"]];
+//            cell.textLabel.text = @"Age around";
+        {
+            static NSString *rangeAgeCellID = @"RangeAgeCell";
+            UITableViewCell *rangeAgeCell = [tableView dequeueReusableCellWithIdentifier:rangeAgeCellID];
+            if (rangeAgeCell == nil)
+            {
+                rangeAgeCell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:rangeAgeCellID];
+                UIView *newCellView= [[UIView alloc]initWithFrame:CGRectMake(0, 0, 320, 80)];
+                lblRangeOfAge = [[UILabel alloc]initWithFrame:CGRectMake(30, 0, 280, 30)];
+                [lblRangeOfAge setText: [NSString stringWithFormat: @"%d to %d years old",fromAge,toAge]];
+                lblRangeOfAge.textAlignment = NSTextAlignmentCenter;
+                //                [lblRange setTextColor:[UIColor blackColor]];
+                [lblRangeOfAge setBackgroundColor:[UIColor clearColor]];
+                [lblRangeOfAge setFont:FONT_HELVETICANEUE_LIGHT(15.0)];
+                [newCellView addSubview:self.ageSlider];
+                [newCellView addSubview:lblRangeOfAge];
+                
+                [rangeAgeCell setSelectionStyle:UITableViewCellSelectionStyleNone];
+                rangeAgeCell.accessoryView = newCellView;
+            }
+            
+            return rangeAgeCell;
             break;
+        }
         case GenderSearchGroup:
             /*
             if (row == 0 && ([snapshotObj.gender_of_search isEqualToString:value_Male] || [snapshotObj.gender_of_search isEqualToString:value_All]))
@@ -557,7 +586,7 @@ UITapGestureRecognizer *tap;
             }
                 
             break;
-        case AgeGroup:
+/*        case AgeGroup:
             {
                 [self.tableView scrollToNearestSelectedRowAtScrollPosition:UITableViewScrollPositionMiddle animated:YES];
                 
@@ -583,6 +612,7 @@ UITapGestureRecognizer *tap;
                 
             }
             break;
+ */
     }
     [self.tableView reloadData];
 }
@@ -959,4 +989,48 @@ UITapGestureRecognizer *tap;
     }
     [self.tableView reloadData];
 }
+
+#pragma mark Range of Age slider
+-(void)initAgeRangeSlider{
+    self.ageSlider = [[RangeSlider alloc] initWithFrame:CGRectMake(30, 40, 280, 23)]; // the slider enforces a height of 30, although I'm not sure that this is necessary
+	
+	self.ageSlider.minimumRangeLength = 0;//.03; // this property enforces a minimum range size. By default it is set to 0.0
+    self.ageSlider.min =(CGFloat) (18 - MIN_AGE)/(MAX_AGE-MIN_AGE);
+    self.ageSlider.max = (CGFloat) (45 - MIN_AGE)/(MAX_AGE-MIN_AGE);
+
+	[self.ageSlider setMinThumbImage:[UIImage imageNamed:@"rangethumb.png"]]; // the two thumb controls are given custom images
+	[self.ageSlider setMaxThumbImage:[UIImage imageNamed:@"rangethumb.png"]];
+	
+	UIImage *image; // there are two track images, one for the range "track", and one for the filled in region of the track between the slider thumbs
+	
+	[self.ageSlider setTrackImage:[[UIImage imageNamed:@"fullrange.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(9.0, 9.0, 9.0, 9.0)]];
+	
+	image = [UIImage imageNamed:@"fillrange.png"];
+	[self.ageSlider setInRangeTrackImage:image];
+    
+	
+	[self.ageSlider addTarget:self action:@selector(report:) forControlEvents:UIControlEventValueChanged]; // The slider sends actions when the value of the minimum or maximum changes
+	[self.ageSlider addTarget:self action:@selector(touchDownOnSlider:) forControlEvents:UIControlEventTouchDown ];
+    [self.ageSlider addTarget:self action:@selector(touchUpOnSlider:) forControlEvents:UIControlEventTouchUpInside ];
+	
+//	reportLabel = [[UILabel alloc] initWithFrame:CGRectMake(5, 30, 310, 30)]; // a label to see the values of the slider in this demo
+//	reportLabel.adjustsFontSizeToFitWidth = YES;
+//	reportLabel.textAlignment = NSTextAlignmentCenter;
+//	[window addSubview:reportLabel];
+//	NSString *report = [NSString stringWithFormat:@"current slider range is %f to %f", slider.min, slider.max];
+//	reportLabel.text = report;
+    fromAge = 18;
+    toAge = 45;
+}
+
+- (void)report:(RangeSlider *)sender {
+	NSString *report = [NSString stringWithFormat:@"current slider range is %f to %f", sender.min, sender.max];
+//	reportLabel.text = report;
+    fromAge = MIN_AGE + (sender.min * (MAX_AGE - MIN_AGE));
+    toAge = MIN_AGE + (sender.max * (MAX_AGE - MIN_AGE));
+    [lblRangeOfAge setText: [NSString stringWithFormat: @"%d to %d years old",fromAge,toAge]];
+	NSLog(@"%@",report);
+}
+
+
 @end

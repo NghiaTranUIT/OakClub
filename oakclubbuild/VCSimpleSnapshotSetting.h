@@ -12,6 +12,7 @@
 @interface VCSimpleSnapshotSetting : UITableViewController<UITableViewDelegate,ListForChooseDelegate, UIPickerViewDataSource, UIPickerViewDelegate, UIAlertViewDelegate>
 
 @property UILabel *lblRange;
+@property UILabel *lblRangeOfAge;
 @property (weak, nonatomic) UIPickerView *pickerAge;
 @property (weak, nonatomic) IBOutlet UILabel *btnAdvance;
 @property (strong, nonatomic) IBOutlet VCLogout *logoutController;
