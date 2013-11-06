@@ -78,7 +78,6 @@ CGFloat pageHeight;
     locUpdate = [[LocationUpdate alloc] init];
     locUpdate.delegate = self;
     [appDel.appLCObservers addObject:self];
-    appDel.reloadSnapshot = TRUE;
     [locUpdate update];
     
     [self loadHeaderLogo];
@@ -201,7 +200,10 @@ CGFloat pageHeight;
     if(is_loadingProfileList)
         return;
     is_loadingProfileList = TRUE;
-    [self startLoadingAnim];
+    if (!isLoading)
+    {
+        [self startLoadingAnim];
+    }
     request = [[AFHTTPClient alloc] initWithOakClubAPI:DOMAIN];
     NSDictionary *params = [[NSDictionary alloc]initWithObjectsAndKeys:@"0",@"start",@"35",@"limit", nil];
     [request getPath:URL_getSnapShot parameters:params success:^(__unused AFHTTPRequestOperation *operation, id JSON)
@@ -722,7 +724,6 @@ CGFloat pageHeight;
     [self loadLikeMeList];
     //load profile list if needed
     
-    [locUpdate update];
 //    currentIndex = 0;
 //    currentIndex = [[[NSUserDefaults standardUserDefaults] objectForKey:@"snapshotIndex"] integerValue];
 //    if ([[NSUserDefaults standardUserDefaults] objectForKey:@"snapshotIndex"] == nil)
@@ -1079,11 +1080,8 @@ CGFloat pageHeight;
 
 -(void)location:(LocationUpdate *)location updateSuccessWithID:(NSString *)locationID andName:(NSString *)name
 {
-    if(false && appDel.reloadSnapshot)
-    {
-        [self refreshSnapshot];
-        appDel.reloadSnapshot = FALSE;
-    }
+    [self refreshSnapshot];
+    appDel.reloadSnapshot = FALSE;
 }
 
 #pragma mark App life cycle delegate
@@ -1092,6 +1090,10 @@ CGFloat pageHeight;
     if (isBlockedByGPS)
     {
         [self stopDisabledGPS];
+    }
+    if (!isLoading)
+    {
+        [self startLoadingAnim];
     }
     
     [locUpdate update];
