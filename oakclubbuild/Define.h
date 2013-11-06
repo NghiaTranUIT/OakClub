@@ -53,14 +53,14 @@
 #define URL_getHangoutProfile @"service/getHangoutProfile"
 #define URl_setHangoutProfile @"service/setHangoutProfile"
 #define URL_me @"service/me"
-#define URL_searchByLocation @"service/searchByLocation"
-#define URL_setBidFeature @"service/setBidFeature"
+#define URL_searchByLocation @"service/searchByLocation" //unused
+#define URL_setBidFeature @"service/setBidFeature"//unused
 #define URL_getAccountSetting @"service/getAccountSetting"
-#define URL_getListWhoFavoritedMe @"service/getListWhoFavoritedMe"
-#define URL_getListWhoWantsToMeetMe @"service/getListWhoWantsToMeetMe"
-#define URL_getListWhoCheckedMeOut @"service/getListWhoCheckedMeOut"
-#define URL_getListMyFavorites @"service/getListMyFavorites"
-#define URL_getListFeature @"service/getListFeature"
+#define URL_getListWhoFavoritedMe @"service/getListWhoFavoritedMe" // unused
+#define URL_getListWhoWantsToMeetMe @"service/getListWhoWantsToMeetMe" // unused
+#define URL_getListWhoCheckedMeOut @"service/getListWhoCheckedMeOut" // unused
+#define URL_getListMyFavorites @"service/getListMyFavorites" // unused
+#define URL_getListFeature @"service/getListFeature" // unused
 //#define URL_getListMutualMatch @"service/getListMutualAttractions"
 #define URL_getListIWantToMeet @"service/getListIWantToMeet"
 #define URL_getSnapShot @"service/getSnapshot"
@@ -69,21 +69,20 @@
 #define URL_setSnapshotSetting @"service/setSnapshotSetting"
 #define URL_chat_post @"service/chat/post"
 #define URL_getHistoryMessages @"service/getHistoryMessages"
-#define URL_deleteHangoutProfile @"service/deleteHangoutProfile"
-#define URL_getDetailMutualFriends @"service/getDetailMutualFriends"
-#define URL_getMutualInfo @"service/getMutualInfo"
+#define URL_deleteHangoutProfile @"service/deleteHangoutProfile" // delete history chatting messages.
+#define URL_getDetailMutualFriends @"service/getDetailMutualFriends" // unused
+#define URL_getMutualInfo @"service/getMutualInfo"// unused
 #define URL_getListCountry @"service/getListCountry"
 #define URL_getListPhotos @"service/getListPhotos"
 #define URL_getListCityByCountry @"service/getListCityByCountry"
 #define URL_getListLangRelWrkEth @"service/getListLangRelWrkEth"
-#define URL_getListMaybeIWantToMeet @"service/getListMaybe"
-#define URL_getMutualInfo @"service/getMutualInfo"
-#define URL_addToMyFavorite @"service/addToMyFavorite"
-#define URL_removeMyFavorite @"service/removeMyFavorite"
-#define URL_unBlockHangoutProfile @"service/unBlockHangoutProfile"
+#define URL_getListMaybeIWantToMeet @"service/getListMaybe" // unused
+#define URL_addToMyFavorite @"service/addToMyFavorite" //unused
+#define URL_removeMyFavorite @"service/removeMyFavorite" //unsed
+#define URL_unBlockHangoutProfile @"service/unBlockHangoutProfile" //unused
 #define URL_blockHangoutProfile @"service/blockHangoutProfile"
-#define URL_setIWantToMeet @"service/setIWantToMeet"
-#define URL_getListBlocking @"service/getListBlocking"
+#define URL_setIWantToMeet @"service/setIWantToMeet" // unused
+#define URL_getListBlocking @"service/getListBlocking" //unused
 #define URL_getListChat @"service/getListChat"
 #define URL_getListWhoLikeMe @"service/getListWhoLikeMe"
 #define URL_getListMutualMatch @"service/getListMutualMatch"

@@ -509,29 +509,30 @@ static CGFloat padding_left = 5.0;
 //- (void)viewWillDisappear:(BOOL)animated{
 //    [self.navigationController setNavigationBarHidden:NO];
 //}
--(void)checkAddedToFavorite{
-    [btnAddToFavorite setSelected:NO];
-    [request getPath:URL_getListMyFavorites parameters:nil success:^(__unused AFHTTPRequestOperation *operation, id JSON) {
-        NSMutableArray *_arrProfile = [[NSMutableArray alloc] init];
-        NSError *e=nil;
-        NSMutableDictionary *dict = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONReadingMutableContainers error:&e];
-        NSMutableArray * data= [dict valueForKey:key_data];
-        if(![data isKindOfClass:[NSNull class]]){
-            for (int i = 0; i < [data count]; i++) {
-                NSMutableDictionary *objectData = [data objectAtIndex:i];
-                NSString * temp = [objectData valueForKey:key_profileID];
-                if([currentProfile.s_ID isEqualToString: temp]){
-                    [btnAddToFavorite setSelected:YES];
-                    [self.btnLike setSelected:YES];
-                    return;
-                }
-            }
-        }
-       
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"Error Code: %i - %@",[error code], [error localizedDescription]);
-    }];
-}
+
+//-(void)checkAddedToFavorite{
+//    [btnAddToFavorite setSelected:NO];
+//    [request getPath:URL_getListMyFavorites parameters:nil success:^(__unused AFHTTPRequestOperation *operation, id JSON) {
+//        NSMutableArray *_arrProfile = [[NSMutableArray alloc] init];
+//        NSError *e=nil;
+//        NSMutableDictionary *dict = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONReadingMutableContainers error:&e];
+//        NSMutableArray * data= [dict valueForKey:key_data];
+//        if(![data isKindOfClass:[NSNull class]]){
+//            for (int i = 0; i < [data count]; i++) {
+//                NSMutableDictionary *objectData = [data objectAtIndex:i];
+//                NSString * temp = [objectData valueForKey:key_profileID];
+//                if([currentProfile.s_ID isEqualToString: temp]){
+//                    [btnAddToFavorite setSelected:YES];
+//                    [self.btnLike setSelected:YES];
+//                    return;
+//                }
+//            }
+//        }
+//       
+//    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+//        NSLog(@"Error Code: %i - %@",[error code], [error localizedDescription]);
+//    }];
+//}
 
 -(void)checkAddedToBlockList{
     [btnBlock setSelected:NO];
@@ -840,6 +841,7 @@ static CGFloat padding_left = 5.0;
     else
        [self.btnLike setSelected:NO];
 }
+
 -(IBAction)onTouchWantToMeet:(id)sender{
     // add to want to meet list
     UIButton *btnpop= sender;

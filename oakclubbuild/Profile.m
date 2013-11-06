@@ -734,7 +734,7 @@
     
     return operation;
 }
-
+/*
 +(void) countMutualFriends:(NSString*)profileID callback:(void(^)(NSString*))handler
 {
     NSLog(@"profileID : %@",profileID);
@@ -755,7 +755,7 @@
         NSLog(@"Error Code: %i - %@",[error code], [error localizedDescription]);
     }];
 }
-
+*/
 - (void) SaveSetting{
     NSString * name = self.s_Name;
     NSString *gender = [NSString stringWithFormat:@"%i",self.s_gender.ID];
@@ -1002,4 +1002,26 @@
     }];
 
 }
+
+-(void)setViewedMatchMutualWithFriend:(Profile*)friend{
+    AFHTTPClient* httpClient = [[AFHTTPClient alloc]initWithOakClubAPI:DOMAIN];
+    NSDictionary *params = [[NSDictionary alloc]initWithObjectsAndKeys:friend.s_ID,key_profileID, nil];
+    [httpClient setParameterEncoding:AFFormURLParameterEncoding];
+    [httpClient postPath:URL_setViewedMatchMutual parameters:params success:^(__unused AFHTTPRequestOperation *operation, id JSON) {
+        NSError *e=nil;
+        NSMutableDictionary *dict = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONReadingMutableContainers error:&e];
+        BOOL status= [[dict valueForKey:key_status] boolValue];
+        if(status){
+            friend.is_match = true;
+            NSLog(@"POST READ-MESSAGES SUCCESS!!!");
+        }
+        else
+            NSLog(@"POST READ-MESSAGES FAIL...");
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"Error Code: %i - %@",[error code], [error localizedDescription]);
+    }];
+    
+}
+
 @end

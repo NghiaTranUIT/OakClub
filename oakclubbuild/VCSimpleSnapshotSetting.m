@@ -995,17 +995,17 @@ UITapGestureRecognizer *tap;
     self.ageSlider = [[RangeSlider alloc] initWithFrame:CGRectMake(30, 40, 280, 23)]; // the slider enforces a height of 30, although I'm not sure that this is necessary
 	
 	self.ageSlider.minimumRangeLength = 0;//.03; // this property enforces a minimum range size. By default it is set to 0.0
-    self.ageSlider.min =(CGFloat) (18 - MIN_AGE)/(MAX_AGE-MIN_AGE);
+//    self.ageSlider.min =(CGFloat) (18 - MIN_AGE)/(MAX_AGE-MIN_AGE);
     self.ageSlider.max = (CGFloat) (45 - MIN_AGE)/(MAX_AGE-MIN_AGE);
 
-	[self.ageSlider setMinThumbImage:[UIImage imageNamed:@"rangethumb.png"]]; // the two thumb controls are given custom images
-	[self.ageSlider setMaxThumbImage:[UIImage imageNamed:@"rangethumb.png"]];
-	
+	[self.ageSlider setMinThumbImage:[UIImage imageNamed:@"SnapshotSetting_thumb_slider.png"]]; // the two thumb controls are given custom images
+	[self.ageSlider setMaxThumbImage:[UIImage imageNamed:@"SnapshotSetting_thumb_slider.png"]];
+	[self.ageSlider setMin:(CGFloat) (18 - MIN_AGE)/(MAX_AGE-MIN_AGE)];
 	UIImage *image; // there are two track images, one for the range "track", and one for the filled in region of the track between the slider thumbs
 	
-	[self.ageSlider setTrackImage:[[UIImage imageNamed:@"fullrange.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(9.0, 9.0, 9.0, 9.0)]];
+	[self.ageSlider setTrackImage:[[UIImage imageNamed:@"SnapshotSetting_fullrange_slider.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(9.0, 9.0, 9.0, 9.0)]];
 	
-	image = [UIImage imageNamed:@"fillrange.png"];
+	image = [UIImage imageNamed:@"SnapshotSetting_fillrange_slider.png"];
 	[self.ageSlider setInRangeTrackImage:image];
     
 	

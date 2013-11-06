@@ -236,7 +236,8 @@ CGFloat pageHeight;
                  [profile.arr_photos replaceObjectAtIndex:0 withObject:image];
              }];
             [operation start];
-            if(profile.numberMutualFriends == -1)
+            // Vanancy - update mutual friends/likes count here
+            /*if(profile.numberMutualFriends == -1)
             {
                 NSDictionary *params = [[NSDictionary alloc]initWithObjectsAndKeys:profile.s_ID,@"str_profile_id", nil];
                 
@@ -262,6 +263,7 @@ CGFloat pageHeight;
                     NSLog(@"Error Code: %i - %@",[error code], [error localizedDescription]);
                 }];
             }
+             */
         }
         if(handler != nil)
             handler();

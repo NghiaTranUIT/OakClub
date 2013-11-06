@@ -69,9 +69,7 @@ NSString *const kXMPPmyPassword = @"kXMPPmyPassword";
 @synthesize loginView = _loginView;
 @synthesize flashIntro = _flashIntro;
 @synthesize confirmVC = _confirmVC;
-@synthesize myLink = _myLink;
 @synthesize chat = _chat;
-@synthesize snapShoot = _snapShoot;
 #if ENABLE_DEMO
 @synthesize simpleSnapShot = _simpleSnapShot;
 @synthesize snapShotSettings = _snapShotSettings;
@@ -79,11 +77,9 @@ NSString *const kXMPPmyPassword = @"kXMPPmyPassword";
 // multi language
 @synthesize languageBundle = _languageBundle;
 #endif
-@synthesize visitor = _visitor;
 @synthesize rootVC = _rootVC;
-@synthesize hangOut = _hangOut;
 @synthesize myProfileVC = _myProfileVC;
-@synthesize getPoints = _getPoints;
+//@synthesize getPoints = _getPoints;
 
 @synthesize friendChatList;
 @synthesize accountSetting;
@@ -134,42 +130,22 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    [self changeFontStyle];
 
     self.appLCObservers = [[NSMutableArray alloc] init];
-//    NSURL *url = [NSURL URLWithString:@"http://httpbin.org/ip"];
-//    NSURLRequest *request = [NSURLRequest requestWithURL:url];
-    
     _messageDelegate = nil;
    
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
     self.window.backgroundColor = [UIColor whiteColor];
-
-   
-    
-//    menuViewController *leftController = [[menuViewController alloc] init];
-
-    
-//    UIViewController * test = [[VCHangoutSetting alloc] initWithNibName:@"VCHangoutSetting" bundle:nil];
-//    self.window.rootViewController = test;
+    //Vanancy - add flag for reload data in Snapshot
     self.reloadSnapshot = FALSE;
     
+    //load first screen of Application.
     self.flashIntro = [[FlashIntro alloc] init];
     [self.flashIntro.view setFrame:CGRectMake(0, 0, self.window.frame.size.width, self.window.frame.size.height)];
     self.window.rootViewController = self.flashIntro;
     [self.window makeKeyAndVisible];
 
-//    BOOL hasInternet = [self checkInternetConnection];
-//    // See if we have a valid token for the current state.
-//    if (hasInternet && (FBSession.activeSession.state == FBSessionStateCreatedTokenLoaded || FBSession.activeSession.state == FBSessionStateOpen)) {
-//        // To-do, show logged in view
-//        [self.loginView startSpinner];
-//        [self openSession];
-//    } else {
-//        // No, display the login page.
-//        [self showLoginView];
-//    }
     
     [[UIApplication sharedApplication] registerForRemoteNotificationTypes:
      (UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeBadge)];
@@ -202,18 +178,13 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
 
 -(void)loadAllViewControllers{
     self.chat = [self createNavigationByClass:@"VCChat" AndHeaderName:@"Chat History" andRightButton:nil andIsStoryBoard:NO];
-    self.myLink = [self createNavigationByClass:@"VCMyLink" AndHeaderName:@"My Links" andRightButton:nil andIsStoryBoard:NO];
-    self.snapShoot = [self createNavigationByClass:@"VCSnapshoot" AndHeaderName:@"Snapshot" andRightButton:@"SnapshotSetting" andIsStoryBoard:YES];
-#if ENABLE_DEMO
+
     self.simpleSnapShot = [self createNavigationByClass:@"VCSimpleSnapshot" AndHeaderName:nil/*[NSString localizeString:@"Snapshot"]*/ andRightButton:@"VCChat" andIsStoryBoard:NO];
     //     self.snapShotSettings = [self.storyboard instantiateViewControllerWithIdentifier:@"SnapshotSettings"];
     self.snapShotSettings = [self createNavigationByClass:@"VCSimpleSnapshotSetting" AndHeaderName:[NSString localizeString:@"Setting"] andRightButton:@"VCChat" andIsStoryBoard:NO];
-    self.mutualMatches = [self createNavigationByClass:@"VCMutualMatch" AndHeaderName:[NSString localizeString:@"Mutual Matches"] andRightButton:nil andIsStoryBoard:NO];
-#endif
-    self.visitor = [self createNavigationByClass:@"VCVisitor" AndHeaderName:@"Visitors" andRightButton:nil andIsStoryBoard:NO];
-    self.hangOut = [self createNavigationByClass:@"VCHangOut" AndHeaderName:@"Meet people around" andRightButton:@"HangoutSetting" andIsStoryBoard:YES];
+//    self.mutualMatches = [self createNavigationByClass:@"VCMutualMatch" AndHeaderName:[NSString localizeString:@"Mutual Matches"] andRightButton:nil andIsStoryBoard:NO];
     self.myProfileVC = [self createNavigationByClass:@"VCMyProfile" AndHeaderName:[NSString localizeString:@"Edit Profile"] andRightButton:@"VCChat" andIsStoryBoard:NO];
-    self.getPoints = [self createNavigationByClass:@"VCGetPoints" AndHeaderName:@"Get Coins" andRightButton:nil andIsStoryBoard:NO];
+//    self.getPoints = [self createNavigationByClass:@"VCGetPoints" AndHeaderName:@"Get Coins" andRightButton:nil andIsStoryBoard:NO];
     self.confirmVC = [[ConfirmViewController alloc] initWithNibName:@"VCMyProfile" bundle:nil];
     // PKRevealController
 #if ENABLE_DEMO
@@ -237,12 +208,6 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
     NSMutableURLRequest *request = [httpClient multipartFormRequestWithMethod:@"POST" path:@"/upload" parameters:nil constructingBodyWithBlock: ^(id <AFMultipartFormData>formData) {
         [formData appendPartWithFileData:imageData name:@"MainMedia" fileName:@"MainMedia" mimeType:@"image/jpeg"];
     }];
-    
-//    AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
-//    [operation setUploadProgressBlock:^(NSInteger bytesWritten, long long totalBytesWritten, long long totalBytesExpectedToWrite) {
-//        NSLog(@"Sent %lld of %lld bytes", totalBytesWritten, totalBytesExpectedToWrite);
-//    }];
-//    [operation start];
 }
 -(IBAction)uploadButtonClicked:(id)sender
 {
@@ -334,6 +299,9 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+    //Vanancy - check for sure internet connection always work in app
+    [self checkInternetConnection];
+    
     [FBSession.activeSession handleDidBecomeActive];
     
     for (id<AppLifeCycleDelegate> appLCDel in self.appLCObservers)
@@ -358,10 +326,7 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
 {
     return activeVC;
 }
--(void)changeFontStyle{
-//     [[UILabel appearance] setFont:FONT_NOKIA(17.0)];
-//    [[UILabel appearance] setAdjustsFontSizeToFitWidth:YES];
-}
+
 -(void)showChat {
 //    [self.rootVC setRootController:self.chat animated:YES];
 //    [self.rootVC setContentViewController:self.chat snapToContentViewController:YES animated:YES];
@@ -401,54 +366,14 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
     }];
 }
 #endif
--(void)showSnapshoot {
-//    [self.rootVC setRootController:self.snapShoot animated:YES];
-//    [self.rootVC setContentViewController:self.snapShoot snapToContentViewController:YES animated:YES];
-    activeVC = _snapShoot;
-    [self.rootVC setFrontViewController:self.snapShoot focusAfterChange:YES completion:^(BOOL finished) {
-        
-    }];
-}
 
-
-
--(void)showMylink {
-//    [self.rootVC setRootController:self.myLink animated:YES];
-//    [self.rootVC setContentViewController:self.myLink snapToContentViewController:YES animated:YES];
-    activeVC = _myLink;
-    [self.rootVC setFrontViewController:self.myLink focusAfterChange:YES completion:^(BOOL finished) {
-        
-    }];
-}
-
--(void)showVisitor {
-//    [self.rootVC setRootController:self.visitor animated:YES];
-//    [self.rootVC setContentViewController:self.visitor snapToContentViewController:YES animated:YES];
-    activeVC = _visitor;
-    [self.rootVC setFrontViewController:self.visitor focusAfterChange:YES completion:^(BOOL finished) {
-        
-    }];
-}
-
--(void)showHangOut {
-//    [self.rootVC setRootController:self.hangOut animated:YES];
-//    [self.rootVC setContentViewController:self.hangOut snapToContentViewController:YES animated:YES];
-    activeVC = _hangOut;
-    [self.rootVC setFrontViewController:self.hangOut focusAfterChange:YES completion:^(BOOL finished) {
-        
-    }];
-}
 -(void)showMyProfile {
     activeVC = _myProfileVC;
     [[self.myProfileVC.viewControllers objectAtIndex:0] setDefaultEditProfile:self.myProfile];
     [self.rootVC setFrontViewController:self.myProfileVC focusAfterChange:YES completion:^(BOOL finished) {
     }];
 }
--(void)showGetPoints {
-    activeVC = _getPoints;
-    [self.rootVC setFrontViewController:self.getPoints focusAfterChange:YES completion:^(BOOL finished) {
-    }];
-}
+
 - (NSDictionary*)parseURLParams:(NSString *)query {
     NSArray *pairs = [query componentsSeparatedByString:@"&"];
     NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
@@ -468,31 +393,12 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
                                                   NSDictionary* result,
                                                   NSError *error) {
         NSArray* friends = [result objectForKey:@"data"];
-//        NSLog(@"Found: %i friends", friends.count);
-       
         for (NSDictionary<FBGraphUser>* friend in friends) {
             if([[friend objectForKey:@"installed"] integerValue]==0)
                 [suggestedFriends addObject:friend.id];
-//            NSLog(@"I have a friend named %@ with id %@", [[friend objectForKey:@"installed"] integerValue]==1?@"true":@"false", friend.id);
         }
-//        NSArray *friendIDs = [friends collect:^id(NSDictionary<FBGraphUser>* friend) {
-//            return friend.id;
-//        }];
-        
+ 
     }];
-//    NSData *jsonData = [NSJSONSerialization
-//                        dataWithJSONObject:@{
-//                        @"social_karma": @"5",
-//                        @"badge_of_awesomeness": @"1"}
-//                        options:0
-//                        error:&error];
-//    if (!jsonData) {
-//        NSLog(@"JSON error: %@", error);
-//        return;
-//    }
-//    NSString *giftStr = [[NSString alloc]
-//                         initWithData:jsonData
-//                         encoding:NSUTF8StringEncoding];
     NSMutableDictionary* params = [NSMutableDictionary dictionaryWithObjectsAndKeys:
                                    [suggestedFriends componentsJoinedByString:@","], @"to",
                                    nil];

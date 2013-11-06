@@ -370,7 +370,7 @@ int indexAvatarSelected;
             [cell.thumbnail setImage:image];
         }
 //    }
-    
+/*
     if(_profile.numberMutualFriends == -1)
     {
         NSDictionary *params = [[NSDictionary alloc]initWithObjectsAndKeys:_profile.s_ID,@"str_profile_id", nil];
@@ -402,7 +402,7 @@ int indexAvatarSelected;
     {
         [cell setMutualFriends:_profile.numberMutualFriends];
     }
-
+*/
     CGRect rect = cell.frame;
 //    if(rowIndex*NUMBER_COLUMN_HANGOUT + columnIndex == [tb_NearBy.arrayProfile count]-1){
 //        [self reloadDataSourceForNearByTableView];

@@ -152,5 +152,6 @@
 -(NSString*)languagesDescription;
 
 -(void)resetUnreadMessageWithFriend:(Profile*)friend;
+-(void)setViewedMatchMutualWithFriend:(Profile*)friend;
 -(void) getRosterListIDSync;
 @end

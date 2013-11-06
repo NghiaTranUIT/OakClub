@@ -113,6 +113,9 @@
 		CD005D64181267F000238920 /* wacky.png in Resources */ = {isa = PBXBuildFile; fileRef = CD005D40181267F000238920 /* wacky.png */; };
 		CD005D65181267F000238920 /* wink.png in Resources */ = {isa = PBXBuildFile; fileRef = CD005D41181267F000238920 /* wink.png */; };
 		CD01781D176199EB00F2AD32 /* cell_selected.png in Resources */ = {isa = PBXBuildFile; fileRef = CD01781C176199EB00F2AD32 /* cell_selected.png */; };
+		CD025DB61829F760007CBEDA /* SnapshotSetting_fillrange_slider@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CD025DB31829F760007CBEDA /* SnapshotSetting_fillrange_slider@2x.png */; };
+		CD025DB71829F760007CBEDA /* SnapshotSetting_fullrange_slider@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CD025DB41829F760007CBEDA /* SnapshotSetting_fullrange_slider@2x.png */; };
+		CD025DB81829F760007CBEDA /* SnapshotSetting_thumb_slider@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CD025DB51829F760007CBEDA /* SnapshotSetting_thumb_slider@2x.png */; };
 		CD02C67B1755F98D00B1ED6A /* AddMeHere_arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = CD02C6711755F98D00B1ED6A /* AddMeHere_arrow.png */; };
 		CD02C67C1755F98D00B1ED6A /* AddMeHere_BG.png in Resources */ = {isa = PBXBuildFile; fileRef = CD02C6721755F98D00B1ED6A /* AddMeHere_BG.png */; };
 		CD02C67D1755F98D00B1ED6A /* AddMeHere_Close.png in Resources */ = {isa = PBXBuildFile; fileRef = CD02C6731755F98D00B1ED6A /* AddMeHere_Close.png */; };
@@ -158,9 +161,6 @@
 		CD09E0F2170EBC01000BC104 /* stroke black.png in Resources */ = {isa = PBXBuildFile; fileRef = CD09E0E1170EBC01000BC104 /* stroke black.png */; };
 		CD09E0F4170EBC01000BC104 /* menu_visitors.png in Resources */ = {isa = PBXBuildFile; fileRef = CD09E0E3170EBC01000BC104 /* menu_visitors.png */; };
 		CD0AB827182900CB00385CB9 /* RangeSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = CD0AB826182900CB00385CB9 /* RangeSlider.m */; };
-		CD0AB82B1829025B00385CB9 /* fillrange.png in Resources */ = {isa = PBXBuildFile; fileRef = CD0AB8281829025B00385CB9 /* fillrange.png */; };
-		CD0AB82C1829025B00385CB9 /* fullrange.png in Resources */ = {isa = PBXBuildFile; fileRef = CD0AB8291829025B00385CB9 /* fullrange.png */; };
-		CD0AB82D1829025B00385CB9 /* rangethumb.png in Resources */ = {isa = PBXBuildFile; fileRef = CD0AB82A1829025B00385CB9 /* rangethumb.png */; };
 		CD1134AC17E0277600C56616 /* VCSimpleSnapshot.m in Sources */ = {isa = PBXBuildFile; fileRef = CD1134AA17E0277600C56616 /* VCSimpleSnapshot.m */; };
 		CD12C164170A9067006B13B8 /* menuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CD12C15E170A9067006B13B8 /* menuViewController.m */; };
 		CD12C166170A9067006B13B8 /* Profile.m in Sources */ = {isa = PBXBuildFile; fileRef = CD12C161170A9067006B13B8 /* Profile.m */; };
@@ -944,6 +944,9 @@
 		CD005D40181267F000238920 /* wacky.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = wacky.png; sourceTree = "<group>"; };
 		CD005D41181267F000238920 /* wink.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = wink.png; sourceTree = "<group>"; };
 		CD01781C176199EB00F2AD32 /* cell_selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cell_selected.png; sourceTree = "<group>"; };
+		CD025DB31829F760007CBEDA /* SnapshotSetting_fillrange_slider@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SnapshotSetting_fillrange_slider@2x.png"; sourceTree = "<group>"; };
+		CD025DB41829F760007CBEDA /* SnapshotSetting_fullrange_slider@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SnapshotSetting_fullrange_slider@2x.png"; sourceTree = "<group>"; };
+		CD025DB51829F760007CBEDA /* SnapshotSetting_thumb_slider@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SnapshotSetting_thumb_slider@2x.png"; sourceTree = "<group>"; };
 		CD02C6711755F98D00B1ED6A /* AddMeHere_arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AddMeHere_arrow.png; sourceTree = "<group>"; };
 		CD02C6721755F98D00B1ED6A /* AddMeHere_BG.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AddMeHere_BG.png; sourceTree = "<group>"; };
 		CD02C6731755F98D00B1ED6A /* AddMeHere_Close.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AddMeHere_Close.png; sourceTree = "<group>"; };
@@ -1000,9 +1003,6 @@
 		CD09E0E3170EBC01000BC104 /* menu_visitors.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = menu_visitors.png; sourceTree = "<group>"; };
 		CD0AB825182900CB00385CB9 /* RangeSlider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RangeSlider.h; sourceTree = "<group>"; };
 		CD0AB826182900CB00385CB9 /* RangeSlider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RangeSlider.m; sourceTree = "<group>"; };
-		CD0AB8281829025B00385CB9 /* fillrange.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = fillrange.png; path = "../../../../../../Research/Xcode/demo/CMRangeSlider-master/iPhone/fillrange.png"; sourceTree = "<group>"; };
-		CD0AB8291829025B00385CB9 /* fullrange.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = fullrange.png; path = "../../../../../../Research/Xcode/demo/CMRangeSlider-master/iPhone/fullrange.png"; sourceTree = "<group>"; };
-		CD0AB82A1829025B00385CB9 /* rangethumb.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = rangethumb.png; path = "../../../../../../Research/Xcode/demo/CMRangeSlider-master/iPhone/rangethumb.png"; sourceTree = "<group>"; };
 		CD1134A917E0277600C56616 /* VCSimpleSnapshot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VCSimpleSnapshot.h; sourceTree = "<group>"; };
 		CD1134AA17E0277600C56616 /* VCSimpleSnapshot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VCSimpleSnapshot.m; sourceTree = "<group>"; };
 		CD1134AF17E04DDC00C56616 /* APLMoveMeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = APLMoveMeView.h; path = MoveObject/APLMoveMeView.h; sourceTree = "<group>"; };
@@ -2699,9 +2699,6 @@
 		CD50E32D181FBF3C0036A23B /* images */ = {
 			isa = PBXGroup;
 			children = (
-				CD0AB8281829025B00385CB9 /* fillrange.png */,
-				CD0AB8291829025B00385CB9 /* fullrange.png */,
-				CD0AB82A1829025B00385CB9 /* rangethumb.png */,
 				97A55D4C1823C3E700675025 /* ViewProfile */,
 				977853E5182228A900CBB5DB /* MyProfile */,
 				CD877CEF182128EC0067D478 /* Login */,
@@ -4139,6 +4136,9 @@
 		CDFF63771823564400C8031F /* Setting */ = {
 			isa = PBXGroup;
 			children = (
+				CD025DB31829F760007CBEDA /* SnapshotSetting_fillrange_slider@2x.png */,
+				CD025DB41829F760007CBEDA /* SnapshotSetting_fullrange_slider@2x.png */,
+				CD025DB51829F760007CBEDA /* SnapshotSetting_thumb_slider@2x.png */,
 				CD2DE68818279A9D0043AA91 /* SnapshotSetting_btn_save_active.png */,
 				CD2DE68918279A9D0043AA91 /* SnapshotSetting_btn_save_active@2x.png */,
 				CD2DE68A18279A9D0043AA91 /* SnapshotSetting_btn_save_inactive.png */,
@@ -4237,7 +4237,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				CDC492A71702CEAB00E83DE3 /* InfoPlist.strings in Resources */,
-				CD0AB82D1829025B00385CB9 /* rangethumb.png in Resources */,
 				CDC492AF1702CEAB00E83DE3 /* Default.png in Resources */,
 				CDC492B11702CEAB00E83DE3 /* Default@2x.png in Resources */,
 				CD877CFD18212BAE0067D478 /* Info_background@2x.png in Resources */,
@@ -4389,6 +4388,7 @@
 				CDECD30B1733C3D900A6B17F /* ChatHistoryViewCell.xib in Resources */,
 				CDECD3221733C3E800A6B17F /* background.png in Resources */,
 				CDECD3231733C3E800A6B17F /* button 1.png in Resources */,
+				CD025DB71829F760007CBEDA /* SnapshotSetting_fullrange_slider@2x.png in Resources */,
 				9775A7861813D5DE00BCF28D /* close.png in Resources */,
 				CDECD3241733C3E800A6B17F /* button 2.png in Resources */,
 				CD005D62181267F000238920 /* tongue.png in Resources */,
@@ -4476,7 +4476,6 @@
 				977853F0182228A900CBB5DB /* myprofile_addphoto@2x.png in Resources */,
 				CD02C6821755F98D00B1ED6A /* stroke small - blue avatar.png in Resources */,
 				CD02C68817560ED300B1ED6A /* OverlayViewController.xib in Resources */,
-				CD0AB82B1829025B00385CB9 /* fillrange.png in Resources */,
 				CD01781D176199EB00F2AD32 /* cell_selected.png in Resources */,
 				CD09E03C17715A7F004FD9F0 /* ProfileSettings.storyboard in Resources */,
 				CD18AB0717F2E01300A1C7E8 /* bg-bottom@2x.png in Resources */,
@@ -4530,6 +4529,7 @@
 				CD877CE8182114560067D478 /* HistoryChat_matchup_on@2x.png in Resources */,
 				CD877CA81820EF260067D478 /* Logout_btn_inactive@2x.png in Resources */,
 				CDFEFFD3177048BD0006EC7E /* header_btn_save_pressed.png in Resources */,
+				CD025DB81829F760007CBEDA /* SnapshotSetting_thumb_slider@2x.png in Resources */,
 				CD1301601821FD9700D29E0B /* Snapshot_graypin@2x.png in Resources */,
 				97A55D621823C3E700675025 /* Separators@2x.png in Resources */,
 				CD005D4D181267F000238920 /* emo.png in Resources */,
@@ -4589,7 +4589,6 @@
 				CD877C761820B06B0067D478 /* Menu_icon_mymatch@2x.png in Resources */,
 				9775A7891813D5DE00BCF28D /* modalButton-selected@2x.png in Resources */,
 				CD877CA21820EF260067D478 /* Logout_btn_active@2x.png in Resources */,
-				CD0AB82C1829025B00385CB9 /* fullrange.png in Resources */,
 				CD252DD0177C4B6B004145A4 /* btn_next.png in Resources */,
 				CD877CE1182114560067D478 /* HistoryChat_item_active.png in Resources */,
 				CD13D43718162F2D00F63F65 /* GPS_Finding_demo.gif in Resources */,
@@ -4665,6 +4664,7 @@
 				CD50E361181FBF3C0036A23B /* Snapshot_popup_cancel_pressed.png in Resources */,
 				CDF32A26178180500069FCF7 /* View_Profiles_menu_sub_report_pressed.png in Resources */,
 				CD50E362181FBF3C0036A23B /* Snapshot_popup_cancel_pressed@2x.png in Resources */,
+				CD025DB61829F760007CBEDA /* SnapshotSetting_fillrange_slider@2x.png in Resources */,
 				CDF32A27178180500069FCF7 /* View_Profiles_menu_separation.png in Resources */,
 				CDF32A29178180B70069FCF7 /* View_Profiles_icon heart.png in Resources */,
 				CD41199A1793F11E003850B7 /* RegisterConfirmation.storyboard in Resources */,

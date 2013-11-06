@@ -100,8 +100,6 @@ extern NSString *const SCSessionStateChangedNotification;
 
 @property (strong, nonatomic) UINavigationController *activeVC;
 @property (strong, nonatomic) UINavigationController *chat;
-@property (strong, nonatomic) UINavigationController *myLink;
-@property (strong, nonatomic) UINavigationController *snapShoot;
 #if ENABLE_DEMO
 @property (strong, nonatomic) UINavigationController *snapShotSettings;
 @property (strong, nonatomic) UINavigationController *simpleSnapShot;
@@ -110,10 +108,9 @@ extern NSString *const SCSessionStateChangedNotification;
 @property (strong, nonatomic) NSBundle *languageBundle;
 
 #endif
-@property (strong, nonatomic) UINavigationController *visitor;
-@property (strong, nonatomic) UINavigationController *hangOut;
+
 @property (strong, nonatomic) UINavigationController *myProfileVC;
-@property (strong, nonatomic) UINavigationController *getPoints;
+//@property (strong, nonatomic) UINavigationController *getPoints;
 @property (strong, nonatomic) PKRevealController *rootVC;
 @property (strong, nonatomic) SCLoginViewController *loginView;
 @property (strong, nonatomic) ConfirmViewController *confirmVC;
