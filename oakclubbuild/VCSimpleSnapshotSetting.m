@@ -940,6 +940,7 @@ UITapGestureRecognizer *tap;
 -(void)onTouchLogout{
 //    [self.tableView setUserInteractionEnabled:NO];
     [self.tableView setScrollEnabled:NO];
+    [self.navigationController.navigationBar setUserInteractionEnabled:NO];
 //    self.logoutViewController = [[VCLogout alloc]init];
     CGPoint viewPoint = [self.tableView contentOffset];
     [self.logoutController.view setFrame:CGRectMake(0,self.tableView.contentSize.height , self.logoutController.view.frame.size.width, self.view.frame.size.height-44)];
@@ -954,7 +955,9 @@ UITapGestureRecognizer *tap;
 #pragma mark handle on touch
 - (IBAction)onTouchConfirmLogout:(id)sender {
     //    [self.navigationController popViewControllerAnimated:NO];
+    [self.navigationController.navigationBar setUserInteractionEnabled:YES];
     [self.logoutViewController.view removeFromSuperview];
+    appDel.rootVC.recognizesPanningOnFrontView = YES;
 //    AppDelegate *appDel = (AppDelegate *) [UIApplication sharedApplication].delegate;
     [appDel  logOut];
 }
@@ -966,6 +969,8 @@ UITapGestureRecognizer *tap;
                      }completion:^(BOOL finished) {
                          [self.logoutViewController.view removeFromSuperview];
                          [self.tableView setScrollEnabled:YES];
+                         appDel.rootVC.recognizesPanningOnFrontView = YES;
+                         [self.navigationController.navigationBar setUserInteractionEnabled:YES];
                      }];
     
 }
