@@ -136,7 +136,7 @@ static CGFloat padding_left = 5.0;
              self.profileView.frame = [self moveToFrame:self.mutualFriendsView.frame from:self.profileView.frame];
              //update height of scrollview to fit screen.
              CGFloat offset  = self.profileView.frame.origin.y + ( ([tableSource count]+1) * tableViewProfile.rowHeight) + 22*2;
-             [self.infoView setFrame:CGRectMake(0, 275, 320, offset)];
+             [self.infoView setFrame:CGRectMake(0, 320, 320, offset)];
          }
          else
          {
@@ -366,7 +366,6 @@ static CGFloat padding_left = 5.0;
         [loadingAvatar stopAnimating];
     }];
 }
-
 -(void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
@@ -781,7 +780,7 @@ static CGFloat padding_left = 5.0;
                               [imageView setContentMode:UIViewContentModeScaleAspectFit];
                               [self.svPhotos addSubview:imageView];
                               [currentProfile.arr_photos addObject:imageView];
-                              [photoCount setText:[NSString stringWithFormat:@"%i/%i",0,[currentProfile.arr_photos count]]];
+                              [photoCount setText:[NSString stringWithFormat:@"%i/%i",1,[currentProfile.arr_photos count]]];
                               
                               if( i == 0)
                               {
@@ -1046,7 +1045,7 @@ BOOL allowFullScreen = FALSE;
         [self.svPhotos setFrame:CGRectMake(0, 0, self.view.frame.size.width, 275)];
         self.svPhotos.contentSize =
         CGSizeMake(CGRectGetWidth(self.svPhotos.frame) * [currentProfile.arr_photos count], CGRectGetHeight(self.svPhotos.frame));
-        [self.infoView setFrame:CGRectMake(0, 275, self.infoView.frame.size.width, self.infoView.frame.size.height)];
+        [self.infoView setFrame:CGRectMake(0, 320, self.infoView.frame.size.width, self.infoView.frame.size.height)];
         [self.lblsPhoto setFrame:CGRectMake(0, self.svPhotos.frame.origin.y + self.svPhotos.frame.size.height - self.lblsPhoto.frame.size.height, self.lblsPhoto.frame.size.width, self.lblsPhoto.frame.size.height)];
         [self updateSubviewsToCenterScrollView];
     }

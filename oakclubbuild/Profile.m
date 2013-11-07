@@ -768,10 +768,7 @@
     NSString *ethnicity = [NSString stringWithFormat:@"%i",self.c_ethnicity.ID];
     NSString *lang = @"";
     for(Language* langItem in self.a_language){
-        if([lang length]==0)
-            lang = langItem.name;
-        else
-            lang = [NSString stringWithFormat:@"%@, %@",lang,langItem.name ];
+            lang = [NSString stringWithFormat:@"%@,%d",lang,langItem.ID ];
     }
 //    NSString *lang = [self.a_language componentsJoinedByString:@","];
     NSString *loc = [NSString stringWithFormat:@"%@",self.s_location.ID];
@@ -779,25 +776,31 @@
     NSString *email = self.s_Email;
     
     AFHTTPClient* httpClient = [[AFHTTPClient alloc]initWithOakClubAPI:DOMAIN];
-    NSDictionary *params = [[NSDictionary alloc]initWithObjectsAndKeys: name,@"name",// < 20 characters
-                                                                        gender,@"gender",// 0/1
-                                                                        birthday,@"birthday",// dd/mm/yyyy
-                                                                        email,@"email",
-                                                                        interested,@"interested_in",// 0/1
-                                                                        relationship,@"relationship_status",//rel_status_id
-                                                                        height,@"height",//100 < h <300
-                                                                        weight,@"weight",//30 < w < 120
-                                                                        school,@"school",
-                                                                        ethnicity,@"ethnicity",// string value
-                                                                        lang,@"language",
-                                                                        loc,@"location_id",//location_id
-                                                                        work,@"work",//cate_idself.s_aboutMe,@"about_me",//< 256 characters
-                                                                        nil];
+    NSDictionary *params = [[NSDictionary alloc]initWithObjectsAndKeys:
+                            name,@"name",// < 20 characters
+                            gender,@"gender",// 0/1
+                            birthday,@"birthday",// dd/mm/yyyy
+                            email,@
+                            "email",
+                            interested,@"interested_in",// 0/1
+                            relationship,@"relationship_status",//rel_status_id
+                            height,@"height",//100 < h <300
+                            weight,@"weight",//30 < w < 120
+                            school,@"school",
+                            ethnicity,@"ethnicity",// string value
+                            lang,@"language",
+                            loc,@"location_id",//location_id
+                            work,@"work",
+                            self.s_aboutMe,@"about_me",//< 256 characters
+                            nil
+                            ];
+    
     NSLog(@"Set hangout profile params: %@", params);
     [httpClient getPath:URl_setHangoutProfile parameters:params success:^(__unused AFHTTPRequestOperation *operation, id JSON) {
         NSError *e=nil;
         NSMutableDictionary *dict = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONReadingMutableContainers error:&e];
         NSMutableArray * data= [dict valueForKey:key_data];
+        NSLog(@"Set Hangout profile result: %@", data);
 //        return YES;
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@" SaveSetting Profile Error Code: %i - %@",[error code], [error localizedDescription]);
@@ -957,7 +960,7 @@
 {
     NSDate *now = [NSDate date];
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:@"dd/MM/yyyy"];
+    [dateFormatter setDateFormat:@"MM/dd/yyyy"];
     NSDate *birthDate = [[NSDate alloc] init];
     birthDate = [dateFormatter dateFromString:self.s_birthdayDate];
     NSDateComponents* ageComponents = [[NSCalendar currentCalendar]

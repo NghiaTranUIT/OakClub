@@ -9,7 +9,7 @@
 #import "VCPrivacy.h"
 #import "UIView+Localize.h"
 
-@interface VCPrivacy()
+@interface VCPrivacy() <UIWebViewDelegate>
 {
     SCLoginViewController *loginPage;
 }
@@ -25,9 +25,10 @@
         //self.contentView.frame = CGRectMake(self.frame.size.width - 10, self.frame.size.height / 4, self.frame.size.width - 20, self.frame.size.height / 2);
         self.margin = UIEdgeInsetsMake(self.frame.size.width / 5, 10, self.frame.size.width / 5, 10);
         
-        UITextView *txtView = [[UITextView alloc] init];
+        UIWebView *txtView = [[UIWebView alloc] init];
         txtView.frame = CGRectMake(0, 0, self.contentViewFrame.size.width, self.contentViewFrame.size.height - self.margin.bottom);
-        txtView.text = @"This Privacy Policy describes how and when Twitter collects, uses and shares your information when you use our Services. Twitter receives your information through our various websites, SMS, APIs, email notifications, applications, buttons, widgets, and ads (the \"Services\" or \"Twitter\") and from our partners and other third parties. For example, you send us information when you use Twitter from our website, post or receive Tweets via SMS, or access Twitter from an application such as Twitter for Mac, Twitter for Android or TweetDeck. When using any of our Services you consent to the collection, transfer, manipulation, storage, disclosure and other uses of your information as described in this Privacy Policy. Irrespective of which country you reside in or supply information from, you authorize Twitter to use your information in the United States and any other country where Twitter operates.";
+        txtView.delegate = self;
+        [self initText:txtView];
         [[self contentView] addSubview:txtView];
         
         UIButton *proceedBtn = [[UIButton alloc] init];
@@ -64,5 +65,23 @@
     // Drawing code
 }
 */
+
+-(void)initText:(UIWebView *)txtView
+{
+    NSURL *documentURL = [[NSBundle mainBundle] URLForResource:@"Privacy_Eng" withExtension:@".rtf"];
+    NSURLRequest *docRequest = [NSURLRequest requestWithURL:documentURL];
+    [txtView loadRequest:docRequest];
+}
+
+- (void) webViewDidFinishLoad:(UIWebView *)webView
+{
+    NSString* js =
+    @"var meta = document.createElement('meta'); " \
+    "meta.setAttribute( 'name', 'viewport' ); " \
+    "meta.setAttribute( 'content', 'width = 260, initial-scale = 0.3, user-scalable = yes' ); " \
+    "document.getElementsByTagName('head')[0].appendChild(meta)";
+    
+    [webView stringByEvaluatingJavaScriptFromString: js];
+}
 
 @end

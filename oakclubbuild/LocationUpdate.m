@@ -13,6 +13,8 @@
 @interface LocationUpdate() <CLLocationManagerDelegate>
 {
     CLLocationManager *locationManager;
+    
+    BOOL isUpdated;
 }
 @end
 
@@ -26,6 +28,8 @@
         locationManager = [[CLLocationManager alloc] init];
         locationManager.delegate = self;
         locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+        
+        isUpdated = YES;
     }
     
     return self;
@@ -34,12 +38,14 @@
 -(void)update
 {
     [locationManager startUpdatingLocation];
+    isUpdated = NO;
 }
 
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
 {
     NSLog(@"didFailWithError: %@", error);
     [manager stopUpdatingLocation];
+    isUpdated = YES;
     
     if (delegate)
     {
@@ -49,8 +55,14 @@
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation
 {
+    if (isUpdated)
+    {
+        return;
+    }
+    
     NSLog(@"didUpdateToLocation: %@", newLocation);
     CLLocation *currentLocation = newLocation;
+    isUpdated = YES;
     
     // Stop Location Manager
     [manager stopUpdatingLocation];
@@ -60,28 +72,28 @@
     NSMutableDictionary *params = [[NSMutableDictionary alloc] initWithObjects:[NSArray arrayWithObjects:[NSNumber numberWithDouble:currentLocation.coordinate.latitude], [NSNumber numberWithDouble:currentLocation.coordinate.longitude], nil] forKeys:[NSArray arrayWithObjects:@"latitude", @"longitude", nil]];
     NSLog(@"Coord: %@", params);
     
-    [delegate location:self updateSuccessWithID:nil andName:nil];
-//    [request getPath:URL_setLocationUser parameters:params success:^(__unused AFHTTPRequestOperation *operation, id JSON)
-//     {
-//         NSError *e=nil;
-//         NSMutableDictionary *dict = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONReadingMutableContainers error:&e];
-//         NSLog(@"Update location: %@", dict);
-//         if (!e && delegate)
-//         {
-//             [delegate location:self updateSuccessWithID:[dict objectForKey:key_data] andName:[dict objectForKey:key_msg]];
-//         }
-//         else if (delegate)
-//         {
-//             [delegate location:self updateFailWithError:e];
-//         }
-//         
-//     } failure:^(AFHTTPRequestOperation *operation, NSError *error)
-//     {
-//         NSLog(@"Set user location error Code: %i - %@",[error code], [error localizedDescription]);
-//         if (delegate)
-//         {
-//             [delegate location:self updateFailWithError:error];
-//         }
-//     }];
+    //[delegate location:self updateSuccessWithID:nil andName:nil];
+    [request getPath:URL_setLocationUser parameters:params success:^(__unused AFHTTPRequestOperation *operation, id JSON)
+     {
+         NSError *e=nil;
+         NSMutableDictionary *dict = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONReadingMutableContainers error:&e];
+         NSLog(@"Update location: %@", dict);
+         if (!e && delegate)
+         {
+             [delegate location:self updateSuccessWithID:[dict objectForKey:key_data] andName:[dict objectForKey:key_msg]];
+         }
+         else if (delegate)
+         {
+             [delegate location:self updateFailWithError:e];
+         }
+         
+     } failure:^(AFHTTPRequestOperation *operation, NSError *error)
+     {
+         NSLog(@"Set user location error Code: %i - %@",[error code], [error localizedDescription]);
+         if (delegate)
+         {
+             [delegate location:self updateFailWithError:error];
+         }
+     }];
 }
 @end
