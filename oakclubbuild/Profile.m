@@ -965,7 +965,7 @@
 {
     NSDate *now = [NSDate date];
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:@"mm/dd/yyyy"];
+    [dateFormatter setDateFormat:@"MM/dd/yyyy"];
     NSDate *birthDate = [[NSDate alloc] init];
     birthDate = [dateFormatter dateFromString:self.s_birthdayDate];
     NSDateComponents* ageComponents = [[NSCalendar currentCalendar]
