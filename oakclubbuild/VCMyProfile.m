@@ -463,6 +463,8 @@ UITapGestureRecognizer *tap;
                           cancelButtonTitle:@"OK"
                           otherButtonTitles:@"Cancel", nil];
     alert.tag = tag;
+    
+    [alert localizeAllViews];
     [alert show];
 }
 
@@ -474,6 +476,8 @@ UITapGestureRecognizer *tap;
                           cancelButtonTitle:@"OK"
                           otherButtonTitles:nil];
     alert.tag = tag;
+    
+    [alert localizeAllViews];
     [alert show];
 }
 
@@ -543,6 +547,9 @@ UITapGestureRecognizer *tap;
     profileObj.s_birthdayDate = theDate;
     [self updateProfileItemListAtIndex:theDate andIndex:BIRTHDATE];
     [tbEditProfile reloadData];
+    
+    // hook
+    self.age_workLabel.text = [NSString stringWithFormat:@"%d, %@", profileObj.age, profileObj.i_work.cate_name];
 }
 #pragma mark Picker DataSource/Delegate
 -(void) initWeightList{
@@ -725,6 +732,8 @@ UITapGestureRecognizer *tap;
             [doneCell setSelectionStyle:UITableViewCellSelectionStyleNone];
         }
         
+        [doneCell localizeAllViews];
+        
         return doneCell;
     }
     
@@ -756,6 +765,9 @@ UITapGestureRecognizer *tap;
     [cell.textLabel setFont: FONT_HELVETICANEUE_LIGHT(17.0)];
     cell.textLabel.highlightedTextColor = [UIColor blackColor];
     cell.detailTextLabel.highlightedTextColor = COLOR_BLUE_CELLTEXT;
+    
+    [cell localizeAllViews];
+    
     return cell;
 }
 
@@ -819,8 +831,17 @@ UITapGestureRecognizer *tap;
             [self updateProfileItemListAtIndex:editObject.textviewEdit.text andIndex:ABOUT_ME];
             break;
         case 0:
-            profileObj.s_Name = editObject.texfieldEdit.text;
-            [self updateProfileItemListAtIndex:editObject.texfieldEdit.text andIndex:NAME];
+        {
+            if (![editObject.texfieldEdit.text isEqualToString:@""])
+            {
+                profileObj.s_Name = editObject.texfieldEdit.text;
+                [self updateProfileItemListAtIndex:editObject.texfieldEdit.text andIndex:NAME];
+            }
+            else
+            {
+                [self showWarning:@"Name can not empty" withTag:3];
+            }
+        }
             break;
         case 1:
             profileObj.s_school = editObject.texfieldEdit.text;
@@ -837,8 +858,7 @@ UITapGestureRecognizer *tap;
             }
             else
             {
-                UIAlertView *alerView = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Email is invalid" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
-                [alerView show];
+                [self showWarning:@"Email is invalid" withTag:3];
             }
         }
             break;

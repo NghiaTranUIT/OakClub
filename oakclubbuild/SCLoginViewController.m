@@ -16,6 +16,8 @@
 
 @interface SCLoginViewController (){
     AppDelegate* appDelegate;
+    
+    NSArray *descText;
 }
 - (IBAction)performLogin:(id)sender;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *spinner;
@@ -53,6 +55,13 @@
     [super viewDidLoad];
     
     [self showMenuLanguage];
+    
+    descText = [[NSArray alloc] initWithObjects:
+                @"Anonymouly \"like\" or \"pass\" on people OakClub suggests",
+                @"Chat with your matches inside the app",
+                @"if someone you've liked happen to like you as well …",
+                nil];
+    
     // Do any additional setup after loading the view from its nib.
     NSArray* pageImages = [NSArray arrayWithObjects:
                   [UIImage imageNamed:@"intropage_snap.png"],
@@ -62,7 +71,9 @@
     CycleScrollView *cycle = [[CycleScrollView alloc] initWithFrame:CGRectMake(0, 0, 320, 460)
                                                      cycleDirection:CycleDirectionLandscape
                                                            pictures:pageImages];
+    
     cycle.delegate = self;
+    [cycle refreshScrollView];
     [self.view addSubview:cycle];
     [self.view sendSubviewToBack:cycle];
     
@@ -144,6 +155,25 @@
 #pragma mark delegate for CyclescrollView
 - (void)cycleScrollViewDelegate:(CycleScrollView *)cycleScrollView didScrollImageView:(int)index{
     pageControl.currentPage = index-1;
+}
+
+- (void)cycleScrollViewDelegate:(CycleScrollView *)cycleScrollView customizeImageView:(TapDetectingImageView *)imageView atIndex:(int)index
+{
+    NSLog(@"Customize cycle view at index: %d", index);
+    UILabel *lbl = [[UILabel alloc] init];
+    [lbl setBackgroundColor:[UIColor clearColor]];
+    [lbl setFont:[UIFont systemFontOfSize:16]];
+    [lbl setTextColor:[UIColor darkTextColor]];
+    [lbl setShadowColor:[UIColor lightTextColor]];
+    [lbl setLineBreakMode:NSLineBreakByCharWrapping];
+    lbl.numberOfLines = 2;
+    lbl.textAlignment = NSTextAlignmentCenter;
+    [lbl setFrame:CGRectMake(0, 5, 240, 50)];
+    [lbl setText:[descText objectAtIndex:index]];
+    [lbl localizeAllViews];
+    [lbl setFrame:CGRectMake((imageView.frame.size.width - lbl.frame.size.width) / 2, lbl.frame.origin.y, lbl.frame.size.width, lbl.frame.size.height)];
+    
+    [imageView addSubview:lbl];
 }
 
 #pragma mark Facebook Login

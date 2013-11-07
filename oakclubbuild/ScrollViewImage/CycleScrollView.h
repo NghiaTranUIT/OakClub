@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "TapDetectingImageView.h"
 
 typedef enum {
     CycleDirectionPortait,          // 垂直滚动
@@ -46,5 +47,5 @@ typedef enum {
 @optional
 - (void)cycleScrollViewDelegate:(CycleScrollView *)cycleScrollView didSelectImageView:(int)index;
 - (void)cycleScrollViewDelegate:(CycleScrollView *)cycleScrollView didScrollImageView:(int)index;
-
+- (void)cycleScrollViewDelegate:(CycleScrollView *)cycleScrollView customizeImageView:(TapDetectingImageView *)imageView atIndex:(int)index;
 @end

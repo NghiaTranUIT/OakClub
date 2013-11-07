@@ -127,6 +127,8 @@
     Profile *myProfile = ((AppDelegate *) [UIApplication sharedApplication].delegate).myProfile;
     [self.avatar setImage:myProfile.img_Avatar];
     
+    [self.view localizeAllViews];
+    
     [tableView reloadData];
 }
 - (void)didReceiveMemoryWarning
@@ -204,6 +206,9 @@
     NSNumber* number = [numberNotifications objectAtIndex:indexPath.row];
     [cell setNotification:[number unsignedIntValue]];
 //    }
+    
+    [cell localizeAllViews];
+    
     return cell;
      
 }
@@ -336,6 +341,7 @@
 //    VCLogout* logoutView= [[VCLogout alloc]init];
     
     [logoutViewController.view setFrame:CGRectMake(0, self.view.frame.size.height-logoutViewController.view.frame.size.height, 246, logoutViewController.view.frame.size.height)];
+    [logoutViewController.view localizeAllViews];
     [self.view addSubview:logoutViewController.view];
 //    [self.navigationController pushViewController:logoutViewController animated:NO];
     [UIView animateWithDuration:0.4

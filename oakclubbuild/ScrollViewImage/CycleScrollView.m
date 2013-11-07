@@ -7,7 +7,6 @@
 //
 
 #import "CycleScrollView.h"
-#import "TapDetectingImageView.h"
 
 @implementation CycleScrollView
 @synthesize delegate;
@@ -80,6 +79,7 @@ float timerDuration = 8.0f;
             imageView.frame = CGRectOffset(imageView.frame, 0, scrollFrame.size.height * i);
         }
         
+        [delegate cycleScrollViewDelegate:self customizeImageView:imageView atIndex:([self validPageValue:(curPage+i-1)] - 1)];
         
         [scrollView addSubview:imageView];
     }
