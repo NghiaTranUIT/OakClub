@@ -17,7 +17,7 @@
 
 #import "AFHTTPClient+OakClub.h"
 #import "AFHTTPRequestOperation.h"
-#import "HistoryMessage.h"
+#import "HistoryMessage+init.h"
 #import "Profile.h"
 
 #import "NSString+Utils.h"
@@ -71,39 +71,40 @@ int cellCountinSection=0;
     {
         Profile* profile = [appDel.friendChatList objectForKey:key];
         [a_avatar setObject:profile.img_Avatar forKey:profile.s_ID];
-        [tableView reloadData];
-        
+//        [tableView reloadData];
+        [self.searchDisplayController.searchResultsTableView reloadData];
         NSLog(@"Loading information for %@", profile.s_Name);
         
         [a_profile_id addObject:profile.s_ID];
         
 //        AFHTTPRequestOperation *operation =
-        [HistoryMessage getHistoryMessagesSync:profile.s_ID
-                                      callback:^(NSMutableArray * array)
+//        [HistoryMessage getHistoryMessagesSync:profile.s_ID
+//                                      callback:^(NSMutableArray * array)
+        [HistoryMessage getHistoryMessages:profile.s_ID callback:^(NSMutableArray* array)
          {
              [a_messages setObject:array forKey:profile.s_ID];
-                 [tableView reloadData];
+             [self.searchDisplayController.searchResultsTableView reloadData];
              NSLog(@"Get H Msg completed");
          }];
         //[operation start];
 //        [queue addOperation:operation];
         
-        NSString* link = profile.s_Avatar;
-        
-        if(![link isEqualToString:@""])
-        {
-//            AFHTTPRequestOperation *operation =
-            [Profile getAvatarSync:link
-                          callback:^(UIImage *image)
-             {
-                 
-                 [a_avatar setObject:image forKey:profile.s_ID];
-                 [tableView reloadData];
-                 NSLog(@"Download avatar done for %@", profile.s_Name);
-             }];
-            //[operation start];
-//            [queue addOperation:operation];
-        }
+//        NSString* link = profile.s_Avatar;
+//        
+//        if(![link isEqualToString:@""])
+//        {
+////            AFHTTPRequestOperation *operation =
+//            [Profile getAvatarSync:link
+//                          callback:^(UIImage *image)
+//             {
+//                 
+//                 [a_avatar setObject:image forKey:profile.s_ID];
+//                 [tableView reloadData];
+//                 NSLog(@"Download avatar done for %@", profile.s_Name);
+//             }];
+//            //[operation start];
+////            [queue addOperation:operation];
+//        }
     }
     
 //    [queue waitUntilAllOperationsAreFinished];
@@ -303,7 +304,7 @@ int cellCountinSection=0;
     fetchedResultsController = nil;
     [appDel.myProfile getRosterListIDSync:^(void){
         [self loadFriendsInfo:nil];
-        [tableView reloadData];
+        [self.searchDisplayController.searchResultsTableView reloadData];
     }];
     
 }
@@ -319,6 +320,7 @@ int cellCountinSection=0;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    appDel._messageDelegate = self;
     // Do any additional setup after loading the view from its nib.
     //    [self.view addSubview:tbVC_ChatList.view];
     self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"bg-edit.png"]];
@@ -354,7 +356,11 @@ int cellCountinSection=0;
             NSLog(@"Error on NSManagedObjectContext");
         }
 
-		
+		if(moc == nil){
+             NSLog(@"Error on NSManagedObjectContext");
+            return nil;
+        }
+
 		NSEntityDescription *entity = [NSEntityDescription entityForName:@"XMPPUserCoreDataStorageObject"
 		                                          inManagedObjectContext:moc];
 		
@@ -369,10 +375,10 @@ int cellCountinSection=0;
 		[fetchRequest setFetchBatchSize:10];
 		
         //searchResult is a NSString
-//        if(self.searchResult != nil){
-//            NSPredicate *predicate = [NSPredicate predicateWithFormat:@"displayName CONTAINS[cd] %@",self.searchResult];
-//            [fetchRequest setPredicate:predicate];
-//        }
+        if(self.searchResult != nil && [self.searchResult length] > 0){
+            NSPredicate *predicate = [NSPredicate predicateWithFormat:@"displayName CONTAINS[cd] %@",self.searchResult];
+            [fetchRequest setPredicate:predicate];
+        }
 		fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest
 		                                                               managedObjectContext:moc
 		                                                                 sectionNameKeyPath:@"sectionNum"
@@ -391,7 +397,8 @@ int cellCountinSection=0;
 
 - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller
 {
-	[[self tableView] reloadData];
+    [self.searchDisplayController.searchResultsTableView reloadData];
+//	[[self tableView] reloadData];
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -645,13 +652,13 @@ int cellCountinSection=0;
         cell.name.text = profile.s_Name;
 //        [cell setMatched:profile.is_match];
         [cell setStatus:profile.status];
-        UIImage* avatar = [a_avatar objectForKey:profile.s_ID];
-        
-        if(avatar != nil)
-        {
-            [cell.avatar setImage:avatar];
-        }
-
+//        UIImage* avatar = [a_avatar objectForKey:profile.s_ID];
+//        
+//        if(avatar != nil)
+//        {
+//            [cell.avatar setImage:avatar];
+//        }
+        [cell.avatar setImage:profile.img_Avatar];
 //        [cell setMutualFriends:profile.numberMutualFriends];
         
         cell.last_message.text = @"";
@@ -748,21 +755,24 @@ int cellCountinSection=0;
 //    [self.searchBar sizeThatFits:CGSizeMake(272, 88)];
     [self.searchBar sizeToFit];
 //    self.tableView.tableHeaderView = self.searchBar;
-    [self.view bringSubviewToFront:tableView];
+    fetchedResultsController = nil;
+    [self.searchDisplayController.searchResultsTableView reloadData];
     return YES;
 }
 -(void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText{
-    if(searchText.length == 0)
-        return;
-   
+//    if(searchText.length == 0)
+//        return;
+//   
     self.searchResult = searchText;
     fetchedResultsController = nil;
-    [self.tableView reloadData];
+    [self.searchDisplayController.searchResultsTableView reloadData];
 }
 
 - (void)searchBar:(UISearchBar *)searchBar selectedScopeButtonIndexDidChange:(NSInteger)selectedScope
 {
-    [self.tableView reloadData];
+    self.searchResult =nil;
+    fetchedResultsController = nil;
+    [self.searchDisplayController.searchResultsTableView reloadData];
     self.scopeButtonPressedIndexNumber = [NSNumber numberWithInt:selectedScope];
 }
 
@@ -777,5 +787,38 @@ int cellCountinSection=0;
         return YES;
     }
     
+}
+
+#pragma mark Chat delegates
+
+
+- (void)newMessageReceived:(NSDictionary *)messageContent {
+    NSString* sender = [messageContent objectForKey:@"sender"];
+    NSString *msg = [messageContent objectForKey:@"msg"];
+    NSArray *chunks = [sender componentsSeparatedByString: @"@"];
+    NSString* hangout_id = [chunks objectAtIndex:0];
+    NSString* time = [NSString getCurrentTime];
+    HistoryMessage* newHistory =[[HistoryMessage alloc] initMessageFrom:hangout_id atTime:time toHangout:appDel.myProfile.s_ID withContent:msg];
+    
+    [[a_messages objectForKey:hangout_id] addObject:newHistory];
+    Profile *friend = [appDel.friendChatList objectForKey:sender];
+    friend.status = ChatUnviewed;
+    [appDel.friendChatList setObject:friend forKey:sender];
+    [self.searchDisplayController.searchResultsTableView reloadData];
+
+//    [HistoryMessage getHistoryMessages:sender callback:^(NSMutableArray* array)
+//     {
+//         [a_messages setObject:array forKey:sender];
+//         Profile *friend = [appDel.friendChatList objectForKey:sender];
+//         friend.status = ChatUnviewed;
+//         [appDel.friendChatList setObject:friend forKey:sender];
+//         [self.tableView reloadData];
+//         NSLog(@"newMessageReceived - Get messages completed");
+//     }];
+//    fetchedResultsController = nil;
+//    [appDel.myProfile getRosterListIDSync:^(void){
+//        [self loadFriendsInfo:nil];
+//        [tableView reloadData];
+//    }];
 }
 @end

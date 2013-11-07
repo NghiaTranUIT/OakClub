@@ -10,8 +10,8 @@
 #import <CoreData/CoreData.h>
 #import "SMChatViewController.h"
 #import "Profile.h"
-
-@interface VCChat : UIViewController <NSFetchedResultsControllerDelegate, UISearchBarDelegate, UISearchDisplayDelegate>
+#import "SMMessageDelegate.h"
+@interface VCChat : UIViewController <NSFetchedResultsControllerDelegate, UISearchBarDelegate, UISearchDisplayDelegate, SMMessageDelegate>
 {
 //,UITableViewDelegate,UITableViewDataSource>{
     NSFetchedResultsController *fetchedResultsController;

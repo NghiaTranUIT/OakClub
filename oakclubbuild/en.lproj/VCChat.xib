@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="4510" systemVersion="12F37" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="4510" systemVersion="13A603" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
     <dependencies>
         <deployment version="1280" defaultVersion="1280" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3742"/>
@@ -10,7 +10,6 @@
                 <outlet property="loadingFriendList" destination="58" id="60"/>
                 <outlet property="searchBar" destination="p1H-sC-1ii" id="8Yu-1B-ggU"/>
                 <outlet property="searchDisplayController" destination="Q5q-bp-R9G" id="Rfv-Cy-91a"/>
-                <outlet property="tableView" destination="54" id="69"/>
                 <outlet property="view" destination="70" id="CmD-PM-0IN"/>
             </connections>
         </placeholder>
@@ -19,13 +18,13 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
-                <view autoresizesSubviews="NO" contentMode="scaleToFill" id="OPS-Yv-HMr">
+                <view autoresizesSubviews="NO" contentMode="redraw" id="OPS-Yv-HMr">
                     <rect key="frame" x="48" y="0.0" width="272" height="568"/>
-                    <autoresizingMask key="autoresizingMask" heightSizable="YES"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES"/>
                     <subviews>
                         <searchBar contentMode="center" searchBarStyle="minimal" placeholder="Search your matches ..." showsScopeBar="YES" id="p1H-sC-1ii">
                             <rect key="frame" x="0.0" y="0.0" width="272" height="88"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxY="YES"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <color key="tintColor" red="0.47450980390000003" green="0.0039215686269999999" blue="0.34509803919999998" alpha="1" colorSpace="calibratedRGB"/>
                             <color key="barTintColor" red="0.47450980390000003" green="0.0039215686269999999" blue="0.34509803919999998" alpha="1" colorSpace="calibratedRGB"/>
@@ -39,24 +38,13 @@
                                 <outlet property="delegate" destination="-1" id="HTM-Wc-2Mo"/>
                             </connections>
                         </searchBar>
-                        <tableView contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="54">
-                            <rect key="frame" x="0.0" y="88" width="272" height="480"/>
-                            <autoresizingMask key="autoresizingMask" heightSizable="YES"/>
-                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            <color key="tintColor" red="0.47450980390000003" green="0.0039215686269999999" blue="0.34509803919999998" alpha="1" colorSpace="calibratedRGB"/>
-                            <color key="separatorColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                            <connections>
-                                <outlet property="dataSource" destination="-1" id="63"/>
-                                <outlet property="delegate" destination="-1" id="64"/>
-                            </connections>
-                        </tableView>
                         <activityIndicatorView opaque="NO" contentMode="scaleToFill" style="whiteLarge" id="58">
                             <rect key="frame" x="117" y="222" width="37" height="37"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="color" red="0.47450980390000003" green="0.0039215686269999999" blue="0.34509803919999998" alpha="1" colorSpace="calibratedRGB"/>
                         </activityIndicatorView>
                     </subviews>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                 </view>
             </subviews>
             <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
