@@ -28,7 +28,6 @@
 @synthesize unread_message;
 @synthesize status;
 @synthesize s_Avatar = _s_avatar;
-
 -(id)init {
     self = [super init];
     self.i_weight=0;
@@ -433,7 +432,8 @@
     self.s_usenameXMPP = [data valueForKey:key_usernameXMPP];
     self.s_passwordXMPP = [data valueForKey:key_passwordXMPP];
     
-    [self getRosterListIDSync];
+    [self getRosterListIDSync:^(void){
+    }];
 }
 
 - (void) parseRoster:(NSArray *)rosterList
@@ -471,10 +471,9 @@
                 profile.is_blocked = blocked;
                 profile.is_match = isMatch;
                 profile.status =[[objectData valueForKey:@"status"] intValue];
+                profile.s_Name =[objectData valueForKey:@"name"];
+                profile.s_Avatar = [objectData valueForKey:@"avatar"];
                 [rosterDict setObject:profile forKey:profile.s_ID];
-                
-                
-                
                 NSLog(@"%d. unread message: %d", i, unread_count);
                 
                 self.unread_message += unread_count;
@@ -485,30 +484,36 @@
     NSLog(@"unread message: %d", self.unread_message);
     
     self.dic_Roster = [NSDictionary dictionaryWithDictionary:rosterDict];
+    AppDelegate *appDel = (id) [UIApplication sharedApplication].delegate;
+    [appDel loadFriendsList];
 }
 
-- (void) getRosterListIDSync
+- (void) getRosterListIDSync:(void(^)(void))handler
 {
-    NSOperationQueue *queue = [[NSOperationQueue alloc] init];
+//    NSOperationQueue *queue = [[NSOperationQueue alloc] init];
     AFHTTPClient *httpClient = [[AFHTTPClient alloc]initWithOakClubAPI:DOMAIN];
-    NSMutableURLRequest *request = [httpClient requestWithMethod:@"GET"
-                                                                path:URL_getListChat
-                                                          parameters:nil];
-        
-    AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
-    [httpClient registerHTTPOperationClass:[AFHTTPRequestOperation class]];
-    [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+//    NSMutableURLRequest *request = [httpClient requestWithMethod:@"GET"
+//                                                                path:URL_getListChat
+//                                                          parameters:nil];
+//    
+//    AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
+//    [httpClient registerHTTPOperationClass:[AFHTTPRequestOperation class]];
+//    [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [httpClient getPath:URL_getListChat parameters:nil success:^(__unused AFHTTPRequestOperation *operation, id responseObject) {
         NSError *err;
         NSMutableDictionary *dict = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:&err];
         NSLog(@"%@", @"getRosterListIDSync");
         [self parseRoster:[dict valueForKey:key_data]];
+        if(handler != nil){
+            handler();
+        }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"get list chat Error: %@", error);
     }];
     
     // sync
-    [queue addOperation:operation];
-    [queue waitUntilAllOperationsAreFinished];
+//    [queue addOperation:operation];
+//    [queue waitUntilAllOperationsAreFinished];
     NSLog(@"Get chat list completed");
 }
 
@@ -957,7 +962,7 @@
 {
     NSDate *now = [NSDate date];
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:@"dd/MM/yyyy"];
+    [dateFormatter setDateFormat:@"mm/dd/yyyy"];
     NSDate *birthDate = [[NSDate alloc] init];
     birthDate = [dateFormatter dateFromString:self.s_birthdayDate];
     NSDateComponents* ageComponents = [[NSCalendar currentCalendar]

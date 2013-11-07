@@ -112,9 +112,9 @@
 		chatWithUser = _userName; // @ missing
 		turnSockets = [[NSMutableArray alloc] init];
         
-        userAge = [NSString stringWithFormat:@", %@", _profile.s_age];
-//        userName = _profile.s_Name;
-        userName = [NSString formatStringWithName:_profile.s_Name andAge:_profile.s_age andNameLength:18];
+//        userAge = [NSString stringWithFormat:@", %@", _profile.s_age];
+        userName = _profile.s_Name;
+//        userName = [NSString formatStringWithName:_profile.s_Name andAge:_profile.s_age andNameLength:18];
         [self registerForKeyboardNotifications];
         
         NSArray *chunks = [chatWithUser componentsSeparatedByString: @"@"];
@@ -279,7 +279,7 @@
     
     [label_header setText:userName];
 //    [label_header setTitle:userName forState:UIControlStateNormal];
-    [label_Age setText:userAge];
+//    [label_Age setText:userAge];
 //    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"bg.png"]];
     
 //	XMPPJID *jid = [XMPPJID jidWithString:@"cesare@doolik.com"];

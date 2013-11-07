@@ -855,27 +855,33 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
     
     friendChatList = [[NSMutableDictionary alloc] init];
     
-    NSOperationQueue *queue = [[NSOperationQueue alloc] init];
+//    NSOperationQueue *queue = [[NSOperationQueue alloc] init];
     
     NSArray *IDs = [self.myProfile.dic_Roster allKeys];
     
     for (int i = 0; i < count; i++)
     {
-        
-        AFHTTPClient *httpClient = [[AFHTTPClient alloc]initWithOakClubAPI:DOMAIN];
-        
-        
-        Profile *profile = [self.myProfile.dic_Roster objectForKey:[IDs objectAtIndex:i]];
-//        profile.s_ID = [IDs objectAtIndex:i];
-        
-        NSString* xmpp_id = [NSString stringWithFormat:@"%@%@", profile.s_ID, DOMAIN_AT];
+        Profile *friend = [self.myProfile.dic_Roster objectForKey:[IDs objectAtIndex:i]];
+        NSString* xmpp_id = [NSString stringWithFormat:@"%@%@", friend.s_ID, DOMAIN_AT];
         
         XMPPJID* jid = [XMPPJID jidWithString:xmpp_id];
         
-        [friendChatList setObject:profile forKey:xmpp_id];
+        [friendChatList setObject:friend forKey:xmpp_id];
         
-        NSLog(@"%d. Add friend id: %@", i, profile.s_ID);
-        
+        NSLog(@"%d. Add friend id: %@", i, friend.s_ID);
+        if(friend.s_Name == nil || [friend.s_Name isEqualToString:@""] || [friend.s_ID isEqualToString:self.myProfile.s_ID])
+        {
+            [xmppRoster removeUser:jid];
+            ///NSLog(@"%d.1 Remove user: %s for user_id: %s", i, friend.s_Name.UTF8String, xmpp_id.UTF8String);
+        }
+        else
+        {
+            [xmppRoster addUser:jid withNickname:friend.s_Name];
+            //[xmppRoster setNickname:friend.s_Name forUser:jid];
+            NSLog(@"%d.2 Set nick name: %s for user_id: %s", i, friend.s_Name.UTF8String, xmpp_id.UTF8String);
+            
+        }
+/*
         NSDictionary *params = [[NSDictionary alloc]initWithObjectsAndKeys:profile.s_ID , key_profileID, nil];
         
         NSMutableURLRequest *request = [httpClient requestWithMethod:@"GET"
@@ -924,7 +930,7 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
         
         //[operation start];
         [queue addOperation:operation];
-        
+*/
         
     }
 }
@@ -1258,7 +1264,7 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
 	
     NSLog(@"xmppStreamDidAuthenticate");
 
-    [self loadFriendsList ];
+//    [self loadFriendsList ];
 	[self goOnline];
 }
 

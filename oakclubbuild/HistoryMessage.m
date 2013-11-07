@@ -131,7 +131,6 @@
      {
          NSLog(@"Get History Message Error Code: %i - %@",[error code], [error localizedDescription]);
      }];
-    
     return operation;
 }
 

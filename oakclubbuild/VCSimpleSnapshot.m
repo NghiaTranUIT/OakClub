@@ -71,7 +71,7 @@ CGFloat pageHeight;
 {
     [super viewDidLoad];
     // load profile List
-    
+    is_loadingProfileList = FALSE;
     [self refreshSnapshot];
     
     isBlockedByGPS = NO;
@@ -86,6 +86,8 @@ CGFloat pageHeight;
     self.moveMeView.frame = CGRectMake(0, 0, 320, 548);
     // Do any additional setup after loading the view from its nib.
 //    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"bg.png"]];
+    
+    /*
     // Load the display strings.
     NSURL *stringsFileURL = [[NSBundle mainBundle] URLForResource:@"DisplayStrings" withExtension:@"txt"];
     NSError *error;
@@ -99,6 +101,7 @@ CGFloat pageHeight;
         self.moveMeView.displayStrings = displayStrings;
         [self.moveMeView setupNextDisplayString];
     }
+     */
 }
 
 
@@ -125,8 +128,6 @@ CGFloat pageHeight;
 -(void) refreshSnapshot{
     currentIndex = 0;
     profileList = [[NSMutableArray alloc] init];
-//    [loadingAnim setHidden:NO];
-    is_loadingProfileList = FALSE;
     [self loadProfileList:^(void){
         [self.imgMyAvatar setImage:appDel.myProfile.img_Avatar];
         [self loadCurrentProfile];
@@ -204,6 +205,7 @@ CGFloat pageHeight;
     {
         [self startLoadingAnim];
     }
+    
     request = [[AFHTTPClient alloc] initWithOakClubAPI:DOMAIN];
     NSDictionary *params = [[NSDictionary alloc]initWithObjectsAndKeys:@"0",@"start",@"35",@"limit", nil];
     [request getPath:URL_getSnapShot parameters:params success:^(__unused AFHTTPRequestOperation *operation, id JSON)
@@ -231,13 +233,13 @@ CGFloat pageHeight;
             // Vanancy: don't load all photos of profile and don't use scrollview for showing
 //            profile  = [self loadPhotosByProfile:profile];
 //            [self loadDataPhotoScrollView];
-            AFHTTPRequestOperation *operation =
-            [Profile getAvatarSync:profile.s_Avatar
-                          callback:^(UIImage *image)
-             {
-                 [profile.arr_photos replaceObjectAtIndex:0 withObject:image];
-             }];
-            [operation start];
+//            AFHTTPRequestOperation *operation =
+//            [Profile getAvatarSync:profile.s_Avatar
+//                          callback:^(UIImage *image)
+//             {
+//                 [profile.arr_photos replaceObjectAtIndex:0 withObject:image];
+//             }];
+//            [operation start];
             // Vanancy - update mutual friends/likes count here
             /*if(profile.numberMutualFriends == -1)
             {
@@ -372,13 +374,13 @@ CGFloat pageHeight;
     temp = [profileList objectAtIndex:currentIndex];
     [self.imgNextProfile setImage:[UIImage imageNamed:@"Default Avatar"]];
     NSLog(@"Name of Profile : %@",currentProfile.s_Name);
-    request = [[AFHTTPClient alloc]initWithBaseURL:[NSURL URLWithString:@""]];
-    [request getPath:temp.s_Avatar parameters:nil success:^(__unused AFHTTPRequestOperation *operation, id JSON) {
-        UIImage *image = [UIImage imageWithData:JSON];
-        [self.imgNextProfile setImage:image];
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"Error Code: %i - %@",[error code], [error localizedDescription]);
-    }];
+//    request = [[AFHTTPClient alloc]initWithBaseURL:[NSURL URLWithString:@""]];
+//    [request getPath:temp.s_Avatar parameters:nil success:^(__unused AFHTTPRequestOperation *operation, id JSON) {
+//        UIImage *image = [UIImage imageWithData:JSON];
+//        [self.imgNextProfile setImage:image];
+//    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+//        NSLog(@"Error Code: %i - %@",[error code], [error localizedDescription]);
+//    }];
 
 //    AFHTTPClient *requestMutual = [[AFHTTPClient alloc] initWithOakClubAPI:DOMAIN];
 //    NSDictionary *params = [[NSDictionary alloc]initWithObjectsAndKeys:currentProfile.s_ID,@"profile_id", nil];
@@ -423,8 +425,8 @@ CGFloat pageHeight;
     NSString *txtAge= [NSString stringWithFormat:@"%@",currentProfile.s_age];
     [lblName setText:[self formatTextWithName:currentProfile.s_Name andAge:txtAge]];
     [lblPhotoCount setText:[NSString stringWithFormat:@"%i",[currentProfile.arr_photos count]]];
-    AFHTTPClient *requestMutual = [[AFHTTPClient alloc] initWithOakClubAPI:DOMAIN];
-    NSDictionary *params = [[NSDictionary alloc]initWithObjectsAndKeys:currentProfile.s_ID,@"profile_id", nil];
+//    AFHTTPClient *requestMutual = [[AFHTTPClient alloc] initWithOakClubAPI:DOMAIN];
+//    NSDictionary *params = [[NSDictionary alloc]initWithObjectsAndKeys:currentProfile.s_ID,@"profile_id", nil];
     if([currentProfile.arr_photos[0] isKindOfClass:[UIImage class]]){
         [self.imgMainProfile setImage:[currentProfile.arr_photos objectAtIndex:0]];
     }
@@ -438,31 +440,31 @@ CGFloat pageHeight;
          }];
         [operation start];
     }
-    [requestMutual getPath:URL_getHangoutProfile parameters:params success:^(__unused AFHTTPRequestOperation *operation, id JSON)
-     {
-         [self stopLoadingAnim];
-         NSError *e=nil;
-         NSMutableDictionary *dict = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONReadingMutableContainers error:&e];
-         NSMutableDictionary * data= [dict valueForKey:key_data];
-         NSMutableDictionary *infoMutual =[data valueForKey:currentProfile.s_ID];
-         int mutualFriendCount =[[infoMutual valueForKey:key_MutualFriends]  integerValue];
-         if(mutualFriendCount >0){
-             lbl_mutualFriends.text = [NSString stringWithFormat:@"%i",mutualFriendCount];
-             [lbl_mutualFriends setHidden:NO];
-             [imgMutualFriend setHidden:NO];
-         }
-         int mutualLikeCount = [[infoMutual valueForKey:key_MutualLikes]  integerValue];
-         if(mutualLikeCount > 0){
-             lbl_mutualLikes.text = [NSString stringWithFormat:@"%i",mutualLikeCount];
-             [lbl_mutualLikes setHidden:NO];
-             [imgMutualLike setHidden:NO];
-         }
-//         [self loadDataForPhotos];
-   
-     } failure:^(AFHTTPRequestOperation *operation, NSError *error)
-     {
-         NSLog(@"Error Code: %i - %@",[error code], [error localizedDescription]);
-     }];
+//    [requestMutual getPath:URL_getHangoutProfile parameters:params success:^(__unused AFHTTPRequestOperation *operation, id JSON)
+//     {
+//         [self stopLoadingAnim];
+//         NSError *e=nil;
+//         NSMutableDictionary *dict = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONReadingMutableContainers error:&e];
+//         NSMutableDictionary * data= [dict valueForKey:key_data];
+//         NSMutableDictionary *infoMutual =[data valueForKey:currentProfile.s_ID];
+//         int mutualFriendCount =[[infoMutual valueForKey:key_MutualFriends]  integerValue];
+//         if(mutualFriendCount >0){
+//             lbl_mutualFriends.text = [NSString stringWithFormat:@"%i",mutualFriendCount];
+//             [lbl_mutualFriends setHidden:NO];
+//             [imgMutualFriend setHidden:NO];
+//         }
+//         int mutualLikeCount = [[infoMutual valueForKey:key_MutualLikes]  integerValue];
+//         if(mutualLikeCount > 0){
+//             lbl_mutualLikes.text = [NSString stringWithFormat:@"%i",mutualLikeCount];
+//             [lbl_mutualLikes setHidden:NO];
+//             [imgMutualLike setHidden:NO];
+//         }
+////         [self loadDataForPhotos];
+//   
+//     } failure:^(AFHTTPRequestOperation *operation, NSError *error)
+//     {
+//         NSLog(@"Error Code: %i - %@",[error code], [error localizedDescription]);
+//     }];
     currentIndex++;
 //    [self loadNextProfileByIndex:currentIndex];
 }
@@ -931,7 +933,6 @@ CGFloat pageHeight;
     
     if(currentIndex > [profileList count] - 10){
         [self loadProfileList:^(void){
-            is_loadingProfileList = FALSE;
         }];
     }
     request = [[AFHTTPClient alloc]initWithOakClubAPI:DOMAIN];
@@ -1080,8 +1081,8 @@ CGFloat pageHeight;
 
 -(void)location:(LocationUpdate *)location updateSuccessWithID:(NSString *)locationID andName:(NSString *)name
 {
-    [self refreshSnapshot];
-    appDel.reloadSnapshot = FALSE;
+//    [self refreshSnapshot];
+//    appDel.reloadSnapshot = FALSE;
 }
 
 #pragma mark App life cycle delegate

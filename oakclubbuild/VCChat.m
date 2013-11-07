@@ -64,46 +64,49 @@ int cellCountinSection=0;
     NSLog(@"***** loadFriendsInfo begin!");
     
     NSMutableArray* a_profile_id = [[NSMutableArray alloc] init];
-    NSOperationQueue *queue = [[NSOperationQueue alloc] init];
+//    NSOperationQueue *queue = [[NSOperationQueue alloc] init];
     if(appDel.friendChatList == NULL)
         return;
     for(NSString* key in [appDel.friendChatList allKeys])
     {
         Profile* profile = [appDel.friendChatList objectForKey:key];
+        [a_avatar setObject:profile.img_Avatar forKey:profile.s_ID];
+        [tableView reloadData];
         
         NSLog(@"Loading information for %@", profile.s_Name);
         
         [a_profile_id addObject:profile.s_ID];
         
-        AFHTTPRequestOperation *operation =
+//        AFHTTPRequestOperation *operation =
         [HistoryMessage getHistoryMessagesSync:profile.s_ID
                                       callback:^(NSMutableArray * array)
          {
              [a_messages setObject:array forKey:profile.s_ID];
-
+                 [tableView reloadData];
              NSLog(@"Get H Msg completed");
          }];
         //[operation start];
-        [queue addOperation:operation];
+//        [queue addOperation:operation];
+        
         NSString* link = profile.s_Avatar;
         
         if(![link isEqualToString:@""])
         {
-            AFHTTPRequestOperation *operation =
+//            AFHTTPRequestOperation *operation =
             [Profile getAvatarSync:link
                           callback:^(UIImage *image)
              {
                  
                  [a_avatar setObject:image forKey:profile.s_ID];
-                 
+                 [tableView reloadData];
                  NSLog(@"Download avatar done for %@", profile.s_Name);
              }];
             //[operation start];
-            [queue addOperation:operation];
+//            [queue addOperation:operation];
         }
     }
     
-    [queue waitUntilAllOperationsAreFinished];
+//    [queue waitUntilAllOperationsAreFinished];
     /*
     NSString* s_profile_id = [a_profile_id componentsJoinedByString:@"|"];
     
@@ -153,24 +156,6 @@ int cellCountinSection=0;
     
     [loadingFriendList stopAnimating];
     loadingFriendList.hidden = YES;
-}
-
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
-//    [self.view addSubview:tbVC_ChatList.view];
-    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"bg-edit.png"]];
-    
-    [loadingFriendList startAnimating];
-    [self.view bringSubviewToFront:loadingFriendList];
-    loadingFriendList.hidden = NO;
-    
-    [self loadFriendsInfo:nil];
-    
-    isChatLoaded = FALSE;
-    
-    [self customSearchBar];
 }
 
 -(void)addTopRightButtonWithAction:(SEL)action
@@ -226,15 +211,6 @@ int cellCountinSection=0;
     [self.navigationController pushViewController:myLink animated:YES];
 }
 
-- (void)viewDidUnload {
-//    [self setTbVC_ChatList:nil];
-    [self setLoadingFriendList:nil];
-    [self setTableView:nil];
-    [super viewDidUnload];
-   
-    a_avatar = nil;
-    a_messages = nil;
-}
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 #pragma mark Accessors
@@ -324,12 +300,39 @@ int cellCountinSection=0;
 {
     [super viewDidAppear:animated];
     [self addTopRightButtonWithAction:@selector(enterEditing)];
+    fetchedResultsController = nil;
+    [appDel.myProfile getRosterListIDSync:^(void){
+        [self loadFriendsInfo:nil];
+        [tableView reloadData];
+    }];
     
-    [appDel.myProfile getRosterListIDSync];
-    [appDel loadFriendsList];
-    [tableView reloadData];
 }
-
+- (void)viewDidUnload {
+    //    [self setTbVC_ChatList:nil];
+    [self setLoadingFriendList:nil];
+    [self setTableView:nil];
+    [super viewDidUnload];
+    
+    a_avatar = nil;
+    a_messages = nil;
+}
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    // Do any additional setup after loading the view from its nib.
+    //    [self.view addSubview:tbVC_ChatList.view];
+    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"bg-edit.png"]];
+    
+    [loadingFriendList startAnimating];
+    [self.view bringSubviewToFront:loadingFriendList];
+    loadingFriendList.hidden = NO;
+    
+    [self loadFriendsInfo:nil];
+    
+    isChatLoaded = FALSE;
+    
+    [self customSearchBar];
+}
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 #pragma mark NSFetchedResultsController
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -535,7 +538,7 @@ int cellCountinSection=0;
                 bool isContained = NO;
                 for (NSString *_jid in friendChatIDs)
                 {
-                    if ([_jid isEqualToString:jid])
+                    if ([_jid isEqualToString:jid] || ([jid isEqualToString:appDel.myProfile.s_ID]))
                     {
                         isContained = YES;
                         break;
@@ -745,6 +748,7 @@ int cellCountinSection=0;
 //    [self.searchBar sizeThatFits:CGSizeMake(272, 88)];
     [self.searchBar sizeToFit];
 //    self.tableView.tableHeaderView = self.searchBar;
+    [self.view bringSubviewToFront:tableView];
     return YES;
 }
 -(void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText{

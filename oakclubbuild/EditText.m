@@ -72,11 +72,11 @@
     
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectZero] ;
     label.backgroundColor = [UIColor clearColor];
-    label.font = [UIFont boldSystemFontOfSize:20.0];
-    label.shadowColor = [UIColor colorWithWhite:0.0 alpha:0.5];
+    label.font = FONT_HELVETICANEUE_LIGHT(24.0);//[UIFont boldSystemFontOfSize:20.0];
+//    label.shadowColor = [UIColor colorWithWhite:0.0 alpha:0.5];
     label.textAlignment = NSTextAlignmentCenter;
     [label setText:@"Edit text"];
-    label.textColor = [UIColor blackColor]; // change this color
+//    label.textColor = [UIColor blackColor]; // change this color
     [label sizeToFit];
     self.navigationItem.titleView = label;
 }
