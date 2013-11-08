@@ -1048,8 +1048,8 @@ CGFloat pageHeight;
 
 -(void)location:(LocationUpdate *)location updateSuccessWithID:(NSString *)locationID andName:(NSString *)name
 {
-//    [self refreshSnapshot];
-//    appDel.reloadSnapshot = FALSE;
+    [self refreshSnapshot];
+    appDel.reloadSnapshot = FALSE;
 }
 
 #pragma mark App life cycle delegate
