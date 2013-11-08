@@ -518,7 +518,7 @@ UITapGestureRecognizer *tap;
             }
             [appDel updateLanguageBundle];
             [tableView reloadData];
-            [[self navBarOakClub] setHeaderName:[NSString localizeString:@"Setting"]];
+            [[self navBarOakClub] setHeaderName:[NSString localizeString:@"Settings"]];
             [appDel loadDataForList];
             break;
         }
@@ -769,14 +769,14 @@ UITapGestureRecognizer *tap;
         BOOL status= [[dict valueForKey:key_status] boolValue];
         if(status){
             NSLog(@"POST SUCCESS!!!");
-//            UIAlertView *alert = [[UIAlertView alloc]
-//                                  initWithTitle:@"Warning"
-//                                  message:@"The new settings will take effect within one day."
-//                                  delegate:self
-//                                  cancelButtonTitle:@"OK"
-//                                  otherButtonTitles:nil];
-//            [alert show];
-//            AppDelegate* appDel = (AppDelegate *) [UIApplication sharedApplication].delegate;
+            UIAlertView *alert = [[UIAlertView alloc]
+                                  initWithTitle:@"NOTE"
+                                  message:@"Settings is saved."
+                                  delegate:self
+                                  cancelButtonTitle:@"OK"
+                                  otherButtonTitles:nil];
+            [alert show];
+
             appDel.reloadSnapshot = TRUE;
         }
         else
@@ -1000,12 +1000,11 @@ UITapGestureRecognizer *tap;
     self.ageSlider = [[RangeSlider alloc] initWithFrame:CGRectMake(30, 40, 280, 23)]; // the slider enforces a height of 30, although I'm not sure that this is necessary
 	
 	self.ageSlider.minimumRangeLength = 0;//.03; // this property enforces a minimum range size. By default it is set to 0.0
-//    self.ageSlider.min =(CGFloat) (18 - MIN_AGE)/(MAX_AGE-MIN_AGE);
-    self.ageSlider.max = (CGFloat) (45 - MIN_AGE)/(MAX_AGE-MIN_AGE);
+
 
 	[self.ageSlider setMinThumbImage:[UIImage imageNamed:@"SnapshotSetting_thumb_slider.png"]]; // the two thumb controls are given custom images
 	[self.ageSlider setMaxThumbImage:[UIImage imageNamed:@"SnapshotSetting_thumb_slider.png"]];
-	[self.ageSlider setMin:(CGFloat) (18 - MIN_AGE)/(MAX_AGE-MIN_AGE)];
+	
 	UIImage *image; // there are two track images, one for the range "track", and one for the filled in region of the track between the slider thumbs
 	
 	[self.ageSlider setTrackImage:[[UIImage imageNamed:@"SnapshotSetting_fullrange_slider.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(9.0, 9.0, 9.0, 9.0)]];
@@ -1017,15 +1016,11 @@ UITapGestureRecognizer *tap;
 	[self.ageSlider addTarget:self action:@selector(report:) forControlEvents:UIControlEventValueChanged]; // The slider sends actions when the value of the minimum or maximum changes
 	[self.ageSlider addTarget:self action:@selector(touchDownOnSlider:) forControlEvents:UIControlEventTouchDown ];
     [self.ageSlider addTarget:self action:@selector(touchUpOnSlider:) forControlEvents:UIControlEventTouchUpInside ];
-	
-//	reportLabel = [[UILabel alloc] initWithFrame:CGRectMake(5, 30, 310, 30)]; // a label to see the values of the slider in this demo
-//	reportLabel.adjustsFontSizeToFitWidth = YES;
-//	reportLabel.textAlignment = NSTextAlignmentCenter;
-//	[window addSubview:reportLabel];
-//	NSString *report = [NSString stringWithFormat:@"current slider range is %f to %f", slider.min, slider.max];
-//	reportLabel.text = report;
     fromAge = 18;
     toAge = 45;
+    //    self.ageSlider.min =(CGFloat) (18 - MIN_AGE)/(MAX_AGE-MIN_AGE);
+    self.ageSlider.max = (CGFloat) (45 - MIN_AGE)/(MAX_AGE-MIN_AGE);
+    [self.ageSlider setMin:(CGFloat) (18 - MIN_AGE)/(MAX_AGE-MIN_AGE)];
 }
 
 - (void)report:(RangeSlider *)sender {

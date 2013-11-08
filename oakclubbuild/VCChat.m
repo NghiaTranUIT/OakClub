@@ -82,6 +82,9 @@ int cellCountinSection=0;
 //                                      callback:^(NSMutableArray * array)
         [HistoryMessage getHistoryMessages:profile.s_ID callback:^(NSMutableArray* array)
          {
+             if([[appDel.friendChatList allKeys] lastObject]== key){
+                 [loadingFriendList stopAnimating];
+             }
              [a_messages setObject:array forKey:profile.s_ID];
              [self.searchDisplayController.searchResultsTableView reloadData];
              NSLog(@"Get H Msg completed");
@@ -152,11 +155,6 @@ int cellCountinSection=0;
     [queue waitUntilAllOperationsAreFinished];
     */
     NSLog(@"***** loadFriendsInfo end!");
-    
-    [[self tableView] reloadData];
-    
-    [loadingFriendList stopAnimating];
-    loadingFriendList.hidden = YES;
 }
 
 -(void)addTopRightButtonWithAction:(SEL)action
@@ -301,11 +299,11 @@ int cellCountinSection=0;
 {
     [super viewDidAppear:animated];
     [self addTopRightButtonWithAction:@selector(enterEditing)];
-    fetchedResultsController = nil;
-    [appDel.myProfile getRosterListIDSync:^(void){
-        [self loadFriendsInfo:nil];
-        [self.searchDisplayController.searchResultsTableView reloadData];
-    }];
+//    fetchedResultsController = nil;
+//    [appDel.myProfile getRosterListIDSync:^(void){
+//        [self loadFriendsInfo:nil];
+//        [self.searchDisplayController.searchResultsTableView reloadData];
+//    }];
     
 }
 - (void)viewDidUnload {
@@ -323,7 +321,7 @@ int cellCountinSection=0;
     appDel._messageDelegate = self;
     // Do any additional setup after loading the view from its nib.
     //    [self.view addSubview:tbVC_ChatList.view];
-    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"bg-edit.png"]];
+//    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"bg-edit.png"]];
     
     [loadingFriendList startAnimating];
     [self.view bringSubviewToFront:loadingFriendList];
@@ -686,8 +684,6 @@ int cellCountinSection=0;
     }
 	
 	return cell;
-    
-    [self.view bringSubviewToFront:loadingFriendList];
 }
 
 
@@ -700,11 +696,10 @@ int cellCountinSection=0;
     
     selectedProfile = profile;
     // Vanancy - reset count of Notification of new chat unread
+    [self loadChatView:profile animated:YES];
     [appDel.myProfile resetUnreadMessageWithFriend:profile];
     [appDel.myProfile setViewedMatchMutualWithFriend:profile];
     profile.status = ChatViewed;
-    [self loadChatView:profile animated:YES];
-    
     //isChatLoaded = TRUE;
 }
 

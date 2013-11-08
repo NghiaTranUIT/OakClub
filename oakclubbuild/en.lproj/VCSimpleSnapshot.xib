@@ -465,6 +465,8 @@
             <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
+                <outlet property="lblLikeTurotial" destination="gWh-0V-v8Q" id="acW-iD-Dv2"/>
+                <outlet property="lblNopeTurotial" destination="f7S-Vm-ATS" id="aII-BR-Foh"/>
                 <outlet property="likePopupView" destination="xmA-N4-VKs" id="RqV-eE-f9z"/>
                 <outlet property="moveMeView" destination="4" id="zPr-bT-usj"/>
                 <outlet property="notInterestedPopupView" destination="Y1m-a3-YL3" id="eNg-sV-Vod"/>

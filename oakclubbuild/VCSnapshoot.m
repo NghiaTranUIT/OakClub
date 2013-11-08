@@ -179,7 +179,7 @@
             lbl_indexPhoto.text = [[NSString alloc]initWithFormat:@"%i/%i",1,[currentProfile.arr_photos count] ];
             
             AFHTTPClient *requestMutual = [[AFHTTPClient alloc] initWithOakClubAPI:DOMAIN];
-            [requestMutual getPath:URL_getHangoutProfile parameters:nil success:^(__unused AFHTTPRequestOperation *operation, id JSON)
+            [requestMutual getPath:URL_getProfileInfo parameters:nil success:^(__unused AFHTTPRequestOperation *operation, id JSON)
              {
                  NSError *e=nil;
                  NSMutableDictionary *dict = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONReadingMutableContainers error:&e];
