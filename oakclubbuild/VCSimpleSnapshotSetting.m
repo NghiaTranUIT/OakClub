@@ -489,13 +489,13 @@ UITapGestureRecognizer *tap;
             headerLbl.text = nil;
             break;
     }
-    [headerLbl localizeText];
     [headerImage addSubview:headerLbl];
     
     headerImage.frame = CGRectMake(0, 0, tableView.bounds.size.width, 20);
     
     [headerView addSubview:headerImage];
     
+    [headerView localizeAllViews];
     return headerView;
     
 }
@@ -520,6 +520,7 @@ UITapGestureRecognizer *tap;
             [tableView reloadData];
             [[self navBarOakClub] setHeaderName:[NSString localizeString:@"Setting"]];
             [appDel loadDataForList];
+            [self.view localizeAllViews];
             break;
         }
 //        case RangeGroup:

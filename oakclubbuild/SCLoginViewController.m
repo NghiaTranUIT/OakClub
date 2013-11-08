@@ -80,12 +80,6 @@
     //init for pageControl
     pageControl.numberOfPages = pageImages.count;
     pageControl.currentPage = 0;
-    
-    if (FBSession.activeSession.state == FBSessionStateCreatedTokenLoaded || FBSession.activeSession.state == FBSessionStateOpen)
-    {
-        [self startSpinner];
-        [self tryLogin];
-    }
 }
 
 -(void)viewDidAppear:(BOOL)animated
@@ -165,7 +159,7 @@
     [lbl setFont:[UIFont systemFontOfSize:16]];
     [lbl setTextColor:[UIColor darkTextColor]];
     [lbl setShadowColor:[UIColor lightTextColor]];
-    [lbl setLineBreakMode:NSLineBreakByCharWrapping];
+    [lbl setLineBreakMode:NSLineBreakByWordWrapping];
     lbl.numberOfLines = 2;
     lbl.textAlignment = NSTextAlignmentCenter;
     [lbl setFrame:CGRectMake(0, 5, 240, 50)];
@@ -307,11 +301,11 @@
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-//    if (FBSession.activeSession.state == FBSessionStateCreatedTokenLoaded || FBSession.activeSession.state == FBSessionStateOpen)
-//    {
-//        [self startSpinner];
-//        [self tryLogin];
-//    }
+    if (FBSession.activeSession.state == FBSessionStateCreatedTokenLoaded || FBSession.activeSession.state == FBSessionStateOpen)
+    {
+        [self startSpinner];
+        [self tryLogin];
+    }
     
     NSString *title = [alertView buttonTitleAtIndex:buttonIndex];
     if([title isEqualToString:@"Vietnamese"])

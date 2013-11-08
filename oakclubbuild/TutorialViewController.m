@@ -10,7 +10,7 @@
 #import "CycleScrollView.h"
 #import "AppDelegate.h"
 
-@interface TutorialViewController ()
+@interface TutorialViewController () <CycleScrollViewDelegate>
 {
     UIPageControl *pageControl;
 }
@@ -62,6 +62,11 @@
     [self.view sendSubviewToBack:cycle];
     [self.view bringSubviewToFront:pageControl];
     [pageControl setHidden:NO];
+}
+
+-(void)cycleScrollViewDelegate:(CycleScrollView *)cycleScrollView customizeImageView:(TapDetectingImageView *)imageView atIndex:(int)index
+{
+    
 }
 
 - (void)didReceiveMemoryWarning
