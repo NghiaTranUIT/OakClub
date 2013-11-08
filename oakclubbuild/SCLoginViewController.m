@@ -162,10 +162,10 @@
     NSLog(@"Customize cycle view at index: %d", index);
     UILabel *lbl = [[UILabel alloc] init];
     [lbl setBackgroundColor:[UIColor clearColor]];
-    [lbl setFont:[UIFont systemFontOfSize:16]];
+    [lbl setFont:FONT_HELVETICANEUE_LIGHT(16)];//[UIFont systemFontOfSize:16]];
     [lbl setTextColor:[UIColor darkTextColor]];
     [lbl setShadowColor:[UIColor lightTextColor]];
-    [lbl setLineBreakMode:NSLineBreakByCharWrapping];
+    [lbl setLineBreakMode:NSLineBreakByWordWrapping];
     lbl.numberOfLines = 2;
     lbl.textAlignment = NSTextAlignmentCenter;
     [lbl setFrame:CGRectMake(0, 5, 240, 50)];
