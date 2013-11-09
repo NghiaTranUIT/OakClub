@@ -35,7 +35,7 @@
     NSString *s_ProfileStatus; // "Online".
     int i_Points; // points of profile.
     NSString * s_FB_id; // Facebook ID
-    NSNumber *num_Photos;
+    NSInteger num_Photos;
     NSMutableArray *arr_photos;
     NSNumber *num_points;
     Gender *s_gender; // 0 - 1
@@ -63,7 +63,9 @@
     NSArray* a_favorites;
     NSString* s_user_id;
     NSString* s_Email;
-    int numberMutualFriends;
+    
+    int num_MutualFriends;
+    NSMutableArray * arr_MutualFriends;
     bool is_deleted;
     bool is_blocked;
     bool is_available;
@@ -71,8 +73,12 @@
     
     int status;// status is chat list: 0 - NewMatch, 1-MatchViewed, 2-NewChat, 3-ChatViewed
     int unread_message;
-    int new_visitors;
-    int new_gifts;
+    
+    
+    int num_Liked;
+    int num_Viewed;
+    CGFloat distance;
+    NSString *active;
     int new_mutual_attractions;
 }
 
@@ -102,7 +108,7 @@
 @property (strong, nonatomic) NSString *s_usenameXMPP; 
 @property (assign, nonatomic) int i_Points; 
 @property (strong, nonatomic) NSString *s_FB_id;
-@property (strong, nonatomic) NSNumber *num_Photos;
+@property (assign, nonatomic) NSInteger num_Photos;
 @property (strong, nonatomic) NSMutableArray *arr_photos;
 @property (strong, nonatomic) NSNumber *num_points;
 @property (strong, nonatomic) Gender *s_gender;
@@ -111,26 +117,30 @@
 @property (strong, nonatomic) NSDictionary *dic_Roster;
 @property NSArray* a_favorites;
 @property NSString* s_user_id;
-@property (assign, nonatomic) int numberMutualFriends;
+@property (strong, nonatomic) NSMutableArray *arr_MutualFriends;
+@property (assign, nonatomic) int num_MutualFriends;
 @property (assign, nonatomic) bool is_deleted;
 @property (assign, nonatomic) bool is_blocked;
 @property (assign, nonatomic) bool is_available;
 @property (assign, nonatomic) bool is_match;
 @property int status;
 @property int unread_message;
-@property int new_visitors;
-@property int new_gifts;
+@property int num_Liked;
+@property int num_Viewed;
+@property CGFloat distance;
+@property (strong, nonatomic) NSString* active;
 @property int new_mutual_attractions;
 
-+(NSMutableArray*) parseMutualFriends:(NSData *)jsonData;
+-(NSMutableArray*) parseMutualFriends:(NSMutableArray *)jsonData;
 +(NSMutableArray*) parseProfileToArray:(NSString *)responeString;
 +(NSMutableArray*) parseProfileToArrayByJSON:(NSData *)jsonData;
 -(NSMutableArray*) parseForGetFeatureList:(NSData *)jsonData;
--(ProfileSetting*) parseForGetAccountSetting:(NSData *)jsonData;
+//-(ProfileSetting*) parseForGetAccountSetting:(NSData *)jsonData;
 +(Gender*) parseGender:(NSNumber *)genderCode;
 -(void) parseProfileWithDictionary:(NSMutableDictionary*)data;
 -(void) parseForGetHangOutProfile:(NSData *)jsonData;
 -(void) parseGetSnapshotToProfile:(NSData *)jsonData;
+-(void) parseForGetProfileInfo:(NSData *)jsonData;
 - (void) SaveSetting;
 +(NSMutableArray*) parseListPhotos:(NSData *)jsonData;
 +(NSMutableDictionary*) parseListPhotosIncludeID:(NSData *)jsonData;

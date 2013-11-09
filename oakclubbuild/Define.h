@@ -12,9 +12,9 @@
 
 //demo version FLAG
 #define ENABLE_DEMO true
-#define USE_STAGING false
+#define USE_STAGING true
 #define USE_MAINHOST false
-#define USE_STAGING_MB true
+#define USE_STAGING_MB false
 //Hangout
 #define sOnline @"Online"
 
@@ -54,7 +54,7 @@
 #define URL_getProfileInfo @"service/getProfileInfo"
 #define URL_setProfileInfo @"service/setProfileInfo"
 #endif
-#if USE_STAGING_MB
+#if USE_STAGING_MB || USE_MAINHOST
 #define URL_getProfileInfo @"service/getHangoutProfile"
 #define URL_setProfileInfo @"service/setHangoutProfile"
 #endif
@@ -160,7 +160,7 @@
 #define key_BlockList @"block_list"
 #define key_PriorityList @"priority_list"
 #define key_StrProfileID @"str_profile_id"
-#define key_MutualFriends @"key_mutualFriends"
+#define key_MutualFriends @"mutual_friends"
 #define key_MutualLikes @"mutualLikes"
 #define key_URL @"URL"
 // list chat of profile
@@ -209,6 +209,12 @@
 #define key_age @"age"
 #define key_avatar @"avatar"
 #define key_photos @"photos"
+#define key_photoLink @"tweet_image_link"
+#define key_isProfilePicture @"is_profile_picture"
+#define key_distance @"distance"
+#define key_active @"active"
+#define key_liked @"like"
+#define key_viewed @"viewed"
 #define MAX_FREE_SNAPSHOT 100
 
 //============= Popularity =================

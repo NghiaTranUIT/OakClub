@@ -448,6 +448,13 @@
 		CD8B46FE18169CD200A272B7 /* VCSimpleSnapshot.xib in Resources */ = {isa = PBXBuildFile; fileRef = CD8B470018169CD200A272B7 /* VCSimpleSnapshot.xib */; };
 		CD8B47021816B82F00A272B7 /* menuViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CD8B47041816B82F00A272B7 /* menuViewController.xib */; };
 		CD8B47071816B91D00A272B7 /* VCChat.xib in Resources */ = {isa = PBXBuildFile; fileRef = CD8B47091816B91D00A272B7 /* VCChat.xib */; };
+		CDB88CA2182E07DC00E3ABDF /* ImageInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = CDB88CA1182E07DC00E3ABDF /* ImageInfo.m */; };
+		CDB88CA7182E456900E3ABDF /* Snapshot_mutualfriends_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = CDB88CA3182E456900E3ABDF /* Snapshot_mutualfriends_icon.png */; };
+		CDB88CA8182E456900E3ABDF /* Snapshot_mutualfriends_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CDB88CA4182E456900E3ABDF /* Snapshot_mutualfriends_icon@2x.png */; };
+		CDB88CA9182E456900E3ABDF /* Snapshot_shareInterest_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = CDB88CA5182E456900E3ABDF /* Snapshot_shareInterest_icon.png */; };
+		CDB88CAA182E456900E3ABDF /* Snapshot_shareInterest_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CDB88CA6182E456900E3ABDF /* Snapshot_shareInterest_icon@2x.png */; };
+		CDB88CAD182E47A100E3ABDF /* Snapshot_camera_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = CDB88CAB182E47A100E3ABDF /* Snapshot_camera_icon.png */; };
+		CDB88CAE182E47A100E3ABDF /* Snapshot_camera_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CDB88CAC182E47A100E3ABDF /* Snapshot_camera_icon@2x.png */; };
 		CDBD3F1A17744A69000B2FC8 /* UTM Nokia Standard Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CDBD3F1917744A69000B2FC8 /* UTM Nokia Standard Bold.ttf */; };
 		CDBF8DBD1817165000CDBCF7 /* UIView+Localize.m in Sources */ = {isa = PBXBuildFile; fileRef = CDBF8DBC1817165000CDBCF7 /* UIView+Localize.m */; };
 		CDC4929D1702CEAB00E83DE3 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CDC4929C1702CEAB00E83DE3 /* UIKit.framework */; };
@@ -1330,6 +1337,14 @@
 		CD8B46FF18169CD200A272B7 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/VCSimpleSnapshot.xib; sourceTree = "<group>"; };
 		CD8B47031816B82F00A272B7 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/menuViewController.xib; sourceTree = "<group>"; };
 		CD8B47081816B91D00A272B7 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/VCChat.xib; sourceTree = "<group>"; };
+		CDB88CA0182E07DC00E3ABDF /* ImageInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageInfo.h; sourceTree = "<group>"; };
+		CDB88CA1182E07DC00E3ABDF /* ImageInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageInfo.m; sourceTree = "<group>"; };
+		CDB88CA3182E456900E3ABDF /* Snapshot_mutualfriends_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Snapshot_mutualfriends_icon.png; path = Main/Snapshot_mutualfriends_icon.png; sourceTree = "<group>"; };
+		CDB88CA4182E456900E3ABDF /* Snapshot_mutualfriends_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Snapshot_mutualfriends_icon@2x.png"; path = "Main/Snapshot_mutualfriends_icon@2x.png"; sourceTree = "<group>"; };
+		CDB88CA5182E456900E3ABDF /* Snapshot_shareInterest_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Snapshot_shareInterest_icon.png; path = Main/Snapshot_shareInterest_icon.png; sourceTree = "<group>"; };
+		CDB88CA6182E456900E3ABDF /* Snapshot_shareInterest_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Snapshot_shareInterest_icon@2x.png"; path = "Main/Snapshot_shareInterest_icon@2x.png"; sourceTree = "<group>"; };
+		CDB88CAB182E47A100E3ABDF /* Snapshot_camera_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Snapshot_camera_icon.png; path = Main/Snapshot_camera_icon.png; sourceTree = "<group>"; };
+		CDB88CAC182E47A100E3ABDF /* Snapshot_camera_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Snapshot_camera_icon@2x.png"; path = "Main/Snapshot_camera_icon@2x.png"; sourceTree = "<group>"; };
 		CDBD3F1917744A69000B2FC8 /* UTM Nokia Standard Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "UTM Nokia Standard Bold.ttf"; sourceTree = "<group>"; };
 		CDBF8DBB1817165000CDBCF7 /* UIView+Localize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Localize.h"; sourceTree = "<group>"; };
 		CDBF8DBC1817165000CDBCF7 /* UIView+Localize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Localize.m"; sourceTree = "<group>"; };
@@ -2385,6 +2400,8 @@
 				CD1D562A1826246B002E312A /* Language.h */,
 				CD1D562B1826246B002E312A /* Language.m */,
 				97FB5E88182906BC00228140 /* AppLifeCycleDelegate.h */,
+				CDB88CA0182E07DC00E3ABDF /* ImageInfo.h */,
+				CDB88CA1182E07DC00E3ABDF /* ImageInfo.m */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -2455,6 +2472,12 @@
 		CD1301471821FC5E00D29E0B /* Main */ = {
 			isa = PBXGroup;
 			children = (
+				CDB88CAB182E47A100E3ABDF /* Snapshot_camera_icon.png */,
+				CDB88CAC182E47A100E3ABDF /* Snapshot_camera_icon@2x.png */,
+				CDB88CA3182E456900E3ABDF /* Snapshot_mutualfriends_icon.png */,
+				CDB88CA4182E456900E3ABDF /* Snapshot_mutualfriends_icon@2x.png */,
+				CDB88CA5182E456900E3ABDF /* Snapshot_shareInterest_icon.png */,
+				CDB88CA6182E456900E3ABDF /* Snapshot_shareInterest_icon@2x.png */,
 				CD50E34B181FBF3C0036A23B /* Snapshot_separators.png */,
 				CD50E34C181FBF3C0036A23B /* Snapshot_separators@2x.png */,
 				CD50E34D181FBF3C0036A23B /* Snapshot_top_polaroid.png */,
@@ -4316,6 +4339,7 @@
 				9775A7881813D5DE00BCF28D /* modalButton-selected.png in Resources */,
 				CD038E72180BDB2700A9E177 /* SmileyList.plist in Resources */,
 				CDD9822E170EDB6F00F6BF46 /* menu_profileBG.png in Resources */,
+				CDB88CA7182E456900E3ABDF /* Snapshot_mutualfriends_icon.png in Resources */,
 				CDD98231170EDFB100F6BF46 /* bar light.png in Resources */,
 				CD877CC118210B380067D478 /* tutorial_options@2x.png in Resources */,
 				CD005D5F181267F000238920 /* smile.png in Resources */,
@@ -4335,6 +4359,7 @@
 				CD1AB0731821804200B0FA10 /* Report_btn_block_active.png in Resources */,
 				CD18AB0817F2E01300A1C7E8 /* btn-fb.png in Resources */,
 				CDF99C4F1713FA6C008D8BAC /* defaultPerson.png in Resources */,
+				CDB88CAD182E47A100E3ABDF /* Snapshot_camera_icon.png in Resources */,
 				CDF99C511713FA6C008D8BAC /* orange.png in Resources */,
 				CD877C881820E7AB0067D478 /* Snapshot_btn_KeepPlaying.png in Resources */,
 				CDF99C541713FAFE008D8BAC /* MainWindow.xib in Resources */,
@@ -4415,6 +4440,7 @@
 				CDECD32D1733C3E800A6B17F /* stroke - avatar.png in Resources */,
 				CDECD32E1733C3E800A6B17F /* stroke.png in Resources */,
 				CDECD32F1733C3E800A6B17F /* arrow.png in Resources */,
+				CDB88CA8182E456900E3ABDF /* Snapshot_mutualfriends_icon@2x.png in Resources */,
 				CDECD3301733C3E800A6B17F /* button engine 1.png in Resources */,
 				CDECD3311733C3E800A6B17F /* button engine 2.png in Resources */,
 				CD2DE68C18279A9D0043AA91 /* SnapshotSetting_btn_save_active.png in Resources */,
@@ -4574,6 +4600,7 @@
 				CD252DB7177C1FFC004145A4 /* viewPhoto_btn_nope.png in Resources */,
 				CD252DB8177C1FFC004145A4 /* viewPhoto_btn_profile_pressed.png in Resources */,
 				CD877C751820B06B0067D478 /* Menu_icon_mymatch.png in Resources */,
+				CDB88CA9182E456900E3ABDF /* Snapshot_shareInterest_icon.png in Resources */,
 				CDFF63841823564400C8031F /* SnapshotSetting_btn_contactus_active.png in Resources */,
 				CD252DB9177C1FFC004145A4 /* viewPhoto_btn_yes_pressed.png in Resources */,
 				97A55D641823C3E700675025 /* slider@2x.png in Resources */,
@@ -4755,6 +4782,7 @@
 				CD877CE5182114560067D478 /* HistoryChat_matchup_off.png in Resources */,
 				CDDF94C417EC136000BA4A94 /* btn-check@2x.png in Resources */,
 				CD877C771820B06B0067D478 /* Menu_icon_profile.png in Resources */,
+				CDB88CAE182E47A100E3ABDF /* Snapshot_camera_icon@2x.png in Resources */,
 				CDDF94C517EC136000BA4A94 /* btn-done.png in Resources */,
 				CD13016D1821FD9700D29E0B /* SnapshotLoading_map_loaded.png in Resources */,
 				CDDF94C617EC136000BA4A94 /* btn-done@2x.png in Resources */,
@@ -4765,6 +4793,7 @@
 				CDDF94CA17EC136000BA4A94 /* btn-send-pressed@2x.png in Resources */,
 				CD877C7D1820B06B0067D478 /* Menu_icon_tellmyfriends.png in Resources */,
 				97A55D611823C3E700675025 /* Separators.png in Resources */,
+				CDB88CAA182E456900E3ABDF /* Snapshot_shareInterest_icon@2x.png in Resources */,
 				CDDF94CB17EC136000BA4A94 /* btn-send.png in Resources */,
 				CDDF94CC17EC136000BA4A94 /* btn-send@2x.png in Resources */,
 				CD50E35B181FBF3C0036A23B /* Snapshot_no_stamp.png in Resources */,
@@ -5035,6 +5064,7 @@
 				CDEFB91A1769E0060033F94E /* SnapshotSetting.m in Sources */,
 				CDBF8DBD1817165000CDBCF7 /* UIView+Localize.m in Sources */,
 				CD286265176B0FAF00E81E73 /* HangoutSetting.m in Sources */,
+				CDB88CA2182E07DC00E3ABDF /* ImageInfo.m in Sources */,
 				CDE4A0021774070800DED9EB /* UITableView+Custom.m in Sources */,
 				CDFA306217795A280023CEBE /* AdvancedSetting.m in Sources */,
 				CDF1AF8F1782DDE500C8FCE9 /* ProfileConfirmation.m in Sources */,

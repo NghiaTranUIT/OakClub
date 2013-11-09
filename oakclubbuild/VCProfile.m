@@ -17,6 +17,8 @@
 #import "NSString+Utils.h"
 #import "UIView+Localize.h"
 #import <math.h>
+
+#import "ImageInfo.h"
 @interface VCProfile (){
 //    BOOL popoverShowing;
     AFHTTPClient *request;
@@ -120,82 +122,69 @@ static CGFloat padding_left = 5.0;
 
 -(void)initMutualFriendsList
 {
-    AFHTTPClient *request = [[AFHTTPClient alloc] initWithOakClubAPI:DOMAIN];
-    NSDictionary *params  = [[NSDictionary alloc]initWithObjectsAndKeys:currentProfile.s_ID, key_profileID, nil];
-    
-    [request getPath:URL_getDetailMutualFriends parameters:params success:^(__unused AFHTTPRequestOperation *operation, id JSON)
-     {
-         NSMutableArray* mutual_friends = [Profile parseMutualFriends:JSON];
-         int friends_count = [mutual_friends count];
-         
-         if(friends_count == 0)
-         {
-             //[labelMutualFriends setHidden:NO];
-             self.mutualFriendsView.hidden = YES;
-             
-             self.profileView.frame = [self moveToFrame:self.mutualFriendsView.frame from:self.profileView.frame];
-             //update height of scrollview to fit screen.
-             CGFloat offset  = self.profileView.frame.origin.y + ( ([tableSource count]+1) * tableViewProfile.rowHeight) + 22*2;
-             [self.infoView setFrame:CGRectMake(0, 320, 320, offset)];
-         }
-         else
-         {
-             self.mutualFriendsView.hidden = NO;
-             for(int i = 0 ; i < friends_count; i++)
-             {
-                 Profile* p = [mutual_friends objectAtIndex:i];
-                 
-                 NSString* link = p.s_Avatar;
-                 
-                 //NSOperationQueue *queue = [[NSOperationQueue alloc] init];
-                 
-                 if(![link isEqualToString:@""])
+    if(currentProfile.num_MutualFriends == 0)
+    {
+        //[labelMutualFriends setHidden:NO];
+        self.mutualFriendsView.hidden = YES;
+        
+        self.profileView.frame = [self moveToFrame:self.mutualFriendsView.frame from:self.profileView.frame];
+        //update height of scrollview to fit screen.
+        CGFloat offset  = self.profileView.frame.origin.y + ( ([tableSource count]+1) * tableViewProfile.rowHeight) + 22*2;
+        [self.infoView setFrame:CGRectMake(0, 320, 320, offset)];
+    }
+    else
+    {
+        self.mutualFriendsView.hidden = NO;
+        for(int i = 0 ; i < currentProfile.num_MutualFriends; i++)
+        {
+            ImageInfo* p = [currentProfile.arr_MutualFriends objectAtIndex:i];
+            
+            NSString* link = p.avatar;
+            
+            //NSOperationQueue *queue = [[NSOperationQueue alloc] init];
+            
+            if(![link isEqualToString:@""])
+            {
+                AFHTTPRequestOperation *operation =
+                [Profile getAvatarSync:link
+                              callback:^(UIImage *avatar)
                  {
-                     AFHTTPRequestOperation *operation =
-                     [Profile getAvatarSync:link
-                                   callback:^(UIImage *avatar)
-                      {
-                          UIImageView *imageView = [[UIImageView alloc] initWithImage:avatar];
-                          
-                          // setup each frame to a default height and width, it will be properly placed when we call "updateScrollList"
-                          CGRect rect = imageView.frame;
-                          rect.size.height = 58;
-                          rect.size.width = 58;
-                          
-                          imageView.tag = i;	// tag our images for later use when we place them in serial fashion
-                          
-                          rect.origin.y = ( mutualFriendsImageView.frame.size.height - rect.size.height - 15) / 2;
-                          rect.origin.x = i * (58 + 5);
-                          
-                          imageView.frame = rect;
-
-                          UILabel* name = [[UILabel alloc] initWithFrame:CGRectMake(rect.origin.x, rect.origin.y + rect.size.height, 58, 15)];
-                          [name setBackgroundColor:[UIColor clearColor]];
-                          [name setFont:FONT_HELVETICANEUE_LIGHT(10.0)];
-                          name.text = p.s_Name;
-                          [mutualFriendsImageView addSubview:imageView];
-                          [mutualFriendsImageView addSubview:name];
-                      }];
-                     [operation start];
-                     //[queue addOperation:operation];
+                     UIImageView *imageView = [[UIImageView alloc] initWithImage:avatar];
                      
-                 }
-                 
-             }
-             mutualFriendsImageView.contentSize = CGSizeMake( friends_count * (58 + 5), 58 + 5);
-             [mutualFriendsImageView removeFromSuperview];
-             
-             mutualFriendsImageView.frame = [self addRelative:mutualFriendsImageView.frame addPoint:self.mutualFriendsView.frame.origin];
-             [scrollview addSubview:mutualFriendsImageView];
-             [scrollview setContentSize:CGSizeMake(scrollview.frame.size.width, scrollview.contentSize.height + self.mutualFriendsView.frame.size.height)];
-             NSLog(@"Mutual Content size: %f - %f", scrollview.contentSize.width, scrollview.contentSize.height);
-         }
-         
-         
-     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-         NSLog(@"Error Code: %i - %@",[error code], [error localizedDescription]);
-     }];
-
+                     // setup each frame to a default height and width, it will be properly placed when we call "updateScrollList"
+                     CGRect rect = imageView.frame;
+                     rect.size.height = 58;
+                     rect.size.width = 58;
+                     
+                     imageView.tag = i;	// tag our images for later use when we place them in serial fashion
+                     
+                     rect.origin.y = ( mutualFriendsImageView.frame.size.height - rect.size.height - 15) / 2;
+                     rect.origin.x = i * (58 + 5);
+                     
+                     imageView.frame = rect;
+                     
+                     UILabel* name = [[UILabel alloc] initWithFrame:CGRectMake(rect.origin.x, rect.origin.y + rect.size.height, 58, 15)];
+                     [name setBackgroundColor:[UIColor clearColor]];
+                     [name setFont:FONT_HELVETICANEUE_LIGHT(10.0)];
+                     name.text = p.name;
+                     [mutualFriendsImageView addSubview:imageView];
+                     [mutualFriendsImageView addSubview:name];
+                 }];
+                [operation start];
+                //[queue addOperation:operation];
+                
+            }
+            
+        }
+        mutualFriendsImageView.contentSize = CGSizeMake( currentProfile.num_MutualFriends * (58 + 5), 58 + 5);
+        [mutualFriendsImageView removeFromSuperview];
+        
+        mutualFriendsImageView.frame = [self addRelative:mutualFriendsImageView.frame addPoint:self.mutualFriendsView.frame.origin];
+        [scrollview addSubview:mutualFriendsImageView];
+        [scrollview setContentSize:CGSizeMake(scrollview.frame.size.width, scrollview.contentSize.height + self.mutualFriendsView.frame.size.height)];
+        NSLog(@"Mutual Content size: %f - %f", scrollview.contentSize.width, scrollview.contentSize.height);
+    }
+    
 }
 -(void)disableControllerButtons:(BOOL)value{
     [self.btnLike setEnabled:!value];

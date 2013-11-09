@@ -320,7 +320,7 @@ int indexAvatarSelected;
 	}
 
     cell.label.text = _profile.s_Name;
-    cell.photoNumber.text = [NSString stringWithFormat:@"%d", [_profile.num_Photos intValue]];
+    cell.photoNumber.text = [NSString stringWithFormat:@"%d", _profile.num_Photos ];
     UIImage *status;
     if([_profile.s_ProfileStatus isEqualToString:value_online]){
         [cell.status setHidden:NO];
@@ -371,7 +371,7 @@ int indexAvatarSelected;
         }
 //    }
 /*
-    if(_profile.numberMutualFriends == -1)
+    if(_profile.num_MutualFriends == -1)
     {
         NSDictionary *params = [[NSDictionary alloc]initWithObjectsAndKeys:_profile.s_ID,@"str_profile_id", nil];
         
@@ -387,9 +387,9 @@ int indexAvatarSelected;
                 
                 if(friendData != nil)
                 {
-                    _profile.numberMutualFriends = [[friendData valueForKey:@"mutualFriend"] intValue];
+                    _profile.num_MutualFriends = [[friendData valueForKey:@"mutualFriend"] intValue];
                     
-                    [cell setMutualFriends:_profile.numberMutualFriends];
+                    [cell setMutualFriends:_profile.num_MutualFriends];
                 }
             }
             
@@ -400,7 +400,7 @@ int indexAvatarSelected;
     }
     else
     {
-        [cell setMutualFriends:_profile.numberMutualFriends];
+        [cell setMutualFriends:_profile.num_MutualFriends];
     }
 */
     CGRect rect = cell.frame;

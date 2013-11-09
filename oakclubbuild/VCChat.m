@@ -139,8 +139,8 @@ int cellCountinSection=0;
                 
                 if(friendData != nil)
                 {
-                    NSNumber* numberMutualFriends = [friendData valueForKey:@"mutualFriend"];
-                    profile.numberMutualFriends = [numberMutualFriends intValue];
+                    NSNumber* num_MutualFriends = [friendData valueForKey:@"mutualFriend"];
+                    profile.num_MutualFriends = [num_MutualFriends intValue];
                 }
             }
         }
@@ -657,7 +657,7 @@ int cellCountinSection=0;
 //            [cell.avatar setImage:avatar];
 //        }
         [cell.avatar setImage:profile.img_Avatar];
-//        [cell setMutualFriends:profile.numberMutualFriends];
+//        [cell setMutualFriends:profile.num_MutualFriends];
         
         cell.last_message.text = @"";
         cell.date_history.text = @"";

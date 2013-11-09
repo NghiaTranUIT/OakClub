@@ -520,17 +520,41 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
 -(void)getProfileInfoWithHandler:(void(^)(void))handler
 {
     
-    NSDictionary *params  = [[NSDictionary alloc]initWithObjectsAndKeys:s_DeviceToken, @"device_token", nil];
+//    NSDictionary *params  = [[NSDictionary alloc]initWithObjectsAndKeys:s_DeviceToken, @"device_token", nil]; //Vanancy - unused
     
     AFHTTPClient *request = [[AFHTTPClient alloc] initWithOakClubAPI:DOMAIN];
-    [request getPath:URL_getProfileInfo parameters:params success:^(__unused AFHTTPRequestOperation *operation, id JSON)
+    [request getPath:URL_getProfileInfo parameters:nil success:^(__unused AFHTTPRequestOperation *operation, id JSON)
     {
         self.myProfile = [[Profile alloc]init];
-        accountSetting = [self.myProfile parseForGetAccountSetting:JSON];
-        
-        [self updateProfile];
+//        accountSetting = [self.myProfile parseForGetAccountSetting:JSON];
 //        [self updateChatList];
+        //get information of user's profile
+//        [self updateProfile];  // Vanancy - unused
+        [self.myProfile parseForGetProfileInfo:JSON];
+        [self setFieldValue:[NSString stringWithFormat:DOMAIN_AT_FMT,self.myProfile.s_usenameXMPP] forKey:kXMPPmyJID];
+        [self setFieldValue:self.myProfile.s_passwordXMPP forKey:kXMPPmyPassword];
+
+        // Configure logging framework
+        [DDLog addLogger:[DDTTYLogger sharedInstance]];
         
+        // Setup the XMPP stream
+        [self setupStream];
+        [self connect];
+        
+        //Vanancy - load photos in to user's profile => move this into VCMyProfile
+        /*
+        AFHTTPClient *requestPhoto = [[AFHTTPClient alloc] initWithOakClubAPI:DOMAIN];
+        NSDictionary *params  = [[NSDictionary alloc]initWithObjectsAndKeys:self.myProfile.s_ID, key_profileID, nil];
+        self.myProfile.arr_photos = [[NSMutableArray alloc] init];
+        [requestPhoto getPath:URL_getListPhotos parameters:params
+                      success:^(__unused AFHTTPRequestOperation *operation, id JSON)
+         {
+             self.myProfile.arr_photos = [Profile parseListPhotos:JSON];
+             
+         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+             NSLog(@"Error Code: %i - %@",[error code], [error localizedDescription]);
+         }];
+        */
         if (handler)
         {
             handler();
@@ -543,6 +567,8 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
     }];
 
 }
+/*
+ // Vanancy - unused
 - (void)updateProfile
 {
     AFHTTPClient *requestHangout = [[AFHTTPClient alloc] initWithOakClubAPI:DOMAIN];
@@ -558,42 +584,9 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
          [DDLog addLogger:[DDTTYLogger sharedInstance]];
          
          // Setup the XMPP stream
-         
-         //int count = [self.myProfile.a_RosterList count];
-         //NSLog(@"URL_getProfileInfo ****** Number of roster list: %d", count);
-         
          [self setupStream];
          [self connect];
-         
-         //Set number of unread message;
-//         menuViewController* menuVC = (menuViewController*)self.rootVC.leftViewController;
-//         [menuVC setChatNotification:self.myProfile.unread_message];
-         
-//         [Profile getListPeople:URL_getListWhoCheckedMeOut handler:^(NSMutableArray* list, int count)
-//         {
-//             menuViewController* menuVC = (menuViewController*)self.rootVC.leftViewController;
-//             [menuVC setVisitorsNotification:count];
-//             
-//             self.myProfile.new_visitors = count;
-//             //NSLog(@"new visitors: %d", count);
-//             
-//             NavBarOakClub* navbar = (NavBarOakClub*)self.snapShoot.navigationBar;
-//             [navbar setNotifications:[self countTotalNotifications]];
-//         }];
-         // API - unuse
-         /*NSDictionary *mutualMatchParams  = [[NSDictionary alloc]initWithObjectsAndKeys:@"0",@"start",@"999",@"limit",@"1",@"is_viewed", nil];
-         [Profile getListPeople:URL_getListMutualMatch andParams:mutualMatchParams handler:^(NSMutableArray* list, int count)
-          {
-              menuViewController* menuVC = (menuViewController*)self.rootVC.leftViewController;
-              [menuVC setMyLinksNotification:count];
-              
-              self.myProfile.new_mutual_attractions = count;
-              //NSLog(@"new visitors: %d", count);
-              
-              NavBarOakClub* navbar = (NavBarOakClub*)self.snapShoot.navigationBar;
-              [navbar setNotifications:[self countTotalNotifications]];
-          }];
-         */
+
          AFHTTPClient *requestPhoto = [[AFHTTPClient alloc] initWithOakClubAPI:DOMAIN];
          NSDictionary *params  = [[NSDictionary alloc]initWithObjectsAndKeys:self.myProfile.s_ID, key_profileID, nil];
          self.myProfile.arr_photos = [[NSMutableArray alloc] init];
@@ -611,49 +604,51 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
      }];
     
 }
-//- (void) updateChatList{
-//    NSMutableArray *_arrRoster = [[NSMutableArray alloc] init];
-//    
-//    AFHTTPClient *request = [[AFHTTPClient alloc] initWithOakClubAPI:DOMAIN];
-//    [request getPath:URL_getListChat parameters:nil success:^(__unused AFHTTPRequestOperation *operation, id JSON) {
-//        NSError *e=nil;
-//        NSMutableDictionary *dict_ListChat = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONReadingMutableContainers error:&e];
-//        //        NSMutableDictionary * data= [dict valueForKey:key_data];
-//        
-//        self.myProfile.unread_message = 0;
-//        NSMutableArray* rosterList = [dict_ListChat valueForKey:key_data];
-//        
-//        for (int i = 0; rosterList!=nil && i < [rosterList count]; i++) {
-//            NSMutableDictionary *objectData = [rosterList objectAtIndex:i];
-//            
-//            if(objectData != nil)
-//            {
-//                NSString* profile_id = [objectData valueForKey:key_profileID];
-//                bool deleted = [[objectData valueForKey:@"is_deleted"] boolValue];
-//                bool blocked = [[objectData valueForKey:@"is_blocked"] boolValue];
-//                //bool deleted_by = [[objectData valueForKey:@"is_deleted_by_user"] boolValue];
-//                bool blocked_by = [[objectData valueForKey:@"is_blocked_by_user"] boolValue];
-//                // vanancyLuu : cheat for crash
-//                if(!deleted && !blocked && !blocked_by )
-//                {
-//                    [_arrRoster addObject:profile_id];
-//                    
-//                    int unread_count = [[objectData valueForKey:@"unread_count"] intValue];
-//                    
-//                    NSLog(@"%d. unread message: %d", i, unread_count);
-//                    
-//                    self.myProfile.unread_message += unread_count;
-//                }
-//            }
-//        }
-//        
-//        NSLog(@"unread message: %d", self.myProfile.unread_message);
-//        
-//        self.myProfile.a_RosterList = [NSArray arrayWithArray:_arrRoster];
-//    }failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-//        NSLog(@"Error Code: %i - %@", [error code], [error localizedDescription]);
-//    }];
-//}
+
+- (void) updateChatList{
+    NSMutableArray *_arrRoster = [[NSMutableArray alloc] init];
+    
+    AFHTTPClient *request = [[AFHTTPClient alloc] initWithOakClubAPI:DOMAIN];
+    [request getPath:URL_getListChat parameters:nil success:^(__unused AFHTTPRequestOperation *operation, id JSON) {
+        NSError *e=nil;
+        NSMutableDictionary *dict_ListChat = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONReadingMutableContainers error:&e];
+        //        NSMutableDictionary * data= [dict valueForKey:key_data];
+        
+        self.myProfile.unread_message = 0;
+        NSMutableArray* rosterList = [dict_ListChat valueForKey:key_data];
+        
+        for (int i = 0; rosterList!=nil && i < [rosterList count]; i++) {
+            NSMutableDictionary *objectData = [rosterList objectAtIndex:i];
+            
+            if(objectData != nil)
+            {
+                NSString* profile_id = [objectData valueForKey:key_profileID];
+                bool deleted = [[objectData valueForKey:@"is_deleted"] boolValue];
+                bool blocked = [[objectData valueForKey:@"is_blocked"] boolValue];
+                //bool deleted_by = [[objectData valueForKey:@"is_deleted_by_user"] boolValue];
+                bool blocked_by = [[objectData valueForKey:@"is_blocked_by_user"] boolValue];
+                // vanancyLuu : cheat for crash
+                if(!deleted && !blocked && !blocked_by )
+                {
+                    [_arrRoster addObject:profile_id];
+                    
+                    int unread_count = [[objectData valueForKey:@"unread_count"] intValue];
+                    
+                    NSLog(@"%d. unread message: %d", i, unread_count);
+                    
+                    self.myProfile.unread_message += unread_count;
+                }
+            }
+        }
+        
+        NSLog(@"unread message: %d", self.myProfile.unread_message);
+        
+        self.myProfile.a_RosterList = [NSArray arrayWithArray:_arrRoster];
+    }failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"Error Code: %i - %@", [error code], [error localizedDescription]);
+    }];
+}
+*/
 - (void)openSession
 {
     NSArray *permission = [[NSArray alloc] initWithObjects:@"email",@"user_birthday",@"user_location",nil];
@@ -1264,7 +1259,7 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
 	
     NSLog(@"xmppStreamDidAuthenticate");
 
-//    [self loadFriendsList ];
+    [self loadFriendsList ];
 	[self goOnline];
 }
 

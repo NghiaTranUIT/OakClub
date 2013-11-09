@@ -241,7 +241,7 @@ CGFloat pageHeight;
 //             }];
 //            [operation start];
             // Vanancy - update mutual friends/likes count here
-            /*if(profile.numberMutualFriends == -1)
+            /*if(profile.num_MutualFriends == -1)
             {
                 NSDictionary *params = [[NSDictionary alloc]initWithObjectsAndKeys:profile.s_ID,@"str_profile_id", nil];
                 
@@ -257,7 +257,7 @@ CGFloat pageHeight;
                         
                         if(friendData != nil)
                         {
-                            profile.numberMutualFriends = [[friendData valueForKey:@"mutualFriend"] intValue];
+                            profile.num_MutualFriends = [[friendData valueForKey:@"mutualFriend"] intValue];
                             
                         }
                     }
@@ -389,6 +389,8 @@ CGFloat pageHeight;
     NSString *txtAge= [NSString stringWithFormat:@"%@",currentProfile.s_age];
     [lblName setText:[self formatTextWithName:currentProfile.s_Name andAge:txtAge]];
     [lblPhotoCount setText:[NSString stringWithFormat:@"%i",[currentProfile.arr_photos count]]];
+    [lbl_mutualFriends setText:[NSString stringWithFormat:@"%i",currentProfile.num_MutualFriends]];
+//    [lbl_mutualLikes setText:[NSString stringWithFormat:@"%i",currentProfile.num_]];
 //    AFHTTPClient *requestMutual = [[AFHTTPClient alloc] initWithOakClubAPI:DOMAIN];
 //    NSDictionary *params = [[NSDictionary alloc]initWithObjectsAndKeys:currentProfile.s_ID,@"profile_id", nil];
     if([currentProfile.arr_photos[0] isKindOfClass:[UIImage class]]){
@@ -814,7 +816,7 @@ CGFloat pageHeight;
                      animations:^{
                          [self.navigationController setNavigationBarHidden:NO animated:YES];
 //                         self.sv_photos.frame = CGRectMake(46, 30, 228, 228);
-                         [self.imgMainProfile setFrame:CGRectMake(46, 30, 228, 228)];
+                         [self.imgMainProfile setFrame:CGRectMake(46, 28, 255, 255)];
 //                         [self loadDataPhotoScrollView];
                      }
                      completion:^(BOOL finished) {
@@ -822,7 +824,7 @@ CGFloat pageHeight;
 //                         [self.moveMeView addSubViewToCardView:self.sv_photos];
 //                         self.sv_photos.frame = CGRectMake(4, 5, 228 , 228);
                          [self.moveMeView addSubViewToCardView:imgMainProfile];
-                         [self.imgMainProfile setFrame:CGRectMake(4, 5, 228, 228)];
+                         [self.imgMainProfile setFrame:CGRectMake(5, 3, 255, 255)];
                          
                      }
      ];
@@ -1038,18 +1040,18 @@ CGFloat pageHeight;
 -(void)location:(LocationUpdate *)location updateFailWithError:(NSError *)e
 {
     NSLog(@"Location failed");
-    if (isLoading)
-    {
-        [self stopLoadingAnim];
-    }
-    
-    [self startDisabledGPS];
+//    if (isLoading)
+//    {
+//        [self stopLoadingAnim];
+//    }
+//    
+//    [self startDisabledGPS];
 }
 
 -(void)location:(LocationUpdate *)location updateSuccessWithID:(NSString *)locationID andName:(NSString *)name
 {
-    [self refreshSnapshot];
-    appDel.reloadSnapshot = FALSE;
+//    [self refreshSnapshot];
+//    appDel.reloadSnapshot = FALSE;
 }
 
 #pragma mark App life cycle delegate

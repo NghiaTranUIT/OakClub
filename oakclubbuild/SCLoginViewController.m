@@ -189,7 +189,7 @@
                                          [FBSession activeSession].accessTokenData.accessToken, @"access_token",
                                          appDelegate.myProfile.s_FB_id, @"user_id",
                                          nil];
-                 NSLog(@"Params: %@", params);
+                 NSLog(@"sendRegister-params: %@", params);
                  [request getPath:URL_sendRegister parameters:params success:^(__unused AFHTTPRequestOperation *operation, id JSON)
                   {
                       [self.view setUserInteractionEnabled:YES];
