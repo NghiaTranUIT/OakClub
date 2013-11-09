@@ -925,8 +925,8 @@ UITapGestureRecognizer *tap;
         MFMailComposeViewController *mailCont = [[MFMailComposeViewController alloc] init];
         mailCont.mailComposeDelegate = self;        // Required to invoke mailComposeController when send
         
-        [mailCont setSubject:@"OakClub send a contact"];
-        [mailCont setToRecipients:[NSArray arrayWithObject:@"hotro@oakclub.com"]];
+        [mailCont setSubject:@"Suggestion and support"];
+        [mailCont setToRecipients:[NSArray arrayWithObjects:@"hotro@oakclub.com",@"help@oakclub.com",nil]];
         [mailCont setMessageBody:@"" isHTML:NO];
         
         [self presentViewController:mailCont animated:YES completion:nil];

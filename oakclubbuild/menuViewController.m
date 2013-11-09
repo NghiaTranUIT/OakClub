@@ -331,7 +331,8 @@
 #pragma mark handle button touch
 -(void)activityAction
 {
-    UIActivityViewController *activityViewController = [[UIActivityViewController alloc]initWithActivityItems:[NSArray arrayWithObjects:@"You are sharing OakClub on your timeline",[UIImage imageNamed:@"SnapshotSetting_oakclub_logo.png"],nil] applicationActivities:nil];
+    NSString* body = @"Join www.OakClub.com .. and meet many cool singles nearby. Safe, trustworthy and private";
+    UIActivityViewController *activityViewController = [[UIActivityViewController alloc]initWithActivityItems:[NSArray arrayWithObjects:body,[UIImage imageNamed:@"SnapshotSetting_oakclub_logo.png"],nil] applicationActivities:nil];
     
     activityViewController.excludedActivityTypes = @[/*UIActivityTypePostToFacebook, UIActivityTypePostToTwitter, */UIActivityTypePostToWeibo, UIActivityTypeAssignToContact];
     [self presentViewController:activityViewController animated:YES completion:nil];
