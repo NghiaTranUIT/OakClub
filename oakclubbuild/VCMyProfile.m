@@ -515,24 +515,34 @@ UITapGestureRecognizer *tap;
         {
             bool isAvatar = (selectedPhoto == photosID.count + 2);
             PhotoUpload *uploader = [[PhotoUpload alloc] initWithPhoto:uploadImage andName:@"uploadedfile" isAvatar:isAvatar];
+            [self.view setUserInteractionEnabled:NO];
+            [appDelegate.rootVC.view setUserInteractionEnabled:NO];
+            [self.navigationController.navigationBar setUserInteractionEnabled:NO];
             [uploader uploadPhotoWithCompletion:^(NSString *imgLink, NSString *imgID)
              {
-                 if (isAvatar)
+                 if (imgID)
                  {
-                     [self.imgAvatar setBackgroundImage:uploadImage forState:UIControlStateNormal];
-                     self.imgAvatar.contentMode = UIViewContentModeScaleAspectFit;
-                     [self.imgAvatar setFrame:self.avatarLayout.frame];
+                     if (isAvatar)
+                     {
+                         [self.imgAvatar setBackgroundImage:uploadImage forState:UIControlStateNormal];
+                         self.imgAvatar.contentMode = UIViewContentModeScaleAspectFit;
+                         [self.imgAvatar setFrame:self.avatarLayout.frame];
+                         
+                         profileObj.img_Avatar = uploadImage;
+                         profileObj.s_Avatar = imgLink;
+                     }
                      
-                     profileObj.img_Avatar = uploadImage;
-                     profileObj.s_Avatar = imgLink;
+                     [photos addObject:uploadImage];
+                     [photosID addObject:imgID];
+                     
+                     uploadImage = nil;
+                     selectedPhoto = -1;
+                     [self reloadPhotos];
                  }
                  
-                 [photos addObject:uploadImage];
-                 [photosID addObject:imgID];
-                 
-                 uploadImage = nil;
-                 selectedPhoto = -1;
-                 [self reloadPhotos];
+                 [self.view setUserInteractionEnabled:YES];
+                 [appDelegate.rootVC.view setUserInteractionEnabled:YES];
+                 [self.navigationController.navigationBar setUserInteractionEnabled:YES];
              }];
         }
     }
