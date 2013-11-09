@@ -10,7 +10,7 @@
 #import "AppDelegate.h"
 @implementation Language
 -(id) copyWithZone: (NSZone *) zone{
-    Ethnicity *copyObj = [[Ethnicity allocWithZone: zone] init];
+    Language *copyObj = [[Language allocWithZone: zone] init];
     copyObj.ID = self.ID;
     copyObj.name = [self.name copyWithZone:zone];
     return copyObj;

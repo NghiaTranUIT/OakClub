@@ -9,6 +9,7 @@
 #import "Profile.h"
 #import "NSString+Utils.h"
 #import "AppDelegate.h"
+#import "ImageInfo.h"
 
 @interface Profile()
 {
@@ -20,7 +21,7 @@
 
 @implementation Profile
 
-@synthesize s_Name, img_Avatar, i_Points, s_ProfileStatus, s_FB_id, s_ID, dic_Roster,num_Photos, s_gender, num_points,/* num_unreadMessage,*/ s_passwordXMPP, s_usenameXMPP, arr_photos, s_aboutMe, s_birthdayDate, s_interested,a_language, s_location,s_relationShip, c_ethnicity, s_age, s_meetType, s_popularity, s_interestedStatus, s_snapshotID, a_favorites, s_user_id,s_school,i_work, i_height,i_weight, numberMutualFriends, new_gifts, s_Email;
+@synthesize s_Name, img_Avatar, i_Points, s_ProfileStatus, s_FB_id, s_ID, dic_Roster,num_Photos, s_gender, num_points,/* num_unreadMessage,*/ s_passwordXMPP, s_usenameXMPP, arr_photos, s_aboutMe, s_birthdayDate, s_interested,a_language, s_location,s_relationShip, c_ethnicity, s_age, s_meetType, s_popularity, s_interestedStatus, s_snapshotID, a_favorites, s_user_id,s_school,i_work, i_height,i_weight, num_MutualFriends, num_Liked,num_Viewed, s_Email, distance, active;
 @synthesize is_deleted;
 @synthesize is_blocked;
 @synthesize is_available;
@@ -239,7 +240,8 @@
     
     return _arrProfile;
 }
-
+/*
+ // Vanancy - unused
 -(ProfileSetting*) parseForGetAccountSetting:(NSData *)jsonData{
 //    NSData *jsonData = [responeString dataUsingEncoding:NSUTF8StringEncoding];
     NSError *e=nil;
@@ -277,30 +279,28 @@
     return setting;
     
 }
+ */
 
-+(NSMutableArray*) parseMutualFriends:(NSData *)jsonData
+-(NSMutableArray*) parseMutualFriends:(NSMutableArray *)jsonData
 {
-    NSError *e=nil;
-    NSMutableDictionary *dict = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingMutableContainers error:&e];
-    
-    NSMutableArray * data= [dict valueForKey:key_data];
-    
     NSMutableArray* friends = [[NSMutableArray alloc] init];
     
-    for(int i = 0 ; i < [data count]; i++)
+    for(int i = 0 ; i < [jsonData count]; i++)
     {
-        NSMutableDictionary* x = [data objectAtIndex:i];
-        Profile* p = [[Profile alloc] init];
+        NSMutableDictionary* x = [jsonData objectAtIndex:i];
+        ImageInfo* p = [[ImageInfo alloc] init];
         
-        p.s_Name = [x valueForKey:@"name"];
-        if([p.s_Name isKindOfClass:[NSNull class]])
-            p.s_Name = @"";
-        p.s_Avatar = [x valueForKey:@"avatar"];
-        p.s_user_id = [x valueForKey:@"user_id"];
+        p.name = [x valueForKey:key_name];
+        if([p.name isKindOfClass:[NSNull class]])
+            p.name = @"";
+        p.avatar = [x valueForKey:key_avatar];
+        if([p.avatar isKindOfClass:[NSNull class]])
+            p.avatar = @"";
+        p.s_ID = [x valueForKey:@"id"];
         
         [friends addObject:p];
     }
-    
+    self.num_MutualFriends = [friends count];
     return friends;
 }
 
@@ -417,7 +417,23 @@
         self.a_favorites = [NSArray arrayWithArray:a];
     }
 }
-
+-(void) parseForGetProfileInfo:(NSData *)jsonData{
+    //    NSData *jsonData = [responeString dataUsingEncoding:NSUTF8StringEncoding];
+    NSError *e=nil;
+    NSMutableDictionary *dict = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingMutableContainers error:&e];
+    
+    NSMutableDictionary * data= [dict valueForKey:key_data];
+    
+    self.s_ID = [data valueForKey:key_profileID];
+    
+    [self parseProfileWithDictionary:data];
+    
+    self.s_usenameXMPP = [data valueForKey:key_usernameXMPP];
+    self.s_passwordXMPP = [data valueForKey:key_passwordXMPP];
+    
+    [self getRosterListIDSync:^(void){
+    }];
+}
 -(void) parseForGetHangOutProfile:(NSData *)jsonData{
 //    NSData *jsonData = [responeString dataUsingEncoding:NSUTF8StringEncoding];
     NSError *e=nil;
@@ -526,30 +542,35 @@
         NSMutableDictionary *dict = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingMutableContainers error:&e];
         data= [dict valueForKey:key_data];
     }
-    
-    self.s_interestedStatus = [data valueForKey:key_interestedStatus];
-    // Vanancy --- check if answer or not 
-//    if(s_interestedStatus != nil){
-//        return;
-//    }
-    self.s_Name = [NSString stringWithFormat:@"%@ %@",[data valueForKey:key_last_name],[data valueForKey:key_first_name]] ;
+
+//    self.s_Name = [NSString stringWithFormat:@"%@ %@",[data valueForKey:key_last_name],[data valueForKey:key_first_name]] ;
+    self.s_Name = [data valueForKey:key_name];
     self.s_ID = [data valueForKey:key_profileID];
-    self.s_Avatar = [data valueForKey:key_avatar];
-    if(self.arr_photos == nil){
-        self.arr_photos = [[NSMutableArray alloc] init];
-    }
-    
+    self.s_age = [data valueForKey:key_age];
+
+    // Vanancy : empty now
     self.s_snapshotID =[data valueForKey:key_snapshotID];
-    
+    //load photos of profile
+    self.arr_photos = [[NSMutableArray alloc] init];
     NSMutableArray *_arrTemp = [[NSMutableArray alloc] init];
     _arrTemp = [data valueForKey:key_photos];
-    for (int i = 0; i < [_arrTemp count]; i++) {
+    self.num_Photos = [_arrTemp count];
+    for (int i = 0; i < self.num_Photos; i++) {
         NSMutableDictionary *photoItem = [_arrTemp objectAtIndex:i];
-        [self.arr_photos addObject: [photoItem valueForKey:@"src"]];
+        if ([photoItem valueForKey:key_isProfilePicture]) {
+            self.s_Avatar =[photoItem valueForKey:key_photoLink];
+        }
+        [self.arr_photos addObject: [photoItem valueForKey:key_photoLink]];
     }
-    if([_arrTemp count]==0 && ![self.s_Avatar isKindOfClass:[NSNull class]] )
-        [self.arr_photos addObject:self.s_Avatar];
-    self.s_age = [data valueForKey:key_age];
+    
+    //load mutual friends list
+    self.arr_MutualFriends = [[NSMutableArray alloc]init];
+    self.arr_MutualFriends = [self parseMutualFriends:[data valueForKey:key_MutualFriends]];
+    
+    self.num_Viewed =[[data valueForKey:key_viewed] integerValue];
+    self.num_Liked =[[data valueForKey:key_liked] integerValue];
+    self.distance = [[data valueForKey:key_distance] floatValue];
+    self.active = @"Active now";
 }
 
 -(Gender*) parseGender:(NSNumber *)genderCode{
@@ -825,7 +846,7 @@
     accountCopy.s_ProfileStatus = [s_ProfileStatus copyWithZone:zone];
     accountCopy.i_Points = i_Points;
     accountCopy.s_FB_id = [s_FB_id copyWithZone:zone];
-    accountCopy.num_Photos = [num_Photos copyWithZone:zone];
+    accountCopy.num_Photos = num_Photos;
     accountCopy.arr_photos = [arr_photos copyWithZone:zone];
     accountCopy.num_points = [num_points copyWithZone:zone];
     accountCopy.s_gender = [s_gender copy];
@@ -850,13 +871,16 @@
     accountCopy.dic_Roster = [dic_Roster copyWithZone:zone];
     accountCopy.a_favorites = [a_favorites copyWithZone:zone];
     accountCopy.s_user_id = [s_user_id copyWithZone:zone];
-    accountCopy.numberMutualFriends = numberMutualFriends ;
+    accountCopy.num_MutualFriends = num_MutualFriends ;
+    accountCopy.arr_MutualFriends = [arr_MutualFriends copyWithZone:zone];
     accountCopy.is_deleted = is_deleted;
     accountCopy.is_blocked = is_blocked ;
     accountCopy.is_available = is_available ;
     accountCopy.is_match = is_match;
     accountCopy.status = status;
     accountCopy.unread_message = unread_message;
+    accountCopy.distance = distance;
+    accountCopy.active = [active copyWithZone:zone];
     
     return accountCopy;
 }
@@ -867,7 +891,7 @@
 #if ENABLE_DEMO
     return self.new_mutual_attractions + self.unread_message;
 #else
-    return self.new_visitors + self.new_mutual_attractions + self.new_gifts + self.unread_message;
+    return self.new_mutual_attractions + self.unread_message;
 #endif
     
 }

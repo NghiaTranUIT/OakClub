@@ -63,7 +63,7 @@ int cellCountinSection=0;
     
     NSLog(@"***** loadFriendsInfo begin!");
     
-    NSMutableArray* a_profile_id = [[NSMutableArray alloc] init];
+//    NSMutableArray* a_profile_id = [[NSMutableArray alloc] init];
 //    NSOperationQueue *queue = [[NSOperationQueue alloc] init];
     if(appDel.friendChatList == NULL)
         return;
@@ -75,7 +75,7 @@ int cellCountinSection=0;
         [self.searchDisplayController.searchResultsTableView reloadData];
         NSLog(@"Loading information for %@", profile.s_Name);
         
-        [a_profile_id addObject:profile.s_ID];
+//        [a_profile_id addObject:profile.s_ID];
         
 //        AFHTTPRequestOperation *operation =
 //        [HistoryMessage getHistoryMessagesSync:profile.s_ID
@@ -139,8 +139,8 @@ int cellCountinSection=0;
                 
                 if(friendData != nil)
                 {
-                    NSNumber* numberMutualFriends = [friendData valueForKey:@"mutualFriend"];
-                    profile.numberMutualFriends = [numberMutualFriends intValue];
+                    NSNumber* num_MutualFriends = [friendData valueForKey:@"mutualFriend"];
+                    profile.num_MutualFriends = [num_MutualFriends intValue];
                 }
             }
         }
@@ -537,6 +537,8 @@ int cellCountinSection=0;
             XMPPJID* xmpp_jid = [user jid];
             NSString* jid = [xmpp_jid user];//[NSString stringWithFormat:@"%@@%@", [xmpp_jid user], [xmpp_jid domain]];
             Profile* profile =[appDel.myProfile.dic_Roster valueForKey:jid];
+            if(profile == nil)
+                break;
             bool v_isMatch = profile.is_match;
             if ([self isValidFriendWithMatch:v_isMatch])
             {
@@ -657,7 +659,7 @@ int cellCountinSection=0;
 //            [cell.avatar setImage:avatar];
 //        }
         [cell.avatar setImage:profile.img_Avatar];
-//        [cell setMutualFriends:profile.numberMutualFriends];
+//        [cell setMutualFriends:profile.num_MutualFriends];
         
         cell.last_message.text = @"";
         cell.date_history.text = @"";
