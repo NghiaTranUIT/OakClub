@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface VCSimpleSnapshotPopup : UIViewController
--(void) enableViewbyType:(int)type;
+-(void) enableViewbyType:(int)type andFriendName:(NSString*)name;
 @end

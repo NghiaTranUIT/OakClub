@@ -156,7 +156,7 @@
     NSLog(@"Customize cycle view at index: %d", index);
     UILabel *lbl = [[UILabel alloc] init];
     [lbl setBackgroundColor:[UIColor clearColor]];
-    [lbl setFont:[UIFont systemFontOfSize:16]];
+    [lbl setFont:FONT_HELVETICANEUE_LIGHT(16)];//[UIFont systemFontOfSize:16]];
     [lbl setTextColor:[UIColor darkTextColor]];
     [lbl setShadowColor:[UIColor lightTextColor]];
     [lbl setLineBreakMode:NSLineBreakByWordWrapping];

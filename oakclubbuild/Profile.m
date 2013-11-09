@@ -801,7 +801,7 @@
                             ];
     
     NSLog(@"Set hangout profile params: %@", params);
-    [httpClient getPath:URl_setHangoutProfile parameters:params success:^(__unused AFHTTPRequestOperation *operation, id JSON) {
+    [httpClient getPath:URL_setProfileInfo parameters:params success:^(__unused AFHTTPRequestOperation *operation, id JSON) {
         NSError *e=nil;
         NSMutableDictionary *dict = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONReadingMutableContainers error:&e];
         NSMutableArray * data= [dict valueForKey:key_data];

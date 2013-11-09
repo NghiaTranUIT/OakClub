@@ -372,45 +372,9 @@ CGFloat pageHeight;
     }
     Profile * temp  =  [[Profile alloc]init];
     temp = [profileList objectAtIndex:currentIndex];
-    [self.imgNextProfile setImage:[UIImage imageNamed:@"Default Avatar"]];
+    [self.imgNextProfile setImage:temp.img_Avatar];
+//    [self.imgNextProfile setImage:[UIImage imageNamed:@"Default Avatar"]];
     NSLog(@"Name of Profile : %@",currentProfile.s_Name);
-//    request = [[AFHTTPClient alloc]initWithBaseURL:[NSURL URLWithString:@""]];
-//    [request getPath:temp.s_Avatar parameters:nil success:^(__unused AFHTTPRequestOperation *operation, id JSON) {
-//        UIImage *image = [UIImage imageWithData:JSON];
-//        [self.imgNextProfile setImage:image];
-//    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-//        NSLog(@"Error Code: %i - %@",[error code], [error localizedDescription]);
-//    }];
-
-//    AFHTTPClient *requestMutual = [[AFHTTPClient alloc] initWithOakClubAPI:DOMAIN];
-//    NSDictionary *params = [[NSDictionary alloc]initWithObjectsAndKeys:currentProfile.s_ID,@"profile_id", nil];
-//    [requestMutual getPath:URL_getHangoutProfile parameters:params success:^(__unused AFHTTPRequestOperation *operation, id JSON)
-//     {
-//         [self.spinner stopAnimating];
-//         [self disableAllControl:NO];
-//         NSError *e=nil;
-//         NSMutableDictionary *dict = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONReadingMutableContainers error:&e];
-//         NSMutableDictionary * data= [dict valueForKey:key_data];
-//         NSMutableDictionary *infoMutual =[data valueForKey:currentProfile.s_ID];
-//         int mutualFriendCount =[[infoMutual valueForKey:key_MutualFriends]  integerValue];
-//         if(mutualFriendCount >0){
-//             lbl_mutualFriends.text = [NSString stringWithFormat:@"%i",mutualFriendCount];
-//             [lbl_mutualFriends setHidden:NO];
-//             [imgMutualFriend setHidden:NO];
-//         }
-//         int mutualLikeCount = [[infoMutual valueForKey:key_MutualLikes]  integerValue];
-//         if(mutualLikeCount > 0){
-//             lbl_mutualLikes.text = [NSString stringWithFormat:@"%i",mutualLikeCount];
-//             [lbl_mutualLikes setHidden:NO];
-//             [imgMutualLike setHidden:NO];
-//         }
-////         [self loadDataForPhotos];
-//         
-//     } failure:^(AFHTTPRequestOperation *operation, NSError *error)
-//     {
-//         NSLog(@"Error Code: %i - %@",[error code], [error localizedDescription]);
-//     }];
-    
 }
 -(void)loadCurrentProfile{
     if(currentIndex >= [profileList count])
@@ -440,7 +404,8 @@ CGFloat pageHeight;
          }];
         [operation start];
     }
-//    [requestMutual getPath:URL_getHangoutProfile parameters:params success:^(__unused AFHTTPRequestOperation *operation, id JSON)
+    [self stopLoadingAnim];
+//    [requestMutual getPath:URL_getProfileInfo parameters:params success:^(__unused AFHTTPRequestOperation *operation, id JSON)
 //     {
 //         [self stopLoadingAnim];
 //         NSError *e=nil;
@@ -559,7 +524,7 @@ CGFloat pageHeight;
             
             AFHTTPClient *requestMutual = [[AFHTTPClient alloc] initWithOakClubAPI:DOMAIN];
              NSDictionary *params = [[NSDictionary alloc]initWithObjectsAndKeys:currentProfile.s_ID,@"profile_id", nil];
-            [requestMutual getPath:URL_getHangoutProfile parameters:params success:^(__unused AFHTTPRequestOperation *operation, id JSON)
+            [requestMutual getPath:URL_getProfileInfo parameters:params success:^(__unused AFHTTPRequestOperation *operation, id JSON)
              {
                  NSError *e=nil;
                  NSMutableDictionary *dict = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONReadingMutableContainers error:&e];
@@ -933,6 +898,8 @@ CGFloat pageHeight;
     
     if(currentIndex > [profileList count] - 10){
         [self loadProfileList:^(void){
+            [self loadCurrentProfile];
+            [self loadNextProfileByCurrentIndex];
         }];
     }
     request = [[AFHTTPClient alloc]initWithOakClubAPI:DOMAIN];
@@ -1001,7 +968,7 @@ CGFloat pageHeight;
     if([name length] > 10){
         name = [name stringByReplacingCharactersInRange:NSMakeRange([name length]-3, 3) withString:@"..."];
     }
-    result = [NSString stringWithFormat:@"%@,%@",name,age];
+    result = [NSString stringWithFormat:@"%@ , %@",name,age];
     return result;
 }
 
@@ -1061,7 +1028,7 @@ CGFloat pageHeight;
 -(void)showFirstSnapshotPopup:(NSString*)answerChoice{
     int answer= [answerChoice integerValue];
     if(answer > -1){
-        [popupFirstTimeView enableViewbyType:answer];
+        [popupFirstTimeView enableViewbyType:answer andFriendName:currentProfile.s_Name];
         [popupFirstTimeView.view setFrame:CGRectMake(0, 0, popupFirstTimeView.view.frame.size.width, popupFirstTimeView.view.frame.size.height)];
         [self.view addSubview:popupFirstTimeView.view];
     }

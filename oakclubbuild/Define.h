@@ -27,8 +27,8 @@
 //#define DOMAIN @"http://staging.oakclub.com/app_dev.php"
 
 #if USE_STAGING
-#define HOSTNAME @"staging-mb.oakclub.com"
-#define DOMAIN @"http://staging-mb.oakclub.com"
+#define HOSTNAME @"staging.oakclub.com"
+#define DOMAIN @"http://staging.oakclub.com"
 #define DOMAIN_DATA @"http://data1.oakclub.com/" //data2
 #endif
 #if USE_MAINHOST
@@ -37,7 +37,7 @@
 #define DOMAIN_DATA @"http://data1.oakclub.com/" //data2
 #endif
 #if USE_STAGING_MB
-#define HOSTNAME @"staging-mb.oakclub.com"
+#define HOSTNAME @"staging.oakclub.com"
 #define DOMAIN @"http://staging-mb.oakclub.com"
 #define DOMAIN_DATA @"http://data1.oakclub.com/"
 #endif
@@ -50,8 +50,14 @@
 //============== APIs =============
 #define DOMAIN_AT @"@oakclub.com"
 #define DOMAIN_AT_FMT @"%@@oakclub.com"
-#define URL_getHangoutProfile @"service/getHangoutProfile"
-#define URl_setHangoutProfile @"service/setHangoutProfile"
+#if USE_STAGING
+#define URL_getProfileInfo @"service/getProfileInfo"
+#define URL_setProfileInfo @"service/setProfileInfo"
+#endif
+#if USE_STAGING_MB
+#define URL_getProfileInfo @"service/getHangoutProfile"
+#define URL_setProfileInfo @"service/setHangoutProfile"
+#endif
 #define URL_me @"service/me"
 #define URL_searchByLocation @"service/searchByLocation" //unused
 #define URL_setBidFeature @"service/setBidFeature"//unused

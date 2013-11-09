@@ -181,7 +181,7 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
 
     self.simpleSnapShot = [self createNavigationByClass:@"VCSimpleSnapshot" AndHeaderName:nil/*[NSString localizeString:@"Snapshot"]*/ andRightButton:@"VCChat" andIsStoryBoard:NO];
     //     self.snapShotSettings = [self.storyboard instantiateViewControllerWithIdentifier:@"SnapshotSettings"];
-    self.snapShotSettings = [self createNavigationByClass:@"VCSimpleSnapshotSetting" AndHeaderName:[NSString localizeString:@"Setting"] andRightButton:@"VCChat" andIsStoryBoard:NO];
+    self.snapShotSettings = [self createNavigationByClass:@"VCSimpleSnapshotSetting" AndHeaderName:[NSString localizeString:@"Settings"] andRightButton:@"VCChat" andIsStoryBoard:NO];
 //    self.mutualMatches = [self createNavigationByClass:@"VCMutualMatch" AndHeaderName:[NSString localizeString:@"Mutual Matches"] andRightButton:nil andIsStoryBoard:NO];
     self.myProfileVC = [self createNavigationByClass:@"VCMyProfile" AndHeaderName:[NSString localizeString:@"Edit Profile"] andRightButton:@"VCChat" andIsStoryBoard:NO];
 //    self.getPoints = [self createNavigationByClass:@"VCGetPoints" AndHeaderName:@"Get Coins" andRightButton:nil andIsStoryBoard:NO];
@@ -523,7 +523,7 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
     NSDictionary *params  = [[NSDictionary alloc]initWithObjectsAndKeys:s_DeviceToken, @"device_token", nil];
     
     AFHTTPClient *request = [[AFHTTPClient alloc] initWithOakClubAPI:DOMAIN];
-    [request getPath:URL_getAccountSetting parameters:params success:^(__unused AFHTTPRequestOperation *operation, id JSON)
+    [request getPath:URL_getProfileInfo parameters:params success:^(__unused AFHTTPRequestOperation *operation, id JSON)
     {
         self.myProfile = [[Profile alloc]init];
         accountSetting = [self.myProfile parseForGetAccountSetting:JSON];
@@ -547,7 +547,7 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
 {
     AFHTTPClient *requestHangout = [[AFHTTPClient alloc] initWithOakClubAPI:DOMAIN];
     
-    [requestHangout getPath:URL_getHangoutProfile parameters:nil success:^(__unused AFHTTPRequestOperation *operation, id JSON)
+    [requestHangout getPath:URL_getProfileInfo parameters:nil success:^(__unused AFHTTPRequestOperation *operation, id JSON)
      {
          //self.myProfile = [[Profile alloc]init];
          [self.myProfile parseForGetHangOutProfile:JSON];
@@ -560,14 +560,14 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
          // Setup the XMPP stream
          
          //int count = [self.myProfile.a_RosterList count];
-         //NSLog(@"URL_getHangoutProfile ****** Number of roster list: %d", count);
+         //NSLog(@"URL_getProfileInfo ****** Number of roster list: %d", count);
          
          [self setupStream];
          [self connect];
          
          //Set number of unread message;
-         menuViewController* menuVC = (menuViewController*)self.rootVC.leftViewController;
-         [menuVC setChatNotification:self.myProfile.unread_message];
+//         menuViewController* menuVC = (menuViewController*)self.rootVC.leftViewController;
+//         [menuVC setChatNotification:self.myProfile.unread_message];
          
 //         [Profile getListPeople:URL_getListWhoCheckedMeOut handler:^(NSMutableArray* list, int count)
 //         {
@@ -607,7 +607,7 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
           }];
      } failure:^(AFHTTPRequestOperation *operation, NSError *error)
      {
-         NSLog(@"URL_getHangoutProfile Error Code: %i - %@",[error code], [error localizedDescription]);
+         NSLog(@"URL_getProfileInfo Error Code: %i - %@",[error code], [error localizedDescription]);
      }];
     
 }
@@ -885,7 +885,7 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
         NSDictionary *params = [[NSDictionary alloc]initWithObjectsAndKeys:profile.s_ID , key_profileID, nil];
         
         NSMutableURLRequest *request = [httpClient requestWithMethod:@"GET"
-                                                                path:URL_getHangoutProfile
+                                                                path:URL_getProfileInfo
                                                           parameters:params];
         
         AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];

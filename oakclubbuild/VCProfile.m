@@ -257,7 +257,7 @@ static CGFloat padding_left = 5.0;
     // Do any additional setup after loading the view from its nib.
     AFHTTPClient *request = [[AFHTTPClient alloc] initWithOakClubAPI:DOMAIN];
     NSDictionary *params = [[NSDictionary alloc]initWithObjectsAndKeys:currentProfile.s_ID,@"profile_id", nil];
-    [request getPath:URL_getHangoutProfile parameters:params success:^(__unused AFHTTPRequestOperation *operation, id JSON) {
+    [request getPath:URL_getProfileInfo parameters:params success:^(__unused AFHTTPRequestOperation *operation, id JSON) {
         [currentProfile parseForGetHangOutProfile:JSON];
         lbl_name.text = currentProfile.s_Name;
         lblAge.text = [NSString stringWithFormat:@"%@",currentProfile.s_age];
