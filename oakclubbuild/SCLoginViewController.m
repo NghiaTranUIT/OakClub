@@ -297,16 +297,18 @@
                               otherButtonTitles:@"Vietnamese",@"English",nil];
         [alert show];
     }
+    else
+    {
+        if (FBSession.activeSession.state == FBSessionStateCreatedTokenLoaded || FBSession.activeSession.state == FBSessionStateOpen)
+        {
+            [self startSpinner];
+            [self tryLogin];
+        }
+    }
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-    if (FBSession.activeSession.state == FBSessionStateCreatedTokenLoaded || FBSession.activeSession.state == FBSessionStateOpen)
-    {
-        [self startSpinner];
-        [self tryLogin];
-    }
-    
     NSString *title = [alertView buttonTitleAtIndex:buttonIndex];
     if([title isEqualToString:@"Vietnamese"])
     {
