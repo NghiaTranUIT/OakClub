@@ -22,6 +22,9 @@
 		3715B377170AC9DC003ACE95 /* VCVisitor.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3715B368170AC9DC003ACE95 /* VCVisitor.xib */; };
 		3715B378170AC9DC003ACE95 /* VCVisitor.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3715B368170AC9DC003ACE95 /* VCVisitor.xib */; };
 		970924B2182E20A1007BD6B1 /* VCProfile.xib in Resources */ = {isa = PBXBuildFile; fileRef = 970924B1182E20A1007BD6B1 /* VCProfile.xib */; };
+		970924B5182E5BBF007BD6B1 /* myprofile_editVideo.png in Resources */ = {isa = PBXBuildFile; fileRef = 970924B3182E5BBF007BD6B1 /* myprofile_editVideo.png */; };
+		970924B6182E5BBF007BD6B1 /* myprofile_editVideo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 970924B4182E5BBF007BD6B1 /* myprofile_editVideo@2x.png */; };
+		970924BC182E5EFE007BD6B1 /* VideoPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 970924BB182E5EFE007BD6B1 /* VideoPicker.m */; };
 		970B7487181533560091471F /* PickPhotoFromGarelly.m in Sources */ = {isa = PBXBuildFile; fileRef = 970B7486181533560091471F /* PickPhotoFromGarelly.m */; };
 		970B748A181534090091471F /* PhotoUpload.m in Sources */ = {isa = PBXBuildFile; fileRef = 970B7489181534090091471F /* PhotoUpload.m */; };
 		972B27D9182CEC7C00D0ABC5 /* PrivacyView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 972B27D8182CEC7C00D0ABC5 /* PrivacyView.xib */; };
@@ -829,6 +832,10 @@
 		3715B367170AC9DC003ACE95 /* VCVisitor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VCVisitor.m; sourceTree = "<group>"; };
 		3715B368170AC9DC003ACE95 /* VCVisitor.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VCVisitor.xib; sourceTree = "<group>"; };
 		970924B1182E20A1007BD6B1 /* VCProfile.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VCProfile.xib; sourceTree = "<group>"; };
+		970924B3182E5BBF007BD6B1 /* myprofile_editVideo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = myprofile_editVideo.png; sourceTree = "<group>"; };
+		970924B4182E5BBF007BD6B1 /* myprofile_editVideo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "myprofile_editVideo@2x.png"; sourceTree = "<group>"; };
+		970924BA182E5EFE007BD6B1 /* VideoPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoPicker.h; sourceTree = "<group>"; };
+		970924BB182E5EFE007BD6B1 /* VideoPicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoPicker.m; sourceTree = "<group>"; };
 		970B7485181533560091471F /* PickPhotoFromGarelly.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PickPhotoFromGarelly.h; sourceTree = "<group>"; };
 		970B7486181533560091471F /* PickPhotoFromGarelly.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PickPhotoFromGarelly.m; sourceTree = "<group>"; };
 		970B7488181534090091471F /* PhotoUpload.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotoUpload.h; sourceTree = "<group>"; };
@@ -1988,6 +1995,8 @@
 				977853FD18224F2F00CBB5DB /* myprofile_editAvatar@2x.png */,
 				977854001822551100CBB5DB /* myprofile_photoLayout.png */,
 				977854011822551100CBB5DB /* myprofile_photoLayout@2x.png */,
+				970924B3182E5BBF007BD6B1 /* myprofile_editVideo.png */,
+				970924B4182E5BBF007BD6B1 /* myprofile_editVideo@2x.png */,
 			);
 			path = MyProfile;
 			sourceTree = "<group>";
@@ -4103,6 +4112,8 @@
 				970B7489181534090091471F /* PhotoUpload.m */,
 				97FB5E851828CFE700228140 /* LocationUpdate.h */,
 				97FB5E861828CFE800228140 /* LocationUpdate.m */,
+				970924BA182E5EFE007BD6B1 /* VideoPicker.h */,
+				970924BB182E5EFE007BD6B1 /* VideoPicker.m */,
 			);
 			name = MyProfile;
 			sourceTree = "<group>";
@@ -4259,6 +4270,7 @@
 				CD50E35A181FBF3C0036A23B /* Snapshot_logo@2x.png in Resources */,
 				CD877C6B1820B06B0067D478 /* Menu_btn_Facebook.png in Resources */,
 				CDFF638C1823564400C8031F /* SnapshotSetting_check.png in Resources */,
+				970924B5182E5BBF007BD6B1 /* myprofile_editVideo.png in Resources */,
 				CD877CFC18212BAE0067D478 /* Info_background.png in Resources */,
 				CD005D59181267F000238920 /* pirate.png in Resources */,
 				CD8AA1FC170C1B3F00A97C47 /* VCHangOut.xib in Resources */,
@@ -4581,6 +4593,7 @@
 				CD252DCF177C4B6B004145A4 /* btn_addme_pressed.png in Resources */,
 				CD1301611821FD9700D29E0B /* SnapshotLoading_btn_i_disabled.png in Resources */,
 				CD877C6F1820B06B0067D478 /* Menu_divider.png in Resources */,
+				970924B6182E5BBF007BD6B1 /* myprofile_editVideo@2x.png in Resources */,
 				CD877C761820B06B0067D478 /* Menu_icon_mymatch@2x.png in Resources */,
 				9775A7891813D5DE00BCF28D /* modalButton-selected@2x.png in Resources */,
 				CD877CA21820EF260067D478 /* Logout_btn_active@2x.png in Resources */,
@@ -4983,6 +4996,7 @@
 				CDDFFACE1719D25E00BBA321 /* AFNetworkActivityIndicatorManager.m in Sources */,
 				CDDFFACF1719D25E00BBA321 /* AFPropertyListRequestOperation.m in Sources */,
 				CDDFFAD01719D25E00BBA321 /* AFURLConnectionOperation.m in Sources */,
+				970924BC182E5EFE007BD6B1 /* VideoPicker.m in Sources */,
 				CDDFFAD11719D25E00BBA321 /* AFXMLRequestOperation.m in Sources */,
 				CDDFFAD21719D25E00BBA321 /* UIImageView+AFNetworking.m in Sources */,
 				CDDF8CFA171C0F8C00B8512D /* VCProfile.m in Sources */,

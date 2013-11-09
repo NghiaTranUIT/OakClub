@@ -17,6 +17,7 @@
 #import "PhotoScrollView.h"
 #import "UIView+Localize.h"
 #import "LocationUpdate.h"
+#import "VideoPicker.h"
 
 @interface VCMyProfile () <PickPhotoFromGarellyDelegate, UIAlertViewDelegate, ImageRequester, PhotoScrollViewDelegate, LocationUpdateDelegate>{
     GroupButtons* genderGroup;
@@ -33,6 +34,7 @@
     int selectedPhoto;
     UIImage *uploadImage;
     LocationUpdate *locUpdate;
+    VideoPicker *videoPicker;
 }
 @property (weak, nonatomic) IBOutlet PhotoScrollView *photoScrollView;
 @property (weak, nonatomic) IBOutlet UIImageView *avatarLayout;
@@ -40,6 +42,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *age_workLabel;
 @property (weak, nonatomic) IBOutlet UILabel *locationLabel;
+@property (weak, nonatomic) IBOutlet UIButton *btnUploadVideo;
 @end
 
 @implementation VCMyProfile
@@ -80,10 +83,14 @@ UITapGestureRecognizer *tap;
     locUpdate.delegate = self;
     
     avatarPicker = [[PickPhotoFromGarelly alloc] initWithParentWindow:self andDelegate:self];
+    videoPicker = [[VideoPicker alloc] initWithParentWindow:self andDelegate:nil];
     
     [self.imgAvatar setBackgroundImage:avatarImage forState:UIControlStateNormal];
     self.imgAvatar.contentMode = UIViewContentModeScaleAspectFit;
     [self.imgAvatar setFrame:self.avatarLayout.frame];
+    
+    [self.btnUploadVideo setBackgroundImage:avatarImage forState:UIControlStateNormal];
+    self.btnUploadVideo.contentMode = UIViewContentModeScaleAspectFit;
     
     self.photoScrollView.photoDelegate = self;
     
@@ -97,8 +104,8 @@ UITapGestureRecognizer *tap;
     [self.navigationController setNavigationBarHidden:NO];
     
     self.nameLabel.text = profileObj.s_Name;
-    self.age_workLabel.text = [NSString stringWithFormat:@"%d, %@", profileObj.age, profileObj.i_work.cate_name];
-    self.locationLabel.text = profileObj.s_location.name;
+    self.age_workLabel.text = [NSString stringWithFormat:@"%d", profileObj.age];
+    self.locationLabel.text = [NSString stringWithFormat:@"%@, %@", profileObj.i_work.cate_name, profileObj.s_location.name];
     
     [self.view localizeAllViews];
 }
@@ -528,6 +535,9 @@ UITapGestureRecognizer *tap;
                          self.imgAvatar.contentMode = UIViewContentModeScaleAspectFit;
                          [self.imgAvatar setFrame:self.avatarLayout.frame];
                          
+                         [self.btnUploadVideo setBackgroundImage:avatarImage forState:UIControlStateNormal];
+                         self.btnUploadVideo.contentMode = UIViewContentModeScaleAspectFit;
+                         
                          profileObj.img_Avatar = uploadImage;
                          profileObj.s_Avatar = imgLink;
                      }
@@ -900,6 +910,11 @@ UITapGestureRecognizer *tap;
         selectedPhoto = photos.count + 2;
         [avatarPicker showPicker];
     }
+}
+
+- (IBAction)uploadVideoTouched:(id)sender
+{
+    [videoPicker showPicker];
 }
 
 -(void)receiveImage:(UIImage *)_image

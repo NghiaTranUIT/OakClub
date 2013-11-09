@@ -1,23 +1,23 @@
 //
-//  PickPhotoFromGarelly.m
+//  VideoPicker.m
 //  OakClub
 //
-//  Created by Salm on 10/21/13.
+//  Created by Salm on 11/9/13.
 //  Copyright (c) 2013 VanLuu. All rights reserved.
 //
 
-#import "PickPhotoFromGarelly.h"
+#import "VideoPicker.h"
 #import <AssetsLibrary/AssetsLibrary.h>
 #import <MobileCoreServices/MobileCoreServices.h>
 
-@interface PickPhotoFromGarelly() <UIImagePickerControllerDelegate, UINavigationControllerDelegate>
+@interface VideoPicker() <UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 @end
 
-@implementation PickPhotoFromGarelly
+@implementation VideoPicker
 UIViewController *parentWindow;
-id<PickPhotoFromGarellyDelegate> delegate;
+id<VideoPickerDelegate> delegate;
 
--(id)initWithParentWindow:(UIViewController *)_parentWindow andDelegate:(id<PickPhotoFromGarellyDelegate>)_delegate
+-(id)initWithParentWindow:(UIViewController *)_parentWindow andDelegate:(id<VideoPickerDelegate>)_delegate
 {
     if (self = [super init])
     {
@@ -33,7 +33,7 @@ id<PickPhotoFromGarellyDelegate> delegate;
     UIImagePickerController *picker = [[UIImagePickerController alloc] init];
     picker.delegate = self;
     picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-//    picker.mediaTypes = @[(NSString*)kUTTypeMovie];
+    picker.mediaTypes = @[(NSString*)kUTTypeMovie];
     [parentWindow presentModalViewController:picker animated:YES];
 }
 
@@ -42,7 +42,7 @@ id<PickPhotoFromGarellyDelegate> delegate;
     [picker dismissModalViewControllerAnimated:YES];
     if (delegate)
     {
-        [delegate receiveImage:nil];
+        [delegate receiveVideo:nil];
     }
 }
 
@@ -60,13 +60,13 @@ id<PickPhotoFromGarellyDelegate> delegate;
         
         if (!img)
         {
-            [PickPhotoFromGarelly loadImageFromAssertByUrl:[info objectForKey:UIImagePickerControllerReferenceURL] completion:^(UIImage *_img) {
-                [delegate receiveImage:_img];
+            [VideoPicker loadImageFromAssertByUrl:[info objectForKey:UIImagePickerControllerReferenceURL] completion:^(UIImage *_img) {
+                [delegate receiveVideo:_img];
             }];
         }
         else
         {
-            [delegate receiveImage:img];
+            [delegate receiveVideo:img];
         }
     }
 }
