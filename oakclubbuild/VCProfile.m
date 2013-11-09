@@ -322,7 +322,7 @@ static CGFloat padding_left = 5.0;
         NSMutableDictionary * data= [dict valueForKey:key_data];
         
         // SCROLL SIZE
-        [scrollview setContentSize:CGSizeMake(320, 750)];//:CGRectMake(0, 0, 320, 480)];
+        [scrollview setContentSize:CGSizeMake(320, 790)];
         NSLog(@"Init Content size: %f - %f", scrollview.contentSize.width, infoView.frame.origin.y);
         
         self.lblAboutMe.text = [currentProfile s_aboutMe];
@@ -727,7 +727,7 @@ static CGFloat padding_left = 5.0;
     for (UIImageView * view in self.svPhotos.subviews) {
         [view removeFromSuperview];
     }
-    self.svPhotos.frame = CGRectMake(0, 0, 320, 275);
+    self.svPhotos.frame = CGRectMake(0, 0, 320, 320);
 }
 -(void)loadPhotoForScrollview{
 //    for (UIImageView * view in self.svPhotos.subviews) {
@@ -1013,11 +1013,11 @@ BOOL allowFullScreen = FALSE;
         }
         else
         {
-            if(self.svPhotos.frame.size.height > 275 && scrollOffset > 0){
+            if(self.svPhotos.frame.size.height > 320 && scrollOffset > 0){
                 [self.svPhotos setFrame:CGRectMake(0, 0, 320, self.svPhotos.frame.size.height -  fabsf(scrollOffset))];
                 self.svPhotos.contentSize =
                 CGSizeMake(CGRectGetWidth(self.svPhotos.frame) * [currentProfile.arr_photos count], CGRectGetHeight(self.svPhotos.frame));
-                [self.infoView setFrame:CGRectMake(0, self.infoView.frame.origin.y -  fabsf(scrollOffset), self.infoView.frame.size.width, self.infoView.frame.size.height)];
+                [self.infoView setFrame:CGRectMake(0, self.infoView.frame.origin.y - fabsf(scrollOffset), self.infoView.frame.size.width, self.infoView.frame.size.height)];
                 [self.lblsPhoto setFrame:CGRectMake(0, self.svPhotos.frame.origin.y + self.svPhotos.frame.size.height - self.lblsPhoto.frame.size.height, self.lblsPhoto.frame.size.width, self.lblsPhoto.frame.size.height)];
                 [scrollView setContentOffset:CGPointMake(0, 0)];
 //                CGRect interestFrame = scrollViewInterest.frame;
@@ -1042,7 +1042,7 @@ BOOL allowFullScreen = FALSE;
 //        CGRect interestFrame = scrollViewInterest.frame;
 //        [scrollViewInterest setFrame:CGRectMake(interestFrame.origin.x, self.infoView.frame.origin.y +  self.interestsView.frame.origin.y + 29, interestFrame.size.width, interestFrame.size.height)];
         
-        [self.svPhotos setFrame:CGRectMake(0, 0, self.view.frame.size.width, 275)];
+        [self.svPhotos setFrame:CGRectMake(0, 0, self.view.frame.size.width, 320)];
         self.svPhotos.contentSize =
         CGSizeMake(CGRectGetWidth(self.svPhotos.frame) * [currentProfile.arr_photos count], CGRectGetHeight(self.svPhotos.frame));
         [self.infoView setFrame:CGRectMake(0, 320, self.infoView.frame.size.width, self.infoView.frame.size.height)];
