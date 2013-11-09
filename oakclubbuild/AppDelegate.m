@@ -519,7 +519,7 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
 
 -(void)getProfileInfoWithHandler:(void(^)(void))handler
 {
-    
+
     NSDictionary *params  = [[NSDictionary alloc]initWithObjectsAndKeys:s_DeviceToken, @"device_token", nil];
     
     AFHTTPClient *request = [[AFHTTPClient alloc] initWithOakClubAPI:DOMAIN];

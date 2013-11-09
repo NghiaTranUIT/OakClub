@@ -65,6 +65,10 @@
      }failure:^(AFHTTPRequestOperation *op, NSError *err)
      {
          NSLog(@"Upload photo error: %@", err);
+         if (completionHandler)
+         {
+             completionHandler(nil, nil);
+         }
      }];
     
     [operation start];
