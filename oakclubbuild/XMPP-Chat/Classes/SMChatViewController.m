@@ -481,11 +481,11 @@ static float cellWidth = 320;
 	
 		bgImage = [[UIImage imageNamed:@"ChatView_blue_speech.png"] stretchableImageWithLeftCapWidth:14  topCapHeight:14];
 		
-		[cell.messageContentView setFrame:CGRectMake(padding_left, padding_top, cell.messageContentView.frame.size.width, cell.messageContentView.frame.size.height)];
+		[cell.messageContentView setFrame:CGRectMake(2*padding_left, padding_top, cell.messageContentView.frame.size.width, cell.messageContentView.frame.size.height)];
         
-		[cell.bgImageView setFrame:CGRectMake(2*padding_left + defaultAvatarWidth,
+		[cell.bgImageView setFrame:CGRectMake(padding_left + defaultAvatarWidth,
 											  padding_top,
-											  cell.messageContentView.frame.size.width + 2 * padding_left,
+											  cell.messageContentView.frame.size.width + 3 * padding_left,
 											  cell.messageContentView.frame.size.height + padding_top)];
         
         [cell.avatarImageView setFrame:CGRectMake(padding_left, padding_top + cell.bgImageView.frame.size.height - defaultAvatarHeight, defaultAvatarWidth, defaultAvatarHeight)];
@@ -505,7 +505,7 @@ static float cellWidth = 320;
         
 		bgImage = [[UIImage imageNamed:@"ChatView_white_speech.png"] stretchableImageWithLeftCapWidth:14  topCapHeight:14];
 		
-		[cell.messageContentView setFrame:CGRectMake(padding_left, padding_top, cell.messageContentView.frame.size.width, cell.messageContentView.frame.size.height)];
+		[cell.messageContentView setFrame:CGRectMake(padding_left, padding_top, cell.messageContentView.frame.size.width + padding_left, cell.messageContentView.frame.size.height)];
         
 		[cell.bgImageView setFrame:CGRectMake(2*padding_left + cell.senderAndTimeLabel.frame.size.width,
 											  padding_top,
