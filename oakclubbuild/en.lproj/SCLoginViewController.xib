@@ -80,6 +80,7 @@
     </objects>
     <resources>
         <image name="Login_btnFB_active.png" width="254" height="40"/>
+        <image name="Login_btnFB_active.png" width="254" height="40"/>
         <image name="Login_btnFB_inactive.png" width="254" height="40"/>
         <image name="Login_info.png" width="15" height="15"/>
         <image name="bg-bottom.png" width="320" height="93"/>
