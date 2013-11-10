@@ -69,6 +69,8 @@
 #define RIGHT_POINT CGPointMake(600, 165)
 #define LEFT_POINT CGPointMake(-400, 165)
 #define CENTER_POINT CGPointMake(160,175)
+#define CENTER_POINT_568H CGPointMake(160,197)
+
 @implementation APLMoveMeView
 
 CGPoint startLocation;
@@ -381,9 +383,13 @@ BOOL isDragging = FALSE;
         case interestedStatusYES:
             centerPoint = RIGHT_POINT;
             break;
-        default:
-            centerPoint = CENTER_POINT;
+        default:{
+            if (IS_HEIGHT_GTE_568)
+                centerPoint = CENTER_POINT_568H;
+            else
+                centerPoint = CENTER_POINT;
             break;
+        }
     }
 	CGFloat midX = centerPoint.x;
 	CGFloat midY = centerPoint.y;
@@ -441,7 +447,13 @@ BOOL isDragging = FALSE;
                                    userInfo:nil
                                     repeats:NO];
 	// Set the placard view's center and transformation to the original values in preparation for the end of the animation.
-	placardView.center = CENTER_POINT;
+    if (IS_HEIGHT_GTE_568) {
+        placardView.center = CENTER_POINT_568H;
+    }
+    else{
+        placardView.center = CENTER_POINT;
+    }
+	
 	placardView.transform = CGAffineTransformIdentity;
 }
 

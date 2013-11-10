@@ -57,6 +57,7 @@
                 </view>
                 <view contentMode="scaleToFill" id="13" customClass="APLPlacardView">
                     <rect key="frame" x="28" y="16" width="265" height="307"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxY="YES"/>
                     <subviews>
                         <scrollView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" id="61">
                             <rect key="frame" x="16" y="8" width="228" height="228"/>

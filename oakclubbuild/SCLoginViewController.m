@@ -64,11 +64,12 @@
     
     // Do any additional setup after loading the view from its nib.
     NSArray* pageImages = [NSArray arrayWithObjects:
-                  [UIImage imageNamed:@"intropage_snap.png"],
-                  [UIImage imageNamed:@"intropage_chat.png"],
-                  [UIImage imageNamed:@"intropage_match.png"],
+                  [UIImage imageNamed:@"intropage_snap"],
+                  [UIImage imageNamed:@"intropage_chat"],
+                  [UIImage imageNamed:@"intropage_match"],
                   nil];
-    CycleScrollView *cycle = [[CycleScrollView alloc] initWithFrame:CGRectMake(0, 0, 320, 460)
+    CGRect mainFrame = [[UIScreen mainScreen]applicationFrame];
+    CycleScrollView *cycle = [[CycleScrollView alloc] initWithFrame:CGRectMake(0, 0, mainFrame.size.width, mainFrame.size.height)
                                                      cycleDirection:CycleDirectionLandscape
                                                            pictures:pageImages];
     

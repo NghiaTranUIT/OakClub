@@ -54,7 +54,13 @@ CGFloat pageHeight;
 //    NSString* keyLanguage =[[NSUserDefaults standardUserDefaults] objectForKey:key_appLanguage];
 //    NSString* path= [[NSBundle mainBundle] pathForResource:@"vi" ofType:@"lproj"];
 //    NSBundle* languageBundle = [NSBundle bundleWithPath:path];
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    if(IS_HEIGHT_GTE_568){
+        self = [super initWithNibName:[NSString stringWithFormat:@"%@-568h",nibNameOrNil] bundle:nibBundleOrNil];
+    }
+    else{
+        self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    }
+    
     if (self) {
         // Custom initialization
         currentProfile = [[Profile alloc]init];

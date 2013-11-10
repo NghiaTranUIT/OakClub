@@ -324,6 +324,8 @@
 //====== Strings =====
 #define NSLocalizedString(key, comment) [[NSBundle mainBundle] localizedStringForKey:(key) value:@"" table:nil]
 
+//=======detect screen size============
+#define IS_HEIGHT_GTE_568 [[UIScreen mainScreen ] bounds].size.height >= 568.0f
 
 #endif
 typedef enum {

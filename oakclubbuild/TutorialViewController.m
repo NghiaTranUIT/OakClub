@@ -49,11 +49,12 @@
     [self.view addSubview:pageControl];
     
     NSArray* pageImages = [NSArray arrayWithObjects:
-                           [UIImage imageNamed:@"tutorial_snapshots.png"],
-                           [UIImage imageNamed:@"tutorial_chat.png"],
-                           [UIImage imageNamed:@"tutorial_options.png"],
+                           [UIImage imageNamed:@"tutorial_snapshots"],
+                           [UIImage imageNamed:@"tutorial_chat"],
+                           [UIImage imageNamed:@"tutorial_options"],
                            nil];
-    CycleScrollView *cycle = [[CycleScrollView alloc] initWithFrame:CGRectMake(0, 0, 320, 460)
+    CGRect mainFrame = [[UIScreen mainScreen]applicationFrame];
+    CycleScrollView *cycle = [[CycleScrollView alloc] initWithFrame:CGRectMake(0, 0, mainFrame.size.width, mainFrame.size.height)
                                                      cycleDirection:CycleDirectionLandscape
                                                            pictures:pageImages];
     

@@ -37,7 +37,7 @@
         
         [self addSubview:signInButton];
         
-        [self setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"Info_background.png"]]];
+        [self setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"Info_background"]]];
         
         [self localizeAllViews];
         
