@@ -1032,6 +1032,7 @@ UITapGestureRecognizer *tap;
     [self.ageSlider addTarget:self action:@selector(touchUpOnSlider:) forControlEvents:UIControlEventTouchUpInside ];
     fromAge = 18;
     toAge = 45;
+    [lblRangeOfAge setText: [NSString stringWithFormat: [@"%d to %d years old" localize],fromAge,toAge]];
     //    self.ageSlider.min =(CGFloat) (18 - MIN_AGE)/(MAX_AGE-MIN_AGE);
     self.ageSlider.max = (CGFloat) (45 - MIN_AGE)/(MAX_AGE-MIN_AGE);
     [self.ageSlider setMin:(CGFloat) (18 - MIN_AGE)/(MAX_AGE-MIN_AGE)];
