@@ -13,3 +13,7 @@
 -(UIView*)localizeText;
 -(void)localizeAllViews;
 @end
+
+@interface NSString (Localize)
+-(NSString *)localize;
+@end

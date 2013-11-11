@@ -33,7 +33,7 @@
     return self;
 }
 
--(void)uploadPhotoWithCompletion:(void(^)(NSString *, NSString *))completionHandler
+-(void)uploadPhotoWithCompletionOldVersion:(void(^)(NSString *, NSString *))completionHandler
 {
     //NSData *imgData = UIImageJPEGRepresentation([UIImage imageNamed:@"minus_sign"], 0.4);
     NSData *imgData = UIImagePNGRepresentation(photo);
@@ -70,6 +70,51 @@
              completionHandler(nil, nil);
          }
      }];
+    
+    [operation start];
+}
+
+-(void)uploadPhotoWithCompletion:(void(^)(NSString *, NSString *, bool))completionHandler
+{
+    //NSData *imgData = UIImageJPEGRepresentation([UIImage imageNamed:@"minus_sign"], 0.4);
+    NSData *imgData = UIImagePNGRepresentation(photo);
+    AFHTTPClient *client= [[AFHTTPClient alloc] initWithOakClubAPI:DOMAIN];
+    
+    NSDictionary *params = nil;
+    if (isAvatar)
+    {
+        params = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithBool:isAvatar], @"is_Avatar", nil];
+    }
+    NSMutableURLRequest *myRequest = [client multipartFormRequestWithMethod:@"POST" path:URL_uploadPhoto
+                                                                 parameters:params constructingBodyWithBlock: ^(id <AFMultipartFormData>formData) {
+                                                                     [formData appendPartWithFileData:imgData name:@"photo" fileName:@"abcd.png" mimeType:@"images/png"];
+                                                                 }];
+    
+    AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:myRequest];
+    [operation setUploadProgressBlock:^(NSUInteger bytesWritten, long long totalBytesWritten, long long totalBytesExpectedToWrite) {
+        NSLog(@"Sent %lld of %lld bytes", totalBytesWritten, totalBytesExpectedToWrite);
+	}];
+    
+	[operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id JSON) {
+        NSError *e;
+        NSMutableDictionary *dict = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONReadingMutableContainers error:&e];
+        NSLog(@"Send image completed; return %@\n%@%@", [JSON base64Encoding], dict, [[NSString alloc] initWithData:JSON encoding:NSUTF8StringEncoding]); //Lets us know the result including failures
+        NSDictionary *data = [dict objectForKey:key_data];
+        NSString *link = [data objectForKey:@"file"];
+        NSString *imgID = [data objectForKey:@"id"];
+        BOOL isAvatar = [[dict objectForKey:@"is_Avatar"] boolValue];
+        
+        if (completionHandler)
+        {
+            completionHandler(link, imgID, isAvatar);
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"Upload photo error: %@", error);
+        if (completionHandler)
+        {
+            completionHandler(nil, nil, NO);
+        }
+    }];
     
     [operation start];
 }
