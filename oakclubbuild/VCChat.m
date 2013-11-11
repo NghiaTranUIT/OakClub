@@ -707,6 +707,7 @@ int cellCountinSection=0;
 
 -(void)loadChatView:(Profile*)profile animated:(BOOL)animated
 {
+    [self.searchBar resignFirstResponder];
     //SMChatViewController *chatController = [[SMChatViewController alloc] initWithUser:userName];
     UIImage* avatar = [a_avatar valueForKey:profile.s_ID];
     NSMutableArray* array = [a_messages valueForKey:profile.s_ID];
