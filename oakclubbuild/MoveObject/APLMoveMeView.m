@@ -230,7 +230,10 @@ BOOL isDragging = FALSE;
 	/*
      To impose as little impact on the device as possible, simply set the placard view's center and transformation to the original values.
      */
-	self.placardView.center = self.center;
+    if(IS_HEIGHT_GTE_568)
+        self.placardView.center = CENTER_POINT_568H;
+    else
+        self.placardView.center = CENTER_POINT;//self.center;
 	self.placardView.transform = CGAffineTransformIdentity;
 }
 
