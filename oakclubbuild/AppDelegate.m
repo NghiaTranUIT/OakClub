@@ -563,7 +563,7 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error)
     {
-        NSLog(@"GetAccountSetting Error Code: %i - %@",[error code], [error localizedDescription]);
+        NSLog(@"URL_getProfileInfo Error Code: %i - %@",[error code], [error localizedDescription]);
     }];
 
 }
@@ -1328,7 +1328,11 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
     
     NSString* jid = [NSString stringWithFormat:@"%@@%@",[message from].user, [message from].domain];
     
-    
+    // Vanancy ; cheat for crash on receive new message from new friends.
+    Profile *newFriend = [self.myProfile.dic_Roster objectForKey:[message from].user];
+    if(!newFriend)
+        return;
+//    [xmppRoster addUser:jid withNickname:@""];
     
     NSString *msg = [[message elementForName:@"body"] stringValue];
     NSString *type = [[message attributeForName:@"type"] stringValue];

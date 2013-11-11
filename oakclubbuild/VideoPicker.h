@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @protocol VideoPickerDelegate
--(void)receiveVideo:(UIImage *)image;
+-(void)receiveVideo:(NSData *)video;
 @end
 
 @interface VideoPicker : NSObject

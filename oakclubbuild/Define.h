@@ -12,9 +12,9 @@
 
 //demo version FLAG
 #define ENABLE_DEMO true
-#define USE_STAGING true
+#define USE_STAGING false
 #define USE_MAINHOST false
-#define USE_STAGING_MB false
+#define USE_STAGING_MB true
 //Hangout
 #define sOnline @"Online"
 
@@ -50,14 +50,8 @@
 //============== APIs =============
 #define DOMAIN_AT @"@oakclub.com"
 #define DOMAIN_AT_FMT @"%@@oakclub.com"
-#if USE_STAGING
 #define URL_getProfileInfo @"service/getProfileInfo"
 #define URL_setProfileInfo @"service/setProfileInfo"
-#endif
-#if USE_STAGING_MB || USE_MAINHOST
-#define URL_getProfileInfo @"service/getHangoutProfile"
-#define URL_setProfileInfo @"service/setHangoutProfile"
-#endif
 #define URL_me @"service/me"
 #define URL_searchByLocation @"service/searchByLocation" //unused
 #define URL_setBidFeature @"service/setBidFeature"//unused

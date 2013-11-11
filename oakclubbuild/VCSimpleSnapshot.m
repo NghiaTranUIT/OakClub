@@ -394,24 +394,29 @@ CGFloat pageHeight;
     NSLog(@"Name of Profile : %@",currentProfile.s_Name);
     NSString *txtAge= [NSString stringWithFormat:@"%@",currentProfile.s_age];
     [lblName setText:[self formatTextWithName:currentProfile.s_Name andAge:txtAge]];
-    [lblPhotoCount setText:[NSString stringWithFormat:@"%i",[currentProfile.arr_photos count]]];
+    
     [lbl_mutualFriends setText:[NSString stringWithFormat:@"%i",currentProfile.num_MutualFriends]];
 //    [lbl_mutualLikes setText:[NSString stringWithFormat:@"%i",currentProfile.num_]];
 //    AFHTTPClient *requestMutual = [[AFHTTPClient alloc] initWithOakClubAPI:DOMAIN];
 //    NSDictionary *params = [[NSDictionary alloc]initWithObjectsAndKeys:currentProfile.s_ID,@"profile_id", nil];
-    if([currentProfile.arr_photos[0] isKindOfClass:[UIImage class]]){
-        [self.imgMainProfile setImage:[currentProfile.arr_photos objectAtIndex:0]];
+    if(currentProfile.arr_photos != nil){
+        [lblPhotoCount setText:[NSString stringWithFormat:@"%i",[currentProfile.arr_photos count]]];
+        if(([currentProfile.arr_photos count] > 0) && [currentProfile.arr_photos[0] isKindOfClass:[UIImage class]]){
+            [self.imgMainProfile setImage:[currentProfile.arr_photos objectAtIndex:0]];
+        }
+        else{
+            AFHTTPRequestOperation *operation =
+            [Profile getAvatarSync:currentProfile.s_Avatar
+                          callback:^(UIImage *image)
+             {
+                 [self.imgMainProfile setImage:image];
+                 [currentProfile.arr_photos replaceObjectAtIndex:0 withObject:image];
+             }];
+            [operation start];
+        }
+    
     }
-    else{
-        AFHTTPRequestOperation *operation =
-        [Profile getAvatarSync:currentProfile.s_Avatar
-                      callback:^(UIImage *image)
-         {
-             [self.imgMainProfile setImage:image];
-             [currentProfile.arr_photos replaceObjectAtIndex:0 withObject:image];
-         }];
-        [operation start];
-    }
+
     [self stopLoadingAnim];
 //    [requestMutual getPath:URL_getProfileInfo parameters:params success:^(__unused AFHTTPRequestOperation *operation, id JSON)
 //     {

@@ -38,6 +38,10 @@
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+//    if(!IS_HEIGHT_GTE_568){
+        [self.view setFrame:[[UIScreen mainScreen]applicationFrame]];
+//    }
+    
     if (self) {
         // Custom initialization
         appDel = (AppDelegate *) [UIApplication sharedApplication].delegate;

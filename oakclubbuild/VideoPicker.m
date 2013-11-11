@@ -52,26 +52,14 @@ id<VideoPickerDelegate> delegate;
     picker = nil;
     if (delegate)
     {
-        UIImage *img = [info objectForKey:UIImagePickerControllerEditedImage];
-        if (!img)
-        {
-            img = [info objectForKey:UIImagePickerControllerOriginalImage];
-        }
+        [VideoPicker loadImageFromAssertByUrl:[info objectForKey:UIImagePickerControllerReferenceURL] completion:^(NSData * videoData) {
+            [delegate receiveVideo:videoData];
+        }];
         
-        if (!img)
-        {
-            [VideoPicker loadImageFromAssertByUrl:[info objectForKey:UIImagePickerControllerReferenceURL] completion:^(UIImage *_img) {
-                [delegate receiveVideo:_img];
-            }];
-        }
-        else
-        {
-            [delegate receiveVideo:img];
-        }
     }
 }
 
-+(void) loadImageFromAssertByUrl:(NSURL *)url completion:(void (^)(UIImage*)) completion
++(void) loadImageFromAssertByUrl:(NSURL *)url completion:(void (^)(NSData*)) completion
 {
     ALAssetsLibrary *assetLibrary=[[ALAssetsLibrary alloc] init];
     [assetLibrary assetForURL:url resultBlock:^(ALAsset *asset) {
@@ -79,8 +67,7 @@ id<VideoPickerDelegate> delegate;
         Byte *buffer = (Byte*)malloc(rep.size);
         NSUInteger buffered = [rep getBytes:buffer fromOffset:0.0 length:rep.size error:nil];
         NSData *data = [NSData dataWithBytesNoCopy:buffer length:buffered freeWhenDone:YES];
-        UIImage* img = [UIImage imageWithData:data];
-        completion(img);
+        completion(data);
     } failureBlock:^(NSError *err) {
         NSLog(@"Error: %@",[err localizedDescription]);
     }];

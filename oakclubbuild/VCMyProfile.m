@@ -18,7 +18,7 @@
 #import "UIView+Localize.h"
 #import "LocationUpdate.h"
 #import "VideoPicker.h"
-
+#import "VideoUpload.h"
 @interface VCMyProfile () <PickPhotoFromGarellyDelegate, UIAlertViewDelegate, ImageRequester, PhotoScrollViewDelegate, LocationUpdateDelegate>{
     GroupButtons* genderGroup;
      AppDelegate *appDelegate;
@@ -928,6 +928,17 @@ UITapGestureRecognizer *tap;
     {
         selectedPhoto = -1;
         uploadImage = nil;
+    }
+}
+-(void)receiveVideo:(NSData *)video{
+    if(video){
+        [self.view setUserInteractionEnabled:NO];
+        [appDelegate.rootVC.view setUserInteractionEnabled:NO];
+        [self.navigationController.navigationBar setUserInteractionEnabled:NO];
+        VideoUpload * uploadVideo = [[VideoUpload alloc]initWithVideoData:video andName:@"filename"];
+        [uploadVideo uploadVideoWithCompletion:^(void){
+            NSLog(@"upload VIDEO complete ....");
+        }];
     }
 }
 
