@@ -753,7 +753,8 @@ int cellCountinSection=0;
     [self.searchBar sizeToFit];
 //    self.tableView.tableHeaderView = self.searchBar;
     fetchedResultsController = nil;
-    [self.searchDisplayController.searchResultsTableView reloadData];
+    //[self.searchDisplayController.searchResultsTableView reloadData];
+    [self reloadFriendList];
     return YES;
 }
 -(void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText{
@@ -762,7 +763,8 @@ int cellCountinSection=0;
 //   
     self.searchResult = searchText;
     fetchedResultsController = nil;
-    [self.searchDisplayController.searchResultsTableView reloadData];
+    //[self.searchDisplayController.searchResultsTableView reloadData];
+    //[self reloadFriendList];
 }
 
 - (void)searchBar:(UISearchBar *)searchBar selectedScopeButtonIndexDidChange:(NSInteger)selectedScope

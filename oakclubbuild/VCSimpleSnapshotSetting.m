@@ -18,6 +18,7 @@
 #import <MessageUI/MessageUI.h>
 #import <MessageUI/MFMailComposeViewController.h>
 #import "RangeSlider.h"
+#import "NSString+Utils.h"
 
 @interface VCSimpleSnapshotSetting (){
     SettingObject* snapshotObj;
@@ -252,7 +253,7 @@ UITapGestureRecognizer *tap;
                 rangeAgeCell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:rangeAgeCellID];
                 UIView *newCellView= [[UIView alloc]initWithFrame:CGRectMake(0, 0, 320, 80)];
                 lblRangeOfAge = [[UILabel alloc]initWithFrame:CGRectMake(30, 0, 280, 30)];
-                [lblRangeOfAge setText: [NSString stringWithFormat: @"%d to %d years old",fromAge,toAge]];
+                [lblRangeOfAge setText: [NSString stringWithFormat: [@"%d to %d years old" localize],fromAge,toAge]];
                 lblRangeOfAge.textAlignment = NSTextAlignmentCenter;
                 //                [lblRange setTextColor:[UIColor blackColor]];
                 [lblRangeOfAge setBackgroundColor:[UIColor clearColor]];
@@ -264,6 +265,7 @@ UITapGestureRecognizer *tap;
                 rangeAgeCell.accessoryView = newCellView;
             }
             
+            [rangeAgeCell localizeAllViews];
             return rangeAgeCell;
             break;
         }
@@ -307,6 +309,7 @@ UITapGestureRecognizer *tap;
                         autoSwitch.on = hasMale;
                     }
                     
+                    [filterGuysCell localizeAllViews];
                     return filterGuysCell;
                 }
                     break;
@@ -336,6 +339,7 @@ UITapGestureRecognizer *tap;
                         autoSwitch.on = hasFemale;
                     }
                     
+                    [filterGirlsCell localizeAllViews];
                     return filterGirlsCell;
                 }
                     break;
@@ -352,7 +356,7 @@ UITapGestureRecognizer *tap;
                 rangeCell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:rangeCellID];
                 UIView *newCellView= [[UIView alloc]initWithFrame:CGRectMake(0, 0, 320, 80)];
                 lblRange = [[UILabel alloc]initWithFrame:CGRectMake(30, 0, 280, 30)];
-                [lblRange setText: [NSString stringWithFormat: @"Limit my search to this distance: %d km",i_range]];
+                [lblRange setText: [NSString stringWithFormat: [[@"Limit my search to this distance" localize] stringByAppendingString:@": %d km"],i_range]];
 //                [lblRange setTextColor:[UIColor blackColor]];
                 [lblRange setBackgroundColor:[UIColor clearColor]];
                 [lblRange setFont:FONT_HELVETICANEUE_LIGHT(15.0)];
@@ -363,8 +367,10 @@ UITapGestureRecognizer *tap;
                 rangeCell.accessoryView = newCellView;
             }
             else{
-                [lblRange setText: [NSString stringWithFormat: @"Limit my search to this distance: %d km",i_range]];
+                [lblRange setText: [NSString stringWithFormat: [[@"Limit my search to this distance" localize] stringByAppendingString:@": %d km"],i_range]];
             }
+            
+            [rangeCell localizeAllViews];
             return rangeCell;
             break;
         }
@@ -438,9 +444,12 @@ UITapGestureRecognizer *tap;
             
                 [newCellView addSubview:logoImageView];
                 
+                [newCellView localizeAllViews];
                 [moreCell setSelectionStyle:UITableViewCellSelectionStyleNone];
                 moreCell.accessoryView = newCellView;
             }
+            
+            [moreCell localizeAllViews];
             return moreCell;
             
             break;
@@ -452,6 +461,8 @@ UITapGestureRecognizer *tap;
     [cell.textLabel setFont: FONT_HELVETICANEUE_LIGHT(15.0)];
     cell.textLabel.highlightedTextColor = [UIColor whiteColor];
     cell.detailTextLabel.highlightedTextColor = [UIColor whiteColor];
+    
+    [cell localizeAllViews];
     return cell;
 }
 #pragma mark - Table view delegate
@@ -518,7 +529,7 @@ UITapGestureRecognizer *tap;
             }
             [appDel updateLanguageBundle];
             [tableView reloadData];
-            [[self navBarOakClub] setHeaderName:[NSString localizeString:@"Settings"]];
+            [[self navBarOakClub] setHeaderName:[NSString localizeString:@"Setting"]];
             [appDel loadDataForList];
             [self.view localizeAllViews];
             break;
@@ -905,13 +916,14 @@ UITapGestureRecognizer *tap;
 -(NSString*)getRangeValue:(NSUInteger)value
 {
     NSString* sRange;
+    NSString *prefSearchDistance = [@"Limit my search to this distance" localize];
     if(value < 600)
-        sRange = [NSString stringWithFormat: @"Limit my search to this distance: %d km",value];
+        sRange = [NSString stringWithFormat:[prefSearchDistance stringByAppendingString:@": %d km"],value];
     else
         if(value < 700)
-            sRange = @"Limit my search to this distance: Country";//snapshotObj.location.countryCode;
+            sRange = [prefSearchDistance stringByAppendingString:@": Country"];//snapshotObj.location.countryCode;
         else
-            sRange = @"Limit my search to this distance: World";
+            sRange = [prefSearchDistance stringByAppendingString:@": World"];
     return sRange;
 }
 
@@ -945,6 +957,7 @@ UITapGestureRecognizer *tap;
 //    self.logoutViewController = [[VCLogout alloc]init];
     CGPoint viewPoint = [self.tableView contentOffset];
     [self.logoutController.view setFrame:CGRectMake(0,self.tableView.contentSize.height , self.logoutController.view.frame.size.width, self.view.frame.size.height-44)];
+    [self.logoutController.view localizeAllViews];
     [self.view addSubview:self.logoutController.view];
     [self.view bringSubviewToFront:self.logoutController.view];
     [UIView animateWithDuration:0.4
@@ -1029,7 +1042,7 @@ UITapGestureRecognizer *tap;
 //	reportLabel.text = report;
     fromAge = MIN_AGE + (sender.min * (MAX_AGE - MIN_AGE));
     toAge = MIN_AGE + (sender.max * (MAX_AGE - MIN_AGE));
-    [lblRangeOfAge setText: [NSString stringWithFormat: @"%d to %d years old",fromAge,toAge]];
+    [lblRangeOfAge setText: [NSString stringWithFormat: [@"%d to %d years old" localize],fromAge,toAge]];
 	NSLog(@"%@",report);
 }
 

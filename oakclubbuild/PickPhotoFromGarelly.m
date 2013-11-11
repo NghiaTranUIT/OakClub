@@ -14,8 +14,10 @@
 @end
 
 @implementation PickPhotoFromGarelly
-UIViewController *parentWindow;
-id<PickPhotoFromGarellyDelegate> delegate;
+{
+    UIViewController *parentWindow;
+    id<PickPhotoFromGarellyDelegate> delegate;
+}
 
 -(id)initWithParentWindow:(UIViewController *)_parentWindow andDelegate:(id<PickPhotoFromGarellyDelegate>)_delegate
 {

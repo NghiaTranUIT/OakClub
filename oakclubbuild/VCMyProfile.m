@@ -85,13 +85,6 @@ UITapGestureRecognizer *tap;
     avatarPicker = [[PickPhotoFromGarelly alloc] initWithParentWindow:self andDelegate:self];
     videoPicker = [[VideoPicker alloc] initWithParentWindow:self andDelegate:nil];
     
-    [self.imgAvatar setBackgroundImage:avatarImage forState:UIControlStateNormal];
-    self.imgAvatar.contentMode = UIViewContentModeScaleAspectFit;
-    [self.imgAvatar setFrame:self.avatarLayout.frame];
-    
-    [self.btnUploadVideo setBackgroundImage:avatarImage forState:UIControlStateNormal];
-    self.btnUploadVideo.contentMode = UIViewContentModeScaleAspectFit;
-    
     self.photoScrollView.photoDelegate = self;
     
     [self reloadPhotos];
@@ -106,6 +99,13 @@ UITapGestureRecognizer *tap;
     self.nameLabel.text = profileObj.s_Name;
     self.age_workLabel.text = [NSString stringWithFormat:@"%d", profileObj.age];
     self.locationLabel.text = [NSString stringWithFormat:@"%@, %@", profileObj.i_work.cate_name, profileObj.s_location.name];
+    
+    [self.imgAvatar setBackgroundImage:avatarImage forState:UIControlStateNormal];
+    self.imgAvatar.contentMode = UIViewContentModeScaleAspectFit;
+    [self.imgAvatar setFrame:self.avatarLayout.frame];
+    
+    [self.btnUploadVideo setBackgroundImage:avatarImage forState:UIControlStateNormal];
+    self.btnUploadVideo.contentMode = UIViewContentModeScaleAspectFit;
     
     [self.view localizeAllViews];
 }
@@ -496,7 +496,7 @@ UITapGestureRecognizer *tap;
     }
     else if (alertView.tag == 1) // delete photo
     {
-        if (buttonIndex == 0 && selectedPhoto > 0)
+        if (buttonIndex == 0 && selectedPhoto >= 0)
         {
             AFHTTPClient *client = [[AFHTTPClient alloc] initWithOakClubAPI:DOMAIN];
             NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:[photosID objectAtIndex:selectedPhoto], @"photo_id", nil];
@@ -518,18 +518,18 @@ UITapGestureRecognizer *tap;
     }
     else if (alertView.tag == 2) // upload photo
     {
-        if (buttonIndex == 0 && selectedPhoto > 0 && uploadImage != nil)
+        if (buttonIndex == 0 && selectedPhoto >= 0 && uploadImage != nil)
         {
             bool isAvatar = (selectedPhoto == photosID.count + 2);
             PhotoUpload *uploader = [[PhotoUpload alloc] initWithPhoto:uploadImage andName:@"uploadedfile" isAvatar:isAvatar];
             [self.view setUserInteractionEnabled:NO];
             [appDelegate.rootVC.view setUserInteractionEnabled:NO];
             [self.navigationController.navigationBar setUserInteractionEnabled:NO];
-            [uploader uploadPhotoWithCompletion:^(NSString *imgLink, NSString *imgID)
+            [uploader uploadPhotoWithCompletion:^(NSString *imgLink, NSString *imgID, BOOL _isAvatar)
              {
                  if (imgID)
                  {
-                     if (isAvatar)
+                     if (_isAvatar)
                      {
                          [self.imgAvatar setBackgroundImage:uploadImage forState:UIControlStateNormal];
                          self.imgAvatar.contentMode = UIViewContentModeScaleAspectFit;
@@ -554,6 +554,11 @@ UITapGestureRecognizer *tap;
                  [appDelegate.rootVC.view setUserInteractionEnabled:YES];
                  [self.navigationController.navigationBar setUserInteractionEnabled:YES];
              }];
+        }
+        else
+        {
+            uploadImage = nil;
+            selectedPhoto = -1;
         }
     }
 }

@@ -38,3 +38,14 @@
     }
 }
 @end
+
+@implementation NSString (Localize)
+
+-(NSString *)localize
+{
+    AppDelegate *appDelegate = (AppDelegate *) [UIApplication sharedApplication].delegate;
+    
+    return [appDelegate.languageBundle localizedStringForKey:self value:@"" table:nil];
+}
+
+@end
