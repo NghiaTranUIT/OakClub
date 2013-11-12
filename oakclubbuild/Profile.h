@@ -58,7 +58,7 @@
     NSString *s_interestedStatus;
     NSString *s_passwordXMPP;
     NSString *s_usenameXMPP;
-    NSDictionary *dic_Roster; // list chat with Friends.
+    NSMutableDictionary *dic_Roster; // list chat with Friends.
     
     NSArray* a_favorites;
     NSString* s_user_id;
@@ -164,4 +164,5 @@
 -(void)resetUnreadMessageWithFriend:(Profile*)friend;
 -(void)setViewedMatchMutualWithFriend:(Profile*)friend;
 - (void) getRosterListIDSync:(void(^)(void))handler;
+-(void)getProfileInfo:(void(^)(void))handler;
 @end

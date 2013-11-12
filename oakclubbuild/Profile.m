@@ -499,7 +499,7 @@
     
     NSLog(@"unread message: %d", self.unread_message);
     
-    self.dic_Roster = [NSDictionary dictionaryWithDictionary:rosterDict];
+    self.dic_Roster = rosterDict;//[NSDictionary dictionaryWithDictionary:rosterDict];
     AppDelegate *appDel = (id) [UIApplication sharedApplication].delegate;
     [appDel loadFriendsList];
 }
@@ -1010,7 +1010,7 @@
     
     return [langDesc componentsJoinedByString:@","];
 }
-
+#pragma mark request API
 -(void)resetUnreadMessageWithFriend:(Profile*)friend{
     AFHTTPClient* httpClient = [[AFHTTPClient alloc]initWithOakClubAPI:DOMAIN];
     NSDictionary *params = [[NSDictionary alloc]initWithObjectsAndKeys:friend.s_ID,key_profileID, nil];
@@ -1052,6 +1052,21 @@
         NSLog(@"Error Code: %i - %@",[error code], [error localizedDescription]);
     }];
     
+}
+
+-(void)getProfileInfo:(void(^)(void))handler{
+    AFHTTPClient* request = [[AFHTTPClient alloc]initWithOakClubAPI:DOMAIN];
+     NSDictionary *params = [[NSDictionary alloc]initWithObjectsAndKeys:self.s_ID,key_profileID, nil];
+    [request getPath:URL_getProfileInfo parameters:params success:^(__unused AFHTTPRequestOperation *operation, id JSON) {
+        [self parseForGetHangOutProfile:JSON];
+        if(handler)
+            handler();
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error)
+     {
+         NSLog(@"Error Code: %i - %@",[error code], [error localizedDescription]);
+        
+     }];
+
 }
 
 @end

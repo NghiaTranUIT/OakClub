@@ -1328,11 +1328,20 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
     
     NSString* jid = [NSString stringWithFormat:@"%@@%@",[message from].user, [message from].domain];
     
-    // Vanancy ; cheat for crash on receive new message from new friends.
+    // Vanancy :fix crash on receive new message from new friends.
     Profile *newFriend = [self.myProfile.dic_Roster objectForKey:[message from].user];
-    if(!newFriend)
-        return;
-//    [xmppRoster addUser:jid withNickname:@""];
+    if(!newFriend){
+        XMPPJID* xmpp_jid = [XMPPJID jidWithString:[message from].user];
+        newFriend = [[Profile alloc]init];
+        newFriend.s_ID =[message from].user;
+        [newFriend getProfileInfo:^(void){
+            [xmppRoster addUser:xmpp_jid withNickname:newFriend.s_Name];
+            [self.myProfile.dic_Roster setValue:newFriend forKey:newFriend.s_ID];
+        }];
+        
+//        return;
+    }
+    
     
     NSString *msg = [[message elementForName:@"body"] stringValue];
     NSString *type = [[message attributeForName:@"type"] stringValue];
