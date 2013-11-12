@@ -555,6 +555,9 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
              NSLog(@"Error Code: %i - %@",[error code], [error localizedDescription]);
          }];
         */
+        
+        [self loadAllViewControllers];
+        
         if (handler)
         {
             handler();

@@ -100,6 +100,8 @@ UITapGestureRecognizer *tap;
     self.age_workLabel.text = [NSString stringWithFormat:@"%d", profileObj.age];
     self.locationLabel.text = [NSString stringWithFormat:@"%@, %@", profileObj.i_work.cate_name, profileObj.s_location.name];
     
+    [appDelegate.myProfile tryGetImageAsync:self];
+    
     [self.imgAvatar setBackgroundImage:avatarImage forState:UIControlStateNormal];
     self.imgAvatar.contentMode = UIViewContentModeScaleAspectFit;
     [self.imgAvatar setFrame:self.avatarLayout.frame];
@@ -579,22 +581,24 @@ UITapGestureRecognizer *tap;
 #pragma mark Picker DataSource/Delegate
 -(void) initWeightList{
     NSMutableArray *weightlist = [NSMutableArray array];
+    [weightlist addObject:@"0 kg"];
     for(int i =MIN_WEIGHT; i <= MAX_WEIGHT; i++){
         [weightlist addObject:[NSString stringWithFormat:@"%d kg",i] ];
     }
     weightOptionList =  weightlist;
     [pickerWeight reloadAllComponents];
-    NSInteger selecteRow = (profileObj.i_height - MIN_WEIGHT);
+    NSInteger selecteRow = (profileObj.i_weight == 0)?0:(profileObj.i_weight - MIN_WEIGHT + 1);
     [pickerWeight selectRow:(selecteRow<0?0:selecteRow) inComponent:0 animated:NO];
 }
 -(void) initHeightList{
     NSMutableArray *heightlist = [NSMutableArray array];
-    for(int i =MIN_HEIGHT; i <= MAX_HEIGHT; i++){
+    [heightlist addObject:@"0 cm"];
+    for(int i = MIN_HEIGHT; i <= MAX_HEIGHT; i++){
         [heightlist addObject:[NSString stringWithFormat:@"%d cm",i] ];
     }
     heightOptionList =  heightlist;
     [pickerHeight reloadAllComponents];
-    NSInteger selecteRow = (profileObj.i_height - MIN_HEIGHT);
+    NSInteger selecteRow = (profileObj.i_height == 0)?0:(profileObj.i_height - MIN_HEIGHT + 1);
     [pickerHeight selectRow:(selecteRow<0?0:selecteRow) inComponent:0 animated:NO];
 }
 - (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
@@ -631,6 +635,7 @@ UITapGestureRecognizer *tap;
     }
     [tbEditProfile reloadData];
 }
+
 #pragma mark ListForChoose DataSource/Delegate
 - (void)ListForChoose:(ListForChoose *)uvcList didSelectRow:(NSInteger)row{
     Profile* selected = [uvcList getCurrentValue];

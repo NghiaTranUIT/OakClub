@@ -706,6 +706,8 @@ static CGFloat padding_left = 5.0;
     currentProfile = _profile;
     img_avatar = _avatar;
     
+    NSLog(@"Set VCProfile profile avatar: %@", currentProfile.s_Avatar);
+    
     [self loadPhotoForScrollview];
 }
 
@@ -713,9 +715,6 @@ static CGFloat padding_left = 5.0;
     currentProfile = _profile;
     [self refreshScrollView];
     [self loadPhotoForScrollview];
-//    [currentProfile loadPhotosByProfile:^(NSMutableArray* photoList){
-//        [self loadPhotoDataForScrollView];
-//    }];
 }
 
 -(void)refreshScrollView{
@@ -771,8 +770,14 @@ static CGFloat padding_left = 5.0;
                  for(int i = 0; i < [_imagesData count]; i++)
                  {
                      NSString* link = [_imagesData objectAtIndex:i];
+                     NSLog(@"VCProfile load avatar index: %d, link: %@", i, link);
+                     if ([currentProfile.s_Avatar isEqualToString:link])
+                     {
+                         [photoCount setText:[NSString stringWithFormat:@"%i/%i",i,[currentProfile.arr_photos count]]];
+                         [self.svPhotos setContentOffset:CGPointMake(svPhotos.frame.size.width * i, svPhotos.contentOffset.y) animated:NO];
+                     }
                      
-                     if( ![link isEqualToString:@""] )
+                     if(![link isEqualToString:@""] )
                      {
                          AFHTTPRequestOperation *operation =
                          [Profile getAvatarSync:link
@@ -786,15 +791,8 @@ static CGFloat padding_left = 5.0;
                               [imageView setContentMode:UIViewContentModeScaleAspectFit];
                               [self.svPhotos addSubview:imageView];
                               [currentProfile.arr_photos addObject:imageView];
-                              [photoCount setText:[NSString stringWithFormat:@"%i/%i",1,[currentProfile.arr_photos count]]];
-                              
-                              if( i == 0)
-                              {
-                                  [loadingAvatar stopAnimating];
-                              }
                           }];
                          [operation start];
-                         
                      }
                  }
                  

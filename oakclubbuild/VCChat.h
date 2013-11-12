@@ -13,7 +13,7 @@
 #import "SMMessageDelegate.h"
 @interface VCChat : UIViewController <NSFetchedResultsControllerDelegate, UISearchBarDelegate, UISearchDisplayDelegate, SMMessageDelegate>
 {
-//,UITableViewDelegate,UITableViewDataSource>{
+//,UITableViewDelegate,UITableViewDataSource>{†
     NSFetchedResultsController *fetchedResultsController;
     NSMutableDictionary* a_messages;
     NSMutableDictionary* a_avatar;

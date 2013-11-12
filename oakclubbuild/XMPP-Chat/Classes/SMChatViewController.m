@@ -452,7 +452,7 @@ static float cellWidth = 320;
         cell = [[SMMessageViewTableCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
         
         cell.avatarImageView.tag = indexPath.row;
-        [cell.avatarImageView addTarget:self action:@selector(onTapViewProfile:) forControlEvents:UIControlEventTouchUpInside];
+        //[cell.avatarImageView addTarget:self action:@selector(onTapViewProfile:) forControlEvents:UIControlEventTouchUpInside];
 	}
 
 	NSString *sender = [s objectForKey:@"sender"];
@@ -477,8 +477,8 @@ static float cellWidth = 320;
 	cell.senderAndTimeLabel.text = dateToStringInterval(date);
     [cell.senderAndTimeLabel sizeToFit];
 		
-	if (![sender isEqualToString:@"you"]) { // left aligned
-	
+	if (![sender isEqualToString:@"you"])
+    { // left aligned
 		bgImage = [[UIImage imageNamed:@"ChatView_blue_speech.png"] stretchableImageWithLeftCapWidth:14  topCapHeight:14];
 		
 		[cell.messageContentView setFrame:CGRectMake(2*padding_left, padding_top, cell.messageContentView.frame.size.width, cell.messageContentView.frame.size.height)];

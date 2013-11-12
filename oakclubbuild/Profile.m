@@ -964,7 +964,10 @@
             requester = [[NSMutableArray alloc] init];
         }
         
-        [requester addObject:_requester];
+        if (![requester containsObject:_requester])
+        {
+            [requester addObject:_requester];
+        }
     }
     else
     {
