@@ -165,4 +165,5 @@ extern NSString *const SCSessionStateChangedNotification;
 -(void)sendMessageState:(NSString*)state to:(NSString*)xmpp_id;
 -(void)sendMessageContent:(NSString*)content to:(NSString*)xmpp_id;
 
+-(void)updateNavigationWithNotification;
 @end

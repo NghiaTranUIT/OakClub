@@ -304,7 +304,7 @@ int cellCountinSection=0;
 //        [self loadFriendsInfo:nil];
 //        [self.searchDisplayController.searchResultsTableView reloadData];
 //    }];
-    
+    appDel._messageDelegate = self;
 }
 - (void)viewDidUnload {
     //    [self setTbVC_ChatList:nil];

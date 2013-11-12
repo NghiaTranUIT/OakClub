@@ -23,6 +23,7 @@
 //    BOOL popoverShowing;
     AFHTTPClient *request;
 }
+@property (weak, nonatomic) IBOutlet UIView *aboutView;
 @property (weak, nonatomic) IBOutlet UIView *mutualFriendsView;
 @property (weak, nonatomic) IBOutlet UIView *interestsView;
 @property (weak, nonatomic) IBOutlet UIView *profileView;
@@ -314,8 +315,14 @@ static CGFloat padding_left = 5.0;
         NSLog(@"Init Content size: %f - %f", scrollview.contentSize.width, infoView.frame.origin.y);
         
         self.lblAboutMe.text = [currentProfile s_aboutMe];
-        
-        
+        if ([lblAboutMe.text length] <= 0) {
+            self.aboutView.hidden = YES;
+            self.interestsView.frame = [self moveToFrame:self.aboutView.frame from:self.interestsView.frame];
+            self.mutualFriendsView.frame = [self moveToFrame:self.interestsView.frame from:self.mutualFriendsView.frame];
+        }
+        else{
+            self.aboutView.hidden = NO;
+        }
         if( favoritesList && [favoritesList count] > 0)
         {
             NSLog(@"Before Interest Content size: %f - %f", scrollview.contentSize.width, scrollview.contentSize.height);
@@ -733,6 +740,9 @@ static CGFloat padding_left = 5.0;
      {
          NSMutableArray* listPhotos = [Profile parseListPhotos:JSON];
          currentProfile.arr_photos = [[NSMutableArray alloc] init];
+         
+//         [photoCount setText:[NSString stringWithFormat:@"%i/%i",1,[currentProfile.arr_photos count]]];
+         
          NSArray* _imagesData;
          NSMutableDictionary* photos;
          if(listPhotos != nil)
@@ -740,8 +750,16 @@ static CGFloat padding_left = 5.0;
              _imagesData = [[NSArray alloc]initWithArray:listPhotos];
              photos = [[NSMutableDictionary alloc] init];
              self.svPhotos.contentSize =
-             CGSizeMake(CGRectGetWidth(self.svPhotos.frame) * [_imagesData count], CGRectGetHeight(self.svPhotos.frame));
+             CGSizeMake(CGRectGetWidth(self.svPhotos.frame) * ([_imagesData count]+1), CGRectGetHeight(self.svPhotos.frame));
 
+             UIImageView *imageView = [[UIImageView alloc]initWithImage:img_avatar];
+             CGRect frame = self.svPhotos.frame;
+             frame.origin.x = CGRectGetWidth(frame);
+             frame.origin.y = 0;
+             imageView.frame = frame;
+             [imageView setContentMode:UIViewContentModeScaleAspectFit];
+             [self.svPhotos addSubview:imageView];
+             [currentProfile.arr_photos addObject:imageView];
              
              if([_imagesData count] == 0)
              {
@@ -762,7 +780,7 @@ static CGFloat padding_left = 5.0;
                           {
                               UIImageView *imageView = [[UIImageView alloc]initWithImage:image];
                               CGRect frame = self.svPhotos.frame;
-                              frame.origin.x = CGRectGetWidth(frame) * i;
+                              frame.origin.x = CGRectGetWidth(frame) * (i + 1);
                               frame.origin.y = 0;
                               imageView.frame = frame;
                               [imageView setContentMode:UIViewContentModeScaleAspectFit];

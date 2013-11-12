@@ -808,7 +808,10 @@ CGFloat pageHeight;
     [UIView animateWithDuration:0.4
                      animations:^{
                          [self.view bringSubviewToFront:self.controlView];
-                         self.controlView.frame = CGRectMake(0, 0, 320, 46);// its final location
+                         if(IS_OS_7_OR_LATER)
+                             self.controlView.frame = CGRectMake(0, 20, 320, 46);// its final location
+                         else
+                             self.controlView.frame = CGRectMake(0, 0, 320, 46);// its final location
                      }];
     
 }
@@ -903,11 +906,12 @@ CGFloat pageHeight;
 
 
 -(void)setFavorite:(NSString*)answerChoice{
-    BOOL isFirstTime = [[[NSUserDefaults standardUserDefaults] objectForKey:key_isFirstSnapshot] boolValue];
-    if(!isFirstTime){
+    int isFirstTime = [[[NSUserDefaults standardUserDefaults] objectForKey:key_isFirstSnapshot] integerValue];
+    if(isFirstTime < 2){
         [self showFirstSnapshotPopup:answerChoice];
         [self.moveMeView setAnswer:-1];
-        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:key_isFirstSnapshot];
+        isFirstTime++;
+        [[NSUserDefaults standardUserDefaults] setInteger:isFirstTime forKey:key_isFirstSnapshot];
         return;
     }
     
@@ -1074,10 +1078,10 @@ CGFloat pageHeight;
     {
         [self stopDisabledGPS];
     }
-    if (!isLoading)
-    {
-        [self startLoadingAnim];
-    }
+//    if (!isLoading)
+//    {
+//        [self startLoadingAnim];
+//    }
     
     [locUpdate update];
 }

@@ -92,7 +92,7 @@
                             <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="18"/>
                             <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
-                            <color key="shadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            <color key="shadowColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             <size key="shadowOffset" width="1" height="1"/>
                         </label>
                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="58">
@@ -216,9 +216,8 @@
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 </imageView>
             </subviews>
-            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
-            <inset key="insetFor6xAndEarlier" minX="0.0" minY="44" maxX="0.0" maxY="-44"/>
             <connections>
                 <outlet property="placardView" destination="13" id="16"/>
                 <outlet property="snapshotView" destination="-1" id="132"/>

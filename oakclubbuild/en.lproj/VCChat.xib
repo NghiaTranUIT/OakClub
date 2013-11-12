@@ -19,7 +19,7 @@
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
                 <view autoresizesSubviews="NO" contentMode="redraw" id="OPS-Yv-HMr">
-                    <rect key="frame" x="48" y="0.0" width="272" height="568"/>
+                    <rect key="frame" x="48" y="20" width="272" height="568"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES"/>
                     <subviews>
                         <searchBar contentMode="center" searchBarStyle="minimal" placeholder="Search your matches ..." showsScopeBar="YES" id="p1H-sC-1ii">
@@ -40,6 +40,7 @@
                         </searchBar>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <inset key="insetFor6xAndEarlier" minX="0.0" minY="20" maxX="0.0" maxY="-20"/>
                 </view>
                 <activityIndicatorView opaque="NO" contentMode="center" animating="YES" style="whiteLarge" id="58">
                     <rect key="frame" x="141" y="266" width="37" height="37"/>

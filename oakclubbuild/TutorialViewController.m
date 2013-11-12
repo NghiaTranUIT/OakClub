@@ -54,10 +54,19 @@
                            [UIImage imageNamed:@"tutorial_options"],
                            nil];
     CGRect mainFrame = [[UIScreen mainScreen]applicationFrame];
-    CycleScrollView *cycle = [[CycleScrollView alloc] initWithFrame:CGRectMake(0, 0, mainFrame.size.width, mainFrame.size.height)
-                                                     cycleDirection:CycleDirectionLandscape
-                                                           pictures:pageImages];
-    
+    CycleScrollView *cycle;
+    if(IS_OS_7_OR_LATER){
+        cycle = [[CycleScrollView alloc] initWithFrame:CGRectMake(0, 10, mainFrame.size.width, mainFrame.size.height)
+                                        cycleDirection:CycleDirectionLandscape
+                                              pictures:pageImages];
+    }
+    else{
+        cycle = [[CycleScrollView alloc] initWithFrame:CGRectMake(0, 0, mainFrame.size.width, mainFrame.size.height)
+                                        cycleDirection:CycleDirectionLandscape
+                                              pictures:pageImages];
+        
+    }
+
     cycle.delegate = self;
     [self.view addSubview:cycle];
     [self.view sendSubviewToBack:cycle];
