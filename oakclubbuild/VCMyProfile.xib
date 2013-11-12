@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="4510" systemVersion="12F37" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="4510" systemVersion="12F45" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
     <dependencies>
         <deployment defaultVersion="1280" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3742"/>
@@ -153,7 +153,7 @@
                     </connections>
                 </scrollView>
                 <datePicker hidden="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" minuteInterval="1" id="232">
-                    <rect key="frame" x="0.0" y="630" width="320" height="216"/>
+                    <rect key="frame" x="0.0" y="780" width="320" height="216"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                     <gestureRecognizers/>
                     <date key="date" timeIntervalSinceReferenceDate="389687846.180161">
@@ -185,7 +185,7 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                     </connections>
                 </datePicker>
                 <pickerView hidden="YES" contentMode="scaleToFill" id="332">
-                    <rect key="frame" x="0.0" y="630" width="320" height="216"/>
+                    <rect key="frame" x="0.0" y="780" width="320" height="216"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                     <connections>
                         <outlet property="dataSource" destination="-1" id="334"/>
@@ -193,7 +193,7 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
                     </connections>
                 </pickerView>
                 <pickerView hidden="YES" contentMode="scaleToFill" id="336">
-                    <rect key="frame" x="0.0" y="630" width="320" height="216"/>
+                    <rect key="frame" x="0.0" y="780" width="320" height="216"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
                     <connections>
                         <outlet property="dataSource" destination="-1" id="339"/>

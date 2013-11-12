@@ -73,6 +73,7 @@ int cellCountinSection=0;
         [a_avatar setObject:profile.img_Avatar forKey:profile.s_ID];
 //        [tableView reloadData];
         [self.searchDisplayController.searchResultsTableView reloadData];
+        [[self tableView] reloadData];
         NSLog(@"Loading information for %@", profile.s_Name);
         
 //        [a_profile_id addObject:profile.s_ID];
@@ -87,6 +88,7 @@ int cellCountinSection=0;
              }
              [a_messages setObject:array forKey:profile.s_ID];
              [self.searchDisplayController.searchResultsTableView reloadData];
+             [[self tableView] reloadData];
              NSLog(@"Get H Msg completed");
          }];
         //[operation start];
@@ -329,6 +331,8 @@ int cellCountinSection=0;
     
     [self loadFriendsInfo:nil];
     
+    [self.searchDisplayController.searchResultsTableView removeFromSuperview];
+    
     isChatLoaded = FALSE;
     
     [self customSearchBar];
@@ -373,6 +377,7 @@ int cellCountinSection=0;
 		[fetchRequest setFetchBatchSize:10];
 		
         //searchResult is a NSString
+        //[fetchRequest setPredicate:[[NSPredicate alloc] init]];
         if(self.searchResult != nil && [self.searchResult length] > 0){
             NSPredicate *predicate = [NSPredicate predicateWithFormat:@"displayName CONTAINS[cd] %@",self.searchResult];
             [fetchRequest setPredicate:predicate];
@@ -396,7 +401,7 @@ int cellCountinSection=0;
 - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller
 {
     [self.searchDisplayController.searchResultsTableView reloadData];
-//	[[self tableView] reloadData];
+	[[self tableView] reloadData];
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -747,17 +752,16 @@ int cellCountinSection=0;
         }
     }
 }
-- (BOOL)searchBarShouldEndEditing:(UISearchBar *)searchBar
-{
-    self.searchBar.showsScopeBar = YES;
-//    [self.searchBar sizeThatFits:CGSizeMake(272, 88)];
-    [self.searchBar sizeToFit];
-//    self.tableView.tableHeaderView = self.searchBar;
-    fetchedResultsController = nil;
-    //[self.searchDisplayController.searchResultsTableView reloadData];
-    [self reloadFriendList];
-    return YES;
-}
+//- (BOOL)searchBarShouldEndEditing:(UISearchBar *)searchBar
+//{
+//    self.searchBar.showsScopeBar = YES;
+//    [self.searchBar sizeToFit];
+////    self.tableView.tableHeaderView = self.searchBar;
+//    fetchedResultsController = nil;
+//    [self.searchDisplayController.searchResultsTableView reloadData];
+//    //∂[self reloadFriendList];
+//    return YES;
+//}
 -(void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText{
 //    if(searchText.length == 0)
 //        return;
@@ -765,14 +769,28 @@ int cellCountinSection=0;
     self.searchResult = searchText;
     fetchedResultsController = nil;
     //[self.searchDisplayController.searchResultsTableView reloadData];
-    //[self reloadFriendList];
+	[[self tableView] reloadData];
+}
+-(void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
+{
+    fetchedResultsController = nil;
+    [searchBar endEditing:YES];
+    [self.searchDisplayController.searchResultsTableView reloadData];
+	[[self tableView] reloadData];
+}
+
+-(void)searchBarCancelButtonClicked:(UISearchBar *)searchBar
+{
+    self.searchResult = @"";
+    [self.searchDisplayController setActive:YES animated:YES];
 }
 
 - (void)searchBar:(UISearchBar *)searchBar selectedScopeButtonIndexDidChange:(NSInteger)selectedScope
 {
-    self.searchResult =nil;
+    //self.searchResult = nil;
     fetchedResultsController = nil;
     [self.searchDisplayController.searchResultsTableView reloadData];
+	[[self tableView] reloadData];
     self.scopeButtonPressedIndexNumber = [NSNumber numberWithInt:selectedScope];
 }
 
@@ -786,9 +804,15 @@ int cellCountinSection=0;
     else {
         return YES;
     }
-    
 }
-
+- (void)searchDisplayController:(UISearchDisplayController *)controller didShowSearchResultsTableView:(UITableView *)tableView
+{
+    [controller setActive:YES animated:NO];
+}
+- (void)searchDisplayController:(UISearchDisplayController *)controller didHideSearchResultsTableView:(UITableView *)tableView
+{
+    [controller setActive:YES animated:NO];
+}
 #pragma mark Chat delegates
 
 
@@ -805,6 +829,7 @@ int cellCountinSection=0;
     friend.status = ChatUnviewed;
     [appDel.friendChatList setObject:friend forKey:sender];
     [self.searchDisplayController.searchResultsTableView reloadData];
+	[[self tableView] reloadData];
 
 //    [HistoryMessage getHistoryMessages:sender callback:^(NSMutableArray* array)
 //     {

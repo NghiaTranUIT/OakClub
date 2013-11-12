@@ -285,7 +285,7 @@
     if(language != nil){
         [appDelegate updateLanguageBundle];
         [self.view localizeAllViews];
-        [appDelegate loadAllViewControllers];
+        //[appDelegate loadAllViewControllers];
     }
     
     if (!isSetLanguage)
@@ -330,7 +330,7 @@
     }
     
     [self.view localizeAllViews];
-    [appDelegate loadAllViewControllers];
+    //[appDelegate loadAllViewControllers];
 }
 
 #pragma mark Load TEXT for all control
