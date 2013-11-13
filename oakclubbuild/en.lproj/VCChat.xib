@@ -7,9 +7,9 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="VCChat">
             <connections>
+                <outlet property="dismissSearchView" destination="sbz-Pt-b7N" id="WeL-Fg-rzE"/>
                 <outlet property="loadingFriendList" destination="58" id="60"/>
                 <outlet property="searchBar" destination="p1H-sC-1ii" id="8Yu-1B-ggU"/>
-                <outlet property="searchDisplayController" destination="Q5q-bp-R9G" id="Rfv-Cy-91a"/>
                 <outlet property="tableView" destination="Jv3-Gv-5Hi" id="B5U-pJ-3iG"/>
                 <outlet property="view" destination="70" id="CmD-PM-0IN"/>
             </connections>
@@ -20,11 +20,11 @@
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
                 <view autoresizesSubviews="NO" contentMode="redraw" id="OPS-Yv-HMr">
-                    <rect key="frame" x="48" y="0.0" width="272" height="568"/>
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES"/>
                     <subviews>
                         <searchBar contentMode="center" searchBarStyle="minimal" placeholder="Search your matches ..." showsScopeBar="YES" id="p1H-sC-1ii">
-                            <rect key="frame" x="0.0" y="0.0" width="272" height="88"/>
+                            <rect key="frame" x="57" y="0.0" width="263" height="88"/>
                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <color key="tintColor" red="0.47450980390000003" green="0.0039215686269999999" blue="0.34509803919999998" alpha="1" colorSpace="calibratedRGB"/>
@@ -40,7 +40,7 @@
                             </connections>
                         </searchBar>
                         <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="Jv3-Gv-5Hi">
-                            <rect key="frame" x="0.0" y="101" width="272" height="461"/>
+                            <rect key="frame" x="0.0" y="101" width="320" height="461"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <connections>
@@ -48,6 +48,11 @@
                                 <outlet property="delegate" destination="-1" id="BYg-Ui-XhN"/>
                             </connections>
                         </tableView>
+                        <view hidden="YES" contentMode="scaleToFill" id="sbz-Pt-b7N">
+                            <rect key="frame" x="0.0" y="101" width="320" height="461"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        </view>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                 </view>
@@ -60,14 +65,5 @@
             </subviews>
             <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
         </view>
-        <searchDisplayController id="Q5q-bp-R9G">
-            <connections>
-                <outlet property="delegate" destination="-1" id="0Zy-Qg-gjZ"/>
-                <outlet property="searchBar" destination="p1H-sC-1ii" id="Kbm-ZU-E4K"/>
-                <outlet property="searchContentsController" destination="-1" id="P2c-HJ-IcV"/>
-                <outlet property="searchResultsDataSource" destination="-1" id="cb4-X8-xX7"/>
-                <outlet property="searchResultsDelegate" destination="-1" id="h6b-v7-dlh"/>
-            </connections>
-        </searchDisplayController>
     </objects>
 </document>

@@ -11,7 +11,7 @@
 #import "SMChatViewController.h"
 #import "Profile.h"
 #import "SMMessageDelegate.h"
-@interface VCChat : UIViewController <NSFetchedResultsControllerDelegate, UISearchBarDelegate, UISearchDisplayDelegate, SMMessageDelegate>
+@interface VCChat : UIViewController <NSFetchedResultsControllerDelegate, UISearchBarDelegate, SMMessageDelegate>
 {
 //,UITableViewDelegate,UITableViewDataSource>{†
     NSFetchedResultsController *fetchedResultsController;

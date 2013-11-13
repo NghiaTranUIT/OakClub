@@ -37,6 +37,7 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
 @property UIButton* buttonEditPressed;
 @property NSString* searchResult;
 @property BOOL scopeButtonPressedIndexNumber;
+@property (weak, nonatomic) IBOutlet UIView *dismissSearchView;
 @end
 
 @implementation VCChat
@@ -85,6 +86,7 @@ int cellCountinSection=0;
          {
              if([[appDel.friendChatList allKeys] lastObject]== key){
                  [loadingFriendList stopAnimating];
+                 loadingFriendList.hidden = YES;
              }
              [a_messages setObject:array forKey:profile.s_ID];
              [self.searchDisplayController.searchResultsTableView reloadData];
@@ -242,7 +244,6 @@ int cellCountinSection=0;
 
 - (void)viewWillAppear:(BOOL)animated
 {
-	[super viewWillAppear:animated];
     fetchedResultsController = nil;
     [self.navigationController setNavigationBarHidden:YES];
     NSString* title_1 = [NSString localizeString:@"Matches"];
@@ -251,6 +252,7 @@ int cellCountinSection=0;
     NSString* searchText =[NSString localizeString:@"Search"];
     [self.searchBar setScopeButtonTitles:[NSArray arrayWithObjects:title_1,title_2,title_3,nil]];
     [self.searchBar setText:searchText];
+    self.searchResult = nil;
     [self.searchBar setShowsCancelButton:NO];
     [self.searchBar setShowsSearchResultsButton:NO];
     /*
@@ -284,6 +286,9 @@ int cellCountinSection=0;
 #else
     [self showNotifications];
 #endif
+    
+    [self.tableView reloadData];
+	[super viewWillAppear:animated];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -336,6 +341,11 @@ int cellCountinSection=0;
     isChatLoaded = FALSE;
     
     [self customSearchBar];
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]
+                                                          initWithTarget:self
+                                                          action:@selector(dismissKeyboard)];
+    
+    [self.dismissSearchView addGestureRecognizer:tap];
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 #pragma mark NSFetchedResultsController
@@ -713,6 +723,7 @@ int cellCountinSection=0;
 -(void)loadChatView:(Profile*)profile animated:(BOOL)animated
 {
     [self.searchBar resignFirstResponder];
+    [tableView deselectRowAtIndexPath:[tableView indexPathForSelectedRow] animated:NO];
     //SMChatViewController *chatController = [[SMChatViewController alloc] initWithUser:userName];
     UIImage* avatar = [a_avatar valueForKey:profile.s_ID];
     NSMutableArray* array = [a_messages valueForKey:profile.s_ID];
@@ -762,6 +773,19 @@ int cellCountinSection=0;
 //    //∂[self reloadFriendList];
 //    return YES;
 //}
+
+-(void)searchBarTextDidEndEditing:(UISearchBar *)searchBar
+{
+    [self dismissKeyboard];
+}
+
+- (void) dismissKeyboard
+{
+    // add self
+    [self.searchBar resignFirstResponder];
+    [self.dismissSearchView setHidden:YES];
+}
+
 -(void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText{
 //    if(searchText.length == 0)
 //        return;
@@ -782,7 +806,6 @@ int cellCountinSection=0;
 -(void)searchBarCancelButtonClicked:(UISearchBar *)searchBar
 {
     self.searchResult = @"";
-    [self.searchDisplayController setActive:YES animated:YES];
 }
 
 - (void)searchBar:(UISearchBar *)searchBar selectedScopeButtonIndexDidChange:(NSInteger)selectedScope
@@ -797,21 +820,13 @@ int cellCountinSection=0;
 
 - (BOOL)searchBarShouldBeginEditing:(UISearchBar *)searchBar {
     
-    if (self.scopeButtonPressedIndexNumber != nil) {
-        self.scopeButtonPressedIndexNumber = nil; //reset
-        return NO;
+    if (self.searchResult == nil || [@"" isEqualToString:self.searchResult])
+    {
+        searchBar.text = @"";
     }
-    else {
-        return YES;
-    }
-}
-- (void)searchDisplayController:(UISearchDisplayController *)controller didShowSearchResultsTableView:(UITableView *)tableView
-{
-    [controller setActive:YES animated:NO];
-}
-- (void)searchDisplayController:(UISearchDisplayController *)controller didHideSearchResultsTableView:(UITableView *)tableView
-{
-    [controller setActive:YES animated:NO];
+    
+    [self.dismissSearchView setHidden:NO];
+    return YES;
 }
 #pragma mark Chat delegates
 
