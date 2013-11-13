@@ -37,6 +37,7 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
 @property UIButton* buttonEditPressed;
 @property NSString* searchResult;
 @property BOOL scopeButtonPressedIndexNumber;
+@property (weak, nonatomic) IBOutlet UIView *dismissSearchView;
 @end
 
 @implementation VCChat
@@ -65,8 +66,14 @@ int cellCountinSection=0;
     
 //    NSMutableArray* a_profile_id = [[NSMutableArray alloc] init];
 //    NSOperationQueue *queue = [[NSOperationQueue alloc] init];
-    if(appDel.friendChatList == NULL)
+    if(appDel.friendChatList == NULL || appDel.friendChatList.count <= 0)
+    {
         return;
+    }
+    
+    [loadingFriendList startAnimating];
+    [self.view bringSubviewToFront:loadingFriendList];
+    loadingFriendList.hidden = NO;
     for(NSString* key in [appDel.friendChatList allKeys])
     {
         Profile* profile = [appDel.friendChatList objectForKey:key];
@@ -85,77 +92,14 @@ int cellCountinSection=0;
          {
              if([[appDel.friendChatList allKeys] lastObject]== key){
                  [loadingFriendList stopAnimating];
+                 loadingFriendList.hidden = YES;
              }
              [a_messages setObject:array forKey:profile.s_ID];
              [self.searchDisplayController.searchResultsTableView reloadData];
              [[self tableView] reloadData];
              NSLog(@"Get H Msg completed");
          }];
-        //[operation start];
-//        [queue addOperation:operation];
-        
-//        NSString* link = profile.s_Avatar;
-//        
-//        if(![link isEqualToString:@""])
-//        {
-////            AFHTTPRequestOperation *operation =
-//            [Profile getAvatarSync:link
-//                          callback:^(UIImage *image)
-//             {
-//                 
-//                 [a_avatar setObject:image forKey:profile.s_ID];
-//                 [tableView reloadData];
-//                 NSLog(@"Download avatar done for %@", profile.s_Name);
-//             }];
-//            //[operation start];
-////            [queue addOperation:operation];
-//        }
     }
-    
-//    [queue waitUntilAllOperationsAreFinished];
-    /*
-    NSString* s_profile_id = [a_profile_id componentsJoinedByString:@"|"];
-    
-    NSDictionary *params = [[NSDictionary alloc]initWithObjectsAndKeys:s_profile_id,@"str_profile_id", nil];
-    
-    AFHTTPClient *httpClient = [[AFHTTPClient alloc]initWithOakClubAPI:DOMAIN];
-    
-    NSMutableURLRequest *url_request = [httpClient requestWithMethod:@"GET"
-                                                            path:URL_getMutualInfo
-                                                      parameters:params];
-    AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:url_request];
-    [httpClient registerHTTPOperationClass:[AFHTTPRequestOperation class]];
-    
-    [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject)
-    {
-     
-        NSError *e=nil;
-        NSMutableDictionary *dict = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:&e];
-        NSMutableDictionary * data= [dict valueForKey:key_data];
-        if(data != nil && [data count]>0)
-        {
-            for(NSString* key in [data allKeys])
-            {
-                Profile* profile = [appDel.friendChatList objectForKey:[NSString stringWithFormat:DOMAIN_AT_FMT, key]];
-                NSMutableDictionary * friendData= [data objectForKey:key];
-                
-                if(friendData != nil)
-                {
-                    NSNumber* num_MutualFriends = [friendData valueForKey:@"mutualFriend"];
-                    profile.num_MutualFriends = [num_MutualFriends intValue];
-                }
-            }
-        }
-        
-        
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"loadMutualFriends ... Error Code: %i - %@",[error code], [error localizedDescription]);
-    }];
-    
-    [queue addOperation:operation];
-    
-    [queue waitUntilAllOperationsAreFinished];
-    */
     NSLog(@"***** loadFriendsInfo end!");
 }
 
@@ -242,7 +186,6 @@ int cellCountinSection=0;
 
 - (void)viewWillAppear:(BOOL)animated
 {
-	[super viewWillAppear:animated];
     fetchedResultsController = nil;
     [self.navigationController setNavigationBarHidden:YES];
     NSString* title_1 = [NSString localizeString:@"Matches"];
@@ -251,8 +194,10 @@ int cellCountinSection=0;
     NSString* searchText =[NSString localizeString:@"Search"];
     [self.searchBar setScopeButtonTitles:[NSArray arrayWithObjects:title_1,title_2,title_3,nil]];
     [self.searchBar setText:searchText];
+    self.searchResult = nil;
     [self.searchBar setShowsCancelButton:NO];
     [self.searchBar setShowsSearchResultsButton:NO];
+    [self.searchBar setSelectedScopeButtonIndex:2];
     /*
 	UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 400, 44)];
 	titleLabel.backgroundColor = [UIColor clearColor];
@@ -284,6 +229,9 @@ int cellCountinSection=0;
 #else
     [self showNotifications];
 #endif
+    
+    [self.tableView reloadData];
+	[super viewWillAppear:animated];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -325,10 +273,6 @@ int cellCountinSection=0;
     //    [self.view addSubview:tbVC_ChatList.view];
 //    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"bg-edit.png"]];
     
-    [loadingFriendList startAnimating];
-    [self.view bringSubviewToFront:loadingFriendList];
-    loadingFriendList.hidden = NO;
-    
     [self loadFriendsInfo:nil];
     
     [self.searchDisplayController.searchResultsTableView removeFromSuperview];
@@ -336,6 +280,11 @@ int cellCountinSection=0;
     isChatLoaded = FALSE;
     
     [self customSearchBar];
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]
+                                                          initWithTarget:self
+                                                          action:@selector(dismissKeyboard)];
+    
+    [self.dismissSearchView addGestureRecognizer:tap];
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 #pragma mark NSFetchedResultsController
@@ -596,20 +545,15 @@ int cellCountinSection=0;
     {
 //        lblResult.text = @" Your selected YES.";
         
-        XMPPUserCoreDataStorageObject *user = [[self fetchedResultsController] objectAtIndexPath:selectedIndex];
+        Profile* profile = [appDel.friendChatList objectForKey:[NSString stringWithFormat:DOMAIN_AT_FMT, [friendChatIDs objectAtIndex:selectedIndex.row]]];
+        NSLog(@"Removed user %@", profile.s_ID);
         
-        XMPPJID* xmpp_jid = [user jid];
-        
-        NSString* jid = [xmpp_jid bare];
-        NSArray *chunks = [jid componentsSeparatedByString: @"@"];
-        NSString* hangout_id = [chunks objectAtIndex:0];
-        
-        NSLog(@"Removed user %@", hangout_id);
+        XMPPJID* xmpp_jid = (XMPPJID*) profile.s_usenameXMPP;
         
         [appDel.xmppRoster removeUser:xmpp_jid];
         
         
-        [HistoryMessage deleteChatHistory:hangout_id];
+        [HistoryMessage deleteChatHistory:profile.s_ID];
     }
     
 }
@@ -713,23 +657,25 @@ int cellCountinSection=0;
 -(void)loadChatView:(Profile*)profile animated:(BOOL)animated
 {
     [self.searchBar resignFirstResponder];
+    [tableView deselectRowAtIndexPath:[tableView indexPathForSelectedRow] animated:NO];
     //SMChatViewController *chatController = [[SMChatViewController alloc] initWithUser:userName];
     UIImage* avatar = [a_avatar valueForKey:profile.s_ID];
     NSMutableArray* array = [a_messages valueForKey:profile.s_ID];
 
-    SMChatViewController *chatController =
-    [[SMChatViewController alloc] initWithUser:[NSString stringWithFormat:DOMAIN_AT_FMT, profile.s_ID]
-                                   withProfile:profile
-                                    withAvatar:avatar
-                                  withMessages:array];
+    if (array)
+    {
+        SMChatViewController *chatController =
+        [[SMChatViewController alloc] initWithUser:[NSString stringWithFormat:DOMAIN_AT_FMT, profile.s_ID]
+                                       withProfile:profile
+                                        withAvatar:avatar
+                                      withMessages:array];
 #if ENABLE_DEMO
-    [appDel.rootVC setFrontViewController:appDel.chat focusAfterChange:YES completion:^(BOOL finished) {
-        
-    }];
+        [appDel.rootVC setFrontViewController:appDel.chat focusAfterChange:YES completion:^(BOOL finished) {
+            
+        }];
 #endif
-	[self.navigationController pushViewController:chatController animated:animated];
-
-
+        [self.navigationController pushViewController:chatController animated:animated];
+    }
 }
 
 -(void)reloadFriendList
@@ -762,6 +708,19 @@ int cellCountinSection=0;
 //    //∂[self reloadFriendList];
 //    return YES;
 //}
+
+-(void)searchBarTextDidEndEditing:(UISearchBar *)searchBar
+{
+    [self dismissKeyboard];
+}
+
+- (void) dismissKeyboard
+{
+    // add self
+    [self.searchBar resignFirstResponder];
+    [self.dismissSearchView setHidden:YES];
+}
+
 -(void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText{
 //    if(searchText.length == 0)
 //        return;
@@ -782,7 +741,6 @@ int cellCountinSection=0;
 -(void)searchBarCancelButtonClicked:(UISearchBar *)searchBar
 {
     self.searchResult = @"";
-    [self.searchDisplayController setActive:YES animated:YES];
 }
 
 - (void)searchBar:(UISearchBar *)searchBar selectedScopeButtonIndexDidChange:(NSInteger)selectedScope
@@ -797,21 +755,13 @@ int cellCountinSection=0;
 
 - (BOOL)searchBarShouldBeginEditing:(UISearchBar *)searchBar {
     
-    if (self.scopeButtonPressedIndexNumber != nil) {
-        self.scopeButtonPressedIndexNumber = nil; //reset
-        return NO;
+    if (self.searchResult == nil || [@"" isEqualToString:self.searchResult])
+    {
+        searchBar.text = @"";
     }
-    else {
-        return YES;
-    }
-}
-- (void)searchDisplayController:(UISearchDisplayController *)controller didShowSearchResultsTableView:(UITableView *)tableView
-{
-    [controller setActive:YES animated:NO];
-}
-- (void)searchDisplayController:(UISearchDisplayController *)controller didHideSearchResultsTableView:(UITableView *)tableView
-{
-    [controller setActive:YES animated:NO];
+    
+    [self.dismissSearchView setHidden:NO];
+    return YES;
 }
 #pragma mark Chat delegates
 

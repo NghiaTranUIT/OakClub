@@ -1627,7 +1627,7 @@
 		CDF99AB71713D629008D8BAC /* SMMessageDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMMessageDelegate.h; sourceTree = "<group>"; };
 		CDF99AB81713D629008D8BAC /* SMMessageViewTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMMessageViewTableCell.h; sourceTree = "<group>"; };
 		CDF99AB91713D629008D8BAC /* SMMessageViewTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMMessageViewTableCell.m; sourceTree = "<group>"; };
-		CDF99ABA1713D629008D8BAC /* XMPPFramework.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMPPFramework.h; sourceTree = "<group>"; };
+		CDF99ABA1713D629008D8BAC /* XMPPFramework.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XMPPFramework.h; path = Classes/XMPPFramework.h; sourceTree = "<group>"; };
 		CDF99ABC1713D629008D8BAC /* XMPP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMPP.h; sourceTree = "<group>"; };
 		CDF99ABD1713D629008D8BAC /* XMPPElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMPPElement.h; sourceTree = "<group>"; };
 		CDF99ABE1713D629008D8BAC /* XMPPElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XMPPElement.m; sourceTree = "<group>"; };
@@ -2322,6 +2322,7 @@
 		CD12C1A5170AEAE4006B13B8 /* Chat */ = {
 			isa = PBXGroup;
 			children = (
+				CDF99AAA1713D629008D8BAC /* SMChat */,
 				CD038E62180BDB2700A9E177 /* ChattingClasses */,
 				CDECD3071733C3D800A6B17F /* ChatHistoryViewCell.h */,
 				CDECD3081733C3D800A6B17F /* ChatHistoryViewCell.m */,
@@ -3456,11 +3457,11 @@
 		CDF99AA11713D629008D8BAC /* XMPP-Chat */ = {
 			isa = PBXGroup;
 			children = (
+				CDF99ABA1713D629008D8BAC /* XMPPFramework.h */,
 				CDF99C481713FA6B008D8BAC /* Resources */,
 				CDF99C261713D6CF008D8BAC /* Authentication */,
 				CDF99BF11713D69B008D8BAC /* Vendor */,
 				CDF99AA31713D629008D8BAC /* Categories */,
-				CDF99AAA1713D629008D8BAC /* Classes */,
 				CDF99ABB1713D629008D8BAC /* Core */,
 				CDF99AD01713D629008D8BAC /* Extensions */,
 				CDF99B811713D629008D8BAC /* Utilities */,
@@ -3481,7 +3482,7 @@
 			path = Categories;
 			sourceTree = "<group>";
 		};
-		CDF99AAA1713D629008D8BAC /* Classes */ = {
+		CDF99AAA1713D629008D8BAC /* SMChat */ = {
 			isa = PBXGroup;
 			children = (
 				CDF99AB41713D629008D8BAC /* SMChatViewController.h */,
@@ -3490,9 +3491,9 @@
 				CDF99AB71713D629008D8BAC /* SMMessageDelegate.h */,
 				CDF99AB81713D629008D8BAC /* SMMessageViewTableCell.h */,
 				CDF99AB91713D629008D8BAC /* SMMessageViewTableCell.m */,
-				CDF99ABA1713D629008D8BAC /* XMPPFramework.h */,
 			);
-			path = Classes;
+			name = SMChat;
+			path = "XMPP-Chat/Classes";
 			sourceTree = "<group>";
 		};
 		CDF99ABB1713D629008D8BAC /* Core */ = {
