@@ -354,7 +354,7 @@ UITapGestureRecognizer *tap;
                 rangeCell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:rangeCellID];
                 UIView *newCellView= [[UIView alloc]initWithFrame:CGRectMake(0, 0, 320, 80)];
                 lblRange = [[UILabel alloc]initWithFrame:CGRectMake(30, 0, 280, 30)];
-                [lblRange setText: [NSString stringWithFormat: [[@"Limit my search to this distance" localize] stringByAppendingString:@": %d km"],i_range]];
+//                [lblRange setText: [NSString stringWithFormat: [[@"Limit my search to this distance" localize] stringByAppendingString:@": %d km"],i_range]];
 //                [lblRange setTextColor:[UIColor blackColor]];
                 [lblRange setBackgroundColor:[UIColor clearColor]];
                 [lblRange setFont:FONT_HELVETICANEUE_LIGHT(15.0)];
@@ -364,10 +364,10 @@ UITapGestureRecognizer *tap;
                 [rangeCell setSelectionStyle:UITableViewCellSelectionStyleNone];
                 rangeCell.accessoryView = newCellView;
             }
-            else{
-                [lblRange setText: [NSString stringWithFormat: [[@"Limit my search to this distance" localize] stringByAppendingString:@": %d km"],i_range]];
-            }
-            
+//            else{
+//                [lblRange setText: [NSString stringWithFormat: [[@"Limit my search to this distance" localize] stringByAppendingString:@": %d km"],i_range]];
+//            }
+            lblRange.text = [self getRangeValue:i_range];
             [rangeCell localizeAllViews];
             return rangeCell;
             break;
@@ -917,11 +917,13 @@ UITapGestureRecognizer *tap;
     NSString *prefSearchDistance = [@"Limit my search to this distance" localize];
     if(value < 600)
         sRange = [NSString stringWithFormat:[prefSearchDistance stringByAppendingString:@": %d km"],value];
-    else
+    else{
+        sRange = [prefSearchDistance stringByAppendingString:@": "];
         if(value < 700)
-            sRange = [prefSearchDistance stringByAppendingString:@": Country"];//snapshotObj.location.countryCode;
+            sRange = [sRange stringByAppendingString:[@"Country" localize]];//snapshotObj.location.countryCode;
         else
-            sRange = [prefSearchDistance stringByAppendingString:@": World"];
+            sRange = [sRange stringByAppendingString:[@"World" localize]];
+    }
     return sRange;
 }
 
@@ -966,11 +968,10 @@ UITapGestureRecognizer *tap;
 }
 #pragma mark handle on touch
 - (IBAction)onTouchConfirmLogout:(id)sender {
-    //    [self.navigationController popViewControllerAnimated:NO];
     [self.navigationController.navigationBar setUserInteractionEnabled:YES];
     [self.logoutViewController.view removeFromSuperview];
     appDel.rootVC.recognizesPanningOnFrontView = YES;
-//    AppDelegate *appDel = (AppDelegate *) [UIApplication sharedApplication].delegate;
+    [self.tableView setScrollEnabled:YES];
     [appDel  logOut];
 }
 - (IBAction)onTouchCancelLogout:(id)sender {
