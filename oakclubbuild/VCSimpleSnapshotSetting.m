@@ -297,7 +297,6 @@ UITapGestureRecognizer *tap;
                         [autoSwitch setOnTintColor:COLOR_PURPLE];
                         autoSwitch.tag = 100;
                         [filterGuysCell.contentView addSubview:autoSwitch];
-                        filterGuysCell.textLabel.text = [NSString localizeString:@"Guys"];
                         [filterGuysCell.textLabel setFont: FONT_HELVETICANEUE_LIGHT(15.0)];
                         filterGuysCell.textLabel.highlightedTextColor = [UIColor whiteColor];
                     }
@@ -308,7 +307,7 @@ UITapGestureRecognizer *tap;
 //                        autoSwitch.on = [snapshotObj.gender_of_search isEqualToString:value_Male] || [snapshotObj.gender_of_search isEqualToString:value_All];
                         autoSwitch.on = hasMale;
                     }
-                    
+                    filterGuysCell.textLabel.text = [NSString localizeString:@"Guys"];
                     [filterGuysCell localizeAllViews];
                     return filterGuysCell;
                 }
@@ -328,7 +327,6 @@ UITapGestureRecognizer *tap;
                         [autoSwitch setOnTintColor:COLOR_PURPLE];
                         autoSwitch.tag = 101;
                         [filterGirlsCell.contentView addSubview:autoSwitch];
-                        filterGirlsCell.textLabel.text = [NSString localizeString:@"Girls"];
                         [filterGirlsCell.textLabel setFont: FONT_HELVETICANEUE_LIGHT(15.0)];
                         filterGirlsCell.textLabel.highlightedTextColor = [UIColor whiteColor];
                     }
@@ -338,7 +336,7 @@ UITapGestureRecognizer *tap;
                         UISwitch *autoSwitch = (id) [filterGirlsCell viewWithTag:101];
                         autoSwitch.on = hasFemale;
                     }
-                    
+                    filterGirlsCell.textLabel.text = [NSString localizeString:@"Girls"];
                     [filterGirlsCell localizeAllViews];
                     return filterGirlsCell;
                 }
