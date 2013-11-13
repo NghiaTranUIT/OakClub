@@ -17,6 +17,7 @@
 //    IBOutlet UIViewController *likePopoverView;
     UIPopoverController *pop;
     NSMutableArray *tableSource;
+    BOOL showNavigationBar;
 }
 
 @property (weak, nonatomic) IBOutlet UITableView *tableViewProfile;
@@ -59,4 +60,5 @@
 
 -(void) loadProfile:(Profile*) _profile andImage:(UIImage*)avatar;
 -(void) loadProfile:(Profile*) _profile;
+-(void)setShowNavigationBar:(BOOL)flag;
 @end

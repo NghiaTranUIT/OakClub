@@ -417,18 +417,24 @@
 //    }
 //    else
 //        [vc.navigationController popViewControllerAnimated:YES];
-    
-    VCProfile *viewProfile = [[VCProfile alloc] initWithNibName:@"VCProfile" bundle:nil];
-    [viewProfile loadProfile:userProfile andImage:avatar_friend];
-    
+    [userProfile getProfileInfo:^(void){
+        VCProfile *viewProfile = [[VCProfile alloc] initWithNibName:@"VCProfile" bundle:nil];
+        [viewProfile loadProfile:userProfile andImage:avatar_friend];
+        
 #if ENABLE_DEMO
-//    [appDel.rootVC setFrontViewController:appDel.chat focusAfterChange:YES completion:^(BOOL finished) {
-//        
-//    }];
+        //    [appDel.rootVC setFrontViewController:appDel.chat focusAfterChange:YES completion:^(BOOL finished) {
+        //
+        //    }];
 #endif
-	[self.navigationController pushViewController:viewProfile animated:YES];
-    [self.navigationController setNavigationBarHidden:YES];
-    [viewProfile.navigationController setNavigationBarHidden:NO];
+        //vanancy ; bug crash on iOS7
+        [viewProfile setShowNavigationBar:YES];
+        [self.navigationController presentModalViewController:viewProfile animated:NO];
+//        [self.navigationController setNavigationBarHidden:NO];
+        
+    }];
+//    
+    
+    
 }
 #pragma mark -
 #pragma mark Table view delegates
@@ -489,7 +495,7 @@ static float cellWidth = 320;
 											  cell.messageContentView.frame.size.height + padding_top)];
         
         [cell.avatarImageView setFrame:CGRectMake(padding_left, padding_top + cell.bgImageView.frame.size.height - defaultAvatarHeight, defaultAvatarWidth, defaultAvatarHeight)];
-        [cell.avatarImageView setImage:avatar_friend forState:UIControlStateNormal];
+        [cell.avatarImageView setBackgroundImage:avatar_friend forState:UIControlStateNormal];
         //[UIImage imageNamed:@"action-people.png"];
         [cell.senderAndTimeLabel setFrame:CGRectMake(cell.bgImageView.frame.origin.x + cell.bgImageView.frame.size.width + padding_left,
                                                      cell.bgImageView.frame.origin.y + cell.bgImageView.frame.size.height - cell.senderAndTimeLabel.frame.size.height,
@@ -514,7 +520,7 @@ static float cellWidth = 320;
         
         [cell.avatarImageView setFrame:CGRectMake(padding_left + cell.bgImageView.frame.origin.x + cell.bgImageView.frame.size.width,
                                                   padding_top + cell.bgImageView.frame.size.height - defaultAvatarHeight, defaultAvatarWidth, defaultAvatarHeight)];
-        [cell.avatarImageView setImage:avatar_me forState:UIControlStateNormal];
+        [cell.avatarImageView setBackgroundImage:avatar_me forState:UIControlStateNormal];
         [cell.senderAndTimeLabel setFrame:CGRectMake(padding_left,
                                                      cell.bgImageView.frame.origin.y + cell.bgImageView.frame.size.height - cell.senderAndTimeLabel.frame.size.height,
                                                      cell.senderAndTimeLabel.frame.size.width, cell.senderAndTimeLabel.frame.size.height)];
