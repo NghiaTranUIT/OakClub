@@ -55,6 +55,7 @@
                         </view>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <inset key="insetFor6xAndEarlier" minX="0.0" minY="20" maxX="0.0" maxY="-20"/>
                 </view>
                 <activityIndicatorView opaque="NO" contentMode="center" animating="YES" style="whiteLarge" id="58">
                     <rect key="frame" x="141" y="266" width="37" height="37"/>

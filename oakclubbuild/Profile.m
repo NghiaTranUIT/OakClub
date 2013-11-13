@@ -322,7 +322,9 @@
             {
                 NSMutableDictionary* photo = [photosData objectAtIndex:i];
                 NSString* photoLink = [photo valueForKey:@"tweet_image_link"];
-                if(photoLink != nil)
+                //don't import avatar into photo list
+                int is_avatar =[[photo valueForKey:@"is_profile_picture"] integerValue];
+                if(photoLink != nil && !is_avatar)
                     [ photos addObject: photoLink];
             }
         }
@@ -555,7 +557,7 @@
     self.num_Photos = [_arrTemp count];
     for (int i = 0; i < self.num_Photos; i++) {
         NSMutableDictionary *photoItem = [_arrTemp objectAtIndex:i];
-        if ([photoItem valueForKey:key_isProfilePicture]) {
+        if ([[photoItem valueForKey:key_isProfilePicture] integerValue]) {
             self.s_Avatar =[photoItem valueForKey:key_photoLink];
         }
         [self.arr_photos addObject: [photoItem valueForKey:key_photoLink]];
@@ -1025,6 +1027,8 @@
         if(status){
             self.unread_message -= friend.unread_message;
             friend.unread_message = 0;
+            AppDelegate *appDel = (id) [UIApplication sharedApplication].delegate;
+            [appDel updateNavigationWithNotification];
             NSLog(@"POST READ-MESSAGES SUCCESS!!!");
         }
         else
@@ -1046,10 +1050,10 @@
         BOOL status= [[dict valueForKey:key_status] boolValue];
         if(status){
             friend.is_match = true;
-            NSLog(@"POST READ-MESSAGES SUCCESS!!!");
+            NSLog(@"setViewedMatchMutualWithFriend SUCCESS!!!");
         }
         else
-            NSLog(@"POST READ-MESSAGES FAIL...");
+            NSLog(@"setViewedMatchMutualWithFriend FAIL...");
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Error Code: %i - %@",[error code], [error localizedDescription]);

@@ -8,6 +8,7 @@
 
 #import "VCPrivacy.h"
 #import "UIView+Localize.h"
+#import "Define.h"
 
 @interface VCPrivacy() <UIWebViewDelegate>
 {
@@ -47,10 +48,10 @@
         
         UIButton *proceedBtn = [[UIButton alloc] init];
         [proceedBtn setBackgroundImage:[UIImage imageNamed:@"proceed-btn-on.png"] forState:UIControlStateNormal];
-        proceedBtn.frame = CGRectMake(0, 250, self.contentViewFrame.size.width, self.margin.bottom);
+        proceedBtn.frame = CGRectMake(0, IS_HEIGHT_GTE_568?328:250 , self.contentViewFrame.size.width, self.margin.bottom);
         [proceedBtn addTarget:self action:@selector(proceedTouched:) forControlEvents:UIControlEventTouchUpInside];
         [proceedBtn setTitle:@"PROCEED" forState:UIControlStateNormal];
-        [proceedBtn.titleLabel setFont:[UIFont systemFontOfSize:15]];
+        [proceedBtn.titleLabel setFont:FONT_HELVETICANEUE_LIGHT(15)];//[UIFont systemFontOfSize:15]];
         
         [self.contentView addSubview:proceedBtn];
         
@@ -75,7 +76,7 @@
 {
     txtView.frame = CGRectMake(self.margin.left + self.borderWidth + 15,
                                self.margin.top + self.borderWidth + 15,
-                               txtView.frame.size.width, txtView.frame.size.height);
+                               txtView.frame.size.width,IS_HEIGHT_GTE_568?txtView.frame.size.height+88:txtView.frame.size.height);
     [self addSubview:txtView];
 }
 @end

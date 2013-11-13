@@ -320,6 +320,7 @@
 
 //=======detect screen size============
 #define IS_HEIGHT_GTE_568 [[UIScreen mainScreen ] bounds].size.height >= 568.0f
+#define IS_OS_7_OR_LATER    ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0)
 
 #endif
 typedef enum {

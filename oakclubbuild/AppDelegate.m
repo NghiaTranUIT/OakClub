@@ -1342,9 +1342,12 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
             [self.myProfile.dic_Roster setValue:newFriend forKey:newFriend.s_ID];
         }];
         
-//        return;
+        return;
     }
-    
+    else{
+        newFriend.unread_message++;
+        [self.friendChatList setObject:newFriend forKey:jid];
+    }
     
     NSString *msg = [[message elementForName:@"body"] stringValue];
     NSString *type = [[message attributeForName:@"type"] stringValue];

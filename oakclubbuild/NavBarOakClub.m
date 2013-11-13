@@ -55,8 +55,8 @@
     [rightButton setHidden:NO];
 #if ENABLE_DEMO
     if([rightButtonClass isEqualToString:@"VCChat"]){
-        [rightButton setImage:[UIImage imageNamed:@"Navbar_btn_chat_up.png"] forState:UIControlStateNormal];
-        [rightButton setImage:[UIImage imageNamed:@"Navbar_btn_chat_up.png"] forState:UIControlStateHighlighted];
+        [rightButton setBackgroundImage:[UIImage imageNamed:@"Navbar_btn_chat_up.png"] forState:UIControlStateNormal];
+//        [rightButton setBackgroundImage:[UIImage imageNamed:@"Navbar_btn_chat_up.png"] forState:UIControlStateHighlighted];
     }
     if([rightButtonClass isEqualToString:@"VCMyProfile"]){
         [rightButton setImage:[UIImage imageNamed:@"header_btn_save.png"] forState:UIControlStateNormal];

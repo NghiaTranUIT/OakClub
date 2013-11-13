@@ -31,7 +31,11 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
-    background = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
+    if(IS_OS_7_OR_LATER)
+        background = [[UIImageView alloc] initWithFrame:CGRectMake(0, 10, self.view.frame.size.width, self.view.frame.size.height)];
+    else
+        background = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
+
     UIImage *backgroundImg = [UIImage imageNamed:@"spashscreen"];
     [background setImage:backgroundImg];
     [background setContentMode:UIViewContentModeScaleAspectFit];
