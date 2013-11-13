@@ -402,8 +402,23 @@
     if([self.s_aboutMe isKindOfClass:[NSNull class]]){
         self.s_aboutMe = @"";
     }
+    //load photos of profile
+    self.arr_photos = [[NSMutableArray alloc] init];
+    NSMutableArray *_arrTemp = [[NSMutableArray alloc] init];
+    _arrTemp = [data valueForKey:key_photos];
+    self.num_Photos = [_arrTemp count];
+    for (int i = 0; i < self.num_Photos; i++) {
+        NSMutableDictionary *photoItem = [_arrTemp objectAtIndex:i];
+        if ([[photoItem valueForKey:key_isProfilePicture] integerValue]) {
+            self.s_Avatar =[photoItem valueForKey:key_photoLink];
+        }
+        [self.arr_photos addObject: [photoItem valueForKey:key_photoLink]];
+    }
+    if(self.s_Avatar == nil){
+        self.s_Avatar = [data valueForKey:key_avatar];
+    }
 
-    
+    //load favorite list
     NSMutableArray *dict_Fav = [data valueForKey:@"fav"];
     
     if (dict_Fav) {
@@ -562,7 +577,9 @@
         }
         [self.arr_photos addObject: [photoItem valueForKey:key_photoLink]];
     }
-    
+    if(self.s_Avatar == nil){
+        self.s_Avatar = [data valueForKey:key_avatar];
+    }
     //load mutual friends list
     self.arr_MutualFriends = [[NSMutableArray alloc]init];
     self.arr_MutualFriends = [self parseMutualFriends:[data valueForKey:key_MutualFriends]];
@@ -1063,7 +1080,7 @@
 
 -(void)getProfileInfo:(void(^)(void))handler{
     AFHTTPClient* request = [[AFHTTPClient alloc]initWithOakClubAPI:DOMAIN];
-     NSDictionary *params = [[NSDictionary alloc]initWithObjectsAndKeys:self.s_ID,key_profileID, nil];
+     NSDictionary *params = [[NSDictionary alloc]initWithObjectsAndKeys:self.s_ID,key_profileID,@"true",@"is_full", nil];
     [request getPath:URL_getProfileInfo parameters:params success:^(__unused AFHTTPRequestOperation *operation, id JSON) {
         [self parseForGetHangOutProfile:JSON];
         if(handler)

@@ -17,10 +17,11 @@
 //    IBOutlet UIViewController *likePopoverView;
     UIPopoverController *pop;
     NSMutableArray *tableSource;
+    BOOL showNavigationBar;
 }
 
 @property (weak, nonatomic) IBOutlet UITableView *tableViewProfile;
-@property (weak, nonatomic) IBOutlet UIScrollView *svPhotos;
+@property (strong, nonatomic) IBOutlet UIScrollView *svPhotos;
 
 @property (weak, nonatomic) IBOutlet UILabel *labelInterests;
 @property (weak, nonatomic) IBOutlet UIImageView *imgView_avatar;
@@ -55,8 +56,9 @@
 
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *loadingAvatar;
 @property (weak, nonatomic) IBOutlet UIPageControl *photoPageControl;
-@property (weak, nonatomic) IBOutlet UILabel *photoCount;
+@property (strong, nonatomic) IBOutlet UILabel *photoCount;
 
 -(void) loadProfile:(Profile*) _profile andImage:(UIImage*)avatar;
 -(void) loadProfile:(Profile*) _profile;
+-(void)setShowNavigationBar:(BOOL)flag;
 @end

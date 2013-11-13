@@ -378,8 +378,12 @@ CGFloat pageHeight;
     }
     Profile * temp  =  [[Profile alloc]init];
     temp = [profileList objectAtIndex:currentIndex];
-    [self.imgNextProfile setImage:temp.img_Avatar];
-//    [self.imgNextProfile setImage:[UIImage imageNamed:@"Default Avatar"]];
+    if(temp.img_Avatar != nil && [temp.img_Avatar isKindOfClass:[UIImage class]]){
+        [self.imgNextProfile setImage:temp.img_Avatar];
+    }
+    else{
+        [self.imgNextProfile setImage:[UIImage imageNamed:@"Default Avatar"]];
+    }
     NSLog(@"Name of Profile : %@",currentProfile.s_Name);
 }
 -(void)loadCurrentProfile{
@@ -392,17 +396,16 @@ CGFloat pageHeight;
     currentProfile = [profileList objectAtIndex:currentIndex];
     [[NSUserDefaults standardUserDefaults] setObject:currentProfile.s_ID forKey:@"currentSnapShotID"];
     NSLog(@"Name of Profile : %@",currentProfile.s_Name);
+    
     NSString *txtAge= [NSString stringWithFormat:@"%@",currentProfile.s_age];
     [lblName setText:[self formatTextWithName:currentProfile.s_Name andAge:txtAge]];
-    
     [lbl_mutualFriends setText:[NSString stringWithFormat:@"%i",currentProfile.num_MutualFriends]];
-//    [lbl_mutualLikes setText:[NSString stringWithFormat:@"%i",currentProfile.num_]];
-//    AFHTTPClient *requestMutual = [[AFHTTPClient alloc] initWithOakClubAPI:DOMAIN];
-//    NSDictionary *params = [[NSDictionary alloc]initWithObjectsAndKeys:currentProfile.s_ID,@"profile_id", nil];
+    [self.imgMainProfile setImage:[UIImage imageNamed:@"Default Avatar"]];
+    [lblPhotoCount setText:@"0"];
     if(currentProfile.arr_photos != nil){
-        [lblPhotoCount setText:[NSString stringWithFormat:@"%i",[currentProfile.arr_photos count]]];
         if(([currentProfile.arr_photos count] > 0) && [currentProfile.arr_photos[0] isKindOfClass:[UIImage class]]){
             [self.imgMainProfile setImage:[currentProfile.arr_photos objectAtIndex:0]];
+            [lblPhotoCount setText:[NSString stringWithFormat:@"%i",[currentProfile.arr_photos count]]];
         }
         else{
             AFHTTPRequestOperation *operation =
@@ -410,41 +413,21 @@ CGFloat pageHeight;
                           callback:^(UIImage *image)
              {
                  [self.imgMainProfile setImage:image];
-                 [currentProfile.arr_photos replaceObjectAtIndex:0 withObject:image];
+                 if([currentProfile.arr_photos count]<1){
+                     [currentProfile.arr_photos addObject:image];
+                 }
+                 else{
+                     [currentProfile.arr_photos replaceObjectAtIndex:0 withObject:image];
+                 }
+                 [lblPhotoCount setText:[NSString stringWithFormat:@"%i",[currentProfile.arr_photos count]]];
              }];
             [operation start];
         }
-    
+        
     }
 
     [self stopLoadingAnim];
-//    [requestMutual getPath:URL_getProfileInfo parameters:params success:^(__unused AFHTTPRequestOperation *operation, id JSON)
-//     {
-//         [self stopLoadingAnim];
-//         NSError *e=nil;
-//         NSMutableDictionary *dict = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONReadingMutableContainers error:&e];
-//         NSMutableDictionary * data= [dict valueForKey:key_data];
-//         NSMutableDictionary *infoMutual =[data valueForKey:currentProfile.s_ID];
-//         int mutualFriendCount =[[infoMutual valueForKey:key_MutualFriends]  integerValue];
-//         if(mutualFriendCount >0){
-//             lbl_mutualFriends.text = [NSString stringWithFormat:@"%i",mutualFriendCount];
-//             [lbl_mutualFriends setHidden:NO];
-//             [imgMutualFriend setHidden:NO];
-//         }
-//         int mutualLikeCount = [[infoMutual valueForKey:key_MutualLikes]  integerValue];
-//         if(mutualLikeCount > 0){
-//             lbl_mutualLikes.text = [NSString stringWithFormat:@"%i",mutualLikeCount];
-//             [lbl_mutualLikes setHidden:NO];
-//             [imgMutualLike setHidden:NO];
-//         }
-////         [self loadDataForPhotos];
-//   
-//     } failure:^(AFHTTPRequestOperation *operation, NSError *error)
-//     {
-//         NSLog(@"Error Code: %i - %@",[error code], [error localizedDescription]);
-//     }];
     currentIndex++;
-//    [self loadNextProfileByIndex:currentIndex];
 }
 
 /*

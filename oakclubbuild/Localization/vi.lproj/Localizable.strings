@@ -18,9 +18,9 @@
 "Chat"="Trò Chuyện";
 "Mutual Matches"="Cùng Thích Nhau";
 "New Mutual Matches"="Cùng Thích Nhau Mới";
-"Logout"="Đăng Xuất";
-"Logout"="Đăng Xuất";
-"Đăng Xuất"="Đăng Xuất";
+"Logout"="Thoát";
+"Logout"="Thoát";
+"Thoát"="Thoát";
 "coins"="xu";
 "Name"="Tên";
 "Birthdate"="Ngày sinh";
@@ -66,8 +66,8 @@
 "English"="Tiếng Anh";
 "Tiếng Việt"="Tiếng Việt";
 "Tiếng Anh"="Tiếng Anh";
-"Done"="Hoàn tất";
-"Hoàn tất"="Hoàn tất";
+"Done"="Xong";
+"Xong"="Xong";
 "Matches"="Thành cặp";
 "Non Matches"="Đơn phương";
 "All"="Tất cả";
@@ -124,3 +124,5 @@
 "Lưu Cài Đặt"="Lưu Cài Đặt";
 "Share Interests"="Sở thích chung";
 "Lựa chọn ngôn ngữ"="Lựa chọn ngôn ngữ";
+"Finding nearby people..."="Tìm đồng bọn đang ở gần...";
+"You've seen all the recommendation near you."="Bạn đã xem hết những người bạn trong cùng khu vực.";

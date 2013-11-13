@@ -43,7 +43,7 @@
 
 @synthesize labelInterests;
 @synthesize mutualFriendsImageView;
-@synthesize buttonAvatar;
+//@synthesize buttonAvatar;
 @synthesize scrollViewInterest;
 
 @synthesize loadingAvatar;
@@ -244,122 +244,7 @@ static CGFloat padding_left = 5.0;
 //    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"bg.png"]];
     
     // Do any additional setup after loading the view from its nib.
-    AFHTTPClient *request = [[AFHTTPClient alloc] initWithOakClubAPI:DOMAIN];
-    NSDictionary *params = [[NSDictionary alloc]initWithObjectsAndKeys:currentProfile.s_ID,@"profile_id", nil];
-    [request getPath:URL_getProfileInfo parameters:params success:^(__unused AFHTTPRequestOperation *operation, id JSON) {
-        [currentProfile parseForGetHangOutProfile:JSON];
-        lbl_name.text = currentProfile.s_Name;
-        lblAge.text = [NSString stringWithFormat:@"%@",currentProfile.s_age];
-        
-        /* OLD VERSION
-        lblWanttoMake.text = [NSString stringWithFormat:@"Want to %@",currentProfile.s_meetType];
-        lblWanttoMake.text = [lblWanttoMake.text capitalizedString];
-        lblWanttoMake.text = [lblWanttoMake.text stringByReplacingOccurrencesOfString:@"_" withString:@" "];
-        lblWanttoMake.text = [NSString localizeString:lblWanttoMake.text];
-        if(currentProfile.s_Name.length > 0){
-            [tableSource addObject:[NSDictionary dictionaryWithObjectsAndKeys:currentProfile.s_Name,@"value",@"Name",@"key", nil]];
-        }
-        if(currentProfile.s_birthdayDate.length > 0){
-            [tableSource addObject:[NSDictionary dictionaryWithObjectsAndKeys:currentProfile.s_birthdayDate,@"value",@"Birthdate",@"key" ,nil]];
-        }
-        if(currentProfile.s_interested.text.length > 0){
-            [tableSource addObject:[NSDictionary dictionaryWithObjectsAndKeys:currentProfile.s_interested.text,@"value",@"Interested In",@"key",nil]];
-        }
-        if(currentProfile.s_gender.text.length > 0){
-            [tableSource addObject:[NSDictionary dictionaryWithObjectsAndKeys:currentProfile.s_gender.text,@"value",@"Gender",@"key",nil]];
-        }
-        if(currentProfile.s_relationShip.rel_text.length > 0){
-            [tableSource addObject:[NSDictionary dictionaryWithObjectsAndKeys:currentProfile.s_relationShip.rel_text,@"value",@"Relationship",@"key",nil]];
-        }
-        if(currentProfile.i_height != 0){
-            [tableSource addObject:[NSDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"%i",currentProfile.i_height],@"value",@"Height",@"key",nil]];
-        }
-        if(currentProfile.i_weight != 0){
-            [tableSource addObject:[NSDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"%i",currentProfile.i_weight],@"value",@"Weight",@"key",nil]];
-        }
-        if(currentProfile.s_location.name.length > 0){
-            [tableSource addObject:[NSDictionary dictionaryWithObjectsAndKeys:currentProfile.s_location.name,@"value",@"Location",@"key" ,nil]];
-        }
-        if(currentProfile.s_school.length > 0){
-            [tableSource addObject:[NSDictionary dictionaryWithObjectsAndKeys:currentProfile.s_school,@"value",@"School",@"key" ,nil]];
-        }
-        if([currentProfile.a_language count] >0){
-            [tableSource addObject:[NSDictionary dictionaryWithObjectsAndKeys:[currentProfile.a_language componentsJoinedByString:@","],@"value",@"Language",@"key" ,nil]];
-        }
-        if(!([currentProfile.c_ethnicity isKindOfClass:[NSNull class]] || currentProfile.c_ethnicity.text.length <= 0)){
-            [tableSource addObject:[NSDictionary dictionaryWithObjectsAndKeys:currentProfile.c_ethnicity.text,@"value",@"Ethnicity",@"key" ,nil]];
-        }
-        if(currentProfile.s_popularity.length > 0){
-            [tableSource addObject:[NSDictionary dictionaryWithObjectsAndKeys:currentProfile.s_popularity,@"value",@"Popularity",@"key" ,nil]];
-        }
-        if(! ([currentProfile.s_aboutMe isKindOfClass:[NSNull class]] || currentProfile.s_aboutMe.length <= 0)){
-            [tableSource addObject:[NSDictionary dictionaryWithObjectsAndKeys:currentProfile.s_aboutMe,@"value",@"About me",@"key",nil]];
-        }
-        [tableViewProfile reloadData];
-         */
-        
-        [buttonAvatar setContentMode:UIViewContentModeScaleAspectFit];
-        [buttonAvatar setImage:img_avatar forState:UIControlStateNormal];
-        
-        // load interest List
-        NSArray* favoritesList = currentProfile.a_favorites;
-        
-        
-        NSError *e;
-        NSMutableDictionary *dict = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONReadingMutableContainers error:&e];
-        
-        NSMutableDictionary * data= [dict valueForKey:key_data];
-        
-        // SCROLL SIZE
-        [scrollview setContentSize:CGSizeMake(320, 790)];
-        NSLog(@"Init Content size: %f - %f", scrollview.contentSize.width, infoView.frame.origin.y);
-        
-        self.lblAboutMe.text = [currentProfile s_aboutMe];
-        if ([lblAboutMe.text length] <= 0) {
-            self.aboutView.hidden = YES;
-            self.interestsView.frame = [self moveToFrame:self.aboutView.frame from:self.interestsView.frame];
-            self.mutualFriendsView.frame = [self moveToFrame:self.interestsView.frame from:self.mutualFriendsView.frame];
-        }
-        else{
-            self.aboutView.hidden = NO;
-        }
-        if( favoritesList && [favoritesList count] > 0)
-        {
-            NSLog(@"Before Interest Content size: %f - %f", scrollview.contentSize.width, scrollview.contentSize.height);
-            self.interestsView.hidden = NO;
-            [self loadInterestedThumbnailList:[data valueForKey:@"fav"]];
-            [scrollview setContentSize:CGSizeMake(scrollview.contentSize.width, scrollview.contentSize.height + self.interestsView.frame.size.height)];
-            NSLog(@"Interest Content size: %f - %f", scrollview.contentSize.width, scrollview.contentSize.height);
-        }
-        else
-        {
-            
-            self.interestsView.hidden = YES;
-            
-            self.profileView.frame = [self moveToFrame:self.mutualFriendsView.frame from:self.profileView.frame];
-            self.mutualFriendsView.frame = [self moveToFrame:self.interestsView.frame from:self.mutualFriendsView.frame];
-        }
-    
-        [self initMutualFriendsList];
-        /* OLD VERSION
-        [self checkAddedToFavorite];
-        [self checkAddedToBlockList];
-        [self checkAddedToWantToMeet];
-         */
-        [self  disableControllerButtons:NO];
-        
-        loadingAvatar.hidden = YES;
-        [loadingAvatar stopAnimating];
-        self.lblnViews.text = [NSString stringWithFormat:@"%@", [data valueForKey:@"viewed"]];
-        self.lblnLikes.text = [NSString stringWithFormat:@"%@", [data valueForKey:@"like"]];
-        
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error)
-    {
-        NSLog(@"Error Code: %i - %@",[error code], [error localizedDescription]);
-        
-        loadingAvatar.hidden = YES;
-        [loadingAvatar stopAnimating];
-    }];
+    [self loadInfoView];
 }
 -(void)viewDidAppear:(BOOL)animated
 {
@@ -368,6 +253,52 @@ static CGFloat padding_left = 5.0;
     [self.view localizeAllViews];
 }
 
+-(void)loadInfoView{
+    lbl_name.text = currentProfile.s_Name;
+    lblAge.text = [NSString stringWithFormat:@"%@",currentProfile.s_age];
+    self.lblnViews.text = [NSString stringWithFormat:@"%i", currentProfile.num_Viewed];
+    self.lblnLikes.text = [NSString stringWithFormat:@"%i", currentProfile.num_Liked];
+    
+    // load interest List
+    NSArray* favoritesList = currentProfile.a_favorites;
+    
+    // SCROLL SIZE
+    [scrollview setContentSize:CGSizeMake(320, 790)];
+    NSLog(@"Init Content size: %f - %f", scrollview.contentSize.width, infoView.frame.origin.y);
+    
+    self.lblAboutMe.text = [currentProfile s_aboutMe];
+    if ([lblAboutMe.text length] <= 0) {
+        self.aboutView.hidden = YES;
+        self.interestsView.frame = [self moveToFrame:self.aboutView.frame from:self.interestsView.frame];
+        self.mutualFriendsView.frame = [self moveToFrame:self.interestsView.frame from:self.mutualFriendsView.frame];
+    }
+    else{
+        self.aboutView.hidden = NO;
+    }
+    if( favoritesList && [favoritesList count] > 0)
+    {
+        NSLog(@"Before Interest Content size: %f - %f", scrollview.contentSize.width, scrollview.contentSize.height);
+        self.interestsView.hidden = NO;
+        [self loadInterestedThumbnailList:currentProfile.a_favorites];
+        [scrollview setContentSize:CGSizeMake(scrollview.contentSize.width, scrollview.contentSize.height + self.interestsView.frame.size.height)];
+        NSLog(@"Interest Content size: %f - %f", scrollview.contentSize.width, scrollview.contentSize.height);
+    }
+    else
+    {
+        
+        self.interestsView.hidden = YES;
+        
+        self.profileView.frame = [self moveToFrame:self.mutualFriendsView.frame from:self.profileView.frame];
+        self.mutualFriendsView.frame = [self moveToFrame:self.interestsView.frame from:self.mutualFriendsView.frame];
+    }
+    
+    [self initMutualFriendsList];
+    [self  disableControllerButtons:NO];
+    
+    loadingAvatar.hidden = YES;
+    [loadingAvatar stopAnimating];
+    
+}
 -(void)loadInterestedThumbnailList:(NSArray*)favList
 {
     AFHTTPClient *downloadFAVIcon = [[AFHTTPClient alloc] initWithBaseURL:[NSURL URLWithString:@"https://graph.facebook.com/"]];
@@ -476,8 +407,12 @@ static CGFloat padding_left = 5.0;
     [self.navigationController pushViewController:view animated:YES];
 }
 
+-(void)setShowNavigationBar:(BOOL)flag{
+    self.showNavigationBar = flag;
+}
 -(void) viewWillAppear:(BOOL)animated{
-    [self.navigationController setNavigationBarHidden:YES];
+    [self.navigationController setNavigationBarHidden:!showNavigationBar];
+    
 //    popoverShowing = NO;
     [self.infoView localizeAllViews];
     [self.interestsView localizeAllViews];
@@ -603,7 +538,7 @@ static CGFloat padding_left = 5.0;
     [self setLabelInterests:nil];
     [self setMutualFriendsImageView:nil];
     
-    [self setButtonAvatar:nil];
+//    [self setButtonAvatar:nil];
     [self setScrollViewInterest:nil];
     [self setLoadingAvatar:nil];
     [self setBtnAddToFavorite:nil];
@@ -707,7 +642,7 @@ static CGFloat padding_left = 5.0;
     img_avatar = _avatar;
     
     NSLog(@"Set VCProfile profile avatar: %@", currentProfile.s_Avatar);
-    
+    [self refreshScrollView];
     [self loadPhotoForScrollview];
 }
 
@@ -721,7 +656,9 @@ static CGFloat padding_left = 5.0;
     for (UIImageView * view in self.svPhotos.subviews) {
         [view removeFromSuperview];
     }
-    self.svPhotos.frame = CGRectMake(0, 0, 320, 320);
+    self.svPhotos= [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, 320, 320)];
+    
+//    self.svPhotos.frame = CGRectMake(0, 0, 320, 320);
 }
 -(void)loadPhotoForScrollview{
 //    for (UIImageView * view in self.svPhotos.subviews) {
@@ -729,36 +666,28 @@ static CGFloat padding_left = 5.0;
 //    }
 //    self.svPhotos.frame = CGRectMake(0, 0, 320, 275);
     
-    AFHTTPClient *request = [[AFHTTPClient alloc] initWithOakClubAPI:DOMAIN];
-    NSDictionary *params  = [[NSDictionary alloc]initWithObjectsAndKeys:currentProfile.s_ID, key_profileID, nil];
+//    AFHTTPClient *request = [[AFHTTPClient alloc] initWithOakClubAPI:DOMAIN];
+//    NSDictionary *params  = [[NSDictionary alloc]initWithObjectsAndKeys:currentProfile.s_ID, key_profileID, nil];
     
     [loadingAvatar startAnimating];
     
-    [request getPath:URL_getListPhotos parameters:params
-             success:^(__unused AFHTTPRequestOperation *operation, id JSON)
-     {
-         NSMutableArray* listPhotos = [Profile parseListPhotos:JSON];
-         currentProfile.arr_photos = [[NSMutableArray alloc] init];
+//    [request getPath:URL_getListPhotos parameters:params
+//             success:^(__unused AFHTTPRequestOperation *operation, id JSON)
+//     {
+//         NSMutableArray* listPhotos = [Profile parseListPhotos:JSON];
+//         currentProfile.arr_photos = [[NSMutableArray alloc] init];
          
 //         [photoCount setText:[NSString stringWithFormat:@"%i/%i",1,[currentProfile.arr_photos count]]];
          
          NSArray* _imagesData;
-         NSMutableDictionary* photos;
-         if(listPhotos != nil)
+//         NSMutableDictionary* photos;
+         if(currentProfile.arr_photos != nil && [currentProfile.arr_photos count]>0)
          {
-             _imagesData = [[NSArray alloc]initWithArray:listPhotos];
-             photos = [[NSMutableDictionary alloc] init];
-             self.svPhotos.contentSize =
-             CGSizeMake(CGRectGetWidth(self.svPhotos.frame) * ([_imagesData count]+1), CGRectGetHeight(self.svPhotos.frame));
-
-             UIImageView *imageView = [[UIImageView alloc]initWithImage:img_avatar];
-             CGRect frame = self.svPhotos.frame;
-             frame.origin.x = CGRectGetWidth(frame);
-             frame.origin.y = 0;
-             imageView.frame = frame;
-             [imageView setContentMode:UIViewContentModeScaleAspectFit];
-             [self.svPhotos addSubview:imageView];
-             [currentProfile.arr_photos addObject:imageView];
+             _imagesData = [[NSArray alloc]initWithArray: currentProfile.arr_photos];
+//             photos = [[NSMutableDictionary alloc] init];
+             
+             
+//             [photoCount setText:[NSString stringWithFormat:@"%i/%i",1,[currentProfile.arr_photos count]]];
              
              if([_imagesData count] == 0)
              {
@@ -767,41 +696,52 @@ static CGFloat padding_left = 5.0;
              }
              else
              {
-                 for(int i = 0; i < [_imagesData count]; i++)
+                 for(int i = 0; i < [currentProfile.arr_photos count]; i++)
                  {
-                     NSString* link = [_imagesData objectAtIndex:i];
-                     NSLog(@"VCProfile load avatar index: %d, link: %@", i, link);
-                     if ([currentProfile.s_Avatar isEqualToString:link])
-                     {
-                         [photoCount setText:[NSString stringWithFormat:@"%i/%i",i,[currentProfile.arr_photos count]]];
-                         [self.svPhotos setContentOffset:CGPointMake(svPhotos.frame.size.width * i, svPhotos.contentOffset.y) animated:NO];
+                     if(![[currentProfile.arr_photos objectAtIndex:i] isKindOfClass:[UIImage class]]){
+                         NSString* link = [currentProfile.arr_photos objectAtIndex:i];
+                         NSLog(@"VCProfile load avatar index: %d, link: %@", i, link);
+                         if(![link isEqualToString:@""] )
+                         {
+                             AFHTTPRequestOperation *operation =
+                             [Profile getAvatarSync:link
+                                           callback:^(UIImage *image)
+                              {
+                                  UIImageView *imageView = [[UIImageView alloc]initWithImage:image];
+                                  CGRect frame = self.svPhotos.frame;
+                                  frame.origin.x = CGRectGetWidth(frame) * i ;
+                                  frame.origin.y = 0;
+                                  imageView.frame = frame;
+                                  [imageView setContentMode:UIViewContentModeScaleAspectFit];
+                                  [self.svPhotos addSubview:imageView];
+                                  self.svPhotos.contentSize =
+                                  CGSizeMake(CGRectGetWidth(self.svPhotos.frame) * (i+1), CGRectGetHeight(self.svPhotos.frame));
+                                  [currentProfile.arr_photos replaceObjectAtIndex:i withObject:image];
+                                  [photoCount setText:[NSString stringWithFormat:@"%i/%i",1,(i+1)]];
+                              }];
+                             [operation start];
+                         }
                      }
-                     
-                     if(![link isEqualToString:@""] )
-                     {
-                         AFHTTPRequestOperation *operation =
-                         [Profile getAvatarSync:link
-                                       callback:^(UIImage *image)
-                          {
-                              UIImageView *imageView = [[UIImageView alloc]initWithImage:image];
-                              CGRect frame = self.svPhotos.frame;
-                              frame.origin.x = CGRectGetWidth(frame) * (i + 1);
-                              frame.origin.y = 0;
-                              imageView.frame = frame;
-                              [imageView setContentMode:UIViewContentModeScaleAspectFit];
-                              [self.svPhotos addSubview:imageView];
-                              [currentProfile.arr_photos addObject:imageView];
-                          }];
-                         [operation start];
+                     else{
+                         UIImageView *imageView = [[UIImageView alloc]initWithImage:[currentProfile.arr_photos objectAtIndex:i]];
+                         CGRect frame = self.svPhotos.frame;
+                         frame.origin.x = CGRectGetWidth(frame)*i;
+                         frame.origin.y = 0;
+                         imageView.frame = frame;
+                         [imageView setContentMode:UIViewContentModeScaleAspectFit];
+                         [self.svPhotos addSubview:imageView];
+                         self.svPhotos.contentSize =
+                         CGSizeMake(CGRectGetWidth(self.svPhotos.frame) * (i+1), CGRectGetHeight(self.svPhotos.frame));
+                         [photoCount setText:[NSString stringWithFormat:@"%i/%i",1,(i+1)]];
                      }
                  }
                  
              }
              
          }
-     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-         NSLog(@"Error Code: %i - %@",[error code], [error localizedDescription]);
-     }];
+//     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+//         NSLog(@"Error Code: %i - %@",[error code], [error localizedDescription]);
+//     }];
 }
 
 -(IBAction)onTouchAddToFavorite:(id)sender{

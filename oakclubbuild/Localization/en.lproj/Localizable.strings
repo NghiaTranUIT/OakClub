@@ -21,7 +21,7 @@
 "Mutual Matches"="Mutual Matches";
 "New Mutual Matches"="New Mutual Matches";
 "Logout"="Logout";
-"Đăng Xuất"="Logout";
+"Thoát"="Logout";
 "coins"="coins";
 "xu"="coins";
 "Name"="Name";
@@ -67,7 +67,7 @@
 "Tiếng Anh"="English";
 "Send"="Send";
 "Done"="Done";
-"Hoàn tất"="Done";
+"Xong"="Done";
 "Matches"="Matches";
 "Non Matches"="Non Matches";
 "All"="All";
@@ -124,3 +124,5 @@
 "Lưu Cài Đặt"="Save Your Settings";
 "Share Interests"="Share Interests";
 "Lựa chọn ngôn ngữ"="Choose your language";
+"Finding nearby people..."="Finding nearby people...";
+"You've seen all the recommendation near you."="You've seen all the recommendation near you.";
