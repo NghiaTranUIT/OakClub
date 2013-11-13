@@ -19,7 +19,7 @@
             <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
             <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
         </view>
-        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" usesAttributedText="YES" id="HfA-dc-VuK" userLabel="Text View - ENG">
+        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" usesAttributedText="YES" id="HfA-dc-VuK" userLabel="Text View - ENG">
             <rect key="frame" x="0.0" y="0.0" width="260" height="240"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -963,7 +963,7 @@ Cg
             </attributedString>
             <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
         </textView>
-        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" usesAttributedText="YES" id="LaT-Ak-2Bh" userLabel="Text View - VIET">
+        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" usesAttributedText="YES" id="LaT-Ak-2Bh" userLabel="Text View - VIET">
             <rect key="frame" x="0.0" y="0.0" width="260" height="240"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
