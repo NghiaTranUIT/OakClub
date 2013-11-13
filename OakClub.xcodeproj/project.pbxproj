@@ -195,14 +195,12 @@
 		CD13016E1821FD9700D29E0B /* SnapshotLoading_map_loaded@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CD13015A1821FD9700D29E0B /* SnapshotLoading_map_loaded@2x.png */; };
 		CD13016F1821FD9700D29E0B /* SnapshotLoading_pin.png in Resources */ = {isa = PBXBuildFile; fileRef = CD13015B1821FD9700D29E0B /* SnapshotLoading_pin.png */; };
 		CD1301701821FD9700D29E0B /* SnapshotLoading_pin@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CD13015C1821FD9700D29E0B /* SnapshotLoading_pin@2x.png */; };
-		CD13017218221B7A00D29E0B /* GPS_Finding.gif in Resources */ = {isa = PBXBuildFile; fileRef = CD13017118221B7A00D29E0B /* GPS_Finding.gif */; };
 		CD13017718225D3E00D29E0B /* Login_btnFB_active.png in Resources */ = {isa = PBXBuildFile; fileRef = CD13017318225D3D00D29E0B /* Login_btnFB_active.png */; };
 		CD13017818225D3E00D29E0B /* Login_btnFB_active@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CD13017418225D3E00D29E0B /* Login_btnFB_active@2x.png */; };
 		CD13017918225D3E00D29E0B /* Login_btnFB_inactive.png in Resources */ = {isa = PBXBuildFile; fileRef = CD13017518225D3E00D29E0B /* Login_btnFB_inactive.png */; };
 		CD13017A18225D3E00D29E0B /* Login_btnFB_inactive@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CD13017618225D3E00D29E0B /* Login_btnFB_inactive@2x.png */; };
 		CD13017D1822697A00D29E0B /* VCSimpleSnapshotPopup.m in Sources */ = {isa = PBXBuildFile; fileRef = CD13017C1822697A00D29E0B /* VCSimpleSnapshotPopup.m */; };
 		CD13D4281816254F00F63F65 /* AnimatedGif.m in Sources */ = {isa = PBXBuildFile; fileRef = CD13D4271816254F00F63F65 /* AnimatedGif.m */; };
-		CD13D43718162F2D00F63F65 /* GPS_Finding_demo.gif in Resources */ = {isa = PBXBuildFile; fileRef = CD13D43618162F2D00F63F65 /* GPS_Finding_demo.gif */; };
 		CD13D438181652A700F63F65 /* SCLoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CD13D43A181652A700F63F65 /* SCLoginViewController.xib */; };
 		CD15E85B182F57F600557BA5 /* spashscreen-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CD15E85A182F57F600557BA5 /* spashscreen-568h@2x.png */; };
 		CD15E85F182F598900557BA5 /* tutorial_chat-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CD15E85C182F598900557BA5 /* tutorial_chat-568h@2x.png */; };
@@ -463,6 +461,8 @@
 		CD8AA1FC170C1B3F00A97C47 /* VCHangOut.xib in Resources */ = {isa = PBXBuildFile; fileRef = CD8AA1FA170C1B3F00A97C47 /* VCHangOut.xib */; };
 		CD8B47021816B82F00A272B7 /* menuViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CD8B47041816B82F00A272B7 /* menuViewController.xib */; };
 		CD8B47071816B91D00A272B7 /* VCChat.xib in Resources */ = {isa = PBXBuildFile; fileRef = CD8B47091816B91D00A272B7 /* VCChat.xib */; };
+		CDA89B5D18333D3200ADC648 /* myprofile_addvideo.png in Resources */ = {isa = PBXBuildFile; fileRef = CDA89B5B18333D3200ADC648 /* myprofile_addvideo.png */; };
+		CDA89B5E18333D3200ADC648 /* myprofile_addvideo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CDA89B5C18333D3200ADC648 /* myprofile_addvideo@2x.png */; };
 		CDB88CA2182E07DC00E3ABDF /* ImageInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = CDB88CA1182E07DC00E3ABDF /* ImageInfo.m */; };
 		CDB88CA7182E456900E3ABDF /* Snapshot_mutualfriends_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = CDB88CA3182E456900E3ABDF /* Snapshot_mutualfriends_icon.png */; };
 		CDB88CA8182E456900E3ABDF /* Snapshot_mutualfriends_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CDB88CA4182E456900E3ABDF /* Snapshot_mutualfriends_icon@2x.png */; };
@@ -1067,7 +1067,6 @@
 		CD13015A1821FD9700D29E0B /* SnapshotLoading_map_loaded@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SnapshotLoading_map_loaded@2x.png"; sourceTree = "<group>"; };
 		CD13015B1821FD9700D29E0B /* SnapshotLoading_pin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SnapshotLoading_pin.png; sourceTree = "<group>"; };
 		CD13015C1821FD9700D29E0B /* SnapshotLoading_pin@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SnapshotLoading_pin@2x.png"; sourceTree = "<group>"; };
-		CD13017118221B7A00D29E0B /* GPS_Finding.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = GPS_Finding.gif; path = oakclubbuild/AnimatedGif/Resources/GPS_Finding.gif; sourceTree = SOURCE_ROOT; };
 		CD13017318225D3D00D29E0B /* Login_btnFB_active.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Login_btnFB_active.png; sourceTree = "<group>"; };
 		CD13017418225D3E00D29E0B /* Login_btnFB_active@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Login_btnFB_active@2x.png"; sourceTree = "<group>"; };
 		CD13017518225D3E00D29E0B /* Login_btnFB_inactive.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Login_btnFB_inactive.png; sourceTree = "<group>"; };
@@ -1076,7 +1075,6 @@
 		CD13017C1822697A00D29E0B /* VCSimpleSnapshotPopup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VCSimpleSnapshotPopup.m; sourceTree = "<group>"; };
 		CD13D4261816254F00F63F65 /* AnimatedGif.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnimatedGif.h; sourceTree = "<group>"; };
 		CD13D4271816254F00F63F65 /* AnimatedGif.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnimatedGif.m; sourceTree = "<group>"; };
-		CD13D43618162F2D00F63F65 /* GPS_Finding_demo.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = GPS_Finding_demo.gif; path = oakclubbuild/AnimatedGif/Resources/GPS_Finding_demo.gif; sourceTree = SOURCE_ROOT; };
 		CD13D439181652A700F63F65 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/SCLoginViewController.xib; sourceTree = "<group>"; };
 		CD15E85A182F57F600557BA5 /* spashscreen-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "spashscreen-568h@2x.png"; sourceTree = "<group>"; };
 		CD15E85C182F598900557BA5 /* tutorial_chat-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tutorial_chat-568h@2x.png"; sourceTree = "<group>"; };
@@ -1366,6 +1364,8 @@
 		CD8AA1FA170C1B3F00A97C47 /* VCHangOut.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VCHangOut.xib; sourceTree = "<group>"; };
 		CD8B47031816B82F00A272B7 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/menuViewController.xib; sourceTree = "<group>"; };
 		CD8B47081816B91D00A272B7 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/VCChat.xib; sourceTree = "<group>"; };
+		CDA89B5B18333D3200ADC648 /* myprofile_addvideo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = myprofile_addvideo.png; sourceTree = "<group>"; };
+		CDA89B5C18333D3200ADC648 /* myprofile_addvideo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "myprofile_addvideo@2x.png"; sourceTree = "<group>"; };
 		CDB88CA0182E07DC00E3ABDF /* ImageInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageInfo.h; sourceTree = "<group>"; };
 		CDB88CA1182E07DC00E3ABDF /* ImageInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageInfo.m; sourceTree = "<group>"; };
 		CDB88CA3182E456900E3ABDF /* Snapshot_mutualfriends_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Snapshot_mutualfriends_icon.png; path = Main/Snapshot_mutualfriends_icon.png; sourceTree = "<group>"; };
@@ -2024,6 +2024,8 @@
 		977853E5182228A900CBB5DB /* MyProfile */ = {
 			isa = PBXGroup;
 			children = (
+				CDA89B5B18333D3200ADC648 /* myprofile_addvideo.png */,
+				CDA89B5C18333D3200ADC648 /* myprofile_addvideo@2x.png */,
 				977853E6182228A900CBB5DB /* myprofile_addphoto.png */,
 				977853E7182228A900CBB5DB /* myprofile_addphoto@2x.png */,
 				977853E8182228A900CBB5DB /* myprofile_background.png */,
@@ -2577,8 +2579,6 @@
 		CD13D42B181625D000F63F65 /* Gifs */ = {
 			isa = PBXGroup;
 			children = (
-				CD13017118221B7A00D29E0B /* GPS_Finding.gif */,
-				CD13D43618162F2D00F63F65 /* GPS_Finding_demo.gif */,
 			);
 			name = Gifs;
 			sourceTree = "<group>";
@@ -4367,6 +4367,7 @@
 				CD50E3BB181FE62C0036A23B /* Navbar_btn_chat_up.png in Resources */,
 				CD15E85F182F598900557BA5 /* tutorial_chat-568h@2x.png in Resources */,
 				CD15E85B182F57F600557BA5 /* spashscreen-568h@2x.png in Resources */,
+				CDA89B5D18333D3200ADC648 /* myprofile_addvideo.png in Resources */,
 				CD09E0EF170EBC01000BC104 /* pink.png in Resources */,
 				CD09E0F0170EBC01000BC104 /* menu_editprofile.png in Resources */,
 				CD1301691821FD9700D29E0B /* SnapshotLoading_btn_x_disabled.png in Resources */,
@@ -4463,6 +4464,7 @@
 				CD025DB71829F760007CBEDA /* SnapshotSetting_fullrange_slider@2x.png in Resources */,
 				9775A7861813D5DE00BCF28D /* close.png in Resources */,
 				CD005D62181267F000238920 /* tongue.png in Resources */,
+				CDA89B5E18333D3200ADC648 /* myprofile_addvideo@2x.png in Resources */,
 				CD877D171821374C0067D478 /* ChatView_navbar_logo@2x.png in Resources */,
 				CDECD3251733C3E800A6B17F /* frame chat.png in Resources */,
 				97A55D741824DFAB00675025 /* viewprofile_x@2x.png in Resources */,
@@ -4670,7 +4672,6 @@
 				CD877CA21820EF260067D478 /* Logout_btn_active@2x.png in Resources */,
 				CD252DD0177C4B6B004145A4 /* btn_next.png in Resources */,
 				CD877CE1182114560067D478 /* HistoryChat_item_active.png in Resources */,
-				CD13D43718162F2D00F63F65 /* GPS_Finding_demo.gif in Resources */,
 				CD877CE4182114560067D478 /* HistoryChat_item_inactive@2x.png in Resources */,
 				977853FE18224F2F00CBB5DB /* myprofile_editAvatar.png in Resources */,
 				CD1AB06D1821804200B0FA10 /* Report_BG.png in Resources */,
@@ -4790,7 +4791,6 @@
 				CD17B23C17E1A1D1008F7291 /* background_buttons.png in Resources */,
 				CD2DE6A31827B2A30043AA91 /* iTunesArtwork.png in Resources */,
 				CD17B23D17E1A1D1008F7291 /* btnInfo.png in Resources */,
-				CD13017218221B7A00D29E0B /* GPS_Finding.gif in Resources */,
 				CD17B23E17E1A1D1008F7291 /* btnInfo_pressed.png in Resources */,
 				CD17B23F17E1A1D1008F7291 /* btnNope.png in Resources */,
 				977854021822551100CBB5DB /* myprofile_photoLayout.png in Resources */,

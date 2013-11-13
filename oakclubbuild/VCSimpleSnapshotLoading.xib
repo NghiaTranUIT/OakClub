@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="4510" systemVersion="12F45" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="4510" systemVersion="12F37" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
     <dependencies>
         <deployment defaultVersion="1280" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3742"/>
@@ -41,6 +41,9 @@
                     </state>
                     <state key="selected" backgroundImage="SnapshotLoading_btn_tellyourfriend_active.png"/>
                     <state key="highlighted" backgroundImage="SnapshotLoading_btn_tellyourfriend_active.png"/>
+                    <connections>
+                        <action selector="onTouchTellYourFriends:" destination="-1" eventType="touchUpInside" id="8zT-De-4Oa"/>
+                    </connections>
                 </button>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="SnapshotLoading_btn_like_disabled.png" id="UnT-8C-8dJ">
                     <rect key="frame" x="193" y="329" width="70" height="70"/>

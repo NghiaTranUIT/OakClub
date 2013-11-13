@@ -9,7 +9,7 @@
 #import "VCSimpleSnapshotLoading.h"
 #import "AnimatedGif.h"
 #import "AppDelegate.h"
-
+#import "UIView+Localize.h"
 @interface VCSimpleSnapshotLoading (){
     int typeOfAlert; // 0-Finding, 1-DoneSearching , 2-Noresult
     UIImageView* loadingAnim;
@@ -81,13 +81,13 @@
             [self.view addSubview:imgLIKEDisable];
             [self.view addSubview:imgiDisable];
             [btnContentAlert setHidden:YES];
-            [lblContentAlert setText:@"Finding nearby people..."];
+            [lblContentAlert setText:[@"Finding nearby people..." localize]];
             break;
         }
         case 1:
         {
             [btnContentAlert setHidden:NO];
-            [lblContentAlert setText:@"You've seen all the recommendation near you."];
+            [lblContentAlert setText:[@"You've seen all the recommendation near you." localize]];
             [imgLoading setImage:[UIImage imageNamed:@"SnapshotLoading_map_loaded.png"]];
             [self.view addSubview:imgLoading];
             break;
@@ -100,10 +100,17 @@
             [imgLoading setImage:[UIImage imageNamed:@"SnapshotLoading_graymap_loaded.png"]];
             [self.view addSubview:imgLoading];
             [btnContentAlert setHidden:YES];
-            [lblContentAlert setText:@"Location setting is disabled"];
+            [lblContentAlert setText:[@"Location setting is disabled" localize]];
         }
         default:
             break;
     }
+}
+- (IBAction)onTouchTellYourFriends:(id)sender {
+    NSString* body = @"Join www.OakClub.com .. and meet many cool singles nearby. Safe, trustworthy and private";
+    UIActivityViewController *activityViewController = [[UIActivityViewController alloc]initWithActivityItems:[NSArray arrayWithObjects:body,[UIImage imageNamed:@"SnapshotSetting_oakclub_logo.png"],nil] applicationActivities:nil];
+    
+    activityViewController.excludedActivityTypes = @[/*UIActivityTypePostToFacebook, UIActivityTypePostToTwitter, */UIActivityTypePostToWeibo, UIActivityTypeAssignToContact];
+    [self presentViewController:activityViewController animated:YES completion:nil];
 }
 @end

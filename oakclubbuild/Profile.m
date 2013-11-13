@@ -562,7 +562,9 @@
         }
         [self.arr_photos addObject: [photoItem valueForKey:key_photoLink]];
     }
-    
+    if(self.s_Avatar == nil){
+        self.s_Avatar = [data valueForKey:key_avatar];
+    }
     //load mutual friends list
     self.arr_MutualFriends = [[NSMutableArray alloc]init];
     self.arr_MutualFriends = [self parseMutualFriends:[data valueForKey:key_MutualFriends]];
