@@ -196,10 +196,10 @@
 "Bạn của bạn"="Friends of friends";
 "Show me people age of"="Show me people age of";
 "Độ tuổi"="Show me people age of";
-"Find people around me"="Find people around me";
-"Tìm người xung quanh"="Find people around me";
+"FIND PEOPLE AROUND ME"="FIND PEOPLE AROUND ME";
+"TÌM NGƯỜI XUNG QUANH"="FIND PEOPLE AROUND ME";
 "limit my search to this distance "="limit my search to this distance ";
-"Giới hạn tìm kiếm trong khoảng cách"="limit my search to this distance ";
+"Giới hạn tìm kiếm"="limit my search to this distance ";
 "less than a mile away"="less than a mile away";
 "Chỉ cách có 1 mile"="less than a mile away";
 "Oakclub use these preferences to suggest potential matches. Some match suggestion may not fall within your desired parameters."="Oakclub use these preferences to suggest potential matches. Some match suggestion may not fall within your desired parameters.";
@@ -346,3 +346,5 @@
 "Ồ không?"="Not interested?";
 "Like?"="Like?";
 "Thích quá à?"="Like?";
+"PROCEED"="PROCEED";
+"TIẾP TỤC"="PROCEED";

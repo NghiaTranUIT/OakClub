@@ -9,6 +9,8 @@
 #import "ListForChoose.h"
 #import "AppDelegate.h"
 #import "UITableView+Custom.h"
+#import "UIView+Localize.h"
+
 @interface ListForChoose (){
         AppDelegate *appDelegate;
 }
@@ -182,7 +184,7 @@ NSIndexPath* oldIndex;
 //            self.navigationItem.title = @"Work";
             break;
         case LISTTYPE_LANGUAGE:
-            titleText = @"Languages";
+            titleText = @"Language";
 //            self.navigationItem.title = @"Languages";
             break;
         case LISTTYPE_RELATIONSHIP:
@@ -215,9 +217,9 @@ NSIndexPath* oldIndex;
     
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectZero] ;
     label.backgroundColor = [UIColor clearColor];
-    label.font = FONT_HELVETICANEUE_LIGHT(24.0);//[UIFont boldSystemFontOfSize:20.0];
+    label.font = FONT_HELVETICANEUE_LIGHT(20.0);//[UIFont boldSystemFontOfSize:20.0];
     label.textAlignment = NSTextAlignmentCenter;
-    [label setText:titleText];
+    [label setText:[titleText localize]];
     label.textColor = [UIColor blackColor]; // change this color
     [label sizeToFit];
     self.navigationItem.titleView = label;

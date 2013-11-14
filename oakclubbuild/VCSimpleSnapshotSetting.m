@@ -486,7 +486,7 @@ UITapGestureRecognizer *tap;
             break;
         case RangeGroup:
             if(!isPickerShowing)
-                headerLbl.text = @"WHERE";
+                headerLbl.text = @"FIND PEOPLE AROUND ME";
             break;
         case LanguageGroup:
             headerLbl.text = @"CHOOSE YOUR LANGUAGE";

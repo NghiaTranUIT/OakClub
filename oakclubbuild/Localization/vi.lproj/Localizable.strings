@@ -196,8 +196,8 @@
 "Bạn của bạn"="Bạn của bạn";
 "Show me people age of"="Độ tuổi";
 "Độ tuổi"="Độ tuổi";
-"Find people around me"="Tìm người xung quanh";
-"Tìm người xung quanh"="Tìm người xung quanh";
+"FIND PEOPLE AROUND ME"="TÌM NGƯỜI XUNG QUANH";
+"TÌM NGƯỜI XUNG QUANH"="TÌM NGƯỜI XUNG QUANH";
 "limit my search to this distance "="Giới hạn tìm kiếm trong khoảng cách";
 "Giới hạn tìm kiếm trong khoảng cách"="Giới hạn tìm kiếm trong khoảng cách";
 "less than a mile away"="Chỉ cách có 1 mile";
@@ -328,8 +328,8 @@
 "MỤC ĐÍCH"="MỤC ĐÍCH";
 "SHOW ME"="CHO TÔI XEM";
 "CHO TÔI XEM"="CHO TÔI XEM";
-"Limit my search to this distance"="Giới hạn tìm kiếm trong khoảng cách";
-"Giới hạn tìm kiếm trong khoảng cách"="Giới hạn tìm kiếm trong khoảng cách";
+"Limit my search to this distance"="Giới hạn tìm kiếm";
+"Giới hạn tìm kiếm trong khoảng cách"="Giới hạn tìm kiếm";
 "SHOW ME PEOPLE AGE OF"="ĐỘ TUỔI";
 "ĐỘ TUỔI"="ĐỘ TUỔI";
 "Contact US"="Liên Hệ";
@@ -346,3 +346,5 @@
 "Ồ không?"="Ồ không?";
 "Like?"="Thích quá à?";
 "Thích quá à?"="Thích quá à?";
+"PROCEED"="TIẾP TỤC";
+"TIẾP TỤC"="TIẾP TỤC";
