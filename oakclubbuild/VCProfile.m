@@ -356,6 +356,8 @@ static CGFloat padding_left = 5.0;
     scrollViewInterest.frame = [self addRelative:scrollViewInterest.frame addPoint:CGPointMake(self.infoView.frame.origin.x, self.infoView.frame.origin.y + self.interestsView.frame.origin.y) ];
     [scrollview addSubview:scrollViewInterest];
 }
+    
+    
 -(void)loadInterestedList:(NSArray*)array{
     int x = 0;
     int y = 0;

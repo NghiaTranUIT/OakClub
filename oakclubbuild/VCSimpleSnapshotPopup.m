@@ -10,6 +10,7 @@
 #import "Define.h"
 #import "APLMoveMeView.h"
 #import "VCSimpleSnapshot.h"
+#import "UIView+Localize.h"
 
 @interface VCSimpleSnapshotPopup ()
 @property (weak, nonatomic) IBOutlet UIView *likePopupView;
@@ -39,6 +40,12 @@
 	// Do any additional setup after loading the view.
 }
 
+-(void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    [self.view localizeAllViews];
+}
+    
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -66,14 +73,17 @@
 #pragma mark load view
 -(void) enableViewbyType:(int)type andFriendName:(NSString*)name{
     //type: 0-like, 1-not interested
+    NSString *pref;
     switch (type) {
         case interestedStatusNO:
-            [lblNopeTurotial setText:[NSString stringWithFormat:@"Dragging a picture to the left indicates you are not interested in %@.",name]];
+            pref = [@"Dragging a picture to the left indicates you are not interested in " localize];
+            [lblNopeTurotial setText:[NSString stringWithFormat:[pref stringByAppendingString:@"%@."],name]];
             [likePopupView setHidden:YES];
             [notInterestedPopupView setHidden:NO];
             break;
         case interestedStatusYES:
-            [lblNopeTurotial setText:[NSString stringWithFormat:@"Dragging a picture to the right indicates you liked %@.",name]];
+            pref = [@"Dragging a picture to the right indicates you liked" localize];
+            [lblLikeTurotial setText:[NSString stringWithFormat:[pref stringByAppendingString:@" %@."],name]];
             [likePopupView setHidden:NO];
             [notInterestedPopupView setHidden:YES];
             break;
