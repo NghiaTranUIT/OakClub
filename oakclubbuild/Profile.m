@@ -839,7 +839,8 @@
                             ];
     
     NSLog(@"Set hangout profile params: %@", params);
-    [httpClient getPath:URL_setProfileInfo parameters:params success:^(__unused AFHTTPRequestOperation *operation, id JSON) {
+    [httpClient setParameterEncoding:AFFormURLParameterEncoding];
+    [httpClient postPath:URL_setProfileInfo parameters:params success:^(__unused AFHTTPRequestOperation *operation, id JSON) {
         NSError *e=nil;
         NSMutableDictionary *dict = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONReadingMutableContainers error:&e];
         NSMutableArray * data= [dict valueForKey:key_data];
@@ -1061,7 +1062,7 @@
     AFHTTPClient* httpClient = [[AFHTTPClient alloc]initWithOakClubAPI:DOMAIN];
     NSDictionary *params = [[NSDictionary alloc]initWithObjectsAndKeys:friend.s_ID,key_profileID, nil];
     [httpClient setParameterEncoding:AFFormURLParameterEncoding];
-    [httpClient postPath:URL_setViewedMatchMutual parameters:params success:^(__unused AFHTTPRequestOperation *operation, id JSON) {
+    [httpClient postPath:URL_setViewedMutualMatch parameters:params success:^(__unused AFHTTPRequestOperation *operation, id JSON) {
         NSError *e=nil;
         NSMutableDictionary *dict = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONReadingMutableContainers error:&e];
         BOOL status= [[dict valueForKey:key_status] boolValue];

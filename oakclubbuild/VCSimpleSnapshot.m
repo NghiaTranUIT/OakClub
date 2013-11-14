@@ -213,7 +213,8 @@ CGFloat pageHeight;
     }
     
     request = [[AFHTTPClient alloc] initWithOakClubAPI:DOMAIN];
-    NSDictionary *params = [[NSDictionary alloc]initWithObjectsAndKeys:@"0",@"start",@"35",@"limit", nil];
+//    NSDictionary *params = [[NSDictionary alloc]initWithObjectsAndKeys:@"0",@"start",@"35",@"limit", nil];
+        NSDictionary *params = [[NSDictionary alloc]initWithObjectsAndKeys:@"20",@"start", nil];
     [request getPath:URL_getSnapShot parameters:params success:^(__unused AFHTTPRequestOperation *operation, id JSON)
     {
         NSError *e=nil;
@@ -890,10 +891,15 @@ CGFloat pageHeight;
 
 -(void)setFavorite:(NSString*)answerChoice{
     int isFirstTime = [[[NSUserDefaults standardUserDefaults] objectForKey:key_isFirstSnapshot] integerValue];
-    if(isFirstTime < 2){
+    if(isFirstTime==0 || (isFirstTime < 4 &&
+        ( (isFirstTime == interestedStatusNO && [answerChoice integerValue] == interestedStatusYES)
+           || (isFirstTime == interestedStatusYES && [answerChoice integerValue]== interestedStatusNO)
+        )
+       ))
+    {
         [self showFirstSnapshotPopup:answerChoice];
         [self.moveMeView setAnswer:-1];
-        isFirstTime++;
+        isFirstTime+=[answerChoice integerValue];
         [[NSUserDefaults standardUserDefaults] setInteger:isFirstTime forKey:key_isFirstSnapshot];
         return;
     }
@@ -913,7 +919,8 @@ CGFloat pageHeight;
             [self showMatchView];
         }
     }
-    [request getPath:URL_setFavorite parameters:params success:^(__unused AFHTTPRequestOperation *operation, id JSON) {
+    [request setParameterEncoding:AFFormURLParameterEncoding];
+    [request postPath:URL_setFavorite parameters:params success:^(__unused AFHTTPRequestOperation *operation, id JSON) {
         NSLog(@"post success !!!");
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Error Code: %i - %@",[error code], [error localizedDescription]);

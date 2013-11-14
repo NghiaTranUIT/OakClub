@@ -20,7 +20,8 @@
 #import "HistoryMessage+init.h"
 #import "VCSimpleSnapshot.h"
 #import "VCReportPopup.h"
-
+#import "ChatNavigationBar.h"
+#import "ChatNavigationView.h"
 @interface SMChatViewController() <ImageRequester>
 
 @end
@@ -224,15 +225,10 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     appDel._messageDelegate = self;
-    //NSArray *chunks = [chatWithUser componentsSeparatedByString: @"@"];
-    //NSString* hangout_id = [chunks objectAtIndex:0];
-    
-    //[self initMessages:hangout_id];
-    
+
     [tView reloadData];
 
     [self scrollToLastAnimated:NO];
-//    self.navigationItem.titleView = infoHeader;
     
     [self customNavigationHeader];
 }
@@ -240,29 +236,32 @@
     appDel._messageDelegate =nil;
 }
 -(void)customNavigationHeader{
-    [self.navigationController.navigationBar.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+//    [self.navigationController.navigationBar.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
     
-    UIView *infoHeader= [[UIView alloc]initWithFrame:CGRectMake(0, 0, 320, 44)];
     [btnBackToPrevious setFrame:CGRectMake(8, 14, btnBackToPrevious.frame.size.width, btnBackToPrevious.frame.size.height)];
     [btnBackToPrevious addTarget:self action:@selector(backToPreviousView) forControlEvents:UIControlEventTouchUpInside];
-    [infoHeader addSubview:btnBackToPrevious];
+    
     label_header.frame = CGRectMake(60, 0, label_header.frame.size.width, 44);
-    [infoHeader addSubview:label_header];
     
     [btnShowProfile setFrame:CGRectMake(244, 8, btnShowProfile.frame.size.width, btnShowProfile.frame.size.height)];
-    [infoHeader addSubview:btnShowProfile];
-    [btnMoreOption setFrame:CGRectMake(282, 8, btnMoreOption.frame.size.width, btnMoreOption.frame.size.height)];
-    [infoHeader addSubview:btnMoreOption];
-    [imgLogo setFrame:CGRectMake(22, 8, imgLogo.frame.size.width, imgLogo.frame.size.height)];
-    [infoHeader addSubview:imgLogo];
     
-    //    label_Age.frame = CGRectMake(label_header.frame.size.width , -2, label_Age.frame.size.width, 44);
-    //    [infoHeader addSubview:label_Age];
+    [btnMoreOption setFrame:CGRectMake(282, 8, btnMoreOption.frame.size.width, btnMoreOption.frame.size.height)];
+
+    [imgLogo setFrame:CGRectMake(22, 8, imgLogo.frame.size.width, imgLogo.frame.size.height)];
+
+    ChatNavigationView *headerView = [[ChatNavigationView alloc]initWithFrame:CGRectMake(0, 0, 320, 44)];
+    [headerView addSubview:btnBackToPrevious];
+    [headerView addSubview:label_header];
+    [headerView addSubview:btnShowProfile];
+    [headerView addSubview:btnMoreOption];
+    [headerView addSubview:imgLogo];
+//    NSLog(@" [self.navigationController.navigationBar subviews] = %i",[[self.navigationController.navigationBar subviews] count]);
     for(UIView* subview in [self.navigationController.navigationBar subviews]){
-        [subview removeFromSuperview];
+        if([subview isKindOfClass:[ChatNavigationView class]])
+            [subview removeFromSuperview];
     }
     [self.navigationItem setHidesBackButton:YES];
-    [self.navigationController.navigationBar addSubview:infoHeader];
+    [self.navigationController.navigationBar addSubview:headerView];
 }
 - (void)viewDidLoad
 {
@@ -270,42 +269,14 @@
 	self.tView.delegate = self;
 	self.tView.dataSource = self;
 	[self.tView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
-//	[self customBackButtonBarItem];
-    [self customNavigationHeader];
+    [self.navigationController setNavigationBarHidden:NO];
     
 	appDel = [self appDelegate];
 	appDel._messageDelegate = self;
 	[self.messageField becomeFirstResponder];
     
     [label_header setText:userName];
-//    [label_header setTitle:userName forState:UIControlStateNormal];
-//    [label_Age setText:userAge];
-//    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"bg.png"]];
     
-//	XMPPJID *jid = [XMPPJID jidWithString:@"cesare@doolik.com"];
-//	XMPPJID *jid = del.xmppStream.myJID;
-    
-    /*
-    XMPPJID *jid;
-    if ([del.xmppStream.myJID.user isEqualToString :[XMPPJID jidWithString:@"1lxv6mi27c@doolik.com"].user]) {
-        jid = [XMPPJID jidWithString:@"1lxv6k7f2d@doolik.com"];
-    }
-    else {
-        jid = [XMPPJID jidWithString:@"1lxv6mi27c@doolik.com"];
-    }
-     */
-    /*
-    XMPPJID *jid = [XMPPJID jidWithString:chatWithUser];
-    
-	NSLog(@"Attempting TURN connection to %@", jid);
-	
-	TURNSocket *turnSocket = [[TURNSocket alloc] initWithStream:[self xmppStream] toJID:jid];
-	
-	[turnSockets addObject:turnSocket];
-	
-	[turnSocket startWithDelegate:self delegateQueue:dispatch_get_main_queue()];
-     */
-    [self.navigationController setNavigationBarHidden:NO];
 }
 
 -(void)dismissKeyboard:(id)sender {
@@ -402,7 +373,13 @@
     [self dismissKeyboard:sender];
     [reportPopup.view setFrame:CGRectMake(0, 0, reportPopup.view.frame.size.width, reportPopup.view.frame.size.height)];
 //    [self.view addSubview:reportPopup.view];
-    [self.navigationController pushViewController:reportPopup animated:NO];
+    if(IS_OS_7_OR_LATER){
+        [self.navigationController presentModalViewController:reportPopup animated:NO];
+    }
+    else{
+        [self.navigationController pushViewController:reportPopup animated:NO];
+    }
+    
 }
 
 - (IBAction)onTapViewProfile:(id)sender {
@@ -420,15 +397,18 @@
     [userProfile getProfileInfo:^(void){
         VCProfile *viewProfile = [[VCProfile alloc] initWithNibName:@"VCProfile" bundle:nil];
         [viewProfile loadProfile:userProfile andImage:avatar_friend];
+        if(IS_OS_7_OR_LATER){
+            //vanancy ; bug crash on iOS7
+//            [viewProfile setShowNavigationBar:YES];
+            [self.navigationController setNavigationBarHidden:NO];
+            [self.navigationController presentModalViewController:viewProfile animated:NO];
+        }
+        else{
+            [self.navigationController setNavigationBarHidden:NO];
+            [self.navigationController pushViewController:viewProfile animated:YES];
+            [viewProfile.navigationController setNavigationBarHidden:NO];
+        }
         
-#if ENABLE_DEMO
-        //    [appDel.rootVC setFrontViewController:appDel.chat focusAfterChange:YES completion:^(BOOL finished) {
-        //
-        //    }];
-#endif
-        //vanancy ; bug crash on iOS7
-        [viewProfile setShowNavigationBar:YES];
-        [self.navigationController presentModalViewController:viewProfile animated:NO];
 //        [self.navigationController setNavigationBarHidden:NO];
         
     }];
@@ -803,19 +783,20 @@ NSMutableArray *cellHeight;
 -(void)backToPreviousView{
 #if ENABLE_DEMO
 //    AppDelegate *appDel = (AppDelegate *) [UIApplication sharedApplication].delegate;
-    UINavigationController* activeVC = [appDel activeViewController];
-    UIViewController* vc = [activeVC.viewControllers objectAtIndex:0];
-    if(![vc isKindOfClass:[VCSimpleSnapshot class]] )
-    {
-//        [self.navigationController popViewControllerAnimated:YES];
+//    UINavigationController* activeVC = [appDel activeViewController];
+//    UIViewController* vc = [activeVC.viewControllers objectAtIndex:0];
+//    if(![vc isKindOfClass:[VCSimpleSnapshot class]] )
+//    {
+        [self.navigationController popViewControllerAnimated:YES];
 //    }
 //    else
 //    {
-        [self.navigationController popViewControllerAnimated:YES];
-        [appDel.rootVC setFrontViewController:activeVC focusAfterChange:NO completion:^(BOOL finished) {
-        }];
-        [appDel.rootVC showViewController:appDel.chat];
-    }
+    
+//        [self.navigationController dismissModalViewControllerAnimated:YES];
+//        [appDel.rootVC setFrontViewController:activeVC focusAfterChange:NO completion:^(BOOL finished) {
+//        }];
+//        [appDel.rootVC showViewController:appDel.chat];
+//    }
 #else
     [self.navigationController popViewControllerAnimated:YES];
 #endif
