@@ -66,8 +66,8 @@
 {
     AFHTTPClient *request = [[AFHTTPClient alloc]initWithOakClubAPI:DOMAIN];
     
-    NSDictionary *params = [[NSDictionary alloc]initWithObjectsAndKeys:hangout_id,@"hangout_id",
-                                                                        @"3M",@"time", nil];
+    NSDictionary *params = [[NSDictionary alloc]initWithObjectsAndKeys:hangout_id,key_profileID,
+                                                                        @"0",key_index, nil];
     
     [request getPath:URL_getHistoryMessages parameters:params success:^(__unused AFHTTPRequestOperation *operation, id JSON)
      {
@@ -183,15 +183,15 @@
 {
     AFHTTPClient *request = [[AFHTTPClient alloc]initWithOakClubAPI:DOMAIN];
     
-    NSDictionary *params = [[NSDictionary alloc]initWithObjectsAndKeys:hangout_id,@"hangout_id", nil];
-    
-    [request getPath:URL_deleteHangoutProfile parameters:params success:^(__unused AFHTTPRequestOperation *operation, id JSON)
+    NSDictionary *params = [[NSDictionary alloc]initWithObjectsAndKeys:hangout_id,key_profileID, nil];
+    [request setParameterEncoding:AFFormURLParameterEncoding];
+    [request postPath:URL_deleteChat parameters:params success:^(__unused AFHTTPRequestOperation *operation, id JSON)
      {
          
          
      } failure:^(AFHTTPRequestOperation *operation, NSError *error)
      {
-         NSLog(@"Api: %@ execution Error Code: %i - %@", URL_deleteHangoutProfile, [error code], [error localizedDescription]);
+         NSLog(@"Api: %@ execution Error Code: %i - %@", URL_deleteChat, [error code], [error localizedDescription]);
      }];
 
 }

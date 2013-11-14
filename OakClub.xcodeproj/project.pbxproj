@@ -262,6 +262,9 @@
 		CD1AB08A1821A3E900B0FA10 /* ChatView_white_speech.png in Resources */ = {isa = PBXBuildFile; fileRef = CD1AB0881821A3E900B0FA10 /* ChatView_white_speech.png */; };
 		CD1C1F83178E98E700FE6034 /* btn_save.png in Resources */ = {isa = PBXBuildFile; fileRef = CD1C1F81178E98E700FE6034 /* btn_save.png */; };
 		CD1C1F84178E98E700FE6034 /* btn_save_pressed.png in Resources */ = {isa = PBXBuildFile; fileRef = CD1C1F82178E98E700FE6034 /* btn_save_pressed.png */; };
+		CD1D2D651834998C00B42424 /* ChatNavigationBar.m in Sources */ = {isa = PBXBuildFile; fileRef = CD1D2D631834998C00B42424 /* ChatNavigationBar.m */; };
+		CD1D2D661834998C00B42424 /* ChatNavigationBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = CD1D2D641834998C00B42424 /* ChatNavigationBar.xib */; };
+		CD1D2D6918349DF600B42424 /* ChatNavigationView.m in Sources */ = {isa = PBXBuildFile; fileRef = CD1D2D6818349DF600B42424 /* ChatNavigationView.m */; };
 		CD1D562C1826246B002E312A /* Language.m in Sources */ = {isa = PBXBuildFile; fileRef = CD1D562B1826246B002E312A /* Language.m */; };
 		CD252DB0177C1FFC004145A4 /* info_mutual_friend.png in Resources */ = {isa = PBXBuildFile; fileRef = CD252DA5177C1FFC004145A4 /* info_mutual_friend.png */; };
 		CD252DB1177C1FFC004145A4 /* info_mutual_like.png in Resources */ = {isa = PBXBuildFile; fileRef = CD252DA6177C1FFC004145A4 /* info_mutual_like.png */; };
@@ -1141,6 +1144,11 @@
 		CD1AB0881821A3E900B0FA10 /* ChatView_white_speech.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ChatView_white_speech.png; sourceTree = "<group>"; };
 		CD1C1F81178E98E700FE6034 /* btn_save.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btn_save.png; sourceTree = "<group>"; };
 		CD1C1F82178E98E700FE6034 /* btn_save_pressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btn_save_pressed.png; sourceTree = "<group>"; };
+		CD1D2D621834998C00B42424 /* ChatNavigationBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatNavigationBar.h; sourceTree = "<group>"; };
+		CD1D2D631834998C00B42424 /* ChatNavigationBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatNavigationBar.m; sourceTree = "<group>"; };
+		CD1D2D641834998C00B42424 /* ChatNavigationBar.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChatNavigationBar.xib; sourceTree = "<group>"; };
+		CD1D2D6718349DF600B42424 /* ChatNavigationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatNavigationView.h; sourceTree = "<group>"; };
+		CD1D2D6818349DF600B42424 /* ChatNavigationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatNavigationView.m; sourceTree = "<group>"; };
 		CD1D562A1826246B002E312A /* Language.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Language.h; sourceTree = "<group>"; };
 		CD1D562B1826246B002E312A /* Language.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Language.m; sourceTree = "<group>"; };
 		CD2352B61793F79A00BB8370 /* vi */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = vi; path = vi.lproj/RegisterConfirmation.storyboard; sourceTree = "<group>"; };
@@ -3491,6 +3499,11 @@
 				CDF99AB71713D629008D8BAC /* SMMessageDelegate.h */,
 				CDF99AB81713D629008D8BAC /* SMMessageViewTableCell.h */,
 				CDF99AB91713D629008D8BAC /* SMMessageViewTableCell.m */,
+				CD1D2D621834998C00B42424 /* ChatNavigationBar.h */,
+				CD1D2D631834998C00B42424 /* ChatNavigationBar.m */,
+				CD1D2D641834998C00B42424 /* ChatNavigationBar.xib */,
+				CD1D2D6718349DF600B42424 /* ChatNavigationView.h */,
+				CD1D2D6818349DF600B42424 /* ChatNavigationView.m */,
 			);
 			name = SMChat;
 			path = "XMPP-Chat/Classes";
@@ -4324,6 +4337,7 @@
 				3715B36F170AC9DC003ACE95 /* VCMyLink.xib in Resources */,
 				3715B373170AC9DC003ACE95 /* VCSnapshoot.xib in Resources */,
 				CD50E34F181FBF3C0036A23B /* Snapshot_bg_profiles.png in Resources */,
+				CD1D2D661834998C00B42424 /* ChatNavigationBar.xib in Resources */,
 				3715B377170AC9DC003ACE95 /* VCVisitor.xib in Resources */,
 				CD1AB07B1821804200B0FA10 /* Report_separators.png in Resources */,
 				CD8AA1ED170C11A700A97C47 /* Cell.xib in Resources */,
@@ -5025,6 +5039,7 @@
 				CDF99BDE1713D629008D8BAC /* XMPPMessageArchiving.m in Sources */,
 				CDF99BDF1713D629008D8BAC /* XMPPvCardAvatarModule.m in Sources */,
 				CDF99BE01713D629008D8BAC /* XMPPMessage+XEP_0184.m in Sources */,
+				CD1D2D6918349DF600B42424 /* ChatNavigationView.m in Sources */,
 				CDF99BE11713D629008D8BAC /* XMPPAutoPing.m in Sources */,
 				CDF99BE21713D629008D8BAC /* XMPPPing.m in Sources */,
 				CDF99BE31713D629008D8BAC /* XMPPAutoTime.m in Sources */,
@@ -5120,6 +5135,7 @@
 				CDB88CA2182E07DC00E3ABDF /* ImageInfo.m in Sources */,
 				CDE4A0021774070800DED9EB /* UITableView+Custom.m in Sources */,
 				CDFA306217795A280023CEBE /* AdvancedSetting.m in Sources */,
+				CD1D2D651834998C00B42424 /* ChatNavigationBar.m in Sources */,
 				CDF1AF8F1782DDE500C8FCE9 /* ProfileConfirmation.m in Sources */,
 				CDF1AF941782E9C100C8FCE9 /* PreferencesSettings.m in Sources */,
 				CDEE8E591785668C003EB1C4 /* UIViewController+Custom.m in Sources */,

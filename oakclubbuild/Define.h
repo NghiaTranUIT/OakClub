@@ -14,7 +14,8 @@
 #define ENABLE_DEMO true
 #define USE_STAGING false
 #define USE_MAINHOST false
-#define USE_STAGING_MB true
+#define USE_STAGING_MB false
+#define USE_STAGING_IOS true
 //Hangout
 #define sOnline @"Online"
 
@@ -41,6 +42,11 @@
 #define DOMAIN @"http://staging-mb.oakclub.com"
 #define DOMAIN_DATA @"http://data1.oakclub.com/"
 #endif
+#if USE_STAGING_IOS
+#define HOSTNAME @"staging.oakclub.com"
+#define DOMAIN @"http://staging-ios.oakclub.com"
+#define DOMAIN_DATA @"http://data1.oakclub.com/"
+#endif
 //============== application key =============
 #define key_appLanguage @"appLanguage"
 #define key_ChosenLanguage @"appChosenLanguage"
@@ -64,18 +70,18 @@
 //#define URL_getListMutualMatch @"service/getListMutualAttractions"
 #define URL_getListIWantToMeet @"service/getListIWantToMeet"
 #define URL_getSnapShot @"service/getSnapshot"
-#define URL_setFavorite @"service/setFavorite"
+#define URL_setFavorite @"service/setLikedSnapshot"//@"service/setFavorite"
 #define URL_getSnapshotSetting @"service/getSnapshotSetting"
 #define URL_setSnapshotSetting @"service/setSnapshotSetting"
 #define URL_chat_post @"service/chat/post"
 #define URL_getHistoryMessages @"service/getHistoryMessages"
-#define URL_deleteHangoutProfile @"service/deleteHangoutProfile" // delete history chatting messages.
+#define URL_deleteChat @"service/deleteChat"//@"service/deleteHangoutProfile" // delete history chatting messages.
 #define URL_getDetailMutualFriends @"service/getDetailMutualFriends" // unused
 #define URL_getMutualInfo @"service/getMutualInfo"// unused
 #define URL_getListCountry @"service/getListCountry"
 #define URL_getListPhotos @"service/getListPhotos"
 #define URL_getListCityByCountry @"service/getListCityByCountry"
-#define URL_getListLangRelWrkEth @"service/getListLangRelWrkEth"
+#define URL_getListLangRelWrkEth @"service/getDataLanguage"//@"service/getListLangRelWrkEth"
 #define URL_getListMaybeIWantToMeet @"service/getListMaybe" // unused
 #define URL_addToMyFavorite @"service/addToMyFavorite" //unused
 #define URL_removeMyFavorite @"service/removeMyFavorite" //unsed
@@ -86,13 +92,13 @@
 #define URL_getListChat @"service/getListChat"
 #define URL_getListWhoLikeMe @"service/getListWhoLikeMe"
 #define URL_getListMutualMatch @"service/getListMutualMatch"
-#define URL_setLocationUser @"service/setLocationUser"
+#define URL_setLocationUser @"service/setLocation"
 #define URL_sendRegister @"service/sendRegister"
-#define URL_uploadPhoto @"service/uploadPhotoUser"
+#define URL_uploadPhoto @"service/uploadPhoto"
 #define URL_deletePhoto @"service/deletePhoto"
 #define URL_setReadMessages @"service/setReadMessages"
-#define URL_setViewedMatchMutual @"service/setViewedMatchMutual"
-#define URL_reportInvalid @"service/reportInvalid"
+#define URL_setViewedMutualMatch @"service/setViewedMutualMatch"
+#define URL_reportInvalid @"service/reportUser"
 //================ service API keys ================
 //root
 #define key_status @"status"
@@ -162,6 +168,7 @@
 #define key_match @"matches"
 
 #define key_reportContent @"content"
+#define key_index @"index"
 //================ service API values ================
 #define value_online @"Online"
 #define value_offline @"Offline"

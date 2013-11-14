@@ -407,8 +407,8 @@ static CGFloat padding_left = 5.0;
     [self.navigationController pushViewController:view animated:YES];
 }
 
--(void)setShowNavigationBar:(BOOL)flag{
-    self.showNavigationBar = flag;
+-(void)setShowNavigationBar:(BOOL)isShow{
+    self.showNavigationBar = isShow;
 }
 -(void) viewWillAppear:(BOOL)animated{
     [self.navigationController setNavigationBarHidden:!showNavigationBar];

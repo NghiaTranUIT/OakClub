@@ -83,7 +83,7 @@ int cellCountinSection=0;
         [[self tableView] reloadData];
         NSLog(@"Loading information for %@", profile.s_Name);
         
-//        [a_profile_id addObject:profile.s_ID];
+//        [a_profi le_id addObject:profile.s_ID];
         
 //        AFHTTPRequestOperation *operation =
 //        [HistoryMessage getHistoryMessagesSync:profile.s_ID
@@ -231,7 +231,7 @@ int cellCountinSection=0;
 #endif
     
     [self.tableView reloadData];
-	[super viewWillAppear:animated];
+//	[super viewWillAppear:animated];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -248,7 +248,7 @@ int cellCountinSection=0;
 -(void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    [self addTopRightButtonWithAction:@selector(enterEditing)];
+//    [self addTopRightButtonWithAction:@selector(enterEditing)];
 //    fetchedResultsController = nil;
 //    [appDel.myProfile getRosterListIDSync:^(void){
 //        [self loadFriendsInfo:nil];
@@ -268,7 +268,7 @@ int cellCountinSection=0;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    appDel._messageDelegate = self;
+//    appDel._messageDelegate = self;
     // Do any additional setup after loading the view from its nib.
     //    [self.view addSubview:tbVC_ChatList.view];
 //    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"bg-edit.png"]];
@@ -674,7 +674,13 @@ int cellCountinSection=0;
             
         }];
 #endif
-        [self.navigationController pushViewController:chatController animated:animated];
+//        if(IS_OS_7_OR_LATER){
+//            [self.navigationController setNavigationBarHidden:NO];
+//            [self.navigationController presentModalViewController:chatController animated:animated];
+//        }
+//        else{
+            [self.navigationController pushViewController:chatController animated:animated];
+//        }
     }
 }
 

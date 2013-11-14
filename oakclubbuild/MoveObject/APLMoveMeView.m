@@ -68,8 +68,8 @@
 
 #define RIGHT_POINT CGPointMake(600, 165)
 #define LEFT_POINT CGPointMake(-400, 165)
-#define CENTER_POINT CGPointMake(160,175)
-#define CENTER_POINT_568H CGPointMake(160,197)
+#define CENTER_POINT CGPointMake(160,176)
+#define CENTER_POINT_568H CGPointMake(160,198)
 
 @implementation APLMoveMeView
 
