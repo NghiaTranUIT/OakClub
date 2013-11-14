@@ -186,9 +186,9 @@ float timerDuration = 8.0f;
 - (void)handleTimer
 {
     if ([myTimer isValid]) {
-        int x = scrollView.contentOffset.x;
-         curPage = [self validPageValue:curPage+1];
-        [self refreshScrollView];
+//        int x = scrollView.contentOffset.x;
+//         curPage = [self validPageValue:curPage+1];
+//        [self refreshScrollView];
     }
     
 }

@@ -177,31 +177,32 @@
             
             [[self navBarOakClub] addToHeader:infoHeader];
             lbl_indexPhoto.text = [[NSString alloc]initWithFormat:@"%i/%i",1,[currentProfile.arr_photos count] ];
-            
-            AFHTTPClient *requestMutual = [[AFHTTPClient alloc] initWithOakClubAPI:DOMAIN];
-            [requestMutual getPath:URL_getProfileInfo parameters:nil success:^(__unused AFHTTPRequestOperation *operation, id JSON)
-             {
-                 NSError *e=nil;
-                 NSMutableDictionary *dict = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONReadingMutableContainers error:&e];
-                 NSMutableDictionary * data= [dict valueForKey:key_data];
-                 NSMutableDictionary *infoMutual =[data valueForKey:currentProfile.s_ID];
-                 int mutualFriendCount =[[infoMutual valueForKey:key_MutualFriends]  integerValue];
-                 if(mutualFriendCount >0){
-                     lbl_mutualFriends.text = [NSString stringWithFormat:@"%i",mutualFriendCount];
-                     [lbl_mutualFriends setHidden:NO];
-                     [imgMutualFriend setHidden:NO];
-                 }
-                 int mutualLikeCount = [[infoMutual valueForKey:key_MutualLikes]  integerValue];
-                 if(mutualLikeCount > 0){
-                     lbl_mutualLikes.text = [NSString stringWithFormat:@"%i",mutualLikeCount];
-                     [lbl_mutualLikes setHidden:NO];
-                     [imgMutualLike setHidden:NO];
-                 }
-                 
-             } failure:^(AFHTTPRequestOperation *operation, NSError *error)
-             {
-                 NSLog(@"Error Code: %i - %@",[error code], [error localizedDescription]);
-             }];
+            lbl_mutualFriends.text = [[NSString alloc]initWithFormat:@"%i",currentProfile.num_MutualFriends];
+            lbl_mutualLikes.text = [[NSString alloc]initWithFormat:@"%i",currentProfile.num_Liked];
+//            AFHTTPClient *requestMutual = [[AFHTTPClient alloc] initWithOakClubAPI:DOMAIN];
+//            [requestMutual getPath:URL_getProfileInfo parameters:nil success:^(__unused AFHTTPRequestOperation *operation, id JSON)
+//             {
+//                 NSError *e=nil;
+//                 NSMutableDictionary *dict = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONReadingMutableContainers error:&e];
+//                 NSMutableDictionary * data= [dict valueForKey:key_data];
+//                 NSMutableDictionary *infoMutual =[data valueForKey:currentProfile.s_ID];
+//                 int mutualFriendCount =[[infoMutual valueForKey:key_MutualFriends]  integerValue];
+//                 if(mutualFriendCount >0){
+//                     lbl_mutualFriends.text = [NSString stringWithFormat:@"%i",mutualFriendCount];
+//                     [lbl_mutualFriends setHidden:NO];
+//                     [imgMutualFriend setHidden:NO];
+//                 }
+//                 int mutualLikeCount = [[infoMutual valueForKey:key_MutualLikes]  integerValue];
+//                 if(mutualLikeCount > 0){
+//                     lbl_mutualLikes.text = [NSString stringWithFormat:@"%i",mutualLikeCount];
+//                     [lbl_mutualLikes setHidden:NO];
+//                     [imgMutualLike setHidden:NO];
+//                 }
+//                 
+//             } failure:^(AFHTTPRequestOperation *operation, NSError *error)
+//             {
+//                 NSLog(@"Error Code: %i - %@",[error code], [error localizedDescription]);
+//             }];
             [self loadDataForPhotos];
             // Vanancy --- check if answer or not
         }

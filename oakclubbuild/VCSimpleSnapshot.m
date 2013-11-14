@@ -41,6 +41,8 @@
 @property (nonatomic, strong) VCProfile *viewProfile;
 @property (unsafe_unretained, nonatomic) IBOutlet UIPageControl *pageControl;
 @property (nonatomic, strong) NSMutableArray *pageViews;
+@property (weak, nonatomic) IBOutlet UIButton *btnX;
+@property (weak, nonatomic) IBOutlet UIButton *btnHeart;
 @property (nonatomic, strong) NSArray *pageImages;
 @end
 
@@ -211,19 +213,21 @@ CGFloat pageHeight;
     {
         [self startLoadingAnim];
     }
-    
+    currentIndex = 0;
+    profileList = [[NSMutableArray alloc] init];
     request = [[AFHTTPClient alloc] initWithOakClubAPI:DOMAIN];
-//    NSDictionary *params = [[NSDictionary alloc]initWithObjectsAndKeys:@"0",@"start",@"35",@"limit", nil];
-        NSDictionary *params = [[NSDictionary alloc]initWithObjectsAndKeys:@"20",@"start", nil];
+    NSDictionary *params = [[NSDictionary alloc]initWithObjectsAndKeys:@"0",@"start",@"35",@"limit", nil];
+//        NSDictionary *params = [[NSDictionary alloc]initWithObjectsAndKeys:@"20",@"start", nil];
     [request getPath:URL_getSnapShot parameters:params success:^(__unused AFHTTPRequestOperation *operation, id JSON)
     {
+        is_loadingProfileList = FALSE;
         NSError *e=nil;
         NSMutableDictionary *dict = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONReadingMutableContainers error:&e];
         
         NSInteger * status= [[dict valueForKey:@"status"] integerValue];
         if (status == 0)
         {
-            [self showWarning];
+            [self showWarning];//if there is no profile to show
 //            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Error"
 //                                                                message:[dict valueForKey:@"msg"]
 //                                                               delegate:nil
@@ -278,7 +282,7 @@ CGFloat pageHeight;
         }
         if(handler != nil)
             handler();
-        is_loadingProfileList = FALSE;
+        
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Error Code: %i - %@",[error code], [error localizedDescription]);
     }];
@@ -374,7 +378,7 @@ CGFloat pageHeight;
 -(void)loadNextProfileByCurrentIndex{
     if(currentIndex >= [profileList count])
     {
-        [self showWarning];
+//        [self showWarning];
         return;
     }
     Profile * temp  =  [[Profile alloc]init];
@@ -400,7 +404,8 @@ CGFloat pageHeight;
     
     NSString *txtAge= [NSString stringWithFormat:@"%@",currentProfile.s_age];
     [lblName setText:[self formatTextWithName:currentProfile.s_Name andAge:txtAge]];
-    [lbl_mutualFriends setText:[NSString stringWithFormat:@"%i",currentProfile.num_MutualFriends]];
+    [lbl_mutualFriends setText:[NSString stringWithFormat:@"%i",[currentProfile.arr_MutualFriends count]]];
+    lbl_mutualLikes.text = [[NSString alloc]initWithFormat:@"%i",[currentProfile.arr_MutualInterests count]];
     [self.imgMainProfile setImage:[UIImage imageNamed:@"Default Avatar"]];
     [lblPhotoCount setText:@"0"];
     if(currentProfile.arr_photos != nil){
@@ -687,7 +692,10 @@ CGFloat pageHeight;
     //load data
     [self loadLikeMeList];
     //load profile list if needed
-    
+    if( appDel.reloadSnapshot){
+        [self refreshSnapshot];
+        appDel.reloadSnapshot = FALSE;
+    }
 //    currentIndex = 0;
 //    currentIndex = [[[NSUserDefaults standardUserDefaults] objectForKey:@"snapshotIndex"] integerValue];
 //    if ([[NSUserDefaults standardUserDefaults] objectForKey:@"snapshotIndex"] == nil)
@@ -740,19 +748,19 @@ CGFloat pageHeight;
 }
 
 -(void) gotoPROFILE{
+    int isFirstTime = [[[NSUserDefaults standardUserDefaults] objectForKey:key_isFirstSnapshot] integerValue];
+    if(isFirstTime < 4){
+        [self.btnHeart setHidden:YES];
+        [self.btnX setHidden:YES];
+    }
+    else{
+        [self.btnHeart setHidden:NO];
+        [self.btnX setHidden:NO];
+    }
     NSLog(@"current id = %@",currentProfile.s_ID);
     viewProfile = [[VCProfile alloc] initWithNibName:@"VCProfile" bundle:nil];
     [viewProfile loadProfile:currentProfile andImage:currentProfile.img_Avatar];
-    /*
-    if([[currentProfile.arr_photos objectAtIndex:0] isKindOfClass:[UIImage class]]){
-        [viewProfile loadProfile:currentProfile andImage:[currentProfile.arr_photos objectAtIndex:0]];
-    }
-    else{
-        UIImageView * avatar =[currentProfile.arr_photos objectAtIndex:0];
-        [viewProfile loadProfile:currentProfile andImage:avatar.image];
-    }*/
-    
-//    [viewProfile loadProfile:currentProfile];
+
     [self.view addSubview:viewProfile.view];
     viewProfile.view.frame = CGRectMake(0, 480, 320, 480);
     [viewProfile.svPhotos setHidden:YES];
@@ -762,31 +770,17 @@ CGFloat pageHeight;
                      }completion:^(BOOL finished) {
                           [viewProfile.svPhotos setHidden:NO];
                      }];
-//    [imgMainProfile removeFromSuperview];
-//    UIImageView *avatar =[currentProfile.arr_photos objectAtIndex:0];
-//    [imgMainProfile setImage:[currentProfile.arr_photos objectAtIndex:0]];
     [self.view addSubview:imgMainProfile];
     [imgMainProfile setFrame:CGRectMake(50, 30, 228, 228)];
-//    [self.sv_photos removeFromSuperview];
-//    [self.view addSubview:self.sv_photos];
-//    self.sv_photos.frame = CGRectMake(50, 30, 228 , 228);
     [UIView animateWithDuration: 0.4
                           delay: 0
                         options: (UIViewAnimationOptionCurveLinear | UIViewAnimationOptionAllowUserInteraction)
                      animations:^{
                          [self.navigationController setNavigationBarHidden:YES animated:YES];
                          imgMainProfile.frame = CGRectMake((320-275)/2, 0, 275, 275);
-//                         self.sv_photos.frame = CGRectMake(0, 0, 320, 275);
-//                         self.sv_photos.contentSize =
-//                         CGSizeMake(CGRectGetWidth(self.sv_photos.frame) * [currentProfile.arr_photos count], CGRectGetHeight(self.sv_photos.frame));
-//                         [self loadDataPhotoScrollView];
                      }
                      completion:^(BOOL finished) {
-//                         [self.moveMeView removeFromSuperview];
                          [imgMainProfile setHidden:YES];
-//                         [self.sv_photos setUserInteractionEnabled:YES];
-//                         [self.sv_photos removeFromSuperview];
-//                         [viewProfile.scrollview addSubview:self.sv_photos];
                      }
      ];
     [UIView animateWithDuration:0.4
@@ -801,8 +795,6 @@ CGFloat pageHeight;
 }
 
 -(void)backToSnapshotView{
-//    [self.sv_photos setUserInteractionEnabled:NO];
-//    [self.sv_photos scrollRectToVisible:CGRectMake(0, 0, 228, 228) animated:NO];
     [imgMainProfile setHidden:NO];
     [UIView animateWithDuration:0.4
                      animations:^{
@@ -815,14 +807,9 @@ CGFloat pageHeight;
                         options: (UIViewAnimationOptionCurveLinear | UIViewAnimationOptionAllowUserInteraction)
                      animations:^{
                          [self.navigationController setNavigationBarHidden:NO animated:YES];
-//                         self.sv_photos.frame = CGRectMake(46, 30, 228, 228);
-                         [self.imgMainProfile setFrame:CGRectMake(46, 28, 255, 255)];
-//                         [self loadDataPhotoScrollView];
+                         [self.imgMainProfile setFrame:CGRectMake(32, 24, 255, 255)];
                      }
                      completion:^(BOOL finished) {
-//                         [self.sv_photos removeFromSuperview];
-//                         [self.moveMeView addSubViewToCardView:self.sv_photos];
-//                         self.sv_photos.frame = CGRectMake(4, 5, 228 , 228);
                          [self.moveMeView addSubViewToCardView:imgMainProfile];
                          [self.imgMainProfile setFrame:CGRectMake(5, 3, 255, 255)];
                          
@@ -904,7 +891,7 @@ CGFloat pageHeight;
         return;
     }
     
-    if(currentIndex > [profileList count] - 10){
+    if(currentIndex > [profileList count] - 2){
         [self loadProfileList:^(void){
             [self loadCurrentProfile];
             [self loadNextProfileByCurrentIndex];

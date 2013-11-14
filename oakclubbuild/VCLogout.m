@@ -33,7 +33,13 @@
 }
 -(void)viewDidAppear:(BOOL)animated{
      appDel.rootVC.recognizesPanningOnFrontView = NO;
+    [appDel.rootVC setRecognizesResetTapOnFrontView:NO];
     [self.navigationController.navigationBar setUserInteractionEnabled:NO];
+}
+-(void)viewDidDisappear:(BOOL)animated{
+    [appDel.rootVC setRecognizesResetTapOnFrontView:NO];
+    appDel.rootVC.recognizesPanningOnFrontView = YES;
+    [self.navigationController.navigationBar setUserInteractionEnabled:YES];
 }
 - (void)didReceiveMemoryWarning
 {
@@ -44,8 +50,6 @@
 #pragma mark handle on touch
 - (IBAction)onTouchConfirmLogout:(id)sender {
     [self.view removeFromSuperview];
-    appDel.rootVC.recognizesPanningOnFrontView = YES;
-    [self.navigationController.navigationBar setUserInteractionEnabled:YES];
     [appDel  logOut];
 }
 - (IBAction)onTouchCancelLogout:(id)sender {
@@ -54,8 +58,6 @@
                          [self.view setFrame:CGRectMake(0, self.view.frame.size.height*2, self.view.frame.size.width, self.view.frame.size.height)];
                      }completion:^(BOOL finished) {
                          [self.view removeFromSuperview];
-                         appDel.rootVC.recognizesPanningOnFrontView = YES;
-                         [self.navigationController.navigationBar setUserInteractionEnabled:YES];
                      }];
     
 }

@@ -17,7 +17,7 @@
 //    IBOutlet UIViewController *likePopoverView;
     UIPopoverController *pop;
     NSMutableArray *tableSource;
-    BOOL showNavigationBar;
+    
 }
 
 @property (weak, nonatomic) IBOutlet UITableView *tableViewProfile;

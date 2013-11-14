@@ -105,9 +105,9 @@ UITapGestureRecognizer *tap;
     [self.imgAvatar setBackgroundImage:avatarImage forState:UIControlStateNormal];
     self.imgAvatar.contentMode = UIViewContentModeScaleAspectFit;
     [self.imgAvatar setFrame:self.avatarLayout.frame];
-    
-    [self.btnUploadVideo setBackgroundImage:avatarImage forState:UIControlStateNormal];
-    self.btnUploadVideo.contentMode = UIViewContentModeScaleAspectFit;
+//    
+//    [self.btnUploadVideo setBackgroundImage:avatarImage forState:UIControlStateNormal];
+//    self.btnUploadVideo.contentMode = UIViewContentModeScaleAspectFit;
     
     [self.view localizeAllViews];
 }
@@ -537,8 +537,8 @@ UITapGestureRecognizer *tap;
                          self.imgAvatar.contentMode = UIViewContentModeScaleAspectFit;
                          [self.imgAvatar setFrame:self.avatarLayout.frame];
                          
-                         [self.btnUploadVideo setBackgroundImage:avatarImage forState:UIControlStateNormal];
-                         self.btnUploadVideo.contentMode = UIViewContentModeScaleAspectFit;
+//                         [self.btnUploadVideo setBackgroundImage:avatarImage forState:UIControlStateNormal];
+//                         self.btnUploadVideo.contentMode = UIViewContentModeScaleAspectFit;
                          
                          profileObj.img_Avatar = uploadImage;
                          profileObj.s_Avatar = imgLink;

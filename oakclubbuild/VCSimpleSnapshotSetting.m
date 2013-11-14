@@ -681,8 +681,8 @@ UITapGestureRecognizer *tap;
         self.hereTo = [self loadHereTo:snapshotObj.purpose_of_search];
         snapshotObj.gender_of_search = [data valueForKey:key_gender_of_search];//[Profile parseGender:[data valueForKey:key_gender_of_search]];
         
-        fromAge = [[data valueForKey:key_age_from] integerValue];
-        toAge= [[data valueForKey:key_age_to] integerValue];
+//        fromAge = [[data valueForKey:key_age_from] integerValue];
+//        toAge= [[data valueForKey:key_age_to] integerValue];
         
         NSMutableDictionary* status_interested_in = [data valueForKey:key_status_interested_in];
         snapshotObj.interested_new_people = [[status_interested_in valueForKey:key_new_people] boolValue];
@@ -750,7 +750,6 @@ UITapGestureRecognizer *tap;
                             s_isNewPeople,@"new_people",
                             s_isFOF,@"fof",
                             s_isFriend,@"friends",
-                            snapshotObj.location.ID,@"location_id",
                             nil];
 #else
     NSDictionary *params = [[NSDictionary alloc]initWithObjectsAndKeys:
@@ -789,9 +788,16 @@ UITapGestureRecognizer *tap;
 
             appDel.reloadSnapshot = TRUE;
         }
-        else
+        else{
             NSLog(@"POST FAIL...");
-        
+            UIAlertView *alert = [[UIAlertView alloc]
+                                  initWithTitle:@"NOTE"
+                                  message:@"Settings can not saved now."
+                                  delegate:self
+                                  cancelButtonTitle:@"OK"
+                                  otherButtonTitles:nil];
+            [alert show];
+        }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Error Code: %i - %@",[error code], [error localizedDescription]);
     }];
@@ -932,16 +938,24 @@ UITapGestureRecognizer *tap;
     [self saveSetting];
 }
 -(void)onTouchContactUs{
-    // From within your active view controller
     if([MFMailComposeViewController canSendMail]) {
         MFMailComposeViewController *mailCont = [[MFMailComposeViewController alloc] init];
         mailCont.mailComposeDelegate = self;        // Required to invoke mailComposeController when send
         
         [mailCont setSubject:@"Suggestion and support"];
-        [mailCont setToRecipients:[NSArray arrayWithObjects:@"hotro@oakclub.com",@"help@oakclub.com",nil]];
+        [mailCont setToRecipients:[NSArray arrayWithObjects:@"hotro@oakclub.com"/*,@"help@oakclub.com"*/,nil]];
         [mailCont setMessageBody:@"" isHTML:NO];
         
         [self presentViewController:mailCont animated:YES completion:nil];
+    }
+    else{
+        UIAlertView *alert = [[UIAlertView alloc]
+                              initWithTitle:@"Warning"
+                              message:@"Can not access to email account on your device."
+                              delegate:self
+                              cancelButtonTitle:@"OK"
+                              otherButtonTitles:nil];
+        [alert show];
     }
 }
 
@@ -970,7 +984,7 @@ UITapGestureRecognizer *tap;
 - (IBAction)onTouchConfirmLogout:(id)sender {
     [self.navigationController.navigationBar setUserInteractionEnabled:YES];
     [self.logoutViewController.view removeFromSuperview];
-    appDel.rootVC.recognizesPanningOnFrontView = YES;
+//    appDel.rootVC.recognizesPanningOnFrontView = YES;
     [self.tableView setScrollEnabled:YES];
     [appDel  logOut];
 }
@@ -982,7 +996,7 @@ UITapGestureRecognizer *tap;
                      }completion:^(BOOL finished) {
                          [self.logoutViewController.view removeFromSuperview];
                          [self.tableView setScrollEnabled:YES];
-                         appDel.rootVC.recognizesPanningOnFrontView = YES;
+//                         appDel.rootVC.recognizesPanningOnFrontView = YES;
                          [self.navigationController.navigationBar setUserInteractionEnabled:YES];
                      }];
     

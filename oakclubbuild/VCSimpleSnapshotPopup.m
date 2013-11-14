@@ -16,8 +16,8 @@
 @property (weak, nonatomic) IBOutlet UIView *notInterestedPopupView;
 @property (weak, nonatomic) IBOutlet APLMoveMeView *moveMeView;
 @property (weak, nonatomic) IBOutlet VCSimpleSnapshot *snapshotView;
-@property (weak, nonatomic) IBOutlet UILabel *lblNopeTurotial;
-@property (weak, nonatomic) IBOutlet UILabel *lblLikeTurotial;
+@property (strong, nonatomic) IBOutlet UILabel *lblNopeTurotial;
+@property (strong, nonatomic) IBOutlet UILabel *lblLikeTurotial;
 
 
 @end
@@ -73,7 +73,7 @@
             [notInterestedPopupView setHidden:NO];
             break;
         case interestedStatusYES:
-            [lblNopeTurotial setText:[NSString stringWithFormat:@"Dragging a picture to the right indicates you liked %@.",name]];
+            [lblLikeTurotial setText:[NSString stringWithFormat:@"Dragging a picture to the right indicates you liked %@.",name]];
             [likePopupView setHidden:NO];
             [notInterestedPopupView setHidden:YES];
             break;

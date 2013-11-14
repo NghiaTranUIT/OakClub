@@ -236,7 +236,8 @@
     appDel._messageDelegate =nil;
 }
 -(void)customNavigationHeader{
-//    [self.navigationController.navigationBar.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+    if(!IS_OS_7_OR_LATER)
+        [self.navigationController.navigationBar.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
     
     [btnBackToPrevious setFrame:CGRectMake(8, 14, btnBackToPrevious.frame.size.width, btnBackToPrevious.frame.size.height)];
     [btnBackToPrevious addTarget:self action:@selector(backToPreviousView) forControlEvents:UIControlEventTouchUpInside];
@@ -394,25 +395,28 @@
 //    }
 //    else
 //        [vc.navigationController popViewControllerAnimated:YES];
+    
+    [self.navigationController.navigationBar setUserInteractionEnabled:NO];
     [userProfile getProfileInfo:^(void){
+        for(UIView* subview in [self.navigationController.navigationBar subviews]){
+            if([subview isKindOfClass:[ChatNavigationView class]])
+                [subview removeFromSuperview];
+        }
         VCProfile *viewProfile = [[VCProfile alloc] initWithNibName:@"VCProfile" bundle:nil];
         [viewProfile loadProfile:userProfile andImage:avatar_friend];
+        [self.navigationController.navigationBar setUserInteractionEnabled:YES];
         if(IS_OS_7_OR_LATER){
             //vanancy ; bug crash on iOS7
 //            [viewProfile setShowNavigationBar:YES];
             [self.navigationController setNavigationBarHidden:NO];
-            [self.navigationController presentModalViewController:viewProfile animated:NO];
+            [self.navigationController pushViewController:viewProfile animated:YES];
         }
         else{
             [self.navigationController setNavigationBarHidden:NO];
             [self.navigationController pushViewController:viewProfile animated:YES];
             [viewProfile.navigationController setNavigationBarHidden:NO];
         }
-        
-//        [self.navigationController setNavigationBarHidden:NO];
-        
     }];
-//    
     
     
 }

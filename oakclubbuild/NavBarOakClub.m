@@ -31,8 +31,9 @@
     [self addSubview:view];
     
     [ (UIButton *)[self.customView viewWithTag:1] addTarget:self action:@selector(menuPressed:) forControlEvents:UIControlEventTouchUpInside];
+    [ (UIButton *)[self.customView viewWithTag:1] addTarget:self action:@selector(onTouchDownControllButton:) forControlEvents:UIControlEventTouchDown];
     [(UIButton *)[self.customView viewWithTag:3] addTarget:self action:@selector(rightItemPressed:) forControlEvents:UIControlEventTouchUpInside];
-    
+    [(UIButton *)[self.customView viewWithTag:3] addTarget:self action:@selector(onTouchDownControllButton:) forControlEvents:UIControlEventTouchDown];
 //    [(UILabel *) [self.customView viewWithTag:4] setFont:FONT_NOKIA(20.0)];
     return self;
 }
@@ -74,7 +75,12 @@
 - (void)menuPressed:(id)sender {
     NSLog(@"openMenu");
     AppDelegate *appDel = [UIApplication sharedApplication].delegate;
-    [appDel showLeftView];    
+    appDel.rootVC.recognizesPanningOnFrontView = YES;
+    [appDel showLeftView];
+}
+-(void)onTouchDownControllButton:(id)sender{
+    AppDelegate *appDel = [UIApplication sharedApplication].delegate;
+    appDel.rootVC.recognizesPanningOnFrontView = NO;
 }
 
 - (void)rightItemPressed:(id)sender {
@@ -83,6 +89,7 @@
     if(rightButtonClass != nil && [rightButtonClass length]>0 && ![rightButtonClass isEqualToString:@"VCMyProfile"]){
 #if ENABLE_DEMO
         AppDelegate *appDel = [UIApplication sharedApplication].delegate;
+        appDel.rootVC.recognizesPanningOnFrontView = YES;
         [appDel.rootVC showViewController:appDel.chat];
 #else
         Class _class = NSClassFromString(rightButtonClass);

@@ -162,6 +162,7 @@
 #define key_StrProfileID @"str_profile_id"
 #define key_MutualFriends @"mutual_friends"
 #define key_MutualLikes @"mutualLikes"
+#define key_ShareInterests @"share_interests"
 #define key_URL @"URL"
 // list chat of profile
 #define key_rosters @"rosters"
