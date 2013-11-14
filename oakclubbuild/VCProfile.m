@@ -239,9 +239,13 @@ static CGFloat padding_left = 5.0;
     loadingAvatar.hidden = NO;
     [loadingAvatar startAnimating];
     [self  disableControllerButtons:YES];
-    
+
     [super viewDidLoad];
 //    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"bg.png"]];
+    UITapGestureRecognizer *photoTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onTapOnPhotos:)];
+    [photoTap setNumberOfTapsRequired:1];
+    [photoTap setNumberOfTouchesRequired:1];
+    [self.svPhotos addGestureRecognizer:photoTap];
     
     // Do any additional setup after loading the view from its nib.
     [self loadInfoView];
@@ -1023,4 +1027,22 @@ BOOL allowFullScreen = FALSE;
     }
 }
 
+-(void)onTapOnPhotos:(UITapGestureRecognizer *)photos
+{
+    if (self.svPhotos.frame.size.height < self.view.frame.size.height)
+    {
+        [self.svPhotos setFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
+        self.svPhotos.contentSize =
+        CGSizeMake(CGRectGetWidth(self.svPhotos.frame) * [currentProfile.arr_photos count], CGRectGetHeight(self.svPhotos.frame));
+        [self.infoView setFrame:CGRectMake(0, self.view.frame.size.height, self.infoView.frame.size.width, self.infoView.frame.size.height)];
+        [self.lblsPhoto setFrame:CGRectMake(0, self.svPhotos.frame.origin.y + self.svPhotos.frame.size.height - 2*self.lblsPhoto.frame.size.height, self.lblsPhoto.frame.size.width,  self.lblsPhoto.frame.size.height)];
+        
+        [self.scrollview setContentOffset:CGPointMake(0, 0) animated:YES];
+        [self updateSubviewsToCenterScrollView];
+    }
+    else
+    {
+        
+    }
+}
 @end

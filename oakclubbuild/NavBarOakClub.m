@@ -10,6 +10,9 @@
 #import "AppDelegate.h"
 
 @implementation NavBarOakClub
+{
+    __weak IBOutlet UIImageView *mainView;
+}
 @synthesize customView = _customView;
 @synthesize badge = _badge;
 @synthesize header = _header;
@@ -20,7 +23,6 @@
 
 - (id)initWithFrame:(CGRect)frame
 {
-
     NSArray *array = [[NSBundle mainBundle] loadNibNamed:@"NavBarOakClub" owner:self options:nil];
     self = [array objectAtIndex:0];
     [self setBackgroundImage:[UIImage imageNamed:@"topbar"] forBarMetrics:UIBarMetricsDefault];
