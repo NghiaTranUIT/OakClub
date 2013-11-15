@@ -268,7 +268,6 @@
 		CD1D2D651834998C00B42424 /* ChatNavigationBar.m in Sources */ = {isa = PBXBuildFile; fileRef = CD1D2D631834998C00B42424 /* ChatNavigationBar.m */; };
 		CD1D2D661834998C00B42424 /* ChatNavigationBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = CD1D2D641834998C00B42424 /* ChatNavigationBar.xib */; };
 		CD1D2D6918349DF600B42424 /* ChatNavigationView.m in Sources */ = {isa = PBXBuildFile; fileRef = CD1D2D6818349DF600B42424 /* ChatNavigationView.m */; };
-		CD1D2D6B18351C2F00B42424 /* VCProfile.xib in Resources */ = {isa = PBXBuildFile; fileRef = CD1D2D6A18351C2F00B42424 /* VCProfile.xib */; };
 		CD1D562C1826246B002E312A /* Language.m in Sources */ = {isa = PBXBuildFile; fileRef = CD1D562B1826246B002E312A /* Language.m */; };
 		CD252DB0177C1FFC004145A4 /* info_mutual_friend.png in Resources */ = {isa = PBXBuildFile; fileRef = CD252DA5177C1FFC004145A4 /* info_mutual_friend.png */; };
 		CD252DB1177C1FFC004145A4 /* info_mutual_like.png in Resources */ = {isa = PBXBuildFile; fileRef = CD252DA6177C1FFC004145A4 /* info_mutual_like.png */; };
@@ -1158,7 +1157,6 @@
 		CD1D2D641834998C00B42424 /* ChatNavigationBar.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChatNavigationBar.xib; sourceTree = "<group>"; };
 		CD1D2D6718349DF600B42424 /* ChatNavigationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatNavigationView.h; sourceTree = "<group>"; };
 		CD1D2D6818349DF600B42424 /* ChatNavigationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatNavigationView.m; sourceTree = "<group>"; };
-		CD1D2D6A18351C2F00B42424 /* VCProfile.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VCProfile.xib; sourceTree = "<group>"; };
 		CD1D562A1826246B002E312A /* Language.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Language.h; sourceTree = "<group>"; };
 		CD1D562B1826246B002E312A /* Language.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Language.m; sourceTree = "<group>"; };
 		CD2352B61793F79A00BB8370 /* vi */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = vi; path = vi.lproj/RegisterConfirmation.storyboard; sourceTree = "<group>"; };
@@ -3223,7 +3221,6 @@
 			children = (
 				CDDF8CF7171C0F8B00B8512D /* VCProfile.h */,
 				CDDF8CF8171C0F8B00B8512D /* VCProfile.m */,
-				CD1D2D6A18351C2F00B42424 /* VCProfile.xib */,
 				CD3E749B1725B3A6002D8207 /* UIPopoverController+iPhone.h */,
 				CD3E749C1725B3A6002D8207 /* UIPopoverController+iPhone.m */,
 				CDFAA78C17549607008D6567 /* ProfileCell.h */,
@@ -4568,7 +4565,6 @@
 				CDE5DB441807E8AD00A96D78 /* btn-send-ms.png in Resources */,
 				CD50E3BD181FE62C0036A23B /* Navbar_btn_menu.png in Resources */,
 				CD02C67F1755F98D00B1ED6A /* AddMeHere_More.png in Resources */,
-				CD1D2D6B18351C2F00B42424 /* VCProfile.xib in Resources */,
 				CD02C6801755F98D00B1ED6A /* AddMeHere_Default.png in Resources */,
 				CD877CFE18212BAE0067D478 /* intropage_chat.png in Resources */,
 				CD02C6811755F98D00B1ED6A /* AddMeHere_Close_Press.png in Resources */,
