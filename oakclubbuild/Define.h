@@ -109,6 +109,7 @@
 #define key_aboutMe @"about_me"
 #define key_birthday @"birthday_date"
 #define key_avatar @"avatar"
+#define key_video @"video_link"
 #define key_name @"name"
 #define key_profileID @"profile_id"
 #define key_profileStatus @"profile_status"

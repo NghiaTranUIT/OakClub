@@ -466,6 +466,8 @@ UITapGestureRecognizer *tap;
             NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:[photosID objectAtIndex:selectedPhoto], @"photo_id", nil];
             [client getPath:URL_deletePhoto parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject)
             {
+                NSDictionary *result = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
+                NSLog(@"Delete photo result %@", result);
                 [photos removeObjectAtIndex:selectedPhoto];
                 [photosID removeObjectAtIndex:selectedPhoto];
                 [self reloadPhotos];

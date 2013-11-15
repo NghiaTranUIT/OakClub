@@ -21,7 +21,7 @@
 
 @implementation Profile
 
-@synthesize s_Name, img_Avatar, i_Points, s_ProfileStatus, s_FB_id, s_ID, dic_Roster,num_Photos, s_gender, num_points,/* num_unreadMessage,*/ s_passwordXMPP, s_usenameXMPP, arr_photos, s_aboutMe, s_birthdayDate, s_interested,a_language, s_location,s_relationShip, c_ethnicity, s_age, s_meetType, s_popularity, s_interestedStatus, s_snapshotID, a_favorites, s_user_id,s_school,i_work, i_height,i_weight, num_MutualFriends, num_Liked,num_Viewed, s_Email, distance, active;
+@synthesize s_Name, img_Avatar, i_Points, s_ProfileStatus, s_FB_id, s_ID, dic_Roster,num_Photos, s_gender, num_points,/* num_unreadMessage,*/ s_passwordXMPP, s_usenameXMPP, arr_photos, s_aboutMe, s_birthdayDate, s_interested,a_language, s_location,s_relationShip, c_ethnicity, s_age, s_meetType, s_popularity, s_interestedStatus, s_snapshotID, a_favorites, s_user_id,s_school,i_work, i_height,i_weight, num_MutualFriends, num_Liked,num_Viewed, s_Email, distance, active, s_video;
 @synthesize is_deleted;
 @synthesize is_blocked;
 @synthesize is_available;
@@ -399,6 +399,7 @@
     self.s_gender = [Gender alloc];
     self.s_gender = [self parseGender:[data valueForKey:key_gender]];
     self.s_aboutMe = [data valueForKey:key_aboutMe];
+    self.s_video = [data valueForKey:key_video];
     if([self.s_aboutMe isKindOfClass:[NSNull class]]){
         self.s_aboutMe = @"";
     }
