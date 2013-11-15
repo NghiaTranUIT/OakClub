@@ -292,8 +292,6 @@ UITapGestureRecognizer *tap;
 //                        filterGuysCell.textLabel.text = [NSString localizeString:@"Guys"] ;
                         filterGuysCell.selectionStyle = UITableViewCellSelectionStyleNone;
                         UISwitch *autoSwitch = [[UISwitch alloc] init];
-//                        ((UILabel *)[[[[[[autoSwitch subviews] lastObject] subviews] objectAtIndex:0] subviews] objectAtIndex:0]).text = @"Foo";
-//                        ((UILabel *)[[[[[[autoSwitch subviews] lastObject] subviews] objectAtIndex:0] subviews] objectAtIndex:1]).text = @"Bar";
                         [autoSwitch addTarget:self action:@selector(onSwitchChangedValue:) forControlEvents:UIControlEventValueChanged];
                         autoSwitch.frame = CGRectMake(cell.frame.size.width - autoSwitch.frame.size.width - 30, (cell.frame.size.height - autoSwitch.frame.size.height) / 2, autoSwitch.frame.size.width, autoSwitch.frame.size.height);
                         [autoSwitch setOnTintColor:COLOR_PURPLE];
@@ -942,12 +940,21 @@ UITapGestureRecognizer *tap;
     [self saveSetting];
 }
 -(void)onTouchContactUs{
+//    NSString* body = @"";
+//    UIActivityViewController *activityViewController = [[UIActivityViewController alloc]initWithActivityItems:[NSArray arrayWithObjects:body,nil] applicationActivities:nil];
+//    
+//    [activityViewController setValue:[@"Suggestion and support" localize] forKey:@"subject"];
+//    [activityViewController setValue:@"sfkjdhfkj" forKey:@"torecipients"];
+//    activityViewController.excludedActivityTypes = @[UIActivityTypePostToWeibo, UIActivityTypeAssignToContact,UIActivityTypePrint,UIActivityTypeCopyToPasteboard,UIActivityTypeSaveToCameraRoll,UIActivityTypePostToTwitter,UIActivityTypePostToFacebook,UIActivityTypeMessage];
+//    [self presentViewController:activityViewController animated:YES completion:nil];
+//
+    
     if([MFMailComposeViewController canSendMail]) {
         MFMailComposeViewController *mailCont = [[MFMailComposeViewController alloc] init];
         mailCont.mailComposeDelegate = self;        // Required to invoke mailComposeController when send
         
         [mailCont setSubject:@"Suggestion and support"];
-        [mailCont setToRecipients:[NSArray arrayWithObjects:@"hotro@oakclub.com"/*,@"help@oakclub.com"*/,nil]];
+        [mailCont setToRecipients:[NSArray arrayWithObjects:@"hotro@oakclub.com",@"help@oakclub.com",nil]];
         [mailCont setMessageBody:@"" isHTML:NO];
         
         [self presentViewController:mailCont animated:YES completion:nil];
@@ -961,6 +968,7 @@ UITapGestureRecognizer *tap;
                               otherButtonTitles:nil];
         [alert show];
     }
+    
 }
 
 - (void)mailComposeController:(MFMailComposeViewController*)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError*)error {

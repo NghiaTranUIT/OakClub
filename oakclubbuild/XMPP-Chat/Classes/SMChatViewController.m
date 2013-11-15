@@ -36,7 +36,7 @@
 }
 
 
-@synthesize messageField, chatWithUser, tView, scrollView,lblTyping, avatar_me, avatar_friend, label_header, label_Age,btnMoreOption, btnShowProfile, imgLogo, btnBackToPrevious;
+@synthesize messageField, chatWithUser, tView, scrollView,lblTyping, avatar_me, avatar_friend, label_header, label_Age,btnMoreOption, btnShowProfile, btnBackToPrevious;
 
 
 - (AppDelegate *)appDelegate {
@@ -239,7 +239,7 @@
     if(!IS_OS_7_OR_LATER)
         [self.navigationController.navigationBar.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
     
-    [btnBackToPrevious setFrame:CGRectMake(8, 14, btnBackToPrevious.frame.size.width, btnBackToPrevious.frame.size.height)];
+    [btnBackToPrevious setFrame:CGRectMake(0, 0, btnBackToPrevious.frame.size.width, btnBackToPrevious.frame.size.height)];
     [btnBackToPrevious addTarget:self action:@selector(backToPreviousView) forControlEvents:UIControlEventTouchUpInside];
     
     label_header.frame = CGRectMake(60, 0, label_header.frame.size.width, 44);
@@ -248,14 +248,13 @@
     
     [btnMoreOption setFrame:CGRectMake(282, 8, btnMoreOption.frame.size.width, btnMoreOption.frame.size.height)];
 
-    [imgLogo setFrame:CGRectMake(22, 8, imgLogo.frame.size.width, imgLogo.frame.size.height)];
 
     ChatNavigationView *headerView = [[ChatNavigationView alloc]initWithFrame:CGRectMake(0, 0, 320, 44)];
     [headerView addSubview:btnBackToPrevious];
     [headerView addSubview:label_header];
     [headerView addSubview:btnShowProfile];
     [headerView addSubview:btnMoreOption];
-    [headerView addSubview:imgLogo];
+
 //    NSLog(@" [self.navigationController.navigationBar subviews] = %i",[[self.navigationController.navigationBar subviews] count]);
     for(UIView* subview in [self.navigationController.navigationBar subviews]){
         if([subview isKindOfClass:[ChatNavigationView class]])

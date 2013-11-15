@@ -1336,7 +1336,8 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
 - (void)xmppStream:(XMPPStream *)sender didReceiveMessage:(XMPPMessage *)message
 {
 	DDLogVerbose(@"%@: %@", THIS_FILE, THIS_METHOD);
-    
+    if([[message from].user isEqualToString:self.myProfile.s_ID])
+        return;
 	// A simple example of inbound message handling.
     
     NSString* jid = [NSString stringWithFormat:@"%@@%@",[message from].user, [message from].domain];

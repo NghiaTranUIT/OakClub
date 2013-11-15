@@ -16,7 +16,7 @@
 #endif
 @implementation UIViewController (Custom)
 -(void)customBackButtonBarItem{
-    UIButton *backButton = [[UIButton alloc] initWithFrame:CGRectMake(10, 0, 10, 17)];
+    UIButton *backButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 57, 40)];
     [backButton setImage:[UIImage imageNamed:@"Navbar_btn_back.png"] forState:UIControlStateNormal];
     [backButton setImage:[UIImage imageNamed:@"Navbar_btn_back_pressed.png"] forState:UIControlStateHighlighted];
     [backButton addTarget:self action:@selector(backToPreviousView) forControlEvents:UIControlEventTouchUpInside];
@@ -44,18 +44,18 @@
 #if ENABLE_DEMO
     AppDelegate *appDel = (AppDelegate *) [UIApplication sharedApplication].delegate;
     UINavigationController* activeVC = [appDel activeViewController];
-    UIViewController* vc = [activeVC.viewControllers objectAtIndex:0];
-    if(![vc isKindOfClass:[VCSimpleSnapshot class]] )
-    {
-        [self.navigationController popViewControllerAnimated:YES];
-    }
-    else
-    {
+//    UIViewController* vc = [activeVC.viewControllers objectAtIndex:0];
+//    if(![vc isKindOfClass:[VCSimpleSnapshot class]] )
+//    {
+//        [self.navigationController popViewControllerAnimated:YES];
+//    }
+//    else
+//    {
         [self.navigationController popViewControllerAnimated:YES];
         [appDel.rootVC setFrontViewController:activeVC focusAfterChange:NO completion:^(BOOL finished) {
         }];
         [appDel.rootVC showViewController:appDel.chat];
-    }
+//    }
 #else
     [self.navigationController popViewControllerAnimated:YES];
 #endif

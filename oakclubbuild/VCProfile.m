@@ -378,6 +378,16 @@ static CGFloat padding_left = 5.0;
     }
     else{
         self.aboutView.hidden = NO;
+        lblAboutMe.numberOfLines = 0;
+        [lblAboutMe sizeToFit];
+        CGRect newAboutFrame = CGRectMake(self.aboutView.frame.origin.x,
+                                          self.aboutView.frame.origin.y,
+                                          self.aboutView.frame.size.width,
+                                          self.lblAboutMe.frame.size.height + self.lblAboutMe.frame.origin.x);
+        NSInteger deltaPosition = abs(self.aboutView.frame.size.height - newAboutFrame.size.height);
+        self.mutualFriendsView.frame = CGRectMake(self.mutualFriendsView.frame.origin.x, self.mutualFriendsView.frame.origin.y + deltaPosition, self.mutualFriendsView.frame.size.width, self.mutualFriendsView.frame.size.height);
+        self.interestsView.frame = CGRectMake(self.interestsView.frame.origin.x, self.interestsView.frame.origin.y + deltaPosition, self.interestsView.frame.size.width, self.interestsView.frame.size.height);
+        [scrollview setContentSize:CGSizeMake(scrollview.contentSize.width, scrollview.contentSize.height + self.aboutView.frame.size.height)];
     }
     if( currentProfile.arr_MutualInterests && [currentProfile.arr_MutualInterests count] > 0)
     {
@@ -560,8 +570,8 @@ static CGFloat padding_left = 5.0;
     self.lblTabBarName.text = currentProfile.s_Name;
     [self.navigationController.navigationBar addSubview:self.lblTabBarName];
     
-    [self.oakClubLogo setFrame:CGRectMake(22, 8, self.oakClubLogo.frame.size.width, self.oakClubLogo.frame.size.height)];
-    [self.navigationController.navigationBar addSubview:self.oakClubLogo];
+//    [self.oakClubLogo setFrame:CGRectMake(22, 8, self.oakClubLogo.frame.size.width, self.oakClubLogo.frame.size.height)];
+//    [self.navigationController.navigationBar addSubview:self.oakClubLogo];
 }
 
 //- (void)viewWillDisappear:(BOOL)animated{
@@ -1010,7 +1020,7 @@ static CGFloat padding_left = 5.0;
 -(void)addTopLeftButtonWithAction:(SEL)action
 {
     UIButton* buttonBack = [UIButton buttonWithType:UIButtonTypeCustom];
-    buttonBack.frame = CGRectMake(0, 0, 10, 17);
+    buttonBack.frame = CGRectMake(0, 0, 57, 40);
     [buttonBack addTarget:self action:action forControlEvents:UIControlEventTouchUpInside];
     [buttonBack setBackgroundImage:[UIImage imageNamed:@"Navbar_btn_back.png"] forState:UIControlStateNormal];
     [buttonBack setBackgroundImage:[UIImage imageNamed:@"Navbar_btn_back_pressed.png"] forState:UIControlStateHighlighted];
