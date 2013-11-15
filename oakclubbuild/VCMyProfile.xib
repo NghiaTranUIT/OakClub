@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="4510" systemVersion="12F37" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="4510" systemVersion="12F45" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
     <dependencies>
         <deployment defaultVersion="1280" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3742"/>
@@ -11,12 +11,15 @@
                 <outlet property="avatarLayout" destination="nEL-w0-U9C" id="v8j-td-kdZ"/>
                 <outlet property="btnUploadVideo" destination="twZ-Li-Rjg" id="ZaE-DX-yfX"/>
                 <outlet property="imgAvatar" destination="uIL-AR-Rpe" id="PRm-Yl-g2V"/>
+                <outlet property="lblPickingValue" destination="G0P-1l-2J7" id="hK5-Uh-OM7"/>
                 <outlet property="locationLabel" destination="d5W-sZ-5OI" id="NRO-ho-Boy"/>
                 <outlet property="nameLabel" destination="bfQ-WK-XEf" id="Ydg-Qb-tw4"/>
                 <outlet property="photoScrollView" destination="RAa-rt-KJE" id="UBw-HF-Trg"/>
                 <outlet property="pickerHeight" destination="336" id="338"/>
                 <outlet property="pickerView" destination="232" id="269"/>
                 <outlet property="pickerWeight" destination="332" id="337"/>
+                <outlet property="pickingView" destination="4U8-qV-jKJ" id="QDC-3J-3G3"/>
+                <outlet property="pickingViewController" destination="nZ4-5G-1T2" id="QVV-Qx-Kix"/>
                 <outlet property="scrollview" destination="285" id="331"/>
                 <outlet property="tableView" destination="278" id="Ja3-VK-0cr"/>
                 <outlet property="tbEditProfile" destination="278" id="282"/>
@@ -153,15 +156,24 @@
                         <outlet property="delegate" destination="-1" id="322"/>
                     </connections>
                 </scrollView>
-                <datePicker hidden="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" minuteInterval="1" id="232">
-                    <rect key="frame" x="0.0" y="780" width="320" height="216"/>
-                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                    <gestureRecognizers/>
-                    <date key="date" timeIntervalSinceReferenceDate="389687846.180161">
-                        <!--2013-05-08 06:37:26 +0000-->
-                    </date>
-                    <timeZone key="timeZone" name="America/Los_Angeles">
-                        <data key="data">
+            </subviews>
+            <color key="backgroundColor" red="0.9647059440612793" green="0.9647059440612793" blue="0.9647059440612793" alpha="1" colorSpace="deviceRGB"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+        </view>
+        <viewController id="nZ4-5G-1T2" customClass="PickingViewController">
+            <view key="view" contentMode="scaleToFill" id="4U8-qV-jKJ" userLabel="View - picking">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <datePicker hidden="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" minuteInterval="1" id="232">
+                        <rect key="frame" x="0.0" y="226" width="320" height="216"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                        <gestureRecognizers/>
+                        <date key="date" timeIntervalSinceReferenceDate="389687846.180161">
+                            <!--2013-05-08 06:37:26 +0000-->
+                        </date>
+                        <timeZone key="timeZone" name="America/Los_Angeles">
+                            <data key="data">
 VFppZgAAAAAAAAAAAAAAAAAAAAAAAAAEAAAABAAAAAAAAAC5AAAABAAAABCepkign7sVkKCGKqChmveQ
 y4kaoNIj9HDSYSYQ1v50INiArZDa/tGg28CQENzes6DdqayQ3r6VoN+JjpDgnneg4WlwkOJ+WaDjSVKQ
 5F47oOUpNJDmR1gg5xJREOgnOiDo8jMQ6gccIOrSFRDr5v4g7LH3EO3G4CDukdkQ76/8oPBxuxDxj96g
@@ -180,31 +192,44 @@ AQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEA
 AQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEAAQABAAEA
 AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
 </data>
-                    </timeZone>
-                    <connections>
-                        <action selector="onTouchUpDatePicker:" destination="-1" eventType="touchUpInside" id="272"/>
-                    </connections>
-                </datePicker>
-                <pickerView hidden="YES" contentMode="scaleToFill" id="332">
-                    <rect key="frame" x="0.0" y="780" width="320" height="216"/>
-                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                    <connections>
-                        <outlet property="dataSource" destination="-1" id="334"/>
-                        <outlet property="delegate" destination="-1" id="335"/>
-                    </connections>
-                </pickerView>
-                <pickerView hidden="YES" contentMode="scaleToFill" id="336">
-                    <rect key="frame" x="0.0" y="780" width="320" height="216"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
-                    <connections>
-                        <outlet property="dataSource" destination="-1" id="339"/>
-                        <outlet property="delegate" destination="-1" id="340"/>
-                    </connections>
-                </pickerView>
-            </subviews>
-            <color key="backgroundColor" red="0.9647059440612793" green="0.9647059440612793" blue="0.9647059440612793" alpha="1" colorSpace="deviceRGB"/>
-            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-        </view>
+                        </timeZone>
+                        <connections>
+                            <action selector="onTouchUpDatePicker:" destination="-1" eventType="touchUpInside" id="272"/>
+                        </connections>
+                    </datePicker>
+                    <pickerView hidden="YES" contentMode="scaleToFill" id="332">
+                        <rect key="frame" x="0.0" y="226" width="320" height="216"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                        <connections>
+                            <outlet property="dataSource" destination="-1" id="334"/>
+                            <outlet property="delegate" destination="-1" id="335"/>
+                        </connections>
+                    </pickerView>
+                    <pickerView hidden="YES" contentMode="scaleToFill" id="336">
+                        <rect key="frame" x="0.0" y="226" width="320" height="216"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
+                        <connections>
+                            <outlet property="dataSource" destination="-1" id="339"/>
+                            <outlet property="delegate" destination="-1" id="340"/>
+                        </connections>
+                    </pickerView>
+                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="G0P-1l-2J7" userLabel="Label - picking value">
+                        <rect key="frame" x="20" y="20" width="280" height="45"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+            </view>
+            <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
+            <nil key="simulatedTopBarMetrics"/>
+            <nil key="simulatedBottomBarMetrics"/>
+            <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
+            <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+        </viewController>
     </objects>
     <resources>
         <image name="myprofile_addvideo.png" width="125" height="125"/>

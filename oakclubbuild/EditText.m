@@ -8,6 +8,8 @@
 
 #import "EditText.h"
 #import "AppDelegate.h"
+#import "UIView+Localize.h"
+
 @interface EditText (){
     AppDelegate *appDelegate;
 }
@@ -16,6 +18,10 @@
 @end
 
 @implementation EditText
+{
+    NSString *title;
+}
+
 @synthesize texfieldEdit,textviewEdit, buttonBack, delegate, btnTextViewThemes, btnThemesTextField;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -72,10 +78,10 @@
     
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectZero] ;
     label.backgroundColor = [UIColor clearColor];
-    label.font = FONT_HELVETICANEUE_LIGHT(24.0);//[UIFont boldSystemFontOfSize:20.0];
+    label.font = FONT_HELVETICANEUE_LIGHT(20.0);//[UIFont boldSystemFontOfSize:20.0];
 //    label.shadowColor = [UIColor colorWithWhite:0.0 alpha:0.5];
     label.textAlignment = NSTextAlignmentCenter;
-    [label setText:@"Edit text"];
+    [label setText:title];
 //    label.textColor = [UIColor blackColor]; // change this color
     [label sizeToFit];
     self.navigationItem.titleView = label;
@@ -113,8 +119,6 @@
         }
         [self.navigationController popViewControllerAnimated:YES];
     }
-
-    
 }
 -(void)addTopLeftButtonWithAction:(SEL)action
 {
@@ -127,5 +131,11 @@
     UIBarButtonItem *buttonItem = [[UIBarButtonItem alloc] initWithCustomView:buttonBack];
     
     self.navigationItem.leftBarButtonItem = buttonItem;
+}
+-(void)setTitle:(NSString *)newTitle
+{
+    [super setTitle:newTitle];
+    
+    title = [newTitle localize];
 }
 @end

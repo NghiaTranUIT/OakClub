@@ -97,7 +97,7 @@ int cellCountinSection=0;
              [a_messages setObject:array forKey:profile.s_ID];
              [self.searchDisplayController.searchResultsTableView reloadData];
              [[self tableView] reloadData];
-             NSLog(@"Get H Msg completed");
+             NSLog(@"Get History Msg of %@ completed",profile.s_ID);
          }];
     }
     NSLog(@"***** loadFriendsInfo end!");

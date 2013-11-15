@@ -143,11 +143,11 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <imageView userInteractionEnabled="NO" alpha="0.0" contentMode="scaleToFill" image="Snapshot_no_stamp.png" id="44">
-                            <rect key="frame" x="132" y="22" width="92" height="47"/>
+                            <rect key="frame" x="132" y="22" width="103" height="53"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         </imageView>
                         <imageView userInteractionEnabled="NO" alpha="0.0" contentMode="scaleToFill" image="Snapshot_like_stamp.png" id="45">
-                            <rect key="frame" x="17" y="22" width="92" height="47"/>
+                            <rect key="frame" x="17" y="22" width="102" height="52"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         </imageView>
                     </subviews>
@@ -507,9 +507,9 @@
         <image name="Snapshot_btn_yes.png" width="70" height="70"/>
         <image name="Snapshot_btn_yes_pressed.PNG" width="70" height="70"/>
         <image name="Snapshot_camera_icon.png" width="20" height="13"/>
-        <image name="Snapshot_like_stamp.png" width="92" height="47"/>
+        <image name="Snapshot_like_stamp.png" width="102" height="52"/>
         <image name="Snapshot_mutualfriends_icon.png" width="23" height="13"/>
-        <image name="Snapshot_no_stamp.png" width="92" height="47"/>
+        <image name="Snapshot_no_stamp.png" width="103" height="53"/>
         <image name="Snapshot_popup_box.png" width="270" height="210"/>
         <image name="Snapshot_popup_cancel.png" width="95" height="38"/>
         <image name="Snapshot_popup_cancel_pressed.png" width="95" height="38"/>

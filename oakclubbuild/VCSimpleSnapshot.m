@@ -241,44 +241,7 @@ CGFloat pageHeight;
             Profile* profile = [[Profile alloc]init];
             [profile parseGetSnapshotToProfile:profileJSON];
             [profileList addObject:profile];
-            // Vanancy: don't load all photos of profile and don't use scrollview for showing
-//            profile  = [self loadPhotosByProfile:profile];
-//            [self loadDataPhotoScrollView];
-//            AFHTTPRequestOperation *operation =
-//            [Profile getAvatarSync:profile.s_Avatar
-//                          callback:^(UIImage *image)
-//             {
-//                 [profile.arr_photos replaceObjectAtIndex:0 withObject:image];
-//             }];
-//            [operation start];
-            // Vanancy - update mutual friends/likes count here
-            /*if(profile.num_MutualFriends == -1)
-            {
-                NSDictionary *params = [[NSDictionary alloc]initWithObjectsAndKeys:profile.s_ID,@"str_profile_id", nil];
-                
-                AFHTTPClient *request = [[AFHTTPClient alloc] initWithOakClubAPI:DOMAIN];
-                [request getPath:URL_getMutualInfo parameters:params success:^(__unused AFHTTPRequestOperation *operation, id JSON) {
-                    
-                    NSError *e=nil;
-                    NSMutableDictionary *dict = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONReadingMutableContainers error:&e];
-                    NSMutableDictionary * data= [dict valueForKey:key_data];
-                    if(data != nil)
-                    {
-                        NSMutableDictionary * friendData= [data valueForKey:profile.s_ID];
-                        
-                        if(friendData != nil)
-                        {
-                            profile.num_MutualFriends = [[friendData valueForKey:@"mutualFriend"] intValue];
-                            
-                        }
-                    }
-                    
-                    
-                } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                    NSLog(@"Error Code: %i - %@",[error code], [error localizedDescription]);
-                }];
-            }
-             */
+
         }
         if(handler != nil)
             handler();
@@ -962,6 +925,7 @@ CGFloat pageHeight;
 -(NSString*)formatTextWithName:(NSString*)name andAge:(NSString*)age{
     NSString* result;
     if([name length] > 10){
+        name = [name substringToIndex:10];
         name = [name stringByReplacingCharactersInRange:NSMakeRange([name length]-3, 3) withString:@"..."];
     }
     result = [NSString stringWithFormat:@"%@ , %@",name,age];

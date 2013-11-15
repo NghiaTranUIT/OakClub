@@ -253,7 +253,7 @@ UITapGestureRecognizer *tap;
                 rangeAgeCell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:rangeAgeCellID];
                 UIView *newCellView= [[UIView alloc]initWithFrame:CGRectMake(0, 0, 320, 80)];
                 lblRangeOfAge = [[UILabel alloc]initWithFrame:CGRectMake(30, 0, 280, 30)];
-                [lblRangeOfAge setText: [NSString stringWithFormat: [@"%d to %d years old" localize],fromAge,toAge]];
+                [lblRangeOfAge setText: [NSString stringWithFormat: @"%d %@ %d %@",fromAge,[@"to" localize],toAge,[@"years old" localize]]];
                 lblRangeOfAge.textAlignment = NSTextAlignmentCenter;
                 //                [lblRange setTextColor:[UIColor blackColor]];
                 [lblRangeOfAge setBackgroundColor:[UIColor clearColor]];
@@ -292,6 +292,8 @@ UITapGestureRecognizer *tap;
 //                        filterGuysCell.textLabel.text = [NSString localizeString:@"Guys"] ;
                         filterGuysCell.selectionStyle = UITableViewCellSelectionStyleNone;
                         UISwitch *autoSwitch = [[UISwitch alloc] init];
+//                        ((UILabel *)[[[[[[autoSwitch subviews] lastObject] subviews] objectAtIndex:0] subviews] objectAtIndex:0]).text = @"Foo";
+//                        ((UILabel *)[[[[[[autoSwitch subviews] lastObject] subviews] objectAtIndex:0] subviews] objectAtIndex:1]).text = @"Bar";
                         [autoSwitch addTarget:self action:@selector(onSwitchChangedValue:) forControlEvents:UIControlEventValueChanged];
                         autoSwitch.frame = CGRectMake(cell.frame.size.width - autoSwitch.frame.size.width - 30, (cell.frame.size.height - autoSwitch.frame.size.height) / 2, autoSwitch.frame.size.width, autoSwitch.frame.size.height);
                         [autoSwitch setOnTintColor:COLOR_PURPLE];
@@ -486,7 +488,7 @@ UITapGestureRecognizer *tap;
             break;
         case RangeGroup:
             if(!isPickerShowing)
-                headerLbl.text = @"WHERE";
+                headerLbl.text = @"FIND PEOPLE AROUND ME";
             break;
         case LanguageGroup:
             headerLbl.text = @"CHOOSE YOUR LANGUAGE";
@@ -1045,19 +1047,19 @@ UITapGestureRecognizer *tap;
     [self.ageSlider addTarget:self action:@selector(touchUpOnSlider:) forControlEvents:UIControlEventTouchUpInside ];
     fromAge = 18;
     toAge = 45;
-    [lblRangeOfAge setText: [NSString stringWithFormat: [@"%d to %d years old" localize],fromAge,toAge]];
+    [lblRangeOfAge setText: [NSString stringWithFormat: @"%d %@ %d %@",fromAge,[@"to" localize],toAge,[@"years old" localize]]];
     //    self.ageSlider.min =(CGFloat) (18 - MIN_AGE)/(MAX_AGE-MIN_AGE);
     self.ageSlider.max = (CGFloat) (45 - MIN_AGE)/(MAX_AGE-MIN_AGE);
     [self.ageSlider setMin:(CGFloat) (18 - MIN_AGE)/(MAX_AGE-MIN_AGE)];
 }
 
 - (void)report:(RangeSlider *)sender {
-	NSString *report = [NSString stringWithFormat:@"current slider range is %f to %f", sender.min, sender.max];
+//	NSString *report = [NSString stringWithFormat:@"current slider range is %f to %f", sender.min, sender.max];
 //	reportLabel.text = report;
     fromAge = MIN_AGE + (sender.min * (MAX_AGE - MIN_AGE));
     toAge = MIN_AGE + (sender.max * (MAX_AGE - MIN_AGE));
-    [lblRangeOfAge setText: [NSString stringWithFormat: [@"%d to %d years old" localize],fromAge,toAge]];
-	NSLog(@"%@",report);
+    [lblRangeOfAge setText: [NSString stringWithFormat: @"%d %@ %d %@",fromAge,[@"to" localize],toAge,[@"years old" localize]]];
+//	NSLog(@"%@",report);
 }
 
 

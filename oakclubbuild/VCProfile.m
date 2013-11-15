@@ -120,6 +120,7 @@ static CGFloat padding_left = 5.0;
     return CGRectMake(coord.x + point.x, coord.y + point.y, size.width, size.height);
     
 }
+/*
 -(void)initMutualFriendsList
 {
     if(currentProfile.num_MutualFriends == 0)
@@ -253,6 +254,7 @@ static CGFloat padding_left = 5.0;
     }
     
 }
+*/
 -(void)disableControllerButtons:(BOOL)value{
     [self.btnLike setEnabled:!value];
     [self.btnReport setEnabled:!value];
@@ -306,9 +308,13 @@ static CGFloat padding_left = 5.0;
     loadingAvatar.hidden = NO;
     [loadingAvatar startAnimating];
     [self  disableControllerButtons:YES];
-    
+
     [super viewDidLoad];
 //    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"bg.png"]];
+    UITapGestureRecognizer *photoTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onTapOnPhotos:)];
+    [photoTap setNumberOfTapsRequired:1];
+    [photoTap setNumberOfTouchesRequired:1];
+    [self.svPhotos addGestureRecognizer:photoTap];
     
     // Do any additional setup after loading the view from its nib.
     [self loadInfoView];
@@ -318,6 +324,17 @@ static CGFloat padding_left = 5.0;
     [super viewDidAppear:animated];
     
     [self.view localizeAllViews];
+    [self.infoView localizeAllViews];
+    [self.interestsView localizeAllViews];
+    [self.mutualFriendsView localizeAllViews];
+    [self.profileView localizeAllViews];
+    [self.view localizeAllViews];
+    
+    [self customNavHeader];
+    
+    //
+    [self refreshScrollView];
+    [self loadPhotoForScrollview];
 }
 
 -(void)LoadDistanceText{
@@ -362,8 +379,8 @@ static CGFloat padding_left = 5.0;
     self.lblAboutMe.text = [currentProfile s_aboutMe];
     if ([lblAboutMe.text length] <= 0) {
         self.aboutView.hidden = YES;
-        self.interestsView.frame = [self moveToFrame:self.aboutView.frame from:self.interestsView.frame];
         self.mutualFriendsView.frame = [self moveToFrame:self.interestsView.frame from:self.mutualFriendsView.frame];
+        self.interestsView.frame = [self moveToFrame:self.aboutView.frame from:self.interestsView.frame];
     }
     else{
         self.aboutView.hidden = NO;
@@ -378,10 +395,8 @@ static CGFloat padding_left = 5.0;
     }
     else
     {
-        
         self.interestsView.hidden = YES;
-        
-        self.profileView.frame = [self moveToFrame:self.mutualFriendsView.frame from:self.profileView.frame];
+//        self.profileView.frame = [self moveToFrame:self.mutualFriendsView.frame from:self.profileView.frame];
         self.mutualFriendsView.frame = [self moveToFrame:self.interestsView.frame from:self.mutualFriendsView.frame];
     }
     
@@ -410,8 +425,6 @@ static CGFloat padding_left = 5.0;
 }
 -(void)loadInterestedThumbnailList:(NSArray*)favList andContentView:(UIView*)contentView andScrollView:(UIScrollView*)contentScroll
 {
-    UIScrollView* _contentScroll = contentScroll;
-    UIView* _contentView = contentView;
     for(int i = 0 ; i < [favList count]; i++)
     {
         ImageInfo *fav = [favList objectAtIndex:i];
@@ -465,6 +478,8 @@ static CGFloat padding_left = 5.0;
     contentScroll.frame = [self addRelative:contentScroll.frame addPoint:CGPointMake(self.infoView.frame.origin.x, self.infoView.frame.origin.y + contentView.frame.origin.y) ];
     [scrollview addSubview:contentScroll];
 }
+    
+    
 -(void)loadInterestedList:(NSArray*)array{
     int x = 0;
     int y = 0;
@@ -523,15 +538,7 @@ static CGFloat padding_left = 5.0;
     [self.navigationController setNavigationBarHidden:NO];
     
 //    popoverShowing = NO;
-    [self.infoView localizeAllViews];
-    [self.interestsView localizeAllViews];
-    [self.mutualFriendsView localizeAllViews];
-    [self.profileView localizeAllViews];
-    [self.view localizeAllViews];
-    
-    [self customNavHeader];
 }
-
 -(void)customNavHeader
 {
     if(!IS_HEIGHT_GTE_568)
@@ -752,23 +759,23 @@ static CGFloat padding_left = 5.0;
     img_avatar = _avatar;
     
     NSLog(@"Set VCProfile profile avatar: %@", currentProfile.s_Avatar);
-    [self refreshScrollView];
-    [self loadPhotoForScrollview];
+//    [self refreshScrollView];
+//    [self loadPhotoForScrollview];
 }
 
 -(void) loadProfile:(Profile*) _profile{
     currentProfile = _profile;
-    [self refreshScrollView];
-    [self loadPhotoForScrollview];
+//    [self refreshScrollView];
+//    [self loadPhotoForScrollview];
 }
 
 -(void)refreshScrollView{
     for (UIImageView * view in self.svPhotos.subviews) {
         [view removeFromSuperview];
     }
-    self.svPhotos= [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, 320, 320)];
+//    self.svPhotos= [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, 320, 320)];
     
-//    self.svPhotos.frame = CGRectMake(0, 0, 320, 320);
+    self.svPhotos.frame = CGRectMake(0, 0, 320, 320);
 }
 -(void)loadPhotoForScrollview{
 //    for (UIImageView * view in self.svPhotos.subviews) {
@@ -1131,4 +1138,22 @@ BOOL allowFullScreen = FALSE;
     }
 }
 
+-(void)onTapOnPhotos:(UITapGestureRecognizer *)photos
+{
+    if (self.svPhotos.frame.size.height < self.view.frame.size.height)
+    {
+        [self.svPhotos setFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
+        self.svPhotos.contentSize =
+        CGSizeMake(CGRectGetWidth(self.svPhotos.frame) * [currentProfile.arr_photos count], CGRectGetHeight(self.svPhotos.frame));
+        [self.infoView setFrame:CGRectMake(0, self.view.frame.size.height, self.infoView.frame.size.width, self.infoView.frame.size.height)];
+        [self.lblsPhoto setFrame:CGRectMake(0, self.svPhotos.frame.origin.y + self.svPhotos.frame.size.height - 2*self.lblsPhoto.frame.size.height, self.lblsPhoto.frame.size.width,  self.lblsPhoto.frame.size.height)];
+        
+        [self.scrollview setContentOffset:CGPointMake(0, 0) animated:YES];
+        [self updateSubviewsToCenterScrollView];
+    }
+    else
+    {
+        
+    }
+}
 @end

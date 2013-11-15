@@ -307,18 +307,18 @@
 - (IBAction) closeChat {
 //    AppDelegate *appDel = (AppDelegate *) [UIApplication sharedApplication].delegate;
     UINavigationController* activeVC = [appDel activeViewController];
-    UIViewController* vc = [activeVC.viewControllers objectAtIndex:0];
-    if(![vc isKindOfClass:[VCSimpleSnapshot class]] )
-    {
-        [self.navigationController popViewControllerAnimated:YES];
-    }
-    else
-    {
+//    UIViewController* vc = [activeVC.viewControllers objectAtIndex:0];
+//    if(![vc isKindOfClass:[VCSimpleSnapshot class]] )
+//    {
+//        [self.navigationController popViewControllerAnimated:YES];
+//    }
+//    else
+//    {
         [self.navigationController popViewControllerAnimated:YES];
         [appDel.rootVC setFrontViewController:activeVC focusAfterChange:NO completion:^(BOOL finished) {
         }];
         [appDel.rootVC showViewController:appDel.chat];
-    }
+//    }
 }
 
 - (void)addMessage:(NSString*)body atTime:(NSString*)time fromUser:(NSString*)from toUser:(NSString*)to

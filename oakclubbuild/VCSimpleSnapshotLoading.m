@@ -51,6 +51,8 @@
     if(appdel.reloadSnapshot){
         [self.navigationController popViewControllerAnimated:NO];
     }
+    
+    [self.view localizeAllViews];
 }
 - (void)didReceiveMemoryWarning
 {
@@ -81,13 +83,13 @@
             [self.view addSubview:imgLIKEDisable];
             [self.view addSubview:imgiDisable];
             [btnContentAlert setHidden:YES];
-            [lblContentAlert setText:[@"Finding nearby people..." localize]];
+            [lblContentAlert setText:[@"Finding nearby people ..." localize]];
             break;
         }
         case 1:
         {
             [btnContentAlert setHidden:NO];
-            [lblContentAlert setText:[@"You've seen all the recommendation near you." localize]];
+            [lblContentAlert setText:[@"You've seen all the recommendations near you." localize]];
             [imgLoading setImage:[UIImage imageNamed:@"SnapshotLoading_map_loaded.png"]];
             [self.view addSubview:imgLoading];
             break;

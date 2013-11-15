@@ -48,4 +48,6 @@
 -(void)setDefaultEditProfile:(Profile*)profile;
 @end
 
+@interface PickingViewController : UIViewController
 
+@end

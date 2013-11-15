@@ -43,6 +43,9 @@
 @property (weak, nonatomic) IBOutlet UILabel *age_workLabel;
 @property (weak, nonatomic) IBOutlet UILabel *locationLabel;
 @property (weak, nonatomic) IBOutlet UIButton *btnUploadVideo;
+    @property (strong, nonatomic) IBOutlet UIView *pickingView;
+    @property (strong, nonatomic) IBOutlet UIViewController *pickingViewController;
+@property (weak, nonatomic) IBOutlet UILabel *lblPickingValue;
 @end
 
 @implementation VCMyProfile
@@ -313,7 +316,7 @@ UITapGestureRecognizer *tap;
 - (void)gotoAboutEditText{
     EditText *aboutmeView = [[EditText alloc]initWithNibName:@"EditText" bundle:nil];
     [aboutmeView initForEditting:profileObj.s_aboutMe andStyle:2];
-//    [workView setListType:LISTTYPE_WORK];
+    [aboutmeView setTitle:@"About me"];
     aboutmeView.delegate = self;
     [self.navigationController pushViewController:aboutmeView animated:YES];
 }
@@ -321,6 +324,7 @@ UITapGestureRecognizer *tap;
 - (void)gotoNameEditText{
     EditText *nameEditView = [[EditText alloc]initWithNibName:@"EditText" bundle:nil];
     [nameEditView initForEditting:profileObj.s_Name andStyle:0];
+    [nameEditView setTitle:@"Name"];
     nameEditView.delegate = self;
     [self.navigationController pushViewController:nameEditView animated:YES];
 }
@@ -328,17 +332,21 @@ UITapGestureRecognizer *tap;
 - (void)gotoEmail{
     EditText *emailEditView = [[EditText alloc]initWithNibName:@"EditText" bundle:nil];
     [emailEditView initForEditting:profileObj.s_Email andStyle:3];
+    [emailEditView setTitle:@"Email"];
     emailEditView.delegate = self;
     [self.navigationController pushViewController:emailEditView animated:YES];
 }
 - (void)gotoSchoolEditText{
     EditText *schoolEditView = [[EditText alloc]initWithNibName:@"EditText" bundle:nil];
     [schoolEditView initForEditting:profileObj.s_school andStyle:1];
+    [schoolEditView setTitle:@"School"];
     schoolEditView.delegate = self;
     [self.navigationController pushViewController:schoolEditView animated:YES];
 }
 - (void)onTouchBirthdate {
     if (pickerView.hidden) {
+        [self.pickingViewController setTitle:@"Birthday"];
+        [self.navigationController pushViewController:self.pickingViewController animated:YES];
         NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
         [dateFormat setDateFormat:@"MM/dd/yyyy"];
         NSDate *birth = [dateFormat dateFromString:profileObj.s_birthdayDate];
@@ -347,11 +355,14 @@ UITapGestureRecognizer *tap;
         [scrollview setContentOffset:bottomOffset animated:YES];
         [pickerView setHidden:NO];
         [[scrollview.gestureRecognizers objectAtIndex:2] setCancelsTouchesInView:YES];
+        self.lblPickingValue.text = profileObj.s_birthdayDate;
     }
     
 }
 - (void)onTouchWeight {
     if (pickerWeight.hidden) {
+        [self.pickingViewController setTitle:@"Weight"];
+        [self.navigationController pushViewController:self.pickingViewController animated:YES];
         [self initWeightList];
         CGPoint bottomOffset = CGPointMake(0, 360);
         [scrollview setContentOffset:bottomOffset animated:YES];
@@ -361,6 +372,8 @@ UITapGestureRecognizer *tap;
 }
 - (void)onTouchHeight {
     if (pickerHeight.hidden) {
+        [self.pickingViewController setTitle:@"Height"];
+        [self.navigationController pushViewController:self.pickingViewController animated:YES];
         [self initHeightList];
         CGPoint bottomOffset = CGPointMake(0, 360);
         [scrollview setContentOffset:bottomOffset animated:YES];
@@ -368,39 +381,7 @@ UITapGestureRecognizer *tap;
     }
     
 }
-- (IBAction)onTouchRelatioship:(id)sender {
-    ListForChoose *relationshipView = [[ListForChoose alloc]initWithNibName:@"ListForChoose" bundle:nil];
-    [relationshipView setListType:LISTTYPE_RELATIONSHIP];
-    relationshipView.delegate=self;
-    [self.navigationController pushViewController:relationshipView animated:YES];
-}
 
-- (IBAction)onTouchLocation:(id)sender {
-    ListForChoose *locationView = [[ListForChoose alloc]initWithNibName:@"ListForChoose" bundle:nil];
-    [locationView setListType:LISTTYPE_COUNTRY];
-    locationView.delegate=self;
-    [self.navigationController pushViewController:locationView animated:YES];
-}
-- (IBAction)onTouchEthnicity:(id)sender {
-    ListForChoose *ethnicityView = [[ListForChoose alloc]initWithNibName:@"ListForChoose" bundle:nil];
-    [ethnicityView setListType:LISTTYPE_ETHNICITY];
-    ethnicityView.delegate=self;
-    [self.navigationController pushViewController:ethnicityView animated:YES];
-}
-
-- (IBAction)onTouchLanguage:(id)sender {
-    ListForChoose *languageView = [[ListForChoose alloc]initWithNibName:@"ListForChoose" bundle:nil];
-    [languageView setListType:LISTTYPE_LANGUAGE];
-    languageView.delegate=self;
-    [self.navigationController pushViewController:languageView animated:YES];
-}
-
-- (IBAction)onTouchWork:(id)sender {
-    ListForChoose *workView = [[ListForChoose alloc]initWithNibName:@"ListForChoose" bundle:nil];
-    [workView setListType:LISTTYPE_WORK];
-    workView.delegate = self;
-    [self.navigationController pushViewController:workView animated:YES];
-}
 
 -(BOOL) textFieldShouldReturn:(UITextField *)textField{
     
@@ -427,25 +408,6 @@ UITapGestureRecognizer *tap;
 }
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
     [self.view endEditing:YES];// this will do the trick
-}
-- (IBAction)onTouchBirthdate:(id)sender {
-    if (pickerView.hidden) {
-        NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
-        [dateFormat setDateFormat:@"MM/dd/yyyy"];
-        NSDate *birth = [dateFormat dateFromString:profileObj.s_birthdayDate];
-        [pickerView setDate:birth animated:YES];
-        CGPoint bottomOffset = CGPointMake(0, 110);
-        [scrollview setContentOffset:bottomOffset animated:YES];
-        [pickerView setHidden:NO];
-    }
-    else{
-        NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
-        [dateFormat setDateFormat:@"MM/dd/yyyy"];
-        NSString *theDate = [dateFormat stringFromDate:self.pickerView.date];
-        [btnBirthdate setTitle:theDate forState:UIControlStateNormal];
-        profileObj.s_birthdayDate = theDate;
-        [pickerView setHidden:YES];
-    }
 }
 
 -(void)doneButtonTouched:(id)doneButton
@@ -573,6 +535,7 @@ UITapGestureRecognizer *tap;
     NSString *theDate = [dateFormat stringFromDate:self.pickerView.date];
     profileObj.s_birthdayDate = theDate;
     [self updateProfileItemListAtIndex:theDate andIndex:BIRTHDATE];
+    self.lblPickingValue.text = theDate;
     [tbEditProfile reloadData];
     
     // hook
@@ -589,6 +552,7 @@ UITapGestureRecognizer *tap;
     [pickerWeight reloadAllComponents];
     NSInteger selecteRow = (profileObj.i_weight == 0)?0:(profileObj.i_weight - MIN_WEIGHT + 1);
     [pickerWeight selectRow:(selecteRow<0?0:selecteRow) inComponent:0 animated:NO];
+    self.lblPickingValue.text = [weightlist objectAtIndex:selecteRow];
 }
 -(void) initHeightList{
     NSMutableArray *heightlist = [NSMutableArray array];
@@ -600,6 +564,7 @@ UITapGestureRecognizer *tap;
     [pickerHeight reloadAllComponents];
     NSInteger selecteRow = (profileObj.i_height == 0)?0:(profileObj.i_height - MIN_HEIGHT + 1);
     [pickerHeight selectRow:(selecteRow<0?0:selecteRow) inComponent:0 animated:NO];
+    self.lblPickingValue.text = [heightlist objectAtIndex:selecteRow];
 }
 - (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
     return 1;
@@ -628,10 +593,12 @@ UITapGestureRecognizer *tap;
     if(pickerView == pickerWeight){
         profileObj.i_weight = [[weightOptionList objectAtIndex:row] integerValue];
         [self updateProfileItemListAtIndex:[NSString stringWithFormat:@"%i", profileObj.i_weight] andIndex:WEIGHT];
+        self.lblPickingValue.text = [NSString stringWithFormat:@"%i kg", profileObj.i_weight];
     }
     else{
         profileObj.i_height = [[heightOptionList objectAtIndex:row] integerValue];
         [self updateProfileItemListAtIndex:[NSString stringWithFormat:@"%i", profileObj.i_height] andIndex:HEIGHT];
+        self.lblPickingValue.text = [NSString stringWithFormat:@"%i cm", profileObj.i_height];
     }
     [tbEditProfile reloadData];
 }
@@ -1064,4 +1031,38 @@ UITapGestureRecognizer *tap;
     return CGSizeMake(15, 15);
 }
 
+@end
+
+@implementation PickingViewController
+{
+    NSString *title;
+}
+
+-(void)viewDidLoad
+{
+    [super viewDidLoad];
+}
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self.navigationController setNavigationBarHidden:NO];
+    
+    [self customBackButtonBarItem];
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectZero] ;
+    label.backgroundColor = [UIColor clearColor];
+    label.font = FONT_HELVETICANEUE_LIGHT(20.0);//[UIFont boldSystemFontOfSize:20.0];
+    label.textAlignment = NSTextAlignmentCenter;
+    [label setText:title];
+    label.textColor = [UIColor blackColor]; // change this color
+    [label sizeToFit];
+    self.navigationItem.titleView = label;
+}
+
+-(void)setTitle:(NSString *)newTitle
+{
+    [super setTitle:newTitle];
+    
+    title = [newTitle localize];
+}
 @end

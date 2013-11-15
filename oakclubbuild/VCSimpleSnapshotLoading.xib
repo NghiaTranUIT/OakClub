@@ -32,19 +32,6 @@
                     <rect key="frame" x="48" y="26" width="225" height="225"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                 </imageView>
-                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="RwU-ax-9LY">
-                    <rect key="frame" x="42" y="342" width="237" height="44"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                    <state key="normal" title="Tell your friends!" backgroundImage="SnapshotLoading_btn_tellyourfriend_inactive.png">
-                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                    </state>
-                    <state key="selected" backgroundImage="SnapshotLoading_btn_tellyourfriend_active.png"/>
-                    <state key="highlighted" backgroundImage="SnapshotLoading_btn_tellyourfriend_active.png"/>
-                    <connections>
-                        <action selector="onTouchTellYourFriends:" destination="-1" eventType="touchUpInside" id="8zT-De-4Oa"/>
-                    </connections>
-                </button>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="SnapshotLoading_btn_like_disabled.png" id="UnT-8C-8dJ">
                     <rect key="frame" x="193" y="329" width="70" height="70"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxY="YES"/>
@@ -57,6 +44,20 @@
                     <rect key="frame" x="53" y="329" width="70" height="70"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxY="YES"/>
                 </imageView>
+                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="RwU-ax-9LY">
+                    <rect key="frame" x="42" y="342" width="237" height="44"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <inset key="contentEdgeInsets" minX="29" minY="0.0" maxX="0.0" maxY="0.0"/>
+                    <state key="normal" title="Invite your friends" backgroundImage="SnapshotLoading_btn_tellyourfriend_inactive.png">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <state key="selected" backgroundImage="SnapshotLoading_btn_tellyourfriend_active.png"/>
+                    <state key="highlighted" backgroundImage="SnapshotLoading_btn_tellyourfriend_active.png"/>
+                    <connections>
+                        <action selector="onTouchTellYourFriends:" destination="-1" eventType="touchUpInside" id="8zT-De-4Oa"/>
+                    </connections>
+                </button>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>

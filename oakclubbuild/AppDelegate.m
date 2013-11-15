@@ -1337,6 +1337,7 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
         XMPPJID* xmpp_jid = [XMPPJID jidWithString:[message from].user];
         newFriend = [[Profile alloc]init];
         newFriend.s_ID =[message from].user;
+        newFriend.status = ChatUnviewed;
         [newFriend getProfileInfo:^(void){
             [xmppRoster addUser:xmpp_jid withNickname:newFriend.s_Name];
             [self.myProfile.dic_Roster setValue:newFriend forKey:newFriend.s_ID];

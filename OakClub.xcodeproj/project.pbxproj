@@ -264,6 +264,7 @@
 		CD1D2D651834998C00B42424 /* ChatNavigationBar.m in Sources */ = {isa = PBXBuildFile; fileRef = CD1D2D631834998C00B42424 /* ChatNavigationBar.m */; };
 		CD1D2D661834998C00B42424 /* ChatNavigationBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = CD1D2D641834998C00B42424 /* ChatNavigationBar.xib */; };
 		CD1D2D6918349DF600B42424 /* ChatNavigationView.m in Sources */ = {isa = PBXBuildFile; fileRef = CD1D2D6818349DF600B42424 /* ChatNavigationView.m */; };
+		CD1D2D6B18351C2F00B42424 /* VCProfile.xib in Resources */ = {isa = PBXBuildFile; fileRef = CD1D2D6A18351C2F00B42424 /* VCProfile.xib */; };
 		CD1D562C1826246B002E312A /* Language.m in Sources */ = {isa = PBXBuildFile; fileRef = CD1D562B1826246B002E312A /* Language.m */; };
 		CD252DB0177C1FFC004145A4 /* info_mutual_friend.png in Resources */ = {isa = PBXBuildFile; fileRef = CD252DA5177C1FFC004145A4 /* info_mutual_friend.png */; };
 		CD252DB1177C1FFC004145A4 /* info_mutual_like.png in Resources */ = {isa = PBXBuildFile; fileRef = CD252DA6177C1FFC004145A4 /* info_mutual_like.png */; };
@@ -1147,6 +1148,7 @@
 		CD1D2D641834998C00B42424 /* ChatNavigationBar.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChatNavigationBar.xib; sourceTree = "<group>"; };
 		CD1D2D6718349DF600B42424 /* ChatNavigationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatNavigationView.h; sourceTree = "<group>"; };
 		CD1D2D6818349DF600B42424 /* ChatNavigationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatNavigationView.m; sourceTree = "<group>"; };
+		CD1D2D6A18351C2F00B42424 /* VCProfile.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VCProfile.xib; sourceTree = "<group>"; };
 		CD1D562A1826246B002E312A /* Language.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Language.h; sourceTree = "<group>"; };
 		CD1D562B1826246B002E312A /* Language.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Language.m; sourceTree = "<group>"; };
 		CD2352B61793F79A00BB8370 /* vi */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = vi; path = vi.lproj/RegisterConfirmation.storyboard; sourceTree = "<group>"; };
@@ -2539,10 +2541,10 @@
 				CD877C4D1820AD490067D478 /* Snapshot_btn_yes_pressed@2x.PNG */,
 				CD50E337181FBF3C0036A23B /* Snapshot_like_stamp.png */,
 				CD50E338181FBF3C0036A23B /* Snapshot_like_stamp@2x.png */,
-				CD50E339181FBF3C0036A23B /* Snapshot_logo.png */,
-				CD50E33A181FBF3C0036A23B /* Snapshot_logo@2x.png */,
 				CD50E33B181FBF3C0036A23B /* Snapshot_no_stamp.png */,
 				CD50E33C181FBF3C0036A23B /* Snapshot_no_stamp@2x.png */,
+				CD50E339181FBF3C0036A23B /* Snapshot_logo.png */,
+				CD50E33A181FBF3C0036A23B /* Snapshot_logo@2x.png */,
 			);
 			name = Main;
 			sourceTree = "<group>";
@@ -2581,13 +2583,6 @@
 				CD13D4271816254F00F63F65 /* AnimatedGif.m */,
 			);
 			path = AnimatedGif;
-			sourceTree = "<group>";
-		};
-		CD13D42B181625D000F63F65 /* Gifs */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Gifs;
 			sourceTree = "<group>";
 		};
 		CD17B23317E1A1D1008F7291 /* SimpleSnapshot */ = {
@@ -2705,7 +2700,7 @@
 			path = Nearnow;
 			sourceTree = "<group>";
 		};
-		CD2DE6901827B2A30043AA91 /* App Icon _iOS7 */ = {
+		CD2DE6901827B2A30043AA91 /* App Icon */ = {
 			isa = PBXGroup;
 			children = (
 				CD2DE6A51827B4580043AA91 /* AppIcon57x57.png */,
@@ -2721,6 +2716,7 @@
 				CD2DE6991827B2A30043AA91 /* iTunesArtwork.png */,
 				CD2DE69A1827B2A30043AA91 /* iTunesArtwork@2x.png */,
 			);
+			name = "App Icon";
 			path = "App Icon _iOS7";
 			sourceTree = "<group>";
 		};
@@ -2754,7 +2750,7 @@
 		CD50E32C181FBF3C0036A23B /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				CD2DE6901827B2A30043AA91 /* App Icon _iOS7 */,
+				CD2DE6901827B2A30043AA91 /* App Icon */,
 				CD877C7F1820B5080067D478 /* plist */,
 				CD50E32D181FBF3C0036A23B /* images */,
 			);
@@ -3215,6 +3211,7 @@
 			children = (
 				CDDF8CF7171C0F8B00B8512D /* VCProfile.h */,
 				CDDF8CF8171C0F8B00B8512D /* VCProfile.m */,
+				CD1D2D6A18351C2F00B42424 /* VCProfile.xib */,
 				CD3E749B1725B3A6002D8207 /* UIPopoverController+iPhone.h */,
 				CD3E749C1725B3A6002D8207 /* UIPopoverController+iPhone.m */,
 				CDFAA78C17549607008D6567 /* ProfileCell.h */,
@@ -3360,7 +3357,6 @@
 			isa = PBXGroup;
 			children = (
 				CDC492D51702CF0C00E83DE3 /* images */,
-				CD13D42B181625D000F63F65 /* Gifs */,
 				CDE9B62F176EEBCE00E7A99A /* Fonts */,
 			);
 			name = Resources_old;
@@ -4557,6 +4553,7 @@
 				CDE5DB441807E8AD00A96D78 /* btn-send-ms.png in Resources */,
 				CD50E3BD181FE62C0036A23B /* Navbar_btn_menu.png in Resources */,
 				CD02C67F1755F98D00B1ED6A /* AddMeHere_More.png in Resources */,
+				CD1D2D6B18351C2F00B42424 /* VCProfile.xib in Resources */,
 				CD02C6801755F98D00B1ED6A /* AddMeHere_Default.png in Resources */,
 				CD877CFE18212BAE0067D478 /* intropage_chat.png in Resources */,
 				CD02C6811755F98D00B1ED6A /* AddMeHere_Close_Press.png in Resources */,
@@ -5306,8 +5303,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_WARN__ARC_BRIDGE_CAST_NONARC = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: STEVE REID (Y8V6LRC76N)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: STEVE REID (Y8V6LRC76N)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -5340,8 +5337,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_WARN__ARC_BRIDGE_CAST_NONARC = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: STEVE REID (Y8V6LRC76N)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: STEVE REID (Y8V6LRC76N)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/oakclubbuild\"",

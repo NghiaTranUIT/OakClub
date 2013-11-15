@@ -816,7 +816,8 @@
     for(Language* langItem in self.a_language){
         lang = [lang stringByAppendingString:[NSString stringWithFormat:@"%i,",langItem.ID]];
     }
-    lang = [lang substringToIndex:[lang length]-1];
+    if([lang length] >0)
+        lang = [lang substringToIndex:[lang length]-1];
 //    NSString *lang = [self.a_language componentsJoinedByString:@","];
     NSString *loc = [NSString stringWithFormat:@"%@",self.s_location.ID];
     NSString *work = [NSString stringWithFormat:@"%i",self.i_work.cate_id];
