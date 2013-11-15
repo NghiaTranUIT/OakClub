@@ -21,6 +21,8 @@
 #import "Profile.h"
 
 #import "NSString+Utils.h"
+#import "UIView+Localize.h"
+
 // Log levels: off, error, warn, info, verbose
 #if DEBUG
 static const int ddLogLevel = LOG_LEVEL_VERBOSE;
@@ -571,6 +573,7 @@ int cellCountinSection=0;
                               delegate: self
                               cancelButtonTitle:@"NO"
                               otherButtonTitles:@"YES", nil];
+        [alert localizeAllViews];
         [alert show];
         
         //[self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];

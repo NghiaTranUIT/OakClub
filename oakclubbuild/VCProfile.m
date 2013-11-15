@@ -18,6 +18,7 @@
 #import "UIView+Localize.h"
 #import <math.h>
 #import "ImageInfo.h"
+#import <MediaPlayer/MediaPlayer.h>
 
 @interface VCProfile (){
 //    BOOL popoverShowing;
@@ -289,13 +290,6 @@ static CGFloat padding_left = 5.0;
 }
 - (void)viewDidLoad
 {
-    //show navigation bar
-//    [UIView beginAnimations:nil context:NULL];
-//    [UIView setAnimationDuration:1.0f]; //Animation duration in seconds
-//    
-//    self.navigationController.navigationBar.alpha = 1.0f;
-//    
-//    [UIView commitAnimations];
     UIImageView *imageView = [[UIImageView alloc]initWithImage:img_avatar];
     CGRect frame = self.svPhotos.frame;
     frame.origin.x = 0;
@@ -477,6 +471,24 @@ static CGFloat padding_left = 5.0;
     
     contentScroll.frame = [self addRelative:contentScroll.frame addPoint:CGPointMake(self.infoView.frame.origin.x, self.infoView.frame.origin.y + contentView.frame.origin.y) ];
     [scrollview addSubview:contentScroll];
+    if (currentProfile.s_video != nil && ![@"" isEqualToString:currentProfile.s_video])
+    {
+        CGRect rect;;
+        rect.size.height = 58;
+        rect.size.width = 58;
+        
+        rect.origin.y = (scrollViewInterest.frame.size.height - rect.size.height - 15) / 2;
+        rect.origin.x = scrollViewInterest.contentSize.width;
+        
+        UIButton *viewVideo = [[UIButton alloc] initWithFrame:rect];
+        [viewVideo setBackgroundImage:[UIImage imageNamed:@"viewprofile_videoicon"] forState:UIControlStateNormal];
+        [viewVideo addTarget:self action:@selector(ontouchViewVideo:) forControlEvents:UIControlEventTouchUpInside];
+        
+        [scrollViewInterest addSubview:viewVideo];
+    }
+    
+    scrollViewInterest.frame = [self addRelative:scrollViewInterest.frame addPoint:CGPointMake(self.infoView.frame.origin.x, self.infoView.frame.origin.y + self.interestsView.frame.origin.y) ];
+    [scrollview addSubview:scrollViewInterest];
 }
     
     
@@ -778,33 +790,10 @@ static CGFloat padding_left = 5.0;
     self.svPhotos.frame = CGRectMake(0, 0, 320, 320);
 }
 -(void)loadPhotoForScrollview{
-//    for (UIImageView * view in self.svPhotos.subviews) {
-//        [view removeFromSuperview];
-//    }
-//    self.svPhotos.frame = CGRectMake(0, 0, 320, 275);
-    
-//    AFHTTPClient *request = [[AFHTTPClient alloc] initWithOakClubAPI:DOMAIN];
-//    NSDictionary *params  = [[NSDictionary alloc]initWithObjectsAndKeys:currentProfile.s_ID, key_profileID, nil];
-    
-    [loadingAvatar startAnimating];
-    
-//    [request getPath:URL_getListPhotos parameters:params
-//             success:^(__unused AFHTTPRequestOperation *operation, id JSON)
-//     {
-//         NSMutableArray* listPhotos = [Profile parseListPhotos:JSON];
-//         currentProfile.arr_photos = [[NSMutableArray alloc] init];
-         
-//         [photoCount setText:[NSString stringWithFormat:@"%i/%i",1,[currentProfile.arr_photos count]]];
-         
          NSArray* _imagesData;
-//         NSMutableDictionary* photos;
          if(currentProfile.arr_photos != nil && [currentProfile.arr_photos count]>0)
          {
              _imagesData = [[NSArray alloc]initWithArray: currentProfile.arr_photos];
-//             photos = [[NSMutableDictionary alloc] init];
-             
-             
-//             [photoCount setText:[NSString stringWithFormat:@"%i/%i",1,[currentProfile.arr_photos count]]];
              
              if([_imagesData count] == 0)
              {
@@ -856,9 +845,6 @@ static CGFloat padding_left = 5.0;
              }
              
          }
-//     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-//         NSLog(@"Error Code: %i - %@",[error code], [error localizedDescription]);
-//     }];
 }
 
 -(IBAction)onTouchAddToFavorite:(id)sender{
@@ -951,7 +937,9 @@ static CGFloat padding_left = 5.0;
          {
              NSLog(@"URL_unBlockHangoutProfile Error Code: %i - %@",[error code], [error localizedDescription]);
          }];
-    }else{
+    }
+    else
+    {
         [request getPath:URL_blockHangoutProfile parameters:params success:^(__unused AFHTTPRequestOperation *operation, id JSON)
          {
              NSError *e=nil;
@@ -1155,5 +1143,17 @@ BOOL allowFullScreen = FALSE;
     {
         
     }
+}
+
+-(void)ontouchViewVideo:(id)button
+{
+    NSURL *videoURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@", DOMAIN_DATA, currentProfile.s_video]];
+    MPMoviePlayerController *theMoviPlayer = [[MPMoviePlayerController alloc] initWithContentURL:videoURL];
+    theMoviPlayer.controlStyle = MPMovieControlStyleFullscreen;
+    theMoviPlayer.view.transform = CGAffineTransformConcat(theMoviPlayer.view.transform, CGAffineTransformMakeRotation(M_PI_2));
+    UIWindow *backgroundWindow = [[UIApplication sharedApplication] keyWindow];
+    [theMoviPlayer.view setFrame:backgroundWindow.frame];
+    [backgroundWindow addSubview:theMoviPlayer.view];
+    [theMoviPlayer play];
 }
 @end

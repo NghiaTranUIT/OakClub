@@ -35,7 +35,6 @@
 
 -(void)uploadPhotoWithCompletionOldVersion:(void(^)(NSString *, NSString *))completionHandler
 {
-    //NSData *imgData = UIImageJPEGRepresentation([UIImage imageNamed:@"minus_sign"], 0.4);
     NSData *imgData = UIImagePNGRepresentation(photo);
     AFHTTPClient *client= [[AFHTTPClient alloc] initWithOakClubAPI:DOMAIN];
     [client setParameterEncoding:AFFormURLParameterEncoding];
@@ -74,16 +73,15 @@
     [operation start];
 }
 
--(void)uploadPhotoWithCompletion:(void(^)(NSString *, NSString *, bool))completionHandler
+-(void)uploadPhotoWithCompletion:(void(^)(NSString *, NSString *, BOOL))completionHandler
 {
-    //NSData *imgData = UIImageJPEGRepresentation([UIImage imageNamed:@"minus_sign"], 0.4);
     NSData *imgData = UIImagePNGRepresentation(photo);
     AFHTTPClient *client= [[AFHTTPClient alloc] initWithOakClubAPI:DOMAIN];
     
     NSDictionary *params = nil;
     if (isAvatar)
     {
-        params = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithBool:isAvatar], @"is_Avatar", nil];
+        params = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithBool:isAvatar], @"is_avatar", nil];
     }
     NSMutableURLRequest *myRequest = [client multipartFormRequestWithMethod:@"POST" path:URL_uploadPhoto
                                                                  parameters:params constructingBodyWithBlock: ^(id <AFMultipartFormData>formData) {
@@ -102,11 +100,11 @@
         NSDictionary *data = [dict objectForKey:key_data];
         NSString *link = [data objectForKey:@"file"];
         NSString *imgID = [data objectForKey:@"id"];
-        BOOL isAvatar = [[dict objectForKey:@"is_Avatar"] boolValue];
+        BOOL _isAvatar = [[dict objectForKey:@"is_avatar"] boolValue];
         
         if (completionHandler)
         {
-            completionHandler(link, imgID, isAvatar);
+            completionHandler(link, imgID, _isAvatar);
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Upload photo error: %@", error);

@@ -25,7 +25,6 @@
 		970924B6182E5BBF007BD6B1 /* myprofile_editVideo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 970924B4182E5BBF007BD6B1 /* myprofile_editVideo@2x.png */; };
 		970924BC182E5EFE007BD6B1 /* VideoPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 970924BB182E5EFE007BD6B1 /* VideoPicker.m */; };
 		970B7487181533560091471F /* PickPhotoFromGarelly.m in Sources */ = {isa = PBXBuildFile; fileRef = 970B7486181533560091471F /* PickPhotoFromGarelly.m */; };
-		970B748A181534090091471F /* PhotoUpload.m in Sources */ = {isa = PBXBuildFile; fileRef = 970B7489181534090091471F /* PhotoUpload.m */; };
 		972B27D9182CEC7C00D0ABC5 /* PrivacyView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 972B27D8182CEC7C00D0ABC5 /* PrivacyView.xib */; };
 		9775A75D1813CF2D00BCF28D /* SCLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9775A75B1813CF2C00BCF28D /* SCLoginViewController.m */; };
 		9775A7651813D11200BCF28D /* Location.m in Sources */ = {isa = PBXBuildFile; fileRef = 9775A7641813D11200BCF28D /* Location.m */; };
@@ -72,6 +71,11 @@
 		97A55D721824DFAB00675025 /* viewprofile_heart@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 97A55D6C1824DFAB00675025 /* viewprofile_heart@2x.png */; };
 		97A55D731824DFAB00675025 /* viewprofile_x.png in Resources */ = {isa = PBXBuildFile; fileRef = 97A55D6D1824DFAB00675025 /* viewprofile_x.png */; };
 		97A55D741824DFAB00675025 /* viewprofile_x@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 97A55D6E1824DFAB00675025 /* viewprofile_x@2x.png */; };
+		97A8FCB918361C3700B9ACEC /* viewprofile_videoicon.png in Resources */ = {isa = PBXBuildFile; fileRef = 97A8FCB718361C3700B9ACEC /* viewprofile_videoicon.png */; };
+		97A8FCBA18361C3700B9ACEC /* viewprofile_videoicon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 97A8FCB818361C3700B9ACEC /* viewprofile_videoicon@2x.png */; };
+		97A8FCBC18361E6D00B9ACEC /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97A8FCBB18361E6D00B9ACEC /* MediaPlayer.framework */; };
+		97AC53051835D31400A7B96D /* VideoUploader.m in Sources */ = {isa = PBXBuildFile; fileRef = 97AC53041835D31400A7B96D /* VideoUploader.m */; };
+		97AC53081835D3B700A7B96D /* PhotoUpload.m in Sources */ = {isa = PBXBuildFile; fileRef = 97AC53071835D3B700A7B96D /* PhotoUpload.m */; };
 		97C5767B181FB5AA00D8510D /* FlashIntro.m in Sources */ = {isa = PBXBuildFile; fileRef = 97C5767A181FB5AA00D8510D /* FlashIntro.m */; };
 		97C57683181FCA1C00D8510D /* icon_info.png in Resources */ = {isa = PBXBuildFile; fileRef = 97C57682181FCA1C00D8510D /* icon_info.png */; };
 		97C57685181FCA4900D8510D /* btn-fb-inactive_intro.png in Resources */ = {isa = PBXBuildFile; fileRef = 97C57684181FCA4900D8510D /* btn-fb-inactive_intro.png */; };
@@ -294,7 +298,6 @@
 		CD25624F176718FC001B702D /* ProfileSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = CD25624E176718FC001B702D /* ProfileSettings.m */; };
 		CD286262176B0F7100E81E73 /* HangoutSetting.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CD286261176B0F7100E81E73 /* HangoutSetting.storyboard */; };
 		CD286265176B0FAF00E81E73 /* HangoutSetting.m in Sources */ = {isa = PBXBuildFile; fileRef = CD286264176B0FAF00E81E73 /* HangoutSetting.m */; };
-		CD2C2E231830C05D00AC8582 /* VideoUpload.m in Sources */ = {isa = PBXBuildFile; fileRef = CD2C2E221830C05D00AC8582 /* VideoUpload.m */; };
 		CD2DE687182758610043AA91 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD2DE686182758610043AA91 /* MessageUI.framework */; };
 		CD2DE68C18279A9D0043AA91 /* SnapshotSetting_btn_save_active.png in Resources */ = {isa = PBXBuildFile; fileRef = CD2DE68818279A9D0043AA91 /* SnapshotSetting_btn_save_active.png */; };
 		CD2DE68D18279A9D0043AA91 /* SnapshotSetting_btn_save_active@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CD2DE68918279A9D0043AA91 /* SnapshotSetting_btn_save_active@2x.png */; };
@@ -921,6 +924,13 @@
 		97A55D6C1824DFAB00675025 /* viewprofile_heart@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "viewprofile_heart@2x.png"; sourceTree = "<group>"; };
 		97A55D6D1824DFAB00675025 /* viewprofile_x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = viewprofile_x.png; sourceTree = "<group>"; };
 		97A55D6E1824DFAB00675025 /* viewprofile_x@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "viewprofile_x@2x.png"; sourceTree = "<group>"; };
+		97A8FCB718361C3700B9ACEC /* viewprofile_videoicon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = viewprofile_videoicon.png; sourceTree = "<group>"; };
+		97A8FCB818361C3700B9ACEC /* viewprofile_videoicon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "viewprofile_videoicon@2x.png"; sourceTree = "<group>"; };
+		97A8FCBB18361E6D00B9ACEC /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
+		97AC53031835D31400A7B96D /* VideoUploader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoUploader.h; sourceTree = "<group>"; };
+		97AC53041835D31400A7B96D /* VideoUploader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoUploader.m; sourceTree = "<group>"; };
+		97AC53061835D3B700A7B96D /* PhotoUpload.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotoUpload.h; sourceTree = "<group>"; };
+		97AC53071835D3B700A7B96D /* PhotoUpload.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotoUpload.m; sourceTree = "<group>"; };
 		97C57679181FB5A900D8510D /* FlashIntro.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlashIntro.h; sourceTree = "<group>"; };
 		97C5767A181FB5AA00D8510D /* FlashIntro.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlashIntro.m; sourceTree = "<group>"; };
 		97C57682181FCA1C00D8510D /* icon_info.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_info.png; sourceTree = "<group>"; };
@@ -1182,8 +1192,6 @@
 		CD286261176B0F7100E81E73 /* HangoutSetting.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = HangoutSetting.storyboard; sourceTree = "<group>"; };
 		CD286263176B0FAF00E81E73 /* HangoutSetting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HangoutSetting.h; sourceTree = "<group>"; };
 		CD286264176B0FAF00E81E73 /* HangoutSetting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = HangoutSetting.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		CD2C2E211830C05D00AC8582 /* VideoUpload.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoUpload.h; sourceTree = "<group>"; };
-		CD2C2E221830C05D00AC8582 /* VideoUpload.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoUpload.m; sourceTree = "<group>"; };
 		CD2DE686182758610043AA91 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		CD2DE68818279A9D0043AA91 /* SnapshotSetting_btn_save_active.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SnapshotSetting_btn_save_active.png; sourceTree = "<group>"; };
 		CD2DE68918279A9D0043AA91 /* SnapshotSetting_btn_save_active@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SnapshotSetting_btn_save_active@2x.png"; sourceTree = "<group>"; };
@@ -1916,6 +1924,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				97A8FCBC18361E6D00B9ACEC /* MediaPlayer.framework in Frameworks */,
 				CDF4D496170404F7005E7B71 /* MobileCoreServices.framework in Frameworks */,
 				CD2DE687182758610043AA91 /* MessageUI.framework in Frameworks */,
 				977853E418221BBF00CBB5DB /* AssetsLibrary.framework in Frameworks */,
@@ -2081,6 +2090,8 @@
 				97A55D581823C3E700675025 /* viewprofile_avatarBorder@2x.png */,
 				97A55D591823C3E700675025 /* viewprofile_viewicon.png */,
 				97A55D5A1823C3E700675025 /* viewprofile_viewicon@2x.png */,
+				97A8FCB718361C3700B9ACEC /* viewprofile_videoicon.png */,
+				97A8FCB818361C3700B9ACEC /* viewprofile_videoicon@2x.png */,
 			);
 			path = ViewProfile;
 			sourceTree = "<group>";
@@ -3063,6 +3074,7 @@
 		CDC4929B1702CEAB00E83DE3 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				97A8FCBB18361E6D00B9ACEC /* MediaPlayer.framework */,
 				CD2DE686182758610043AA91 /* MessageUI.framework */,
 				977853E318221BBF00CBB5DB /* AssetsLibrary.framework */,
 				CD02C6891756132600B1ED6A /* AudioToolbox.framework */,
@@ -4180,8 +4192,10 @@
 				97FB5E861828CFE800228140 /* LocationUpdate.m */,
 				970924BA182E5EFE007BD6B1 /* VideoPicker.h */,
 				970924BB182E5EFE007BD6B1 /* VideoPicker.m */,
-				CD2C2E211830C05D00AC8582 /* VideoUpload.h */,
-				CD2C2E221830C05D00AC8582 /* VideoUpload.m */,
+				97AC53061835D3B700A7B96D /* PhotoUpload.h */,
+				97AC53071835D3B700A7B96D /* PhotoUpload.m */,
+				97AC53031835D31400A7B96D /* VideoUploader.h */,
+				97AC53041835D31400A7B96D /* VideoUploader.m */,
 			);
 			name = MyProfile;
 			sourceTree = "<group>";
@@ -4460,6 +4474,7 @@
 				CD005D51181267F000238920 /* karate.png in Resources */,
 				CDECD30117337A8600A6B17F /* SettingSnapShot_button_Highlight.png in Resources */,
 				CDECD30217337A8600A6B17F /* SettingSnapShot_buttonBig_BG.png in Resources */,
+				97A8FCBA18361C3700B9ACEC /* viewprofile_videoicon@2x.png in Resources */,
 				CDECD30317337A8600A6B17F /* SettingSnapShot_ButtonBG.png in Resources */,
 				CDECD30417337A8600A6B17F /* SettingSnapShot_ButtonBig_Highlight.png in Resources */,
 				CDECD30517337A8600A6B17F /* SettingSnapShot_TextEditBG.png in Resources */,
@@ -4703,6 +4718,7 @@
 				CDE5DB401807E8AD00A96D78 /* bg-black.png in Resources */,
 				CD252DD6177C4B6B004145A4 /* nearnow_popup_btn_close.png in Resources */,
 				CD1AB0791821804200B0FA10 /* Report_midleItem_inactive.png in Resources */,
+				97A8FCB918361C3700B9ACEC /* viewprofile_videoicon.png in Resources */,
 				CD252DD7177C4B6B004145A4 /* nearnow_popup_btn_close_pressed.png in Resources */,
 				CD252DD8177C4B6B004145A4 /* nearnow_popup_btn_pressed.png in Resources */,
 				CD877CC618210B9D0067D478 /* tutorial_btn_cancel.png in Resources */,
@@ -4931,7 +4947,6 @@
 				CD8AA1E9170C109700A97C47 /* UIGridView.m in Sources */,
 				CD8AA1EA170C109700A97C47 /* UIGridViewCell.m in Sources */,
 				CD8AA1EB170C109700A97C47 /* UIGridViewRow.m in Sources */,
-				CD2C2E231830C05D00AC8582 /* VideoUpload.m in Sources */,
 				CD8AA1F4170C1B2800A97C47 /* NavBarOakClub.m in Sources */,
 				CD8AA1F6170C1B2800A97C47 /* NavConOakClub.m in Sources */,
 				CD8AA1FB170C1B3F00A97C47 /* VCHangOut.m in Sources */,
@@ -4962,8 +4977,10 @@
 				CDF99BA11713D629008D8BAC /* XMPPStream.m in Sources */,
 				CDF99BA31713D629008D8BAC /* XMPPBandwidthMonitor.m in Sources */,
 				CDF99BA41713D629008D8BAC /* XMPPCoreDataStorage.m in Sources */,
+				97AC53081835D3B700A7B96D /* PhotoUpload.m in Sources */,
 				CDF99BA51713D629008D8BAC /* XMPPProcessOne.m in Sources */,
 				CDF99BA61713D629008D8BAC /* XMPPReconnect.m in Sources */,
+				97AC53051835D31400A7B96D /* VideoUploader.m in Sources */,
 				CDF99BA71713D629008D8BAC /* XMPPGroupCoreDataStorageObject.m in Sources */,
 				9775A75D1813CF2D00BCF28D /* SCLoginViewController.m in Sources */,
 				CDF99BA81713D629008D8BAC /* XMPPResourceCoreDataStorageObject.m in Sources */,
@@ -5010,7 +5027,6 @@
 				CDF99BCA1713D629008D8BAC /* XMPPvCardTempBase.m in Sources */,
 				CDF99BCB1713D629008D8BAC /* XMPPvCardTempEmail.m in Sources */,
 				CDF99BCC1713D629008D8BAC /* XMPPvCardTempLabel.m in Sources */,
-				970B748A181534090091471F /* PhotoUpload.m in Sources */,
 				CDF99BCD1713D629008D8BAC /* XMPPvCardTempModule.m in Sources */,
 				CDF99BCE1713D629008D8BAC /* XMPPvCardTempTel.m in Sources */,
 				CDF99BCF1713D629008D8BAC /* XMPPPubSub.m in Sources */,

@@ -99,6 +99,7 @@
 #define URL_setReadMessages @"service/setReadMessages"
 #define URL_setViewedMutualMatch @"service/setViewedMutualMatch"
 #define URL_reportInvalid @"service/reportUser"
+#define URL_uploadVideo @"service/uploadVideo"
 //================ service API keys ================
 //root
 #define key_status @"status"
@@ -108,6 +109,7 @@
 #define key_aboutMe @"about_me"
 #define key_birthday @"birthday_date"
 #define key_avatar @"avatar"
+#define key_video @"video_link"
 #define key_name @"name"
 #define key_profileID @"profile_id"
 #define key_profileStatus @"profile_status"

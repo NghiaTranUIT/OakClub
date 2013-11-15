@@ -113,6 +113,7 @@
 @property (strong, nonatomic) NSMutableArray *arr_photos;
 @property (strong, nonatomic) NSNumber *num_points;
 @property (strong, nonatomic) Gender *s_gender;
+@property (strong, nonatomic) NSString *s_video;
 //@property (strong, nonatomic) NSNumber *num_unreadMessage;
 
 @property (strong, nonatomic) NSDictionary *dic_Roster;

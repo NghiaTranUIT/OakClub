@@ -723,6 +723,7 @@ UITapGestureRecognizer *tap;
                               delegate:self
                               cancelButtonTitle:@"OK"
                               otherButtonTitles:nil];
+        [alert localizeAllViews];
         [alert show];
         return;
     }
@@ -786,6 +787,7 @@ UITapGestureRecognizer *tap;
                                   delegate:self
                                   cancelButtonTitle:@"OK"
                                   otherButtonTitles:nil];
+            [alert localizeAllViews];
             [alert show];
 
             appDel.reloadSnapshot = TRUE;
