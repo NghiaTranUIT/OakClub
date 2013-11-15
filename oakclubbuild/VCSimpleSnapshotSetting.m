@@ -962,7 +962,7 @@ UITapGestureRecognizer *tap;
     else{
         UIAlertView *alert = [[UIAlertView alloc]
                               initWithTitle:@"Warning"
-                              message:@"Can not access to email account on your device."
+                              message:@"Can not access to email."
                               delegate:self
                               cancelButtonTitle:@"OK"
                               otherButtonTitles:nil];
