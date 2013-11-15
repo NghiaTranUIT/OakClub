@@ -11,9 +11,9 @@
 @interface menuCell : UITableViewCell{
     IBOutlet UIImageView *itemMenu;
     IBOutlet UIImageView *iconMenu;
-    IBOutlet UILabel *labelMenu;
     UIView *view;
 }
+@property (weak, nonatomic) IBOutlet UILabel *labelMenu;
 - (void) setItemMenu:(NSString *)imageName AndlabelName:(NSString*)label;
 - (void) setNotification:(int)nNotifications;
 - (void) setItemBackground:(UIImage*)image andHighlight:(UIImage*)highlightImage;

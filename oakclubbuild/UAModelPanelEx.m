@@ -30,14 +30,14 @@
         UIButton *signInButton = [[UIButton alloc] init];
         [signInButton setBackgroundImage:[UIImage imageNamed:@"btn-fb-inactive_intro.png"] forState:UIControlStateNormal];
         [signInButton sizeToFit];
-        signInButton.frame = CGRectMake((self.frame.size.width - 305)/2, 100, 305, signInButton.frame.size.height);
+        signInButton.frame = CGRectMake((self.frame.size.width - 254)/2, 20, 254, 41);
         [signInButton addTarget:self action:@selector(loginTouched:) forControlEvents:UIControlEventTouchUpInside];
-        [signInButton setTitle:@"SIGN IN WITH FACEBOOK" forState:UIControlStateNormal];
+        [signInButton setTitle:@"Connect Privately" forState:UIControlStateNormal];
         [signInButton.titleLabel setFont:[UIFont systemFontOfSize:15]];
         
         [self addSubview:signInButton];
         
-        [self setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"Info_background"]]];
+        [self setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:[@"Info_background" localize]]]];
         
         [self localizeAllViews];
         

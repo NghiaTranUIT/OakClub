@@ -307,7 +307,7 @@
                               message:@""
                               delegate:self
                               cancelButtonTitle:nil
-                              otherButtonTitles:@"Vietnamese",@"English",nil];
+                              otherButtonTitles:[@"Vietnamese" localize],[@"English" localize],nil];
         [alert show];
     }
     else

@@ -463,19 +463,35 @@ UITapGestureRecognizer *tap;
         if (buttonIndex == 0 && selectedPhoto >= 0)
         {
             AFHTTPClient *client = [[AFHTTPClient alloc] initWithOakClubAPI:DOMAIN];
+            [client registerHTTPOperationClass:[AFHTTPRequestOperation class]];
+            [client setParameterEncoding:AFFormURLParameterEncoding];
             NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:[photosID objectAtIndex:selectedPhoto], @"photo_id", nil];
-            [client getPath:URL_deletePhoto parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject)
+            //NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:@"52860df26dc04a7d7404c702", @"photo_id", nil];
+            NSMutableURLRequest *myRequest = [client requestWithMethod:@"POST" path:URL_deletePhoto parameters:params];
+            
+            AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:myRequest];
+            [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject)
             {
                 NSDictionary *result = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
                 NSLog(@"Delete photo result %@", result);
-                [photos removeObjectAtIndex:selectedPhoto];
-                [photosID removeObjectAtIndex:selectedPhoto];
-                [self reloadPhotos];
+                bool status = [[result valueForKey:key_status] boolValue];
+                if (status)
+                {
+                    [photos removeObjectAtIndex:selectedPhoto];
+                    [photosID removeObjectAtIndex:selectedPhoto];
+                    [self reloadPhotos];
+                }
+                else
+                {
+                    [self showWarning:@"Cannnot delete this photo." withTag:5];
+                }
                 selectedPhoto = -1;
             } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                 NSLog(@"Delete photo error %@", error);
                 selectedPhoto = -1;
             }];
+            
+            [operation start];
         }
         else
         {
@@ -838,7 +854,7 @@ UITapGestureRecognizer *tap;
             }
             else
             {
-                [self showWarning:@"Name can not empty" withTag:3];
+                [self showWarning:@"Name cannot be empty" withTag:3];
             }
         }
             break;
@@ -958,11 +974,7 @@ UITapGestureRecognizer *tap;
                       {
                           [photos addObject:image];
                           [photosID addObject:key];
-                          --i;
-                          if (i == 0)
-                          {
-                              [self reloadPhotos];
-                          }
+                          [self reloadPhotos];
                       }];
                      [operation start];
                      

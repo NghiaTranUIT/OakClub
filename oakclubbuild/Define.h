@@ -30,15 +30,15 @@
 #if USE_STAGING
 #define HOSTNAME @"staging.oakclub.com"
 #define DOMAIN @"http://staging.oakclub.com"
-#define DOMAIN_DATA @"http://data1.oakclub.com/" //data2
+#define DOMAIN_DATA @"http://data1.oakclub.com/"
 #endif
 #if USE_MAINHOST
 #define HOSTNAME @"oakclub.com"
 #define DOMAIN @"http://oakclub.com"
-#define DOMAIN_DATA @"http://data1.oakclub.com/" //data2
+#define DOMAIN_DATA @"http://data2.oakclub.com/" //data2
 #endif
 #if USE_STAGING_MB
-#define HOSTNAME @"staging.oakclub.com"
+#define HOSTNAME @"staging-mb.oakclub.com"
 #define DOMAIN @"http://staging-mb.oakclub.com"
 #define DOMAIN_DATA @"http://data1.oakclub.com/"
 #endif

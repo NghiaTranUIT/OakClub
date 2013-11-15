@@ -11,6 +11,8 @@
 #import "AppDelegate.h"
 #import "UITableView+Custom.h"
 #import "UIViewController+Custom.h"
+#import "UIView+Localize.h"
+
 @interface HangoutSetting (){
 //    SettingObject* accountSetting;
     NSArray *optionList;
@@ -147,10 +149,11 @@ ProfileSetting* hangoutSetting;
     if(fromAge > toAge){
         UIAlertView *alert = [[UIAlertView alloc]
                               initWithTitle:@"Warning"
-                              message:@"FromAge Must Be Smaller Than ToAge"
+                              message:@"From age must be smaller than to age"
                               delegate:self
                               cancelButtonTitle:@"OK"
                               otherButtonTitles:nil];
+        [alert localizeAllViews];
         [alert show];
         return;
     }

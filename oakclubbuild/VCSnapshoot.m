@@ -11,6 +11,8 @@
 #import "NavConOakClub.h"
 #import "NavBarOakClub.h"
 #import "AppDelegate.h"
+#import "UIView+Localize.h"
+
 @interface VCSnapshoot (){
     UIView *headerView;
     UILabel *lblHeaderName;
@@ -76,6 +78,7 @@
                               delegate:self
                               cancelButtonTitle:@"OK"
                               otherButtonTitles:nil];
+        [alert localizeAllViews];
         [alert show];
     }
 }

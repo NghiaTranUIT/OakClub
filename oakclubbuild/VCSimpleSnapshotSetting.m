@@ -719,7 +719,7 @@ UITapGestureRecognizer *tap;
     if(fromAge > toAge){
         UIAlertView *alert = [[UIAlertView alloc]
                               initWithTitle:@"Warning"
-                              message:@"FromAge Must Be Smaller Than ToAge"
+                              message:@"From age must be smaller than to age"
                               delegate:self
                               cancelButtonTitle:@"OK"
                               otherButtonTitles:nil];
@@ -782,8 +782,8 @@ UITapGestureRecognizer *tap;
         if(status){
             NSLog(@"POST SUCCESS!!!");
             UIAlertView *alert = [[UIAlertView alloc]
-                                  initWithTitle:@"NOTE"
-                                  message:@"Settings is saved."
+                                  initWithTitle:@"Completed"
+                                  message:@"Settings saved"
                                   delegate:self
                                   cancelButtonTitle:@"OK"
                                   otherButtonTitles:nil];
@@ -795,11 +795,12 @@ UITapGestureRecognizer *tap;
         else{
             NSLog(@"POST FAIL...");
             UIAlertView *alert = [[UIAlertView alloc]
-                                  initWithTitle:@"NOTE"
-                                  message:@"Settings can not saved now."
+                                  initWithTitle:@"Warning"
+                                  message:@"Settings cannot be saved now."
                                   delegate:self
                                   cancelButtonTitle:@"OK"
                                   otherButtonTitles:nil];
+            [alert localizeAllViews];
             [alert show];
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -955,10 +956,11 @@ UITapGestureRecognizer *tap;
     else{
         UIAlertView *alert = [[UIAlertView alloc]
                               initWithTitle:@"Warning"
-                              message:@"Can not access to email account on your device."
+                              message:@"Cannot access to the email account on your device."
                               delegate:self
                               cancelButtonTitle:@"OK"
                               otherButtonTitles:nil];
+        [alert localizeAllViews];
         [alert show];
     }
 }

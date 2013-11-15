@@ -110,7 +110,10 @@
 {
     NSDictionary *params = [[NSDictionary alloc]initWithObjectsAndKeys:profileID,key_profileID, nil];
     AFHTTPClient *client= [[AFHTTPClient alloc] initWithOakClubAPI:DOMAIN];
-    [client getPath:URL_blockHangoutProfile parameters:params success:^(__unused AFHTTPRequestOperation *operation, id JSON)
+    NSMutableURLRequest *myRequest = [client requestWithMethod:@"POST" path:URL_blockHangoutProfile parameters:params];
+    
+    AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:myRequest];
+    [operation setCompletionBlockWithSuccess:^(__unused AFHTTPRequestOperation *operation, id JSON)
      {
          NSError *e=nil;
          NSMutableDictionary *dict = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONReadingMutableContainers error:&e];
@@ -123,5 +126,7 @@
      {
          NSLog(@"URL_blockHangoutProfile Error Code: %i - %@",[error code], [error localizedDescription]);
      }];
+    
+    [operation start];
 }
 @end

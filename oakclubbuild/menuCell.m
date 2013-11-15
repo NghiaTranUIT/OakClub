@@ -44,7 +44,7 @@ static CGFloat padding_left = 4.0;
     NSString* formatImageName=[[imageName stringByReplacingOccurrencesOfString:@" " withString:@""] lowercaseString];
     formatImageName=[formatImageName stringByReplacingOccurrencesOfString:@"!" withString:@""];
     iconMenu.image = [UIImage imageNamed:[NSString stringWithFormat:@"Menu_icon_%@.png",formatImageName]];
-    labelMenu.text = label;
+    _labelMenu.text = label;
 }
 
 -(void) setItemBackground:(UIImage*)image andHighlight:(UIImage*)highlightImage{

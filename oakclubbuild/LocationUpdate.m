@@ -72,8 +72,12 @@
     NSMutableDictionary *params = [[NSMutableDictionary alloc] initWithObjects:[NSArray arrayWithObjects:[NSNumber numberWithDouble:currentLocation.coordinate.latitude], [NSNumber numberWithDouble:currentLocation.coordinate.longitude], nil] forKeys:[NSArray arrayWithObjects:@"latitude", @"longitude", nil]];
     NSLog(@"Coord: %@", params);
     [request setParameterEncoding:AFFormURLParameterEncoding];
+    
+    NSMutableURLRequest *urlReq = [request requestWithMethod:@"POST" path:URL_setLocationUser parameters:params];
+    AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:urlReq];
+    
     //[delegate location:self updateSuccessWithID:nil andName:nil];
-    [request postPath:URL_setLocationUser parameters:params success:^(__unused AFHTTPRequestOperation *operation, id JSON)
+    [operation setCompletionBlockWithSuccess:^(__unused AFHTTPRequestOperation *operation, id JSON)
      {
          NSError *e=nil;
          NSMutableDictionary *dict = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONReadingMutableContainers error:&e];
@@ -95,5 +99,7 @@
              [delegate location:self updateFailWithError:error];
          }
      }];
+    
+    [operation start];
 }
 @end
