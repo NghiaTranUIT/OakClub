@@ -66,6 +66,7 @@
     
     int num_MutualFriends;
     NSMutableArray * arr_MutualFriends;
+    NSMutableArray * arr_MutualInterests;
     bool is_deleted;
     bool is_blocked;
     bool is_available;
@@ -77,8 +78,8 @@
     
     int num_Liked;
     int num_Viewed;
-    CGFloat distance;
-    NSString *active;
+    int distance;
+    int active;
     int new_mutual_attractions;
 }
 
@@ -118,6 +119,7 @@
 @property (strong, nonatomic) NSDictionary *dic_Roster;
 @property NSArray* a_favorites;
 @property NSString* s_user_id;
+@property (strong, nonatomic) NSMutableArray *arr_MutualInterests;
 @property (strong, nonatomic) NSMutableArray *arr_MutualFriends;
 @property (assign, nonatomic) int num_MutualFriends;
 @property (assign, nonatomic) bool is_deleted;
@@ -128,8 +130,8 @@
 @property int unread_message;
 @property int num_Liked;
 @property int num_Viewed;
-@property CGFloat distance;
-@property (strong, nonatomic) NSString* active;
+@property int distance;
+@property int active;
 @property int new_mutual_attractions;
 
 -(NSMutableArray*) parseMutualFriends:(NSMutableArray *)jsonData;

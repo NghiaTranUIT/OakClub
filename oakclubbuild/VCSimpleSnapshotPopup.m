@@ -17,8 +17,8 @@
 @property (weak, nonatomic) IBOutlet UIView *notInterestedPopupView;
 @property (weak, nonatomic) IBOutlet APLMoveMeView *moveMeView;
 @property (weak, nonatomic) IBOutlet VCSimpleSnapshot *snapshotView;
-@property (weak, nonatomic) IBOutlet UILabel *lblNopeTurotial;
-@property (weak, nonatomic) IBOutlet UILabel *lblLikeTurotial;
+@property (strong, nonatomic) IBOutlet UILabel *lblNopeTurotial;
+@property (strong, nonatomic) IBOutlet UILabel *lblLikeTurotial;
 
 
 @end
@@ -76,8 +76,8 @@
     NSString *pref;
     switch (type) {
         case interestedStatusNO:
-            pref = [@"Dragging a picture to the left indicates you are not interested in " localize];
-            [lblNopeTurotial setText:[NSString stringWithFormat:[pref stringByAppendingString:@"%@."],name]];
+            pref = [@"Dragging a picture to the left indicates you are not interested in" localize];
+            [lblNopeTurotial setText:[NSString stringWithFormat:[pref stringByAppendingString:@" %@."],name]];
             [likePopupView setHidden:YES];
             [notInterestedPopupView setHidden:NO];
             break;

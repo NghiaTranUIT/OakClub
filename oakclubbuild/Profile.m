@@ -281,7 +281,7 @@
 }
  */
 
--(NSMutableArray*) parseMutualFriends:(NSMutableArray *)jsonData
+-(NSMutableArray*) parseMutualList:(NSMutableArray *)jsonData
 {
     NSMutableArray* friends = [[NSMutableArray alloc] init];
     
@@ -300,7 +300,6 @@
         
         [friends addObject:p];
     }
-    self.num_MutualFriends = [friends count];
     return friends;
 }
 
@@ -583,12 +582,16 @@
     }
     //load mutual friends list
     self.arr_MutualFriends = [[NSMutableArray alloc]init];
-    self.arr_MutualFriends = [self parseMutualFriends:[data valueForKey:key_MutualFriends]];
-    
+    self.arr_MutualFriends = [self parseMutualList:[data valueForKey:key_MutualFriends]];
+
+    //load mutual interest list
+    self.arr_MutualInterests = [[NSMutableArray alloc]init];
+    self.arr_MutualInterests = [self parseMutualList:[data valueForKey:key_ShareInterests]];
+
     self.num_Viewed =[[data valueForKey:key_viewed] integerValue];
     self.num_Liked =[[data valueForKey:key_liked] integerValue];
-    self.distance = [[data valueForKey:key_distance] floatValue];
-    self.active = @"Active now";
+    self.distance = [[data valueForKey:key_distance] integerValue];
+    self.active = [[data valueForKey:key_active] integerValue];
 }
 
 -(Gender*) parseGender:(NSNumber *)genderCode{
@@ -812,8 +815,10 @@
     NSString *ethnicity = [NSString stringWithFormat:@"%i",self.c_ethnicity.ID];
     NSString *lang = @"";
     for(Language* langItem in self.a_language){
-            lang = [NSString stringWithFormat:@"%@,%d",lang,langItem.ID ];
+        lang = [lang stringByAppendingString:[NSString stringWithFormat:@"%i,",langItem.ID]];
     }
+    if([lang length] >0)
+        lang = [lang substringToIndex:[lang length]-1];
 //    NSString *lang = [self.a_language componentsJoinedByString:@","];
     NSString *loc = [NSString stringWithFormat:@"%@",self.s_location.ID];
     NSString *work = [NSString stringWithFormat:@"%i",self.i_work.cate_id];
@@ -892,6 +897,7 @@
     accountCopy.s_user_id = [s_user_id copyWithZone:zone];
     accountCopy.num_MutualFriends = num_MutualFriends ;
     accountCopy.arr_MutualFriends = [arr_MutualFriends copyWithZone:zone];
+    accountCopy.arr_MutualInterests = [arr_MutualInterests copyWithZone:zone];
     accountCopy.is_deleted = is_deleted;
     accountCopy.is_blocked = is_blocked ;
     accountCopy.is_available = is_available ;
@@ -899,7 +905,7 @@
     accountCopy.status = status;
     accountCopy.unread_message = unread_message;
     accountCopy.distance = distance;
-    accountCopy.active = [active copyWithZone:zone];
+    accountCopy.active = active;
     
     return accountCopy;
 }

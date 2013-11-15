@@ -36,17 +36,17 @@
 @property (weak, nonatomic) IBOutlet UIView *lblsPhoto;
 @property (strong, nonatomic) IBOutlet UIImageView *oakClubLogo;
 @property (strong, nonatomic) IBOutlet UILabel *lblTabBarName;
-
+@property BOOL showNavigationBar;
 @end
 
 @implementation VCProfile
-@synthesize lbl_name, imgView_avatar, scrollview,lblAboutMe,lblBirthdate,lblGender, lblInterested, lblLocation, lblProfileName, lblRelationShip, likePopoverView, reportPopoverView, lblEthnicity, lblAge, lblPopularity, lblWanttoMake, btnAddToFavorite, btnIwantToMeet, btnBlock, btnChat, tableViewProfile, svPhotos,infoView, photoPageControl, photoCount;
+@synthesize lbl_name, imgView_avatar, scrollview,lblAboutMe,lblBirthdate,lblGender, lblInterested, lblLocation, lblProfileName, lblRelationShip, likePopoverView, reportPopoverView, lblEthnicity, lblAge, lblPopularity, lblWanttoMake, btnAddToFavorite, btnIwantToMeet, btnBlock, btnChat, tableViewProfile, svPhotos,infoView, photoPageControl, photoCount,lblDistance, lblActive;
 
 @synthesize labelInterests;
 @synthesize mutualFriendsImageView;
 //@synthesize buttonAvatar;
 @synthesize scrollViewInterest;
-
+@synthesize showNavigationBar;
 @synthesize loadingAvatar;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -121,6 +121,7 @@ static CGFloat padding_left = 5.0;
     return CGRectMake(coord.x + point.x, coord.y + point.y, size.width, size.height);
     
 }
+/*
 -(void)initMutualFriendsList
 {
     if(currentProfile.num_MutualFriends == 0)
@@ -187,6 +188,74 @@ static CGFloat padding_left = 5.0;
     }
     
 }
+
+-(void)initMutualInterestsList
+{
+    if([currentProfile.arr_MutualInterests count] == 0)
+    {
+        //[labelMutualFriends setHidden:NO];
+        self.interestsView.hidden = YES;
+        
+        self.profileView.frame = [self moveToFrame:self.interestsView.frame from:self.profileView.frame];
+        //update height of scrollview to fit screen.
+        CGFloat offset  = self.profileView.frame.origin.y + ( ([tableSource count]+1) * tableViewProfile.rowHeight) + 22*2;
+        [self.infoView setFrame:CGRectMake(0, 320, 320, offset)];
+    }
+    else
+    {
+        self.interestsView.hidden = NO;
+        for(int i = 0 ; i < [currentProfile.arr_MutualInterests count]; i++)
+        {
+            ImageInfo* p = [currentProfile.arr_MutualInterests objectAtIndex:i];
+            
+            NSString* link = p.avatar;
+            
+            //NSOperationQueue *queue = [[NSOperationQueue alloc] init];
+            
+            if(![link isEqualToString:@""])
+            {
+                AFHTTPRequestOperation *operation =
+                [Profile getAvatarSync:link
+                              callback:^(UIImage *avatar)
+                 {
+                     UIImageView *imageView = [[UIImageView alloc] initWithImage:avatar];
+                     
+                     // setup each frame to a default height and width, it will be properly placed when we call "updateScrollList"
+                     CGRect rect = imageView.frame;
+                     rect.size.height = 58;
+                     rect.size.width = 58;
+                     
+                     imageView.tag = i;	// tag our images for later use when we place them in serial fashion
+                     
+                     rect.origin.y = ( scrollViewInterest.frame.size.height - rect.size.height - 15) / 2;
+                     rect.origin.x = i * (58 + 5);
+                     
+                     imageView.frame = rect;
+                     
+                     UILabel* name = [[UILabel alloc] initWithFrame:CGRectMake(rect.origin.x, rect.origin.y + rect.size.height, 58, 15)];
+                     [name setBackgroundColor:[UIColor clearColor]];
+                     [name setFont:FONT_HELVETICANEUE_LIGHT(10.0)];
+                     name.text = p.name;
+                     [scrollViewInterest addSubview:imageView];
+                     [scrollViewInterest addSubview:name];
+                 }];
+                [operation start];
+                //[queue addOperation:operation];
+                
+            }
+            
+        }
+        scrollViewInterest.contentSize = CGSizeMake( [currentProfile.arr_MutualInterests count] * (58 + 5), 58 + 5);
+        [scrollViewInterest removeFromSuperview];
+        
+        scrollViewInterest.frame = [self addRelative:scrollViewInterest.frame addPoint:self.interestsView.frame.origin];
+        [scrollview addSubview:scrollViewInterest];
+        [scrollview setContentSize:CGSizeMake(scrollview.frame.size.width, scrollview.contentSize.height + self.interestsView.frame.size.height)];
+        NSLog(@"Mutual Content size: %f - %f", scrollview.contentSize.width, scrollview.contentSize.height);
+    }
+    
+}
+*/
 -(void)disableControllerButtons:(BOOL)value{
     [self.btnLike setEnabled:!value];
     [self.btnReport setEnabled:!value];
@@ -249,6 +318,45 @@ static CGFloat padding_left = 5.0;
     [super viewDidAppear:animated];
     
     [self.view localizeAllViews];
+    [self.infoView localizeAllViews];
+    [self.interestsView localizeAllViews];
+    [self.mutualFriendsView localizeAllViews];
+    [self.profileView localizeAllViews];
+    [self.view localizeAllViews];
+    
+    [self customNavHeader];
+    
+    //
+    [self refreshScrollView];
+    [self loadPhotoForScrollview];
+}
+
+-(void)LoadDistanceText{
+    if(currentProfile.distance < 1){
+        [lblDistance setText:[@"Less than a km away" localize]];
+        return;
+    }
+    if(currentProfile.distance < 40){
+        [lblDistance setText:[NSString stringWithFormat:@"%i km away", currentProfile.distance]];
+        return;
+    }
+    [lblDistance setText:[@"more than 40 km away" localize]];
+}
+
+-(void)LoadActiveText{
+    if(currentProfile.active == -1){
+        [lblActive setText:[@"Online" localize]];
+        return;
+    }
+    if(currentProfile.active==0){
+        [lblActive setText:[@"Today" localize]];
+        return;
+    }
+    if(currentProfile.active < 5){
+        [lblActive setText:[NSString stringWithFormat:@"%i %@",currentProfile.active, [@"days ago" localize]]];
+        return;
+    }
+    [lblActive setText:[@"more than 5 days ago" localize]];
 }
 
 -(void)loadInfoView{
@@ -256,10 +364,8 @@ static CGFloat padding_left = 5.0;
     lblAge.text = [NSString stringWithFormat:@"%@",currentProfile.s_age];
     self.lblnViews.text = [NSString stringWithFormat:@"%i", currentProfile.num_Viewed];
     self.lblnLikes.text = [NSString stringWithFormat:@"%i", currentProfile.num_Liked];
-    
-    // load interest List
-    NSArray* favoritesList = currentProfile.a_favorites;
-    
+    [self LoadDistanceText];
+    [self LoadActiveText];
     // SCROLL SIZE
     [scrollview setContentSize:CGSizeMake(320, 790)];
     NSLog(@"Init Content size: %f - %f", scrollview.contentSize.width, infoView.frame.origin.y);
@@ -267,8 +373,8 @@ static CGFloat padding_left = 5.0;
     self.lblAboutMe.text = [currentProfile s_aboutMe];
     if ([lblAboutMe.text length] <= 0) {
         self.aboutView.hidden = YES;
-        self.interestsView.frame = [self moveToFrame:self.aboutView.frame from:self.interestsView.frame];
         self.mutualFriendsView.frame = [self moveToFrame:self.interestsView.frame from:self.mutualFriendsView.frame];
+        self.interestsView.frame = [self moveToFrame:self.aboutView.frame from:self.interestsView.frame];
     }
     else{
         self.aboutView.hidden = NO;
@@ -284,14 +390,28 @@ static CGFloat padding_left = 5.0;
     }
     else
     {
-        
         self.interestsView.hidden = YES;
-        
-        self.profileView.frame = [self moveToFrame:self.mutualFriendsView.frame from:self.profileView.frame];
+//        self.profileView.frame = [self moveToFrame:self.mutualFriendsView.frame from:self.profileView.frame];
         self.mutualFriendsView.frame = [self moveToFrame:self.interestsView.frame from:self.mutualFriendsView.frame];
     }
     
-    [self initMutualFriendsList];
+    if( currentProfile.arr_MutualFriends && [currentProfile.arr_MutualFriends count] > 0)
+    {
+        NSLog(@"Before Interest Content size: %f - %f", scrollview.contentSize.width, scrollview.contentSize.height);
+        self.mutualFriendsView.hidden = NO;
+        [self loadInterestedThumbnailList:currentProfile.arr_MutualFriends andContentView:self.mutualFriendsView andScrollView:self.mutualFriendsImageView];
+        [scrollview setContentSize:CGSizeMake(scrollview.contentSize.width, scrollview.contentSize.height + self.mutualFriendsView.frame.size.height)];
+        NSLog(@"Interest Content size: %f - %f", scrollview.contentSize.width, scrollview.contentSize.height);
+    }
+    else
+    {
+        
+        self.mutualFriendsView.hidden = YES;
+//        self.profileView.frame = [self moveToFrame:self.mutualFriendsView.frame from:self.profileView.frame];
+//        self.mutualFriendsView.frame = [self moveToFrame:self.interestsView.frame from:self.mutualFriendsView.frame];
+    }
+//    [self initMutualInterestsList];
+//    [self initMutualFriendsList];
     [self  disableControllerButtons:NO];
     
     loadingAvatar.hidden = YES;
@@ -300,12 +420,9 @@ static CGFloat padding_left = 5.0;
 }
 -(void)loadInterestedThumbnailList:(NSArray*)favList andVideolink:(NSString *)video
 {
-    AFHTTPClient *downloadFAVIcon = [[AFHTTPClient alloc] initWithBaseURL:[NSURL URLWithString:@"https://graph.facebook.com/"]];
-    [downloadFAVIcon registerHTTPOperationClass:[AFHTTPRequestOperation class]];
-    
     for(int i = 0 ; i < [favList count]; i++)
     {
-        NSDictionary *fav = [favList objectAtIndex:i];
+        ImageInfo *fav = [favList objectAtIndex:i];
         UIImageView *imageView = [[UIImageView alloc] initWithImage: [UIImage imageNamed:@"viewprofile_avatarBorder"]];
         
         // setup each frame to a default height and width, it will be properly placed when we call "updateScrollList"
@@ -315,7 +432,7 @@ static CGFloat padding_left = 5.0;
         
         imageView.tag = i;	// tag our images for later use when we place them in serial fashion
         
-        rect.origin.y = (scrollViewInterest.frame.size.height - rect.size.height - 15) / 2;
+        rect.origin.y = (contentScroll.frame.size.height - rect.size.height - 15) / 2;
         rect.origin.x = i * (58 + 5);
         
         imageView.frame = rect;
@@ -323,9 +440,10 @@ static CGFloat padding_left = 5.0;
         UIImageView *favIcon = [[UIImageView alloc] initWithFrame:imageView.frame];
         NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInt:((int) rect.size.width)], @"width",
                                 [NSNumber numberWithInt:((int) rect.size.height)], @"height", nil];
-        
+        AFHTTPClient *downloadFAVIcon = [[AFHTTPClient alloc] initWithBaseURL:[NSURL URLWithString:fav.avatar]];
+        [downloadFAVIcon registerHTTPOperationClass:[AFHTTPRequestOperation class]];
         NSMutableURLRequest *iconRequest = [downloadFAVIcon requestWithMethod:@"GET"
-                                                                path:[NSString stringWithFormat:@"%@/picture", [fav objectForKey:@"fav_id"]]
+                                                                path:nil
                                             parameters:params];
         
         AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:iconRequest];
@@ -344,13 +462,13 @@ static CGFloat padding_left = 5.0;
         UILabel* name = [[UILabel alloc] initWithFrame:CGRectMake(rect.origin.x, rect.origin.y + rect.size.height, 58, 15)];
         [name setBackgroundColor:[UIColor clearColor]];
         [name setFont:FONT_HELVETICANEUE_LIGHT(10.0)];
-        name.text = [fav objectForKey:@"fav_name"];
-        [scrollViewInterest addSubview:favIcon];
-        [scrollViewInterest addSubview:imageView];
-        [scrollViewInterest addSubview:name];
+        name.text = fav.name;
+        [contentScroll addSubview:favIcon];
+        [contentScroll addSubview:imageView];
+        [contentScroll addSubview:name];
     }
     
-    scrollViewInterest.contentSize = CGSizeMake( [favList count] * (58 + 5), 58 + 5);
+    contentScroll.contentSize = CGSizeMake( [favList count] * (58 + 5), 58 + 5);
     
     if (currentProfile.s_video != nil && ![@"" isEqualToString:currentProfile.s_video])
     {
@@ -428,21 +546,14 @@ static CGFloat padding_left = 5.0;
     self.showNavigationBar = isShow;
 }
 -(void) viewWillAppear:(BOOL)animated{
-    [self.navigationController setNavigationBarHidden:!showNavigationBar];
+    [self.navigationController setNavigationBarHidden:NO];
     
 //    popoverShowing = NO;
-    [self.infoView localizeAllViews];
-    [self.interestsView localizeAllViews];
-    [self.mutualFriendsView localizeAllViews];
-    [self.profileView localizeAllViews];
-    [self.view localizeAllViews];
-    
-    [self customNavHeader];
 }
-
 -(void)customNavHeader
 {
-    [self.navigationController.navigationBar.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+    if(!IS_HEIGHT_GTE_568)
+        [self.navigationController.navigationBar.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
     [self customBackButtonBarItem];
     self.lblTabBarName.frame = CGRectMake(60, 0, self.lblTabBarName.frame.size.width, 44);
     self.lblTabBarName.text = currentProfile.s_Name;
@@ -659,23 +770,23 @@ static CGFloat padding_left = 5.0;
     img_avatar = _avatar;
     
     NSLog(@"Set VCProfile profile avatar: %@", currentProfile.s_Avatar);
-    [self refreshScrollView];
-    [self loadPhotoForScrollview];
+//    [self refreshScrollView];
+//    [self loadPhotoForScrollview];
 }
 
 -(void) loadProfile:(Profile*) _profile{
     currentProfile = _profile;
-    [self refreshScrollView];
-    [self loadPhotoForScrollview];
+//    [self refreshScrollView];
+//    [self loadPhotoForScrollview];
 }
 
 -(void)refreshScrollView{
     for (UIImageView * view in self.svPhotos.subviews) {
         [view removeFromSuperview];
     }
-    self.svPhotos= [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, 320, 320)];
+//    self.svPhotos= [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, 320, 320)];
     
-//    self.svPhotos.frame = CGRectMake(0, 0, 320, 320);
+    self.svPhotos.frame = CGRectMake(0, 0, 320, 320);
 }
 -(void)loadPhotoForScrollview{
          NSArray* _imagesData;

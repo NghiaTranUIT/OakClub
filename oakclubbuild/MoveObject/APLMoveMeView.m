@@ -444,7 +444,7 @@ BOOL isDragging = FALSE;
 	
 	// Add the animation group to the layer.
 	[welcomeLayer addAnimation:theGroup forKey:@"animatePlacardViewToCenter"];
-    [NSTimer scheduledTimerWithTimeInterval:animationDuration
+    [NSTimer scheduledTimerWithTimeInterval:0.4f
                                      target:self
                                    selector:@selector(handleTimer)
                                    userInfo:nil
@@ -483,8 +483,13 @@ BOOL isDragging = FALSE;
             centerPoint = RIGHT_POINT;
             break;
         default:
-            centerPoint = CENTER_POINT;
+        {
+            if(IS_HEIGHT_GTE_568)
+                centerPoint = CENTER_POINT_568H;
+            else
+                centerPoint = CENTER_POINT;
             break;
+        }
     }
 	CGFloat midX = centerPoint.x;
 	CGFloat midY = centerPoint.y;
@@ -552,7 +557,10 @@ BOOL isDragging = FALSE;
                                    userInfo:nil
                                     repeats:NO];
 	// Set the placard view's center and transformation to the original values in preparation for the end of the animation.
-	placardView.center = CENTER_POINT;
+    if(IS_HEIGHT_GTE_568)
+        placardView.center = CENTER_POINT_568H;
+    else
+        placardView.center = CENTER_POINT;
 	placardView.transform = CGAffineTransformIdentity;
 }
 
@@ -602,6 +610,6 @@ BOOL isDragging = FALSE;
 #pragma mark Timer
 - (void)handleTimer
 {
-    [self.placardView setAlpha:0];
+    [self.placardView setAlpha:1];
 }
 @end
