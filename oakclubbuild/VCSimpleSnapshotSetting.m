@@ -779,7 +779,7 @@ UITapGestureRecognizer *tap;
         NSError *e=nil;
         NSMutableDictionary *dict = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONReadingMutableContainers error:&e];
         BOOL status= [[dict valueForKey:key_status] boolValue];
-        if(status){
+        if(status && ![[dict valueForKey:@"msg"] isEqualToString:@"Setting does not change"]){
             NSLog(@"POST SUCCESS!!!");
             UIAlertView *alert = [[UIAlertView alloc]
                                   initWithTitle:@"Completed"

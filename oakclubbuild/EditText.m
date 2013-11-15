@@ -78,7 +78,7 @@
     
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectZero] ;
     label.backgroundColor = [UIColor clearColor];
-    label.font = FONT_HELVETICANEUE_LIGHT(20.0);//[UIFont boldSystemFontOfSize:20.0];
+    label.font = FONT_HELVETICANEUE_LIGHT(18.0);//[UIFont boldSystemFontOfSize:20.0];
 //    label.shadowColor = [UIColor colorWithWhite:0.0 alpha:0.5];
     label.textAlignment = NSTextAlignmentCenter;
     [label setText:title];

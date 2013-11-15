@@ -59,7 +59,7 @@
     descText = [[NSArray alloc] initWithObjects:
                 @"Anonymouly \"like\" or \"pass\" on people OakClub suggests",
                 @"Chat with your matches inside the app",
-                @"if someone you've liked happen to like you as well …",
+                @"if someone you've liked happen to like you as well ...",
                 nil];
     
     // Do any additional setup after loading the view from its nib.

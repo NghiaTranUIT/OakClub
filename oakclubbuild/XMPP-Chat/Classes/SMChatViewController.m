@@ -502,17 +502,18 @@ static float cellWidth = 320;
 											  cell.messageContentView.frame.size.width + 2 * padding_left,
 											  cell.messageContentView.frame.size.height + padding_top)];
         
-        [cell.avatarImageView setFrame:CGRectMake(padding_left + cell.bgImageView.frame.origin.x + cell.bgImageView.frame.size.width,
-                                                  padding_top + cell.bgImageView.frame.size.height - defaultAvatarHeight, defaultAvatarWidth, defaultAvatarHeight)];
-        [cell.avatarImageView setBackgroundImage:avatar_me forState:UIControlStateNormal];
+        [cell.avatarImageView setHidden:YES];
+//        [cell.avatarImageView setFrame:CGRectMake(padding_left + cell.bgImageView.frame.origin.x + cell.bgImageView.frame.size.width,
+//                                                  padding_top + cell.bgImageView.frame.size.height - defaultAvatarHeight, defaultAvatarWidth, defaultAvatarHeight)];
+//        [cell.avatarImageView setBackgroundImage:avatar_me forState:UIControlStateNormal];
         [cell.senderAndTimeLabel setFrame:CGRectMake(padding_left,
                                                      cell.bgImageView.frame.origin.y + cell.bgImageView.frame.size.height - cell.senderAndTimeLabel.frame.size.height,
                                                      cell.senderAndTimeLabel.frame.size.width, cell.senderAndTimeLabel.frame.size.height)];
         
         cell.userInteractionEnabled = YES;
         
-        cell.customView.frame = CGRectMake(0, 0, cell.avatarImageView.frame.origin.x + cell.avatarImageView.frame.size.width + padding_left,
-                                cell.avatarImageView.frame.origin.y + cell.avatarImageView.frame.size.height + padding_top);
+        cell.customView.frame = CGRectMake(0, 0, cell.bgImageView.frame.origin.x + cell.bgImageView.frame.size.width + padding_left,
+                                cell.bgImageView.frame.origin.y + cell.bgImageView.frame.size.height + padding_top);
         cell.customView.frame = CGRectMake(cellWidth - cell.customView.frame.size.width, cell.customView.frame.origin.y, cell.customView.frame.size.width, cell.customView.frame.size.height);
     }
     
@@ -610,7 +611,7 @@ NSMutableArray *cellHeight;
 												   inSection:0];
 	
 	[self.tView scrollToRowAtIndexPath:topIndexPath 
-					  atScrollPosition:UITableViewScrollPositionMiddle 
+					  atScrollPosition:UITableViewScrollPositionBottom
 							  animated:YES];
 }
 
