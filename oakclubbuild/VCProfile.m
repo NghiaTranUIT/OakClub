@@ -379,12 +379,11 @@ static CGFloat padding_left = 5.0;
     else{
         self.aboutView.hidden = NO;
     }
-    
-    if(favoritesList && [favoritesList count] > 0)
+    if( currentProfile.arr_MutualInterests && [currentProfile.arr_MutualInterests count] > 0)
     {
         NSLog(@"Before Interest Content size: %f - %f", scrollview.contentSize.width, scrollview.contentSize.height);
         self.interestsView.hidden = NO;
-        [self loadInterestedThumbnailList:currentProfile.a_favorites andVideolink:currentProfile.s_video];
+        [self loadInterestedThumbnailList:currentProfile.arr_MutualInterests andContentView:self.interestsView andScrollView:self.scrollViewInterest];
         [scrollview setContentSize:CGSizeMake(scrollview.contentSize.width, scrollview.contentSize.height + self.interestsView.frame.size.height)];
         NSLog(@"Interest Content size: %f - %f", scrollview.contentSize.width, scrollview.contentSize.height);
     }
@@ -418,7 +417,7 @@ static CGFloat padding_left = 5.0;
     [loadingAvatar stopAnimating];
     
 }
--(void)loadInterestedThumbnailList:(NSArray*)favList andVideolink:(NSString *)video
+-(void)loadInterestedThumbnailList:(NSArray*)favList andContentView:(UIView*)contentView andScrollView:(UIScrollView*)contentScroll
 {
     for(int i = 0 ; i < [favList count]; i++)
     {
@@ -470,6 +469,8 @@ static CGFloat padding_left = 5.0;
     
     contentScroll.contentSize = CGSizeMake( [favList count] * (58 + 5), 58 + 5);
     
+    contentScroll.frame = [self addRelative:contentScroll.frame addPoint:CGPointMake(self.infoView.frame.origin.x, self.infoView.frame.origin.y + contentView.frame.origin.y) ];
+    [scrollview addSubview:contentScroll];
     if (currentProfile.s_video != nil && ![@"" isEqualToString:currentProfile.s_video])
     {
         CGRect rect;;
