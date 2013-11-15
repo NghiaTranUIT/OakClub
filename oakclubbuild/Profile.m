@@ -387,8 +387,8 @@
     }
     self.i_work = [[WorkCate alloc]initWithID:[[data valueForKey:key_work] integerValue]];
 //    self.i_work.cate_id = [[data valueForKey:key_work] integerValue];
-    self.i_weight =[[data valueForKey:key_weight] integerValue];
-    self.i_height = [[data valueForKey:key_height] integerValue];
+    self.i_weight =MAX([[data valueForKey:key_weight] integerValue], 0);
+    self.i_height = MAX([[data valueForKey:key_height] integerValue], 0);
     self.s_school = [data valueForKey:key_school];
     self.s_Email = [data valueForKey:key_email];
     

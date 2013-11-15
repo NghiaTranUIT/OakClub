@@ -165,6 +165,16 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
     return YES;
 }
 
+- (void)video:(NSString *)videoPath didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo {
+    if (error != nil) {
+        NSLog(@"Error: %@", error);
+    }
+    else
+    {
+        NSLog(@"add video success");
+    }
+}
+
 -(void)gotoLogin
 {
     if (!self.loginView)

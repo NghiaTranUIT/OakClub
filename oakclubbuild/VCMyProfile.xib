@@ -67,9 +67,6 @@
                                 <color key="titleColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <color key="titleShadowColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </state>
-                            <connections>
-                                <action selector="uploadVideoTouched:" destination="-1" eventType="touchUpInside" id="G0s-oN-eIZ"/>
-                            </connections>
                         </button>
                         <view contentMode="scaleToFill" id="NWg-vh-pbT">
                             <rect key="frame" x="0.0" y="241" width="320" height="104"/>
@@ -134,6 +131,9 @@
                             <rect key="frame" x="174" y="67" width="126" height="125"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            <accessibility key="accessibilityConfiguration">
+                                <accessibilityTraits key="traits" none="YES" image="YES" notEnabled="YES"/>
+                            </accessibility>
                         </imageView>
                         <label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Edit Your" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="pcA-Cq-o12">
                             <rect key="frame" x="195" y="150" width="84" height="21"/>

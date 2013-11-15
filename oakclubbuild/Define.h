@@ -12,10 +12,10 @@
 
 //demo version FLAG
 #define ENABLE_DEMO true
-#define USE_STAGING false
+#define USE_STAGING true
 #define USE_MAINHOST false
 #define USE_STAGING_MB false
-#define USE_STAGING_IOS true
+#define USE_STAGING_IOS false
 //Hangout
 #define sOnline @"Online"
 
@@ -28,8 +28,8 @@
 //#define DOMAIN @"http://staging.oakclub.com/app_dev.php"
 
 #if USE_STAGING
-#define HOSTNAME @"staging-ios.oakclub.com"
-#define DOMAIN @"http://staging-ios.oakclub.com"
+#define HOSTNAME @"staging.oakclub.com"
+#define DOMAIN @"http://staging.oakclub.com"
 #define DOMAIN_DATA @"http://data1.oakclub.com/" //data2
 #endif
 #if USE_MAINHOST
@@ -99,6 +99,7 @@
 #define URL_setReadMessages @"service/setReadMessages"
 #define URL_setViewedMutualMatch @"service/setViewedMutualMatch"
 #define URL_reportInvalid @"service/reportUser"
+#define URL_uploadVideo @"service/uploadVideo"
 //================ service API keys ================
 //root
 #define key_status @"status"

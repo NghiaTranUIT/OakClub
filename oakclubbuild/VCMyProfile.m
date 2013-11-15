@@ -18,8 +18,8 @@
 #import "UIView+Localize.h"
 #import "LocationUpdate.h"
 #import "VideoPicker.h"
-#import "VideoUpload.h"
-@interface VCMyProfile () <PickPhotoFromGarellyDelegate, UIAlertViewDelegate, ImageRequester, PhotoScrollViewDelegate, LocationUpdateDelegate>{
+#import "VideoUploader.h"
+@interface VCMyProfile () <PickPhotoFromGarellyDelegate, VideoPickerDelegate, UIAlertViewDelegate, ImageRequester, PhotoScrollViewDelegate, LocationUpdateDelegate>{
     GroupButtons* genderGroup;
      AppDelegate *appDelegate;
     NSMutableArray *profileItemList;
@@ -86,7 +86,7 @@ UITapGestureRecognizer *tap;
     locUpdate.delegate = self;
     
     avatarPicker = [[PickPhotoFromGarelly alloc] initWithParentWindow:self andDelegate:self];
-    videoPicker = [[VideoPicker alloc] initWithParentWindow:self andDelegate:nil];
+    videoPicker = [[VideoPicker alloc] initWithParentWindow:self andDelegate:self];
     
     self.photoScrollView.photoDelegate = self;
     
@@ -109,8 +109,8 @@ UITapGestureRecognizer *tap;
     self.imgAvatar.contentMode = UIViewContentModeScaleAspectFit;
     [self.imgAvatar setFrame:self.avatarLayout.frame];
     
-    [self.btnUploadVideo setBackgroundImage:avatarImage forState:UIControlStateNormal];
-    self.btnUploadVideo.contentMode = UIViewContentModeScaleAspectFit;
+//    [self.btnUploadVideo setBackgroundImage:avatarImage forState:UIControlStateNormal];
+//    self.btnUploadVideo.contentMode = UIViewContentModeScaleAspectFit;
     
     [self.view localizeAllViews];
 }
@@ -499,8 +499,8 @@ UITapGestureRecognizer *tap;
                          self.imgAvatar.contentMode = UIViewContentModeScaleAspectFit;
                          [self.imgAvatar setFrame:self.avatarLayout.frame];
                          
-                         [self.btnUploadVideo setBackgroundImage:avatarImage forState:UIControlStateNormal];
-                         self.btnUploadVideo.contentMode = UIViewContentModeScaleAspectFit;
+//                         [self.btnUploadVideo setBackgroundImage:avatarImage forState:UIControlStateNormal];
+//                         self.btnUploadVideo.contentMode = UIViewContentModeScaleAspectFit;
                          
                          profileObj.img_Avatar = uploadImage;
                          profileObj.s_Avatar = imgLink;
@@ -912,9 +912,13 @@ UITapGestureRecognizer *tap;
         [self.view setUserInteractionEnabled:NO];
         [appDelegate.rootVC.view setUserInteractionEnabled:NO];
         [self.navigationController.navigationBar setUserInteractionEnabled:NO];
-        VideoUpload * uploadVideo = [[VideoUpload alloc]initWithVideoData:video andName:@"filename"];
-        [uploadVideo uploadVideoWithCompletion:^(void){
-            NSLog(@"upload VIDEO complete ....");
+        VideoUploader * uploadVideo = [[VideoUploader alloc]initWithVideoData:video];
+        [uploadVideo uploadVideoWithCompletion:^(NSString *link)
+        {
+            NSLog(@"Video upload completed with link %@", link);
+            [self.view setUserInteractionEnabled:YES];
+            [appDelegate.rootVC.view setUserInteractionEnabled:YES];
+            [self.navigationController.navigationBar setUserInteractionEnabled:YES];
         }];
     }
 }
