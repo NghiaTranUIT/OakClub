@@ -13,7 +13,14 @@
 -(UIView* )customSelectdBackgroundViewForCellAtIndexPath:(NSIndexPath *)indexPath{
     CGRect frame = [self  rectForRowAtIndexPath:indexPath];
     UIView *backgroundView = [[UIView alloc] initWithFrame:frame];
-    UIImageView *selectedBackground = [[UIImageView alloc] initWithFrame:CGRectMake(0.5, 0, frame.size.width - 19.0 , frame.size.height)];
+    UIImageView *selectedBackground;
+    if(IS_OS_7_OR_LATER){
+        selectedBackground= [[UIImageView alloc] initWithFrame:CGRectMake(0.5, 0, frame.size.width, frame.size.height)];
+    }
+    else{
+        selectedBackground = [[UIImageView alloc] initWithFrame:CGRectMake(0.5, 0, frame.size.width - 19.0 , frame.size.height)];
+    }
+    
     NSUInteger latestIndex = [self numberOfRowsInSection:[indexPath section]] - 1;
     NSUInteger row = [indexPath row];
     NSUInteger section = [indexPath section];
