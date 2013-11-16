@@ -1040,17 +1040,23 @@ BOOL allowFullScreen = FALSE;
     if(scrollView.tag == 1 && allowFullScreen)
     {
         NSLog(@"content offset : %f",scrollOffset);
-        if(self.svPhotos.frame.size.height < self.view.frame.size.height  && scrollOffset < 0)
+        float screenHeight = self.view.frame.size.height;
+        if (IS_OS_7_OR_LATER)
         {
-            if(self.svPhotos.frame.size.height >= self.view.frame.size.height - 80){
-                [self.svPhotos setFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
+            screenHeight += 100;
+        }
+        
+        if(self.svPhotos.frame.size.height < screenHeight  && scrollOffset < 0)
+        {
+            if(self.svPhotos.frame.size.height >= screenHeight - 80){
+                [self.svPhotos setFrame:CGRectMake(0, 0, self.view.frame.size.width, screenHeight)];
                 self.svPhotos.contentSize =
                 CGSizeMake(CGRectGetWidth(self.svPhotos.frame) * [currentProfile.arr_photos count], CGRectGetHeight(self.svPhotos.frame));
-                [self.infoView setFrame:CGRectMake(0, self.view.frame.size.height, self.infoView.frame.size.width, self.infoView.frame.size.height)];
+                [self.infoView setFrame:CGRectMake(0, screenHeight, self.infoView.frame.size.width, self.infoView.frame.size.height)];
                 [self.lblsPhoto setFrame:CGRectMake(0, self.svPhotos.frame.origin.y + self.svPhotos.frame.size.height - 2*self.lblsPhoto.frame.size.height, self.lblsPhoto.frame.size.width,  self.lblsPhoto.frame.size.height)];
 
 //                CGRect interestFrame = scrollViewInterest.frame;
-//                [scrollViewInterest setFrame:CGRectMake(interestFrame.origin.x, self.view.frame.size.height , interestFrame.size.width, interestFrame.size.height)];
+//                [scrollViewInterest setFrame:CGRectMake(interestFrame.origin.x, screenHeight , interestFrame.size.width, interestFrame.size.height)];
             }
             else
             {
@@ -1091,11 +1097,12 @@ BOOL allowFullScreen = FALSE;
 }
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
     allowFullScreen = FALSE;
-     float scrollOffset = scrollView.contentOffset.y;
-//    NSLog(@"scrollViewDidEndDragging - content offset : %f",scrollOffset);
-    if(self.svPhotos.frame.size.height < self.view.frame.size.height - 80){
-//        CGRect interestFrame = scrollViewInterest.frame;
-//        [scrollViewInterest setFrame:CGRectMake(interestFrame.origin.x, self.infoView.frame.origin.y +  self.interestsView.frame.origin.y + 29, interestFrame.size.width, interestFrame.size.height)];
+    float screenHeight = self.view.frame.size.height;
+    if (IS_OS_7_OR_LATER)
+    {
+        screenHeight += 100;
+    }
+    if(self.svPhotos.frame.size.height < screenHeight - 80){
         
         [self.svPhotos setFrame:CGRectMake(0, 0, self.view.frame.size.width, 320)];
         self.svPhotos.contentSize =
@@ -1134,12 +1141,17 @@ BOOL allowFullScreen = FALSE;
 
 -(void)onTapOnPhotos:(UITapGestureRecognizer *)photos
 {
-    if (self.svPhotos.frame.size.height < self.view.frame.size.height)
+    float screenHeight = self.view.frame.size.height;
+    if (IS_OS_7_OR_LATER)
     {
-        [self.svPhotos setFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
+        screenHeight += 100;
+    }
+    if (self.svPhotos.frame.size.height < screenHeight)
+    {
+        [self.svPhotos setFrame:CGRectMake(0, 0, self.view.frame.size.width, screenHeight)];
         self.svPhotos.contentSize =
         CGSizeMake(CGRectGetWidth(self.svPhotos.frame) * [currentProfile.arr_photos count], CGRectGetHeight(self.svPhotos.frame));
-        [self.infoView setFrame:CGRectMake(0, self.view.frame.size.height, self.infoView.frame.size.width, self.infoView.frame.size.height)];
+        [self.infoView setFrame:CGRectMake(0, screenHeight, self.infoView.frame.size.width, self.infoView.frame.size.height)];
         [self.lblsPhoto setFrame:CGRectMake(0, self.svPhotos.frame.origin.y + self.svPhotos.frame.size.height - 2*self.lblsPhoto.frame.size.height, self.lblsPhoto.frame.size.width,  self.lblsPhoto.frame.size.height)];
         
         [self.scrollview setContentOffset:CGPointMake(0, 0) animated:YES];
