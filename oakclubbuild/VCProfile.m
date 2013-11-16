@@ -288,48 +288,6 @@ static CGFloat padding_left = 5.0;
         }
     }
 }
-- (void)viewDidLoad
-{
-    UIImageView *imageView = [[UIImageView alloc]initWithImage:img_avatar];
-    CGRect frame = self.svPhotos.frame;
-    frame.origin.x = 0;
-    frame.origin.y = 0;
-    imageView.frame = frame;
-    [imageView setContentMode:UIViewContentModeScaleAspectFit];
-    [self.svPhotos addSubview:imageView];
-    
-    [self changeFontStyle];
-    loadingAvatar.hidden = NO;
-    [loadingAvatar startAnimating];
-    [self  disableControllerButtons:YES];
-
-    [super viewDidLoad];
-//    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"bg.png"]];
-    UITapGestureRecognizer *photoTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onTapOnPhotos:)];
-    [photoTap setNumberOfTapsRequired:1];
-    [photoTap setNumberOfTouchesRequired:1];
-    [self.svPhotos addGestureRecognizer:photoTap];
-    
-    // Do any additional setup after loading the view from its nib.
-    [self loadInfoView];
-}
--(void)viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
-    
-    [self.view localizeAllViews];
-    [self.infoView localizeAllViews];
-    [self.interestsView localizeAllViews];
-    [self.mutualFriendsView localizeAllViews];
-    [self.profileView localizeAllViews];
-    [self.view localizeAllViews];
-    
-    [self customNavHeader];
-    
-    //
-    [self refreshScrollView];
-    [self loadPhotoForScrollview];
-}
 
 -(void)LoadDistanceText{
     if(currentProfile.distance < 1){
@@ -378,6 +336,16 @@ static CGFloat padding_left = 5.0;
     }
     else{
         self.aboutView.hidden = NO;
+        lblAboutMe.numberOfLines = 0;
+        [lblAboutMe sizeToFit];
+        CGRect newAboutFrame = CGRectMake(self.aboutView.frame.origin.x,
+                                          self.aboutView.frame.origin.y,
+                                          self.aboutView.frame.size.width,
+                                          self.lblAboutMe.frame.size.height + self.lblAboutMe.frame.origin.x);
+        NSInteger deltaPosition = abs(self.aboutView.frame.size.height - newAboutFrame.size.height);
+        self.mutualFriendsView.frame = CGRectMake(self.mutualFriendsView.frame.origin.x, self.mutualFriendsView.frame.origin.y + deltaPosition, self.mutualFriendsView.frame.size.width, self.mutualFriendsView.frame.size.height);
+        self.interestsView.frame = CGRectMake(self.interestsView.frame.origin.x, self.interestsView.frame.origin.y + deltaPosition, self.interestsView.frame.size.width, self.interestsView.frame.size.height);
+        [scrollview setContentSize:CGSizeMake(scrollview.contentSize.width, scrollview.contentSize.height + self.aboutView.frame.size.height)];
     }
     if( currentProfile.arr_MutualInterests && [currentProfile.arr_MutualInterests count] > 0)
     {
@@ -543,14 +511,88 @@ static CGFloat padding_left = 5.0;
     [self.navigationController pushViewController:view animated:YES];
 }
 
--(void)setShowNavigationBar:(BOOL)isShow{
-    self.showNavigationBar = isShow;
+#pragma mark view delegate
+- (void)viewDidLoad
+{
+    UIImageView *imageView = [[UIImageView alloc]initWithImage:img_avatar];
+    CGRect frame = self.svPhotos.frame;
+    frame.origin.x = 0;
+    frame.origin.y = 0;
+    imageView.frame = frame;
+    [imageView setContentMode:UIViewContentModeScaleAspectFit];
+    [self.svPhotos addSubview:imageView];
+    
+    [self changeFontStyle];
+    loadingAvatar.hidden = NO;
+    [loadingAvatar startAnimating];
+    [self  disableControllerButtons:YES];
+    
+    [super viewDidLoad];
+    UITapGestureRecognizer *photoTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onTapOnPhotos:)];
+    [photoTap setNumberOfTapsRequired:1];
+    [photoTap setNumberOfTouchesRequired:1];
+    [self.svPhotos addGestureRecognizer:photoTap];
+    
+    // Do any additional setup after loading the view from its nib.
+    [self loadInfoView];
 }
+-(void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
+    [self.view localizeAllViews];
+    [self.infoView localizeAllViews];
+    [self.interestsView localizeAllViews];
+    [self.mutualFriendsView localizeAllViews];
+    [self.profileView localizeAllViews];
+    [self.view localizeAllViews];
+    
+    [self customNavHeader];
+    
+    [self refreshScrollView];
+    [self loadPhotoForScrollview];
+}
+
 -(void) viewWillAppear:(BOOL)animated{
     [self.navigationController setNavigationBarHidden:NO];
-    
-//    popoverShowing = NO;
 }
+
+- (void)viewDidUnload {
+    [self setLbl_name:nil];
+    [self setImgView_avatar:nil];
+    [self setScrollview:nil];
+    [self setLblProfileName:nil];
+    [self setLblBirthdate:nil];
+    [self setLblInterested:nil];
+    [self setLblGender:nil];
+    [self setLblRelationShip:nil];
+    [self setLblLocation:nil];
+    [self setLblAboutMe:nil];
+    [self setBtnLike:nil];
+    [self setLikePopoverView:nil];
+    [self setBtnReport:nil];
+    [self setReportPopoverView:nil];
+    [self setLblEthnicity:nil];
+    [self setLblAge:nil];
+    [self setLblPopularity:nil];
+    [self setLblWanttoMake:nil];
+    [self setLabelInterests:nil];
+    [self setMutualFriendsImageView:nil];
+    
+    [self setScrollViewInterest:nil];
+    [self setLoadingAvatar:nil];
+    [self setBtnAddToFavorite:nil];
+    [self setBtnIwantToMeet:nil];
+    [self setBtnBlock:nil];
+    [self setBtnChat:nil];
+    [self setTableViewProfile:nil];
+    [self setMutualFriendsView:nil];
+    [self setInterestsView:nil];
+    [self setProfileView:nil];
+    [super viewDidUnload];
+}
+
+#pragma mark Custom view
 -(void)customNavHeader
 {
     if(!IS_HEIGHT_GTE_568)
@@ -559,10 +601,9 @@ static CGFloat padding_left = 5.0;
     self.lblTabBarName.frame = CGRectMake(60, 0, self.lblTabBarName.frame.size.width, 44);
     self.lblTabBarName.text = currentProfile.s_Name;
     [self.navigationController.navigationBar addSubview:self.lblTabBarName];
-    
-    [self.oakClubLogo setFrame:CGRectMake(22, 8, self.oakClubLogo.frame.size.width, self.oakClubLogo.frame.size.height)];
-    [self.navigationController.navigationBar addSubview:self.oakClubLogo];
+
 }
+
 
 //- (void)viewWillDisappear:(BOOL)animated{
 //    [self.navigationController setNavigationBarHidden:NO];
@@ -645,41 +686,6 @@ static CGFloat padding_left = 5.0;
     // Dispose of any resources that can be recreated.
 }
 
-- (void)viewDidUnload {
-    [self setLbl_name:nil];
-    [self setImgView_avatar:nil];
-    [self setScrollview:nil];
-    [self setLblProfileName:nil];
-    [self setLblBirthdate:nil];
-    [self setLblInterested:nil];
-    [self setLblGender:nil];
-    [self setLblRelationShip:nil];
-    [self setLblLocation:nil];
-    [self setLblAboutMe:nil];
-    [self setBtnLike:nil];
-    [self setLikePopoverView:nil];
-    [self setBtnReport:nil];
-    [self setReportPopoverView:nil];
-    [self setLblEthnicity:nil];
-    [self setLblAge:nil];
-    [self setLblPopularity:nil];
-    [self setLblWanttoMake:nil];
-    [self setLabelInterests:nil];
-    [self setMutualFriendsImageView:nil];
-    
-//    [self setButtonAvatar:nil];
-    [self setScrollViewInterest:nil];
-    [self setLoadingAvatar:nil];
-    [self setBtnAddToFavorite:nil];
-    [self setBtnIwantToMeet:nil];
-    [self setBtnBlock:nil];
-    [self setBtnChat:nil];
-    [self setTableViewProfile:nil];
-    [self setMutualFriendsView:nil];
-    [self setInterestsView:nil];
-    [self setProfileView:nil];
-    [super viewDidUnload];
-}
 
 - (IBAction)showLikePopover:(id)sender {
     [self showPopover:likePopoverView andSender:self.btnLike ];
@@ -1010,7 +1016,7 @@ static CGFloat padding_left = 5.0;
 -(void)addTopLeftButtonWithAction:(SEL)action
 {
     UIButton* buttonBack = [UIButton buttonWithType:UIButtonTypeCustom];
-    buttonBack.frame = CGRectMake(0, 0, 10, 17);
+    buttonBack.frame = CGRectMake(0, 0, 57, 40);
     [buttonBack addTarget:self action:action forControlEvents:UIControlEventTouchUpInside];
     [buttonBack setBackgroundImage:[UIImage imageNamed:@"Navbar_btn_back.png"] forState:UIControlStateNormal];
     [buttonBack setBackgroundImage:[UIImage imageNamed:@"Navbar_btn_back_pressed.png"] forState:UIControlStateHighlighted];

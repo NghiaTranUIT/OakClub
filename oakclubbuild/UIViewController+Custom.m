@@ -16,12 +16,18 @@
 #endif
 @implementation UIViewController (Custom)
 -(void)customBackButtonBarItem{
-    UIButton *backButton = [[UIButton alloc] initWithFrame:CGRectMake(10, 0, 10, 17)];
+    UIButton *backButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 57, 40)];
     [backButton setImage:[UIImage imageNamed:@"Navbar_btn_back.png"] forState:UIControlStateNormal];
     [backButton setImage:[UIImage imageNamed:@"Navbar_btn_back_pressed.png"] forState:UIControlStateHighlighted];
     [backButton addTarget:self action:@selector(backToPreviousView) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem *barBackItem = [[UIBarButtonItem alloc] initWithCustomView:backButton];
-    self.navigationItem.leftBarButtonItem = barBackItem;
+    if (IS_OS_7_OR_LATER) {
+        [self.navigationItem setHidesBackButton:YES];
+        [self.navigationController.navigationBar addSubview:backButton];
+    }
+    else{
+        UIBarButtonItem *barBackItem = [[UIBarButtonItem alloc] initWithCustomView:backButton];
+        self.navigationItem.leftBarButtonItem = barBackItem;
+    }
 }
 
 - (void)setTitle:(NSString *)title

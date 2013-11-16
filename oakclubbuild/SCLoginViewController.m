@@ -328,7 +328,7 @@
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     NSString *title = [alertView buttonTitleAtIndex:buttonIndex];
-    if([title isEqualToString:@"Vietnamese"])
+    if([title isEqualToString:[@"Vietnamese" localize]])
     {
         [[NSUserDefaults standardUserDefaults] setObject:value_appLanguage_VI forKey:key_appLanguage];
         [[NSUserDefaults standardUserDefaults] synchronize];
@@ -337,7 +337,7 @@
         NSString* str=[appDelegate.languageBundle localizedStringForKey:@"was selected" value:@"" table:nil];
         NSLog(@"Vietnamese %@",str);
     }
-    else if([title isEqualToString:@"English"])
+    else if([title isEqualToString:[@"English" localize]])
     {
         [[NSUserDefaults standardUserDefaults] setObject:value_appLanguage_EN forKey:key_appLanguage];
         [[NSUserDefaults standardUserDefaults] synchronize];

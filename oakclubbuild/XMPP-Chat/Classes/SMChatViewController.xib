@@ -10,7 +10,6 @@
                 <outlet property="btnBackToPrevious" destination="22" id="fTk-d7-pW9"/>
                 <outlet property="btnMoreOption" destination="36" id="sxC-v9-aFG"/>
                 <outlet property="btnShowProfile" destination="24" id="O9y-x3-qJq"/>
-                <outlet property="imgLogo" destination="23" id="ywo-aP-FwB"/>
                 <outlet property="label_header" destination="29" id="R0M-Re-Qsi"/>
                 <outlet property="lblTyping" destination="20" id="21"/>
                 <outlet property="messageField" destination="5" id="11"/>
@@ -61,7 +60,7 @@
             <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
         </view>
         <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="22">
-            <rect key="frame" x="0.0" y="0.0" width="10" height="17"/>
+            <rect key="frame" x="0.0" y="0.0" width="57" height="40"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
             <state key="normal" backgroundImage="Navbar_btn_back.png">
@@ -112,19 +111,13 @@
             <fontDescription key="fontDescription" name="HelveticaNeue-UltraLight" family="Helvetica Neue" pointSize="18"/>
             <nil key="highlightedColor"/>
         </label>
-        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="ChatView_navbar_logo.png" id="23">
-            <rect key="frame" x="0.0" y="0.0" width="30" height="31"/>
-            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-            <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-        </imageView>
     </objects>
     <resources>
         <image name="ChatView_btn_moreOptions.png" width="33" height="30"/>
         <image name="ChatView_btn_moreOptions_pressed.png" width="33" height="30"/>
         <image name="ChatView_btn_viewprofile.png" width="33" height="30"/>
         <image name="ChatView_btn_viewprofile_pressed.png" width="33" height="30"/>
-        <image name="ChatView_navbar_logo.png" width="30" height="31"/>
-        <image name="Navbar_btn_back.png" width="10" height="17"/>
+        <image name="Navbar_btn_back.png" width="57" height="40"/>
         <image name="frame send.png" width="298" height="33"/>
         <image name="menu bam vao.png" width="97" height="61"/>
     </resources>

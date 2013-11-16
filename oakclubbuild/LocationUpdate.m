@@ -70,6 +70,8 @@
     AFHTTPClient *request = [[AFHTTPClient alloc] initWithOakClubAPI:DOMAIN];
     
     NSMutableDictionary *params = [[NSMutableDictionary alloc] initWithObjects:[NSArray arrayWithObjects:[NSNumber numberWithDouble:currentLocation.coordinate.latitude], [NSNumber numberWithDouble:currentLocation.coordinate.longitude], nil] forKeys:[NSArray arrayWithObjects:@"latitude", @"longitude", nil]];
+//    NSMutableDictionary *params = [[NSMutableDictionary alloc] initWithObjects:[NSArray arrayWithObjects:@"37.785834", @"-122.406417", nil] forKeys:[NSArray arrayWithObjects:@"latitude", @"longitude", nil]];
+
     NSLog(@"Coord: %@", params);
     [request setParameterEncoding:AFFormURLParameterEncoding];
     

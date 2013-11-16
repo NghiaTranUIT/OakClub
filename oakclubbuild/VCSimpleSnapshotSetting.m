@@ -70,7 +70,7 @@ UITapGestureRecognizer *tap;
     appDel = [self appDelegate];
      [self showNotifications];
     
-    [self initAgeRangeSlider];
+    
 }
 
 -(void)viewDidAppear:(BOOL)animated{
@@ -253,7 +253,7 @@ UITapGestureRecognizer *tap;
                 rangeAgeCell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:rangeAgeCellID];
                 UIView *newCellView= [[UIView alloc]initWithFrame:CGRectMake(0, 0, 320, 80)];
                 lblRangeOfAge = [[UILabel alloc]initWithFrame:CGRectMake(30, 0, 280, 30)];
-                [lblRangeOfAge setText: [NSString stringWithFormat: @"%d %@ %d %@",fromAge,[@"to" localize],toAge,[@"years old" localize]]];
+                
                 lblRangeOfAge.textAlignment = NSTextAlignmentCenter;
                 //                [lblRange setTextColor:[UIColor blackColor]];
                 [lblRangeOfAge setBackgroundColor:[UIColor clearColor]];
@@ -264,7 +264,7 @@ UITapGestureRecognizer *tap;
                 [rangeAgeCell setSelectionStyle:UITableViewCellSelectionStyleNone];
                 rangeAgeCell.accessoryView = newCellView;
             }
-            
+            [lblRangeOfAge setText: [NSString stringWithFormat: @"%d %@ %d %@",fromAge,[@"to" localize],toAge,[@"years old" localize]]];
             [rangeAgeCell localizeAllViews];
             return rangeAgeCell;
             break;
@@ -289,11 +289,8 @@ UITapGestureRecognizer *tap;
                     if (filterGuysCell == nil)
                     {
                         filterGuysCell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:filterGuysID];
-//                        filterGuysCell.textLabel.text = [NSString localizeString:@"Guys"] ;
                         filterGuysCell.selectionStyle = UITableViewCellSelectionStyleNone;
                         UISwitch *autoSwitch = [[UISwitch alloc] init];
-//                        ((UILabel *)[[[[[[autoSwitch subviews] lastObject] subviews] objectAtIndex:0] subviews] objectAtIndex:0]).text = @"Foo";
-//                        ((UILabel *)[[[[[[autoSwitch subviews] lastObject] subviews] objectAtIndex:0] subviews] objectAtIndex:1]).text = @"Bar";
                         [autoSwitch addTarget:self action:@selector(onSwitchChangedValue:) forControlEvents:UIControlEventValueChanged];
                         autoSwitch.frame = CGRectMake(cell.frame.size.width - autoSwitch.frame.size.width - 30, (cell.frame.size.height - autoSwitch.frame.size.height) / 2, autoSwitch.frame.size.width, autoSwitch.frame.size.height);
                         [autoSwitch setOnTintColor:COLOR_PURPLE];
@@ -304,9 +301,7 @@ UITapGestureRecognizer *tap;
                     }
                     else
                     {
-//                        filterGuysCell.textLabel.text = [NSString localizeString:@"Guys"] ;
                         UISwitch *autoSwitch = (id) [filterGuysCell viewWithTag:100];
-//                        autoSwitch.on = [snapshotObj.gender_of_search isEqualToString:value_Male] || [snapshotObj.gender_of_search isEqualToString:value_All];
                         autoSwitch.on = hasMale;
                     }
                     filterGuysCell.textLabel.text = [NSString localizeString:@"Guys"];
@@ -321,7 +316,6 @@ UITapGestureRecognizer *tap;
                     if (filterGirlsCell == nil)
                     {
                         filterGirlsCell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:filterGirlsID];
-//                        filterGirlsCell.textLabel.text = [NSString localizeString:@"Girls"] ;
                         filterGirlsCell.selectionStyle = UITableViewCellSelectionStyleNone;
                         UISwitch *autoSwitch = [[UISwitch alloc] init];
                         [autoSwitch addTarget:self action:@selector(onSwitchChangedValue:) forControlEvents:UIControlEventValueChanged];
@@ -334,7 +328,6 @@ UITapGestureRecognizer *tap;
                     }
                     else
                     {
-//                        filterGirlsCell.textLabel.text = [NSString localizeString:@"Girls"] ;
                         UISwitch *autoSwitch = (id) [filterGirlsCell viewWithTag:101];
                         autoSwitch.on = hasFemale;
                     }
@@ -683,8 +676,8 @@ UITapGestureRecognizer *tap;
         self.hereTo = [self loadHereTo:snapshotObj.purpose_of_search];
         snapshotObj.gender_of_search = [data valueForKey:key_gender_of_search];//[Profile parseGender:[data valueForKey:key_gender_of_search]];
         
-//        fromAge = [[data valueForKey:key_age_from] integerValue];
-//        toAge= [[data valueForKey:key_age_to] integerValue];
+        fromAge = [[data valueForKey:key_age_from] integerValue];
+        toAge= [[data valueForKey:key_age_to] integerValue];
         
         NSMutableDictionary* status_interested_in = [data valueForKey:key_status_interested_in];
         snapshotObj.interested_new_people = [[status_interested_in valueForKey:key_new_people] boolValue];
@@ -709,6 +702,7 @@ UITapGestureRecognizer *tap;
         //        [chbLikes setSelected:[[data valueForKey:key_is_likes] boolValue]];
         //        [chbSchool setSelected:[[data valueForKey:key_is_school] boolValue]];
         //        [chbwork setSelected:[[data valueForKey:key_is_work] boolValue]];
+        [self initAgeRangeSlider];
         [self.tableView reloadData];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Error Code: %i - %@",[error code], [error localizedDescription]);
@@ -943,12 +937,21 @@ UITapGestureRecognizer *tap;
     [self saveSetting];
 }
 -(void)onTouchContactUs{
+//    NSString* body = @"";
+//    UIActivityViewController *activityViewController = [[UIActivityViewController alloc]initWithActivityItems:[NSArray arrayWithObjects:body,nil] applicationActivities:nil];
+//    
+//    [activityViewController setValue:[@"Suggestion and support" localize] forKey:@"subject"];
+//    [activityViewController setValue:@"sfkjdhfkj" forKey:@"torecipients"];
+//    activityViewController.excludedActivityTypes = @[UIActivityTypePostToWeibo, UIActivityTypeAssignToContact,UIActivityTypePrint,UIActivityTypeCopyToPasteboard,UIActivityTypeSaveToCameraRoll,UIActivityTypePostToTwitter,UIActivityTypePostToFacebook,UIActivityTypeMessage];
+//    [self presentViewController:activityViewController animated:YES completion:nil];
+//
+    
     if([MFMailComposeViewController canSendMail]) {
         MFMailComposeViewController *mailCont = [[MFMailComposeViewController alloc] init];
         mailCont.mailComposeDelegate = self;        // Required to invoke mailComposeController when send
         
-        [mailCont setSubject:@"Suggestion and support"];
-        [mailCont setToRecipients:[NSArray arrayWithObjects:@"hotro@oakclub.com"/*,@"help@oakclub.com"*/,nil]];
+        [mailCont setSubject:[@"Suggestion and support" localize]];
+        [mailCont setToRecipients:[NSArray arrayWithObjects:@"hotro@oakclub.com",nil]];
         [mailCont setMessageBody:@"" isHTML:NO];
         
         [self presentViewController:mailCont animated:YES completion:nil];
@@ -956,13 +959,14 @@ UITapGestureRecognizer *tap;
     else{
         UIAlertView *alert = [[UIAlertView alloc]
                               initWithTitle:@"Warning"
-                              message:@"Cannot access to the email account on your device."
+                              message:@"Can not access to email."
                               delegate:self
                               cancelButtonTitle:@"OK"
                               otherButtonTitles:nil];
         [alert localizeAllViews];
         [alert show];
     }
+    
 }
 
 - (void)mailComposeController:(MFMailComposeViewController*)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError*)error {
@@ -1049,12 +1053,11 @@ UITapGestureRecognizer *tap;
 	[self.ageSlider addTarget:self action:@selector(report:) forControlEvents:UIControlEventValueChanged]; // The slider sends actions when the value of the minimum or maximum changes
 	[self.ageSlider addTarget:self action:@selector(touchDownOnSlider:) forControlEvents:UIControlEventTouchDown ];
     [self.ageSlider addTarget:self action:@selector(touchUpOnSlider:) forControlEvents:UIControlEventTouchUpInside ];
-    fromAge = 18;
-    toAge = 45;
+//    fromAge = 18;
+//    toAge = 45;
     [lblRangeOfAge setText: [NSString stringWithFormat: @"%d %@ %d %@",fromAge,[@"to" localize],toAge,[@"years old" localize]]];
-    //    self.ageSlider.min =(CGFloat) (18 - MIN_AGE)/(MAX_AGE-MIN_AGE);
-    self.ageSlider.max = (CGFloat) (45 - MIN_AGE)/(MAX_AGE-MIN_AGE);
-    [self.ageSlider setMin:(CGFloat) (18 - MIN_AGE)/(MAX_AGE-MIN_AGE)];
+    self.ageSlider.max = (CGFloat) (toAge - MIN_AGE)/(MAX_AGE-MIN_AGE);
+    [self.ageSlider setMin:(CGFloat) (fromAge - MIN_AGE)/(MAX_AGE-MIN_AGE)];
 }
 
 - (void)report:(RangeSlider *)sender {

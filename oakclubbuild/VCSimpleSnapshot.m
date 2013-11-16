@@ -388,14 +388,26 @@ CGFloat pageHeight;
     }
     NSLog(@"current id = %@",currentProfile.s_ID);
     viewProfile = [[VCProfile alloc] initWithNibName:@"VCProfile" bundle:nil];
+    
     [viewProfile loadProfile:currentProfile andImage:currentProfile.img_Avatar];
 
     [self.view addSubview:viewProfile.view];
-    viewProfile.view.frame = CGRectMake(0, 480, 320, 480);
+    if(IS_OS_7_OR_LATER){
+        viewProfile.view.frame = CGRectMake(0, [[UIScreen mainScreen]applicationFrame].size.height, 320, [[UIScreen mainScreen]applicationFrame].size.height);
+    }
+    else{
+        viewProfile.view.frame = CGRectMake(0, [[UIScreen mainScreen]applicationFrame].size.height, 320, [[UIScreen mainScreen]applicationFrame].size.height);
+    }
+    
     [viewProfile.svPhotos setHidden:YES];
     [UIView animateWithDuration:0.4
                      animations:^{
-                         viewProfile.view.frame = CGRectMake(0, 0, 320, 480);
+                         if(IS_OS_7_OR_LATER){
+                             viewProfile.view.frame = CGRectMake(0, 20, 320, [[UIScreen mainScreen]applicationFrame].size.height);
+                         }
+                         else{
+                             viewProfile.view.frame = CGRectMake(0, 0, 320, [[UIScreen mainScreen]applicationFrame].size.height);
+                         }
                      }completion:^(BOOL finished) {
                           [viewProfile.svPhotos setHidden:NO];
                      }];
@@ -428,7 +440,7 @@ CGFloat pageHeight;
     [UIView animateWithDuration:0.4
                      animations:^{
                          [viewProfile.view removeFromSuperview];
-                         viewProfile.view.frame = CGRectMake(0, 480, 320, 480);// its final location
+                         viewProfile.view.frame = CGRectMake(0, [[UIScreen mainScreen]applicationFrame].size.height, 320, [[UIScreen mainScreen]applicationFrame].size.height);// its final location
                      }];
     
     [UIView animateWithDuration: 0.4

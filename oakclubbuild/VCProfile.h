@@ -33,7 +33,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *lblGender;
 @property (weak, nonatomic) IBOutlet UILabel *lblRelationShip;
 @property (weak, nonatomic) IBOutlet UILabel *lblLocation;
-@property (weak, nonatomic) IBOutlet UITextView *lblAboutMe;
+@property (weak, nonatomic) IBOutlet UILabel *lblAboutMe;
 @property (weak, nonatomic) IBOutlet UILabel *lblEthnicity;
 @property (weak, nonatomic) IBOutlet UILabel *lblAge;
 @property (weak, nonatomic) IBOutlet UILabel *lblPopularity;
@@ -60,5 +60,4 @@
 
 -(void) loadProfile:(Profile*) _profile andImage:(UIImage*)avatar;
 -(void) loadProfile:(Profile*) _profile;
--(void)setShowNavigationBar:(BOOL)isShow;
 @end

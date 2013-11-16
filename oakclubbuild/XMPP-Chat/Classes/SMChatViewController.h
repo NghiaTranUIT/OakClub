@@ -31,7 +31,6 @@
 @property (strong, nonatomic) IBOutlet UILabel *label_header;
 @property (strong, nonatomic) IBOutlet UIButton *btnMoreOption;
 @property (strong, nonatomic) IBOutlet UIButton *btnShowProfile;
-@property (strong, nonatomic) IBOutlet UIImageView *imgLogo;
 @property (strong, nonatomic) IBOutlet UIButton *btnBackToPrevious;
 
 @property (nonatomic,strong) UIImage *avatar_me;

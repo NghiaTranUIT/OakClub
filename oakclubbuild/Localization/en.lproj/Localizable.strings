@@ -94,6 +94,8 @@
 "Đang online"="Just now";
 "Mutual Friends"="Mutual Friends";
 "Bạn chung"="Mutual Friends";
+"MUTUAL FRIENDS"="MUTUAL FRIENDS";
+"BẠN CHUNG"="MUTUAL FRIENDS";
 "Share interests"="Share interests";
 "Sở thích chung"="Share interests";
 "Load earlier messages"="Load earlier messages";
@@ -170,6 +172,8 @@
 "Nghề nghiệp"="Work";
 "About me"="About me";
 "Tự giới thiệu"="About me";
+"ABOUT ME"="ABOUT ME";
+"TỰ GIỚI THIỆU"="ABOUT ME";
 "Done"="Done";
 "Xong"="Done";
 "Setting"="Setting";
@@ -219,7 +223,7 @@
 "I am in OakClub, you?"="I am in OakClub, you?";
 "I am in OakClub, you?"="I am in OakClub, you?";
 "Join www.OakClub.com ... and meet many cool singles nearby. Safe, trustworthy and private."="Join www.OakClub.com ... and meet many cool singles nearby. Safe, trustworthy and private.";
-"Tham Gia OakClub ngay! Gặp gỡ các FA đang ở  gần bạn. An Toàn, tin tưởng, và bảo mật!"="Join www.OakClub.com ... and meet many cool singles nearby. Safe, trustworthy and private.";
+"Tham Gia www.OakClub.com ngay! Gặp gỡ các FA đang ở  gần bạn. An Toàn, tin tưởng, và bảo mật!"="Join www.OakClub.com ... and meet many cool singles nearby. Safe, trustworthy and private.";
 "Less than a km away"="Less than a km away";
 "Trong vòng 1 km"="Less than a km away";
 "...km away"="...km away";
@@ -340,8 +344,8 @@
 "Liên hệ"="Contact Us";
 "Save Your Settings"="Save Your Settings";
 "Lưu Cài Đặt"="Save Your Settings";
-"Share Interests"="Share Interests";
-"Sở thích chung"="Share Interests";
+"SHARE INTERESTS"="SHARE INTERESTS";
+"SỞ THÍCH CHUNG"="SHARE INTERESTS";
 "Not interested?"="Not interested?";
 "Ồ không?"="Not interested?";
 "Like?"="Like?";

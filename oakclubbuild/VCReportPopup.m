@@ -47,6 +47,10 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+- (IBAction)onTouchCancel:(id)sender
+{
+    [self backToChat];
+}
 - (IBAction)onTouchBlockThisUser:(id)sender
 {
     [self sendBlockReport];
@@ -137,4 +141,5 @@
     
     [operation start];
 }
+
 @end

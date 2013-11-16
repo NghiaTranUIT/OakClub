@@ -444,7 +444,7 @@ BOOL isDragging = FALSE;
 	
 	// Add the animation group to the layer.
 	[welcomeLayer addAnimation:theGroup forKey:@"animatePlacardViewToCenter"];
-    [NSTimer scheduledTimerWithTimeInterval:0.4f
+    [NSTimer scheduledTimerWithTimeInterval:0.2f
                                      target:self
                                    selector:@selector(handleTimer)
                                    userInfo:nil
@@ -610,6 +610,6 @@ BOOL isDragging = FALSE;
 #pragma mark Timer
 - (void)handleTimer
 {
-    [self.placardView setAlpha:1];
+    [self.placardView setAlpha:0];
 }
 @end
