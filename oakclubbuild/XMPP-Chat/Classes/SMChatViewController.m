@@ -371,16 +371,9 @@
     VCReportPopup* reportPopup= [[VCReportPopup alloc]initWithProfileID:hangout_id];
     [self dismissKeyboard:sender];
     [reportPopup.view setFrame:CGRectMake(0, 0, reportPopup.view.frame.size.width, reportPopup.view.frame.size.height)];
-//    [self.view addSubview:reportPopup.view];
-    if(IS_OS_7_OR_LATER){
-        [self.navigationController presentModalViewController:reportPopup animated:NO];
-    }
-    else{
-        
-        [self.navigationController.navigationBar setUserInteractionEnabled:NO];
-        [self.navigationController pushViewController:reportPopup animated:NO];
-    }
-    
+
+    [self.navigationController pushViewController:reportPopup animated:YES];
+   
 }
 
 - (IBAction)onTapViewProfile:(id)sender {

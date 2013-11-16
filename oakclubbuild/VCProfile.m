@@ -1043,7 +1043,7 @@ BOOL allowFullScreen = FALSE;
         float screenHeight = self.view.frame.size.height;
         if (IS_OS_7_OR_LATER)
         {
-            screenHeight += 100;
+            screenHeight += 0;
         }
         
         if(self.svPhotos.frame.size.height < screenHeight  && scrollOffset < 0)
@@ -1100,7 +1100,7 @@ BOOL allowFullScreen = FALSE;
     float screenHeight = self.view.frame.size.height;
     if (IS_OS_7_OR_LATER)
     {
-        screenHeight += 100;
+        screenHeight += 0;
     }
     if(self.svPhotos.frame.size.height < screenHeight - 80){
         
@@ -1144,7 +1144,7 @@ BOOL allowFullScreen = FALSE;
     float screenHeight = self.view.frame.size.height;
     if (IS_OS_7_OR_LATER)
     {
-        screenHeight += 100;
+        screenHeight += 0;
     }
     if (self.svPhotos.frame.size.height < screenHeight)
     {

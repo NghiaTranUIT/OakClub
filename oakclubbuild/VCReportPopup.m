@@ -83,16 +83,8 @@
 
 -(void)backToChat
 {
-    if (IS_OS_7_OR_LATER)
-    {
-        [self.parentViewController.navigationController.navigationBar setUserInteractionEnabled:YES];
-        [self dismissModalViewControllerAnimated:NO];
-    }
-    else
-    {
-        [self.navigationController.navigationBar setUserInteractionEnabled:YES];
-        [self.navigationController popViewControllerAnimated:NO];
-    }
+    [self.navigationController.navigationBar setUserInteractionEnabled:YES];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 -(void)sendReportWithContent:(NSString *)content
