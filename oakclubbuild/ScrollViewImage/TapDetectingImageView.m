@@ -157,17 +157,18 @@ CGPoint midpointBetweenPoints(CGPoint a, CGPoint b);
 #pragma mark Private
 
 - (void)handleSingleTap {
-    if ([delegate respondsToSelector:@selector(tapDetectingImageView:gotSingleTapAtPoint:)])
+    return;
+    if (delegate && [delegate respondsToSelector:@selector(tapDetectingImageView:gotSingleTapAtPoint:)])
         [delegate tapDetectingImageView:self gotSingleTapAtPoint:tapLocation];
 }
 
 - (void)handleDoubleTap {
-    if ([delegate respondsToSelector:@selector(tapDetectingImageView:gotDoubleTapAtPoint:)])
+    if (delegate && [delegate respondsToSelector:@selector(tapDetectingImageView:gotDoubleTapAtPoint:)])
         [delegate tapDetectingImageView:self gotDoubleTapAtPoint:tapLocation];
 }
     
 - (void)handleTwoFingerTap {
-    if ([delegate respondsToSelector:@selector(tapDetectingImageView:gotTwoFingerTapAtPoint:)])
+    if (delegate && [delegate respondsToSelector:@selector(tapDetectingImageView:gotTwoFingerTapAtPoint:)])
         [delegate tapDetectingImageView:self gotTwoFingerTapAtPoint:tapLocation];
 }
     

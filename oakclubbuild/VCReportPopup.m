@@ -65,7 +65,7 @@
     alertView.alertViewStyle = UIAlertViewStylePlainTextInput;
     
     [alertView show];
-    [[alertView textFieldAtIndex:0] resignFirstResponder];
+    //[[alertView textFieldAtIndex:0] resignFirstResponder];
 }
 
 -(void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
@@ -79,8 +79,16 @@
 
 -(void)backToChat
 {
-    [self.navigationController.navigationBar setUserInteractionEnabled:YES];
-    [self.navigationController popViewControllerAnimated:NO];
+    if (IS_OS_7_OR_LATER)
+    {
+        [self.parentViewController.navigationController.navigationBar setUserInteractionEnabled:YES];
+        [self dismissModalViewControllerAnimated:NO];
+    }
+    else
+    {
+        [self.navigationController.navigationBar setUserInteractionEnabled:YES];
+        [self.navigationController popViewControllerAnimated:NO];
+    }
 }
 
 -(void)sendReportWithContent:(NSString *)content

@@ -366,7 +366,6 @@
     }
 }
 - (IBAction)onTouchMoreOption:(id)sender {
-    [self.navigationController.navigationBar setUserInteractionEnabled:NO];
     
     NSArray *chunks = [chatWithUser componentsSeparatedByString: @"@"];
     NSString* hangout_id = [chunks objectAtIndex:0];
@@ -378,6 +377,8 @@
         [self.navigationController presentModalViewController:reportPopup animated:NO];
     }
     else{
+        
+        [self.navigationController.navigationBar setUserInteractionEnabled:NO];
         [self.navigationController pushViewController:reportPopup animated:NO];
     }
     
@@ -478,6 +479,7 @@ static float cellWidth = 320;
 											  cell.messageContentView.frame.size.width + 3 * padding_left,
 											  cell.messageContentView.frame.size.height + padding_top)];
         
+        [cell.avatarImageView setHidden:NO];
         [cell.avatarImageView setFrame:CGRectMake(padding_left, padding_top + cell.bgImageView.frame.size.height - defaultAvatarHeight, defaultAvatarWidth, defaultAvatarHeight)];
         [cell.avatarImageView setBackgroundImage:avatar_friend forState:UIControlStateNormal];
         //[UIImage imageNamed:@"action-people.png"];
