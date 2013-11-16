@@ -222,7 +222,7 @@
                               [appDelegate getProfileInfoWithHandler:^(void)
                                {
                                    [self stopSpinner];
-                                   if (false && [[[NSUserDefaults standardUserDefaults] valueForKey:@"isFirstLogin"] boolValue])
+                                   if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"isFirstLogin"] boolValue])
                                    {
                                        menuViewController *leftController = [[menuViewController alloc] init];
                                        [leftController setUIInfo:appDelegate.myProfile];
