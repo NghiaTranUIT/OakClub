@@ -8,6 +8,7 @@
 
 #import "FlashIntro.h"
 #import "AppDelegate.h"
+#import "UIView+Localize.h"
 
 @interface FlashIntro ()
 {
@@ -35,8 +36,17 @@
         background = [[UIImageView alloc] initWithFrame:CGRectMake(0, 10, self.view.frame.size.width, self.view.frame.size.height)];
     else
         background = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
-
-    UIImage *backgroundImg = [UIImage imageNamed:@"spashscreen"];
+    
+    NSString *localSpashScreen;
+    if ([value_appLanguage_EN isEqualToString:[[NSUserDefaults standardUserDefaults] objectForKey:key_appLanguage]])
+    {
+        localSpashScreen = @"spashscreen";
+    }
+    else
+    {
+        localSpashScreen = @"spashscreen_vn";
+    }
+    UIImage *backgroundImg = [UIImage imageNamed:localSpashScreen];
     [background setImage:backgroundImg];
     [background setContentMode:UIViewContentModeScaleAspectFit];
     [self.view addSubview:background];

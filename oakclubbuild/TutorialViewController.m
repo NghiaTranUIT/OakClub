@@ -9,6 +9,7 @@
 #import "TutorialViewController.h"
 #import "CycleScrollView.h"
 #import "AppDelegate.h"
+#import "UIView+Localize.h"
 
 @interface TutorialViewController () <CycleScrollViewDelegate>
 {
@@ -49,9 +50,9 @@
     [self.view addSubview:pageControl];
     
     NSArray* pageImages = [NSArray arrayWithObjects:
-                           [UIImage imageNamed:@"tutorial_snapshots"],
-                           [UIImage imageNamed:@"tutorial_chat"],
-                           [UIImage imageNamed:@"tutorial_options"],
+                           [UIImage imageNamed:[@"tutorial_snapshots" localize]],
+                           [UIImage imageNamed:[@"tutorial_chat" localize]],
+                           [UIImage imageNamed:[@"tutorial_options" localize]],
                            nil];
     CGRect mainFrame = [[UIScreen mainScreen]applicationFrame];
     CycleScrollView *cycle;

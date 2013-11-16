@@ -202,6 +202,8 @@
     if(indexPath.row == 3){
         UIImage* tellFriend_BG = [UIImage imageNamed:@"Menu_btn_Facebook.png"];
         [cell setItemBackground:tellFriend_BG andHighlight:tellFriend_BG];
+        
+        [cell.labelMenu setFont:[UIFont fontWithName:cell.labelMenu.font.fontName size:18]];
     }
     
     if(indexPath.row == 1 && self.avatar.image != nil){

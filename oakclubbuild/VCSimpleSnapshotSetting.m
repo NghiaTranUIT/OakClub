@@ -70,7 +70,7 @@ UITapGestureRecognizer *tap;
     appDel = [self appDelegate];
      [self showNotifications];
     
-    [self initAgeRangeSlider];
+    
 }
 
 -(void)viewDidAppear:(BOOL)animated{
@@ -253,7 +253,7 @@ UITapGestureRecognizer *tap;
                 rangeAgeCell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:rangeAgeCellID];
                 UIView *newCellView= [[UIView alloc]initWithFrame:CGRectMake(0, 0, 320, 80)];
                 lblRangeOfAge = [[UILabel alloc]initWithFrame:CGRectMake(30, 0, 280, 30)];
-                [lblRangeOfAge setText: [NSString stringWithFormat: @"%d %@ %d %@",fromAge,[@"to" localize],toAge,[@"years old" localize]]];
+                
                 lblRangeOfAge.textAlignment = NSTextAlignmentCenter;
                 //                [lblRange setTextColor:[UIColor blackColor]];
                 [lblRangeOfAge setBackgroundColor:[UIColor clearColor]];
@@ -264,7 +264,7 @@ UITapGestureRecognizer *tap;
                 [rangeAgeCell setSelectionStyle:UITableViewCellSelectionStyleNone];
                 rangeAgeCell.accessoryView = newCellView;
             }
-            
+            [lblRangeOfAge setText: [NSString stringWithFormat: @"%d %@ %d %@",fromAge,[@"to" localize],toAge,[@"years old" localize]]];
             [rangeAgeCell localizeAllViews];
             return rangeAgeCell;
             break;
@@ -289,7 +289,6 @@ UITapGestureRecognizer *tap;
                     if (filterGuysCell == nil)
                     {
                         filterGuysCell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:filterGuysID];
-//                        filterGuysCell.textLabel.text = [NSString localizeString:@"Guys"] ;
                         filterGuysCell.selectionStyle = UITableViewCellSelectionStyleNone;
                         UISwitch *autoSwitch = [[UISwitch alloc] init];
                         [autoSwitch addTarget:self action:@selector(onSwitchChangedValue:) forControlEvents:UIControlEventValueChanged];
@@ -302,9 +301,7 @@ UITapGestureRecognizer *tap;
                     }
                     else
                     {
-//                        filterGuysCell.textLabel.text = [NSString localizeString:@"Guys"] ;
                         UISwitch *autoSwitch = (id) [filterGuysCell viewWithTag:100];
-//                        autoSwitch.on = [snapshotObj.gender_of_search isEqualToString:value_Male] || [snapshotObj.gender_of_search isEqualToString:value_All];
                         autoSwitch.on = hasMale;
                     }
                     filterGuysCell.textLabel.text = [NSString localizeString:@"Guys"];
@@ -319,7 +316,6 @@ UITapGestureRecognizer *tap;
                     if (filterGirlsCell == nil)
                     {
                         filterGirlsCell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:filterGirlsID];
-//                        filterGirlsCell.textLabel.text = [NSString localizeString:@"Girls"] ;
                         filterGirlsCell.selectionStyle = UITableViewCellSelectionStyleNone;
                         UISwitch *autoSwitch = [[UISwitch alloc] init];
                         [autoSwitch addTarget:self action:@selector(onSwitchChangedValue:) forControlEvents:UIControlEventValueChanged];
@@ -332,7 +328,6 @@ UITapGestureRecognizer *tap;
                     }
                     else
                     {
-//                        filterGirlsCell.textLabel.text = [NSString localizeString:@"Girls"] ;
                         UISwitch *autoSwitch = (id) [filterGirlsCell viewWithTag:101];
                         autoSwitch.on = hasFemale;
                     }
@@ -681,8 +676,8 @@ UITapGestureRecognizer *tap;
         self.hereTo = [self loadHereTo:snapshotObj.purpose_of_search];
         snapshotObj.gender_of_search = [data valueForKey:key_gender_of_search];//[Profile parseGender:[data valueForKey:key_gender_of_search]];
         
-//        fromAge = [[data valueForKey:key_age_from] integerValue];
-//        toAge= [[data valueForKey:key_age_to] integerValue];
+        fromAge = [[data valueForKey:key_age_from] integerValue];
+        toAge= [[data valueForKey:key_age_to] integerValue];
         
         NSMutableDictionary* status_interested_in = [data valueForKey:key_status_interested_in];
         snapshotObj.interested_new_people = [[status_interested_in valueForKey:key_new_people] boolValue];
@@ -707,6 +702,7 @@ UITapGestureRecognizer *tap;
         //        [chbLikes setSelected:[[data valueForKey:key_is_likes] boolValue]];
         //        [chbSchool setSelected:[[data valueForKey:key_is_school] boolValue]];
         //        [chbwork setSelected:[[data valueForKey:key_is_work] boolValue]];
+        [self initAgeRangeSlider];
         [self.tableView reloadData];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Error Code: %i - %@",[error code], [error localizedDescription]);
@@ -717,7 +713,7 @@ UITapGestureRecognizer *tap;
     if(fromAge > toAge){
         UIAlertView *alert = [[UIAlertView alloc]
                               initWithTitle:@"Warning"
-                              message:@"FromAge Must Be Smaller Than ToAge"
+                              message:@"From age must be smaller than to age"
                               delegate:self
                               cancelButtonTitle:@"OK"
                               otherButtonTitles:nil];
@@ -777,11 +773,11 @@ UITapGestureRecognizer *tap;
         NSError *e=nil;
         NSMutableDictionary *dict = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONReadingMutableContainers error:&e];
         BOOL status= [[dict valueForKey:key_status] boolValue];
-        if(status){
+        if(status && ![[dict valueForKey:@"msg"] isEqualToString:@"Setting does not change"]){
             NSLog(@"POST SUCCESS!!!");
             UIAlertView *alert = [[UIAlertView alloc]
-                                  initWithTitle:@"NOTE"
-                                  message:@"Settings is saved."
+                                  initWithTitle:@"Completed"
+                                  message:@"Settings saved"
                                   delegate:self
                                   cancelButtonTitle:@"OK"
                                   otherButtonTitles:nil];
@@ -793,11 +789,12 @@ UITapGestureRecognizer *tap;
         else{
             NSLog(@"POST FAIL...");
             UIAlertView *alert = [[UIAlertView alloc]
-                                  initWithTitle:@"NOTE"
-                                  message:@"Settings can not saved now."
+                                  initWithTitle:@"Warning"
+                                  message:@"Settings cannot be saved now."
                                   delegate:self
                                   cancelButtonTitle:@"OK"
                                   otherButtonTitles:nil];
+            [alert localizeAllViews];
             [alert show];
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -953,8 +950,8 @@ UITapGestureRecognizer *tap;
         MFMailComposeViewController *mailCont = [[MFMailComposeViewController alloc] init];
         mailCont.mailComposeDelegate = self;        // Required to invoke mailComposeController when send
         
-        [mailCont setSubject:@"Suggestion and support"];
-        [mailCont setToRecipients:[NSArray arrayWithObjects:@"hotro@oakclub.com",@"help@oakclub.com",nil]];
+        [mailCont setSubject:[@"Suggestion and support" localize]];
+        [mailCont setToRecipients:[NSArray arrayWithObjects:@"hotro@oakclub.com",nil]];
         [mailCont setMessageBody:@"" isHTML:NO];
         
         [self presentViewController:mailCont animated:YES completion:nil];
@@ -966,6 +963,7 @@ UITapGestureRecognizer *tap;
                               delegate:self
                               cancelButtonTitle:@"OK"
                               otherButtonTitles:nil];
+        [alert localizeAllViews];
         [alert show];
     }
     
@@ -1055,12 +1053,11 @@ UITapGestureRecognizer *tap;
 	[self.ageSlider addTarget:self action:@selector(report:) forControlEvents:UIControlEventValueChanged]; // The slider sends actions when the value of the minimum or maximum changes
 	[self.ageSlider addTarget:self action:@selector(touchDownOnSlider:) forControlEvents:UIControlEventTouchDown ];
     [self.ageSlider addTarget:self action:@selector(touchUpOnSlider:) forControlEvents:UIControlEventTouchUpInside ];
-    fromAge = 18;
-    toAge = 45;
+//    fromAge = 18;
+//    toAge = 45;
     [lblRangeOfAge setText: [NSString stringWithFormat: @"%d %@ %d %@",fromAge,[@"to" localize],toAge,[@"years old" localize]]];
-    //    self.ageSlider.min =(CGFloat) (18 - MIN_AGE)/(MAX_AGE-MIN_AGE);
-    self.ageSlider.max = (CGFloat) (45 - MIN_AGE)/(MAX_AGE-MIN_AGE);
-    [self.ageSlider setMin:(CGFloat) (18 - MIN_AGE)/(MAX_AGE-MIN_AGE)];
+    self.ageSlider.max = (CGFloat) (toAge - MIN_AGE)/(MAX_AGE-MIN_AGE);
+    [self.ageSlider setMin:(CGFloat) (fromAge - MIN_AGE)/(MAX_AGE-MIN_AGE)];
 }
 
 - (void)report:(RangeSlider *)sender {

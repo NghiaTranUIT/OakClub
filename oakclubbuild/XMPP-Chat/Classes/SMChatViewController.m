@@ -257,7 +257,7 @@
 
 //    NSLog(@" [self.navigationController.navigationBar subviews] = %i",[[self.navigationController.navigationBar subviews] count]);
     for(UIView* subview in [self.navigationController.navigationBar subviews]){
-        if([subview isKindOfClass:[ChatNavigationView class]])
+        if([subview isKindOfClass:[ChatNavigationView class]] || [subview isKindOfClass:[UILabel class]] || [subview isKindOfClass:[UIButton class]])
             [subview removeFromSuperview];
     }
     [self.navigationItem setHidesBackButton:YES];
@@ -372,14 +372,9 @@
     VCReportPopup* reportPopup= [[VCReportPopup alloc]initWithProfileID:hangout_id];
     [self dismissKeyboard:sender];
     [reportPopup.view setFrame:CGRectMake(0, 0, reportPopup.view.frame.size.width, reportPopup.view.frame.size.height)];
-//    [self.view addSubview:reportPopup.view];
-    if(IS_OS_7_OR_LATER){
-        [self.navigationController presentModalViewController:reportPopup animated:NO];
-    }
-    else{
-        [self.navigationController pushViewController:reportPopup animated:NO];
-    }
-    
+
+    [self.navigationController pushViewController:reportPopup animated:YES];
+   
 }
 
 - (IBAction)onTapViewProfile:(id)sender {
@@ -404,15 +399,10 @@
         VCProfile *viewProfile = [[VCProfile alloc] initWithNibName:@"VCProfile" bundle:nil];
         [viewProfile loadProfile:userProfile andImage:avatar_friend];
         [self.navigationController.navigationBar setUserInteractionEnabled:YES];
-        if(IS_OS_7_OR_LATER){
+        [self.navigationController setNavigationBarHidden:NO];
+        [self.navigationController pushViewController:viewProfile animated:YES];
+        if(!IS_OS_7_OR_LATER){
             //vanancy ; bug crash on iOS7
-//            [viewProfile setShowNavigationBar:YES];
-            [self.navigationController setNavigationBarHidden:NO];
-            [self.navigationController pushViewController:viewProfile animated:YES];
-        }
-        else{
-            [self.navigationController setNavigationBarHidden:NO];
-            [self.navigationController pushViewController:viewProfile animated:YES];
             [viewProfile.navigationController setNavigationBarHidden:NO];
         }
     }];
@@ -501,17 +491,18 @@ static float cellWidth = 320;
 											  cell.messageContentView.frame.size.width + 2 * padding_left,
 											  cell.messageContentView.frame.size.height + padding_top)];
         
-        [cell.avatarImageView setFrame:CGRectMake(padding_left + cell.bgImageView.frame.origin.x + cell.bgImageView.frame.size.width,
-                                                  padding_top + cell.bgImageView.frame.size.height - defaultAvatarHeight, defaultAvatarWidth, defaultAvatarHeight)];
-        [cell.avatarImageView setBackgroundImage:avatar_me forState:UIControlStateNormal];
+        [cell.avatarImageView setHidden:YES];
+//        [cell.avatarImageView setFrame:CGRectMake(padding_left + cell.bgImageView.frame.origin.x + cell.bgImageView.frame.size.width,
+//                                                  padding_top + cell.bgImageView.frame.size.height - defaultAvatarHeight, defaultAvatarWidth, defaultAvatarHeight)];
+//        [cell.avatarImageView setBackgroundImage:avatar_me forState:UIControlStateNormal];
         [cell.senderAndTimeLabel setFrame:CGRectMake(padding_left,
                                                      cell.bgImageView.frame.origin.y + cell.bgImageView.frame.size.height - cell.senderAndTimeLabel.frame.size.height,
                                                      cell.senderAndTimeLabel.frame.size.width, cell.senderAndTimeLabel.frame.size.height)];
         
         cell.userInteractionEnabled = YES;
         
-        cell.customView.frame = CGRectMake(0, 0, cell.avatarImageView.frame.origin.x + cell.avatarImageView.frame.size.width + padding_left,
-                                cell.avatarImageView.frame.origin.y + cell.avatarImageView.frame.size.height + padding_top);
+        cell.customView.frame = CGRectMake(0, 0, cell.bgImageView.frame.origin.x + cell.bgImageView.frame.size.width + padding_left,
+                                cell.bgImageView.frame.origin.y + cell.bgImageView.frame.size.height + padding_top);
         cell.customView.frame = CGRectMake(cellWidth - cell.customView.frame.size.width, cell.customView.frame.origin.y, cell.customView.frame.size.width, cell.customView.frame.size.height);
     }
     
@@ -609,7 +600,7 @@ NSMutableArray *cellHeight;
 												   inSection:0];
 	
 	[self.tView scrollToRowAtIndexPath:topIndexPath 
-					  atScrollPosition:UITableViewScrollPositionMiddle 
+					  atScrollPosition:UITableViewScrollPositionBottom
 							  animated:YES];
 }
 

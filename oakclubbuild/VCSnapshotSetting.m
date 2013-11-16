@@ -10,6 +10,8 @@
 #import "AppDelegate.h"
 #import "SettingObject.h"
 #import "NSString+Utils.h"
+#import "UIView+Localize.h"
+
 @interface VCSnapshotSetting (){
     NSMutableArray *snapshotItemList;
     SettingObject* snapshotObj;
@@ -246,11 +248,12 @@ NSIndexPath * whereIndexPath;
     if(fromAge > toAge){
         UIAlertView *alert = [[UIAlertView alloc]
                               initWithTitle:@"Warning"
-                              message:@"FromAge Must Be Smaller Than ToAge"
+                              message:@"From age must be smaller than to age"
                               delegate:self
                               cancelButtonTitle:@"OK"
                               otherButtonTitles:nil];
         [alert show];
+        [alert localizeAllViews];
         return;
     }
     

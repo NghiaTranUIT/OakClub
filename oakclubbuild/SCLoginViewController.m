@@ -59,7 +59,7 @@
     descText = [[NSArray alloc] initWithObjects:
                 @"Anonymouly \"like\" or \"pass\" on people OakClub suggests",
                 @"Chat with your matches inside the app",
-                @"if someone you've liked happen to like you as well …",
+                @"if someone you've liked happen to like you as well ...",
                 nil];
     
     // Do any additional setup after loading the view from its nib.
@@ -307,7 +307,7 @@
                               message:@""
                               delegate:self
                               cancelButtonTitle:nil
-                              otherButtonTitles:@"Vietnamese",@"English",nil];
+                              otherButtonTitles:[@"Vietnamese" localize],[@"English" localize],nil];
         [alert show];
     }
     else
@@ -323,7 +323,7 @@
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     NSString *title = [alertView buttonTitleAtIndex:buttonIndex];
-    if([title isEqualToString:@"Vietnamese"])
+    if([title isEqualToString:[@"Vietnamese" localize]])
     {
         [[NSUserDefaults standardUserDefaults] setObject:value_appLanguage_VI forKey:key_appLanguage];
         [[NSUserDefaults standardUserDefaults] synchronize];
@@ -332,7 +332,7 @@
         NSString* str=[appDelegate.languageBundle localizedStringForKey:@"was selected" value:@"" table:nil];
         NSLog(@"Vietnamese %@",str);
     }
-    else if([title isEqualToString:@"English"])
+    else if([title isEqualToString:[@"English" localize]])
     {
         [[NSUserDefaults standardUserDefaults] setObject:value_appLanguage_EN forKey:key_appLanguage];
         [[NSUserDefaults standardUserDefaults] synchronize];

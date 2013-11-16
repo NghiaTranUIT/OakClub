@@ -60,5 +60,4 @@
 
 -(void) loadProfile:(Profile*) _profile andImage:(UIImage*)avatar;
 -(void) loadProfile:(Profile*) _profile;
--(void)setShowNavigationBar:(BOOL)isShow;
 @end

@@ -221,7 +221,6 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
 }
 -(IBAction)uploadButtonClicked:(id)sender
 {
-    
     NSData *imageToUpload = UIImageJPEGRepresentation([UIImage imageNamed:@"bg.png"], 90);
     AFHTTPClient *client= [[AFHTTPClient alloc]initWithOakClubAPI:DOMAIN];
     
