@@ -198,9 +198,11 @@
                  NSLog(@"Init API completed");
                  
                  [appDelegate parseFBInfoToProfile:appDelegate.myFBProfile];
+//                 NSDictionary *params  = [[NSDictionary alloc]initWithObjectsAndKeys:s_DeviceToken, @"device_token", nil];
                  NSDictionary *params = [[NSDictionary alloc]initWithObjectsAndKeys:
                                          [FBSession activeSession].accessTokenData.accessToken, @"access_token",
                                          appDelegate.myProfile.s_FB_id, @"user_id",
+                                        appDelegate.s_DeviceToken,@"device_token",
                                          nil];
                  NSLog(@"sendRegister-params: %@", params);
                  [request getPath:URL_sendRegister parameters:params success:^(__unused AFHTTPRequestOperation *operation, id JSON)

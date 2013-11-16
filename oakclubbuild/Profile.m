@@ -300,6 +300,16 @@
         
         [friends addObject:p];
     }
+    /*
+    //add data for test
+    ImageInfo* p = [[ImageInfo alloc] init];
+    
+    p.avatar =@"https://graph.facebook.com/119186158094085/picture";
+    p.name =  @"Ngô Quỳnh Anh";
+    p.s_ID = @"119186158094085";
+    
+    [friends addObject:p];
+    */
     return friends;
 }
 

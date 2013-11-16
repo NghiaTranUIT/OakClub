@@ -65,6 +65,7 @@
     NSMutableDictionary *friendChatList;
     
     ProfileSetting* _accountSetting;
+    
 }
 // methods for chatting
 @property (nonatomic, assign) id  _messageDelegate;
@@ -95,6 +96,7 @@
 @property (strong, nonatomic) id<FBGraphUser> myFBProfile;
 @property (strong, nonatomic) FBSession *session;
 @property (strong, nonatomic) Profile *myProfile;
+@property (strong, nonatomic) NSString* s_DeviceToken;
 
 extern NSString *const SCSessionStateChangedNotification;
 

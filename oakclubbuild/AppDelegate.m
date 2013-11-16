@@ -44,7 +44,7 @@ NSString *const SCSessionStateChangedNotification =
 @end
 @implementation AppDelegate
 {
-    NSString* s_DeviceToken;
+//    NSString* s_DeviceToken;
 }
 NSString *const kXMPPmyJID = @"kXMPPmyJID";
 NSString *const kXMPPmyPassword = @"kXMPPmyPassword";
@@ -261,9 +261,9 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
     
 	NSString* newToken = [deviceToken description];
 	newToken = [newToken stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"<>"]];
-	s_DeviceToken = [newToken stringByReplacingOccurrencesOfString:@" " withString:@""];
+	self.s_DeviceToken = [newToken stringByReplacingOccurrencesOfString:@" " withString:@""];
     
-	NSLog(@"My token is: %@", s_DeviceToken);
+	NSLog(@"My token is: %@", self.s_DeviceToken);
     
 }
 

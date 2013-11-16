@@ -405,8 +405,17 @@ static CGFloat padding_left = 5.0;
         imageView.frame = rect;
         
         UIImageView *favIcon = [[UIImageView alloc] initWithFrame:imageView.frame];
+        
         NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInt:((int) rect.size.width)], @"width",
                                 [NSNumber numberWithInt:((int) rect.size.height)], @"height", nil];
+        /*
+        AFHTTPClient *downloadFAVIcon = [[AFHTTPClient alloc] initWithBaseURL:[NSURL URLWithString:@"https://graph.facebook.com/"]];
+        [downloadFAVIcon registerHTTPOperationClass:[AFHTTPRequestOperation class]];
+         
+        NSMutableURLRequest *iconRequest = [downloadFAVIcon requestWithMethod:@"GET"
+                                                                         path:[NSString stringWithFormat:@"%@/picture", fav.s_ID]
+                                                                   parameters:params];
+         */
         AFHTTPClient *downloadFAVIcon = [[AFHTTPClient alloc] initWithBaseURL:[NSURL URLWithString:fav.avatar]];
         [downloadFAVIcon registerHTTPOperationClass:[AFHTTPRequestOperation class]];
         NSMutableURLRequest *iconRequest = [downloadFAVIcon requestWithMethod:@"GET"
@@ -439,24 +448,24 @@ static CGFloat padding_left = 5.0;
     
     contentScroll.frame = [self addRelative:contentScroll.frame addPoint:CGPointMake(self.infoView.frame.origin.x, self.infoView.frame.origin.y + contentView.frame.origin.y) ];
     [scrollview addSubview:contentScroll];
-    if (currentProfile.s_video != nil && ![@"" isEqualToString:currentProfile.s_video])
-    {
-        CGRect rect;;
-        rect.size.height = 58;
-        rect.size.width = 58;
-        
-        rect.origin.y = (scrollViewInterest.frame.size.height - rect.size.height - 15) / 2;
-        rect.origin.x = scrollViewInterest.contentSize.width;
-        
-        UIButton *viewVideo = [[UIButton alloc] initWithFrame:rect];
-        [viewVideo setBackgroundImage:[UIImage imageNamed:@"viewprofile_videoicon"] forState:UIControlStateNormal];
-        [viewVideo addTarget:self action:@selector(ontouchViewVideo:) forControlEvents:UIControlEventTouchUpInside];
-        
-        [scrollViewInterest addSubview:viewVideo];
-    }
-    
-    scrollViewInterest.frame = [self addRelative:scrollViewInterest.frame addPoint:CGPointMake(self.infoView.frame.origin.x, self.infoView.frame.origin.y + self.interestsView.frame.origin.y) ];
-    [scrollview addSubview:scrollViewInterest];
+//    if (currentProfile.s_video != nil && ![@"" isEqualToString:currentProfile.s_video])
+//    {
+//        CGRect rect;;
+//        rect.size.height = 58;
+//        rect.size.width = 58;
+//        
+//        rect.origin.y = (scrollViewInterest.frame.size.height - rect.size.height - 15) / 2;
+//        rect.origin.x = scrollViewInterest.contentSize.width;
+//        
+//        UIButton *viewVideo = [[UIButton alloc] initWithFrame:rect];
+//        [viewVideo setBackgroundImage:[UIImage imageNamed:@"viewprofile_videoicon"] forState:UIControlStateNormal];
+//        [viewVideo addTarget:self action:@selector(ontouchViewVideo:) forControlEvents:UIControlEventTouchUpInside];
+//        
+//        [scrollViewInterest addSubview:viewVideo];
+//    }
+//    
+//    scrollViewInterest.frame = [self addRelative:scrollViewInterest.frame addPoint:CGPointMake(self.infoView.frame.origin.x, self.infoView.frame.origin.y + self.interestsView.frame.origin.y) ];
+//    [scrollview addSubview:scrollViewInterest];
 }
     
     

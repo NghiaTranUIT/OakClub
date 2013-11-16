@@ -25,28 +25,6 @@
             backgroundView.layer.cornerRadius = 9.0;
             backgroundView.layer.borderColor = CGCOLOR_PURPLE;//[UIColor lightGrayColor].CGColor;
             backgroundView.layer.borderWidth = 1;
-//            CGRect tophalfCellRect = CGRectMake(0, selectedBackground.frame.size.height/2, selectedBackground.frame.size.width, selectedBackground.frame.size.height/2);
-//            maskPath = [UIBezierPath bezierPathWithRoundedRect:tophalfCellRect
-//                                             byRoundingCorners: UIRectCornerBottomLeft|UIRectCornerBottomRight
-//                                                   cornerRadii:CGSizeMake(9.0, 9.0)];
-//            maskLayer = [CAShapeLayer layer];
-//            maskLayer.frame = selectedBackground.bounds;
-//            maskLayer.path = maskPath.CGPath;
-//            maskLayer.fillColor = [UIColor colorWithRed:(190/255.0) green:(237/255.0) blue:(248/255.0) alpha:1].CGColor;
-//            maskLayer.strokeColor = [UIColor lightGrayColor].CGColor;
-//            maskLayer.lineWidth = 1;
-//            [selectedBackground.layer addSublayer:maskLayer];
-//            CGRect bottomhalfCellRect = CGRectMake(0, 0, selectedBackground.frame.size.width, selectedBackground.frame.size.height/2);
-//            maskPath = [UIBezierPath bezierPathWithRoundedRect:bottomhalfCellRect
-//                                             byRoundingCorners: UIRectCornerTopLeft|UIRectCornerTopRight
-//                                                   cornerRadii:CGSizeMake(9.0, 9.0)];
-//            maskLayer = [CAShapeLayer layer];
-//            maskLayer.frame = selectedBackground.bounds;
-//            maskLayer.path = maskPath.CGPath;
-//            maskLayer.fillColor = [UIColor colorWithRed:(190/255.0) green:(237/255.0) blue:(248/255.0) alpha:1].CGColor;
-//            maskLayer.strokeColor = [UIColor lightGrayColor].CGColor;
-//            maskLayer.lineWidth = 1;
-//            [selectedBackground.layer addSublayer:maskLayer];
         }
         else{
         maskPath = [UIBezierPath bezierPathWithRoundedRect:selectedBackground.bounds

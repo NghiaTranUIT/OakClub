@@ -65,6 +65,7 @@ UITapGestureRecognizer *tap;
     [self.tableView addGestureRecognizer:tap];
     
     snapshotObj = [[SettingObject alloc] init];
+    [self initAgeRangeSlider];
     [self loadSetting];
 //    self.tableView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"bg.png"]];
     appDel = [self appDelegate];
@@ -678,7 +679,8 @@ UITapGestureRecognizer *tap;
         
         fromAge = [[data valueForKey:key_age_from] integerValue];
         toAge= [[data valueForKey:key_age_to] integerValue];
-        
+        self.ageSlider.max = (CGFloat) (toAge - MIN_AGE)/(MAX_AGE-MIN_AGE);
+        [self.ageSlider setMin:(CGFloat) (fromAge - MIN_AGE)/(MAX_AGE-MIN_AGE)];
         NSMutableDictionary* status_interested_in = [data valueForKey:key_status_interested_in];
         snapshotObj.interested_new_people = [[status_interested_in valueForKey:key_new_people] boolValue];
         snapshotObj.interested_friend_of_friends = [[status_interested_in valueForKey:key_status_fof] boolValue];
@@ -702,7 +704,7 @@ UITapGestureRecognizer *tap;
         //        [chbLikes setSelected:[[data valueForKey:key_is_likes] boolValue]];
         //        [chbSchool setSelected:[[data valueForKey:key_is_school] boolValue]];
         //        [chbwork setSelected:[[data valueForKey:key_is_work] boolValue]];
-        [self initAgeRangeSlider];
+//        [self initAgeRangeSlider];
         [self.tableView reloadData];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Error Code: %i - %@",[error code], [error localizedDescription]);
@@ -1053,8 +1055,8 @@ UITapGestureRecognizer *tap;
 	[self.ageSlider addTarget:self action:@selector(report:) forControlEvents:UIControlEventValueChanged]; // The slider sends actions when the value of the minimum or maximum changes
 	[self.ageSlider addTarget:self action:@selector(touchDownOnSlider:) forControlEvents:UIControlEventTouchDown ];
     [self.ageSlider addTarget:self action:@selector(touchUpOnSlider:) forControlEvents:UIControlEventTouchUpInside ];
-//    fromAge = 18;
-//    toAge = 45;
+    fromAge = 18;
+    toAge = 45;
     [lblRangeOfAge setText: [NSString stringWithFormat: @"%d %@ %d %@",fromAge,[@"to" localize],toAge,[@"years old" localize]]];
     self.ageSlider.max = (CGFloat) (toAge - MIN_AGE)/(MAX_AGE-MIN_AGE);
     [self.ageSlider setMin:(CGFloat) (fromAge - MIN_AGE)/(MAX_AGE-MIN_AGE)];
