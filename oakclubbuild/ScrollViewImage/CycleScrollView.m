@@ -24,7 +24,7 @@ float timerDuration = 8.0f;
         imagesArray = [[NSArray alloc] initWithArray:pictureArray];
         
         scrollView = [[UIScrollView alloc] initWithFrame:frame];
-        scrollView.backgroundColor = [UIColor blackColor];
+        scrollView.backgroundColor = [UIColor whiteColor];
         scrollView.showsHorizontalScrollIndicator = NO;
         scrollView.showsVerticalScrollIndicator = NO;
         scrollView.pagingEnabled = YES;

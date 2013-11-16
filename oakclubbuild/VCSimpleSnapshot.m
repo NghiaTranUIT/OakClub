@@ -460,7 +460,10 @@ CGFloat pageHeight;
     [self.view sendSubviewToBack:self.moveMeView];
     [UIView animateWithDuration:0.4
                      animations:^{
-                         self.controlView.frame = CGRectMake(0, -46, 320, 50);// its final location
+                         if(IS_OS_7_OR_LATER)
+                             self.controlView.frame = CGRectMake(0, -40, 320, 50);// its final location
+                         else
+                             self.controlView.frame = CGRectMake(0, -46, 320, 50);// its final location
                      } completion:^(BOOL finished){
                          
                          [self.view bringSubviewToFront:self.moveMeView];
@@ -627,8 +630,6 @@ CGFloat pageHeight;
 }
 #pragma mark LOADING - animation
 -(void)startLoadingAnim{
-//    [self.spinner startAnimating];
-//    [self disableAllControl:YES];
     loadingView = [[VCSimpleSnapshotLoading alloc]init];
     [loadingView setTypeOfAlert:0 andAnim:loadingAnim];
     isLoading = YES;
@@ -636,8 +637,6 @@ CGFloat pageHeight;
 }
 
 -(void)startDisabledGPS{
-    //    [self.spinner startAnimating];
-    //    [self disableAllControl:YES];
     loadingView = [[VCSimpleSnapshotLoading alloc]init];
     [loadingView setTypeOfAlert:2 andAnim:nil];
     [self.navigationController pushViewController:loadingView animated:NO];

@@ -51,7 +51,7 @@
     [background setContentMode:UIViewContentModeScaleAspectFit];
     [self.view addSubview:background];
     
-    [self.view setBackgroundColor:[UIColor blackColor]];
+    [self.view setBackgroundColor:[UIColor whiteColor]];
 }
 
 - (void)viewDidAppear:(BOOL)animated

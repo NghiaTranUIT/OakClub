@@ -25,7 +25,7 @@
 {
     NSArray *array = [[NSBundle mainBundle] loadNibNamed:@"NavBarOakClub" owner:self options:nil];
     self = [array objectAtIndex:0];
-    [self setBackgroundImage:[UIImage imageNamed:@"topbar"] forBarMetrics:UIBarMetricsDefault];
+//    [self setBackgroundImage:[UIImage imageNamed:@"topbar"] forBarMetrics:UIBarMetricsDefault];
     
     UIView *view = [array objectAtIndex:1];
     

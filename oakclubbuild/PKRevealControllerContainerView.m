@@ -11,7 +11,7 @@
  */
 
 #import "PKRevealControllerContainerView.h"
-
+#import "Define.h"
 @interface PKRevealControllerContainerView()
 
 #pragma mark - Properties
@@ -52,7 +52,12 @@
     UIBezierPath *shadowPath = [UIBezierPath bezierPathWithRect:self.bounds];
     self.layer.masksToBounds = NO;
     self.layer.shadowColor = [UIColor blackColor].CGColor;
-    self.layer.shadowOffset = CGSizeMake(0.0f, 0.0f);
+    if (IS_OS_7_OR_LATER) {
+        self.layer.shadowOffset = CGSizeMake(0.0f, 20.0f);
+    }
+    else{
+        self.layer.shadowOffset = CGSizeMake(0.0f, 0.0f);
+    }
     self.layer.shadowOpacity = 0.5f;
     self.layer.shadowRadius = 2.5f;
     self.layer.shadowPath = shadowPath.CGPath;

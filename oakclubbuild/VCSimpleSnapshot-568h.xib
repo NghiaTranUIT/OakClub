@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="4510" systemVersion="12F37" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="4510" systemVersion="13A603" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
     <dependencies>
         <deployment defaultVersion="1280" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3742"/>
@@ -220,7 +220,6 @@
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
-            <inset key="insetFor6xAndEarlier" minX="0.0" minY="44" maxX="0.0" maxY="-44"/>
             <connections>
                 <outlet property="placardView" destination="13" id="16"/>
                 <outlet property="snapshotView" destination="-1" id="132"/>
@@ -231,7 +230,7 @@
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" id="105">
-                    <rect key="frame" x="0.0" y="-46" width="320" height="46"/>
+                    <rect key="frame" x="0.0" y="-40" width="320" height="46"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <subviews>
                         <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" image="bg-profile-tab.png" id="101">
@@ -286,6 +285,7 @@
                         </button>
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <inset key="insetFor6xAndEarlier" minX="0.0" minY="-6" maxX="0.0" maxY="6"/>
                 </view>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
@@ -499,25 +499,39 @@
     </objects>
     <resources>
         <image name="Default Avatar.png" width="71" height="71"/>
+        <image name="Default Avatar.png" width="71" height="71"/>
+        <image name="Default Avatar.png" width="71" height="71"/>
+        <image name="Default Avatar.png" width="71" height="71"/>
         <image name="Snapshot_bg_profiles.png" width="289" height="314"/>
         <image name="Snapshot_btnSendMessage.png" width="154" height="34"/>
         <image name="Snapshot_btn_KeepPlaying.png" width="154" height="34"/>
         <image name="Snapshot_btn_info.png" width="28" height="28"/>
         <image name="Snapshot_btn_no.png" width="70" height="70"/>
         <image name="Snapshot_btn_no_preesed.png" width="70" height="70"/>
+        <image name="Snapshot_btn_no_preesed.png" width="70" height="70"/>
         <image name="Snapshot_btn_yes.png" width="70" height="70"/>
+        <image name="Snapshot_btn_yes_pressed.PNG" width="70" height="70"/>
         <image name="Snapshot_btn_yes_pressed.PNG" width="70" height="70"/>
         <image name="Snapshot_camera_icon.png" width="20" height="13"/>
         <image name="Snapshot_like_stamp.png" width="102" height="52"/>
         <image name="Snapshot_mutualfriends_icon.png" width="23" height="13"/>
         <image name="Snapshot_no_stamp.png" width="103" height="53"/>
         <image name="Snapshot_popup_box.png" width="270" height="210"/>
+        <image name="Snapshot_popup_box.png" width="270" height="210"/>
         <image name="Snapshot_popup_cancel.png" width="95" height="38"/>
+        <image name="Snapshot_popup_cancel.png" width="95" height="38"/>
+        <image name="Snapshot_popup_cancel_pressed.png" width="95" height="38"/>
+        <image name="Snapshot_popup_cancel_pressed.png" width="95" height="38"/>
+        <image name="Snapshot_popup_cancel_pressed.png" width="95" height="38"/>
         <image name="Snapshot_popup_cancel_pressed.png" width="95" height="38"/>
         <image name="Snapshot_popup_like.png" width="95" height="38"/>
         <image name="Snapshot_popup_no.png" width="94" height="37"/>
         <image name="Snapshot_popup_no_pressed.png" width="94" height="37"/>
+        <image name="Snapshot_popup_no_pressed.png" width="94" height="37"/>
+        <image name="Snapshot_popup_no_pressed.png" width="94" height="37"/>
+        <image name="Snapshot_popup_no_pressed.png" width="94" height="37"/>
         <image name="Snapshot_shareInterest_icon.png" width="16" height="14"/>
+        <image name="Snapshot_top_polaroid.png" width="265" height="307"/>
         <image name="Snapshot_top_polaroid.png" width="265" height="307"/>
         <image name="Snapshot_transBG.png" width="320" height="480"/>
         <image name="bg-profile-tab.png" width="320" height="46"/>

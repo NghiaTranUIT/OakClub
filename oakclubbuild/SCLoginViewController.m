@@ -82,6 +82,7 @@
         
     }
     cycle.delegate = self;
+    [cycle setBackgroundColor:[UIColor whiteColor]];
     [cycle refreshScrollView];
 //    cycle.autoresizingMask = (UIViewAutoresizingFlexibleTopMargin |
 //                                                          UIViewAutoresizingFlexibleLeftMargin |

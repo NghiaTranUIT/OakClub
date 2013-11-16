@@ -63,7 +63,7 @@
     CGRect mainFrame = [[UIScreen mainScreen]applicationFrame];
     CycleScrollView *cycle;
     if(IS_OS_7_OR_LATER){
-        cycle = [[CycleScrollView alloc] initWithFrame:CGRectMake(0, 10, mainFrame.size.width, mainFrame.size.height)
+        cycle = [[CycleScrollView alloc] initWithFrame:CGRectMake(0, 5, mainFrame.size.width, mainFrame.size.height + 10)
                                         cycleDirection:CycleDirectionLandscape
                                               pictures:pageImages];
     }

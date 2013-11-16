@@ -38,7 +38,12 @@
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-//    if(!IS_HEIGHT_GTE_568){
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleBlackTranslucent
+                                                animated:NO];
+//    if(IS_OS_7_OR_LATER){
+//        [self.view setFrame:[[UIScreen mainScreen]applicationFrame]];
+//    }
+//    else{
         [self.view setFrame:[[UIScreen mainScreen]applicationFrame]];
 //    }
     

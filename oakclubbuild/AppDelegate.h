@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <FacebookSDK/FacebookSDK.h>
 #import "SCLoginViewController.h"
-#import "DDMenuController.h"
+//#import "DDMenuController.h"
 #import "menuViewController.h"
 
 #import "VCChat.h"
