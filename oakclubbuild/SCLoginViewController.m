@@ -222,7 +222,7 @@
                               [appDelegate getProfileInfoWithHandler:^(void)
                                {
                                    [self stopSpinner];
-                                   if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"isFirstLogin"] boolValue])
+                                   if (false && [[[NSUserDefaults standardUserDefaults] valueForKey:@"isFirstLogin"] boolValue])
                                    {
                                        menuViewController *leftController = [[menuViewController alloc] init];
                                        [leftController setUIInfo:appDelegate.myProfile];
@@ -280,7 +280,12 @@
 
 - (IBAction)showInfoPanel:(id)sender
 {
-    UAModalPanel *popup = [[UAModelPanelEx alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height) andLoginPage:self];
+    float padding = 0;
+    if (IS_OS_7_OR_LATER)
+    {
+        padding = 10;
+    }
+    UAModalPanel *popup = [[UAModelPanelEx alloc] initWithFrame:CGRectMake(0, padding, self.view.frame.size.width, self.view.frame.size.height - padding) andLoginPage:self];
     [self.view addSubview:popup];
     
     [popup showFromPoint:[self.view center]];

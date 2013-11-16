@@ -58,7 +58,7 @@
 {
     [super viewDidAppear:NO];
     
-    [self beginFlash];
+    [self beginFlash:2];
 }
 
 - (void)didReceiveMemoryWarning
@@ -67,10 +67,10 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void)beginFlash
+- (void)beginFlash:(float)flashTime
 {
     background.alpha = 0.75;
-    deltaAlpha = 0.25/75;
+    deltaAlpha = 0.25/(0.75 * (flashTime / 0.04));
     NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:0.04 target:self selector:@selector(onFlashing:) userInfo:nil repeats:YES];
     
     [[NSRunLoop currentRunLoop] addTimer:timer forMode:NSDefaultRunLoopMode];

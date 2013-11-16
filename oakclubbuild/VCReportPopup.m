@@ -69,7 +69,7 @@
     alertView.alertViewStyle = UIAlertViewStylePlainTextInput;
     
     [alertView show];
-    [[alertView textFieldAtIndex:0] resignFirstResponder];
+    //[[alertView textFieldAtIndex:0] resignFirstResponder];
 }
 
 -(void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex

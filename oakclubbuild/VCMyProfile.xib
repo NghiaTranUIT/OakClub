@@ -57,7 +57,7 @@
                                 <action selector="avatarTouched:" destination="-1" eventType="touchUpInside" id="AE1-Jm-xMp"/>
                             </connections>
                         </button>
-                        <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="twZ-Li-Rjg" userLabel="Button-uploadVideo">
+                        <button hidden="YES" opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="twZ-Li-Rjg" userLabel="Button-uploadVideo">
                             <rect key="frame" x="174" y="67" width="125" height="125"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
