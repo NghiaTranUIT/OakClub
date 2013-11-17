@@ -412,7 +412,7 @@ UITapGestureRecognizer *tap;
                 [btnContactUs setBackgroundImage:[UIImage imageNamed:@"SnapshotSetting_btn_contactus_inactive"] forState:UIControlStateNormal];
                 [btnContactUs setBackgroundImage:[UIImage imageNamed:@"SnapshotSetting_btn_contactus_active"] forState:UIControlStateHighlighted];
                 [btnContactUs setBackgroundImage:[UIImage imageNamed:@"SnapshotSetting_btn_contactus_active"] forState:UIControlStateSelected];
-                [btnContactUs setTitle:@"Contact Us" forState:UIControlStateNormal];
+                [btnContactUs setTitle:[@"Contact us" localize] forState:UIControlStateNormal];
                 [btnContactUs setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
                 [btnContactUs setTitleColor:COLOR_PURPLE forState:UIControlStateHighlighted];
                 [btnContactUs setTitleEdgeInsets:UIEdgeInsetsMake(0, 35, 0, 0)];
