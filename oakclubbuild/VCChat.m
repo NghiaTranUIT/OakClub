@@ -487,14 +487,16 @@ int cellCountinSection=0;
         
         NSLog(@"Number of objects: %d in section %d", sectionInfo.numberOfObjects, i);
             
-        for (int j = 0; j < sectionInfo.numberOfObjects; ++j)
+        for (int j = 0; j < sectionInfo.numberOfObjects; j++)
         {
+            NSLog(@"sectioninfo object ai index : %i",j);
             XMPPUserCoreDataStorageObject *user = [[self fetchedResultsController] objectAtIndexPath:[NSIndexPath indexPathForRow:j inSection:i]];
             XMPPJID* xmpp_jid = [user jid];
             NSString* jid = [xmpp_jid user];//[NSString stringWithFormat:@"%@@%@", [xmpp_jid user], [xmpp_jid domain]];
+            NSLog(@"XMPPUserCoreDataStorageObject - jid :%i , %@",j,jid);
             Profile* profile =[appDel.myProfile.dic_Roster valueForKey:jid];
             if(profile == nil)
-                break;
+                continue;
             bool v_isMatch = profile.is_match;
             if ([self isValidFriendWithMatch:v_isMatch])
             {

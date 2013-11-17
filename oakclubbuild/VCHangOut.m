@@ -165,8 +165,7 @@ int indexAvatarSelected;
 
 - (void)loadView {
     [super loadView];
-    
-    
+
     int totalNotifications = [appDelegate countTotalNotifications];
     NavConOakClub* navcon = (NavConOakClub*)self.navigationController;
     NavBarOakClub* navbar = (NavBarOakClub*)navcon.navigationBar;

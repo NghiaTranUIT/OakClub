@@ -439,6 +439,7 @@ static CGFloat padding_left = 5.0;
         UILabel* name = [[UILabel alloc] initWithFrame:CGRectMake(rect.origin.x, rect.origin.y + rect.size.height, 58, 15)];
         [name setBackgroundColor:[UIColor clearColor]];
         [name setFont:FONT_HELVETICANEUE_LIGHT(10.0)];
+        [name setTextAlignment:NSTextAlignmentCenter];
         name.text = fav.name;
         [contentScroll addSubview:favIcon];
         [contentScroll addSubview:imageView];
@@ -447,8 +448,10 @@ static CGFloat padding_left = 5.0;
     
     contentScroll.contentSize = CGSizeMake( [favList count] * (58 + 5), 58 + 5);
     
-    contentScroll.frame = [self addRelative:contentScroll.frame addPoint:CGPointMake(self.infoView.frame.origin.x, self.infoView.frame.origin.y + contentView.frame.origin.y) ];
-    [scrollview addSubview:contentScroll];
+//    contentScroll.frame = [self addRelative:contentScroll.frame addPoint:CGPointMake(contentView.frame.origin.x, contentView.frame.origin.y + contentView.frame.origin.y) ];
+//    [contentView addSubview:contentScroll];
+//    [self.scrollview addSubview:contentScroll];
+    
 //    if (currentProfile.s_video != nil && ![@"" isEqualToString:currentProfile.s_video])
 //    {
 //        CGRect rect;;
@@ -1152,7 +1155,7 @@ BOOL allowFullScreen = FALSE;
 
 -(void)onTapOnPhotos:(UITapGestureRecognizer *)photos
 {
-    float screenHeight = self.view.frame.size.height;
+    float screenHeight = [[UIScreen mainScreen]applicationFrame].size.height;//self.view.frame.size.height;
     if (!IS_OS_7_OR_LATER)
     {
         screenHeight += 26;

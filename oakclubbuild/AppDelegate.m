@@ -1451,7 +1451,7 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
 {
 	DDLogVerbose(@"%@: %@ - %@", THIS_FILE, THIS_METHOD, [presence fromStr]);
     NSString* jid = [NSString stringWithFormat:@"%@@%@",[presence from].user, [presence from].domain];
-    //NSLog(@"---- didReceivePresence: %@ %@", jid, [presence name]);
+    NSLog(@"---- didReceivePresence: %@ %@", jid, [presence name]);
     
 	XMPPUserCoreDataStorageObject *user = [xmppRosterStorage userForJID:[presence from]
 	                                                         xmppStream:xmppStream
