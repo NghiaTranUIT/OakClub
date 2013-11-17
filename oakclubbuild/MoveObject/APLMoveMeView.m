@@ -572,7 +572,7 @@ BOOL isDragging = FALSE;
 	self.placardView.transform = CGAffineTransformIdentity;
 	self.userInteractionEnabled = YES;
     [self.placardView setAlpha:1];
-    if(answerType != -1){
+    if(answerType != -1 && self.snapshotView.isContinueLoad){
         [self.snapshotView loadCurrentProfile];
         [self.snapshotView loadNextProfileByCurrentIndex];
 //        [self bringSubviewToFront:self.placardView];
@@ -583,6 +583,10 @@ BOOL isDragging = FALSE;
             self.placardView.center = CENTER_POINT;
 //        self.placardView.center = CENTER_POINT;
         self.placardView.transform = CGAffineTransformIdentity;
+    }
+    else if (!self.snapshotView.isContinueLoad)
+    {
+        [self.snapshotView showWarning];
     }
 }
 

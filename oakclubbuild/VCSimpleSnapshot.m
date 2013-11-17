@@ -148,24 +148,6 @@ CGFloat pageHeight;
     [buttonNO setEnabled:!value];
     [buttonMAYBE setEnabled:!value];
 }
-- (void)showWarning{
-//    if ([self isViewLoaded] && self.view.window) {
-    [self stopLoadingAnim];
-        loadingView = [[VCSimpleSnapshotLoading alloc]init];
-        [loadingView.view setFrame:CGRectMake(0, 0, 320, 480)];
-        [loadingView setTypeOfAlert:1 andAnim:nil];
-        [self.navigationController pushViewController:loadingView animated:NO];
-        /*[self stopLoadingAnim];
-        UIAlertView *alert = [[UIAlertView alloc]
-                              initWithTitle:@"Warning"
-                              message:@"There is no more profile to show ..."
-                              delegate:self
-                              cancelButtonTitle:@"OK"
-                              otherButtonTitles:nil];
-        [alert show];
-         */
-//    }
-}
 
 -(NavBarOakClub*)navBarOakClub
 {
@@ -224,26 +206,27 @@ CGFloat pageHeight;
         NSMutableDictionary *dict = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONReadingMutableContainers error:&e];
         
         int status= [[dict valueForKey:@"status"] integerValue];
-        if (status == 0)
+        NSArray *profiles = [dict valueForKey:key_data];
+        if (status == 0 || [profiles count] < 2)
         {
             [self showWarning];
         }
         else
         {
-            for( id profileJSON in [dict objectForKey:key_data])
+            for( id profileJSON in profiles)
             {
                 Profile* profile = [[Profile alloc]init];
                 [profile parseGetSnapshotToProfile:profileJSON];
                 [profileList addObject:profile];
-                
             }
+            if(handler != nil)
+                handler();
         }
-        if(handler != nil)
-            handler();
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Get snapshot Error Code: %i - %@",[error code], [error localizedDescription]);
         is_loadingProfileList = NO;
+        [self showWarning];
     }];
 }
 
@@ -266,7 +249,7 @@ CGFloat pageHeight;
 -(void)loadCurrentProfile{
     if(currentIndex >= [profileList count])
     {
-        [self showWarning];
+        //[self showWarning];
         return;
     }
     currentProfile = [[Profile alloc]init];
@@ -301,7 +284,6 @@ CGFloat pageHeight;
              }];
             [operation start];
         }
-        
     }
 
     [self stopLoadingAnim];
@@ -321,24 +303,6 @@ CGFloat pageHeight;
         [self refreshSnapshot];
         appDel.reloadSnapshot = FALSE;
     }
-//    currentIndex = 0;
-//    currentIndex = [[[NSUserDefaults standardUserDefaults] objectForKey:@"snapshotIndex"] integerValue];
-//    if ([[NSUserDefaults standardUserDefaults] objectForKey:@"snapshotIndex"] == nil)
-//       currentIndex = 1;
-//    else
-//        currentIndex = [[NSUserDefaults standardUserDefaults] objectForKey:@"snapshotIndex"];
-//    if(currentIndex < 1)
-//        currentIndex = 1;
-//    profileList = [[NSMutableArray alloc] init];
-//    [self loadProfileList];
-//    [self loadCurrentProfile:currentIndex];
-    //init photoscrollview
-//    CGSize pagesScrollViewSize = self.photoScrollView.frame.size;
-//    self.photoScrollView.contentSize = CGSizeMake(pagesScrollViewSize.width * self.pageImages.count, pagesScrollViewSize.height);
-//    
-//    pageWidth = self.photoScrollView.frame.size.width;
-//    pageHeight = self.photoScrollView.frame.size.height;
-//    [self.photoScrollView scrollRectToVisible:CGRectMake(pageWidth,0,pageWidth,pageHeight) animated:NO];
 }
 
 -(void)viewDidAppear:(BOOL)animated
@@ -348,7 +312,6 @@ CGFloat pageHeight;
 
 - (void)viewDidUnload
 {
-    [self setLblName:nil];
     [self setLblName:nil];
     [self setLblAge:nil];
     [self setLblPhotoCount:nil];
@@ -531,12 +494,6 @@ CGFloat pageHeight;
         return;
     }
     
-    if(currentIndex > [profileList count] - 2){
-        [self loadProfileList:^(void){
-            [self loadCurrentProfile];
-            [self loadNextProfileByCurrentIndex];
-        }];
-    }
     request = [[AFHTTPClient alloc]initWithOakClubAPI:DOMAIN];
     NSLog(@"current id = %@",currentProfile.s_Name);
     NSDictionary *params = [[NSDictionary alloc]initWithObjectsAndKeys:currentProfile.s_snapshotID,@"snapshot_id",answerChoice,@"set", nil];
@@ -626,6 +583,7 @@ CGFloat pageHeight;
 }
 #pragma mark LOADING - animation
 -(void)startLoadingAnim{
+    [self stopWarning];
     loadingView = [[VCSimpleSnapshotLoading alloc]init];
     [loadingView setTypeOfAlert:0 andAnim:loadingAnim];
     isLoading = YES;
@@ -637,6 +595,26 @@ CGFloat pageHeight;
     [loadingView setTypeOfAlert:2 andAnim:nil];
     [self.navigationController pushViewController:loadingView animated:NO];
     isBlockedByGPS = TRUE;
+}
+
+- (void)showWarning{
+    [self stopLoadingAnim];
+    loadingView = [[VCSimpleSnapshotLoading alloc]init];
+    [loadingView.view setFrame:CGRectMake(0, 0, 320, 480)];
+    [loadingView setTypeOfAlert:1 andAnim:nil];
+    [self.navigationController pushViewController:loadingView animated:NO];
+}
+
+-(void)stopWarning
+{
+    if ([self.navigationController.topViewController isKindOfClass:[VCSimpleSnapshotLoading class]])
+    {
+        VCSimpleSnapshotLoading *currentLoading = (VCSimpleSnapshotLoading *) self.navigationController.topViewController;
+        if (currentLoading && currentLoading.typeOfAlert == 1)
+        {
+            [self.navigationController popViewControllerAnimated:NO];
+        }
+    }
 }
 
 -(void)stopDisabledGPS
@@ -700,4 +678,8 @@ CGFloat pageHeight;
     [locUpdate update];
 }
 
+-(BOOL)isContinueLoad
+{
+    return !(currentIndex > [profileList count] - 2);
+}
 @end

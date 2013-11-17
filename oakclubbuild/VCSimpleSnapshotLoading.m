@@ -117,6 +117,10 @@
     [self loadViewbyType];
     
 }
+-(int)typeOfAlert
+{
+    return typeOfAlert;
+}
 -(void)loadViewbyType
 {
     switch (typeOfAlert) {
