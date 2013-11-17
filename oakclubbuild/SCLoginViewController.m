@@ -243,7 +243,7 @@
                           }
                           else
                           {
-                              UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Error"
+                              UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:[@"Error" localize]
                                                                                   message:msg
                                                                                  delegate:nil
                                                                         cancelButtonTitle:@"Ok"

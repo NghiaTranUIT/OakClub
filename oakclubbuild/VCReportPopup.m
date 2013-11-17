@@ -65,7 +65,7 @@
 
 - (IBAction)onTouchExplainReport:(id)sender
 {
-    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Report" message:@"" delegate:self cancelButtonTitle:@"Report" otherButtonTitles: nil];
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:[@"Report" localize] message:@"" delegate:self cancelButtonTitle:@"Report" otherButtonTitles: nil];
     alertView.alertViewStyle = UIAlertViewStylePlainTextInput;
     
     [alertView localizeAllViews];

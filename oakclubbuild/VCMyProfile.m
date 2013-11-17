@@ -428,7 +428,7 @@ UITapGestureRecognizer *tap;
 
 - (void)showOKCancelWarning:(NSString*)warningText withTag:(int)tag{
     UIAlertView *alert = [[UIAlertView alloc]
-                          initWithTitle:@"Message"
+                          initWithTitle:[@"Message" localize]
                           message:warningText
                           delegate:self
                           cancelButtonTitle:@"OK"
@@ -441,7 +441,7 @@ UITapGestureRecognizer *tap;
 
 - (void)showWarning:(NSString*)warningText withTag:(int)tag{
     UIAlertView *alert = [[UIAlertView alloc]
-                          initWithTitle:@"Message"
+                          initWithTitle:[@"Message" localize]
                           message:warningText
                           delegate:self
                           cancelButtonTitle:@"OK"

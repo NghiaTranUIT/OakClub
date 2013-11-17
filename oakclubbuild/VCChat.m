@@ -568,7 +568,7 @@ int cellCountinSection=0;
         selectedIndex = indexPath;
         
         UIAlertView *alert = [[UIAlertView alloc]
-                              initWithTitle:@"Confirm!"
+                              initWithTitle:[@"Confirm!" localize]
                               message:@"Do you want to delete this conversation?"
                               delegate: self
                               cancelButtonTitle:@"NO"

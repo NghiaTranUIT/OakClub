@@ -427,7 +427,7 @@ UITapGestureRecognizer *tap;
 -(void)saveSetting{
     if(fromAge > toAge){
         UIAlertView *alert = [[UIAlertView alloc]
-                              initWithTitle:@"Warning"
+                              initWithTitle:[@"Warning" localize]
                               message:@"From age must be smaller than to age"
                               delegate:self
                               cancelButtonTitle:@"OK"

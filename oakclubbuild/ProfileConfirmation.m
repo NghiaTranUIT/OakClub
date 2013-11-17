@@ -423,7 +423,7 @@
         [self performSegueWithIdentifier:@"preferencesView" sender:self];
     }
     else{
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Error"
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:[@"Error" localize]
 		                                                    message:@"Email is invalid"
 		                                                   delegate:nil
 		                                          cancelButtonTitle:@"Ok"
