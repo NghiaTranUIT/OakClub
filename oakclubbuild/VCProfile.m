@@ -564,6 +564,7 @@ static CGFloat padding_left = 5.0;
 
 -(void) viewWillAppear:(BOOL)animated{
     [self.navigationController setNavigationBarHidden:NO];
+    [self.navigationItem setHidesBackButton:YES];
 }
 
 - (void)viewDidUnload {

@@ -224,7 +224,12 @@ NSIndexPath* oldIndex;
     [label sizeToFit];
     self.navigationItem.titleView = label;
 }
-
+-(void)viewWillDisappear:(BOOL)animated{
+    for(UIView* subview in [self.navigationController.navigationBar subviews]){
+        if([subview isKindOfClass:[UIButton class]])
+            [subview removeFromSuperview];
+    }
+}
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];

@@ -20,7 +20,6 @@
 #import "HistoryMessage+init.h"
 #import "VCSimpleSnapshot.h"
 #import "VCReportPopup.h"
-#import "ChatNavigationBar.h"
 #import "ChatNavigationView.h"
 @interface SMChatViewController() <ImageRequester>
 
@@ -373,6 +372,10 @@
     [reportPopup.view setFrame:CGRectMake(0, 0, reportPopup.view.frame.size.width, reportPopup.view.frame.size.height)];
 
     [self.navigationController pushViewController:reportPopup animated:YES];
+    for(UIView* subview in [self.navigationController.navigationBar subviews]){
+        if([subview isKindOfClass:[ChatNavigationView class]])
+            subview.userInteractionEnabled = NO;
+    }
    
 }
 

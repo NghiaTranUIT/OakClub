@@ -166,13 +166,13 @@ BOOL isDragging = FALSE;
 //            }
 //           
 //        }
-        CGPoint newCenter = CGPointMake(self.placardView.center.x + (location.x-startCardPoint.x), self.placardView.center.y);
+        CGPoint newCenter = CGPointMake(self.placardView.center.x + (location.x-startCardPoint.x), self.placardView.center.y/* + (location.y-startCardPoint.y)*/);
 		self.placardView.center = newCenter;
-        /*
+        
         // make a curve when draging
-        CGAffineTransform transforms = CGAffineTransformConcat(self.placardView.transform,CGAffineTransformMakeRotation(M_PI/900*(dx>0?-1:1)));
+        CGAffineTransform transforms = CGAffineTransformConcat(self.placardView.transform,CGAffineTransformMakeRotation(M_PI/900*((location.x-startCardPoint.x)>0?-1:1)));
         self.placardView.transform = transforms;
-        */
+        
 		return;
 	}
 }

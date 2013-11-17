@@ -40,6 +40,7 @@
     [super viewDidAppear:animated];
     
     [self.view localizeAllViews];
+     [self.navigationController.navigationBar setUserInteractionEnabled:NO];
 }
 
 - (void)didReceiveMemoryWarning
