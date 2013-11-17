@@ -156,7 +156,7 @@
     }
 }
 - (IBAction)onTouchTellYourFriends:(id)sender {
-    NSString* body = @"Join www.OakClub.com .. and meet many cool singles nearby. Safe, trustworthy and private";
+    NSString* body = [@"Join www.OakClub.com .. and meet many cool singles nearby. Safe, trustworthy and private" localize];
     UIActivityViewController *activityViewController = [[UIActivityViewController alloc]initWithActivityItems:[NSArray arrayWithObjects:body,[UIImage imageNamed:@"SnapshotSetting_oakclub_logo.png"],nil] applicationActivities:nil];
     
     activityViewController.excludedActivityTypes = @[/*UIActivityTypePostToFacebook, UIActivityTypePostToTwitter, */UIActivityTypePostToWeibo, UIActivityTypeAssignToContact];

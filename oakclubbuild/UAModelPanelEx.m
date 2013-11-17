@@ -30,7 +30,16 @@
         UIButton *signInButton = [[UIButton alloc] init];
         [signInButton setBackgroundImage:[UIImage imageNamed:@"btn-fb-inactive_intro.png"] forState:UIControlStateNormal];
         [signInButton sizeToFit];
-        signInButton.frame = CGRectMake((self.frame.size.width - 254)/2, 60, 254, 41);
+        if ([value_appLanguage_EN isEqualToString:[[NSUserDefaults standardUserDefaults] objectForKey:key_appLanguage]])
+        {
+             signInButton.frame = CGRectMake((self.frame.size.width - 254)/2, 35, 254, 41);
+        }
+        else
+        {
+            signInButton.frame = CGRectMake((self.frame.size.width - 254)/2, 60, 254, 41);
+        }
+
+       
         [signInButton addTarget:self action:@selector(loginTouched:) forControlEvents:UIControlEventTouchUpInside];
         [signInButton setTitle:@"Connect Privately" forState:UIControlStateNormal];
         [signInButton.titleLabel setFont:[UIFont systemFontOfSize:15]];
