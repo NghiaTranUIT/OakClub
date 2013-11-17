@@ -217,37 +217,33 @@ CGFloat pageHeight;
     profileList = [[NSMutableArray alloc] init];
     request = [[AFHTTPClient alloc] initWithOakClubAPI:DOMAIN];
     NSDictionary *params = [[NSDictionary alloc]initWithObjectsAndKeys:@"0",@"start",@"35",@"limit", nil];
-//        NSDictionary *params = [[NSDictionary alloc]initWithObjectsAndKeys:@"20",@"start", nil];
     [request getPath:URL_getSnapShot parameters:params success:^(__unused AFHTTPRequestOperation *operation, id JSON)
     {
         is_loadingProfileList = FALSE;
         NSError *e=nil;
         NSMutableDictionary *dict = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONReadingMutableContainers error:&e];
         
-        NSInteger * status= [[dict valueForKey:@"status"] integerValue];
+        int status= [[dict valueForKey:@"status"] integerValue];
         if (status == 0)
         {
-            [self showWarning];//if there is no profile to show
-//            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Error"
-//                                                                message:[dict valueForKey:@"msg"]
-//                                                               delegate:nil
-//                                                      cancelButtonTitle:@"Ok"
-//                                                      otherButtonTitles:nil];
-//            [alertView show];
-            return;
+            [self showWarning];
         }
-        for( id profileJSON in [dict objectForKey:key_data])
+        else
         {
-            Profile* profile = [[Profile alloc]init];
-            [profile parseGetSnapshotToProfile:profileJSON];
-            [profileList addObject:profile];
-
+            for( id profileJSON in [dict objectForKey:key_data])
+            {
+                Profile* profile = [[Profile alloc]init];
+                [profile parseGetSnapshotToProfile:profileJSON];
+                [profileList addObject:profile];
+                
+            }
         }
         if(handler != nil)
             handler();
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Get snapshot Error Code: %i - %@",[error code], [error localizedDescription]);
+        is_loadingProfileList = NO;
     }];
 }
 

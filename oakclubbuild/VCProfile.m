@@ -802,7 +802,7 @@ static CGFloat padding_left = 5.0;
     }
 //    self.svPhotos= [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, 320, 320)];
     
-    self.svPhotos.frame = CGRectMake(0, 0, 320, 320);
+    self.svPhotos.frame = CGRectMake(0, 0, 320, 294);
 }
 -(void)loadPhotoForScrollview{
          NSArray* _imagesData;
@@ -1050,9 +1050,9 @@ BOOL allowFullScreen = FALSE;
     {
         NSLog(@"content offset : %f",scrollOffset);
         float screenHeight = self.view.frame.size.height;
-        if (IS_OS_7_OR_LATER)
+        if (!IS_OS_7_OR_LATER)
         {
-            screenHeight += 0;
+            screenHeight += 26;
         }
         
         if(self.svPhotos.frame.size.height < screenHeight  && scrollOffset < 0)
@@ -1062,7 +1062,7 @@ BOOL allowFullScreen = FALSE;
                 self.svPhotos.contentSize =
                 CGSizeMake(CGRectGetWidth(self.svPhotos.frame) * [currentProfile.arr_photos count], CGRectGetHeight(self.svPhotos.frame));
                 [self.infoView setFrame:CGRectMake(0, screenHeight, self.infoView.frame.size.width, self.infoView.frame.size.height)];
-                [self.lblsPhoto setFrame:CGRectMake(0, self.svPhotos.frame.origin.y + self.svPhotos.frame.size.height - 2*self.lblsPhoto.frame.size.height, self.lblsPhoto.frame.size.width,  self.lblsPhoto.frame.size.height)];
+                [self.lblsPhoto setFrame:CGRectMake(0, self.svPhotos.frame.origin.y + self.svPhotos.frame.size.height -self.lblsPhoto.frame.size.height, self.lblsPhoto.frame.size.width,  self.lblsPhoto.frame.size.height)];
 
 //                CGRect interestFrame = scrollViewInterest.frame;
 //                [scrollViewInterest setFrame:CGRectMake(interestFrame.origin.x, screenHeight , interestFrame.size.width, interestFrame.size.height)];
@@ -1107,13 +1107,13 @@ BOOL allowFullScreen = FALSE;
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
     allowFullScreen = FALSE;
     float screenHeight = self.view.frame.size.height;
-    if (IS_OS_7_OR_LATER)
+    if (!IS_OS_7_OR_LATER)
     {
-        screenHeight += 0;
+        screenHeight += 26;
     }
     if(self.svPhotos.frame.size.height < screenHeight - 80){
         
-        [self.svPhotos setFrame:CGRectMake(0, 0, self.view.frame.size.width, 320)];
+        [self.svPhotos setFrame:CGRectMake(0, 0, self.view.frame.size.width, 294)];
         self.svPhotos.contentSize =
         CGSizeMake(CGRectGetWidth(self.svPhotos.frame) * [currentProfile.arr_photos count], CGRectGetHeight(self.svPhotos.frame));
         [self.infoView setFrame:CGRectMake(0, 320, self.infoView.frame.size.width, self.infoView.frame.size.height)];
@@ -1151,9 +1151,9 @@ BOOL allowFullScreen = FALSE;
 -(void)onTapOnPhotos:(UITapGestureRecognizer *)photos
 {
     float screenHeight = self.view.frame.size.height;
-    if (IS_OS_7_OR_LATER)
+    if (!IS_OS_7_OR_LATER)
     {
-        screenHeight += 0;
+        screenHeight += 26;
     }
     if (self.svPhotos.frame.size.height < screenHeight)
     {
@@ -1161,7 +1161,7 @@ BOOL allowFullScreen = FALSE;
         self.svPhotos.contentSize =
         CGSizeMake(CGRectGetWidth(self.svPhotos.frame) * [currentProfile.arr_photos count], CGRectGetHeight(self.svPhotos.frame));
         [self.infoView setFrame:CGRectMake(0, screenHeight, self.infoView.frame.size.width, self.infoView.frame.size.height)];
-        [self.lblsPhoto setFrame:CGRectMake(0, self.svPhotos.frame.origin.y + self.svPhotos.frame.size.height - 2*self.lblsPhoto.frame.size.height, self.lblsPhoto.frame.size.width,  self.lblsPhoto.frame.size.height)];
+        [self.lblsPhoto setFrame:CGRectMake(0, self.svPhotos.frame.origin.y + self.svPhotos.frame.size.height - self.lblsPhoto.frame.size.height, self.lblsPhoto.frame.size.width,  self.lblsPhoto.frame.size.height)];
         
         [self.scrollview setContentOffset:CGPointMake(0, 0) animated:YES];
         [self updateSubviewsToCenterScrollView];
