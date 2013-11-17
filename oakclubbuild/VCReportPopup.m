@@ -69,6 +69,7 @@
     UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:[@"Report" localize] message:@"" delegate:self cancelButtonTitle:[@"Report" localize] otherButtonTitles: nil];
     alertView.alertViewStyle = UIAlertViewStylePlainTextInput;
     
+    [alertView localizeAllViews];
     [alertView show];
     //[[alertView textFieldAtIndex:0] resignFirstResponder];
 }

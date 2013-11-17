@@ -351,7 +351,7 @@ int cellCountinSection=0;
 
 - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller
 {
-    [self.searchDisplayController.searchResultsTableView reloadData];
+    //[self.searchDisplayController.searchResultsTableView reloadData];
 	[[self tableView] reloadData];
 }
 
@@ -570,7 +570,7 @@ int cellCountinSection=0;
         selectedIndex = indexPath;
         
         UIAlertView *alert = [[UIAlertView alloc]
-                              initWithTitle:@"Confirm!"
+                              initWithTitle:[@"Confirm!" localize]
                               message:@"Do you want to delete this conversation?"
                               delegate: self
                               cancelButtonTitle:@"NO"
@@ -629,10 +629,10 @@ int cellCountinSection=0;
                 cell.last_message.text = m.body;
                 cell.date_history.text = m.timeStr;
                 if(profile.is_match){
-                    cell.lblMatched.text = [NSString stringWithFormat:@"Matched"];
+                    cell.lblMatched.text = [@"Matched" localize];
                 }
                 else{
-                    cell.lblMatched.text = [NSString stringWithFormat:@"Last messages on %@",m.timeStr];
+                    cell.lblMatched.text = [NSString stringWithFormat:@"%@ %@", [@"Last messages on" localize],m.timeStr];
                 }
                 
             }

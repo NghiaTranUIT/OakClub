@@ -73,7 +73,7 @@
         [self.spinner stopAnimating];
         [self  disableAllControl:YES];
         UIAlertView *alert = [[UIAlertView alloc]
-                              initWithTitle:@"Warning"
+                              initWithTitle:[@"Warning" localize]
                               message:@"Beside 10 free daily snapshots, you can use \"coins\" to see more snapshots recommended by Oakclub. Invite your friends to join us to get 5 points per friend."
                               delegate:self
                               cancelButtonTitle:@"OK"

@@ -412,7 +412,7 @@ UITapGestureRecognizer *tap;
                 [btnContactUs setBackgroundImage:[UIImage imageNamed:@"SnapshotSetting_btn_contactus_inactive"] forState:UIControlStateNormal];
                 [btnContactUs setBackgroundImage:[UIImage imageNamed:@"SnapshotSetting_btn_contactus_active"] forState:UIControlStateHighlighted];
                 [btnContactUs setBackgroundImage:[UIImage imageNamed:@"SnapshotSetting_btn_contactus_active"] forState:UIControlStateSelected];
-                [btnContactUs setTitle:@"Contact Us" forState:UIControlStateNormal];
+                [btnContactUs setTitle:[@"Contact us" localize] forState:UIControlStateNormal];
                 [btnContactUs setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
                 [btnContactUs setTitleColor:COLOR_PURPLE forState:UIControlStateHighlighted];
                 [btnContactUs setTitleEdgeInsets:UIEdgeInsetsMake(0, 35, 0, 0)];
@@ -714,7 +714,7 @@ UITapGestureRecognizer *tap;
 -(void)saveSetting{
     if(fromAge > toAge){
         UIAlertView *alert = [[UIAlertView alloc]
-                              initWithTitle:@"Warning"
+                              initWithTitle:[@"Warning" localize]
                               message:@"From age must be smaller than to age"
                               delegate:self
                               cancelButtonTitle:@"OK"
@@ -778,7 +778,7 @@ UITapGestureRecognizer *tap;
         if(status && ![[dict valueForKey:@"msg"] isEqualToString:@"Setting does not change"]){
             NSLog(@"POST SUCCESS!!!");
             UIAlertView *alert = [[UIAlertView alloc]
-                                  initWithTitle:@"Completed"
+                                  initWithTitle:[@"Completed" localize]
                                   message:@"Settings saved"
                                   delegate:self
                                   cancelButtonTitle:@"OK"
@@ -791,10 +791,10 @@ UITapGestureRecognizer *tap;
         else{
             NSLog(@"POST FAIL...");
             UIAlertView *alert = [[UIAlertView alloc]
-                                  initWithTitle:@"Warning"
+                                  initWithTitle:[@"Warning" localize]
                                   message:@"Settings cannot be saved now."
                                   delegate:self
-                                  cancelButtonTitle:@"OK"
+                                  cancelButtonTitle:@"Ok"
                                   otherButtonTitles:nil];
             [alert localizeAllViews];
             [alert show];
@@ -960,7 +960,7 @@ UITapGestureRecognizer *tap;
     }
     else{
         UIAlertView *alert = [[UIAlertView alloc]
-                              initWithTitle:@"Warning"
+                              initWithTitle:[@"Warning" localize]
                               message:@"Can not access to email."
                               delegate:self
                               cancelButtonTitle:@"OK"
