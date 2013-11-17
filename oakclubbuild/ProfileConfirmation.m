@@ -8,6 +8,8 @@
 
 #import "ProfileConfirmation.h"
 #import "PreferencesSettings.h"
+#import "UIView+Localize.h"
+
 @interface ProfileConfirmation (){
     Profile *newAccount;
     UIDatePicker* pickerBirthdate;
@@ -422,10 +424,11 @@
     }
     else{
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Error"
-		                                                    message:@"Invalid email."
+		                                                    message:@"Email is invalid"
 		                                                   delegate:nil
 		                                          cancelButtonTitle:@"Ok"
 		                                          otherButtonTitles:nil];
+        [alertView localizeAllViews];
 		[alertView show];
         NSLog(@"Invalid email");
     }

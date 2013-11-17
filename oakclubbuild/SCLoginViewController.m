@@ -248,6 +248,7 @@
                                                                                  delegate:nil
                                                                         cancelButtonTitle:@"Ok"
                                                                         otherButtonTitles:nil];
+                              [alertView localizeAllViews];
                               [alertView show];
                           }
                       }
