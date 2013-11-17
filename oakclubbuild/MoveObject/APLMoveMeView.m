@@ -575,9 +575,14 @@ BOOL isDragging = FALSE;
     if(answerType != -1){
         [self.snapshotView loadCurrentProfile];
         [self.snapshotView loadNextProfileByCurrentIndex];
+//        [self bringSubviewToFront:self.placardView];
          answerType = -1;
+        if(IS_HEIGHT_GTE_568)
+            self.placardView.center = CENTER_POINT_568H;
+        else
+            self.placardView.center = CENTER_POINT;
 //        self.placardView.center = CENTER_POINT;
-//        self.placardView.transform = CGAffineTransformIdentity;
+        self.placardView.transform = CGAffineTransformIdentity;
     }
 }
 

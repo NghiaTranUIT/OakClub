@@ -1353,7 +1353,7 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
             [self.myProfile.dic_Roster setValue:newFriend forKey:newFriend.s_ID];
         }];
         
-        return;
+//        return;
     }
     else{
         newFriend.unread_message++;

@@ -34,12 +34,12 @@
     // Do any additional setup after loading the view from its nib.
     [self.navigationItem setHidesBackButton:YES];
 }
-
+-(void)viewWillAppear:(BOOL)animated{
+    [self.view localizeAllViews];
+}
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    
-    [self.view localizeAllViews];
      [self.navigationController.navigationBar setUserInteractionEnabled:NO];
 }
 
@@ -66,7 +66,7 @@
 
 - (IBAction)onTouchExplainReport:(id)sender
 {
-    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Report" message:@"" delegate:self cancelButtonTitle:@"Report" otherButtonTitles: nil];
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:[@"Report" localize] message:@"" delegate:self cancelButtonTitle:[@"Report" localize] otherButtonTitles: nil];
     alertView.alertViewStyle = UIAlertViewStylePlainTextInput;
     
     [alertView show];

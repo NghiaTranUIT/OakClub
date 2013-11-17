@@ -652,8 +652,12 @@ int cellCountinSection=0;
     // Vanancy - reset count of Notification of new chat unread
     [self loadChatView:profile animated:YES];
     [appDel.myProfile resetUnreadMessageWithFriend:profile];
-    [appDel.myProfile setViewedMatchMutualWithFriend:profile];
-    profile.status = ChatViewed;
+    if(profile.status == MatchUnViewed){
+        [appDel.myProfile setViewedMatchMutualWithFriend:profile];
+    }
+    else{
+        profile.status = ChatViewed;
+    }
     //isChatLoaded = TRUE;
 }
 

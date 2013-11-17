@@ -1084,7 +1084,8 @@
         NSMutableDictionary *dict = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONReadingMutableContainers error:&e];
         BOOL status= [[dict valueForKey:key_status] boolValue];
         if(status){
-            friend.is_match = true;
+            friend.status = MatchViewed;
+            self.new_mutual_attractions --;
             NSLog(@"setViewedMatchMutualWithFriend SUCCESS!!!");
         }
         else

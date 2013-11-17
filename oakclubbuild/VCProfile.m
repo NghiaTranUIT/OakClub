@@ -408,20 +408,21 @@ static CGFloat padding_left = 5.0;
         
         NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInt:((int) rect.size.width)], @"width",
                                 [NSNumber numberWithInt:((int) rect.size.height)], @"height", nil];
-        /*
+        
         AFHTTPClient *downloadFAVIcon = [[AFHTTPClient alloc] initWithBaseURL:[NSURL URLWithString:@"https://graph.facebook.com/"]];
         [downloadFAVIcon registerHTTPOperationClass:[AFHTTPRequestOperation class]];
          
         NSMutableURLRequest *iconRequest = [downloadFAVIcon requestWithMethod:@"GET"
                                                                          path:[NSString stringWithFormat:@"%@/picture", fav.s_ID]
                                                                    parameters:params];
-         */
+        /*
         AFHTTPClient *downloadFAVIcon = [[AFHTTPClient alloc] initWithBaseURL:[NSURL URLWithString:fav.avatar]];
         [downloadFAVIcon registerHTTPOperationClass:[AFHTTPRequestOperation class]];
+        
         NSMutableURLRequest *iconRequest = [downloadFAVIcon requestWithMethod:@"GET"
                                                                 path:nil
                                             parameters:params];
-        
+        */
         AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:iconRequest];
         [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject)
          {
