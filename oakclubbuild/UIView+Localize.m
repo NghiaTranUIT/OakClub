@@ -19,13 +19,22 @@
         [result setText:text];
         return result;
     }
-
-    if([self isKindOfClass:[UIButton class]]){
+    else if([self isKindOfClass:[UIButton class]]){
         UIButton* result = (UIButton*)self;
         NSString* text =[appDelegate.languageBundle localizedStringForKey:result.titleLabel.text value:@"" table:nil];
         [result setTitle:text forState:UIControlStateNormal];
         return result;
     }
+    else
+    {
+        id id_self = self;
+        if([id_self respondsToSelector:@selector(text)] && [id_self respondsToSelector:@selector(setText:)])
+        {
+            NSString *localText = [[id_self text] localize];
+            [id_self setText:localText];
+        }
+    }
+    
     return self;
     //    return rerult;
 }

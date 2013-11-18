@@ -18,6 +18,7 @@
 #define USE_STAGING_IOS false
 //Hangout
 #define sOnline @"Online"
+#define LOG_HTTP false
 
 // Snapshot
 #define answerYES @"YES"
