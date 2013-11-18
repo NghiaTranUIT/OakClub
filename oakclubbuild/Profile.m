@@ -376,8 +376,11 @@
     return photos;
 }
 
--(void) parseProfileWithDictionary:(NSMutableDictionary*)data
+-(void) parseProfileWithData:(NSDictionary*)data
 {
+    self.s_ID = [data valueForKey:key_profileID];
+    self.s_usenameXMPP = [data valueForKey:key_usernameXMPP];
+    self.s_passwordXMPP = [data valueForKey:key_passwordXMPP];
     self.s_Name = [data valueForKey:key_name];
     self.s_Avatar = [data valueForKey:key_avatar];
     int ethnicityIndex =[[data valueForKey:key_ethnicity] integerValue];
@@ -445,35 +448,12 @@
     }
 }
 -(void) parseForGetProfileInfo:(NSData *)jsonData{
-    //    NSData *jsonData = [responeString dataUsingEncoding:NSUTF8StringEncoding];
     NSError *e=nil;
     NSMutableDictionary *dict = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingMutableContainers error:&e];
     
     NSMutableDictionary * data= [dict valueForKey:key_data];
     
-    self.s_ID = [data valueForKey:key_profileID];
-    
-    [self parseProfileWithDictionary:data];
-    
-    self.s_usenameXMPP = [data valueForKey:key_usernameXMPP];
-    self.s_passwordXMPP = [data valueForKey:key_passwordXMPP];
-    
-    [self getRosterListIDSync:^(void){
-    }];
-}
--(void) parseForGetHangOutProfile:(NSData *)jsonData{
-//    NSData *jsonData = [responeString dataUsingEncoding:NSUTF8StringEncoding];
-    NSError *e=nil;
-    NSMutableDictionary *dict = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingMutableContainers error:&e];
-    
-    NSMutableDictionary * data= [dict valueForKey:key_data];
-    
-    self.s_ID = [data valueForKey:key_profileID];
-    
-    [self parseProfileWithDictionary:data];
-    
-    self.s_usenameXMPP = [data valueForKey:key_usernameXMPP];
-    self.s_passwordXMPP = [data valueForKey:key_passwordXMPP];
+    [self parseProfileWithData:data];
     
     [self getRosterListIDSync:^(void){
     }];
@@ -1082,8 +1062,7 @@
     [httpClient postPath:URL_setViewedMutualMatch parameters:params success:^(__unused AFHTTPRequestOperation *operation, id JSON) {
         NSError *e=nil;
         NSMutableDictionary *dict = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONReadingMutableContainers error:&e];
-        BOOL status= [[dict valueForKey:key_status] boolValue];
-        if(status){
+        if([[dict valueForKey:key_status] boolValue]){
             friend.status = MatchViewed;
             self.new_mutual_attractions --;
             NSLog(@"setViewedMatchMutualWithFriend SUCCESS!!!");
@@ -1101,7 +1080,7 @@
     AFHTTPClient* request = [[AFHTTPClient alloc]initWithOakClubAPI:DOMAIN];
      NSDictionary *params = [[NSDictionary alloc]initWithObjectsAndKeys:self.s_ID,key_profileID,@"true",@"is_full", nil];
     [request getPath:URL_getProfileInfo parameters:params success:^(__unused AFHTTPRequestOperation *operation, id JSON) {
-        [self parseForGetHangOutProfile:JSON];
+        [self parseForGetProfileInfo:JSON];
         if(handler)
             handler();
     } failure:^(AFHTTPRequestOperation *operation, NSError *error)

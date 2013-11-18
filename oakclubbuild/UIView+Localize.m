@@ -31,7 +31,10 @@
         if([id_self respondsToSelector:@selector(text)] && [id_self respondsToSelector:@selector(setText:)])
         {
             NSString *localText = [[id_self text] localize];
-            [id_self setText:localText];
+            if (localText && ![@"" isEqualToString:localText])
+            {
+                [id_self setText:localText];
+            }
         }
     }
     

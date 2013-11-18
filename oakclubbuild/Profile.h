@@ -134,14 +134,12 @@
 @property int active;
 @property int new_mutual_attractions;
 
--(NSMutableArray*) parseMutualFriends:(NSMutableArray *)jsonData;
 +(NSMutableArray*) parseProfileToArray:(NSString *)responeString;
 +(NSMutableArray*) parseProfileToArrayByJSON:(NSData *)jsonData;
 -(NSMutableArray*) parseForGetFeatureList:(NSData *)jsonData;
 //-(ProfileSetting*) parseForGetAccountSetting:(NSData *)jsonData;
 +(Gender*) parseGender:(NSNumber *)genderCode;
--(void) parseProfileWithDictionary:(NSMutableDictionary*)data;
--(void) parseForGetHangOutProfile:(NSData *)jsonData;
+-(void) parseProfileWithData:(NSDictionary*)data;
 -(void) parseGetSnapshotToProfile:(NSData *)jsonData;
 -(void) parseForGetProfileInfo:(NSData *)jsonData;
 - (void) SaveSetting;

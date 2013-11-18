@@ -134,7 +134,7 @@
     if(btnLogin.selected)
         return;
     
-    if (FBSession.activeSession.state == FBSessionStateCreatedTokenLoaded || FBSession.activeSession.state == FBSessionStateOpen)
+    if (appDelegate.isFacebookActivated)
     {
         [self startSpinner];
         [self tryLogin];
@@ -185,98 +185,30 @@
 }
 
 #pragma mark Facebook Login
-- (void) tryLogin
+- (void)tryLogin
 {
-    [appDelegate openSessionWithWebDialogWithhandler:^(FBSessionState status)
-    {
-        if(status == FBSessionStateOpen)
+    [appDelegate tryLoginWithSuccess:^(int status)
+     {
+         [self stopSpinner];
+        if (status == 0)
         {
-            [appDelegate loadFBUserInfo:^(id status)
-             {
-                 NSLog(@"FB Login request completed!");
-                 
-                 AFHTTPClient *request = [[AFHTTPClient alloc] initWithOakClubAPI:DOMAIN];
-                 NSLog(@"Init API completed");
-                 
-                 [appDelegate parseFBInfoToProfile:appDelegate.myFBProfile];
-//                 NSDictionary *params  = [[NSDictionary alloc]initWithObjectsAndKeys:s_DeviceToken, @"device_token", nil];
-                 NSDictionary *params = [[NSDictionary alloc]initWithObjectsAndKeys:
-                                         [FBSession activeSession].accessTokenData.accessToken, @"access_token",
-                                         appDelegate.myProfile.s_FB_id, @"user_id",
-                                        appDelegate.s_DeviceToken,@"device_token",
-                                         nil];
-                 NSLog(@"sendRegister-params: %@", params);
-                 [request getPath:URL_sendRegister parameters:params success:^(__unused AFHTTPRequestOperation *operation, id JSON)
-                  {
-                      [self.view setUserInteractionEnabled:YES];
-                      NSError *e=nil;
-                      NSMutableDictionary *dict = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONReadingMutableContainers error:&e];
-                      
-                      NSLog(@"Login parsed data: %@", dict);
-                      NSLog(@"Login string data: %@", [[NSString alloc] initWithData:JSON encoding:NSUTF8StringEncoding]);
-                      
-                      int status = [[dict valueForKey:key_status] integerValue];
-                      if (status == 0) {
-                          NSString *msg = [dict valueForKey:@"msg"];
-                          if ([msg isEqualToString:@"This user exists already."])   // string check !=,=
-                          {
-                              [appDelegate getProfileInfoWithHandler:^(void)
-                               {
-                                   [self stopSpinner];
-                                   if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"isFirstLogin"] boolValue])
-                                   {
-                                       menuViewController *leftController = [[menuViewController alloc] init];
-                                       [leftController setUIInfo:appDelegate.myProfile];
-                                       [appDelegate.rootVC setRightViewController:appDelegate.chat];
-                                       [appDelegate.rootVC setLeftViewController:leftController];
-                                       appDelegate.window.rootViewController = appDelegate.rootVC;
-                                   }
-                                   else
-                                   {
-                                       [[NSUserDefaults standardUserDefaults] setValue:[NSNumber numberWithBool:YES] forKey:@"isFirstLogin"];
-                                       
-                                       TutorialViewController *tut = [[TutorialViewController alloc] init];
-                                       appDelegate.window.rootViewController = tut;
-                                       [appDelegate.window makeKeyAndVisible];
-                                   }
-                               }];
-                          }
-                          else
-                          {
-                              UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:[@"Error" localize]
-                                                                                  message:msg
-                                                                                 delegate:nil
-                                                                        cancelButtonTitle:@"Ok"
-                                                                        otherButtonTitles:nil];
-                              [alertView localizeAllViews];
-                              [alertView show];
-                          }
-                      }
-                      else
-                      {
-                          NSLog(@"Goto profile comfirmation");
-                          [appDelegate getProfileInfoWithHandler:^(void)
-                          {
-                              menuViewController *leftController = [[menuViewController alloc] init];
-                              [leftController setUIInfo:appDelegate.myProfile];
-                              [appDelegate.rootVC setRightViewController:appDelegate.chat];
-                              [appDelegate.rootVC setLeftViewController:leftController];
-                              appDelegate.window.rootViewController = appDelegate.rootVC;
-                              [appDelegate showConfirm];
-                          }];
-                      }
-                      
-                      [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithBool:YES] forKey:key_ChosenLanguage];
-                  } failure:^(AFHTTPRequestOperation *operation, NSError *error)
-                  {
-                      NSLog(@"Send reg error Code: %i - %@",[error code], [error localizedDescription]);
-                  }];
-             }];
+            NSLog(@"Goto profile comfirmation");
+            menuViewController *leftController = [[menuViewController alloc] init];
+            [leftController setUIInfo:appDelegate.myProfile];
+            [appDelegate.rootVC setRightViewController:appDelegate.chat];
+            [appDelegate.rootVC setLeftViewController:leftController];
+            appDelegate.window.rootViewController = appDelegate.rootVC;
+            [appDelegate showConfirm];
         }
-        else
+        else if (status == 2)
         {
-            NSLog(@"Try open session in login error %u", status);
+            [appDelegate gotoVCAtCompleteLogin];
         }
+        
+        [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithBool:YES] forKey:key_ChosenLanguage];
+     } failure:^{
+        [self stopSpinner];
+        NSLog(@"LOGIN FAIL.....");
     }];
 }
 
@@ -298,12 +230,13 @@
     BOOL isSetLanguage = [[[NSUserDefaults standardUserDefaults] objectForKey:key_ChosenLanguage] boolValue];
     if (!isSetLanguage)
     {
-        [[NSUserDefaults standardUserDefaults] setObject:value_appLanguage_VI forKey:key_appLanguage];
+        [[NSUserDefaults standardUserDefaults] setObject:value_appLanguage_EN forKey:key_appLanguage];
         [[NSUserDefaults standardUserDefaults] synchronize];
     }
     
     NSString* language = [[NSUserDefaults standardUserDefaults] objectForKey:key_appLanguage];
-    if(language != nil){
+    if(language != nil)
+    {
         [appDelegate updateLanguageBundle];
         [self.view localizeAllViews];
         //[appDelegate loadAllViewControllers];
@@ -312,16 +245,16 @@
     if (!isSetLanguage)
     {
         UIAlertView *alert = [[UIAlertView alloc]
-                              initWithTitle:@"Lựa chọn ngôn ngữ"
+                              initWithTitle:@"Choose your language"
                               message:@""
                               delegate:self
                               cancelButtonTitle:nil
-                              otherButtonTitles:[@"Vietnamese" localize],[@"English" localize],nil];
+                              otherButtonTitles:@"Tiếng Việt", @"English", nil];
         [alert show];
     }
     else
     {
-        if (FBSession.activeSession.state == FBSessionStateCreatedTokenLoaded || FBSession.activeSession.state == FBSessionStateOpen)
+        if (appDelegate.isFacebookActivated)
         {
             [self startSpinner];
             [self tryLogin];

@@ -961,7 +961,6 @@ UITapGestureRecognizer *tap;
          if(dictPhotos != nil)
          {
              NSArray *keys = [dictPhotos allKeys];
-             __block int i = [dictPhotos count];
              for (NSString *key in keys)
              {
                  NSString *link = [dictPhotos valueForKey:key];

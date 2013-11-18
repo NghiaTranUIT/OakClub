@@ -104,6 +104,7 @@
 //================ service API keys ================
 //root
 #define key_status @"status"
+#define key_errorStatus @"error_status"
 #define key_data @"data"
 //profile
 #define key_msg @"msg"
