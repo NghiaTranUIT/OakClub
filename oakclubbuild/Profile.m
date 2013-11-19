@@ -42,6 +42,7 @@
     if (![avatar isEqualToString:_s_avatar])
     {
         _s_avatar = avatar;
+        img_Avatar = nil;
         [self downloadAvatarImage];
     }
 }
@@ -456,8 +457,8 @@
     
     [self parseProfileWithData:data];
     
-    [self getRosterListIDSync:^(void){
-    }];
+//    [self getRosterListIDSync:^(void){
+//    }];
 }
 
 - (void) parseRoster:(NSArray *)rosterList
@@ -968,6 +969,7 @@
 {
     AFHTTPRequestOperation* operation = [Profile getAvatarSync:self.s_Avatar callback:^(UIImage *avatar)
     {
+        NSLog(@"Finished download avatar of %@",self.s_Name);
         self.img_Avatar = avatar;
         
         [self dispatchAvatar];

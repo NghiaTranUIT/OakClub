@@ -239,13 +239,20 @@ CGFloat pageHeight;
     }
     Profile * temp  =  [[Profile alloc]init];
     temp = [profileList objectAtIndex:currentIndex];
-    if(temp.img_Avatar != nil && [temp.img_Avatar isKindOfClass:[UIImage class]]){
+    if(temp.img_Avatar != nil){
         [self.imgNextProfile setImage:temp.img_Avatar];
     }
     else{
         [self.imgNextProfile setImage:[UIImage imageNamed:@"Default Avatar"]];
+        AFHTTPRequestOperation *operation =
+        [Profile getAvatarSync:temp.s_Avatar
+                      callback:^(UIImage *image)
+         {
+             [self.imgNextProfile setImage:image];
+         }];
+        [operation start];
     }
-    NSLog(@"Name of Profile : %@",currentProfile.s_Name);
+    NSLog(@"Name of Next Profile : %@",temp.s_Name);
 }
 -(void)loadCurrentProfile{
     if(currentIndex >= [profileList count])
@@ -264,14 +271,23 @@ CGFloat pageHeight;
     lbl_mutualLikes.text = [[NSString alloc]initWithFormat:@"%i",[currentProfile.arr_MutualInterests count]];
     [self.imgMainProfile setImage:[UIImage imageNamed:@"Default Avatar"]];
     [lblPhotoCount setText:@"0"];
+    [lblPhotoCount setText:[NSString stringWithFormat:@"%i",[currentProfile.arr_photos count]]];
     if(currentProfile.img_Avatar!= nil){
         [self.imgMainProfile setImage:currentProfile.img_Avatar];
     }
     else{
-        if(currentProfile.arr_photos != nil){
+        [self.imgMainProfile setImage:[UIImage imageNamed:@"Default Avatar"]];
+        AFHTTPRequestOperation *operation =
+        [Profile getAvatarSync:currentProfile.s_Avatar
+                      callback:^(UIImage *image)
+         {
+             [self.imgMainProfile setImage:image];
+         }];
+        [operation start];
+        /*
+        if(currentProfile.arr_photos != nil ){
             if(([currentProfile.arr_photos count] > 0) && [currentProfile.arr_photos[0] isKindOfClass:[UIImage class]]){
                 [self.imgMainProfile setImage:[currentProfile.arr_photos objectAtIndex:0]];
-                [lblPhotoCount setText:[NSString stringWithFormat:@"%i",[currentProfile.arr_photos count]]];
             }
             else{
                 AFHTTPRequestOperation *operation =
@@ -285,14 +301,16 @@ CGFloat pageHeight;
                      else{
                          [currentProfile.arr_photos replaceObjectAtIndex:0 withObject:image];
                      }
-                     [lblPhotoCount setText:[NSString stringWithFormat:@"%i",[currentProfile.arr_photos count]]];
                  }];
                 [operation start];
             }
         }
+        */
     }
-   
-
+    
+    
+    
+    
     [self stopLoadingAnim];
     currentIndex++;
 }
@@ -401,7 +419,7 @@ CGFloat pageHeight;
     
 }
 
--(void)backToSnapshotView{
+-(void)backToSnapshotViewWithAnswer:(int)answer{
     [imgMainProfile setHidden:NO];
     [UIView animateWithDuration:0.4
                      animations:^{
@@ -419,7 +437,6 @@ CGFloat pageHeight;
                      completion:^(BOOL finished) {
                          [self.moveMeView addSubViewToCardView:imgMainProfile andAtFront:NO andTag:0];
                          [self.imgMainProfile setFrame:CGRectMake(5, 3, 255, 255)];
-                         
                      }
      ];
     [self.view addSubview:self.moveMeView];
@@ -434,13 +451,25 @@ CGFloat pageHeight;
                          
                          [self.view bringSubviewToFront:self.moveMeView];
                          self.moveMeView.frame = CGRectMake(0, 0, 320, 548);
+                         if(answer != -1)
+                             [self doAnswer:answer];
                      }];
 }
 
 -(void)showMatchView{
     [self.view addSubview:matchViewController.view];
     [matchViewController.view setFrame:CGRectMake(0, 0, matchViewController.view.frame.size.width, matchViewController.view.frame.size.height)];
-    [lblMatchAlert setText:[NSString stringWithFormat:@"You and %@ have liked each other!",currentProfile.s_Name]];
+    if ([value_appLanguage_VI isEqualToString:[[NSUserDefaults standardUserDefaults] objectForKey:key_appLanguage]])
+    {
+        [lblMatchAlert setText:[NSString stringWithFormat:@"Còn ngại gì nữa, bạn với %@ đều thích nhau rồi!",currentProfile.s_Name]];
+    }
+    else
+    {
+        [lblMatchAlert setText:[NSString stringWithFormat:@"You and %@ have liked each other!",currentProfile.s_Name]];
+    }
+    
+    
+    
     if([currentProfile.arr_photos[0] isKindOfClass:[UIImageView class]]){
         UIImageView * photoView =currentProfile.arr_photos[0];
         [imgMatcher setImage:photoView.image];
@@ -468,17 +497,17 @@ CGFloat pageHeight;
 	[lblMatchAlert setText:@""];
 }
 -(IBAction)onNOPEClick:(id)sender{
-    [self doAnswer:interestedStatusNO];
-    [self backToSnapshotView];
+//    [self doAnswer:interestedStatusNO];
+    [self backToSnapshotViewWithAnswer:interestedStatusNO];
 }
 
 -(IBAction)onYESClick:(id)sender{
-    [self doAnswer:interestedStatusYES];
-    [self backToSnapshotView];
+//    [self doAnswer:interestedStatusYES];
+    [self backToSnapshotViewWithAnswer:interestedStatusYES];
 }
 
 -(IBAction)onDoneClick:(id)sender{
-    [self backToSnapshotView];
+    [self backToSnapshotViewWithAnswer:-1];
 }
 -(void) doAnswer:(int) choose{
     [self disableAllControl:YES];
@@ -506,7 +535,6 @@ CGFloat pageHeight;
                      }];
     [self setFavorite:[NSString stringWithFormat:@"%i",choose]];
 }
-
 
 -(void)setFavorite:(NSString*)answerChoice{
     int isFirstTime = [[[NSUserDefaults standardUserDefaults] objectForKey:key_isFirstSnapshot] integerValue];

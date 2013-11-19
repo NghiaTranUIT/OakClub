@@ -383,8 +383,16 @@ BOOL isDragging = FALSE;
 	CAKeyframeAnimation *bounceAnimation = [CAKeyframeAnimation animationWithKeyPath:@"position"];
 	bounceAnimation.removedOnCompletion = NO;
 	
-	CGFloat animationDuration = 0.5f;
-
+	CGFloat animationDuration = 0.25f;
+    
+    if(answerType != -1){
+        animationDuration = 0.5f;
+        [NSTimer scheduledTimerWithTimeInterval:0.2f
+                                         target:self
+                                       selector:@selector(handleTimer)
+                                       userInfo:nil
+                                        repeats:NO];
+    }
 	
 	// Create the path for the bounces.
 	UIBezierPath *bouncePath = [[UIBezierPath alloc] init];
@@ -454,11 +462,8 @@ BOOL isDragging = FALSE;
 	
 	// Add the animation group to the layer.
 	[welcomeLayer addAnimation:theGroup forKey:@"animatePlacardViewToCenter"];
-    [NSTimer scheduledTimerWithTimeInterval:0.2f
-                                     target:self
-                                   selector:@selector(handleTimer)
-                                   userInfo:nil
-                                    repeats:NO];
+  
+    
 	// Set the placard view's center and transformation to the original values in preparation for the end of the animation.
     if (IS_HEIGHT_GTE_568) {
         placardView.center = CENTER_POINT_568H;

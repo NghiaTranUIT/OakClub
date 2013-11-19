@@ -707,12 +707,14 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
         NSLog(@"USER INFO _ %@",result);
         self.myFBProfile = result;
         
-        [self loadDataForList];
+        [self loadDataForList:^(void){
+            if(resultHandler != nil)
+            {
+                resultHandler(result);
+            }
+        }];
         
-        if(resultHandler != nil)
-        {
-            resultHandler(result);
-        }
+        
         
     }];
 }
@@ -798,7 +800,7 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
     }
     return YES;
 }
--(void)loadDataForList{
+-(void)loadDataForList:(void(^)(void))completion{
     self.cityList = [[NSMutableDictionary alloc] init];
     [[NSUserDefaults standardUserDefaults] setObject:@"Never" forKey:@"key_EmailSetting"] ;
 //    if(self.relationshipList != nil && [self.relationshipList count] > 0)
@@ -820,6 +822,10 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
              self.genderList = GenderList_vi;
          else
              self.genderList = GenderList;
+         if(completion != nil)
+         {
+             completion();
+         }
      } failure:^(AFHTTPRequestOperation *operation, NSError *error)
      {
          NSLog(@"URL_getListLangRelWrkEth - Error Code: %i - %@",[error code], [error localizedDescription]);
@@ -1525,7 +1531,6 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
 	{
 		body = [NSString stringWithFormat:@"Buddy request from %@", displayName];
 	}
-	
 	
 	if ([[UIApplication sharedApplication] applicationState] == UIApplicationStateActive)
 	{
