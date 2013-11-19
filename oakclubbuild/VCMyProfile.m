@@ -19,7 +19,10 @@
 #import "LocationUpdate.h"
 #import "VideoPicker.h"
 #import "VideoUploader.h"
-@interface VCMyProfile () <PickPhotoFromGarellyDelegate, VideoPickerDelegate, UIAlertViewDelegate, ImageRequester, PhotoScrollViewDelegate, LocationUpdateDelegate>{
+#import "LoadingIndicator.h"
+
+@interface VCMyProfile () <PickPhotoFromGarellyDelegate, VideoPickerDelegate, UIAlertViewDelegate, ImageRequester, PhotoScrollViewDelegate, LocationUpdateDelegate, LoadingIndicatorDelegate>
+{
     GroupButtons* genderGroup;
      AppDelegate *appDelegate;
     NSMutableArray *profileItemList;
@@ -35,6 +38,7 @@
     UIImage *uploadImage;
     LocationUpdate *locUpdate;
     VideoPicker *videoPicker;
+    LoadingIndicator *indicator;
 }
 @property (weak, nonatomic) IBOutlet PhotoScrollView *photoScrollView;
 @property (weak, nonatomic) IBOutlet UIImageView *avatarLayout;
@@ -89,6 +93,8 @@ UITapGestureRecognizer *tap;
     videoPicker = [[VideoPicker alloc] initWithParentWindow:self andDelegate:self];
     
     self.photoScrollView.photoDelegate = self;
+    
+    indicator = [[LoadingIndicator alloc] initWithMainView:self.view andDelegate:self];
     
     [self reloadPhotos];
 }
@@ -382,7 +388,6 @@ UITapGestureRecognizer *tap;
     
 }
 
-
 -(BOOL) textFieldShouldReturn:(UITextField *)textField{
     
     [textField resignFirstResponder];
@@ -418,12 +423,21 @@ UITapGestureRecognizer *tap;
 -(void)saveSettingWithWarning:(BOOL)warning
 {
     appDelegate.myProfile = [profileObj copy];
-    [appDelegate.myProfile SaveSetting];
-    
-    if (warning)
-    {
-        [self showWarning:@"Profile saved" withTag:0];
-    }
+    [indicator lockViewAndDisplayIndicator];
+    [appDelegate.myProfile saveSettingWithCompletion:^(bool isSuccess) {
+        [indicator unlockViewAndStopIndicator];
+        if (warning)
+        {
+            if (isSuccess)
+            {
+                [self showWarning:@"Profile saved" withTag:0];
+            }
+            else
+            {
+                // SHOW FAIL WARNING
+            }
+        }
+    }];
 }
 
 - (void)showOKCancelWarning:(NSString*)warningText withTag:(int)tag{
@@ -462,11 +476,11 @@ UITapGestureRecognizer *tap;
     {
         if (buttonIndex == 0 && selectedPhoto >= 0)
         {
+            [indicator lockViewAndDisplayIndicator];
             AFHTTPClient *client = [[AFHTTPClient alloc] initWithOakClubAPI:DOMAIN];
             [client registerHTTPOperationClass:[AFHTTPRequestOperation class]];
             [client setParameterEncoding:AFFormURLParameterEncoding];
             NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:[photosID objectAtIndex:selectedPhoto], @"photo_id", nil];
-            //NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:@"52860df26dc04a7d7404c702", @"photo_id", nil];
             NSMutableURLRequest *myRequest = [client requestWithMethod:@"POST" path:URL_deletePhoto parameters:params];
             
             AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:myRequest];
@@ -486,9 +500,13 @@ UITapGestureRecognizer *tap;
                     [self showWarning:@"Cannnot delete this photo." withTag:5];
                 }
                 selectedPhoto = -1;
+                
+                [indicator unlockViewAndStopIndicator];
             } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                 NSLog(@"Delete photo error %@", error);
                 selectedPhoto = -1;
+                
+                [indicator unlockViewAndStopIndicator];
             }];
             
             [operation start];
@@ -504,9 +522,7 @@ UITapGestureRecognizer *tap;
         {
             bool isAvatar = (selectedPhoto == photosID.count + 2);
             PhotoUpload *uploader = [[PhotoUpload alloc] initWithPhoto:uploadImage andName:@"uploadedfile" isAvatar:isAvatar];
-            [self.view setUserInteractionEnabled:NO];
-            [appDelegate.rootVC.view setUserInteractionEnabled:NO];
-            [self.navigationController.navigationBar setUserInteractionEnabled:NO];
+            [indicator lockViewAndDisplayIndicator];
             [uploader uploadPhotoWithCompletion:^(NSString *imgLink, NSString *imgID, BOOL _isAvatar)
              {
                  if (imgID)
@@ -532,9 +548,7 @@ UITapGestureRecognizer *tap;
                      [self reloadPhotos];
                  }
                  
-                 [self.view setUserInteractionEnabled:YES];
-                 [appDelegate.rootVC.view setUserInteractionEnabled:YES];
-                 [self.navigationController.navigationBar setUserInteractionEnabled:YES];
+                 [indicator unlockViewAndStopIndicator];
              }];
         }
         else
@@ -965,15 +979,18 @@ UITapGestureRecognizer *tap;
              {
                  NSString *link = [dictPhotos valueForKey:key];
                  
-                 if( ![link isEqualToString:@""] )
+                 if(![link isEqualToString:@""] )
                  {
                      AFHTTPRequestOperation *operation =
                      [Profile getAvatarSyncWithOperation:link
                                    callback:^(AFHTTPRequestOperation *op, UIImage *image)
                       {
-                          [photos addObject:image];
-                          [photosID addObject:key];
-                          [self reloadPhotos];
+                          if (image)
+                          {
+                              [photos addObject:image];
+                              [photosID addObject:key];
+                              [self reloadPhotos];
+                          }
                       }];
                      [operation start];
                      
@@ -1048,6 +1065,24 @@ UITapGestureRecognizer *tap;
     return CGSizeMake(15, 15);
 }
 
+-(void)lockView
+{
+    [appDelegate.rootVC.view setUserInteractionEnabled:NO];
+    [self.navigationController.navigationBar setUserInteractionEnabled:NO];
+}
+
+-(void)unlockView
+{
+    [appDelegate.rootVC.view setUserInteractionEnabled:YES];
+    [self.navigationController.navigationBar setUserInteractionEnabled:YES];
+}
+
+-(void)customizeIndicator:(UIActivityIndicatorView *)_indicator
+{
+    [_indicator setFrame:CGRectMake((320 - _indicator.frame.size.width) / 2,
+                                   240,
+                                   _indicator.frame.size.width, _indicator.frame.size.height)];
+}
 @end
 
 @implementation PickingViewController

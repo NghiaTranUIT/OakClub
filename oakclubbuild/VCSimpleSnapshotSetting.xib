@@ -9,23 +9,10 @@
             <connections>
                 <outlet property="logoutController" destination="N4i-fF-zaN" id="pCl-nk-Lt7"/>
                 <outlet property="logoutViewController" destination="N4i-fF-zaN" id="hEA-yf-UPR"/>
-                <outlet property="view" destination="RJI-AJ-6pI" id="axb-zH-bqW"/>
+                <outlet property="view" destination="ciK-qQ-2Kv" id="x0Z-Jx-d1b"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableView opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="RJI-AJ-6pI">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
-            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-            <color key="tintColor" red="0.47450980390000003" green="0.0039215686269999999" blue="0.34509803919999998" alpha="1" colorSpace="calibratedRGB"/>
-            <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
-            <color key="sectionIndexColor" red="0.47450980390000003" green="0.0039215686269999999" blue="0.34509803919999998" alpha="1" colorSpace="calibratedRGB"/>
-            <sections/>
-            <connections>
-                <outlet property="dataSource" destination="-1" id="KPf-Rj-RHd"/>
-                <outlet property="delegate" destination="-1" id="MgT-Kk-LZF"/>
-            </connections>
-        </tableView>
         <viewController id="N4i-fF-zaN" customClass="VCLogout">
             <view key="view" contentMode="scaleToFill" placeholderIntrinsicWidth="320" placeholderIntrinsicHeight="568" id="WZo-PC-3NG">
                 <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
@@ -91,6 +78,27 @@
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <color key="color" red="0.47450980390000003" green="0.0039215686269999999" blue="0.34509803919999998" alpha="1" colorSpace="calibratedRGB"/>
         </activityIndicatorView>
+        <view contentMode="scaleToFill" id="ciK-qQ-2Kv">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <tableView opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="RJI-AJ-6pI">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <color key="tintColor" red="0.47450980390000003" green="0.0039215686269999999" blue="0.34509803919999998" alpha="1" colorSpace="calibratedRGB"/>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
+                    <color key="sectionIndexColor" red="0.47450980390000003" green="0.0039215686269999999" blue="0.34509803919999998" alpha="1" colorSpace="calibratedRGB"/>
+                    <sections/>
+                    <connections>
+                        <outlet property="dataSource" destination="-1" id="KPf-Rj-RHd"/>
+                        <outlet property="delegate" destination="-1" id="MgT-Kk-LZF"/>
+                    </connections>
+                </tableView>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
+        </view>
     </objects>
     <resources>
         <image name="Logout_BG.png" width="334" height="156"/>

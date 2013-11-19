@@ -19,8 +19,9 @@
 #import <MessageUI/MFMailComposeViewController.h>
 #import "RangeSlider.h"
 #import "NSString+Utils.h"
+#import "LoadingIndicator.h"
 
-@interface VCSimpleSnapshotSetting (){
+@interface VCSimpleSnapshotSetting () <LoadingIndicatorDelegate>{
     SettingObject* snapshotObj;
     AFHTTPClient *request;
     int fromAge;
@@ -32,10 +33,12 @@
     UIPickerView* picker;
     bool isPickerShowing;
     AppDelegate *appDel;
+    LoadingIndicator *indicator;
 }
 @property (nonatomic) NSUInteger hereTo;
 @property NYSliderPopover *rangeSlider;
 @property RangeSlider* ageSlider;
+@property (weak, nonatomic) IBOutlet UITableView *tbView;
 @property (weak,nonatomic) IBOutlet VCLogout* logoutViewController;
 @end
 
@@ -44,11 +47,19 @@
 UITapGestureRecognizer *tap;
 @synthesize lblRange,pickerAge, btnAdvance,lblRangeOfAge;
 
-- (id)initWithStyle:(UITableViewStyle)style
+//- (id)initWithStyle:(UITableViewStyle)style
+//{
+//    self = [super initWithStyle:style];
+//    if (self) {
+//        // Custom initialization
+//    }
+//    return self;
+//}
+
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
-    self = [super initWithStyle:style];
-    if (self) {
-        // Custom initialization
+    if(self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil])
+    {
     }
     return self;
 }
@@ -62,16 +73,16 @@ UITapGestureRecognizer *tap;
            initWithTarget:self
            action:@selector(dismissKeyboard)];
     [tap setCancelsTouchesInView:NO];
-    [self.tableView addGestureRecognizer:tap];
+    [self.tbView addGestureRecognizer:tap];
     
     snapshotObj = [[SettingObject alloc] init];
     [self initAgeRangeSlider];
     [self loadSetting];
-//    self.tableView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"bg.png"]];
+//    self.tbView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"bg.png"]];
     appDel = [self appDelegate];
      [self showNotifications];
     
-    
+    indicator = [[LoadingIndicator alloc] initWithMainView:self.view andDelegate:self];
 }
 
 -(void)viewDidAppear:(BOOL)animated{
@@ -103,16 +114,6 @@ UITapGestureRecognizer *tap;
     [[self navBarOakClub] setNotifications:totalNotifications];
 }
 
--(void)initSaveButton{
-//    UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
-//    btn.frame = CGRectMake(0, 0, 37, 31);
-//    [btn setImage:[UIImage imageNamed:@"header_btn_save.png"] forState:UIControlStateNormal];
-//    [btn setImage:[UIImage imageNamed:@"header_btn_save_pressed.png"] forState:UIControlStateHighlighted];
-//    [btn addTarget:self action:@selector(saveSetting) forControlEvents:UIControlEventTouchUpInside];
-//    UIBarButtonItem *Item = [[UIBarButtonItem alloc] initWithCustomView:btn];
-//    self.navigationItem.rightBarButtonItem=Item;
-//    self.navigationItem.title = @"Snapshot Settings";
-}
 - (int) loadHereTo:(NSString*)value{
     if(value!= NULL && [value isEqualToString:value_MakeFriend]){
         return 1;
@@ -592,35 +593,8 @@ UITapGestureRecognizer *tap;
             }
                 
             break;
-/*        case AgeGroup:
-            {
-                [self.tableView scrollToNearestSelectedRowAtScrollPosition:UITableViewScrollPositionMiddle animated:YES];
-                
-                if(isPickerShowing){
-                    [picker removeFromSuperview];
-                }
-                else{
-                    picker = [[UIPickerView alloc] init];
-                    picker.delegate = self;
-                    picker.dataSource =self;
-                    picker.showsSelectionIndicator = YES;
-                    picker.frame = CGRectMake(0, cell.frame.origin.y + 52, 320, 200);
-
-                    [self initAgeList];
-                    
-                    [self.view addSubview: picker];
-                    [picker setNeedsDisplay];
-                    
-                }
-                isPickerShowing = !isPickerShowing;
-
-                [self.tableView reloadData];
-                
-            }
-            break;
- */
     }
-    [self.tableView reloadData];
+    [self.tbView reloadData];
 }
 
 - (void)viewDidUnload {
@@ -645,7 +619,7 @@ UITapGestureRecognizer *tap;
         case LISTTYPE_CITY:
         {
             snapshotObj.location = selected.s_location;
-            [self.tableView reloadData];
+            [self.tbView reloadData];
             break;
         }
         case LISTTYPE_COUNTRY:{
@@ -668,6 +642,8 @@ UITapGestureRecognizer *tap;
 }
 
 - (void) loadSetting{
+    [indicator lockViewAndDisplayIndicator];
+    
     request = [[AFHTTPClient alloc] initWithOakClubAPI:DOMAIN];
     [request getPath:URL_getSnapshotSetting parameters:nil success:^(__unused AFHTTPRequestOperation *operation, id JSON) {
         NSError *e=nil;
@@ -696,18 +672,13 @@ UITapGestureRecognizer *tap;
         
         hasMale = [snapshotObj.gender_of_search isEqualToString:value_Male] || [snapshotObj.gender_of_search isEqualToString:value_All];
         hasFemale = [snapshotObj.gender_of_search isEqualToString:value_Female] || [snapshotObj.gender_of_search isEqualToString:value_All];
-        // advance settings
-        //        [self loadShowFOF:[[data valueForKey:key_show_fof] boolValue]];
-        //
-        //        [btnAgeAround setTitle:[NSString stringWithFormat:@"%d-%d year old",fromAge,toAge] forState:UIControlStateNormal];
-        //        [chbInterests setSelected:[[data valueForKey:key_is_interests] boolValue]];
-        //        [chbLikes setSelected:[[data valueForKey:key_is_likes] boolValue]];
-        //        [chbSchool setSelected:[[data valueForKey:key_is_school] boolValue]];
-        //        [chbwork setSelected:[[data valueForKey:key_is_work] boolValue]];
-//        [self initAgeRangeSlider];
-        [self.tableView reloadData];
+        
+        [indicator unlockViewAndStopIndicator];
+        
+        [self.tbView reloadData];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"URL_getSnapshotSetting - Error Code: %i - %@",[error code], [error localizedDescription]);
+        [indicator unlockViewAndStopIndicator];
     }];
 }
 
@@ -725,19 +696,12 @@ UITapGestureRecognizer *tap;
     }
     
     request = [[AFHTTPClient alloc] initWithOakClubAPI:DOMAIN];
-//    NSString * s_isInterest= [self BoolToString:false];
-//    NSString * s_isLikes= [self BoolToString:false];
-//    NSString * s_isWork= [self BoolToString:false];
-//    NSString * s_isSchool= [self BoolToString:false];
     NSString * s_isNewPeople= snapshotObj.interested_new_people?@"1":@"0";
     NSString * s_isFOF= snapshotObj.interested_friend_of_friends?@"1":@"0";
     NSString * s_isFriend= snapshotObj.interested_friends?@"1":@"0";
     NSString *s_hereto = snapshotObj.purpose_of_search;
-//    NSString *s_gender = snapshotObj.gender_of_search;
-    NSString *isMale = hasMale?@"on":@"off";//([s_gender isEqualToString:value_All] || [s_gender isEqualToString:value_Male])?@"on":@"off";
-    NSString *isFemale = hasFemale?@"on":@"off";//([s_gender isEqualToString:value_All] || [s_gender isEqualToString:value_Female])?@"on":@"off";
-//    NSString *s_showFOF= [self BoolToString:false];
-    //    NSString *s_fromAge = [NSString stringWithFormat:@"%i",fromAge];
+    NSString *isMale = hasMale?@"on":@"off";
+    NSString *isFemale = hasFemale?@"on":@"off";
 #if ENABLE_DEMO
     NSDictionary *params = [[NSDictionary alloc]initWithObjectsAndKeys:
                             s_hereto,@"purpose_of_search",
@@ -769,6 +733,8 @@ UITapGestureRecognizer *tap;
                             @"",key_PriorityList,   //
                             nil];
 #endif
+    [indicator lockViewAndDisplayIndicator];
+    
     NSLog(@"setSnapshot setting params : %@",params);
     [request setParameterEncoding:AFFormURLParameterEncoding];
     [request postPath:URL_setSnapshotSetting parameters:params success:^(__unused AFHTTPRequestOperation *operation, id JSON) {
@@ -788,7 +754,8 @@ UITapGestureRecognizer *tap;
 
             appDel.reloadSnapshot = TRUE;
         }
-        else{
+        else
+        {
             NSLog(@"POST FAIL...");
             UIAlertView *alert = [[UIAlertView alloc]
                                   initWithTitle:[@"Warning" localize]
@@ -799,8 +766,11 @@ UITapGestureRecognizer *tap;
             [alert localizeAllViews];
             [alert show];
         }
+        
+        [indicator unlockViewAndStopIndicator];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"URL_getSnapshotSetting - Error Code: %i - %@",[error code], [error localizedDescription]);
+        [indicator unlockViewAndStopIndicator];
     }];
 #if ENABLE_DEMO
 //    UIAlertView *alert = [[UIAlertView alloc]
@@ -851,8 +821,8 @@ UITapGestureRecognizer *tap;
         fromAge = [[ageOptions objectAtIndex:row] integerValue];
     else
         toAge = [[ageOptions objectAtIndex:row] integerValue];
-    //    [self.tableView reloadSections:[[NSIndexPath alloc] initWithIndex:2] withRowAnimation:UITableViewRowAnimationAutomatic];
-    [self.tableView reloadData];
+    //    [self.tbView reloadSections:[[NSIndexPath alloc] initWithIndex:2] withRowAnimation:UITableViewRowAnimationAutomatic];
+    [self.tbView reloadData];
     //    [btnAgeAround setTitle:[NSString stringWithFormat:@"%d-%d year old",fromAge,toAge] forState:UIControlStateNormal];
     
 }
@@ -861,14 +831,14 @@ UITapGestureRecognizer *tap;
 {
     [picker removeFromSuperview];
     isPickerShowing = NO;
-    [self.tableView reloadData];
+    [self.tbView reloadData];
 }
 - (void)dismissKeyboard {
     if (isPickerShowing){
-        [[self.tableView.gestureRecognizers objectAtIndex:2] setCancelsTouchesInView:isPickerShowing];
+        [[self.tbView.gestureRecognizers objectAtIndex:2] setCancelsTouchesInView:isPickerShowing];
         [picker removeFromSuperview];
         isPickerShowing = NO;
-        [self.tableView reloadData];
+        [self.tbView reloadData];
     }
 }
 
@@ -977,12 +947,12 @@ UITapGestureRecognizer *tap;
 
 
 -(void)onTouchLogout{
-//    [self.tableView setUserInteractionEnabled:NO];
-    [self.tableView setScrollEnabled:NO];
+//    [self.tbView setUserInteractionEnabled:NO];
+    [self.tbView setScrollEnabled:NO];
     [self.navigationController.navigationBar setUserInteractionEnabled:NO];
 //    self.logoutViewController = [[VCLogout alloc]init];
-    CGPoint viewPoint = [self.tableView contentOffset];
-    [self.logoutController.view setFrame:CGRectMake(0,self.tableView.contentSize.height , self.logoutController.view.frame.size.width, self.view.frame.size.height-44)];
+    CGPoint viewPoint = [self.tbView contentOffset];
+    [self.logoutController.view setFrame:CGRectMake(0,self.tbView.contentSize.height , self.logoutController.view.frame.size.width, self.view.frame.size.height-44)];
     [self.logoutController.view localizeAllViews];
     [self.view addSubview:self.logoutController.view];
     [self.view bringSubviewToFront:self.logoutController.view];
@@ -997,17 +967,17 @@ UITapGestureRecognizer *tap;
     [self.navigationController.navigationBar setUserInteractionEnabled:YES];
     [self.logoutViewController.view removeFromSuperview];
 //    appDel.rootVC.recognizesPanningOnFrontView = YES;
-    [self.tableView setScrollEnabled:YES];
+    [self.tbView setScrollEnabled:YES];
     [appDel  logOut];
 }
 - (IBAction)onTouchCancelLogout:(id)sender {
     //    [self.navigationController popViewControllerAnimated:NO];
     [UIView animateWithDuration:0.4
                      animations:^{
-                         [self.logoutViewController.view setFrame:CGRectMake(0, self.tableView.contentSize.height, self.logoutViewController.view.frame.size.width, self.view.frame.size.height-44)];
+                         [self.logoutViewController.view setFrame:CGRectMake(0, self.tbView.contentSize.height, self.logoutViewController.view.frame.size.width, self.view.frame.size.height-44)];
                      }completion:^(BOOL finished) {
                          [self.logoutViewController.view removeFromSuperview];
-                         [self.tableView setScrollEnabled:YES];
+                         [self.tbView setScrollEnabled:YES];
 //                         appDel.rootVC.recognizesPanningOnFrontView = YES;
                          [self.navigationController.navigationBar setUserInteractionEnabled:YES];
                      }];
@@ -1031,7 +1001,7 @@ UITapGestureRecognizer *tap;
         default:
             break;
     }
-    [self.tableView reloadData];
+    [self.tbView reloadData];
 }
 
 #pragma mark Range of Age slider
@@ -1069,7 +1039,27 @@ UITapGestureRecognizer *tap;
     toAge = MIN_AGE + (sender.max * (MAX_AGE - MIN_AGE));
     [lblRangeOfAge setText: [NSString stringWithFormat: @"%d %@ %d %@",fromAge,[@"to" localize],toAge,[@"years old" localize]]];
 //	NSLog(@"%@",report);
+    
 }
 
+#pragma mark LOADING INDICATOR DELEGATE
+-(void)lockView
+{
+    [appDel.rootVC.view setUserInteractionEnabled:NO];
+    [self.navigationController.navigationBar setUserInteractionEnabled:NO];
+}
 
+-(void)unlockView
+{
+    [appDel.rootVC.view setUserInteractionEnabled:YES];
+    [self.navigationController.navigationBar setUserInteractionEnabled:YES];
+}
+
+-(void)customizeIndicator:(UIActivityIndicatorView *)_indicator
+{
+    CGRect frame = _indicator.frame;
+    frame.origin.y = 200;
+    
+    [_indicator setFrame:frame];
+}
 @end

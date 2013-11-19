@@ -422,7 +422,8 @@
     self.num_Photos = [_arrTemp count];
     for (int i = 0; i < self.num_Photos; i++) {
         NSMutableDictionary *photoItem = [_arrTemp objectAtIndex:i];
-        if ([[photoItem valueForKey:key_isProfilePicture] integerValue]) {
+        if ([[photoItem valueForKey:key_isProfilePicture] integerValue])
+        {
             self.s_Avatar =[photoItem valueForKey:key_photoLink];
         }
         [self.arr_photos addObject: [photoItem valueForKey:key_photoLink]];
@@ -768,6 +769,8 @@
      } failure:^(AFHTTPRequestOperation *operation, NSError *error)
      {
          NSLog(@"Download image Error: %@", error);
+         if(handler != nil)
+             handler(operation, nil);
      }];
     
     return operation;
@@ -794,7 +797,7 @@
     }];
 }
 */
-- (void) SaveSetting{
+- (void)saveSettingWithCompletion:(void(^)(bool isSuccess))completion{
     NSString * name = self.s_Name;
     NSString *gender = [NSString stringWithFormat:@"%i",self.s_gender.ID];
     NSString *birthday = self.s_birthdayDate;
@@ -837,14 +840,14 @@
     
     NSLog(@"Set hangout profile params: %@", params);
     [httpClient setParameterEncoding:AFFormURLParameterEncoding];
-    [httpClient postPath:URL_setProfileInfo parameters:params success:^(__unused AFHTTPRequestOperation *operation, id JSON) {
-        NSError *e=nil;
-        NSMutableDictionary *dict = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONReadingMutableContainers error:&e];
-        NSMutableArray * data= [dict valueForKey:key_data];
-        NSLog(@"Set Hangout profile result: %@", data);
-//        return YES;
+    [httpClient postPath:URL_setProfileInfo parameters:params success:^(__unused AFHTTPRequestOperation *operation, id JSON)
+    {
+        if (completion)
+        {
+            completion(YES);
+        }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@" SaveSetting Profile Error Code: %i - %@",[error code], [error localizedDescription]);
+        completion(NO);
 //        return NO;
     }];
 //    return YES;

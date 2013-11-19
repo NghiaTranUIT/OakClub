@@ -177,7 +177,7 @@ CGFloat pageHeight;
      
      } failure:^(AFHTTPRequestOperation *operation, NSError *error)
      {
-     NSLog(@"URL_getListWhoLikeMe - Error Code: %i - %@",[error code], [error localizedDescription]);
+         NSLog(@"URL_getListWhoLikeMe - Error Code: %i - %@",[error code], [error localizedDescription]);
      }];
     
     //test list
