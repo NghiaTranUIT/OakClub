@@ -13,10 +13,8 @@
 
 @interface FlashIntro ()
 {
-    float deltaAlpha;
     UIImageView *background;
     AppDelegate *appDelegate;
-    float flashTime, flashInterval;
     UIActivityIndicatorView *indicatorView;
 }
 @end
@@ -29,8 +27,6 @@
     if (self) {
         // Custom initialization
         appDelegate = (id) [UIApplication sharedApplication].delegate;
-        flashTime = 2;
-        flashInterval = 0.04;
     }
     return self;
 }
@@ -60,7 +56,7 @@
     
     indicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
     [indicatorView setFrame:CGRectMake(142, 138, indicatorView.frame.size.width,  indicatorView.frame.size.height)];
-    indicatorView.color = [UIColor colorWithRed:121 green:1 blue:88 alpha:1];
+    indicatorView.color = [UIColor colorWithRed:(121.f / 255.f) green:(1.f / 255.f) blue:(88.f / 255.f) alpha:1];
     [indicatorView setHidesWhenStopped:YES];
     [indicatorView stopAnimating];
     

@@ -85,34 +85,7 @@
     imageAvatar = img;
     [self.avatar setImage:img];
 }
-/*
--(void) downloadAvatarImage:(NSString*)link{
-    AFHTTPClient *request;
-    if(![link isEqualToString:@""]){
-        if(!([link hasPrefix:@"http://"] || [link hasPrefix:@"https://"]))
-        {       // check if this is a valid link
-            request = [[AFHTTPClient alloc]initWithBaseURL:[NSURL URLWithString:DOMAIN_DATA]];
-            [request getPath:link parameters:nil success:^(__unused AFHTTPRequestOperation *operation, id JSON) {
-                imageAvatar = [UIImage imageWithData:JSON];
-//                [self.btnAvatar setBackgroundImage:imageAvatar forState:UIControlStateDisabled];
-                [self.avatar setImage:imageAvatar];
-            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                NSLog(@"Error Code: %i - %@",[error code], [error localizedDescription]);
-            }];
-        }
-        else{
-            request = [[AFHTTPClient alloc]initWithBaseURL:[NSURL URLWithString:@""]];
-            [request getPath:link parameters:nil success:^(__unused AFHTTPRequestOperation *operation, id JSON) {
-                imageAvatar = [UIImage imageWithData:JSON];
-                [self.avatar setImage:imageAvatar];
-//                [self.btnAvatar setBackgroundImage:imageAvatar forState:UIControlStateDisabled];
-            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                NSLog(@"Error Code: %i - %@",[error code], [error localizedDescription]);
-            }];
-        }
-    }
-}
-*/
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
