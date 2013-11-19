@@ -239,13 +239,20 @@ CGFloat pageHeight;
     }
     Profile * temp  =  [[Profile alloc]init];
     temp = [profileList objectAtIndex:currentIndex];
-    if(temp.img_Avatar != nil && [temp.img_Avatar isKindOfClass:[UIImage class]]){
+    if(temp.img_Avatar != nil){
         [self.imgNextProfile setImage:temp.img_Avatar];
     }
     else{
         [self.imgNextProfile setImage:[UIImage imageNamed:@"Default Avatar"]];
+        AFHTTPRequestOperation *operation =
+        [Profile getAvatarSync:temp.s_Avatar
+                      callback:^(UIImage *image)
+         {
+             [self.imgNextProfile setImage:image];
+         }];
+        [operation start];
     }
-    NSLog(@"Name of Profile : %@",currentProfile.s_Name);
+    NSLog(@"Name of Next Profile : %@",temp.s_Name);
 }
 -(void)loadCurrentProfile{
     if(currentIndex >= [profileList count])
@@ -264,14 +271,23 @@ CGFloat pageHeight;
     lbl_mutualLikes.text = [[NSString alloc]initWithFormat:@"%i",[currentProfile.arr_MutualInterests count]];
     [self.imgMainProfile setImage:[UIImage imageNamed:@"Default Avatar"]];
     [lblPhotoCount setText:@"0"];
+    [lblPhotoCount setText:[NSString stringWithFormat:@"%i",[currentProfile.arr_photos count]]];
     if(currentProfile.img_Avatar!= nil){
         [self.imgMainProfile setImage:currentProfile.img_Avatar];
     }
     else{
-        if(currentProfile.arr_photos != nil){
+        [self.imgMainProfile setImage:[UIImage imageNamed:@"Default Avatar"]];
+        AFHTTPRequestOperation *operation =
+        [Profile getAvatarSync:currentProfile.s_Avatar
+                      callback:^(UIImage *image)
+         {
+             [self.imgMainProfile setImage:image];
+         }];
+        [operation start];
+        /*
+        if(currentProfile.arr_photos != nil ){
             if(([currentProfile.arr_photos count] > 0) && [currentProfile.arr_photos[0] isKindOfClass:[UIImage class]]){
                 [self.imgMainProfile setImage:[currentProfile.arr_photos objectAtIndex:0]];
-                [lblPhotoCount setText:[NSString stringWithFormat:@"%i",[currentProfile.arr_photos count]]];
             }
             else{
                 AFHTTPRequestOperation *operation =
@@ -285,14 +301,16 @@ CGFloat pageHeight;
                      else{
                          [currentProfile.arr_photos replaceObjectAtIndex:0 withObject:image];
                      }
-                     [lblPhotoCount setText:[NSString stringWithFormat:@"%i",[currentProfile.arr_photos count]]];
                  }];
                 [operation start];
             }
         }
+        */
     }
-   
-
+    
+    
+    
+    
     [self stopLoadingAnim];
     currentIndex++;
 }

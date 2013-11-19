@@ -79,6 +79,8 @@ int cellCountinSection=0;
     for(NSString* key in [appDel.friendChatList allKeys])
     {
         Profile* profile = [appDel.friendChatList objectForKey:key];
+        if(profile.img_Avatar == nil)
+            profile.img_Avatar = [UIImage imageNamed:@"Default Avatar"];
         [a_avatar setObject:profile.img_Avatar forKey:profile.s_ID];
 //        [tableView reloadData];
         [self.searchDisplayController.searchResultsTableView reloadData];

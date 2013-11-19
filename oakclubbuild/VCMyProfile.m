@@ -1,4 +1,4 @@
-	//
+//
 //  VCMyProfile.m
 //  oakclubbuild
 //
@@ -21,7 +21,7 @@
 #import "VideoUploader.h"
 @interface VCMyProfile () <PickPhotoFromGarellyDelegate, VideoPickerDelegate, UIAlertViewDelegate, ImageRequester, PhotoScrollViewDelegate, LocationUpdateDelegate>{
     GroupButtons* genderGroup;
-     AppDelegate *appDelegate;
+    AppDelegate *appDelegate;
     NSMutableArray *profileItemList;
     NSArray *weightOptionList;
     NSArray *heightOptionList;
@@ -43,8 +43,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *age_workLabel;
 @property (weak, nonatomic) IBOutlet UILabel *locationLabel;
 @property (weak, nonatomic) IBOutlet UIButton *btnUploadVideo;
-    @property (strong, nonatomic) IBOutlet UIView *pickingView;
-    @property (strong, nonatomic) IBOutlet UIViewController *pickingViewController;
+@property (strong, nonatomic) IBOutlet UIView *pickingView;
+@property (strong, nonatomic) IBOutlet UIViewController *pickingViewController;
 @property (weak, nonatomic) IBOutlet UILabel *lblPickingValue;
 @end
 
@@ -58,7 +58,7 @@ UITapGestureRecognizer *tap;
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
-         appDelegate =(AppDelegate *)[[UIApplication sharedApplication] delegate];
+        appDelegate =(AppDelegate *)[[UIApplication sharedApplication] delegate];
         profileItemList = [[NSMutableArray alloc] initWithArray:MyProfileItemList];
         
     }
@@ -68,17 +68,17 @@ UITapGestureRecognizer *tap;
 - (void)viewDidLoad
 {
     tap = [[UITapGestureRecognizer alloc]
-                                   initWithTarget:self
-                                   action:@selector(dismissKeyboard)];
+           initWithTarget:self
+           action:@selector(dismissKeyboard)];
     [tap setCancelsTouchesInView:NO];
     [scrollview addGestureRecognizer:tap];
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-//    [self initGenderGroup];
+    //    [self initGenderGroup];
     [pickerView addTarget:self
                    action:@selector(onTouchUpDatePicker:)
          forControlEvents:UIControlEventValueChanged];
-//    [self loadProfile];
+    //    [self loadProfile];
     
     [pickerView setMaximumDate:[[NSDate alloc] init]];
     
@@ -109,8 +109,8 @@ UITapGestureRecognizer *tap;
     self.imgAvatar.contentMode = UIViewContentModeScaleAspectFit;
     [self.imgAvatar setFrame:self.avatarLayout.frame];
     
-//    [self.btnUploadVideo setBackgroundImage:avatarImage forState:UIControlStateNormal];
-//    self.btnUploadVideo.contentMode = UIViewContentModeScaleAspectFit;
+    //    [self.btnUploadVideo setBackgroundImage:avatarImage forState:UIControlStateNormal];
+    //    self.btnUploadVideo.contentMode = UIViewContentModeScaleAspectFit;
     
     [self.view localizeAllViews];
 }
@@ -130,12 +130,12 @@ UITapGestureRecognizer *tap;
 }
 
 -(void)viewWillAppear:(BOOL)animated{
-//    [self updateProfileItemListAtIndex:profileObj.s_Name andIndex:NAME];
-//    [self updateProfileItemListAtIndex:profileObj.s_school andIndex:SCHOOL];
-//    [self updateProfileItemListAtIndex:profileObj.s_aboutMe andIndex:ABOUT_ME];
-   
+    //    [self updateProfileItemListAtIndex:profileObj.s_Name andIndex:NAME];
+    //    [self updateProfileItemListAtIndex:profileObj.s_school andIndex:SCHOOL];
+    //    [self updateProfileItemListAtIndex:profileObj.s_aboutMe andIndex:ABOUT_ME];
+    
     [tbEditProfile reloadData];
-//    [self loadProfile];
+    //    [self loadProfile];
     [self showNotifications];
     [[self navBarOakClub] setHeaderName:[NSString localizeString:@"Edit Profile"]];
 }
@@ -179,43 +179,43 @@ UITapGestureRecognizer *tap;
     if(profileObj.i_work.cate_name.length == 0){
         [self updateProfileItemListAtIndex:@"" andIndex:RELATIONSHIP];
     }
-
+    
     profileObj.s_gender.text = [NSString localizeString:profileObj.s_gender.text];
     [profileObj tryGetImageAsync:self];
     for (int i =0 ; i < [profileObj.a_language count]; i++) {
         [[profileObj.a_language objectAtIndex:i] localizeNameOfLanguage];
-//        [profileObj.a_language replaceObjectAtIndex:i withObject:[NSString localizeString:profileObj.a_language[i]]];
+        //        [profileObj.a_language replaceObjectAtIndex:i withObject:[NSString localizeString:profileObj.a_language[i]]];
     }
     [self updateProfileItemListAtIndex:profileObj.languagesDescription andIndex:LANGUAGE];
-
+    
     [self updateProfileItemListAtIndex:profileObj.s_birthdayDate andIndex:BIRTHDATE];
     
-
-//    [profileItemList replaceObjectAtIndex:GENDER withObject:[[NSMutableDictionary alloc] initWithObjectsAndKeys:profileObj.s_gender.text,@"value",@"Gender",@"key", nil]];
+    
+    //    [profileItemList replaceObjectAtIndex:GENDER withObject:[[NSMutableDictionary alloc] initWithObjectsAndKeys:profileObj.s_gender.text,@"value",@"Gender",@"key", nil]];
     [self updateProfileItemListAtIndex:profileObj.s_gender.text andIndex:GENDER];
     
     [self updateProfileItemListAtIndex:profileObj.s_interested.text andIndex:INTERESTED_IN];
-
-//    textFieldName.text = profileObj.s_Name;
-//    [profileItemList replaceObjectAtIndex:NAME withObject:[[NSMutableDictionary alloc] initWithObjectsAndKeys:profileObj.s_Name,@"value",@"Name",@"key", nil]];
+    
+    //    textFieldName.text = profileObj.s_Name;
+    //    [profileItemList replaceObjectAtIndex:NAME withObject:[[NSMutableDictionary alloc] initWithObjectsAndKeys:profileObj.s_Name,@"value",@"Name",@"key", nil]];
     [self updateProfileItemListAtIndex:profileObj.s_Name andIndex:NAME];
     
-//    textfieldSchool.text = profileObj.s_school;
-//    [profileItemList replaceObjectAtIndex:SCHOOL withObject:[[NSMutableDictionary alloc] initWithObjectsAndKeys:profileObj.s_school==nil?@"":profileObj.s_school,@"value",@"School",@"key", nil]];
+    //    textfieldSchool.text = profileObj.s_school;
+    //    [profileItemList replaceObjectAtIndex:SCHOOL withObject:[[NSMutableDictionary alloc] initWithObjectsAndKeys:profileObj.s_school==nil?@"":profileObj.s_school,@"value",@"School",@"key", nil]];
     [self updateProfileItemListAtIndex:profileObj.s_school andIndex:SCHOOL];
     
-//    textFieldWeight.text =[NSString stringWithFormat:@"%i", profileObj.i_weight];
-//    [profileItemList replaceObjectAtIndex:WEIGHT withObject:[[NSMutableDictionary alloc] initWithObjectsAndKeys:[NSString stringWithFormat:@"%i", profileObj.i_weight],@"value",@"Weight",@"key", nil]];
+    //    textFieldWeight.text =[NSString stringWithFormat:@"%i", profileObj.i_weight];
+    //    [profileItemList replaceObjectAtIndex:WEIGHT withObject:[[NSMutableDictionary alloc] initWithObjectsAndKeys:[NSString stringWithFormat:@"%i", profileObj.i_weight],@"value",@"Weight",@"key", nil]];
     [self updateProfileItemListAtIndex:[NSString stringWithFormat:@"%i", profileObj.i_weight] andIndex:WEIGHT];
     
-//    textFieldHeight.text =[NSString stringWithFormat:@"%i", profileObj.i_height];
-//    [profileItemList replaceObjectAtIndex:HEIGHT withObject:[[NSMutableDictionary alloc] initWithObjectsAndKeys:[NSString stringWithFormat:@"%i", profileObj.i_height],@"value",@"Height",@"key", nil]];
+    //    textFieldHeight.text =[NSString stringWithFormat:@"%i", profileObj.i_height];
+    //    [profileItemList replaceObjectAtIndex:HEIGHT withObject:[[NSMutableDictionary alloc] initWithObjectsAndKeys:[NSString stringWithFormat:@"%i", profileObj.i_height],@"value",@"Height",@"key", nil]];
     [self updateProfileItemListAtIndex:[NSString stringWithFormat:@"%i", profileObj.i_height] andIndex:HEIGHT];
     
     [self updateProfileItemListAtIndex:profileObj.s_Email andIndex:EMAIL];
     
-//    textviewAbout.text = profileObj.s_aboutMe;
-//    [profileItemList replaceObjectAtIndex:ABOUT_ME withObject:[[NSMutableDictionary alloc] initWithObjectsAndKeys:profileObj.s_aboutMe,@"value",@"About me",@"key", nil]];
+    //    textviewAbout.text = profileObj.s_aboutMe;
+    //    [profileItemList replaceObjectAtIndex:ABOUT_ME withObject:[[NSMutableDictionary alloc] initWithObjectsAndKeys:profileObj.s_aboutMe,@"value",@"About me",@"key", nil]];
     [self updateProfileItemListAtIndex:profileObj.s_aboutMe andIndex:ABOUT_ME];
     [self.tbEditProfile reloadData];
     
@@ -302,7 +302,7 @@ UITapGestureRecognizer *tap;
     ListForChoose *languageView = [[ListForChoose alloc]initWithNibName:@"ListForChoose" bundle:nil];
     [languageView setListType:LISTTYPE_LANGUAGE];
     languageView.delegate=self;
-//    [profileObj.a_language removeAllObjects];
+    //    [profileObj.a_language removeAllObjects];
     [self.navigationController pushViewController:languageView animated:YES];
 }
 
@@ -471,25 +471,25 @@ UITapGestureRecognizer *tap;
             
             AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:myRequest];
             [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject)
-            {
-                NSDictionary *result = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
-                NSLog(@"Delete photo result %@", result);
-                bool status = [[result valueForKey:key_status] boolValue];
-                if (status)
-                {
-                    [photos removeObjectAtIndex:selectedPhoto];
-                    [photosID removeObjectAtIndex:selectedPhoto];
-                    [self reloadPhotos];
-                }
-                else
-                {
-                    [self showWarning:@"Cannnot delete this photo." withTag:5];
-                }
-                selectedPhoto = -1;
-            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                NSLog(@"Delete photo error %@", error);
-                selectedPhoto = -1;
-            }];
+             {
+                 NSDictionary *result = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
+                 NSLog(@"Delete photo result %@", result);
+                 bool status = [[result valueForKey:key_status] boolValue];
+                 if (status)
+                 {
+                     [photos removeObjectAtIndex:selectedPhoto];
+                     [photosID removeObjectAtIndex:selectedPhoto];
+                     [self reloadPhotos];
+                 }
+                 else
+                 {
+                     [self showWarning:@"Cannnot delete this photo." withTag:5];
+                 }
+                 selectedPhoto = -1;
+             } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                 NSLog(@"Delete photo error %@", error);
+                 selectedPhoto = -1;
+             }];
             
             [operation start];
         }
@@ -517,8 +517,8 @@ UITapGestureRecognizer *tap;
                          self.imgAvatar.contentMode = UIViewContentModeScaleAspectFit;
                          [self.imgAvatar setFrame:self.avatarLayout.frame];
                          
-//                         [self.btnUploadVideo setBackgroundImage:avatarImage forState:UIControlStateNormal];
-//                         self.btnUploadVideo.contentMode = UIViewContentModeScaleAspectFit;
+                         //                         [self.btnUploadVideo setBackgroundImage:avatarImage forState:UIControlStateNormal];
+                         //                         self.btnUploadVideo.contentMode = UIViewContentModeScaleAspectFit;
                          
                          profileObj.img_Avatar = uploadImage;
                          profileObj.s_Avatar = imgLink;
@@ -671,7 +671,7 @@ UITapGestureRecognizer *tap;
 }
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
-
+    
     if (textField.text.length >= MAXLENGTH_NAME && range.length == 0) {
         return NO; // Change not allowed
     } else {
@@ -760,7 +760,7 @@ UITapGestureRecognizer *tap;
     if(indexPath.row != LOCATION)
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     cell.selectedBackgroundView = [tableView customSelectdBackgroundViewForCellAtIndexPath:indexPath];
-
+    
     // Configure the cell...
     NSString *textLabel =[[profileItemList objectAtIndex:indexPath.row] valueForKey:@"key"];
     cell.textLabel.text = [NSString localizeString:textLabel];
@@ -932,12 +932,12 @@ UITapGestureRecognizer *tap;
         [self.navigationController.navigationBar setUserInteractionEnabled:NO];
         VideoUploader * uploadVideo = [[VideoUploader alloc]initWithVideoData:video];
         [uploadVideo uploadVideoWithCompletion:^(NSString *link)
-        {
-            NSLog(@"Video upload completed with link %@", link);
-            [self.view setUserInteractionEnabled:YES];
-            [appDelegate.rootVC.view setUserInteractionEnabled:YES];
-            [self.navigationController.navigationBar setUserInteractionEnabled:YES];
-        }];
+         {
+             NSLog(@"Video upload completed with link %@", link);
+             [self.view setUserInteractionEnabled:YES];
+             [appDelegate.rootVC.view setUserInteractionEnabled:YES];
+             [self.navigationController.navigationBar setUserInteractionEnabled:YES];
+         }];
     }
 }
 
@@ -969,7 +969,7 @@ UITapGestureRecognizer *tap;
                  {
                      AFHTTPRequestOperation *operation =
                      [Profile getAvatarSyncWithOperation:link
-                                   callback:^(AFHTTPRequestOperation *op, UIImage *image)
+                                                callback:^(AFHTTPRequestOperation *op, UIImage *image)
                       {
                           [photos addObject:image];
                           [photosID addObject:key];
@@ -978,7 +978,7 @@ UITapGestureRecognizer *tap;
                      [operation start];
                      
                  }
-
+                 
              }
          }
      } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
