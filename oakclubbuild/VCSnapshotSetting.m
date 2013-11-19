@@ -73,7 +73,7 @@ NSIndexPath * whereIndexPath;
 //    titleName.textAlignment = UITextAlignmentRight;
 //    titleName.text = @"Snapshot";
 //    [infoHeader addSubview:titleName];
-    self.navigationItem.title = [NSString localizeString:@"Snapshot"];
+    self.navigationItem.title = [NSString localizeString:@"Snapshots"];
 //    btnAgeAround.titleLabel.text = [NSString stringWithFormat:@"%d-%d year old",fromAge,toAge];
 //    [self initCityList];
 //    [self initAgeList];

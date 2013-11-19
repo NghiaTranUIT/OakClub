@@ -156,10 +156,10 @@
     }
 }
 - (IBAction)onTouchTellYourFriends:(id)sender {
-    NSString* body = [@"Join www.OakClub.com .. and meet many cool singles nearby. Safe, trustworthy and private" localize];
+    NSString* body = [@"Join www.OakClub.com and meet many cool singles nearby. Safe, trustworthy and private." localize];
     UIActivityViewController *activityViewController = [[UIActivityViewController alloc]initWithActivityItems:[NSArray arrayWithObjects:body,[UIImage imageNamed:@"SnapshotSetting_oakclub_logo.png"],nil] applicationActivities:nil];
-    
-    activityViewController.excludedActivityTypes = @[/*UIActivityTypePostToFacebook, UIActivityTypePostToTwitter, */UIActivityTypePostToWeibo, UIActivityTypeAssignToContact];
+    [activityViewController setValue:[@"I am in OakClub, you?" localize] forKey:@"subject"];
+    activityViewController.excludedActivityTypes = @[UIActivityTypePostToWeibo, UIActivityTypeAssignToContact,UIActivityTypePrint,UIActivityTypeCopyToPasteboard,UIActivityTypeSaveToCameraRoll];
     [self presentViewController:activityViewController animated:YES completion:nil];
 }
 

@@ -97,7 +97,7 @@ NSIndexPath* oldIndex;
                      [tableView reloadData];
                  } failure:^(AFHTTPRequestOperation *operation, NSError *error)
                  {
-                     NSLog(@"Error Code: %i - %@",[error code], [error localizedDescription]);
+                     NSLog(@"URL_getListCountry - Error Code: %i - %@",[error code], [error localizedDescription]);
                  }];
             }else{
                 dataSource = appDelegate.countryList;
@@ -141,7 +141,7 @@ NSIndexPath* oldIndex;
              [tableView reloadData];
          } failure:^(AFHTTPRequestOperation *operation, NSError *error)
          {
-             NSLog(@"Error Code: %i - %@",[error code], [error localizedDescription]);
+             NSLog(@"URL_getListCityByCountry - Error Code: %i - %@",[error code], [error localizedDescription]);
          }];
     }else{
         dataSource = cityList;

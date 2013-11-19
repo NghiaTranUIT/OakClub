@@ -47,14 +47,22 @@
  
  */
 #import "APLPlacardView.h"
+@protocol APLMoveMeViewDelegate <NSObject>
+@optional
+- (void)animationDidStop:(CAAnimation *)theAnimation andAnswerType:(int)answerType;
+@end
 @interface APLMoveMeView : UIView<UIScrollViewDelegate>{
      NSTimer *myTimer;
+    id<APLMoveMeViewDelegate>   _movemedelegate;
 }
 @property (nonatomic, strong) NSArray *displayStrings;
 
+@property id<APLMoveMeViewDelegate> movemedelegate;
+
 - (void)setupNextDisplayString;
 -(APLPlacardView*) getCardView;
--(void) addSubViewToCardView:(UIView*)subview;
+-(void) addSubViewToCardView:(UIView*)subview andAtFront:(BOOL)toFront andTag:(int)numTag;
+-(void)removeSubviewFromCardViewWithTag:(int)numTag;
 -(int) getAnswer;
 -(void) setAnswer:(int)type;
 - (void)animatePlacardViewByAnswer:(int)answer andDuration:(CGFloat)duration;

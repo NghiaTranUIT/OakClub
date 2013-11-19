@@ -18,7 +18,7 @@
 #import "LocationUpdate.h"
 #import "AppLifeCycleDelegate.h"
 
-@interface VCSimpleSnapshot () <LocationUpdateDelegate, AppLifeCycleDelegate> {
+@interface VCSimpleSnapshot () <LocationUpdateDelegate, AppLifeCycleDelegate,APLMoveMeViewDelegate> {
     UIView *headerView;
     UILabel *lblHeaderName;
     UILabel *lblHeaderFreeNum;
@@ -91,6 +91,7 @@ CGFloat pageHeight;
     [self loadHeaderLogo];
     [self formatAvatarToCircleView];
     [self.view addSubview:self.moveMeView];
+    self.moveMeView.movemedelegate = self;
     self.moveMeView.frame = CGRectMake(0, 0, 320, 548);
     // Do any additional setup after loading the view from its nib.
 //    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"bg.png"]];
@@ -176,7 +177,7 @@ CGFloat pageHeight;
      
      } failure:^(AFHTTPRequestOperation *operation, NSError *error)
      {
-     NSLog(@"Error Code: %i - %@",[error code], [error localizedDescription]);
+     NSLog(@"URL_getListWhoLikeMe - Error Code: %i - %@",[error code], [error localizedDescription]);
      }];
     
     //test list
@@ -263,28 +264,34 @@ CGFloat pageHeight;
     lbl_mutualLikes.text = [[NSString alloc]initWithFormat:@"%i",[currentProfile.arr_MutualInterests count]];
     [self.imgMainProfile setImage:[UIImage imageNamed:@"Default Avatar"]];
     [lblPhotoCount setText:@"0"];
-    if(currentProfile.arr_photos != nil){
-        if(([currentProfile.arr_photos count] > 0) && [currentProfile.arr_photos[0] isKindOfClass:[UIImage class]]){
-            [self.imgMainProfile setImage:[currentProfile.arr_photos objectAtIndex:0]];
-            [lblPhotoCount setText:[NSString stringWithFormat:@"%i",[currentProfile.arr_photos count]]];
-        }
-        else{
-            AFHTTPRequestOperation *operation =
-            [Profile getAvatarSync:currentProfile.s_Avatar
-                          callback:^(UIImage *image)
-             {
-                 [self.imgMainProfile setImage:image];
-                 if([currentProfile.arr_photos count]<1){
-                     [currentProfile.arr_photos addObject:image];
-                 }
-                 else{
-                     [currentProfile.arr_photos replaceObjectAtIndex:0 withObject:image];
-                 }
-                 [lblPhotoCount setText:[NSString stringWithFormat:@"%i",[currentProfile.arr_photos count]]];
-             }];
-            [operation start];
+    if(currentProfile.img_Avatar!= nil){
+        [self.imgMainProfile setImage:currentProfile.img_Avatar];
+    }
+    else{
+        if(currentProfile.arr_photos != nil){
+            if(([currentProfile.arr_photos count] > 0) && [currentProfile.arr_photos[0] isKindOfClass:[UIImage class]]){
+                [self.imgMainProfile setImage:[currentProfile.arr_photos objectAtIndex:0]];
+                [lblPhotoCount setText:[NSString stringWithFormat:@"%i",[currentProfile.arr_photos count]]];
+            }
+            else{
+                AFHTTPRequestOperation *operation =
+                [Profile getAvatarSync:currentProfile.s_Avatar
+                              callback:^(UIImage *image)
+                 {
+                     [self.imgMainProfile setImage:image];
+                     if([currentProfile.arr_photos count]<1){
+                         [currentProfile.arr_photos addObject:image];
+                     }
+                     else{
+                         [currentProfile.arr_photos replaceObjectAtIndex:0 withObject:image];
+                     }
+                     [lblPhotoCount setText:[NSString stringWithFormat:@"%i",[currentProfile.arr_photos count]]];
+                 }];
+                [operation start];
+            }
         }
     }
+   
 
     [self stopLoadingAnim];
     currentIndex++;
@@ -410,7 +417,7 @@ CGFloat pageHeight;
                          [self.imgMainProfile setFrame:CGRectMake(32, 24, 255, 255)];
                      }
                      completion:^(BOOL finished) {
-                         [self.moveMeView addSubViewToCardView:imgMainProfile];
+                         [self.moveMeView addSubViewToCardView:imgMainProfile andAtFront:NO andTag:0];
                          [self.imgMainProfile setFrame:CGRectMake(5, 3, 255, 255)];
                          
                      }
@@ -474,7 +481,29 @@ CGFloat pageHeight;
     [self backToSnapshotView];
 }
 -(void) doAnswer:(int) choose{
-    [self.moveMeView animatePlacardViewByAnswer:choose andDuration:0.4f];
+    [self disableAllControl:YES];
+    UIImageView *stamp ;
+    switch (choose) {
+        case interestedStatusNO:
+             stamp= [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"Snapshot_no_stamp"]];
+            break;
+        case interestedStatusYES:
+             stamp= [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"Snapshot_like_stamp"]];
+            break;
+    }
+   
+    [stamp setAlpha:0.5f];
+    [stamp setFrame:CGRectMake(66, 46, stamp.frame.size.width, stamp.frame.size.height)];
+    stamp.transform = CGAffineTransformScale(CGAffineTransformIdentity, 2.0, 2.0);
+//    stamp.transform = CGAffineTransformMakeRotation(30.0f);
+    [self.moveMeView addSubViewToCardView:stamp andAtFront:YES andTag:101];
+    [UIView animateWithDuration:0.2
+                     animations:^{
+                        [stamp setAlpha:1.0f];
+                         stamp.transform = CGAffineTransformIdentity;
+                     }completion:^(BOOL finished) {
+                         [self.moveMeView animatePlacardViewByAnswer:choose andDuration:0.5f];
+                     }];
     [self setFavorite:[NSString stringWithFormat:@"%i",choose]];
 }
 
@@ -507,7 +536,7 @@ CGFloat pageHeight;
     [request postPath:URL_setFavorite parameters:params success:^(__unused AFHTTPRequestOperation *operation, id JSON) {
         NSLog(@"post success !!!");
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"Error Code: %i - %@",[error code], [error localizedDescription]);
+        NSLog(@"URL_setFavorite - Error Code: %i - %@",[error code], [error localizedDescription]);
     }];
 }
 
@@ -681,5 +710,20 @@ CGFloat pageHeight;
 -(BOOL)isContinueLoad
 {
     return !(currentIndex > [profileList count] - 2);
+}
+
+#pragma mark MoveMeView - Delegate
+-(void)animationDidStop:(CAAnimation *)anim andAnswerType:(int)answerType{
+    NSLog(@"animationDidStop ------");
+    [self disableAllControl:NO];
+    [self.moveMeView removeSubviewFromCardViewWithTag:101];
+    if(answerType != -1 && self.isContinueLoad){
+        [self loadCurrentProfile];
+        [self loadNextProfileByCurrentIndex];
+    }
+    else if (!self.isContinueLoad)
+    {
+        [self showWarning];
+    }
 }
 @end

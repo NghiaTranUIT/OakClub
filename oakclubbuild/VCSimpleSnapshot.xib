@@ -45,10 +45,12 @@
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="Snapshot_bg_profiles.png" id="43">
                             <rect key="frame" x="0.0" y="0.0" width="289" height="314"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         </imageView>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="Default Avatar.png" id="23">
+                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" image="Default Avatar.png" id="23">
                             <rect key="frame" x="17" y="9" width="255" height="255"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                         </imageView>
                         <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" image="Snapshot_top_polaroid.png" id="14">
                             <rect key="frame" x="12" y="4" width="265" height="307"/>
@@ -69,9 +71,10 @@
                                 <outlet property="delegate" destination="-1" id="130"/>
                             </connections>
                         </scrollView>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="Default Avatar.png" id="0hi-Qh-GUe">
+                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" image="Default Avatar.png" id="0hi-Qh-GUe">
                             <rect key="frame" x="5" y="3" width="255" height="255"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                         </imageView>
                         <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" image="Snapshot_top_polaroid.png" id="Kwi-D8-XKy">
                             <rect key="frame" x="1" y="-2" width="265" height="307"/>
@@ -143,11 +146,11 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <imageView userInteractionEnabled="NO" alpha="0.0" contentMode="scaleToFill" image="Snapshot_no_stamp.png" id="44">
-                            <rect key="frame" x="132" y="22" width="103" height="53"/>
+                            <rect key="frame" x="65" y="46" width="141" height="141"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         </imageView>
                         <imageView userInteractionEnabled="NO" alpha="0.0" contentMode="scaleToFill" image="Snapshot_like_stamp.png" id="45">
-                            <rect key="frame" x="17" y="22" width="102" height="52"/>
+                            <rect key="frame" x="66" y="46" width="141" height="141"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         </imageView>
                     </subviews>
@@ -513,9 +516,9 @@
         <image name="Snapshot_btn_yes.png" width="70" height="70"/>
         <image name="Snapshot_btn_yes_pressed.PNG" width="70" height="70"/>
         <image name="Snapshot_camera_icon.png" width="20" height="13"/>
-        <image name="Snapshot_like_stamp.png" width="102" height="52"/>
+        <image name="Snapshot_like_stamp.png" width="141" height="141"/>
         <image name="Snapshot_mutualfriends_icon.png" width="23" height="13"/>
-        <image name="Snapshot_no_stamp.png" width="103" height="53"/>
+        <image name="Snapshot_no_stamp.png" width="141" height="141"/>
         <image name="Snapshot_popup_box.png" width="270" height="210"/>
         <image name="Snapshot_popup_cancel.png" width="95" height="38"/>
         <image name="Snapshot_popup_cancel_pressed.png" width="95" height="38"/>

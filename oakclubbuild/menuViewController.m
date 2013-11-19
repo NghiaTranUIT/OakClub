@@ -317,7 +317,7 @@
 #pragma mark handle button touch
 -(void)activityAction
 {
-    NSString* body = [@"Join www.OakClub.com ... and meet many cool singles nearby. Safe, trustworthy and private." localize];
+    NSString* body = [@"Join www.OakClub.com and meet many cool singles nearby. Safe, trustworthy and private." localize];
     UIActivityViewController *activityViewController = [[UIActivityViewController alloc]initWithActivityItems:[NSArray arrayWithObjects:body,[UIImage imageNamed:@"SnapshotSetting_oakclub_logo.png"],nil] applicationActivities:nil];
     [activityViewController setValue:[@"I am in OakClub, you?" localize] forKey:@"subject"];
     activityViewController.excludedActivityTypes = @[UIActivityTypePostToWeibo, UIActivityTypeAssignToContact,UIActivityTypePrint,UIActivityTypeCopyToPasteboard,UIActivityTypeSaveToCameraRoll];

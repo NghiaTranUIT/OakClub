@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="4510" systemVersion="13A603" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="4510" systemVersion="12F37" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
     <dependencies>
         <deployment defaultVersion="1280" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3742"/>
@@ -45,10 +45,12 @@
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="Snapshot_bg_profiles.png" id="43">
                             <rect key="frame" x="0.0" y="0.0" width="289" height="314"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         </imageView>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="Default Avatar.png" id="23">
+                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" image="Default Avatar.png" id="23">
                             <rect key="frame" x="17" y="9" width="255" height="255"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                         </imageView>
                         <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" image="Snapshot_top_polaroid.png" id="14">
                             <rect key="frame" x="12" y="4" width="265" height="307"/>
@@ -69,9 +71,10 @@
                                 <outlet property="delegate" destination="-1" id="130"/>
                             </connections>
                         </scrollView>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="Default Avatar.png" id="0hi-Qh-GUe">
+                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" image="Default Avatar.png" id="0hi-Qh-GUe">
                             <rect key="frame" x="5" y="3" width="255" height="255"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         </imageView>
                         <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" image="Snapshot_top_polaroid.png" id="Kwi-D8-XKy">
                             <rect key="frame" x="1" y="-2" width="265" height="307"/>
@@ -143,11 +146,11 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <imageView userInteractionEnabled="NO" alpha="0.0" contentMode="scaleToFill" image="Snapshot_no_stamp.png" id="44">
-                            <rect key="frame" x="132" y="22" width="103" height="53"/>
+                            <rect key="frame" x="66" y="46" width="141" height="141"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         </imageView>
                         <imageView userInteractionEnabled="NO" alpha="0.0" contentMode="scaleToFill" image="Snapshot_like_stamp.png" id="45">
-                            <rect key="frame" x="17" y="22" width="102" height="52"/>
+                            <rect key="frame" x="66" y="46" width="141" height="141"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         </imageView>
                     </subviews>
@@ -381,6 +384,7 @@
                                 <rect key="frame" x="141" y="138" width="95" height="38"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="15"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <state key="normal" title="Reject" backgroundImage="Snapshot_popup_no.png">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -409,6 +413,7 @@
                                 <rect key="frame" x="33" y="138" width="95" height="38"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="15"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <state key="normal" title="Cancel" backgroundImage="Snapshot_popup_cancel.png">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -436,6 +441,7 @@
                                 <rect key="frame" x="141" y="138" width="95" height="38"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="15"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <state key="normal" title="Like" backgroundImage="Snapshot_popup_like.png">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -464,6 +470,7 @@
                                 <rect key="frame" x="33" y="138" width="95" height="38"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="15"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <state key="normal" title="Cancel" backgroundImage="Snapshot_popup_cancel.png">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -499,39 +506,25 @@
     </objects>
     <resources>
         <image name="Default Avatar.png" width="71" height="71"/>
-        <image name="Default Avatar.png" width="71" height="71"/>
-        <image name="Default Avatar.png" width="71" height="71"/>
-        <image name="Default Avatar.png" width="71" height="71"/>
         <image name="Snapshot_bg_profiles.png" width="289" height="314"/>
         <image name="Snapshot_btnSendMessage.png" width="154" height="34"/>
         <image name="Snapshot_btn_KeepPlaying.png" width="154" height="34"/>
         <image name="Snapshot_btn_info.png" width="28" height="28"/>
         <image name="Snapshot_btn_no.png" width="70" height="70"/>
         <image name="Snapshot_btn_no_preesed.png" width="70" height="70"/>
-        <image name="Snapshot_btn_no_preesed.png" width="70" height="70"/>
         <image name="Snapshot_btn_yes.png" width="70" height="70"/>
         <image name="Snapshot_btn_yes_pressed.PNG" width="70" height="70"/>
-        <image name="Snapshot_btn_yes_pressed.PNG" width="70" height="70"/>
         <image name="Snapshot_camera_icon.png" width="20" height="13"/>
-        <image name="Snapshot_like_stamp.png" width="102" height="52"/>
+        <image name="Snapshot_like_stamp.png" width="141" height="141"/>
         <image name="Snapshot_mutualfriends_icon.png" width="23" height="13"/>
-        <image name="Snapshot_no_stamp.png" width="103" height="53"/>
-        <image name="Snapshot_popup_box.png" width="270" height="210"/>
+        <image name="Snapshot_no_stamp.png" width="141" height="141"/>
         <image name="Snapshot_popup_box.png" width="270" height="210"/>
         <image name="Snapshot_popup_cancel.png" width="95" height="38"/>
-        <image name="Snapshot_popup_cancel.png" width="95" height="38"/>
-        <image name="Snapshot_popup_cancel_pressed.png" width="95" height="38"/>
-        <image name="Snapshot_popup_cancel_pressed.png" width="95" height="38"/>
-        <image name="Snapshot_popup_cancel_pressed.png" width="95" height="38"/>
         <image name="Snapshot_popup_cancel_pressed.png" width="95" height="38"/>
         <image name="Snapshot_popup_like.png" width="95" height="38"/>
         <image name="Snapshot_popup_no.png" width="94" height="37"/>
         <image name="Snapshot_popup_no_pressed.png" width="94" height="37"/>
-        <image name="Snapshot_popup_no_pressed.png" width="94" height="37"/>
-        <image name="Snapshot_popup_no_pressed.png" width="94" height="37"/>
-        <image name="Snapshot_popup_no_pressed.png" width="94" height="37"/>
         <image name="Snapshot_shareInterest_icon.png" width="16" height="14"/>
-        <image name="Snapshot_top_polaroid.png" width="265" height="307"/>
         <image name="Snapshot_top_polaroid.png" width="265" height="307"/>
         <image name="Snapshot_transBG.png" width="320" height="480"/>
         <image name="bg-profile-tab.png" width="320" height="46"/>

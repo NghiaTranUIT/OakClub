@@ -108,7 +108,7 @@
         }
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"%@ Error Code: %i - %@", service, [error code], [error localizedDescription]);
+        NSLog(@" getListPeople - %@ Error Code: %i - %@", service, [error code], [error localizedDescription]);
     }];
     
 }
@@ -494,6 +494,7 @@
                 profile.is_blocked = blocked;
                 profile.is_match = isMatch;
                 profile.status =[[objectData valueForKey:@"status"] intValue];
+                profile.s_status_time = [objectData valueForKey:@"time"];
                 profile.s_Name =[objectData valueForKey:@"name"];
                 profile.s_Avatar = [objectData valueForKey:@"avatar"];
                 [rosterDict setObject:profile forKey:profile.s_ID];
@@ -880,6 +881,7 @@
     accountCopy.s_popularity = [s_popularity copyWithZone:zone];
     accountCopy.s_snapshotID = [s_snapshotID copyWithZone:zone];
     accountCopy.s_interestedStatus = [s_interestedStatus copyWithZone:zone];
+    accountCopy.s_status_time = [s_status_time copyWithZone:zone];
     accountCopy.s_passwordXMPP = [s_passwordXMPP copyWithZone:zone];
     accountCopy.s_usenameXMPP = [s_usenameXMPP copyWithZone:zone];
     accountCopy.dic_Roster = [dic_Roster copyWithZone:zone];
@@ -933,7 +935,7 @@
                         if((proIndex == [self.arr_photos count]-1) && handler != nil)
                             handler(self.arr_photos);
                     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                        NSLog(@"Error Code: %i - %@",[error code], [error localizedDescription]);
+                        NSLog(@"loadPhotosByProfile - Error Code: %i - %@",[error code], [error localizedDescription]);
                     }];
                 }
                 else{
@@ -951,7 +953,7 @@
                             handler(self.arr_photos);
 
                     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                        NSLog(@"Error Code: %i - %@",[error code], [error localizedDescription]);
+                        NSLog(@"loadPhotosByProfile - Error Code: %i - %@",[error code], [error localizedDescription]);
                     }];
                 }
             }
@@ -1050,7 +1052,7 @@
             NSLog(@"POST READ-MESSAGES FAIL...");
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"Error Code: %i - %@",[error code], [error localizedDescription]);
+        NSLog(@"URL_setReadMessages - Error Code: %i - %@",[error code], [error localizedDescription]);
     }];
 
 }
@@ -1071,7 +1073,7 @@
             NSLog(@"setViewedMatchMutualWithFriend FAIL...");
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"Error Code: %i - %@",[error code], [error localizedDescription]);
+        NSLog(@"URL_setViewedMutualMatch- Error Code: %i - %@",[error code], [error localizedDescription]);
     }];
     
 }
@@ -1085,7 +1087,7 @@
             handler();
     } failure:^(AFHTTPRequestOperation *operation, NSError *error)
      {
-         NSLog(@"Error Code: %i - %@",[error code], [error localizedDescription]);
+         NSLog(@"URL_getProfileInfo - Error Code: %i - %@",[error code], [error localizedDescription]);
         
      }];
 
