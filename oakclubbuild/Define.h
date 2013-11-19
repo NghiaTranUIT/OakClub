@@ -18,6 +18,7 @@
 #define USE_STAGING_IOS false
 //Hangout
 #define sOnline @"Online"
+#define LOG_HTTP false
 
 // Snapshot
 #define answerYES @"YES"
@@ -103,6 +104,7 @@
 //================ service API keys ================
 //root
 #define key_status @"status"
+#define key_errorStatus @"error_status"
 #define key_data @"data"
 //profile
 #define key_msg @"msg"

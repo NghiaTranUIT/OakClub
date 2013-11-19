@@ -123,12 +123,15 @@
     [self.btnAvatar setBackgroundImage:imageAvatar forState:UIControlStateNormal];
 }
 -(void)viewWillAppear:(BOOL)animated{
-    NSString* strCoins;
     if([[[NSUserDefaults standardUserDefaults] objectForKey:key_appLanguage] isEqualToString:value_appLanguage_VI])
-        strCoins = @"coins";
+    {
+        numPoints = [numPoints stringByReplacingOccurrencesOfString:@"coins" withString:@"xu"];
+    }
     else
-        strCoins = @"xu";
-    numPoints = [numPoints stringByReplacingOccurrencesOfString:strCoins withString:[NSString localizeString:strCoins]];
+    {
+        numPoints = [numPoints stringByReplacingOccurrencesOfString:@"xu" withString:@"coins"];
+    }
+    
     self.numCoins.text =  numPoints;
     [self.view localizeAllViews];
     

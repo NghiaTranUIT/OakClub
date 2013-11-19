@@ -33,6 +33,7 @@
 #import "PKRevealController.h"
 #import "Reachability.h"
 #import "ProfileSetting.h"
+#import "TutorialViewController.h"
 
 @class SettingsViewController;
 
@@ -135,12 +136,14 @@ extern NSString *const SCSessionStateChangedNotification;
 -(void)openSessionWithWebDialogWithhandler:(void(^)(FBSessionState))resultHandler;
 -(void)loadFBUserInfo:(void(^)(id))resultHandler;
 -(void)parseFBInfoToProfile:(id)fbProfile;
+-(BOOL)isFacebookActivated;
 
 -(void)loadAllViewControllers;
 -(void)loadDataForList;
 -(void)showChat;
 -(void)showSnapshoot;
 -(void)gotoLogin;
+-(void)gotoVCAtCompleteLogin;
 #if ENABLE_DEMO
 -(void)showSnapshotSettings;
 -(void)showSimpleSnapshot;
@@ -161,11 +164,12 @@ extern NSString *const SCSessionStateChangedNotification;
 -(void)loadFriendsList;
 -(BOOL)isAuthenticated;
 -(int)countTotalNotifications;
--(void)getProfileInfoWithHandler:(void(^)(void))handler;
 -(UINavigationController*)activeViewController;
 
 -(void)sendMessageState:(NSString*)state to:(NSString*)xmpp_id;
 -(void)sendMessageContent:(NSString*)content to:(NSString*)xmpp_id;
 
 -(void)updateNavigationWithNotification;
+
+- (void)tryLoginWithSuccess:(void(^)(int status))success failure:(void(^)(void))failure;
 @end

@@ -162,6 +162,7 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
 		}
 	}
     
+    [self updateLanguageBundle];
     return YES;
 }
 
@@ -184,6 +185,26 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
     
     self.window.rootViewController = self.loginView;
     [self.window makeKeyAndVisible];
+}
+
+-(void)gotoVCAtCompleteLogin
+{
+    if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"isFirstLogin"] boolValue])
+    {
+        menuViewController *leftController = [[menuViewController alloc] init];
+        [leftController setUIInfo:self.myProfile];
+        [self.rootVC setRightViewController:self.chat];
+        [self.rootVC setLeftViewController:leftController];
+        self.window.rootViewController = self.rootVC;
+    }
+    else
+    {
+        [[NSUserDefaults standardUserDefaults] setValue:[NSNumber numberWithBool:YES] forKey:@"isFirstLogin"];
+        
+        TutorialViewController *tut = [[TutorialViewController alloc] init];
+        self.window.rootViewController = tut;
+        [self.window makeKeyAndVisible];
+    }
 }
 
 -(void)loadAllViewControllers{
@@ -526,58 +547,19 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
     }  */  
 }
 
--(void)getProfileInfoWithHandler:(void(^)(void))handler
+-(void)parseProfileWithData:(NSDictionary *)data
 {
+    self.myProfile = [[Profile alloc] init];
+    [self.myProfile parseProfileWithData:data];
+    [self setFieldValue:[NSString stringWithFormat:DOMAIN_AT_FMT,self.myProfile.s_usenameXMPP] forKey:kXMPPmyJID];
+    [self setFieldValue:self.myProfile.s_passwordXMPP forKey:kXMPPmyPassword];
+    [DDLog addLogger:[DDTTYLogger sharedInstance]];
     
-//    NSDictionary *params  = [[NSDictionary alloc]initWithObjectsAndKeys:s_DeviceToken, @"device_token", nil]; //Vanancy - unused
+    // Setup the XMPP stream
+    [self setupStream];
+    [self connect];
     
-    AFHTTPClient *request = [[AFHTTPClient alloc] initWithOakClubAPI:DOMAIN];
-    [request getPath:URL_getProfileInfo parameters:nil success:^(__unused AFHTTPRequestOperation *operation, id JSON)
-    {
-        self.myProfile = [[Profile alloc]init];
-//        accountSetting = [self.myProfile parseForGetAccountSetting:JSON];
-//        [self updateChatList];
-        //get information of user's profile
-//        [self updateProfile];  // Vanancy - unused
-        [self.myProfile parseForGetProfileInfo:JSON];
-        [self setFieldValue:[NSString stringWithFormat:DOMAIN_AT_FMT,self.myProfile.s_usenameXMPP] forKey:kXMPPmyJID];
-        [self setFieldValue:self.myProfile.s_passwordXMPP forKey:kXMPPmyPassword];
-
-        // Configure logging framework
-        [DDLog addLogger:[DDTTYLogger sharedInstance]];
-        
-        // Setup the XMPP stream
-        [self setupStream];
-        [self connect];
-        
-        //Vanancy - load photos in to user's profile => move this into VCMyProfile
-        /*
-        AFHTTPClient *requestPhoto = [[AFHTTPClient alloc] initWithOakClubAPI:DOMAIN];
-        NSDictionary *params  = [[NSDictionary alloc]initWithObjectsAndKeys:self.myProfile.s_ID, key_profileID, nil];
-        self.myProfile.arr_photos = [[NSMutableArray alloc] init];
-        [requestPhoto getPath:URL_getListPhotos parameters:params
-                      success:^(__unused AFHTTPRequestOperation *operation, id JSON)
-         {
-             self.myProfile.arr_photos = [Profile parseListPhotos:JSON];
-             
-         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-             NSLog(@"Error Code: %i - %@",[error code], [error localizedDescription]);
-         }];
-        */
-        
-        [self loadAllViewControllers];
-        
-        if (handler)
-        {
-            handler();
-        }
-        
-        
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error)
-    {
-        NSLog(@"URL_getProfileInfo Error Code: %i - %@",[error code], [error localizedDescription]);
-    }];
-
+    [self loadAllViewControllers];
 }
 /*
  // Vanancy - unused
@@ -711,6 +693,8 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
 
 }
 
+#pragma mark FACEBOOK
+
 -(void)loadFBUserInfo:(void(^)(id))resultHandler{
     //self.myProfile = [[Profile alloc] init];
     NSDictionary* params = [NSDictionary dictionaryWithObject:@"id,name,gender,relationship_status,about,location,interested_in,birthday,email,picture" forKey:@"fields"];
@@ -723,22 +707,14 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
         
         [self loadDataForList];
         
-//#define UPLOAD_PHOTO
-        
-#ifndef UPLOAD_PHOTO
         if(resultHandler != nil)
         {
             resultHandler(result);
         }
-#else
-        ///////// TEST UPLOAD PHOTO /////////////
-        UIImage *photo = [UIImage imageNamed:@"bg"];
-        PhotoUpload *uploader = [[PhotoUpload alloc] initWithPhoto:photo andName:@"bg"];
-        [uploader uploadPhoto];
-#endif
         
     }];
 }
+
 -(void)parseFBInfoToProfile:(id)fbProfile
 {
     id result = fbProfile;
@@ -770,6 +746,13 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
     NSMutableDictionary *dict_Location = [result valueForKey:key_location];
     self.myProfile.s_location = [[Location alloc] initWithNSDictionaryFromFB:dict_Location];
 }
+
+-(BOOL)isFacebookActivated
+{
+    return (FBSession.activeSession.state == FBSessionStateCreatedTokenLoaded || FBSession.activeSession.state == FBSessionStateOpen);
+}
+
+#pragma mark NAVIGATION
 
 -(NavConOakClub *) createNavigationByClass:(NSString *)className AndHeaderName:(NSString*) headerName andRightButton:(NSString*)rightViewControll andIsStoryBoard:(BOOL)isStoryBoard{
     NavConOakClub *nvOakClub = [[NavConOakClub alloc] initWithNavigationBarClass:[NavBarOakClub class] toolbarClass:nil];
@@ -1571,4 +1554,73 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
     self.languageBundle = [NSBundle bundleWithPath:path];
 }
 #endif
+
+#pragma mark LOGIN
+- (void)tryLoginWithSuccess:(void(^)(int status))success failure:(void(^)(void))failure
+{
+    [self openSessionWithWebDialogWithhandler:^(FBSessionState status)
+     {
+         if(status == FBSessionStateOpen)
+         {
+             [self loadFBUserInfo:^(id status)
+              {
+                  NSLog(@"FB Login request completed!");
+                  
+                  AFHTTPClient *request = [[AFHTTPClient alloc] initWithOakClubAPI:DOMAIN];
+                  NSLog(@"Init API completed");
+                  
+                  [self parseFBInfoToProfile:self.myFBProfile];
+                  
+                  NSDictionary *params = [[NSDictionary alloc]initWithObjectsAndKeys:
+                                          [FBSession activeSession].accessTokenData.accessToken, @"access_token",
+                                          self.myProfile.s_FB_id, @"user_id",
+                                          self.s_DeviceToken,@"device_token",
+                                          nil];
+                  NSLog(@"sendRegister-params: %@", params);
+                  [request getPath:URL_sendRegister parameters:params success:^(__unused AFHTTPRequestOperation *operation, id JSON)
+                   {
+                       NSError *e=nil;
+                       NSMutableDictionary *dict = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONReadingMutableContainers error:&e];
+                       
+                       NSLog(@"Login parsed data: %@", dict);
+                       NSLog(@"Login string data: %@", [[NSString alloc] initWithData:JSON encoding:NSUTF8StringEncoding]);
+                       
+                       int status = [[dict valueForKey:key_errorStatus] integerValue];
+                       NSDictionary *data = [dict objectForKey:key_data];
+                       switch (status) {
+                           case 0:
+                           case 2:
+                               [self parseProfileWithData:data];
+                               if (success)
+                               {
+                                   success(status);
+                               }
+                               break;
+                           default:
+                               if (failure)
+                               {
+                                   failure();
+                               }
+                               break;
+                       }
+                   } failure:^(AFHTTPRequestOperation *operation, NSError *error)
+                   {
+                       NSLog(@"Send reg error Code: %i - %@",[error code], [error localizedDescription]);
+                       if (failure)
+                       {
+                           failure();
+                       }
+                   }];
+              }];
+         }
+         else
+         {
+             NSLog(@"Try open session in login error %u", status);
+             if (failure)
+             {
+                 failure();
+             }
+         }
+     }];
+}
 @end
