@@ -265,7 +265,7 @@
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     NSString *title = [alertView buttonTitleAtIndex:buttonIndex];
-    if([title isEqualToString:[@"Vietnamese" localize]])
+    if([title isEqualToString:@"Tiếng Việt"])
     {
         [[NSUserDefaults standardUserDefaults] setObject:value_appLanguage_VI forKey:key_appLanguage];
         [[NSUserDefaults standardUserDefaults] synchronize];
