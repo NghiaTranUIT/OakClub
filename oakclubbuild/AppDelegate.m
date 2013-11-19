@@ -551,6 +551,8 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
 {
     self.myProfile = [[Profile alloc] init];
     [self.myProfile parseProfileWithData:data];
+    [self.myProfile getRosterListIDSync:^{
+    }];
     [self setFieldValue:[NSString stringWithFormat:DOMAIN_AT_FMT,self.myProfile.s_usenameXMPP] forKey:kXMPPmyJID];
     [self setFieldValue:self.myProfile.s_passwordXMPP forKey:kXMPPmyPassword];
     [DDLog addLogger:[DDTTYLogger sharedInstance]];

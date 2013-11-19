@@ -91,7 +91,6 @@
     [super viewDidLoad];
     self.numCoins.text =  numPoints;
     self.name.text = username;
-//    self.avatar.image = imageAvatar;
     [self.avatar setImage:imageAvatar];
     [self.btnAvatar setBackgroundImage:imageAvatar forState:UIControlStateNormal];
 }
