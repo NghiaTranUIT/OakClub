@@ -19,7 +19,6 @@
 - (IBAction)btnYES:(id)sender;
 - (IBAction)btnShowProfile:(id)sender;
 - (IBAction)btnNOPE:(id)sender;
--(BOOL)loadCurrentProfile:(int)index;
 -(void)loadCurrentProfile;
 -(void)loadNextProfileByCurrentIndex;
 -(void) gotoPROFILE;

@@ -130,7 +130,7 @@ extern NSString *const SCSessionStateChangedNotification;
 
 @property BOOL reloadSnapshot;
 
-@property NSMutableArray *appLCObservers;
+@property (strong, nonatomic) NSMutableArray *appLCObservers;
 
 -(void)openSession;
 -(void)openSessionWithWebDialogWithhandler:(void(^)(FBSessionState))resultHandler;
