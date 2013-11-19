@@ -117,9 +117,9 @@ ProfileSetting* hangoutSetting;
         sRange = [NSString stringWithFormat:@"%d km", value];
     else
         if(value < 700)
-            sRange = @"Country";//accountSetting.location.countryCode;
+            sRange = [@"Country" localize];//accountSetting.location.countryCode;
         else
-            sRange = @"World";
+            sRange = [@"World" localize];
     return sRange;
 }
 - (int) loadHereTo:(NSString*)value{

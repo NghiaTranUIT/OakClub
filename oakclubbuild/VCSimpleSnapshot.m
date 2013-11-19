@@ -401,7 +401,7 @@ CGFloat pageHeight;
     
 }
 
--(void)backToSnapshotView{
+-(void)backToSnapshotViewWithAnswer:(int)answer{
     [imgMainProfile setHidden:NO];
     [UIView animateWithDuration:0.4
                      animations:^{
@@ -419,7 +419,6 @@ CGFloat pageHeight;
                      completion:^(BOOL finished) {
                          [self.moveMeView addSubViewToCardView:imgMainProfile andAtFront:NO andTag:0];
                          [self.imgMainProfile setFrame:CGRectMake(5, 3, 255, 255)];
-                         
                      }
      ];
     [self.view addSubview:self.moveMeView];
@@ -434,13 +433,25 @@ CGFloat pageHeight;
                          
                          [self.view bringSubviewToFront:self.moveMeView];
                          self.moveMeView.frame = CGRectMake(0, 0, 320, 548);
+                         if(answer != -1)
+                             [self doAnswer:answer];
                      }];
 }
 
 -(void)showMatchView{
     [self.view addSubview:matchViewController.view];
     [matchViewController.view setFrame:CGRectMake(0, 0, matchViewController.view.frame.size.width, matchViewController.view.frame.size.height)];
-    [lblMatchAlert setText:[NSString stringWithFormat:@"You and %@ have liked each other!",currentProfile.s_Name]];
+    if ([value_appLanguage_VI isEqualToString:[[NSUserDefaults standardUserDefaults] objectForKey:key_appLanguage]])
+    {
+        [lblMatchAlert setText:[NSString stringWithFormat:@"Còn ngại gì nữa, bạn với %@ đều thích nhau rồi!",currentProfile.s_Name]];
+    }
+    else
+    {
+        [lblMatchAlert setText:[NSString stringWithFormat:@"You and %@ have liked each other!",currentProfile.s_Name]];
+    }
+    
+    
+    
     if([currentProfile.arr_photos[0] isKindOfClass:[UIImageView class]]){
         UIImageView * photoView =currentProfile.arr_photos[0];
         [imgMatcher setImage:photoView.image];
@@ -468,17 +479,17 @@ CGFloat pageHeight;
 	[lblMatchAlert setText:@""];
 }
 -(IBAction)onNOPEClick:(id)sender{
-    [self doAnswer:interestedStatusNO];
-    [self backToSnapshotView];
+//    [self doAnswer:interestedStatusNO];
+    [self backToSnapshotViewWithAnswer:interestedStatusNO];
 }
 
 -(IBAction)onYESClick:(id)sender{
-    [self doAnswer:interestedStatusYES];
-    [self backToSnapshotView];
+//    [self doAnswer:interestedStatusYES];
+    [self backToSnapshotViewWithAnswer:interestedStatusYES];
 }
 
 -(IBAction)onDoneClick:(id)sender{
-    [self backToSnapshotView];
+    [self backToSnapshotViewWithAnswer:-1];
 }
 -(void) doAnswer:(int) choose{
     [self disableAllControl:YES];
@@ -506,7 +517,6 @@ CGFloat pageHeight;
                      }];
     [self setFavorite:[NSString stringWithFormat:@"%i",choose]];
 }
-
 
 -(void)setFavorite:(NSString*)answerChoice{
     int isFirstTime = [[[NSUserDefaults standardUserDefaults] objectForKey:key_isFirstSnapshot] integerValue];
