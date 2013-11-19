@@ -45,10 +45,12 @@
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="Snapshot_bg_profiles.png" id="43">
                             <rect key="frame" x="0.0" y="0.0" width="289" height="314"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         </imageView>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="Default Avatar.png" id="23">
                             <rect key="frame" x="17" y="9" width="255" height="255"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         </imageView>
                         <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" image="Snapshot_top_polaroid.png" id="14">
                             <rect key="frame" x="12" y="4" width="265" height="307"/>
@@ -69,9 +71,10 @@
                                 <outlet property="delegate" destination="-1" id="130"/>
                             </connections>
                         </scrollView>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="Default Avatar.png" id="0hi-Qh-GUe">
+                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" image="Default Avatar.png" id="0hi-Qh-GUe">
                             <rect key="frame" x="5" y="3" width="255" height="255"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                         </imageView>
                         <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" image="Snapshot_top_polaroid.png" id="Kwi-D8-XKy">
                             <rect key="frame" x="1" y="-2" width="265" height="307"/>

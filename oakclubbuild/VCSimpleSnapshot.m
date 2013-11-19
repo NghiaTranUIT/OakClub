@@ -176,7 +176,7 @@ CGFloat pageHeight;
      
      } failure:^(AFHTTPRequestOperation *operation, NSError *error)
      {
-     NSLog(@"Error Code: %i - %@",[error code], [error localizedDescription]);
+     NSLog(@"URL_getListWhoLikeMe - Error Code: %i - %@",[error code], [error localizedDescription]);
      }];
     
     //test list
@@ -507,7 +507,7 @@ CGFloat pageHeight;
     [request postPath:URL_setFavorite parameters:params success:^(__unused AFHTTPRequestOperation *operation, id JSON) {
         NSLog(@"post success !!!");
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"Error Code: %i - %@",[error code], [error localizedDescription]);
+        NSLog(@"URL_setFavorite - Error Code: %i - %@",[error code], [error localizedDescription]);
     }];
 }
 

@@ -409,11 +409,11 @@ static CGFloat padding_left = 5.0;
         NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInt:((int) rect.size.width)], @"width",
                                 [NSNumber numberWithInt:((int) rect.size.height)], @"height", nil];
         
-        AFHTTPClient *downloadFAVIcon = [[AFHTTPClient alloc] initWithBaseURL:[NSURL URLWithString:@"https://graph.facebook.com/"]];
+        AFHTTPClient *downloadFAVIcon = [[AFHTTPClient alloc] initWithBaseURL:[NSURL URLWithString:fav.avatar]];
         [downloadFAVIcon registerHTTPOperationClass:[AFHTTPRequestOperation class]];
          
         NSMutableURLRequest *iconRequest = [downloadFAVIcon requestWithMethod:@"GET"
-                                                                         path:[NSString stringWithFormat:@"%@/picture", fav.s_ID]
+                                                                         path:nil
                                                                    parameters:params];
         /*
         AFHTTPClient *downloadFAVIcon = [[AFHTTPClient alloc] initWithBaseURL:[NSURL URLWithString:fav.avatar]];
@@ -667,7 +667,7 @@ static CGFloat padding_left = 5.0;
             }
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"Error Code: %i - %@",[error code], [error localizedDescription]);
+        NSLog(@"URL_getListBlocking - Error Code: %i - %@",[error code], [error localizedDescription]);
     }];
 }
 
@@ -691,7 +691,7 @@ static CGFloat padding_left = 5.0;
         }
       
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"Error Code: %i - %@",[error code], [error localizedDescription]);
+        NSLog(@"URL_getListIWantToMeet - Error Code: %i - %@",[error code], [error localizedDescription]);
     }];
 }
 - (void)didReceiveMemoryWarning

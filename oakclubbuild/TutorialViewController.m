@@ -42,7 +42,7 @@
         padding = 30;
     }
     
-    closeButton.frame = CGRectMake(10, 10 + padding, 20, 20);
+    closeButton.frame = CGRectMake(10, 10 + padding, 27, 27);
     [closeButton addTarget:self action:@selector(closeButtonTouched:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:closeButton];
     

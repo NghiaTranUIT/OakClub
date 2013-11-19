@@ -707,7 +707,7 @@ UITapGestureRecognizer *tap;
 //        [self initAgeRangeSlider];
         [self.tableView reloadData];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"Error Code: %i - %@",[error code], [error localizedDescription]);
+        NSLog(@"URL_getSnapshotSetting - Error Code: %i - %@",[error code], [error localizedDescription]);
     }];
 }
 
@@ -775,7 +775,7 @@ UITapGestureRecognizer *tap;
         NSError *e=nil;
         NSMutableDictionary *dict = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONReadingMutableContainers error:&e];
         BOOL status= [[dict valueForKey:key_status] boolValue];
-        if(status && ![[dict valueForKey:@"msg"] isEqualToString:@"Setting does not change"]){
+        if(status){
             NSLog(@"POST SUCCESS!!!");
             UIAlertView *alert = [[UIAlertView alloc]
                                   initWithTitle:[@"Completed" localize]
@@ -800,7 +800,7 @@ UITapGestureRecognizer *tap;
             [alert show];
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"Error Code: %i - %@",[error code], [error localizedDescription]);
+        NSLog(@"URL_getSnapshotSetting - Error Code: %i - %@",[error code], [error localizedDescription]);
     }];
 #if ENABLE_DEMO
 //    UIAlertView *alert = [[UIAlertView alloc]
@@ -942,7 +942,7 @@ UITapGestureRecognizer *tap;
 //    NSString* body = @"";
 //    UIActivityViewController *activityViewController = [[UIActivityViewController alloc]initWithActivityItems:[NSArray arrayWithObjects:body,nil] applicationActivities:nil];
 //    
-//    [activityViewController setValue:[@"Suggestion and support" localize] forKey:@"subject"];
+//    [activityViewController setValue:[@"Requests and Suggestions to Oakclub" localize] forKey:@"subject"];
 //    [activityViewController setValue:@"sfkjdhfkj" forKey:@"torecipients"];
 //    activityViewController.excludedActivityTypes = @[UIActivityTypePostToWeibo, UIActivityTypeAssignToContact,UIActivityTypePrint,UIActivityTypeCopyToPasteboard,UIActivityTypeSaveToCameraRoll,UIActivityTypePostToTwitter,UIActivityTypePostToFacebook,UIActivityTypeMessage];
 //    [self presentViewController:activityViewController animated:YES completion:nil];
@@ -952,8 +952,8 @@ UITapGestureRecognizer *tap;
         MFMailComposeViewController *mailCont = [[MFMailComposeViewController alloc] init];
         mailCont.mailComposeDelegate = self;        // Required to invoke mailComposeController when send
         
-        [mailCont setSubject:[@"Suggestion and support" localize]];
-        [mailCont setToRecipients:[NSArray arrayWithObjects:@"hotro@oakclub.com",nil]];
+        [mailCont setSubject:[@"Requests and Suggestions to Oakclub" localize]];
+        [mailCont setToRecipients:[NSArray arrayWithObjects:[@"help@oakclub.com" localize],nil]];
         [mailCont setMessageBody:@"" isHTML:NO];
         
         [self presentViewController:mailCont animated:YES completion:nil];

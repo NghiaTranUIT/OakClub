@@ -105,7 +105,7 @@
          
          
      } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-         NSLog(@"Error Code: %i - %@",[error code], [error localizedDescription]);
+         NSLog(@"URL_getListPhotos -Error Code: %i - %@",[error code], [error localizedDescription]);
      }];
 }
 

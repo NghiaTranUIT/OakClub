@@ -543,7 +543,7 @@ BOOL isDragging = FALSE;
 	theGroup.duration = animationDuration;
 	theGroup.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseIn];
 	
-	theGroup.animations = @[bounceAnimation/*,rotateAnim, transformAnimation*/];
+	theGroup.animations = @[bounceAnimation,rotateAnim /*, transformAnimation*/];
 	
 	
 	// Add the animation group to the layer.

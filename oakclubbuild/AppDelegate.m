@@ -837,7 +837,7 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
              self.genderList = GenderList;
      } failure:^(AFHTTPRequestOperation *operation, NSError *error)
      {
-         NSLog(@"Error Code: %i - %@",[error code], [error localizedDescription]);
+         NSLog(@"URL_getListLangRelWrkEth - Error Code: %i - %@",[error code], [error localizedDescription]);
      }];
 
 

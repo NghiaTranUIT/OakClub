@@ -90,17 +90,20 @@ int cellCountinSection=0;
 //        AFHTTPRequestOperation *operation =
 //        [HistoryMessage getHistoryMessagesSync:profile.s_ID
 //                                      callback:^(NSMutableArray * array)
-        [HistoryMessage getHistoryMessages:profile.s_ID callback:^(NSMutableArray* array)
-         {
-             if([[appDel.friendChatList allKeys] lastObject]== key){
-                 [loadingFriendList stopAnimating];
-                 loadingFriendList.hidden = YES;
-             }
-             [a_messages setObject:array forKey:profile.s_ID];
-             [self.searchDisplayController.searchResultsTableView reloadData];
-             [[self tableView] reloadData];
-             NSLog(@"Get History Msg of %@ completed",profile.s_ID);
-         }];
+        if(profile.status > MatchViewed){
+            [HistoryMessage getHistoryMessages:profile.s_ID callback:^(NSMutableArray* array)
+             {
+                 if([[appDel.friendChatList allKeys] lastObject]== key){
+                     [loadingFriendList stopAnimating];
+                     loadingFriendList.hidden = YES;
+                 }
+                 [a_messages setObject:array forKey:profile.s_ID];
+                 [self.searchDisplayController.searchResultsTableView reloadData];
+                 [[self tableView] reloadData];
+                 NSLog(@"Get History Msg of %@ completed",profile.s_ID);
+             }];
+        }
+       
     }
     NSLog(@"***** loadFriendsInfo end!");
 }
@@ -489,11 +492,11 @@ int cellCountinSection=0;
             
         for (int j = 0; j < sectionInfo.numberOfObjects; j++)
         {
-            NSLog(@"sectioninfo object ai index : %i",j);
+//            NSLog(@"sectioninfo object ai index : %i",j);
             XMPPUserCoreDataStorageObject *user = [[self fetchedResultsController] objectAtIndexPath:[NSIndexPath indexPathForRow:j inSection:i]];
             XMPPJID* xmpp_jid = [user jid];
             NSString* jid = [xmpp_jid user];//[NSString stringWithFormat:@"%@@%@", [xmpp_jid user], [xmpp_jid domain]];
-            NSLog(@"XMPPUserCoreDataStorageObject - jid :%i , %@",j,jid);
+//            NSLog(@"XMPPUserCoreDataStorageObject - jid :%i , %@",j,jid);
             Profile* profile =[appDel.myProfile.dic_Roster valueForKey:jid];
             if(profile == nil)
                 continue;
@@ -618,25 +621,28 @@ int cellCountinSection=0;
         cell.last_message.text = @"";
         cell.date_history.text = @"";
         cell.lblMatched.text = @"";
-        NSMutableArray* messages = [a_messages objectForKey:profile.s_ID];
         
-        if(messages != nil)
-        {
-            HistoryMessage* m = (HistoryMessage*)[messages lastObject];
+        if(profile.status > MatchViewed){
+            NSMutableArray* messages = [a_messages objectForKey:profile.s_ID];
             
-            if(m != nil)
+            if(messages != nil)
             {
-                cell.last_message.text = m.body;
-                cell.date_history.text = m.timeStr;
-                if(profile.is_match){
-                    cell.lblMatched.text = [@"Matched" localize];
-                }
-                else{
+                HistoryMessage* m = (HistoryMessage*)[messages lastObject];
+                
+                if(m != nil)
+                {
+                    cell.last_message.text = m.body;
+                    cell.date_history.text = m.timeStr;
                     cell.lblMatched.text = [NSString stringWithFormat:@"%@ %@", [@"Last messages on" localize],m.timeStr];
                 }
-                
             }
         }
+        else{
+           
+            profile.s_status_time = [profile.s_status_time stringByReplacingOccurrencesOfString:@"/" withString:@"-"];
+            cell.lblMatched.text = [NSString stringWithFormat:@"%@ %@", [@"Matched on" localize],profile.s_status_time];
+        }
+        
     }
 	
 	return cell;
@@ -653,11 +659,13 @@ int cellCountinSection=0;
     selectedProfile = profile;
     // Vanancy - reset count of Notification of new chat unread
     [self loadChatView:profile animated:YES];
-    [appDel.myProfile resetUnreadMessageWithFriend:profile];
-    if(profile.status == MatchUnViewed){
-        [appDel.myProfile setViewedMatchMutualWithFriend:profile];
+    
+    if(profile.status <= MatchViewed){
+        if(profile.status == MatchUnViewed)
+            [appDel.myProfile setViewedMatchMutualWithFriend:profile];
     }
     else{
+        [appDel.myProfile resetUnreadMessageWithFriend:profile];
         profile.status = ChatViewed;
     }
     //isChatLoaded = TRUE;
@@ -671,7 +679,7 @@ int cellCountinSection=0;
     UIImage* avatar = [a_avatar valueForKey:profile.s_ID];
     NSMutableArray* array = [a_messages valueForKey:profile.s_ID];
 
-    if (array)
+    if (array  || profile.status <= MatchViewed)
     {
         SMChatViewController *chatController =
         [[SMChatViewController alloc] initWithUser:[NSString stringWithFormat:DOMAIN_AT_FMT, profile.s_ID]
