@@ -757,8 +757,8 @@ UITapGestureRecognizer *tap;
 		cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1
                                       reuseIdentifier:MyIdentifier];
 	}
-    
-    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    if(indexPath.row != LOCATION)
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     cell.selectedBackgroundView = [tableView customSelectdBackgroundViewForCellAtIndexPath:indexPath];
 
     // Configure the cell...

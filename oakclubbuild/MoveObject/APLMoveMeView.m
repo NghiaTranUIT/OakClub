@@ -72,15 +72,25 @@
 #define CENTER_POINT_568H CGPointMake(160,198)
 
 @implementation APLMoveMeView
-
+@synthesize movemedelegate;
 CGPoint startLocation;
 CGPoint startCardPoint;
 int deltaMove = 100;
 int answerType = -1;
 BOOL isDragging = FALSE;
--(void) addSubViewToCardView:(UIView*)subview{
+-(void) addSubViewToCardView:(UIView*)subview andAtFront:(BOOL)toFront andTag:(int)numTag{
+    subview.tag = numTag;
     [self.placardView addSubview:subview];
-    [self.placardView sendSubviewToBack:subview];
+    if (!toFront) {
+        [self.placardView sendSubviewToBack:subview];
+    }
+}
+-(void)removeSubviewFromCardViewWithTag:(int)numTag{
+    for (UIView* subview in [self.placardView subviews]) {
+        if([subview isKindOfClass:[UIImageView class]] && subview.tag == numTag){
+            [subview removeFromSuperview];
+        }
+    }
 }
 -(APLPlacardView*) getCardView{
     return self.placardView;
@@ -373,7 +383,7 @@ BOOL isDragging = FALSE;
 	CAKeyframeAnimation *bounceAnimation = [CAKeyframeAnimation animationWithKeyPath:@"position"];
 	bounceAnimation.removedOnCompletion = NO;
 	
-	CGFloat animationDuration = 0.2f;
+	CGFloat animationDuration = 0.5f;
 
 	
 	// Create the path for the bounces.
@@ -551,7 +561,7 @@ BOOL isDragging = FALSE;
 	
     
     //add new animation
-    [NSTimer scheduledTimerWithTimeInterval:duration
+    [NSTimer scheduledTimerWithTimeInterval:0.2f
                                      target:self
                                    selector:@selector(handleTimer)
                                    userInfo:nil
@@ -572,6 +582,7 @@ BOOL isDragging = FALSE;
 	self.placardView.transform = CGAffineTransformIdentity;
 	self.userInteractionEnabled = YES;
     [self.placardView setAlpha:1];
+    /*
     if(answerType != -1 && self.snapshotView.isContinueLoad){
         [self.snapshotView loadCurrentProfile];
         [self.snapshotView loadNextProfileByCurrentIndex];
@@ -588,6 +599,18 @@ BOOL isDragging = FALSE;
     {
         [self.snapshotView showWarning];
     }
+     */
+    if(IS_HEIGHT_GTE_568)
+        self.placardView.center = CENTER_POINT_568H;
+    else
+        self.placardView.center = CENTER_POINT;
+    self.placardView.transform = CGAffineTransformIdentity;
+    if (movemedelegate) {
+        if ([movemedelegate respondsToSelector:@selector(animationDidStop:andAnswerType:)]) {
+            [movemedelegate animationDidStop:theAnimation andAnswerType:answerType];
+        }
+    }
+    answerType = -1;
 }
 
 
