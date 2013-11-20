@@ -143,7 +143,7 @@
 -(void) parseProfileWithData:(NSDictionary*)data;
 -(void) parseGetSnapshotToProfile:(NSData *)jsonData;
 -(void) parseForGetProfileInfo:(NSData *)jsonData;
-- (void) SaveSetting;
+- (void)saveSettingWithCompletion:(void(^)(bool isSuccess))completion;
 +(NSMutableArray*) parseListPhotos:(NSData *)jsonData;
 +(NSMutableDictionary*) parseListPhotosIncludeID:(NSData *)jsonData;
 

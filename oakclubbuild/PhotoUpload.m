@@ -100,11 +100,10 @@
         NSDictionary *data = [dict objectForKey:key_data];
         NSString *link = [data objectForKey:@"file"];
         NSString *imgID = [data objectForKey:@"id"];
-        BOOL _isAvatar = [[dict objectForKey:@"is_avatar"] boolValue];
         
         if (completionHandler)
         {
-            completionHandler(link, imgID, _isAvatar);
+            completionHandler(link, imgID, isAvatar);
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Upload photo error: %@", error);

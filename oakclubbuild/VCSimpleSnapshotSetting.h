@@ -9,7 +9,7 @@
 #import "NYSliderPopover.h"
 #import "ListForChoose.h"
 #import "VCLogout.h"
-@interface VCSimpleSnapshotSetting : UITableViewController<UITableViewDelegate,ListForChooseDelegate, UIPickerViewDataSource, UIPickerViewDelegate, UIAlertViewDelegate>
+@interface VCSimpleSnapshotSetting : UIViewController<UITableViewDelegate,ListForChooseDelegate, UIPickerViewDataSource, UIPickerViewDelegate, UIAlertViewDelegate>
 
 @property UILabel *lblRange;
 @property UILabel *lblRangeOfAge;

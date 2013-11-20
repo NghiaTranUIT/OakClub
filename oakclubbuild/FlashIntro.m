@@ -10,12 +10,13 @@
 #import "AppDelegate.h"
 #import "AnimatedGif.h"
 #import "UIView+Localize.h"
+#import "LoadingIndicator.h"
 
-@interface FlashIntro ()
+@interface FlashIntro () <LoadingIndicatorDelegate>
 {
     UIImageView *background;
     AppDelegate *appDelegate;
-    UIActivityIndicatorView *indicatorView;
+    LoadingIndicator *indicator;
 }
 @end
 
@@ -27,6 +28,8 @@
     if (self) {
         // Custom initialization
         appDelegate = (id) [UIApplication sharedApplication].delegate;
+        
+        indicator = [[LoadingIndicator alloc] initWithMainView:self.view andDelegate:self];
     }
     return self;
 }
@@ -54,13 +57,13 @@
     [background setContentMode:UIViewContentModeScaleAspectFit];
     [self.view addSubview:background];
     
-    indicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
-    [indicatorView setFrame:CGRectMake(142, 138, indicatorView.frame.size.width,  indicatorView.frame.size.height)];
-    indicatorView.color = [UIColor colorWithRed:(121.f / 255.f) green:(1.f / 255.f) blue:(88.f / 255.f) alpha:1];
-    [indicatorView setHidesWhenStopped:YES];
-    [indicatorView stopAnimating];
-    
-    [self.view addSubview:indicatorView];
+//    indicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+//    [indicatorView setFrame:CGRectMake(142, 138, indicatorView.frame.size.width,  indicatorView.frame.size.height)];
+//    indicatorView.color = [UIColor colorWithRed:(121.f / 255.f) green:(1.f / 255.f) blue:(88.f / 255.f) alpha:1];
+//    [indicatorView setHidesWhenStopped:YES];
+//    [indicatorView stopAnimating];
+//    
+//    [self.view addSubview:indicatorView];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -86,7 +89,7 @@
 
 -(void) tryLogin
 {
-    [indicatorView startAnimating];
+    [indicator lockViewAndDisplayIndicator];
     [appDelegate tryLoginWithSuccess:^(int _status)
     {
         if (_status == 2)
@@ -97,10 +100,10 @@
         {
             [self animatingGoToLogin];
         }
-        [indicatorView stopAnimating];
+        [indicator unlockViewAndStopIndicator];
     } failure:^{
         [self animatingGoToLogin];
-        [indicatorView stopAnimating];
+        [indicator unlockViewAndStopIndicator];
     }];
 }
 
