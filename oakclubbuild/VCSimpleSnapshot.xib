@@ -513,30 +513,19 @@
         <image name="Snapshot_btn_info.png" width="28" height="28"/>
         <image name="Snapshot_btn_no.png" width="70" height="70"/>
         <image name="Snapshot_btn_no_preesed.png" width="70" height="70"/>
-        <image name="Snapshot_btn_no_preesed.png" width="70" height="70"/>
         <image name="Snapshot_btn_yes.png" width="70" height="70"/>
-        <image name="Snapshot_btn_yes_pressed.PNG" width="70" height="70"/>
         <image name="Snapshot_btn_yes_pressed.PNG" width="70" height="70"/>
         <image name="Snapshot_camera_icon.png" width="20" height="13"/>
         <image name="Snapshot_like_stamp.png" width="141" height="141"/>
         <image name="Snapshot_mutualfriends_icon.png" width="23" height="13"/>
         <image name="Snapshot_no_stamp.png" width="141" height="141"/>
         <image name="Snapshot_popup_box.png" width="270" height="210"/>
-        <image name="Snapshot_popup_box.png" width="270" height="210"/>
         <image name="Snapshot_popup_cancel.png" width="95" height="38"/>
-        <image name="Snapshot_popup_cancel.png" width="95" height="38"/>
-        <image name="Snapshot_popup_cancel_pressed.png" width="95" height="38"/>
-        <image name="Snapshot_popup_cancel_pressed.png" width="95" height="38"/>
-        <image name="Snapshot_popup_cancel_pressed.png" width="95" height="38"/>
         <image name="Snapshot_popup_cancel_pressed.png" width="95" height="38"/>
         <image name="Snapshot_popup_like.png" width="95" height="38"/>
         <image name="Snapshot_popup_no.png" width="94" height="37"/>
         <image name="Snapshot_popup_no_pressed.png" width="94" height="37"/>
-        <image name="Snapshot_popup_no_pressed.png" width="94" height="37"/>
-        <image name="Snapshot_popup_no_pressed.png" width="94" height="37"/>
-        <image name="Snapshot_popup_no_pressed.png" width="94" height="37"/>
         <image name="Snapshot_shareInterest_icon.png" width="16" height="14"/>
-        <image name="Snapshot_top_polaroid.png" width="265" height="307"/>
         <image name="Snapshot_top_polaroid.png" width="265" height="307"/>
         <image name="Snapshot_transBG.png" width="320" height="480"/>
         <image name="bg-profile-tab.png" width="320" height="46"/>
