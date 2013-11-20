@@ -23,16 +23,19 @@
 #import "NSString+Utils.h"
 #import "UIView+Localize.h"
 
+#import "LoadingIndicator.h"
+
 // Log levels: off, error, warn, info, verbose
 #if DEBUG
 static const int ddLogLevel = LOG_LEVEL_VERBOSE;
 #else
 static const int ddLogLevel = LOG_LEVEL_INFO;
 #endif
-@interface VCChat (){
+@interface VCChat () <LoadingIndicatorDelegate>{
     AppDelegate *appDel;
     NSIndexPath* selectedIndex;
     NSMutableArray *friendChatIDs;
+    LoadingIndicator *indicator;
 }
 
 @property UIButton* buttonEditNormal;
@@ -68,45 +71,56 @@ int cellCountinSection=0;
     
 //    NSMutableArray* a_profile_id = [[NSMutableArray alloc] init];
 //    NSOperationQueue *queue = [[NSOperationQueue alloc] init];
-    if(appDel.friendChatList == NULL || appDel.friendChatList.count <= 0)
+    if (!(appDel.friendChatList == NULL || appDel.friendChatList.count <= 0))
     {
-        return;
+        [indicator lockViewAndDisplayIndicator];
+        
+        [loadingFriendList startAnimating];
+        [self.view bringSubviewToFront:loadingFriendList];
+        loadingFriendList.hidden = NO;
+        __block int i = [appDel.friendChatList count];
+        for(NSString* key in [appDel.friendChatList allKeys])
+        {
+            Profile* profile = [appDel.friendChatList objectForKey:key];
+            if(profile.img_Avatar == nil)
+                profile.img_Avatar = [UIImage imageNamed:@"Default Avatar"];
+            [a_avatar setObject:profile.img_Avatar forKey:profile.s_ID];
+            //        [tableView reloadData];
+            [self.searchDisplayController.searchResultsTableView reloadData];
+            [[self tableView] reloadData];
+            NSLog(@"Loading information for %@", profile.s_Name);
+            
+            //        [a_profi le_id addObject:profile.s_ID];
+            
+            //        AFHTTPRequestOperation *operation =
+            //        [HistoryMessage getHistoryMessagesSync:profile.s_ID
+            //                                      callback:^(NSMutableArray * array)
+            if(profile.status > MatchViewed)
+            {
+                [HistoryMessage getHistoryMessages:profile.s_ID callback:^(NSMutableArray* array)
+                 {
+                     if (array)
+                     {
+                         if([[appDel.friendChatList allKeys] lastObject]== key){
+                             [loadingFriendList stopAnimating];
+                             loadingFriendList.hidden = YES;
+                         }
+                         [a_messages setObject:array forKey:profile.s_ID];
+                         [self.searchDisplayController.searchResultsTableView reloadData];
+                         [[self tableView] reloadData];
+                         NSLog(@"Get History Msg of %@ completed",profile.s_ID);
+                     }
+                     
+                     --i;
+                     if (!i)
+                     {
+                         [indicator unlockViewAndStopIndicator];
+                     }
+                 }];
+            }
+        }
     }
     
-    [loadingFriendList startAnimating];
-    [self.view bringSubviewToFront:loadingFriendList];
-    loadingFriendList.hidden = NO;
-    for(NSString* key in [appDel.friendChatList allKeys])
-    {
-        Profile* profile = [appDel.friendChatList objectForKey:key];
-        if(profile.img_Avatar == nil)
-            profile.img_Avatar = [UIImage imageNamed:@"Default Avatar"];
-        [a_avatar setObject:profile.img_Avatar forKey:profile.s_ID];
-//        [tableView reloadData];
-        [self.searchDisplayController.searchResultsTableView reloadData];
-        [[self tableView] reloadData];
-        NSLog(@"Loading information for %@", profile.s_Name);
-        
-//        [a_profi le_id addObject:profile.s_ID];
-        
-//        AFHTTPRequestOperation *operation =
-//        [HistoryMessage getHistoryMessagesSync:profile.s_ID
-//                                      callback:^(NSMutableArray * array)
-        if(profile.status > MatchViewed){
-            [HistoryMessage getHistoryMessages:profile.s_ID callback:^(NSMutableArray* array)
-             {
-                 if([[appDel.friendChatList allKeys] lastObject]== key){
-                     [loadingFriendList stopAnimating];
-                     loadingFriendList.hidden = YES;
-                 }
-                 [a_messages setObject:array forKey:profile.s_ID];
-                 [self.searchDisplayController.searchResultsTableView reloadData];
-                 [[self tableView] reloadData];
-                 NSLog(@"Get History Msg of %@ completed",profile.s_ID);
-             }];
-        }
-       
-    }
     NSLog(@"***** loadFriendsInfo end!");
 }
 
@@ -279,6 +293,8 @@ int cellCountinSection=0;
     // Do any additional setup after loading the view from its nib.
     //    [self.view addSubview:tbVC_ChatList.view];
 //    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"bg-edit.png"]];
+    
+    indicator = [[LoadingIndicator alloc] initWithMainView:self.view andDelegate:self];
     
     [self loadFriendsInfo:nil];
     
@@ -820,5 +836,24 @@ int cellCountinSection=0;
 //        [self loadFriendsInfo:nil];
 //        [tableView reloadData];
 //    }];
+}
+
+-(void)lockView
+{
+    [appDel.rootVC.view setUserInteractionEnabled:NO];
+    [self.navigationController.navigationBar setUserInteractionEnabled:NO];
+}
+
+-(void)unlockView
+{
+    [appDel.rootVC.view setUserInteractionEnabled:YES];
+    [self.navigationController.navigationBar setUserInteractionEnabled:YES];
+}
+
+-(void)customizeIndicator:(UIActivityIndicatorView *)_indicator
+{
+    [_indicator setFrame:CGRectMake((320 - _indicator.frame.size.width) / 2,
+                                    240,
+                                    _indicator.frame.size.width, _indicator.frame.size.height)];
 }
 @end
