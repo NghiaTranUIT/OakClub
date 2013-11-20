@@ -199,6 +199,14 @@
 		CD1AB08A1821A3E900B0FA10 /* ChatView_white_speech.png in Resources */ = {isa = PBXBuildFile; fileRef = CD1AB0881821A3E900B0FA10 /* ChatView_white_speech.png */; };
 		CD1D2D6918349DF600B42424 /* ChatNavigationView.m in Sources */ = {isa = PBXBuildFile; fileRef = CD1D2D6818349DF600B42424 /* ChatNavigationView.m */; };
 		CD1D562C1826246B002E312A /* Language.m in Sources */ = {isa = PBXBuildFile; fileRef = CD1D562B1826246B002E312A /* Language.m */; };
+		CD23A6D4183CA44500042421 /* Login_bottomBG.png in Resources */ = {isa = PBXBuildFile; fileRef = CD23A6D2183CA44500042421 /* Login_bottomBG.png */; };
+		CD23A6D5183CA44500042421 /* Login_bottomBG@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CD23A6D3183CA44500042421 /* Login_bottomBG@2x.png */; };
+		CD23A6D7183CA73E00042421 /* trans-bg-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CD23A6D6183CA73E00042421 /* trans-bg-568h@2x.png */; };
+		CD23A6D9183CA74A00042421 /* Default Avatar.png in Resources */ = {isa = PBXBuildFile; fileRef = CD23A6D8183CA74A00042421 /* Default Avatar.png */; };
+		CD23A6DC183CA80D00042421 /* viewprofile_Bar_BG.png in Resources */ = {isa = PBXBuildFile; fileRef = CD23A6DA183CA80D00042421 /* viewprofile_Bar_BG.png */; };
+		CD23A6DD183CA80D00042421 /* viewprofile_Bar_BG@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CD23A6DB183CA80D00042421 /* viewprofile_Bar_BG@2x.png */; };
+		CD23A6DF183CCA2100042421 /* Default-image_share.png in Resources */ = {isa = PBXBuildFile; fileRef = CD23A6DE183CCA2100042421 /* Default-image_share.png */; };
+		CD23A6E1183CCD1400042421 /* Default Avatar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CD23A6E0183CCD1400042421 /* Default Avatar@2x.png */; };
 		CD25624F176718FC001B702D /* ProfileSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = CD25624E176718FC001B702D /* ProfileSettings.m */; };
 		CD286262176B0F7100E81E73 /* HangoutSetting.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CD286261176B0F7100E81E73 /* HangoutSetting.storyboard */; };
 		CD286265176B0FAF00E81E73 /* HangoutSetting.m in Sources */ = {isa = PBXBuildFile; fileRef = CD286264176B0FAF00E81E73 /* HangoutSetting.m */; };
@@ -851,6 +859,14 @@
 		CD1D562A1826246B002E312A /* Language.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Language.h; sourceTree = "<group>"; };
 		CD1D562B1826246B002E312A /* Language.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Language.m; sourceTree = "<group>"; };
 		CD2352B61793F79A00BB8370 /* vi */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = vi; path = vi.lproj/RegisterConfirmation.storyboard; sourceTree = "<group>"; };
+		CD23A6D2183CA44500042421 /* Login_bottomBG.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Login_bottomBG.png; sourceTree = "<group>"; };
+		CD23A6D3183CA44500042421 /* Login_bottomBG@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Login_bottomBG@2x.png"; sourceTree = "<group>"; };
+		CD23A6D6183CA73E00042421 /* trans-bg-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "trans-bg-568h@2x.png"; sourceTree = "<group>"; };
+		CD23A6D8183CA74A00042421 /* Default Avatar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default Avatar.png"; sourceTree = "<group>"; };
+		CD23A6DA183CA80D00042421 /* viewprofile_Bar_BG.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = viewprofile_Bar_BG.png; sourceTree = "<group>"; };
+		CD23A6DB183CA80D00042421 /* viewprofile_Bar_BG@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "viewprofile_Bar_BG@2x.png"; sourceTree = "<group>"; };
+		CD23A6DE183CCA2100042421 /* Default-image_share.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-image_share.png"; sourceTree = "<group>"; };
+		CD23A6E0183CCD1400042421 /* Default Avatar@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default Avatar@2x.png"; sourceTree = "<group>"; };
 		CD25624D176718FC001B702D /* ProfileSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileSettings.h; sourceTree = "<group>"; };
 		CD25624E176718FC001B702D /* ProfileSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileSettings.m; sourceTree = "<group>"; };
 		CD286261176B0F7100E81E73 /* HangoutSetting.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = HangoutSetting.storyboard; sourceTree = "<group>"; };
@@ -1588,6 +1604,8 @@
 		97A55D4C1823C3E700675025 /* ViewProfile */ = {
 			isa = PBXGroup;
 			children = (
+				CD23A6DA183CA80D00042421 /* viewprofile_Bar_BG.png */,
+				CD23A6DB183CA80D00042421 /* viewprofile_Bar_BG@2x.png */,
 				CDA96DCC183B84CE004548E1 /* viewprofile_like.png */,
 				CDA96DCD183B84CE004548E1 /* viewprofile_like@2x.png */,
 				97A55D691824DFAB00675025 /* viewprofile_done.png */,
@@ -2240,6 +2258,10 @@
 		CD877CA91820EF5A0067D478 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				CD23A6DE183CCA2100042421 /* Default-image_share.png */,
+				CD23A6D8183CA74A00042421 /* Default Avatar.png */,
+				CD23A6E0183CCD1400042421 /* Default Avatar@2x.png */,
+				CD23A6D6183CA73E00042421 /* trans-bg-568h@2x.png */,
 				CD877CAA1820EF5A0067D478 /* trans-bg.png */,
 				CD877CAB1820EF5A0067D478 /* trans-bg@2x.png */,
 			);
@@ -2362,6 +2384,8 @@
 				CD877CFB18212BAE0067D478 /* intropage_snap@2x.png */,
 				CD877CF0182128EC0067D478 /* Login_info.png */,
 				CD877CF1182128EC0067D478 /* Login_info@2x.png */,
+				CD23A6D2183CA44500042421 /* Login_bottomBG.png */,
+				CD23A6D3183CA44500042421 /* Login_bottomBG@2x.png */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -3475,6 +3499,7 @@
 				CDF99C4E1713FA6C008D8BAC /* aqua.png in Resources */,
 				CD1AB0731821804200B0FA10 /* Report_btn_block_active.png in Resources */,
 				97ABDEED18364A0500825C09 /* Info_background_vn-586h@2x.png in Resources */,
+				CD23A6D7183CA73E00042421 /* trans-bg-568h@2x.png in Resources */,
 				CDF99C4F1713FA6C008D8BAC /* defaultPerson.png in Resources */,
 				CDB88CAD182E47A100E3ABDF /* Snapshot_camera_icon.png in Resources */,
 				CDF99C511713FA6C008D8BAC /* orange.png in Resources */,
@@ -3498,6 +3523,7 @@
 				CD50E365181FBF3C0036A23B /* Snapshot_popup_like_pressed.png in Resources */,
 				CD50E3B9181FE62C0036A23B /* Navbar_BG.png in Resources */,
 				CD50E360181FBF3C0036A23B /* Snapshot_popup_cancel@2x.png in Resources */,
+				CD23A6DC183CA80D00042421 /* viewprofile_Bar_BG.png in Resources */,
 				CDEAC5421716AF82007857AE /* ViewCellMyLink.xib in Resources */,
 				97A55D651823C3E700675025 /* viewprofile_avatarBorder.png in Resources */,
 				CD2DE68F18279A9D0043AA91 /* SnapshotSetting_btn_save_inactive@2x.png in Resources */,
@@ -3576,6 +3602,8 @@
 				CD50E3C0181FE62C0036A23B /* Navbar_notification@2x.png in Resources */,
 				CD50E36E181FBF3C0036A23B /* Snapshot_top_polaroid@2x.png in Resources */,
 				CD1AB07D1821804200B0FA10 /* Report_topItem_active.png in Resources */,
+				CD23A6D4183CA44500042421 /* Login_bottomBG.png in Resources */,
+				CD23A6DF183CCA2100042421 /* Default-image_share.png in Resources */,
 				CD50E368181FBF3C0036A23B /* Snapshot_popup_no@2x.png in Resources */,
 				97A55D631823C3E700675025 /* slider.png in Resources */,
 				CD13017918225D3E00D29E0B /* Login_btnFB_inactive.png in Resources */,
@@ -3607,6 +3635,7 @@
 				CD15E860182F598900557BA5 /* tutorial_options-568h@2x.png in Resources */,
 				977853F3182228A900CBB5DB /* myprofile_deleteButton@2x.png in Resources */,
 				CD1301641821FD9700D29E0B /* SnapshotLoading_btn_like_disabled@2x.png in Resources */,
+				CD23A6E1183CCD1400042421 /* Default Avatar@2x.png in Resources */,
 				CD877CA71820EF260067D478 /* Logout_btn_inactive.png in Resources */,
 				CD50E358181FBF3C0036A23B /* Snapshot_like_stamp@2x.png in Resources */,
 				CD877D131821374C0067D478 /* ChatView_btn_viewprofile_pressed@2x.png in Resources */,
@@ -3616,6 +3645,7 @@
 				CDFF63841823564400C8031F /* SnapshotSetting_btn_contactus_active.png in Resources */,
 				97A55D641823C3E700675025 /* slider@2x.png in Resources */,
 				CD877CE6182114560067D478 /* HistoryChat_matchup_off@2x.png in Resources */,
+				CD23A6D9183CA74A00042421 /* Default Avatar.png in Resources */,
 				CD13015D1821FD9700D29E0B /* Snapshot_gps_loading.gif in Resources */,
 				CD15E861182F598900557BA5 /* tutorial_snapshots-568h@2x.png in Resources */,
 				CD877D121821374C0067D478 /* ChatView_btn_viewprofile_pressed.png in Resources */,
@@ -3651,6 +3681,7 @@
 				CD1AB0721821804200B0FA10 /* Report_bottomItem_inactive@2x.png in Resources */,
 				CD1AB0761821804200B0FA10 /* Report_btn_block_inactive@2x.png in Resources */,
 				CD13016F1821FD9700D29E0B /* SnapshotLoading_pin.png in Resources */,
+				CD23A6DD183CA80D00042421 /* viewprofile_Bar_BG@2x.png in Resources */,
 				CD877C8B1820E7AB0067D478 /* Snapshot_btnSendMessage@2x.png in Resources */,
 				CD1301701821FD9700D29E0B /* SnapshotLoading_pin@2x.png in Resources */,
 				CD13015F1821FD9700D29E0B /* Snapshot_graypin.png in Resources */,
@@ -3720,6 +3751,7 @@
 				CD13016C1821FD9700D29E0B /* SnapshotLoading_graymap_loaded@2x.png in Resources */,
 				97ABDEDD183646A000825C09 /* spashscreen_vn@2x.png in Resources */,
 				CD877CE5182114560067D478 /* HistoryChat_matchup_off.png in Resources */,
+				CD23A6D5183CA44500042421 /* Login_bottomBG@2x.png in Resources */,
 				CD877C771820B06B0067D478 /* Menu_icon_profile.png in Resources */,
 				CDB88CAE182E47A100E3ABDF /* Snapshot_camera_icon@2x.png in Resources */,
 				CD13016D1821FD9700D29E0B /* SnapshotLoading_map_loaded.png in Resources */,

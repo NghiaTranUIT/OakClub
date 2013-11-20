@@ -28,15 +28,16 @@
         self.closeButton.frame = CGRectMake(0, 0, self.closeButtonFrame.size.width, self.closeButtonFrame.size.height);
         
         UIButton *signInButton = [[UIButton alloc] init];
-        [signInButton setBackgroundImage:[UIImage imageNamed:@"btn-fb-inactive_intro.png"] forState:UIControlStateNormal];
+        [signInButton setBackgroundImage:[UIImage imageNamed:@"Login_btnFB_inactive.png"] forState:UIControlStateNormal];
+        [signInButton setBackgroundImage:[UIImage imageNamed:@"Login_btnFB_active.png"] forState:UIControlStateHighlighted];
         [signInButton sizeToFit];
         if ([value_appLanguage_EN isEqualToString:[[NSUserDefaults standardUserDefaults] objectForKey:key_appLanguage]])
         {
-             signInButton.frame = CGRectMake((self.frame.size.width - 254)/2, 35, 254, 41);
+             signInButton.frame = CGRectMake((self.frame.size.width - 254)/2, 35, 254, 40);
         }
         else
         {
-            signInButton.frame = CGRectMake((self.frame.size.width - 254)/2, 60, 254, 41);
+            signInButton.frame = CGRectMake((self.frame.size.width - 254)/2, 60, 254, 40);
         }
 
        

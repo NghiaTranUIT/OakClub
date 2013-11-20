@@ -383,6 +383,7 @@
     self.s_usenameXMPP = [data valueForKey:key_usernameXMPP];
     self.s_passwordXMPP = [data valueForKey:key_passwordXMPP];
     self.s_Name = [data valueForKey:key_name];
+    self.s_Name = [self getFirstNameWithName:self.s_Name];
     self.s_Avatar = [data valueForKey:key_avatar];
     int ethnicityIndex =[[data valueForKey:key_ethnicity] integerValue];
     self.c_ethnicity= [[Ethnicity alloc]initWithID:ethnicityIndex];
@@ -555,6 +556,7 @@
 
 //    self.s_Name = [NSString stringWithFormat:@"%@ %@",[data valueForKey:key_last_name],[data valueForKey:key_first_name]] ;
     self.s_Name = [data valueForKey:key_name];
+    self.s_Name = [self getFirstNameWithName:self.s_Name];
     self.s_ID = [data valueForKey:key_profileID];
     self.s_age = [data valueForKey:key_age];
     self.s_snapshotID =[data valueForKey:key_snapshotID];
@@ -735,6 +737,8 @@
      } failure:^(AFHTTPRequestOperation *operation, NSError *error)
      {
          NSLog(@"Download image Error: %@", error);
+         if(handler != nil)
+             handler(nil);
      }];
     
     return operation;
@@ -970,7 +974,8 @@
     AFHTTPRequestOperation* operation = [Profile getAvatarSync:self.s_Avatar callback:^(UIImage *avatar)
     {
         NSLog(@"Finished download avatar of %@",self.s_Name);
-        self.img_Avatar = avatar;
+        if(avatar)
+            self.img_Avatar = avatar;
         
         [self dispatchAvatar];
     }];
@@ -1097,5 +1102,8 @@
      }];
 
 }
-
+#pragma mark format Text
+-(NSString*)getFirstNameWithName:(NSString*) name{
+    return [[name componentsSeparatedByString:@" "] objectAtIndex:0];
+}
 @end

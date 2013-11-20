@@ -7,6 +7,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="VCSimpleSnapshot">
             <connections>
+                <outlet property="backgroundAvatarView" destination="8hg-7A-oI4" id="xp9-Rd-Vh2"/>
                 <outlet property="btnHeart" destination="102" id="VUl-wm-pG3"/>
                 <outlet property="btnX" destination="103" id="X54-bF-zpG"/>
                 <outlet property="buttonNO" destination="34" id="48"/>
@@ -38,7 +39,7 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
             <autoresizingMask key="autoresizingMask"/>
             <subviews>
-                <view contentMode="scaleToFill" id="8hg-7A-oI4">
+                <view contentMode="scaleToFill" id="8hg-7A-oI4" userLabel="backgroundAvatarView">
                     <rect key="frame" x="16" y="16" width="289" height="314"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <subviews>
@@ -237,7 +238,7 @@
                     <rect key="frame" x="0.0" y="-40" width="320" height="46"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <subviews>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" image="bg-profile-tab.png" id="101">
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="viewprofile_Bar_BG.png" id="101">
                             <rect key="frame" x="0.0" y="0.0" width="320" height="46"/>
                             <autoresizingMask key="autoresizingMask"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -528,7 +529,7 @@
         <image name="Snapshot_shareInterest_icon.png" width="16" height="14"/>
         <image name="Snapshot_top_polaroid.png" width="265" height="307"/>
         <image name="Snapshot_transBG.png" width="320" height="480"/>
-        <image name="bg-profile-tab.png" width="320" height="46"/>
+        <image name="viewprofile_Bar_BG.png" width="320" height="25"/>
         <image name="viewprofile_done.png" width="58" height="34"/>
         <image name="viewprofile_like.png" width="52" height="34"/>
         <image name="viewprofile_x.png" width="52" height="34"/>

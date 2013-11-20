@@ -298,7 +298,7 @@ static CGFloat padding_left = 5.0;
         [lblDistance setText:[NSString stringWithFormat:@"%i km away", currentProfile.distance]];
         return;
     }
-    [lblDistance setText:[@"more than 40 km away" localize]];
+    [lblDistance setText:[@"More than 40 km away" localize]];
 }
 
 -(void)LoadActiveText{
@@ -314,7 +314,7 @@ static CGFloat padding_left = 5.0;
         [lblActive setText:[NSString stringWithFormat:@"%i %@",currentProfile.active, [@"days ago" localize]]];
         return;
     }
-    [lblActive setText:[@"more than 5 days ago" localize]];
+    [lblActive setText:[@"More than 5 days ago" localize]];
 }
 
 -(void)loadInfoView{
@@ -405,7 +405,7 @@ static CGFloat padding_left = 5.0;
         imageView.frame = rect;
         
         UIImageView *favIcon = [[UIImageView alloc] initWithFrame:imageView.frame];
-        
+        [favIcon setImage:[UIImage imageNamed:@"Default Avatar"]];
         NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInt:((int) rect.size.width)], @"width",
                                 [NSNumber numberWithInt:((int) rect.size.height)], @"height", nil];
         
@@ -833,17 +833,19 @@ static CGFloat padding_left = 5.0;
                              [Profile getAvatarSync:link
                                            callback:^(UIImage *image)
                               {
-                                  UIImageView *imageView = [[UIImageView alloc]initWithImage:image];
-                                  CGRect frame = self.svPhotos.frame;
-                                  frame.origin.x = CGRectGetWidth(frame) * i ;
-                                  frame.origin.y = 0;
-                                  imageView.frame = frame;
-                                  [imageView setContentMode:UIViewContentModeScaleAspectFit];
-                                  [self.svPhotos addSubview:imageView];
-                                  self.svPhotos.contentSize =
-                                  CGSizeMake(CGRectGetWidth(self.svPhotos.frame) * (i+1), CGRectGetHeight(self.svPhotos.frame));
-                                  [currentProfile.arr_photos replaceObjectAtIndex:i withObject:image];
-                                  [photoCount setText:[NSString stringWithFormat:@"%i/%i",1,(i+1)]];
+                                  if(image){
+                                      UIImageView *imageView = [[UIImageView alloc]initWithImage:image];
+                                      CGRect frame = self.svPhotos.frame;
+                                      frame.origin.x = CGRectGetWidth(frame) * i ;
+                                      frame.origin.y = 0;
+                                      imageView.frame = frame;
+                                      [imageView setContentMode:UIViewContentModeScaleAspectFit];
+                                      [self.svPhotos addSubview:imageView];
+                                      self.svPhotos.contentSize =
+                                      CGSizeMake(CGRectGetWidth(self.svPhotos.frame) * (i+1), CGRectGetHeight(self.svPhotos.frame));
+                                      [currentProfile.arr_photos replaceObjectAtIndex:i withObject:image];
+                                      [photoCount setText:[NSString stringWithFormat:@"%i/%i",1,(i+1)]];
+                                  }
                               }];
                              [operation start];
                          }
