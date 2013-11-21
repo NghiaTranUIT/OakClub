@@ -40,6 +40,8 @@
     if (IS_OS_7_OR_LATER)
     {
         padding = 30;
+        if(IS_HEIGHT_GTE_568)
+            padding += 10;
     }
     
     closeButton.frame = CGRectMake(10, 10 + padding, 27, 27);

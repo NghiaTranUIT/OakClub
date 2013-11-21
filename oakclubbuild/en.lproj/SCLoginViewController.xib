@@ -20,7 +20,7 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
             <autoresizingMask key="autoresizingMask"/>
             <subviews>
-                <imageView userInteractionEnabled="NO" alpha="0.69999999999999996" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg-bottom.png" id="c5S-kU-1P1">
+                <imageView userInteractionEnabled="NO" alpha="0.69999999999999996" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Login_bottomBG.png" id="c5S-kU-1P1">
                     <rect key="frame" x="0.0" y="387" width="320" height="93"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -79,9 +79,9 @@
         </view>
     </objects>
     <resources>
+        <image name="Login_bottomBG.png" width="320" height="93"/>
         <image name="Login_btnFB_active.png" width="254" height="40"/>
         <image name="Login_btnFB_inactive.png" width="254" height="40"/>
         <image name="Login_info.png" width="30" height="30"/>
-        <image name="bg-bottom.png" width="320" height="93"/>
     </resources>
 </document>

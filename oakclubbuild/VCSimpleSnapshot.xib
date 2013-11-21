@@ -7,6 +7,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="VCSimpleSnapshot">
             <connections>
+                <outlet property="backgroundAvatarView" destination="8hg-7A-oI4" id="xp9-Rd-Vh2"/>
                 <outlet property="btnHeart" destination="102" id="VUl-wm-pG3"/>
                 <outlet property="btnX" destination="103" id="X54-bF-zpG"/>
                 <outlet property="buttonNO" destination="34" id="48"/>
@@ -38,7 +39,7 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
             <autoresizingMask key="autoresizingMask"/>
             <subviews>
-                <view contentMode="scaleToFill" id="8hg-7A-oI4">
+                <view contentMode="scaleToFill" id="8hg-7A-oI4" userLabel="backgroundAvatarView">
                     <rect key="frame" x="16" y="16" width="289" height="314"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <subviews>
@@ -237,7 +238,7 @@
                     <rect key="frame" x="0.0" y="-40" width="320" height="46"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <subviews>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" image="bg-profile-tab.png" id="101">
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="viewprofile_Bar_BG.png" id="101">
                             <rect key="frame" x="0.0" y="0.0" width="320" height="46"/>
                             <autoresizingMask key="autoresizingMask"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -513,33 +514,22 @@
         <image name="Snapshot_btn_info.png" width="28" height="28"/>
         <image name="Snapshot_btn_no.png" width="70" height="70"/>
         <image name="Snapshot_btn_no_preesed.png" width="70" height="70"/>
-        <image name="Snapshot_btn_no_preesed.png" width="70" height="70"/>
         <image name="Snapshot_btn_yes.png" width="70" height="70"/>
-        <image name="Snapshot_btn_yes_pressed.PNG" width="70" height="70"/>
         <image name="Snapshot_btn_yes_pressed.PNG" width="70" height="70"/>
         <image name="Snapshot_camera_icon.png" width="20" height="13"/>
         <image name="Snapshot_like_stamp.png" width="141" height="141"/>
         <image name="Snapshot_mutualfriends_icon.png" width="23" height="13"/>
         <image name="Snapshot_no_stamp.png" width="141" height="141"/>
         <image name="Snapshot_popup_box.png" width="270" height="210"/>
-        <image name="Snapshot_popup_box.png" width="270" height="210"/>
         <image name="Snapshot_popup_cancel.png" width="95" height="38"/>
-        <image name="Snapshot_popup_cancel.png" width="95" height="38"/>
-        <image name="Snapshot_popup_cancel_pressed.png" width="95" height="38"/>
-        <image name="Snapshot_popup_cancel_pressed.png" width="95" height="38"/>
-        <image name="Snapshot_popup_cancel_pressed.png" width="95" height="38"/>
         <image name="Snapshot_popup_cancel_pressed.png" width="95" height="38"/>
         <image name="Snapshot_popup_like.png" width="95" height="38"/>
         <image name="Snapshot_popup_no.png" width="94" height="37"/>
         <image name="Snapshot_popup_no_pressed.png" width="94" height="37"/>
-        <image name="Snapshot_popup_no_pressed.png" width="94" height="37"/>
-        <image name="Snapshot_popup_no_pressed.png" width="94" height="37"/>
-        <image name="Snapshot_popup_no_pressed.png" width="94" height="37"/>
         <image name="Snapshot_shareInterest_icon.png" width="16" height="14"/>
         <image name="Snapshot_top_polaroid.png" width="265" height="307"/>
-        <image name="Snapshot_top_polaroid.png" width="265" height="307"/>
         <image name="Snapshot_transBG.png" width="320" height="480"/>
-        <image name="bg-profile-tab.png" width="320" height="46"/>
+        <image name="viewprofile_Bar_BG.png" width="320" height="25"/>
         <image name="viewprofile_done.png" width="58" height="34"/>
         <image name="viewprofile_like.png" width="52" height="34"/>
         <image name="viewprofile_x.png" width="52" height="34"/>

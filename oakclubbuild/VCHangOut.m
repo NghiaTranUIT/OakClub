@@ -776,8 +776,10 @@ inSection:(NSInteger)section
         AFHTTPRequestOperation *operation = [Profile getAvatarSync:link
         callback:^(UIImage *image)
          {
-             [cell.imageView setImage:image];
-             [_requestsImage setObject:image forKey:link];
+             if(image){
+                 [cell.imageView setImage:image];
+                 [_requestsImage setObject:image forKey:link];
+             }
          }];
         [operation start];
     }

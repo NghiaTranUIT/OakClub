@@ -43,6 +43,7 @@
 @property (nonatomic, strong) NSMutableArray *pageViews;
 @property (weak, nonatomic) IBOutlet UIButton *btnX;
 @property (weak, nonatomic) IBOutlet UIButton *btnHeart;
+@property (weak, nonatomic) IBOutlet UIView *backgroundAvatarView;
 @property (nonatomic, strong) NSArray *pageImages;
 @end
 
@@ -135,7 +136,7 @@ CGFloat pageHeight;
 //    [[self navBarOakClub] addToHeader:logoView];
 }
 -(void) refreshSnapshot{
-    currentIndex = 0;
+    currentIndex = 1;//0; Vanancy cheat
     profileList = [[NSMutableArray alloc] init];
     [self loadProfileList:^(void){
         [self.imgMyAvatar setImage:appDel.myProfile.img_Avatar];
@@ -196,7 +197,7 @@ CGFloat pageHeight;
     {
         [self startLoadingAnim];
     }
-    currentIndex = 0;
+    currentIndex = 1;//0; Vanancy cheat
     profileList = [[NSMutableArray alloc] init];
     request = [[AFHTTPClient alloc] initWithOakClubAPI:DOMAIN];
     NSDictionary *params = [[NSDictionary alloc]initWithObjectsAndKeys:@"0",@"start",@"35",@"limit", nil];
@@ -248,7 +249,8 @@ CGFloat pageHeight;
         [Profile getAvatarSync:temp.s_Avatar
                       callback:^(UIImage *image)
          {
-             [self.imgNextProfile setImage:image];
+             if(image)
+                 [self.imgNextProfile setImage:image];
          }];
         [operation start];
     }
@@ -274,6 +276,7 @@ CGFloat pageHeight;
     [lblPhotoCount setText:[NSString stringWithFormat:@"%i",[currentProfile.arr_photos count]]];
     if(currentProfile.img_Avatar!= nil){
         [self.imgMainProfile setImage:currentProfile.img_Avatar];
+        [self stopLoadingAnim];
     }
     else{
         [self.imgMainProfile setImage:[UIImage imageNamed:@"Default Avatar"]];
@@ -281,7 +284,10 @@ CGFloat pageHeight;
         [Profile getAvatarSync:currentProfile.s_Avatar
                       callback:^(UIImage *image)
          {
-             [self.imgMainProfile setImage:image];
+             if(image){
+                 [self.imgMainProfile setImage:image];
+             }
+             [self stopLoadingAnim];
          }];
         [operation start];
         /*
@@ -307,11 +313,6 @@ CGFloat pageHeight;
         }
         */
     }
-    
-    
-    
-    
-    [self stopLoadingAnim];
     currentIndex++;
 }
 
@@ -737,7 +738,7 @@ CGFloat pageHeight;
 
 -(BOOL)isContinueLoad
 {
-    return !(currentIndex > [profileList count] - 2);
+    return !(currentIndex >= [profileList count]);
 }
 
 #pragma mark MoveMeView - Delegate
@@ -751,7 +752,22 @@ CGFloat pageHeight;
     }
     else if (!self.isContinueLoad)
     {
-        [self showWarning];
+        [self refreshSnapshot];
+    }
+}
+
+#pragma mark onTouch handle
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
+    UITouch *touch = [touches anyObject];
+	if ([touch view] == self.backgroundAvatarView) {
+        NSLog(@"touchesBegan ------ backgroundAvatarView");
+    }
+}
+
+-(void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event{
+    UITouch *touch = [touches anyObject];
+	if ([touch view] == self.backgroundAvatarView) {
+        NSLog(@"touchesEnded ------ backgroundAvatarView");
     }
 }
 @end

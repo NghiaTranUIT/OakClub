@@ -228,7 +228,7 @@
 "Trong vòng 1 km"="Trong vòng 1 km";
 "...km away"="Cách  bạn ... km";
 "Cách  bạn ... km"="Cách  bạn ... km";
-"more than 40 km away"="Cách bạn hơn 40 km";
+"More than 40 km away"="Cách bạn hơn 40 km";
 "Cách bạn hơn 40 km"="Cách bạn hơn 40 km";
 "1 day ago"="1 ngày trước";
 "1 ngày trước"="1 ngày trước";
@@ -236,7 +236,7 @@
 ".... ngày trước"=".... ngày trước";
 "Today"="hôm nay";
 "hôm nay"="hôm nay";
-"more than 5 days ago"="hơn 5 ngày trước";
+"More than 5 days ago"="hơn 5 ngày trước";
 "hơn 5 ngày trước"="hơn 5 ngày trước";
 "About Safe & Annonymous"="Nói bạn thích ai nào!";
 "Nói bạn thích ai nào!"="Nói bạn thích ai nào!";
@@ -350,8 +350,8 @@
 "Ồ không?"="Ồ không?";
 "Like?"="Thích quá à?";
 "Thích quá à?"="Thích quá à?";
-"PROCEED"="TIẾP TỤC";
-"TIẾP TỤC"="TIẾP TỤC";
+"AGREE & PROCEED"="ĐỒNG Ý & TIẾP TỤC";
+"ĐỒNG Ý & TIẾP TỤC"="ĐỒNG Ý & TIẾP TỤC";
 "ON"="BẬT";
 "BẬT"="BẬT";
 "OFF"="TẮT";

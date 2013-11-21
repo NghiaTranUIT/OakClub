@@ -175,6 +175,7 @@
         {
             
             AFHTTPRequestOperation* operation = [Profile getAvatarSync:link callback:^(UIImage *avatar) {
+                if(avatar)
                 avatar_friend = avatar;
             }];
             [operation start];
@@ -192,6 +193,7 @@
         {
             
             AFHTTPRequestOperation* operation = [Profile getAvatarSync:link callback:^(UIImage *avatar) {
+                if(avatar)
                 avatar_me = avatar;
             }];
             [operation start];

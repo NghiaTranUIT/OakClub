@@ -50,7 +50,7 @@
         [proceedBtn setBackgroundImage:[UIImage imageNamed:@"proceed-btn-on.png"] forState:UIControlStateNormal];
         proceedBtn.frame = CGRectMake(0, IS_HEIGHT_GTE_568?328:250 , self.contentViewFrame.size.width, self.margin.bottom);
         [proceedBtn addTarget:self action:@selector(proceedTouched:) forControlEvents:UIControlEventTouchUpInside];
-        [proceedBtn setTitle:@"PROCEED" forState:UIControlStateNormal];
+        [proceedBtn setTitle:@"AGREE & PROCEED" forState:UIControlStateNormal];
         [proceedBtn.titleLabel setFont:FONT_HELVETICANEUE_LIGHT(15)];//[UIFont systemFontOfSize:15]];
         
         [self.contentView addSubview:proceedBtn];
