@@ -821,21 +821,6 @@ int cellCountinSection=0;
     [appDel.friendChatList setObject:friend forKey:sender];
     [self.searchDisplayController.searchResultsTableView reloadData];
 	[[self tableView] reloadData];
-
-//    [HistoryMessage getHistoryMessages:sender callback:^(NSMutableArray* array)
-//     {
-//         [a_messages setObject:array forKey:sender];
-//         Profile *friend = [appDel.friendChatList objectForKey:sender];
-//         friend.status = ChatUnviewed;
-//         [appDel.friendChatList setObject:friend forKey:sender];
-//         [self.tableView reloadData];
-//         NSLog(@"newMessageReceived - Get messages completed");
-//     }];
-//    fetchedResultsController = nil;
-//    [appDel.myProfile getRosterListIDSync:^(void){
-//        [self loadFriendsInfo:nil];
-//        [tableView reloadData];
-//    }];
 }
 
 -(void)lockView

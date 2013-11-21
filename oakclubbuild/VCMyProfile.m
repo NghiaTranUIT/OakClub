@@ -96,6 +96,8 @@ UITapGestureRecognizer *tap;
     
     indicator = [[LoadingIndicator alloc] initWithMainView:self.view andDelegate:self];
     
+    photos = [[NSMutableArray alloc] init];
+    photosID = [[NSMutableArray alloc] init];
     [self reloadPhotos];
 }
 
@@ -109,11 +111,11 @@ UITapGestureRecognizer *tap;
     self.age_workLabel.text = [NSString stringWithFormat:@"%d", profileObj.age];
     self.locationLabel.text = [NSString stringWithFormat:@"%@, %@", profileObj.i_work.cate_name, profileObj.s_location.name];
     
-    [appDelegate.myProfile tryGetImageAsync:self];
-    
     [self.imgAvatar setBackgroundImage:avatarImage forState:UIControlStateNormal];
     self.imgAvatar.contentMode = UIViewContentModeScaleAspectFit;
     [self.imgAvatar setFrame:self.avatarLayout.frame];
+    
+    [profileObj tryGetImageAsync:self];
     
     //    [self.btnUploadVideo setBackgroundImage:avatarImage forState:UIControlStateNormal];
     //    self.btnUploadVideo.contentMode = UIViewContentModeScaleAspectFit;
@@ -225,8 +227,6 @@ UITapGestureRecognizer *tap;
     [self updateProfileItemListAtIndex:profileObj.s_aboutMe andIndex:ABOUT_ME];
     [self.tbEditProfile reloadData];
     
-    photos = [[NSMutableArray alloc] init];
-    photosID = [[NSMutableArray alloc] init];
     selectedPhoto = -1;
     uploadImage = nil;
     [self loadProfilePhotos];
@@ -520,36 +520,47 @@ UITapGestureRecognizer *tap;
     {
         if (buttonIndex == 0 && selectedPhoto >= 0 && uploadImage != nil)
         {
-            bool isAvatar = (selectedPhoto == photosID.count + 2);
-            PhotoUpload *uploader = [[PhotoUpload alloc] initWithPhoto:uploadImage andName:@"uploadedfile" isAvatar:isAvatar];
-            [indicator lockViewAndDisplayIndicator];
-            [uploader uploadPhotoWithCompletion:^(NSString *imgLink, NSString *imgID, BOOL _isAvatar)
-             {
-                 if (imgID)
+            NSData *uploadData = UIImagePNGRepresentation(uploadImage);
+            if ([uploadData length] >= MAX_UPLOAD_SIZE)
+            {
+                UIAlertView *maxSizeAlert = [[UIAlertView alloc] initWithTitle:@"Warning" message:@"The maximum size of photo is 3MB" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+                [maxSizeAlert localizeAllViews];
+                
+                [maxSizeAlert show];
+            }
+            else
+            {
+                bool isAvatar = (selectedPhoto == photosID.count + 2);
+                PhotoUpload *uploader = [[PhotoUpload alloc] initWithPhoto:uploadData andName:@"uploadedfile" isAvatar:isAvatar];
+                [indicator lockViewAndDisplayIndicator];
+                [uploader uploadPhotoWithCompletion:^(NSString *imgLink, NSString *imgID, BOOL _isAvatar)
                  {
-                     if (_isAvatar)
+                     if (imgID)
                      {
-                         [self.imgAvatar setBackgroundImage:uploadImage forState:UIControlStateNormal];
-                         self.imgAvatar.contentMode = UIViewContentModeScaleAspectFit;
-                         [self.imgAvatar setFrame:self.avatarLayout.frame];
+                         if (_isAvatar)
+                         {
+                             [self.imgAvatar setBackgroundImage:uploadImage forState:UIControlStateNormal];
+                             self.imgAvatar.contentMode = UIViewContentModeScaleAspectFit;
+                             [self.imgAvatar setFrame:self.avatarLayout.frame];
+                             
+                             //                         [self.btnUploadVideo setBackgroundImage:avatarImage forState:UIControlStateNormal];
+                             //                         self.btnUploadVideo.contentMode = UIViewContentModeScaleAspectFit;
+                             
+                             profileObj.img_Avatar = uploadImage;
+                             profileObj.s_Avatar = imgLink;
+                         }
                          
-                         //                         [self.btnUploadVideo setBackgroundImage:avatarImage forState:UIControlStateNormal];
-                         //                         self.btnUploadVideo.contentMode = UIViewContentModeScaleAspectFit;
+                         [photos addObject:uploadImage];
+                         [photosID addObject:imgID];
                          
-                         profileObj.img_Avatar = uploadImage;
-                         profileObj.s_Avatar = imgLink;
+                         [self reloadPhotos];
                      }
-                     
-                     [photos addObject:uploadImage];
-                     [photosID addObject:imgID];
                      
                      uploadImage = nil;
                      selectedPhoto = -1;
-                     [self reloadPhotos];
-                 }
-                 
-                 [indicator unlockViewAndStopIndicator];
-             }];
+                     [indicator unlockViewAndStopIndicator];
+                 }];
+            }
         }
         else
         {
@@ -979,7 +990,7 @@ UITapGestureRecognizer *tap;
              {
                  NSString *link = [dictPhotos valueForKey:key];
                  
-                 if(![link isEqualToString:@""] )
+                 if((![photosID containsObject:key]) && ![link isEqualToString:@""] )
                  {
                      AFHTTPRequestOperation *operation =
                      [Profile getAvatarSyncWithOperation:link
@@ -993,7 +1004,6 @@ UITapGestureRecognizer *tap;
                           }
                       }];
                      [operation start];
-                     
                  }
                  
              }
