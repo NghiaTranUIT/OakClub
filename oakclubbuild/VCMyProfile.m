@@ -1109,7 +1109,7 @@ UITapGestureRecognizer *tap;
 {
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:NO];
-    
+   
     [self customBackButtonBarItem];
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectZero] ;
     label.backgroundColor = [UIColor clearColor];
@@ -1120,7 +1120,14 @@ UITapGestureRecognizer *tap;
     [label sizeToFit];
     self.navigationItem.titleView = label;
 }
-
+-(void) viewWillDisappear:(BOOL)animated{
+    if(IS_OS_7_OR_LATER){
+        for(UIView* subview in [self.navigationController.navigationBar subviews]){
+            if([subview isKindOfClass:[UIButton class]])
+                [subview removeFromSuperview];
+        }
+    }
+}
 -(void)setTitle:(NSString *)newTitle
 {
     [super setTitle:newTitle];
