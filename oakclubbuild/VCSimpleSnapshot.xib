@@ -507,7 +507,7 @@
         </viewController>
     </objects>
     <resources>
-        <image name="Default Avatar.png" width="71" height="71"/>
+        <image name="Default Avatar.png" width="70" height="70"/>
         <image name="Snapshot_bg_profiles.png" width="289" height="314"/>
         <image name="Snapshot_btnSendMessage.png" width="154" height="34"/>
         <image name="Snapshot_btn_KeepPlaying.png" width="154" height="34"/>

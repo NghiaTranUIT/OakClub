@@ -620,10 +620,9 @@ CGFloat pageHeight;
         name = [name substringToIndex:10];
         name = [name stringByReplacingCharactersInRange:NSMakeRange([name length]-3, 3) withString:@"..."];
     }
-    result = [NSString stringWithFormat:@"%@ , %@",name,age];
+    result = [NSString stringWithFormat:@"%@, %@",name,age];
     return result;
 }
-
 
 - (IBAction)onTouchEnd:(id)sender {
     int answer = [self.moveMeView getAnswer];
