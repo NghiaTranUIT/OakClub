@@ -8,12 +8,14 @@
 
 #import <Foundation/Foundation.h>
 
+@class LoadingIndicator;
+
 @protocol LoadingIndicatorDelegate <NSObject>
 
 @optional
--(void)customizeIndicator:(UIActivityIndicatorView *)indicator;
--(void)lockView;
--(void)unlockView;
+-(void)customizeIndicator:(UIActivityIndicatorView *)indicator ofLoadingIndicator:(LoadingIndicator *)loadingIndicator;
+-(void)lockViewForIndicator:(LoadingIndicator *)indicator;
+-(void)unlockViewForIndicator:(LoadingIndicator *)indicator;
 @end
 
 @interface LoadingIndicator : NSObject

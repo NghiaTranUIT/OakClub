@@ -866,6 +866,7 @@
     accountCopy.s_Email = [s_Email copyWithZone:zone];
     accountCopy.s_Avatar = [s_Avatar copyWithZone:zone];
     accountCopy.img_Avatar = [img_Avatar copy];
+    accountCopy.s_video = [s_video copyWithZone:zone];
     accountCopy.s_ProfileStatus = [s_ProfileStatus copyWithZone:zone];
     accountCopy.i_Points = i_Points;
     accountCopy.s_FB_id = [s_FB_id copyWithZone:zone];

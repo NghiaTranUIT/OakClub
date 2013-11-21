@@ -289,6 +289,7 @@
 
 #define ProfileItems  ([NSArray arrayWithObjects:@"Name", @"Birthdate",@"Interested In", @"Gender",@"Relationship",@"Location",@"Height",@"Weight",@"Ethnicity",@"School",@"Language",@"Work",@"About me",@"Popularity",  nil])
 #define MyProfileItemList  ([NSArray arrayWithObjects:@"Name", @"Birthdate",@"Email",@"Gender", @"Relationship",@"Height",@"Weight", @"Interested In", @"Location",@"Ethnicity",@"School",@"Language",@"Work",@"About me", nil])
+#define UpdateProfileItemList  ([NSArray arrayWithObjects:@"Name", @"Birthdate",@"Email",@"Gender", @"Interested In", nil])
 #define SnapshotSettingItemList  ([NSArray arrayWithObjects:@"I'm here to", @"I want to see",@"With who", @"Age around",@"Nearby GPS",@"Where",@"Range", nil])
 //==============================
 #define MAXLENGTH_NAME 20

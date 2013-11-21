@@ -1042,19 +1042,19 @@ UITapGestureRecognizer *tap;
 }
 
 #pragma mark LOADING INDICATOR DELEGATE
--(void)lockView
+-(void)lockViewForIndicator:(LoadingIndicator *)indicator
 {
     [appDel.rootVC.view setUserInteractionEnabled:NO];
     [self.navigationController.navigationBar setUserInteractionEnabled:NO];
 }
 
--(void)unlockView
+-(void)unlockViewForIndicator:(LoadingIndicator *)indicator
 {
     [appDel.rootVC.view setUserInteractionEnabled:YES];
     [self.navigationController.navigationBar setUserInteractionEnabled:YES];
 }
 
--(void)customizeIndicator:(UIActivityIndicatorView *)_indicator
+-(void)customizeIndicator:(UIActivityIndicatorView *)_indicator ofLoadingIndicator:(LoadingIndicator *)loadingIndicator
 {
     CGRect frame = _indicator.frame;
     frame.origin.y = 200;

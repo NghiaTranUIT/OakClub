@@ -50,15 +50,15 @@
 {
     if (![indicator isAnimating])
     {
-        if (delegate && [delegate respondsToSelector:@selector(customizeIndicator:)])
+        if (delegate && [delegate respondsToSelector:@selector(customizeIndicator:ofLoadingIndicator:)])
         {
-            [delegate customizeIndicator:indicator];
+            [delegate customizeIndicator:indicator ofLoadingIndicator:self];
         }
         
         [mainView setUserInteractionEnabled:NO];
-        if (delegate && [delegate respondsToSelector:@selector(lockView)])
+        if (delegate && [delegate respondsToSelector:@selector(lockViewForIndicator:)])
         {
-            [delegate lockView];
+            [delegate lockViewForIndicator:self];
         }
         
         [mainView addSubview:indicator];
@@ -71,9 +71,9 @@
     if ([indicator isAnimating])
     {
         [mainView setUserInteractionEnabled:YES];
-        if (delegate && [delegate respondsToSelector:@selector(unlockView)])
+        if (delegate && [delegate respondsToSelector:@selector(unlockViewForIndicator:)])
         {
-            [delegate unlockView];
+            [delegate unlockViewForIndicator:self];
         }
         
         [indicator removeFromSuperview];

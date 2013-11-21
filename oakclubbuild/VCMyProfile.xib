@@ -15,6 +15,7 @@
                 <outlet property="locationLabel" destination="d5W-sZ-5OI" id="NRO-ho-Boy"/>
                 <outlet property="nameLabel" destination="bfQ-WK-XEf" id="Ydg-Qb-tw4"/>
                 <outlet property="photoScrollView" destination="RAa-rt-KJE" id="UBw-HF-Trg"/>
+                <outlet property="photoSuperView" destination="NWg-vh-pbT" id="3jo-f6-dNH"/>
                 <outlet property="pickerHeight" destination="336" id="338"/>
                 <outlet property="pickerView" destination="232" id="269"/>
                 <outlet property="pickerWeight" destination="332" id="337"/>
@@ -57,8 +58,8 @@
                                 <action selector="avatarTouched:" destination="-1" eventType="touchUpInside" id="AE1-Jm-xMp"/>
                             </connections>
                         </button>
-                        <button hidden="YES" opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="twZ-Li-Rjg" userLabel="Button-uploadVideo">
-                            <rect key="frame" x="174" y="67" width="125" height="125"/>
+                        <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="twZ-Li-Rjg" userLabel="Button-uploadVideo">
+                            <rect key="frame" x="174" y="71" width="125" height="123"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="15"/>
@@ -67,6 +68,9 @@
                                 <color key="titleColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <color key="titleShadowColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </state>
+                            <connections>
+                                <action selector="uploadVideoTouched:" destination="-1" eventType="touchUpInside" id="fJC-32-Te9"/>
+                            </connections>
                         </button>
                         <view contentMode="scaleToFill" id="NWg-vh-pbT">
                             <rect key="frame" x="0.0" y="241" width="320" height="104"/>
@@ -127,23 +131,23 @@
                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="myprofile_editVideo.png" id="dj9-gz-DxT">
-                            <rect key="frame" x="174" y="67" width="126" height="125"/>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="myprofile_editVideo.png" id="dj9-gz-DxT">
+                            <rect key="frame" x="173" y="72" width="126" height="125"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             <accessibility key="accessibilityConfiguration">
                                 <accessibilityTraits key="traits" none="YES" image="YES" notEnabled="YES"/>
                             </accessibility>
                         </imageView>
-                        <label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Edit Your" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="pcA-Cq-o12">
-                            <rect key="frame" x="195" y="150" width="84" height="21"/>
+                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Edit Your" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="pcA-Cq-o12">
+                            <rect key="frame" x="194" y="155" width="84" height="21"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Video" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="cEb-MU-yNq">
-                            <rect key="frame" x="202" y="159" width="73" height="21"/>
+                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Video" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="cEb-MU-yNq">
+                            <rect key="frame" x="201" y="164" width="73" height="21"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" type="system" pointSize="10"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
