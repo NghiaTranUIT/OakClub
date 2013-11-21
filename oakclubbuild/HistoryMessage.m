@@ -62,7 +62,7 @@
     return array;
 }
 
-+(void)getHistoryMessages:(NSString*) hangout_id callback:(void(^)(NSMutableArray*))handler
++(void)getHistoryMessages:(NSString*)hangout_id callback:(void(^)(NSMutableArray*))handler
 {
     AFHTTPClient *request = [[AFHTTPClient alloc]initWithOakClubAPI:DOMAIN];
     
@@ -91,6 +91,7 @@
      } failure:^(AFHTTPRequestOperation *operation, NSError *error)
      {
          NSLog(@"Get History Msg Error Code: %i - %@",[error code], [error localizedDescription]);
+         handler(nil);
      }];
 }
 

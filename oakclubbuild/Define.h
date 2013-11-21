@@ -32,21 +32,25 @@
 #define HOSTNAME @"staging.oakclub.com"
 #define DOMAIN @"http://staging.oakclub.com"
 #define DOMAIN_DATA @"http://data1.oakclub.com/"
+#define MAX_UPLOAD_SIZE 8192000 //~8MB
 #endif
 #if USE_MAINHOST
 #define HOSTNAME @"oakclub.com"
 #define DOMAIN @"https://oakclub.com"
 #define DOMAIN_DATA @"http://data2.oakclub.com/" //data2
+#define MAX_UPLOAD_SIZE 3072000 //~3MB
 #endif
 #if USE_STAGING_MB
 #define HOSTNAME @"staging-mb.oakclub.com"
 #define DOMAIN @"http://staging-mb.oakclub.com"
 #define DOMAIN_DATA @"http://data1.oakclub.com/"
+#define MAX_UPLOAD_SIZE 8192000 //~8MB
 #endif
 #if USE_STAGING_IOS
 #define HOSTNAME @"staging.oakclub.com"
 #define DOMAIN @"http://staging-ios.oakclub.com"
 #define DOMAIN_DATA @"http://data1.oakclub.com/"
+#define MAX_UPLOAD_SIZE 8192000 //~8MB
 #endif
 //============== application key =============
 #define key_appLanguage @"appLanguage"
@@ -105,6 +109,7 @@
 //root
 #define key_status @"status"
 #define key_errorStatus @"error_status"
+#define key_errorCode @"error_code"
 #define key_data @"data"
 //profile
 #define key_msg @"msg"

@@ -860,12 +860,12 @@
 -(id) copyWithZone: (NSZone *) zone
 {
     Profile *accountCopy = [[Profile allocWithZone: zone] init];
-    accountCopy.img_Avatar = img_Avatar;
     accountCopy.s_ID = [s_ID copyWithZone:zone];
     accountCopy.s_school = [s_school copyWithZone:zone];
     accountCopy.s_Name = [s_Name copyWithZone:zone];
     accountCopy.s_Email = [s_Email copyWithZone:zone];
     accountCopy.s_Avatar = [s_Avatar copyWithZone:zone];
+    accountCopy.img_Avatar = [img_Avatar copy];
     accountCopy.s_ProfileStatus = [s_ProfileStatus copyWithZone:zone];
     accountCopy.i_Points = i_Points;
     accountCopy.s_FB_id = [s_FB_id copyWithZone:zone];

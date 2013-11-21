@@ -69,6 +69,7 @@ UITapGestureRecognizer *tap;
     [super viewDidLoad];
 //    [self customBackButtonBarItem];
     [self initSliderForRange];
+    indicator = [[LoadingIndicator alloc] initWithMainView:self.view andDelegate:self];
     tap = [[UITapGestureRecognizer alloc]
            initWithTarget:self
            action:@selector(dismissKeyboard)];
@@ -82,7 +83,6 @@ UITapGestureRecognizer *tap;
     appDel = [self appDelegate];
      [self showNotifications];
     
-    indicator = [[LoadingIndicator alloc] initWithMainView:self.view andDelegate:self];
 }
 
 -(void)viewDidAppear:(BOOL)animated{
@@ -673,9 +673,8 @@ UITapGestureRecognizer *tap;
         hasMale = [snapshotObj.gender_of_search isEqualToString:value_Male] || [snapshotObj.gender_of_search isEqualToString:value_All];
         hasFemale = [snapshotObj.gender_of_search isEqualToString:value_Female] || [snapshotObj.gender_of_search isEqualToString:value_All];
         
-        [indicator unlockViewAndStopIndicator];
-        
         [self.tbView reloadData];
+        [indicator unlockViewAndStopIndicator];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"URL_getSnapshotSetting - Error Code: %i - %@",[error code], [error localizedDescription]);
         [indicator unlockViewAndStopIndicator];

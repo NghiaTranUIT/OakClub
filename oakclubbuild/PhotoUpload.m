@@ -11,7 +11,7 @@
 
 @interface PhotoUpload() <UIAlertViewDelegate>
 {
-    UIImage *photo;
+    NSData *photo;
     NSString *name;
     BOOL isAvatar;
 }
@@ -21,7 +21,7 @@
 
 @synthesize delegate;
 
--(id)initWithPhoto:(UIImage *)_photo andName:(NSString *)photoName isAvatar:(BOOL)_isAvatar
+-(id)initWithPhoto:(NSData *)_photo andName:(NSString *)photoName isAvatar:(BOOL)_isAvatar
 {
     if (self = [super init])
     {
@@ -33,49 +33,9 @@
     return self;
 }
 
--(void)uploadPhotoWithCompletionOldVersion:(void(^)(NSString *, NSString *))completionHandler
-{
-    NSData *imgData = UIImagePNGRepresentation(photo);
-    AFHTTPClient *client= [[AFHTTPClient alloc] initWithOakClubAPI:DOMAIN];
-    [client setParameterEncoding:AFFormURLParameterEncoding];
-    [client registerHTTPOperationClass:[AFHTTPRequestOperation class]];
-    
-    NSMutableDictionary *params = [[NSMutableDictionary alloc] initWithObjectsAndKeys:@"images/png", @"mime_type", [imgData base64Encoding], @"uploadedfile", nil];
-    if (isAvatar)
-    {
-        [params setObject:[NSNumber numberWithBool:isAvatar] forKey:@"is_avatar"];
-    }
-    NSMutableURLRequest *myRequest = [client requestWithMethod:@"POST" path:URL_uploadPhoto parameters:params];
-    
-    AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:myRequest];
-    [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *op, id JSON)
-     {
-         NSError *e;
-         NSMutableDictionary *dict = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONReadingMutableContainers error:&e];
-         NSLog(@"Send image completed; return %@\n%@", [JSON base64Encoding], dict); //Lets us know the result including failures
-         NSDictionary *data = [dict objectForKey:key_data];
-         NSString *link = [data objectForKey:@"file"];
-         NSString *imgID = [data objectForKey:@"id"];
-         
-         if (completionHandler)
-         {
-             completionHandler(link, imgID);
-         }
-     }failure:^(AFHTTPRequestOperation *op, NSError *err)
-     {
-         NSLog(@"Upload photo error: %@", err);
-         if (completionHandler)
-         {
-             completionHandler(nil, nil);
-         }
-     }];
-    
-    [operation start];
-}
-
 -(void)uploadPhotoWithCompletion:(void(^)(NSString *, NSString *, BOOL))completionHandler
 {
-    NSData *imgData = UIImagePNGRepresentation(photo);
+    NSData *imgData = photo;
     AFHTTPClient *client= [[AFHTTPClient alloc] initWithOakClubAPI:DOMAIN];
     
     NSDictionary *params = nil;
@@ -97,14 +57,25 @@
         NSError *e;
         NSMutableDictionary *dict = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONReadingMutableContainers error:&e];
         NSLog(@"Send image completed; return %@\n%@%@", [JSON base64Encoding], dict, [[NSString alloc] initWithData:JSON encoding:NSUTF8StringEncoding]); //Lets us know the result including failures
-        NSDictionary *data = [dict objectForKey:key_data];
-        NSString *link = [data objectForKey:@"file"];
-        NSString *imgID = [data objectForKey:@"id"];
-        
-        if (completionHandler)
+        BOOL error = [[dict objectForKey:key_errorCode] boolValue];
+        if (!error)
         {
-            completionHandler(link, imgID, isAvatar);
+            NSDictionary *data = [dict objectForKey:key_data];
+            NSString *link = [data objectForKey:@"file"];
+            NSString *imgID = [data objectForKey:@"id"];
+            if (completionHandler)
+            {
+                completionHandler(link, imgID, isAvatar);
+            }
         }
+        else
+        {
+            if (completionHandler)
+            {
+                completionHandler(nil, nil, NO);
+            }
+        }
+        
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Upload photo error: %@", error);
         if (completionHandler)

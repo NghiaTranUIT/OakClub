@@ -9,6 +9,7 @@
             <connections>
                 <outlet property="logoutController" destination="N4i-fF-zaN" id="pCl-nk-Lt7"/>
                 <outlet property="logoutViewController" destination="N4i-fF-zaN" id="hEA-yf-UPR"/>
+                <outlet property="tbView" destination="RJI-AJ-6pI" id="27D-KY-zxR"/>
                 <outlet property="view" destination="ciK-qQ-2Kv" id="x0Z-Jx-d1b"/>
             </connections>
         </placeholder>
