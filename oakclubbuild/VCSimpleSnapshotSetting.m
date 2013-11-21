@@ -524,8 +524,8 @@ UITapGestureRecognizer *tap;
             }
             [appDel updateLanguageBundle];
             [tableView reloadData];
-            [[self navBarOakClub] setHeaderName:[NSString localizeString:@"Setting"]];
-            [appDel loadDataForList];
+            [[self navBarOakClub] setHeaderName:[NSString localizeString:@"Settings"]];
+//            [appDel loadDataForList];
             [self.view localizeAllViews];
             break;
         }
