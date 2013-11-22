@@ -236,7 +236,7 @@
 #define POPULARITY_VERY_HIGHT_TEXT @"Very High";
 
 //=================Interested status==================
-#define interestedStatusNO 0
+#define interestedStatusNO 3
 #define interestedStatusYES 1
 #define interestedStatusMAYBE 2
 

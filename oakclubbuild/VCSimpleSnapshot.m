@@ -370,9 +370,8 @@ CGFloat pageHeight;
 }
 
 -(void) gotoPROFILE{
-    int answerFirstTime = [[[NSUserDefaults standardUserDefaults] objectForKey:key_isFirstSnapshot] integerValue];
-    BOOL hasFirstTime =[[[NSUserDefaults standardUserDefaults] objectForKey:key_hasFirstSnapshot] boolValue];
-    if(!hasFirstTime && answerFirstTime > 0){
+    int isFirstTime = [[[NSUserDefaults standardUserDefaults] objectForKey:key_isFirstSnapshot] integerValue];
+    if(isFirstTime < 4){
         [self.btnHeart setHidden:YES];
         [self.btnX setHidden:YES];
     }
@@ -570,37 +569,27 @@ CGFloat pageHeight;
 }
 
 -(void)setFavorite:(NSString*)answerChoice{
-    int answerFirstTime = [[[NSUserDefaults standardUserDefaults] objectForKey:key_isFirstSnapshot] integerValue];
-    BOOL hasFirstTime =[[[NSUserDefaults standardUserDefaults] objectForKey:key_hasFirstSnapshot] boolValue];
-    if(hasFirstTime){
-        if( answerFirstTime > -1 &&
-           ( (answerFirstTime == interestedStatusNO && [answerChoice integerValue] == interestedStatusYES)
-                || (answerFirstTime == interestedStatusYES && [answerChoice integerValue]== interestedStatusNO))
-           )
-        {
-            [self showFirstSnapshotPopup:answerChoice];
-            [self.moveMeView setAnswer:-1];
-            answerFirstTime = -1;
-            [[NSUserDefaults standardUserDefaults] setBool:YES forKey:key_hasFirstSnapshot];
-            [[NSUserDefaults standardUserDefaults] setInteger:answerFirstTime forKey:key_isFirstSnapshot];
-            return;
-        }
-    }
-    else{
-        if(answerFirstTime > -1)
-        {
-            [self showFirstSnapshotPopup:answerChoice];
-            [self.moveMeView setAnswer:-1];
-            answerFirstTime = [answerChoice integerValue];
-            [[NSUserDefaults standardUserDefaults] setBool:YES forKey:key_hasFirstSnapshot];
-            [[NSUserDefaults standardUserDefaults] setInteger:answerFirstTime forKey:key_isFirstSnapshot];
-            return;
-        }
+    int isFirstTime = [[[NSUserDefaults standardUserDefaults] objectForKey:key_isFirstSnapshot] integerValue];
+    if(isFirstTime==0 || (isFirstTime < 4 &&
+        ( (isFirstTime == interestedStatusNO && [answerChoice integerValue] == interestedStatusYES)
+           || (isFirstTime == interestedStatusYES && [answerChoice integerValue]== interestedStatusNO)
+        )
+       ))
+    {
+        [self showFirstSnapshotPopup:answerChoice];
+        [self.moveMeView setAnswer:-1];
+        isFirstTime+=[answerChoice integerValue];
+        [[NSUserDefaults standardUserDefaults] setInteger:isFirstTime forKey:key_isFirstSnapshot];
+        return;
     }
     [self.moveMeView setAnswer:[answerChoice integerValue]];
     request = [[AFHTTPClient alloc]initWithOakClubAPI:DOMAIN];
     NSLog(@"current id = %@",currentProfile.s_Name);
-    NSDictionary *params = [[NSDictionary alloc]initWithObjectsAndKeys:currentProfile.s_ID,key_profileID,answerChoice,@"is_like", nil];
+    NSDictionary *params;
+    if([answerChoice integerValue] == interestedStatusYES)
+        params = [[NSDictionary alloc]initWithObjectsAndKeys:currentProfile.s_ID,key_profileID,@"1",@"is_like", nil];
+    else
+        params = [[NSDictionary alloc]initWithObjectsAndKeys:currentProfile.s_ID,key_profileID,@"0" ,@"is_like", nil];
     NSString *value = [[NSUserDefaults standardUserDefaults] objectForKey:@"currentSnapShotID"];
     if ([answerChoice isEqualToString:@"1"]) {
 //        [self showMatchView];// DEBUG
