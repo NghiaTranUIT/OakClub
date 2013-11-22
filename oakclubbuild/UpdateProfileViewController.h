@@ -9,9 +9,14 @@
 #import <UIKit/UIKit.h>
 
 @interface UpdateProfileViewController : UIViewController
-
+-(void)updateProfile;
 @end
 
-@interface UIViewBirthdayPicker : UIViewController
+@protocol UIViewControllerBirthdayPickerDelegate <NSObject>
+-(void)dateChanged:(NSDate *)date;
+@end
 
+@interface UIViewControllerBirthdayPicker : UIViewController
+@property (strong, nonatomic) NSDate *currentDay;
+@property id<UIViewControllerBirthdayPickerDelegate> delegate;
 @end

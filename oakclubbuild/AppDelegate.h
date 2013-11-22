@@ -24,7 +24,7 @@
 #import "VCHangoutSetting.h" // for test
 #import "FlashIntro.h"
 // ==== chatting
-#import "ConfirmViewController.h"
+#import "UpdateProfileViewController.h"
 #import <CoreData/CoreData.h>
 #import "XMPPFramework.h"
 #import "SMMessageDelegate.h"
@@ -116,7 +116,7 @@ extern NSString *const SCSessionStateChangedNotification;
 //@property (strong, nonatomic) UINavigationController *getPoints;
 @property (strong, nonatomic) PKRevealController *rootVC;
 @property (strong, nonatomic) SCLoginViewController *loginView;
-@property (strong, nonatomic) ConfirmViewController *confirmVC;
+@property (strong, nonatomic) UINavigationController *confirmVC;
 @property (strong, nonatomic) FlashIntro *flashIntro;
 
 @property (strong, nonatomic) NSArray *countryList;

@@ -118,6 +118,14 @@ int cellCountinSection=0;
                      }
                  }];
             }
+            else
+            {
+                --i;
+                if (!i)
+                {
+                    [indicator unlockViewAndStopIndicator];
+                }
+            }
         }
     }
     

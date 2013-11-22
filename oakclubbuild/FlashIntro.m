@@ -91,7 +91,8 @@
 {
     [indicator lockViewAndDisplayIndicator];
     [appDelegate tryLoginWithSuccess:^(int _status)
-    {
+     {
+         [indicator unlockViewAndStopIndicator];
         if (_status == 2)
         {
             [self animatingGoToLogined];
@@ -100,7 +101,6 @@
         {
             [self animatingGoToLogin];
         }
-        [indicator unlockViewAndStopIndicator];
     } failure:^{
         [self animatingGoToLogin];
         [indicator unlockViewAndStopIndicator];
