@@ -852,6 +852,7 @@
             completion(YES);
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"Save profile error %@", error);
         completion(NO);
 //        return NO;
     }];

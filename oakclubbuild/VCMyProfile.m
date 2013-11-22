@@ -441,7 +441,8 @@ UITapGestureRecognizer *tap;
             }
             else
             {
-                // SHOW FAIL WARNING
+                // TRANSLATE
+                [self showWarning:@"Cannot save profile" withTag:0];
             }
         }
     }];
@@ -1173,6 +1174,7 @@ UITapGestureRecognizer *tap;
 
 -(UIImage *)videoThumb
 {
+    return nil;
     NSURL *videoURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@", DOMAIN_DATA, profileObj.s_video]];
     MPMoviePlayerController *player = [[MPMoviePlayerController alloc] initWithContentURL:videoURL];
     UIImage  *thumbnail = [player thumbnailImageAtTime:1.0 timeOption:MPMovieTimeOptionNearestKeyFrame];

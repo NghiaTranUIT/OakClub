@@ -12,8 +12,8 @@
 
 //demo version FLAG
 #define ENABLE_DEMO true
-#define USE_STAGING true
-#define USE_MAINHOST false
+#define USE_STAGING false
+#define USE_MAINHOST true
 #define USE_STAGING_MB false
 #define USE_STAGING_IOS false
 //Hangout
@@ -35,7 +35,7 @@
 #define MAX_UPLOAD_SIZE 8192000 //~8MB
 #endif
 #if USE_MAINHOST
-#define HOSTNAME @"oakclub.com"
+#define HOSTNAME @"xmpp.oakclub.com"
 #define DOMAIN @"https://oakclub.com"
 #define DOMAIN_DATA @"http://data2.oakclub.com/" //data2
 #define MAX_UPLOAD_SIZE 3072000 //~3MB
