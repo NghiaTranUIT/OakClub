@@ -837,7 +837,6 @@
                             school,@"school",
                             ethnicity,@"ethnicity",// string value
                             lang,@"language",
-                            loc,@"location_id",//location_id
                             work,@"work",
                             self.s_aboutMe,@"about_me",//< 256 characters
                             nil
@@ -852,6 +851,7 @@
             completion(YES);
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"Save profile error %@", error);
         completion(NO);
 //        return NO;
     }];
