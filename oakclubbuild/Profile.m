@@ -837,7 +837,6 @@
                             school,@"school",
                             ethnicity,@"ethnicity",// string value
                             lang,@"language",
-                            loc,@"location_id",//location_id
                             work,@"work",
                             self.s_aboutMe,@"about_me",//< 256 characters
                             nil
