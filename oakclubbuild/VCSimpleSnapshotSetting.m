@@ -947,11 +947,11 @@ UITapGestureRecognizer *tap;
 
 -(void)onTouchLogout{
 //    [self.tbView setUserInteractionEnabled:NO];
-    [self.tbView setScrollEnabled:NO];
-    [self.navigationController.navigationBar setUserInteractionEnabled:NO];
+//    [self.tbView setScrollEnabled:NO];
+//    [self.navigationController.navigationBar setUserInteractionEnabled:NO];
 //    self.logoutViewController = [[VCLogout alloc]init];
-    CGPoint viewPoint = [self.tbView contentOffset];
-    [self.logoutController.view setFrame:CGRectMake(0,self.tbView.contentSize.height , self.logoutController.view.frame.size.width, self.view.frame.size.height-44)];
+    CGPoint viewPoint = CGPointZero;
+    [self.logoutController.view setFrame:CGRectMake(0, self.view.frame.size.height, self.logoutController.view.frame.size.width, self.view.frame.size.height-44)];
     [self.logoutController.view localizeAllViews];
     [self.view addSubview:self.logoutController.view];
     [self.view bringSubviewToFront:self.logoutController.view];

@@ -73,7 +73,7 @@ int cellCountinSection=0;
 //    NSOperationQueue *queue = [[NSOperationQueue alloc] init];
     if (!(appDel.friendChatList == NULL || appDel.friendChatList.count <= 0))
     {
-        [indicator lockViewAndDisplayIndicator];
+//        [indicator lockViewAndDisplayIndicator];
         
         [loadingFriendList startAnimating];
         [self.view bringSubviewToFront:loadingFriendList];
@@ -114,7 +114,7 @@ int cellCountinSection=0;
                      --i;
                      if (!i)
                      {
-                         [indicator unlockViewAndStopIndicator];
+//                         [indicator unlockViewAndStopIndicator];
                      }
                  }];
             }

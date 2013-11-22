@@ -39,7 +39,7 @@
 
 -(void)setS_Avatar:(NSString *)avatar
 {
-    if (![avatar isEqualToString:_s_avatar])
+    if (avatar != NULL && ![avatar isEqualToString:_s_avatar])
     {
         _s_avatar = avatar;
         img_Avatar = nil;
@@ -541,7 +541,7 @@
     // sync
 //    [queue addOperation:operation];
 //    [queue waitUntilAllOperationsAreFinished];
-    NSLog(@"Get chat list completed");
+//    NSLog(@"Get chat list completed");
 }
 
 -(void) parseGetSnapshotToProfile:(NSData*)jsonData{

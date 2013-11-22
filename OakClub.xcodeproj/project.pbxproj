@@ -4184,9 +4184,9 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				ONLY_ACTIVE_ARCH = YES;
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "023742AC-1369-4A69-B3B8-1DE476B7504F";
 				SDKROOT = iphoneos;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -4212,9 +4212,9 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "023742AC-1369-4A69-B3B8-1DE476B7504F";
 				SDKROOT = iphoneos;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -4223,8 +4223,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_WARN__ARC_BRIDGE_CAST_NONARC = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: STEVE REID (Y8V6LRC76N)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: STEVE REID (Y8V6LRC76N)";
 				COPY_PHASE_STRIP = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -4245,9 +4245,9 @@
 					"-ObjC",
 				);
 				PRODUCT_NAME = OakClub;
-				PROVISIONING_PROFILE = "";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
-				TARGETED_DEVICE_FAMILY = "1,2";
+				PROVISIONING_PROFILE = "023742AC-1369-4A69-B3B8-1DE476B7504F";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "023742AC-1369-4A69-B3B8-1DE476B7504F";
+				TARGETED_DEVICE_FAMILY = 1;
 				VALIDATE_PRODUCT = YES;
 				WRAPPER_EXTENSION = app;
 			};
@@ -4257,8 +4257,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_WARN__ARC_BRIDGE_CAST_NONARC = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: STEVE REID (Y8V6LRC76N)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: STEVE REID (Y8V6LRC76N)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/oakclubbuild\"",
@@ -4278,9 +4278,9 @@
 					"-ObjC",
 				);
 				PRODUCT_NAME = OakClub;
-				PROVISIONING_PROFILE = "";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
-				TARGETED_DEVICE_FAMILY = "1,2";
+				PROVISIONING_PROFILE = "023742AC-1369-4A69-B3B8-1DE476B7504F";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "023742AC-1369-4A69-B3B8-1DE476B7504F";
+				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

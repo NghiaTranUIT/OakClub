@@ -42,10 +42,11 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     [self.navigationItem setHidesBackButton:YES];
-//    [self.navigationController setNavigationBarHidden:YES];
+    [self.navigationController setNavigationBarHidden:NO];
     [self customBackButtonBarItem];
     [self  loadViewbyType];
 }
+
 -(void)customBackButtonBarItem{
     UIButton* buttonBack = [UIButton buttonWithType:UIButtonTypeCustom];
     buttonBack.frame = CGRectMake(10, 8, 40, 30);
@@ -94,8 +95,13 @@
     if(appdel.reloadSnapshot){
         [self.navigationController popViewControllerAnimated:NO];
     }
-    
+    [self setNotifications:[appdel countTotalNotifications]];
+
     [self.view localizeAllViews];
+}
+
+-(void)viewDidDisappear:(BOOL)animated{
+    [self removeNotification];
 }
 - (void)didReceiveMemoryWarning
 {
@@ -187,20 +193,30 @@
 -(void)setNotifications:(int)count
 {
     UILabel* lblNumNotification = [[UILabel alloc]initWithFrame:CGRectMake(248, 1, 30, 21)];
+    [lblNumNotification setBackgroundColor:[UIColor clearColor]];
+    [lblNumNotification setTextColor:[UIColor whiteColor]];
+    [lblNumNotification setFont:FONT_HELVETICANEUE_LIGHT(14)];
+    [lblNumNotification setTextAlignment:NSTextAlignmentCenter];
     UIImageView* imgViewNotification = [[UIImageView alloc]initWithFrame:CGRectMake(248, 3, 31, 20)];
     [imgViewNotification setImage:[UIImage imageNamed:@"Navbar_notification.png"]];
-//    self.labelNotifications = (UILabel *) [self.customView viewWithTag:5];
-//    self.imageNotifications = (UIImageView *) [self.customView viewWithTag:6];
-    
+
     if(count > 0)
     {
-//        lblNumNotification.hidden = NO;
-//        imageNotifications.hidden = NO;
+        [self.navigationController.navigationBar addSubview:imgViewNotification];
         lblNumNotification.text = [NSString stringWithFormat:@"+%d", count];
         [self.navigationController.navigationBar addSubview:lblNumNotification];
-        [self.navigationController.navigationBar addSubview:imgViewNotification];
-        
-        
     }
+    
+     NSLog(@"subview  =  %i",[[self.navigationController.navigationBar subviews] count]);
+}
+-(void)removeNotification{
+//    if(IS_OS_7_OR_LATER){
+    self.navigationController.navigationBarHidden = YES;
+    NSLog(@"subview  =  %i",[[self.navigationController.navigationBar subviews] count]);
+        for(UIView* subview in [self.navigationController.navigationBar subviews]){
+            if([subview isKindOfClass:[UILabel class]] || [subview isKindOfClass:[UIImageView class]])
+                [subview removeFromSuperview];
+        }
+//    }
 }
 @end

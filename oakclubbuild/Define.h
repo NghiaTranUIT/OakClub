@@ -12,8 +12,8 @@
 
 //demo version FLAG
 #define ENABLE_DEMO true
-#define USE_STAGING false
-#define USE_MAINHOST true
+#define USE_STAGING true
+#define USE_MAINHOST false
 #define USE_STAGING_MB false
 #define USE_STAGING_IOS false
 //Hangout
@@ -236,7 +236,7 @@
 #define POPULARITY_VERY_HIGHT_TEXT @"Very High";
 
 //=================Interested status==================
-#define interestedStatusNO 3
+#define interestedStatusNO 0
 #define interestedStatusYES 1
 #define interestedStatusMAYBE 2
 

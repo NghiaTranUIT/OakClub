@@ -32,6 +32,7 @@
     
     BOOL isBlockedByGPS;
     BOOL isLoading;
+    Profile* matchedProfile;
 }
 @property (nonatomic, strong) IBOutlet APLMoveMeView *moveMeView;
 @property (nonatomic, weak) IBOutlet UIView *profileView;
@@ -67,6 +68,7 @@ CGFloat pageHeight;
     if (self) {
         // Custom initialization
         currentProfile = [[Profile alloc]init];
+        matchedProfile =[[Profile alloc]init];
         appDel = (AppDelegate *) [UIApplication sharedApplication].delegate;
         is_loadingProfileList = FALSE;
         NSURL *fileURL = [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"Snapshot_gps_loading.gif" ofType:nil]];
@@ -136,7 +138,7 @@ CGFloat pageHeight;
 //    [[self navBarOakClub] addToHeader:logoView];
 }
 -(void) refreshSnapshot{
-    currentIndex = 1;//0; Vanancy cheat
+    currentIndex = 0; //Vanancy cheat
     profileList = [[NSMutableArray alloc] init];
     [self loadProfileList:^(void){
         [self.imgMyAvatar setImage:appDel.myProfile.img_Avatar];
@@ -197,7 +199,7 @@ CGFloat pageHeight;
     {
         [self startLoadingAnim];
     }
-    currentIndex = 1;//0; Vanancy cheat
+    currentIndex = 0; //Vanancy cheat
     profileList = [[NSMutableArray alloc] init];
     request = [[AFHTTPClient alloc] initWithOakClubAPI:DOMAIN];
     NSDictionary *params = [[NSDictionary alloc]initWithObjectsAndKeys:@"0",@"start",@"35",@"limit", nil];
@@ -209,7 +211,7 @@ CGFloat pageHeight;
         
         int status= [[dict valueForKey:@"status"] integerValue];
         NSArray *profiles = [dict valueForKey:key_data];
-        if (status == 0 || [profiles count] < 2)
+        if (status == 0 || [profiles count] < 1)
         {
             [self showWarning];
         }
@@ -233,6 +235,7 @@ CGFloat pageHeight;
 }
 
 -(void)loadNextProfileByCurrentIndex{
+    [self.imgNextProfile setImage:[UIImage imageNamed:@"Default Avatar"]];
     if(currentIndex >= [profileList count])
     {
 //        [self showWarning];
@@ -244,7 +247,7 @@ CGFloat pageHeight;
         [self.imgNextProfile setImage:temp.img_Avatar];
     }
     else{
-        [self.imgNextProfile setImage:[UIImage imageNamed:@"Default Avatar"]];
+        
         AFHTTPRequestOperation *operation =
         [Profile getAvatarSync:temp.s_Avatar
                       callback:^(UIImage *image)
@@ -257,6 +260,7 @@ CGFloat pageHeight;
     NSLog(@"Name of Next Profile : %@",temp.s_Name);
 }
 -(void)loadCurrentProfile{
+    [self.imgMainProfile setImage:[UIImage imageNamed:@"Default Avatar"]];
     if(currentIndex >= [profileList count])
     {
         //[self showWarning];
@@ -271,7 +275,7 @@ CGFloat pageHeight;
     [lblName setText:[self formatTextWithName:currentProfile.s_Name andAge:txtAge]];
     [lbl_mutualFriends setText:[NSString stringWithFormat:@"%i",[currentProfile.arr_MutualFriends count]]];
     lbl_mutualLikes.text = [[NSString alloc]initWithFormat:@"%i",[currentProfile.arr_MutualInterests count]];
-    [self.imgMainProfile setImage:[UIImage imageNamed:@"Default Avatar"]];
+    
     [lblPhotoCount setText:@"0"];
     [lblPhotoCount setText:[NSString stringWithFormat:@"%i",[currentProfile.arr_photos count]]];
     if(currentProfile.img_Avatar!= nil){
@@ -333,6 +337,9 @@ CGFloat pageHeight;
 
 -(void)viewDidAppear:(BOOL)animated
 {
+    [[self navBarOakClub] setHidden:NO];
+
+    self.navigationController.navigationBarHidden = NO;
     [self showNotifications];
 }
 
@@ -471,31 +478,51 @@ CGFloat pageHeight;
     
     
     
-    if([currentProfile.arr_photos[0] isKindOfClass:[UIImageView class]]){
-        UIImageView * photoView =currentProfile.arr_photos[0];
-        [imgMatcher setImage:photoView.image];
-    }
-    else
-    {
-        [imgMatcher setImage:imgMainProfile.image];
-    }
+//    if([currentProfile.arr_photos[0] isKindOfClass:[UIImageView class]]){
+//        UIImageView * photoView =currentProfile.arr_photos[0];
+//        [imgMatcher setImage:photoView.image];
+//    }
+//    else
+//    {
+//        [imgMatcher setImage:imgMainProfile.image];
+//    }
+    [imgMatcher setImage:currentProfile.img_Avatar];
+    matchedProfile = currentProfile;
+}
+
+-(void)addNewChatUser:(Profile*)newChat{
+    NSDate *currentDate = [[NSDate alloc] init];
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"dd-MM-yyyy"];
+    newChat.s_status_time =[dateFormatter stringFromDate:currentDate];
+    NSString* s_jid = [NSString stringWithFormat:@"%@%@", newChat.s_ID, DOMAIN_AT];
+    XMPPJID* xmpp_jid = [XMPPJID jidWithString:s_jid];
+    newChat.status = MatchViewed;
+    [appDel.xmppRoster addUser:xmpp_jid withNickname:newChat.s_Name];
+    [appDel.myProfile.dic_Roster setValue:newChat forKey:newChat.s_ID];
+    [appDel.friendChatList setObject:newChat forKey:s_jid];
 }
 - (IBAction)dismissMatchView:(id)sender {
+    [self addNewChatUser:matchedProfile];
+    matchedProfile = nil;
     [matchViewController.view removeFromSuperview];
     [lblMatchAlert setText:@""];
 }
 - (IBAction)onClickSendMessageToMatcher:(id)sender {
-    UIImage* avatar = currentProfile.arr_photos[0];
+    [self addNewChatUser:matchedProfile];
+    
+//    UIImage* avatar = currentProfile.arr_photos[0];
     NSMutableArray* array = [[NSMutableArray alloc]init];
     
     SMChatViewController *chatController =
-    [[SMChatViewController alloc] initWithUser:[NSString stringWithFormat:@"%@@oakclub.com", currentProfile.s_ID]
-                                   withProfile:currentProfile
-                                    withAvatar:avatar
+    [[SMChatViewController alloc] initWithUser:[NSString stringWithFormat:@"%@@oakclub.com", matchedProfile.s_ID]
+                                   withProfile:matchedProfile
+                                    withAvatar:matchedProfile.img_Avatar
                                   withMessages:array];
     [self.navigationController pushViewController:chatController animated:NO];
     [matchViewController.view removeFromSuperview];
 	[lblMatchAlert setText:@""];
+    matchedProfile = nil;
 }
 -(IBAction)onNOPEClick:(id)sender{
 //    [self doAnswer:interestedStatusNO];
@@ -532,7 +559,10 @@ CGFloat pageHeight;
                         [stamp setAlpha:1.0f];
                          stamp.transform = CGAffineTransformIdentity;
                      }completion:^(BOOL finished) {
-                         [self.moveMeView animatePlacardViewByAnswer:choose andDuration:0.5f];
+                         if([self.moveMeView getAnswer] == -1)
+                             [self.moveMeView animatePlacardViewByAnswer:-1 andDuration:0.5f];
+                         else
+                             [self.moveMeView animatePlacardViewByAnswer:choose andDuration:0.5f];
                      }];
     [self setFavorite:[NSString stringWithFormat:@"%i",choose]];
 }
@@ -551,14 +581,19 @@ CGFloat pageHeight;
         [[NSUserDefaults standardUserDefaults] setInteger:isFirstTime forKey:key_isFirstSnapshot];
         return;
     }
-    
+    [self.moveMeView setAnswer:[answerChoice integerValue]];
     request = [[AFHTTPClient alloc]initWithOakClubAPI:DOMAIN];
     NSLog(@"current id = %@",currentProfile.s_Name);
-    NSDictionary *params = [[NSDictionary alloc]initWithObjectsAndKeys:currentProfile.s_snapshotID,@"snapshot_id",answerChoice,@"set", nil];
+    NSDictionary *params = [[NSDictionary alloc]initWithObjectsAndKeys:currentProfile.s_ID,key_profileID,answerChoice,@"is_like", nil];
     NSString *value = [[NSUserDefaults standardUserDefaults] objectForKey:@"currentSnapShotID"];
     if ([answerChoice isEqualToString:@"1"]) {
-        if([appDel.likedMeList indexOfObject:value]!= NSNotFound){
-            [self showMatchView];
+//        [self showMatchView];// DEBUG
+        for (int i=0; i < [appDel.likedMeList count]; i++) {
+            NSString *s_profileID = [[appDel.likedMeList objectAtIndex:i] valueForKey:key_profileID];
+            if([s_profileID isEqualToString:value]){
+                [self showMatchView];
+                break;
+            }
         }
     }
     [request setParameterEncoding:AFFormURLParameterEncoding];

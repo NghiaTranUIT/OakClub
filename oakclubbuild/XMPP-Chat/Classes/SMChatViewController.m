@@ -22,7 +22,7 @@
 #import "VCReportPopup.h"
 #import "ChatNavigationView.h"
 @interface SMChatViewController() <ImageRequester>
-
+@property UIImageView* headerLogo;
 @end
 
 @implementation SMChatViewController
@@ -235,10 +235,26 @@
 }
 -(void)viewWillDisappear:(BOOL)animated{
     appDel._messageDelegate =nil;
+    [self clearCustomNavigationHeader];
+}
+-(void)clearCustomNavigationHeader{
+    for(UIView* subview in [self.navigationController.navigationBar subviews]){
+        if([subview isKindOfClass:[ChatNavigationView class]] )
+            [subview removeFromSuperview];
+    }
+    [self loadHeaderLogo];
+//    [self.navigationController.navigationBar addSubview:self.headerLogo];
+}
+-(void)loadHeaderLogo{
+    UIImage* logo = [UIImage imageNamed:@"Snapshot_logo.png"];
+    UIImageView *logoView = [[UIImageView alloc]initWithFrame:CGRectMake(98, 10, 125, 26)];
+    [logoView setImage:logo];
+    [self.navigationController.navigationBar  addSubview:logoView];
+    //    [[self navBarOakClub] addToHeader:logoView];
 }
 -(void)customNavigationHeader{
-    if(!IS_OS_7_OR_LATER)
-        [self.navigationController.navigationBar.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+//    if(!IS_OS_7_OR_LATER)
+//        [self.navigationController.navigationBar.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
     
     [btnBackToPrevious setFrame:CGRectMake(0, 0, btnBackToPrevious.frame.size.width, btnBackToPrevious.frame.size.height)];
     [btnBackToPrevious addTarget:self action:@selector(backToPreviousView) forControlEvents:UIControlEventTouchUpInside];
@@ -260,6 +276,10 @@
     for(UIView* subview in [self.navigationController.navigationBar subviews]){
         if([subview isKindOfClass:[ChatNavigationView class]] || [subview isKindOfClass:[UILabel class]] || [subview isKindOfClass:[UIButton class]])
             [subview removeFromSuperview];
+        if([subview isKindOfClass:[UIImageView class]]){
+            self.headerLogo = (UIImageView*)subview;
+            [subview removeFromSuperview];
+        }
     }
     [self.navigationItem setHidesBackButton:YES];
     [self.navigationController.navigationBar addSubview:headerView];
