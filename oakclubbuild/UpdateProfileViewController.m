@@ -9,6 +9,7 @@
 #import "UpdateProfileViewController.h"
 #import "AppDelegate.h"
 #import "UIView+Localize.h"
+#import "LoadingIndicator.h"
 
 enum UpdateProfileItems {
     UpdateProfile_Name = 0,
@@ -18,15 +19,20 @@ enum UpdateProfileItems {
     UpdateProfile_InterestedIn
     };
 
-#define nItems 6
-@interface UpdateProfileViewController () <UITableViewDataSource, UITableViewDelegate, EditTextViewDelegate, ListForChooseDelegate>
+#define nItems 5
+@interface UpdateProfileViewController () <UITableViewDataSource, UITableViewDelegate, EditTextViewDelegate, ListForChooseDelegate, UIViewControllerBirthdayPickerDelegate, ImageRequester, LoadingIndicatorDelegate>
 {
     NSArray *updateProfileCellTitles;
     Profile *copyProfile;
     AppDelegate *appDelegate;
+    LoadingIndicator *indicator;
 }
 @property (weak, nonatomic) IBOutlet UITableView *tbView;
 @property (weak, nonatomic) IBOutlet UIImageView *avatarView;
+@property (weak, nonatomic) IBOutlet UILabel *lblName;
+@property (weak, nonatomic) IBOutlet UILabel *lblAgeWork;
+@property (weak, nonatomic) IBOutlet UILabel *lblLocation;
+@property (strong, nonatomic) IBOutlet UIViewControllerBirthdayPicker *birthdayVC;
 @end
 
 @implementation UpdateProfileViewController
@@ -37,6 +43,7 @@ enum UpdateProfileItems {
     if (self) {
         // Custom initialization
         updateProfileCellTitles = [[NSArray alloc] initWithArray:UpdateProfileItemList];
+        appDelegate = (id) [UIApplication sharedApplication].delegate;
     }
     return self;
 }
@@ -45,7 +52,8 @@ enum UpdateProfileItems {
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
-    appDelegate = (id) [UIApplication sharedApplication].delegate;
+    
+    indicator = [[LoadingIndicator alloc] initWithMainView:self.view andDelegate:self];
 }
 
 - (void)didReceiveMemoryWarning
@@ -54,22 +62,54 @@ enum UpdateProfileItems {
     // Dispose of any resources that can be recreated.
 }
 
--(void)viewDidAppear:(BOOL)animated
+-(NavBarOakClub*)navBarOakClub
 {
-    [super viewDidAppear:animated];
+    NavConOakClub* navcon = (NavConOakClub*)self.navigationController;
+    return (NavBarOakClub*)navcon.navigationBar;
+}
+
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
     
-    copyProfile = [appDelegate.myProfile copy];
-    [self updateProfile];
+    [self updateData];
+    
+    [self.navBarOakClub.customView removeFromSuperview];
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectZero] ;
+    label.backgroundColor = [UIColor clearColor];
+    label.font = FONT_HELVETICANEUE_LIGHT(20.0);//[UIFont boldSystemFontOfSize:20.0];
+    label.textAlignment = NSTextAlignmentCenter;
+    [label setText:@"Update profile"];
+    label.textColor = [UIColor blackColor]; // change this color
+    [label sizeToFit];
+    self.navigationItem.titleView = label;
     
     [self.view localizeAllViews];
 }
 
 -(void)updateProfile
 {
-    [self.avatarView setImage:copyProfile.img_Avatar];
+    copyProfile = [appDelegate.myProfile copy];
+}
+
+-(void)updateData
+{
+    [appDelegate.myProfile tryGetImageAsync:self];
+    self.lblName.text = copyProfile.s_Name;
+    self.lblAgeWork.text = [NSString stringWithFormat:@"%d, %@,", copyProfile.age, copyProfile.i_work.cate_name];
+    self.lblLocation.text = copyProfile.s_location.name;
     [self.tbView reloadData];
 }
 
+#pragma Avatar requester
+-(void)setImage:(UIImage *)img
+{
+    if (img)
+    {
+        [self.avatarView setImage:img];
+    }
+}
 
 #pragma mark - Table view data source
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -181,7 +221,13 @@ enum UpdateProfileItems {
 }
 -(void)gotoChooseBirthday
 {
+    NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+    [dateFormat setDateFormat:@"MM/dd/yyyy"];
+    NSDate *birthDay = [dateFormat dateFromString:copyProfile.s_birthdayDate];
+    [self.birthdayVC setCurrentDay:birthDay];
+    [self.birthdayVC setDelegate:self];
     
+    [self.navigationController pushViewController:self.birthdayVC animated:YES];
 }
 -(void)gotoEditEmail
 {
@@ -220,7 +266,7 @@ enum UpdateProfileItems {
             break;
     }
     
-    [self updateProfile];
+    [self updateData];
 }
 -(Profile *)setDefaultValue:(ListForChoose *)uvcList
 {
@@ -259,6 +305,8 @@ enum UpdateProfileItems {
         default:
             break;
     }
+    
+    [self updateData];
 }
 
 #pragma UIAlertView region
@@ -275,13 +323,109 @@ enum UpdateProfileItems {
     [alert show];
 }
 
+#pragma mark BIRTHDAY PICKER
+-(void)dateChanged:(NSDate *)date
+{
+    NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+    [dateFormat setDateFormat:@"MM/dd/yyyy"];
+    
+    copyProfile.s_birthdayDate = [dateFormat stringFromDate:date];
+    
+    [self updateData];
+}
+
 #pragma mark SAVE
 -(void)doneButtonTouched:(id)button
 {
     appDelegate.myProfile = [copyProfile copy];
     
-    [appDelegate.myProfile saveSettingWithCompletion:^(bool isSuccess) {
-        
+    [indicator lockViewAndDisplayIndicator];
+    [appDelegate.myProfile saveSettingWithCompletion:^(bool isSuccess)
+    {
+        [indicator unlockViewAndStopIndicator];
+        [appDelegate gotoVCAtCompleteLogin];
     }];
+}
+
+#pragma mark Loading Indicator Delegate
+-(void)lockViewForIndicator:(LoadingIndicator *)_indicator
+{
+    [appDelegate.rootVC.view setUserInteractionEnabled:NO];
+    [self.navigationController.navigationBar setUserInteractionEnabled:NO];
+}
+
+-(void)unlockViewForIndicator:(LoadingIndicator *)_indicator
+{
+    [appDelegate.rootVC.view setUserInteractionEnabled:YES];
+    [self.navigationController.navigationBar setUserInteractionEnabled:YES];
+}
+@end
+
+@interface UIViewControllerBirthdayPicker()
+@property (weak, nonatomic) IBOutlet UIDatePicker *birthdayPicker;
+@property (weak, nonatomic) IBOutlet UILabel *valueLabel;
+@end
+
+@implementation UIViewControllerBirthdayPicker
+{
+    NSDateFormatter *dateFormat;
+}
+
+@synthesize currentDay;
+
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+{
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    if (self) {
+        // Custom initialization
+    }
+    return self;
+}
+
+-(void)viewDidLoad
+{
+    [super viewDidLoad];
+    
+    dateFormat = [[NSDateFormatter alloc] init];
+    [dateFormat setDateFormat:@"MM/dd/yyyy"];
+}
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    [self customBackButtonBarItem];
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectZero] ;
+    label.backgroundColor = [UIColor clearColor];
+    label.font = FONT_HELVETICANEUE_LIGHT(18.0);//[UIFont boldSystemFontOfSize:20.0];
+    label.textAlignment = NSTextAlignmentCenter;
+    [label setText:@"Birthday"];
+    label.textColor = [UIColor blackColor]; // change this color
+    [label sizeToFit];
+    self.navigationItem.titleView = label;
+    
+    [self.birthdayPicker setDate:currentDay];
+    self.valueLabel.text = [dateFormat stringFromDate:currentDay];
+    [self.view localizeAllViews];
+}
+
+- (IBAction)birthdayPickerValueChanged:(id)sender
+{
+    currentDay = [sender date];
+    
+    self.valueLabel.text = [dateFormat stringFromDate:currentDay];
+    if (self.delegate)
+    {
+        [self.delegate dateChanged:currentDay];
+    }
+}
+
+-(void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    
+    for(UIView* subview in [self.navigationController.navigationBar subviews]){
+        if([subview isKindOfClass:[UIButton class]])
+            [subview removeFromSuperview];
+    }
 }
 @end

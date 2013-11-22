@@ -301,11 +301,10 @@ UITapGestureRecognizer *tap;
                         [filterGuysCell.textLabel setFont: FONT_HELVETICANEUE_LIGHT(15.0)];
                         filterGuysCell.textLabel.highlightedTextColor = [UIColor whiteColor];
                     }
-                    else
-                    {
-                        UISwitch *autoSwitch = (id) [filterGuysCell viewWithTag:100];
-                        autoSwitch.on = hasMale;
-                    }
+                    
+                    UISwitch *autoSwitch = (id) [filterGuysCell viewWithTag:100];
+                    autoSwitch.on = hasMale;
+                    
                     filterGuysCell.textLabel.text = [NSString localizeString:@"Guys"];
                     [filterGuysCell localizeAllViews];
                     return filterGuysCell;
@@ -328,11 +327,10 @@ UITapGestureRecognizer *tap;
                         [filterGirlsCell.textLabel setFont: FONT_HELVETICANEUE_LIGHT(15.0)];
                         filterGirlsCell.textLabel.highlightedTextColor = [UIColor whiteColor];
                     }
-                    else
-                    {
-                        UISwitch *autoSwitch = (id) [filterGirlsCell viewWithTag:101];
-                        autoSwitch.on = hasFemale;
-                    }
+                    
+                    UISwitch *autoSwitch = (id) [filterGirlsCell viewWithTag:101];
+                    autoSwitch.on = hasFemale;
+                    
                     filterGirlsCell.textLabel.text = [NSString localizeString:@"Girls"];
                     [filterGirlsCell localizeAllViews];
                     return filterGirlsCell;
@@ -551,47 +549,75 @@ UITapGestureRecognizer *tap;
             }
             break;
         case ShowMeGroup:
+//            if(row == 0){
+//                snapshotObj.interested_new_people = !snapshotObj.interested_new_people;
+//            }
+//            if(row == 1){
+//                snapshotObj.interested_friend_of_friends = !snapshotObj.interested_friend_of_friends;
+//            }
+//            if(row == 2){
+//                snapshotObj.interested_friends = !snapshotObj.interested_friends;
+//            }
             if(row == 0){
-                snapshotObj.interested_new_people = !snapshotObj.interested_new_people;
+                snapshotObj.interested_new_people = YES;
+                snapshotObj.interested_friend_of_friends = NO;
+                snapshotObj.interested_friends = NO;
             }
             if(row == 1){
-                snapshotObj.interested_friend_of_friends = !snapshotObj.interested_friend_of_friends;
+                snapshotObj.interested_new_people = NO;
+                snapshotObj.interested_friend_of_friends = YES;
+                snapshotObj.interested_friends = NO;
             }
             if(row == 2){
-                snapshotObj.interested_friends = !snapshotObj.interested_friends;
+                snapshotObj.interested_new_people = NO;
+                snapshotObj.interested_friend_of_friends = NO;
+                snapshotObj.interested_friends = YES;
             }
+
             break;
         case GenderSearchGroup:
-            if(row == 0){
-                if(cell.accessoryType == UITableViewCellAccessoryCheckmark){
-                    if([snapshotObj.gender_of_search isEqualToString:value_Male])
-                        snapshotObj.gender_of_search = @"none";
-                    else
-                        snapshotObj.gender_of_search = value_Female;
-                }
-                else{
-                    if([snapshotObj.gender_of_search isEqualToString:value_Female])
-                        snapshotObj.gender_of_search =value_All;
-                    else
-                        snapshotObj.gender_of_search = value_Male;
-                }
-                
+//            if(row == 0){
+//                if(cell.accessoryType == UITableViewCellAccessoryCheckmark){
+//                    if([snapshotObj.gender_of_search isEqualToString:value_Male])
+//                        snapshotObj.gender_of_search = @"none";
+//                    else
+//                        snapshotObj.gender_of_search = value_Female;
+//                }
+//                else{
+//                    if([snapshotObj.gender_of_search isEqualToString:value_Female])
+//                        snapshotObj.gender_of_search =value_All;
+//                    else
+//                        snapshotObj.gender_of_search = value_Male;
+//                }
+//                
+//            }
+//            if(row == 1){
+//                if(cell.accessoryType == UITableViewCellAccessoryCheckmark){
+//                    if([snapshotObj.gender_of_search isEqualToString:value_Female])
+//                        snapshotObj.gender_of_search = @"none";
+//                    else
+//                        snapshotObj.gender_of_search = value_Male;
+//                }
+//                else{
+//                    if([snapshotObj.gender_of_search isEqualToString:value_Male])
+//                        snapshotObj.gender_of_search =value_All;
+//                    else
+//                        snapshotObj.gender_of_search = value_Female;
+//                }
+//            }
+            if (row == 0)   //male
+            {
+                snapshotObj.gender_of_search = value_Male;
+                hasMale = YES;
+                hasFemale = NO;
             }
-            if(row == 1){
-                if(cell.accessoryType == UITableViewCellAccessoryCheckmark){
-                    if([snapshotObj.gender_of_search isEqualToString:value_Female])
-                        snapshotObj.gender_of_search = @"none";
-                    else
-                        snapshotObj.gender_of_search = value_Male;
-                }
-                else{
-                    if([snapshotObj.gender_of_search isEqualToString:value_Male])
-                        snapshotObj.gender_of_search =value_All;
-                    else
-                        snapshotObj.gender_of_search = value_Female;
-                }
+            else if (row == 1) // female
+            {
+                snapshotObj.gender_of_search = value_Female;
+                hasMale = NO;
+                hasFemale = YES;
             }
-                
+            
             break;
     }
     [self.tbView reloadData];
@@ -695,12 +721,12 @@ UITapGestureRecognizer *tap;
     }
     
     request = [[AFHTTPClient alloc] initWithOakClubAPI:DOMAIN];
-    NSString * s_isNewPeople= snapshotObj.interested_new_people?@"1":@"0";
-    NSString * s_isFOF= snapshotObj.interested_friend_of_friends?@"1":@"0";
-    NSString * s_isFriend= snapshotObj.interested_friends?@"1":@"0";
+    NSString * s_isNewPeople= snapshotObj.interested_new_people?@"true":@"";
+    NSString * s_isFOF= snapshotObj.interested_friend_of_friends?@"true":@"";
+    NSString * s_isFriend= snapshotObj.interested_friends?@"true":@"";
     NSString *s_hereto = snapshotObj.purpose_of_search;
-    NSString *isMale = hasMale?@"on":@"off";
-    NSString *isFemale = hasFemale?@"on":@"off";
+    NSString *isMale = hasMale?@"on":@"";
+    NSString *isFemale = hasFemale?@"on":@"";
 #if ENABLE_DEMO
     NSDictionary *params = [[NSDictionary alloc]initWithObjectsAndKeys:
                             s_hereto,@"purpose_of_search",
@@ -990,11 +1016,13 @@ UITapGestureRecognizer *tap;
         case 100:
         {
             hasMale = [sender isOn];
+            hasFemale = !hasMale;
             break;
         }
         case 101:
         {
             hasFemale = [sender isOn];
+            hasMale = !hasFemale;
             break;
         }
         default:

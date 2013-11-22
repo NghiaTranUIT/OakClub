@@ -28,6 +28,7 @@
 #import "FacebookSDK/FBWebDialogs.h"
 #import "PhotoUpload.h"
 #import "NSString+Utils.h"
+#import "UIView+Localize.h"
 
 #import "AppLifeCycleDelegate.h"
 
@@ -216,7 +217,7 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
 //    self.mutualMatches = [self createNavigationByClass:@"VCMutualMatch" AndHeaderName:[NSString localizeString:@"Mutual Matches"] andRightButton:nil andIsStoryBoard:NO];
     self.myProfileVC = [self createNavigationByClass:@"VCMyProfile" AndHeaderName:[NSString localizeString:@"Edit Profile"] andRightButton:@"VCChat" andIsStoryBoard:NO];
 //    self.getPoints = [self createNavigationByClass:@"VCGetPoints" AndHeaderName:@"Get Coins" andRightButton:nil andIsStoryBoard:NO];
-    self.confirmVC = [[ConfirmViewController alloc] initWithNibName:@"VCMyProfile" bundle:nil];
+    self.confirmVC = [self createNavigationByClass:@"UpdateProfileViewController" AndHeaderName:[@"Update Profile" localize] andRightButton:nil andIsStoryBoard:NO];
     // PKRevealController
 #if ENABLE_DEMO
     activeVC = _simpleSnapShot;
@@ -479,7 +480,8 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
 
 -(void)showConfirm
 {
-    [self.confirmVC setDefaultEditProfile:self.myProfile];
+    UpdateProfileViewController *updateProfileVC = [self.confirmVC.viewControllers objectAtIndex:0];
+    [updateProfileVC updateProfile];
     self.window.rootViewController = self.confirmVC;
 }
 
@@ -707,15 +709,10 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
         NSLog(@"USER INFO _ %@",result);
         self.myFBProfile = result;
         
-        [self loadDataForList:^(void){
-            if(resultHandler != nil)
-            {
-                resultHandler(result);
-            }
-        }];
-        
-        
-        
+        if(resultHandler != nil)
+        {
+            resultHandler(result);
+        }
     }];
 }
 
@@ -810,7 +807,7 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
       NSDictionary *params  = [[NSDictionary alloc]initWithObjectsAndKeys:selectedLanguage, @"country", nil];
     [request getPath:URL_getListLangRelWrkEth parameters:params success:^(__unused AFHTTPRequestOperation *operation, id JSON)
      {
-         
+         NSLog(@"Get data for list completed");
          NSError *e=nil;
          NSMutableDictionary *dict = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONReadingMutableContainers error:&e];
          NSMutableDictionary * data= [dict valueForKey:key_data];
@@ -1578,11 +1575,15 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
                   
                   [self parseFBInfoToProfile:self.myFBProfile];
                   
-                  NSDictionary *params = [[NSDictionary alloc]initWithObjectsAndKeys:
+                  NSMutableDictionary *params = [[NSMutableDictionary alloc]initWithObjectsAndKeys:
                                           [FBSession activeSession].accessTokenData.accessToken, @"access_token",
                                           self.myProfile.s_FB_id, @"user_id",
-                                          self.s_DeviceToken,@"device_token",
                                           nil];
+                  if (self.s_DeviceToken && ![@"" isEqualToString:self.s_DeviceToken])
+                  {
+                      [params setObject:self.s_DeviceToken forKey:@"device_token"];
+                  }
+                  
                   NSLog(@"sendRegister-params: %@", params);
                   [request getPath:URL_sendRegister parameters:params success:^(__unused AFHTTPRequestOperation *operation, id JSON)
                    {
@@ -1597,11 +1598,15 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
                        switch (status) {
                            case 0:
                            case 2:
-                               [self parseProfileWithData:data];
-                               if (success)
-                               {
-                                   success(status);
-                               }
+                           {
+                               [self loadDataForList:^{
+                                   [self parseProfileWithData:data];
+                                   if (success)
+                                   {
+                                       success(status);
+                                   }
+                               }];
+                           }
                                break;
                            default:
                                if (failure)
