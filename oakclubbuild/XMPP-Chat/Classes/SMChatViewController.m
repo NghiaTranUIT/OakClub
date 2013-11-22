@@ -276,8 +276,7 @@
     for(UIView* subview in [self.navigationController.navigationBar subviews]){
         if([subview isKindOfClass:[ChatNavigationView class]] || [subview isKindOfClass:[UILabel class]] || [subview isKindOfClass:[UIButton class]])
             [subview removeFromSuperview];
-        if([subview isKindOfClass:[UIImageView class]]){
-            self.headerLogo = (UIImageView*)subview;
+        if([subview isKindOfClass:[UIImageView class]] && subview.tag == 101){
             [subview removeFromSuperview];
         }
     }

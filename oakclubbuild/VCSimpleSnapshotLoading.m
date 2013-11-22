@@ -101,7 +101,7 @@
 }
 
 -(void)viewDidDisappear:(BOOL)animated{
-    [self removeNotification];
+//    [self removeNotification];
 }
 - (void)didReceiveMemoryWarning
 {

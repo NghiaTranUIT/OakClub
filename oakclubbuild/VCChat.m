@@ -123,7 +123,7 @@ int cellCountinSection=0;
                 --i;
                 if (!i)
                 {
-                    [indicator unlockViewAndStopIndicator];
+//                    [indicator unlockViewAndStopIndicator];
                 }
             }
         }
@@ -813,7 +813,6 @@ int cellCountinSection=0;
     return YES;
 }
 #pragma mark Chat delegates
-
 
 - (void)newMessageReceived:(NSDictionary *)messageContent {
     NSString* sender = [messageContent objectForKey:@"sender"];

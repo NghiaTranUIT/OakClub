@@ -134,6 +134,7 @@ CGFloat pageHeight;
     UIImage* logo = [UIImage imageNamed:@"Snapshot_logo.png"];
     UIImageView *logoView = [[UIImageView alloc]initWithFrame:CGRectMake(98, 10, 125, 26)];
     [logoView setImage:logo];
+    logoView.tag = 101;
     [self.navigationController.navigationBar  addSubview:logoView];
 //    [[self navBarOakClub] addToHeader:logoView];
 }
@@ -587,7 +588,8 @@ CGFloat pageHeight;
     NSDictionary *params = [[NSDictionary alloc]initWithObjectsAndKeys:currentProfile.s_ID,key_profileID,answerChoice,@"is_like", nil];
     NSString *value = [[NSUserDefaults standardUserDefaults] objectForKey:@"currentSnapShotID"];
     if ([answerChoice isEqualToString:@"1"]) {
-//        [self showMatchView];// DEBUG
+        [self showMatchView];// DEBUG
+        /*
         for (int i=0; i < [appDel.likedMeList count]; i++) {
             NSString *s_profileID = [[appDel.likedMeList objectAtIndex:i] valueForKey:key_profileID];
             if([s_profileID isEqualToString:value]){
@@ -595,6 +597,7 @@ CGFloat pageHeight;
                 break;
             }
         }
+         */
     }
     [request setParameterEncoding:AFFormURLParameterEncoding];
     [request postPath:URL_setFavorite parameters:params success:^(__unused AFHTTPRequestOperation *operation, id JSON) {
