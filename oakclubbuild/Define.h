@@ -314,6 +314,7 @@
 
 #define key_isUseGPS @"useGPS"
 #define key_isFirstSnapshot @"isFirstSnapshot"
+#define key_hasFirstSnapshot @"hasFirstSnapshot"
 //=============== Advanced setting=============
 #define FriendList  ([NSArray arrayWithObjects:@"Tran Van Quy", @"Vanancy Luu",@"Van Khanh", @"Thu Ha",@"RuaCon ChayCham",@"Phuong Lovely Nguyen",@"Mai Xuan Tham", nil])
 

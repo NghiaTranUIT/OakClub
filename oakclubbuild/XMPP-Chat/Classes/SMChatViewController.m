@@ -249,6 +249,7 @@
     UIImage* logo = [UIImage imageNamed:@"Snapshot_logo.png"];
     UIImageView *logoView = [[UIImageView alloc]initWithFrame:CGRectMake(98, 10, 125, 26)];
     [logoView setImage:logo];
+    logoView.tag = 101;
     [self.navigationController.navigationBar  addSubview:logoView];
     //    [[self navBarOakClub] addToHeader:logoView];
 }
