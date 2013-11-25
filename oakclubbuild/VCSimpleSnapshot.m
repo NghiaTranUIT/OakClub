@@ -170,15 +170,15 @@ CGFloat pageHeight;
 #if ENABLE_DEMO
 -(void)loadLikeMeList{
     appDel.likedMeList = [[NSArray alloc] init];
-    
-     // get list from server
-     AFHTTPClient *request = [[AFHTTPClient alloc] initWithOakClubAPI:DOMAIN];
-     [request getPath:URL_getListWhoLikeMe parameters:nil success:^(__unused AFHTTPRequestOperation *operation, id JSON)
+    // get list from server
+    AFHTTPClient *request = [[AFHTTPClient alloc] initWithOakClubAPI:DOMAIN];
+    NSDictionary *params = [[NSDictionary alloc]initWithObjectsAndKeys:@"0",@"start",@"1000",@"limit", nil];
+    [request getPath:URL_getListWhoLikeMe parameters:params success:^(__unused AFHTTPRequestOperation *operation, id JSON)
      {
-     NSError *e=nil;
-     NSMutableDictionary *dict = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONReadingMutableContainers error:&e];
-     appDel.likedMeList= [dict valueForKey:key_data];
-     
+         NSError *e=nil;
+         NSMutableDictionary *dict = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONReadingMutableContainers error:&e];
+         appDel.likedMeList= [dict valueForKey:key_data];
+         
      } failure:^(AFHTTPRequestOperation *operation, NSError *error)
      {
          NSLog(@"URL_getListWhoLikeMe - Error Code: %i - %@",[error code], [error localizedDescription]);

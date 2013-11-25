@@ -389,7 +389,7 @@
     self.c_ethnicity= [[Ethnicity alloc]initWithID:ethnicityIndex];
     self.s_birthdayDate =[data valueForKey:key_birthday];
     self.s_age = [self  pareAgeFromDateString:self.s_birthdayDate];
-//    self.s_meetType = [data valueForKey:key_meet_type];
+//    self.s_meetType = [data valueForKey:key_meet_type];di hp
     self.s_popularity = [self parsePopolarityFromInt:[[data valueForKey:key_popularity] integerValue]];
     self.s_interested = [Gender alloc];// [self parseGender:[data valueForKey:key_interested]] ;
     self.s_interested = [self parseGender:[data valueForKey:key_interested]] ;
