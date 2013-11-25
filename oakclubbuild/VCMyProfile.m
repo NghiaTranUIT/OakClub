@@ -937,12 +937,19 @@ UITapGestureRecognizer *tap;
     
 }
 
--(void)location:(LocationUpdate *)location updateSuccessWithID:(NSString *)locationID andName:(NSString *)name
+-(void)location:(LocationUpdate *)location updateSuccessWithLongitude:(double)longt andLatitude:(double)lati
 {
-    profileObj.s_location.ID = locationID;
-    profileObj.s_location.name = name;
-    [self updateProfileItemListAtIndex:profileObj.s_location.name andIndex:LOCATION];
-    [self.tableView reloadData];
+    [location setUserLocationAtLongitude:longt andLatitude:lati useCallback:^(NSString *locationID, NSString *locationName, NSError *err) {
+        if (!err)
+        {
+            profileObj.s_location.longitude = longt;
+            profileObj.s_location.latitude = lati;
+            profileObj.s_location.ID = locationID;
+            profileObj.s_location.name = locationName;
+            [self updateProfileItemListAtIndex:profileObj.s_location.name andIndex:LOCATION];
+            [self.tableView reloadData];
+        }
+    }];
 }
 #pragma mark Switch Delegate
 

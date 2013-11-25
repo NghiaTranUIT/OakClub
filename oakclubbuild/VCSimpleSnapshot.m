@@ -749,10 +749,10 @@ CGFloat pageHeight;
 //    [self startDisabledGPS];
 }
 
--(void)location:(LocationUpdate *)location updateSuccessWithID:(NSString *)locationID andName:(NSString *)name
+-(void)location:(LocationUpdate *)location updateSuccessWithLongitude:(double)longt andLatitude:(double)lati
 {
-//    [self refreshSnapshot];
-//    appDel.reloadSnapshot = FALSE;
+    //    [self refreshSnapshot];
+    //    appDel.reloadSnapshot = FALSE;
 }
 
 #pragma mark App life cycle delegate

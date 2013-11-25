@@ -61,17 +61,21 @@
     }
     
     NSLog(@"didUpdateToLocation: %@", newLocation);
-    CLLocation *currentLocation = newLocation;
     isUpdated = YES;
+    if (delegate)
+    {
+        [delegate location:self updateSuccessWithLongitude:newLocation.coordinate.longitude andLatitude:newLocation.coordinate.latitude];
+    }
     
     // Stop Location Manager
     [manager stopUpdatingLocation];
     
-    AFHTTPClient *request = [[AFHTTPClient alloc] initWithOakClubAPI:DOMAIN];
-    
-    NSMutableDictionary *params = [[NSMutableDictionary alloc] initWithObjects:[NSArray arrayWithObjects:[NSNumber numberWithDouble:currentLocation.coordinate.latitude], [NSNumber numberWithDouble:currentLocation.coordinate.longitude], nil] forKeys:[NSArray arrayWithObjects:@"latitude", @"longitude", nil]];
-//    NSMutableDictionary *params = [[NSMutableDictionary alloc] initWithObjects:[NSArray arrayWithObjects:@"37.785834", @"-122.406417", nil] forKeys:[NSArray arrayWithObjects:@"latitude", @"longitude", nil]];
+}
 
+-(void)setUserLocationAtLongitude:(double)longitude andLatitude:(double)latitude useCallback:(void(^)(NSString *locationID, NSString *locationName, NSError *err))callback
+{
+    AFHTTPClient *request = [[AFHTTPClient alloc] initWithOakClubAPI:DOMAIN];
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] initWithObjects:[NSArray arrayWithObjects:[NSNumber numberWithDouble:latitude], [NSNumber numberWithDouble:longitude], nil] forKeys:[NSArray arrayWithObjects:@"latitude", @"longitude", nil]];
     NSLog(@"Coord: %@", params);
     [request setParameterEncoding:AFFormURLParameterEncoding];
     
@@ -84,21 +88,20 @@
          NSError *e=nil;
          NSMutableDictionary *dict = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONReadingMutableContainers error:&e];
          NSLog(@"Update location: %@", dict);
-         if (!e && delegate)
+         if (!e && callback)
          {
-             [delegate location:self updateSuccessWithID:[dict objectForKey:key_data] andName:[dict objectForKey:key_msg]];
+             callback([dict objectForKey:key_data], [dict objectForKey:key_msg], nil);
          }
-         else if (delegate)
+         else if (callback)
          {
-             [delegate location:self updateFailWithError:e];
+             callback(nil, nil, e);
          }
          
      } failure:^(AFHTTPRequestOperation *operation, NSError *error)
      {
          NSLog(@"Set user location error Code: %i - %@",[error code], [error localizedDescription]);
-         if (delegate)
-         {
-             [delegate location:self updateFailWithError:error];
+         if (callback) {
+             callback(nil, nil, error);
          }
      }];
     
