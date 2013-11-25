@@ -10,6 +10,7 @@
 #import "AppDelegate.h"
 #import "UIView+Localize.h"
 #import "LoadingIndicator.h"
+#import "LocationUpdate.h"
 
 enum UpdateProfileItems {
     UpdateProfile_Name = 0,
@@ -20,12 +21,13 @@ enum UpdateProfileItems {
     };
 
 #define nItems 5
-@interface UpdateProfileViewController () <UITableViewDataSource, UITableViewDelegate, EditTextViewDelegate, ListForChooseDelegate, UIViewControllerBirthdayPickerDelegate, ImageRequester, LoadingIndicatorDelegate>
+@interface UpdateProfileViewController () <UITableViewDataSource, UITableViewDelegate, EditTextViewDelegate, ListForChooseDelegate, UIViewControllerBirthdayPickerDelegate, ImageRequester, LoadingIndicatorDelegate, LocationUpdateDelegate>
 {
     NSArray *updateProfileCellTitles;
     Profile *copyProfile;
     AppDelegate *appDelegate;
     LoadingIndicator *indicator;
+    LocationUpdate *locUpdater;
 }
 @property (weak, nonatomic) IBOutlet UITableView *tbView;
 @property (weak, nonatomic) IBOutlet UIImageView *avatarView;
@@ -44,6 +46,8 @@ enum UpdateProfileItems {
         // Custom initialization
         updateProfileCellTitles = [[NSArray alloc] initWithArray:UpdateProfileItemList];
         appDelegate = (id) [UIApplication sharedApplication].delegate;
+        locUpdater = [[LocationUpdate alloc] init];
+        [locUpdater setDelegate:self];
     }
     return self;
 }
@@ -340,11 +344,35 @@ enum UpdateProfileItems {
     appDelegate.myProfile = [copyProfile copy];
     
     [indicator lockViewAndDisplayIndicator];
-    [appDelegate.myProfile saveSettingWithCompletion:^(bool isSuccess)
-    {
-        [indicator unlockViewAndStopIndicator];
-        [appDelegate gotoVCAtCompleteLogin];
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] initWithObjectsAndKeys:
+                                   copyProfile.s_birthdayDate, @"birthday",
+                                   copyProfile.s_Email, @"email",
+                                   copyProfile.s_gender, @"gender",
+                                   copyProfile.s_interested, @"interested",
+                                   copyProfile.s_location.latitude, @"latitude",
+                                   copyProfile.s_location.longitude, @"longitude",
+                                   copyProfile.s_Name, @"name",
+                                   nil];
+    AFHTTPClient *request = [[AFHTTPClient alloc] initWithOakClubAPI:DOMAIN];
+    [request setParameterEncoding:AFFormURLParameterEncoding];
+    
+    NSMutableURLRequest *urlReq = [request requestWithMethod:@"POST" path:URL_setLocationUser parameters:params];
+    AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:urlReq];
+    
+    [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSDictionary *result = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
+        NSLog(@"Update profile result %@", result);
+        if ([[result valueForKey:key_status] boolValue])
+        {
+            appDelegate.myProfile.s_location.name = [result valueForKey:key_location];
+        }
+        
+        NSLog(@"Update profile error with msg: %@", [result valueForKey:key_msg]);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"Update profile error with err: %@", [error localizedDescription]);
     }];
+    
+    [operation start];
 }
 
 #pragma mark Loading Indicator Delegate
@@ -358,6 +386,18 @@ enum UpdateProfileItems {
 {
     [appDelegate.rootVC.view setUserInteractionEnabled:YES];
     [self.navigationController.navigationBar setUserInteractionEnabled:YES];
+}
+
+#pragma mark location update delegate
+-(void)location:(LocationUpdate *)location updateFailWithError:(NSError *)e
+{
+    // can't continue
+}
+
+-(void)location:(LocationUpdate *)location updateSuccessWithLongitude:(double)longt andLatitude:(double)lati
+{
+    copyProfile.s_location.longitude = longt;
+    copyProfile.s_location.latitude = lati;
 }
 @end
 
