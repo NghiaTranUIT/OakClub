@@ -101,7 +101,6 @@
 		CD038E73180BDB2700A9E177 /* WordWarpParse.m in Sources */ = {isa = PBXBuildFile; fileRef = CD038E6D180BDB2700A9E177 /* WordWarpParse.m */; };
 		CD06FBAB173B9A4B007F56E3 /* NYPopover.m in Sources */ = {isa = PBXBuildFile; fileRef = CD06FBA8173B9A4B007F56E3 /* NYPopover.m */; };
 		CD06FBAC173B9A4B007F56E3 /* NYSliderPopover.m in Sources */ = {isa = PBXBuildFile; fileRef = CD06FBAA173B9A4B007F56E3 /* NYSliderPopover.m */; };
-		CD09E03C17715A7F004FD9F0 /* ProfileSettings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CD09E03E17715A7F004FD9F0 /* ProfileSettings.storyboard */; };
 		CD09E0401771AD4C004FD9F0 /* NavBarOakClub.xib in Resources */ = {isa = PBXBuildFile; fileRef = CD09E03F1771AD4C004FD9F0 /* NavBarOakClub.xib */; };
 		CD0AB827182900CB00385CB9 /* RangeSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = CD0AB826182900CB00385CB9 /* RangeSlider.m */; };
 		CD1134AC17E0277600C56616 /* VCSimpleSnapshot.m in Sources */ = {isa = PBXBuildFile; fileRef = CD1134AA17E0277600C56616 /* VCSimpleSnapshot.m */; };
@@ -3340,6 +3339,7 @@
 			knownRegions = (
 				en,
 				vi,
+				de,
 			);
 			mainGroup = CDC492901702CEAB00E83DE3;
 			productRefGroup = CDC4929A1702CEAB00E83DE3 /* Products */;
@@ -3499,7 +3499,6 @@
 				CD877CFE18212BAE0067D478 /* intropage_chat.png in Resources */,
 				977853F0182228A900CBB5DB /* myprofile_addphoto@2x.png in Resources */,
 				CD02C68817560ED300B1ED6A /* OverlayViewController.xib in Resources */,
-				CD09E03C17715A7F004FD9F0 /* ProfileSettings.storyboard in Resources */,
 				977854031822551100CBB5DB /* myprofile_photoLayout@2x.png in Resources */,
 				CD877CB11820FBDD0067D478 /* spashscreen.png in Resources */,
 				CD50E36A181FBF3C0036A23B /* Snapshot_popup_no_pressed@2x.png in Resources */,
@@ -3990,6 +3989,7 @@
 			children = (
 				CD41199F1793F150003850B7 /* en */,
 				CD4119A11793F154003850B7 /* vi */,
+				45BB87001844B4B500DACE36 /* de */,
 			);
 			name = Localizable.strings;
 			path = Localization;
@@ -4016,6 +4016,7 @@
 			children = (
 				CDC492A61702CEAB00E83DE3 /* en */,
 				CD4119981793F0C6003850B7 /* vi */,
+				45BB86FF1844B48700DACE36 /* de */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
