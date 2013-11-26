@@ -228,12 +228,6 @@
 #pragma mark Language
 -(void) showMenuLanguage{
     BOOL isSetLanguage = [[[NSUserDefaults standardUserDefaults] objectForKey:key_ChosenLanguage] boolValue];
-    if (!isSetLanguage)
-    {
-        [[NSUserDefaults standardUserDefaults] setObject:value_appLanguage_EN forKey:key_appLanguage];
-        [[NSUserDefaults standardUserDefaults] synchronize];
-    }
-    
     NSString* language = [[NSUserDefaults standardUserDefaults] objectForKey:key_appLanguage];
     if(language != nil)
     {
@@ -245,11 +239,11 @@
     if (!isSetLanguage)
     {
         UIAlertView *alert = [[UIAlertView alloc]
-                              initWithTitle:@"Choose your language"
+                              initWithTitle:[@"Choose your language" localize]
                               message:@""
                               delegate:self
                               cancelButtonTitle:nil
-                              otherButtonTitles:@"Tiếng Việt", @"English", nil];
+                              otherButtonTitles:@"Tiếng Việt", @"English", @"Deutsch", nil];
         [alert show];
     }
     else
@@ -281,6 +275,14 @@
         [appDelegate updateLanguageBundle];
         NSString* str=[appDelegate.languageBundle localizedStringForKey:@"was selected" value:@"" table:nil];
         NSLog(@"English %@",str);
+    }
+    else
+    {
+        [[NSUserDefaults standardUserDefaults] setObject:value_appLanguage_DE forKey:key_appLanguage];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+        [appDelegate updateLanguageBundle];
+        NSString* str=[appDelegate.languageBundle localizedStringForKey:@"was selected" value:@"" table:nil];
+        NSLog(@"German %@",str);
     }
     
     [self.view localizeAllViews];

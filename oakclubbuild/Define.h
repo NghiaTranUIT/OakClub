@@ -58,6 +58,7 @@
 //============== application value =============
 #define value_appLanguage_VI @"vi"
 #define value_appLanguage_EN @"en"
+#define value_appLanguage_DE @"de"
 //============== APIs =============
 #define DOMAIN_AT @"@oakclub.com"
 #define DOMAIN_AT_FMT @"%@@oakclub.com"
