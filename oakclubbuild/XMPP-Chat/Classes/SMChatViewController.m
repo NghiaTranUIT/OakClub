@@ -14,7 +14,7 @@
 #import "HistoryMessage.h"
 
 #import "Profile.h"
-
+#import "VCProfile.h"
 #import "WordWarpParse.h"
 #import "ChatEmoticon.h"
 #import "HistoryMessage+init.h"

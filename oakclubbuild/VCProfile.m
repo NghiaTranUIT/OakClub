@@ -1014,19 +1014,19 @@ static CGFloat padding_left = 5.0;
 {
     UINavigationController* activeVC = [[self appDelegate] activeViewController];
     UIViewController* vc = [activeVC.viewControllers objectAtIndex:0];
-    if([vc isKindOfClass:[VCSnapshoot class]] )
-    {
-        CATransition* transition = [CATransition animation];
-        transition.duration = 0.3f;
-        transition.type = kCATransitionPush;
-        transition.subtype = kCATransitionFromBottom;
-        [self.navigationController.view.layer addAnimation:transition
-                                                    forKey:kCATransition];
-        [self.navigationController popViewControllerAnimated:NO];
-    }
-    else{
+//    if([vc isKindOfClass:[VCSnapshoot class]] )
+//    {
+//        CATransition* transition = [CATransition animation];
+//        transition.duration = 0.3f;
+//        transition.type = kCATransitionPush;
+//        transition.subtype = kCATransitionFromBottom;
+//        [self.navigationController.view.layer addAnimation:transition
+//                                                    forKey:kCATransition];
+//        [self.navigationController popViewControllerAnimated:NO];
+//    }
+//    else{
         [self.navigationController popViewControllerAnimated:YES];
-    }
+//    }
 }
 
 -(void)addTopLeftButtonWithAction:(SEL)action

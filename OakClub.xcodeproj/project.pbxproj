@@ -99,8 +99,6 @@
 		CD038E71180BDB2700A9E177 /* MessageStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = CD038E6A180BDB2700A9E177 /* MessageStorage.m */; };
 		CD038E72180BDB2700A9E177 /* SmileyList.plist in Resources */ = {isa = PBXBuildFile; fileRef = CD038E6B180BDB2700A9E177 /* SmileyList.plist */; };
 		CD038E73180BDB2700A9E177 /* WordWarpParse.m in Sources */ = {isa = PBXBuildFile; fileRef = CD038E6D180BDB2700A9E177 /* WordWarpParse.m */; };
-		CD038E7A180BE86100A9E177 /* VCMutualMatch.m in Sources */ = {isa = PBXBuildFile; fileRef = CD038E78180BE86100A9E177 /* VCMutualMatch.m */; };
-		CD038E7B180BE86100A9E177 /* VCMutualMatch.xib in Resources */ = {isa = PBXBuildFile; fileRef = CD038E79180BE86100A9E177 /* VCMutualMatch.xib */; };
 		CD06FBAB173B9A4B007F56E3 /* NYPopover.m in Sources */ = {isa = PBXBuildFile; fileRef = CD06FBA8173B9A4B007F56E3 /* NYPopover.m */; };
 		CD06FBAC173B9A4B007F56E3 /* NYSliderPopover.m in Sources */ = {isa = PBXBuildFile; fileRef = CD06FBAA173B9A4B007F56E3 /* NYSliderPopover.m */; };
 		CD09E03C17715A7F004FD9F0 /* ProfileSettings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CD09E03E17715A7F004FD9F0 /* ProfileSettings.storyboard */; };
@@ -365,8 +363,6 @@
 		CD8AA1F4170C1B2800A97C47 /* NavBarOakClub.m in Sources */ = {isa = PBXBuildFile; fileRef = CD8AA1EF170C1B2600A97C47 /* NavBarOakClub.m */; };
 		CD8AA1F6170C1B2800A97C47 /* NavConOakClub.m in Sources */ = {isa = PBXBuildFile; fileRef = CD8AA1F2170C1B2800A97C47 /* NavConOakClub.m */; };
 		CD8AA1F7170C1B2800A97C47 /* NavConOakClub.xib in Resources */ = {isa = PBXBuildFile; fileRef = CD8AA1F3170C1B2800A97C47 /* NavConOakClub.xib */; };
-		CD8AA1FB170C1B3F00A97C47 /* VCHangOut.m in Sources */ = {isa = PBXBuildFile; fileRef = CD8AA1F9170C1B3E00A97C47 /* VCHangOut.m */; };
-		CD8AA1FC170C1B3F00A97C47 /* VCHangOut.xib in Resources */ = {isa = PBXBuildFile; fileRef = CD8AA1FA170C1B3F00A97C47 /* VCHangOut.xib */; };
 		CD8B47021816B82F00A272B7 /* menuViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CD8B47041816B82F00A272B7 /* menuViewController.xib */; };
 		CD8B47071816B91D00A272B7 /* VCChat.xib in Resources */ = {isa = PBXBuildFile; fileRef = CD8B47091816B91D00A272B7 /* VCChat.xib */; };
 		CDA89B5D18333D3200ADC648 /* myprofile_addvideo.png in Resources */ = {isa = PBXBuildFile; fileRef = CDA89B5B18333D3200ADC648 /* myprofile_addvideo.png */; };
@@ -725,9 +721,6 @@
 		CD038E6B180BDB2700A9E177 /* SmileyList.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = SmileyList.plist; sourceTree = "<group>"; };
 		CD038E6C180BDB2700A9E177 /* WordWarpParse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WordWarpParse.h; sourceTree = "<group>"; };
 		CD038E6D180BDB2700A9E177 /* WordWarpParse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WordWarpParse.m; sourceTree = "<group>"; };
-		CD038E77180BE86100A9E177 /* VCMutualMatch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VCMutualMatch.h; sourceTree = "<group>"; };
-		CD038E78180BE86100A9E177 /* VCMutualMatch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VCMutualMatch.m; sourceTree = "<group>"; };
-		CD038E79180BE86100A9E177 /* VCMutualMatch.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VCMutualMatch.xib; sourceTree = "<group>"; };
 		CD06FBA7173B9A4B007F56E3 /* NYPopover.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NYPopover.h; sourceTree = "<group>"; };
 		CD06FBA8173B9A4B007F56E3 /* NYPopover.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NYPopover.m; sourceTree = "<group>"; };
 		CD06FBA9173B9A4B007F56E3 /* NYSliderPopover.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NYSliderPopover.h; sourceTree = "<group>"; };
@@ -1034,9 +1027,6 @@
 		CD8AA1F1170C1B2700A97C47 /* NavConOakClub.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavConOakClub.h; sourceTree = "<group>"; };
 		CD8AA1F2170C1B2800A97C47 /* NavConOakClub.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavConOakClub.m; sourceTree = "<group>"; };
 		CD8AA1F3170C1B2800A97C47 /* NavConOakClub.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NavConOakClub.xib; sourceTree = "<group>"; };
-		CD8AA1F8170C1B3E00A97C47 /* VCHangOut.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VCHangOut.h; sourceTree = "<group>"; };
-		CD8AA1F9170C1B3E00A97C47 /* VCHangOut.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VCHangOut.m; sourceTree = "<group>"; };
-		CD8AA1FA170C1B3F00A97C47 /* VCHangOut.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VCHangOut.xib; sourceTree = "<group>"; };
 		CD8B47031816B82F00A272B7 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/menuViewController.xib; sourceTree = "<group>"; };
 		CD8B47081816B91D00A272B7 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/VCChat.xib; sourceTree = "<group>"; };
 		CDA89B5B18333D3200ADC648 /* myprofile_addvideo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = myprofile_addvideo.png; sourceTree = "<group>"; };
@@ -1658,16 +1648,6 @@
 			path = ChattingClasses;
 			sourceTree = "<group>";
 		};
-		CD038E7C180BE86600A9E177 /* MutualMatch */ = {
-			isa = PBXGroup;
-			children = (
-				CD038E77180BE86100A9E177 /* VCMutualMatch.h */,
-				CD038E78180BE86100A9E177 /* VCMutualMatch.m */,
-				CD038E79180BE86100A9E177 /* VCMutualMatch.xib */,
-			);
-			name = MutualMatch;
-			sourceTree = "<group>";
-		};
 		CD06FBA6173B9A4B007F56E3 /* TrackingSlider */ = {
 			isa = PBXGroup;
 			children = (
@@ -1742,7 +1722,6 @@
 				CD12C1A5170AEAE4006B13B8 /* Chat */,
 				CDDF8CFC171C0F8F00B8512D /* Profile */,
 				CDFED5E91738DAC500158756 /* MyProfile */,
-				CD038E7C180BE86600A9E177 /* MutualMatch */,
 			);
 			name = ViewController;
 			sourceTree = "<group>";
@@ -2374,9 +2353,6 @@
 				CD02C68417560ED300B1ED6A /* OverlayViewController.h */,
 				CD02C68517560ED300B1ED6A /* OverlayViewController.m */,
 				CD02C68617560ED300B1ED6A /* OverlayViewController.xib */,
-				CD8AA1F8170C1B3E00A97C47 /* VCHangOut.h */,
-				CD8AA1F9170C1B3E00A97C47 /* VCHangOut.m */,
-				CD8AA1FA170C1B3F00A97C47 /* VCHangOut.xib */,
 				CD819573172864C400D86C0B /* VCHangoutSetting.h */,
 				CD819574172864C400D86C0B /* VCHangoutSetting.m */,
 				CD819575172864C400D86C0B /* VCHangoutSetting.xib */,
@@ -3401,14 +3377,12 @@
 				CDFF638C1823564400C8031F /* SnapshotSetting_check.png in Resources */,
 				970924B5182E5BBF007BD6B1 /* myprofile_editVideo.png in Resources */,
 				CD877CFC18212BAE0067D478 /* Info_background.png in Resources */,
-				CD8AA1FC170C1B3F00A97C47 /* VCHangOut.xib in Resources */,
 				97A55D5D1823C3E700675025 /* viewprofile_likeicon.png in Resources */,
 				CD50E354181FBF3C0036A23B /* Snapshot_btn_no@2x.png in Resources */,
 				CD877D0218212BAE0067D478 /* intropage_snap.png in Resources */,
 				CDFF63871823564400C8031F /* SnapshotSetting_btn_contactus_inactive@2x.png in Resources */,
 				CD1AB07A1821804200B0FA10 /* Report_midleItem_inactive@2x.png in Resources */,
 				CD1AB06E1821804200B0FA10 /* Report_BG@2x.png in Resources */,
-				CD038E7B180BE86100A9E177 /* VCMutualMatch.xib in Resources */,
 				CD877CEA182114560067D478 /* HistoryChat_separator@2x.png in Resources */,
 				CD2DE69E1827B2A30043AA91 /* AppIcon40x40@2x.png in Resources */,
 				CDE09895182CEF3D00734C91 /* Menu_icon_settings.png in Resources */,
@@ -3762,7 +3736,6 @@
 				CD8AA1EB170C109700A97C47 /* UIGridViewRow.m in Sources */,
 				CD8AA1F4170C1B2800A97C47 /* NavBarOakClub.m in Sources */,
 				CD8AA1F6170C1B2800A97C47 /* NavConOakClub.m in Sources */,
-				CD8AA1FB170C1B3F00A97C47 /* VCHangOut.m in Sources */,
 				CD0AB827182900CB00385CB9 /* RangeSlider.m in Sources */,
 				CDEEFAF7170D6CCA001F9C36 /* TapDetectingImageView.m in Sources */,
 				CDE5DB361807B46A00A96D78 /* VCSimpleSnapshotSetting.m in Sources */,
@@ -3830,7 +3803,6 @@
 				CDF99BC21713D629008D8BAC /* XMPPvCard.xcdatamodeld in Sources */,
 				CDF99BC31713D629008D8BAC /* XMPPvCardAvatarCoreDataStorageObject.m in Sources */,
 				9775A78C1813D5DE00BCF28D /* UAModalPanel.m in Sources */,
-				CD038E7A180BE86100A9E177 /* VCMutualMatch.m in Sources */,
 				CDF99BC41713D629008D8BAC /* XMPPvCardCoreDataStorage.m in Sources */,
 				CD038E6E180BDB2700A9E177 /* ChatEmoticon.m in Sources */,
 				CDF99BC51713D629008D8BAC /* XMPPvCardCoreDataStorageObject.m in Sources */,

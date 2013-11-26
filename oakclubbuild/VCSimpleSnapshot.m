@@ -17,6 +17,7 @@
 #import "VCSimpleSnapshotPopup.h"
 #import "LocationUpdate.h"
 #import "AppLifeCycleDelegate.h"
+#import "VCProfile.h"
 
 @interface VCSimpleSnapshot () <LocationUpdateDelegate, AppLifeCycleDelegate,APLMoveMeViewDelegate> {
     UIView *headerView;
@@ -609,12 +610,6 @@ CGFloat pageHeight;
     }];
 }
 
-- (void) gotoSetting{
-    VCSnapshotSetting *viewProfile = [[VCSnapshotSetting alloc] initWithNibName:@"VCSnapshotSetting" bundle:nil];
-    //    UIImageView *avatar = [currentProfile.arr_photos objectAtIndex:0];
-    //    [viewProfile loadProfile:currentProfile andImage:avatar.image];
-    [self.navigationController pushViewController:viewProfile animated:YES];
-}
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
