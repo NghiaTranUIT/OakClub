@@ -105,6 +105,7 @@
 #define URL_setViewedMutualMatch @"service/setViewedMutualMatch"
 #define URL_reportInvalid @"service/reportUser"
 #define URL_uploadVideo @"service/uploadVideo"
+#define URL_updateProfileFirstTime @"service/updateProfileFirstTime"
 //================ service API keys ================
 //root
 #define key_status @"status"

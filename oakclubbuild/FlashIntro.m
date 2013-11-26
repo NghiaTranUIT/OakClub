@@ -97,6 +97,10 @@
         {
             [self animatingGoToLogined];
         }
+        else if (_status == 0)
+        {
+            [self animatingGoToUpdateProfile];
+        }
         else
         {
             [self animatingGoToLogin];
@@ -134,6 +138,18 @@
                          [background setAlpha:0];
                      }completion:^(BOOL finished) {
                          [appDelegate gotoVCAtCompleteLogin];
+                     }];
+}
+
+-(void)animatingGoToUpdateProfile
+{
+    [background setAlpha:1];
+    [self.view setBackgroundColor:[UIColor blackColor]];
+    [UIView animateWithDuration:2
+                     animations:^{
+                         [background setAlpha:0];
+                     }completion:^(BOOL finished) {
+                         [appDelegate showConfirm];
                      }];
 }
 @end
