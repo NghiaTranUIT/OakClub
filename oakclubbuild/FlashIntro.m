@@ -57,19 +57,51 @@
     [background setContentMode:UIViewContentModeScaleAspectFit];
     [self.view addSubview:background];
     
-//    indicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
-//    [indicatorView setFrame:CGRectMake(142, 138, indicatorView.frame.size.width,  indicatorView.frame.size.height)];
-//    indicatorView.color = [UIColor colorWithRed:(121.f / 255.f) green:(1.f / 255.f) blue:(88.f / 255.f) alpha:1];
-//    [indicatorView setHidesWhenStopped:YES];
-//    [indicatorView stopAnimating];
-//    
-//    [self.view addSubview:indicatorView];
+    //    indicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+    //    [indicatorView setFrame:CGRectMake(142, 138, indicatorView.frame.size.width,  indicatorView.frame.size.height)];
+    //    indicatorView.color = [UIColor colorWithRed:(121.f / 255.f) green:(1.f / 255.f) blue:(88.f / 255.f) alpha:1];
+    //    [indicatorView setHidesWhenStopped:YES];
+    //    [indicatorView stopAnimating];
+    //
+    //    [self.view addSubview:indicatorView];
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:NO];
     [background setAlpha:1];
+    
+    BOOL isSetLanguage = [[[NSUserDefaults standardUserDefaults] objectForKey:key_ChosenLanguage] boolValue];
+    if (!isSetLanguage)
+    {
+        if([[self checkLanguage] isEqualToString:@"vi"])
+        {
+            [[NSUserDefaults standardUserDefaults] setObject:value_appLanguage_VI forKey:key_appLanguage];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+            //        NSString* selectedLanguage =[[NSUserDefaults standardUserDefaults] stringForKey:key_appLanguage];
+            [appDelegate updateLanguageBundle];
+            NSString* str=[appDelegate.languageBundle localizedStringForKey:@"was selected" value:@"" table:nil];
+            NSLog(@"Vietnamese %@",str);
+        }
+        else if([[self checkLanguage] isEqualToString:@"de"])
+        {
+            [[NSUserDefaults standardUserDefaults] setObject:value_appLanguage_DE forKey:key_appLanguage];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+            //        NSString* selectedLanguage =[[NSUserDefaults standardUserDefaults] stringForKey:key_appLanguage];
+            [appDelegate updateLanguageBundle];
+            NSString* str=[appDelegate.languageBundle localizedStringForKey:@"was selected" value:@"" table:nil];
+            NSLog(@"German %@",str);
+        }
+        else
+        {
+            [[NSUserDefaults standardUserDefaults] setObject:value_appLanguage_EN forKey:key_appLanguage];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+            [appDelegate updateLanguageBundle];
+            NSString* str=[appDelegate.languageBundle localizedStringForKey:@"was selected" value:@"" table:nil];
+            NSLog(@"English %@",str);
+        }
+        //[self.view localizeAllViews];
+    }
     
     if (appDelegate.isFacebookActivated)
     {
@@ -79,6 +111,7 @@
     {
         [self animatingGoToLogin];
     }
+    
 }
 
 - (void)didReceiveMemoryWarning
