@@ -347,8 +347,8 @@ enum UpdateProfileItems {
     NSMutableDictionary *params = [[NSMutableDictionary alloc] initWithObjectsAndKeys:
                                    copyProfile.s_birthdayDate, @"birthday",
                                    copyProfile.s_Email, @"email",
-                                   copyProfile.s_gender, @"gender",
-                                   copyProfile.s_interested, @"interested",
+                                   copyProfile.s_gender.ID, @"gender",
+                                   copyProfile.s_interested.ID, @"interested",
                                    copyProfile.s_location.latitude, @"latitude",
                                    copyProfile.s_location.longitude, @"longitude",
                                    copyProfile.s_Name, @"name",
@@ -356,7 +356,7 @@ enum UpdateProfileItems {
     AFHTTPClient *request = [[AFHTTPClient alloc] initWithOakClubAPI:DOMAIN];
     [request setParameterEncoding:AFFormURLParameterEncoding];
     
-    NSMutableURLRequest *urlReq = [request requestWithMethod:@"POST" path:URL_setLocationUser parameters:params];
+    NSMutableURLRequest *urlReq = [request requestWithMethod:@"POST" path:URL_updateProfileFirstTime parameters:params];
     AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:urlReq];
     
     [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {

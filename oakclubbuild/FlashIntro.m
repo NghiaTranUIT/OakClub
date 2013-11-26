@@ -126,18 +126,22 @@
     [appDelegate tryLoginWithSuccess:^(int _status)
      {
          [indicator unlockViewAndStopIndicator];
-         if (_status == 2)
-         {
-             [self animatingGoToLogined];
-         }
-         else
-         {
-             [self animatingGoToLogin];
-         }
-     } failure:^{
-         [self animatingGoToLogin];
-         [indicator unlockViewAndStopIndicator];
-     }];
+        if (_status == 2)
+        {
+            [self animatingGoToLogined];
+        }
+        else if (_status == 0)
+        {
+            [self animatingGoToUpdateProfile];
+        }
+        else
+        {
+            [self animatingGoToLogin];
+        }
+    } failure:^{
+        [self animatingGoToLogin];
+        [indicator unlockViewAndStopIndicator];
+    }];
 }
 
 -(void)animatingGoToLogin
@@ -170,6 +174,18 @@
                      }];
 }
 
+-(void)animatingGoToUpdateProfile
+{
+    [background setAlpha:1];
+    [self.view setBackgroundColor:[UIColor blackColor]];
+    [UIView animateWithDuration:2
+                     animations:^{
+                         [background setAlpha:0];
+                     }completion:^(BOOL finished) {
+                         [appDelegate showConfirm];
+                     }];
+}
+
 -(NSString* ) checkLanguage{
     NSUserDefaults* defs = [NSUserDefaults standardUserDefaults];
     NSArray* languages = [defs objectForKey:@"AppleLanguages"];
@@ -177,12 +193,4 @@
     NSLog(@"abc %@", preferredLang);
     return preferredLang;
 }
-
-#pragma mark Load TEXT for all control
--(void) localizeAllText{
-    for(UIView* view in [self.view subviews]){
-        [view localizeText];
-    }
-}
-
 @end

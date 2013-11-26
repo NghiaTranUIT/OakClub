@@ -59,6 +59,11 @@
 #define value_appLanguage_VI @"vi"
 #define value_appLanguage_EN @"en"
 #define value_appLanguage_DE @"de"
+#define AppLanguageList ([NSDictionary dictionaryWithObjectsAndKeys:\
+                                @"Vietnamese", value_appLanguage_VI,\
+                                @"English", value_appLanguage_EN,\
+                                @"Deutsch", value_appLanguage_DE,\
+                                nil])
 //============== APIs =============
 #define DOMAIN_AT @"@oakclub.com"
 #define DOMAIN_AT_FMT @"%@@oakclub.com"
@@ -106,6 +111,7 @@
 #define URL_setViewedMutualMatch @"service/setViewedMutualMatch"
 #define URL_reportInvalid @"service/reportUser"
 #define URL_uploadVideo @"service/uploadVideo"
+#define URL_updateProfileFirstTime @"service/updateProfileFirstTime"
 //================ service API keys ================
 //root
 #define key_status @"status"

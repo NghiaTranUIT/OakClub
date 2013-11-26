@@ -20,6 +20,7 @@
 #import "RangeSlider.h"
 #import "NSString+Utils.h"
 #import "LoadingIndicator.h"
+#import "VCAppLanguageChoose.h"
 
 @interface VCSimpleSnapshotSetting () <LoadingIndicatorDelegate>{
     SettingObject* snapshotObj;
@@ -34,6 +35,7 @@
     bool isPickerShowing;
     AppDelegate *appDel;
     LoadingIndicator *indicator;
+    NSDictionary *appLangs;
 }
 @property (nonatomic) NSUInteger hereTo;
 @property NYSliderPopover *rangeSlider;
@@ -60,6 +62,7 @@ UITapGestureRecognizer *tap;
 {
     if(self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil])
     {
+        appLangs = AppLanguageList;
     }
     return self;
 }
@@ -85,10 +88,16 @@ UITapGestureRecognizer *tap;
     
 }
 
--(void)viewDidAppear:(BOOL)animated{
+-(void)viewWillAppear:(BOOL)animated{
 //    [self initSaveButton];
+    [super viewWillAppear:animated];
+    
     isPickerShowing = false;
     [self showNotifications];
+    
+    [self.view localizeAllViews];
+    [self.navigationController.view localizeAllViews];
+    [self.tbView reloadData];
 }
 
 - (void)didReceiveMemoryWarning
@@ -160,7 +169,7 @@ UITapGestureRecognizer *tap;
     switch (section)
     {
         case LanguageGroup:
-            rowCount = 2;
+            rowCount = 1;
             break;
         case GenderSearchGroup:
             rowCount = 2;
@@ -369,21 +378,19 @@ UITapGestureRecognizer *tap;
         }
         case LanguageGroup:
         {
-            NSString* selectedLanguage =[[NSUserDefaults standardUserDefaults] stringForKey:key_appLanguage];
-            if (row == 0) {
-                cell.textLabel.text = @"Vietnamese";
-                
-            }
-            if(row == 1){
-                cell.textLabel.text = @"English";
+            static NSString *languageIdentifier = @"LANGUAGEID";
+            UITableViewCell *languageCell = [tableView dequeueReusableCellWithIdentifier:languageIdentifier];
+            if (!languageCell)
+            {
+                languageCell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:languageIdentifier];
+                languageCell.textLabel.text = @"Language";
             }
             
-            if( ([selectedLanguage isEqualToString:value_appLanguage_VI] && row ==0)
-               || ([selectedLanguage isEqualToString:value_appLanguage_EN] && row ==1) ){
-                cell.accessoryType = UITableViewCellAccessoryCheckmark;
-            }
-            else
-                cell.accessoryType = UITableViewCellAccessoryNone;
+            NSString* selectedLanguage =[[NSUserDefaults standardUserDefaults] stringForKey:key_appLanguage];
+            languageCell.detailTextLabel.text = [appLangs objectForKey:selectedLanguage];
+            
+            [languageCell localizeAllViews];
+            return languageCell;
             break;
         }
         case MoreGroup:
@@ -484,6 +491,7 @@ UITapGestureRecognizer *tap;
                 headerLbl.text = @"FIND PEOPLE AROUND ME";
             break;
         case LanguageGroup:
+            return nil;
             headerLbl.text = @"CHOOSE YOUR LANGUAGE";
             break;
         case AgeGroup:
@@ -511,20 +519,23 @@ UITapGestureRecognizer *tap;
     UITableViewCell* cell = [tableView cellForRowAtIndexPath:indexPath];
     switch (section)
     {
-        case LanguageGroup:{
-            if(row == 0){
-                [[NSUserDefaults standardUserDefaults] setObject:value_appLanguage_VI forKey:key_appLanguage];
-                [[NSUserDefaults standardUserDefaults] synchronize];
-            }
-            if(row == 1){
-                [[NSUserDefaults standardUserDefaults] setObject:value_appLanguage_EN forKey:key_appLanguage];
-                [[NSUserDefaults standardUserDefaults] synchronize];
-            }
-            [appDel updateLanguageBundle];
-            [tableView reloadData];
-            [[self navBarOakClub] setHeaderName:[NSString localizeString:@"Settings"]];
-//            [appDel loadDataForList];
-            [self.view localizeAllViews];
+        case LanguageGroup:
+        {
+//            if(row == 0){
+//                [[NSUserDefaults standardUserDefaults] setObject:value_appLanguage_VI forKey:key_appLanguage];
+//                [[NSUserDefaults standardUserDefaults] synchronize];
+//            }
+//            if(row == 1){
+//                [[NSUserDefaults standardUserDefaults] setObject:value_appLanguage_EN forKey:key_appLanguage];
+//                [[NSUserDefaults standardUserDefaults] synchronize];
+//            }
+//            [appDel updateLanguageBundle];
+//            [[self navBarOakClub] setHeaderName:[NSString localizeString:@"Settings"]];
+////            [appDel loadDataForList];
+//            [self.view localizeAllViews];
+            
+            VCAppLanguageChoose *appLangChoose = [[VCAppLanguageChoose alloc]initWithNibName:@"VCAppLanguageChoose" bundle:nil];
+            [self.navigationController pushViewController:appLangChoose animated:YES];
             break;
         }
 //        case RangeGroup:

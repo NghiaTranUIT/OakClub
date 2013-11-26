@@ -192,12 +192,6 @@
          [self stopSpinner];
         if (status == 0)
         {
-            NSLog(@"Goto profile comfirmation");
-            menuViewController *leftController = [[menuViewController alloc] init];
-            [leftController setUIInfo:appDelegate.myProfile];
-            [appDelegate.rootVC setRightViewController:appDelegate.chat];
-            [appDelegate.rootVC setLeftViewController:leftController];
-            appDelegate.window.rootViewController = appDelegate.rootVC;
             [appDelegate showConfirm];
         }
         else if (status == 2)
