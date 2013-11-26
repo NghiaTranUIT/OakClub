@@ -814,6 +814,7 @@ static CGFloat padding_left = 5.0;
          NSArray* _imagesData;
          if(currentProfile.arr_photos != nil && [currentProfile.arr_photos count]>0)
          {
+             [photoCount setText:[NSString stringWithFormat:@"%i/%i",1,[currentProfile.arr_photos count]]];
              _imagesData = [[NSArray alloc]initWithArray: currentProfile.arr_photos];
              
              if([_imagesData count] == 0)
@@ -827,7 +828,7 @@ static CGFloat padding_left = 5.0;
                  {
                      if(![[currentProfile.arr_photos objectAtIndex:i] isKindOfClass:[UIImage class]]){
                          NSString* link = [currentProfile.arr_photos objectAtIndex:i];
-                         NSLog(@"VCProfile load avatar index: %d, link: %@", i, link);
+//                         NSLog(@"VCProfile load avatar index: %d, link: %@", i, link);
                          if(![link isEqualToString:@""] )
                          {
                              AFHTTPRequestOperation *operation =
@@ -845,7 +846,7 @@ static CGFloat padding_left = 5.0;
                                       self.svPhotos.contentSize =
                                       CGSizeMake(CGRectGetWidth(self.svPhotos.frame) * (i+1), CGRectGetHeight(self.svPhotos.frame));
                                       [currentProfile.arr_photos replaceObjectAtIndex:i withObject:image];
-                                      [photoCount setText:[NSString stringWithFormat:@"%i/%i",1,(i+1)]];
+                                      
                                   }
                               }];
                              [operation start];
@@ -861,7 +862,7 @@ static CGFloat padding_left = 5.0;
                          [self.svPhotos addSubview:imageView];
                          self.svPhotos.contentSize =
                          CGSizeMake(CGRectGetWidth(self.svPhotos.frame) * (i+1), CGRectGetHeight(self.svPhotos.frame));
-                         [photoCount setText:[NSString stringWithFormat:@"%i/%i",1,(i+1)]];
+//                         [photoCount setText:[NSString stringWithFormat:@"%i/%i",1,(i+1)]];
                      }
                  }
                  

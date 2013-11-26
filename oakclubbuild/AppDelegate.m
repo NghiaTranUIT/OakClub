@@ -552,7 +552,7 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
 -(void)parseProfileWithData:(NSDictionary *)data
 {
     self.myProfile = [[Profile alloc] init];
-    [self.myProfile parseProfileWithData:data];
+    [self.myProfile parseProfileWithData:data withFullName:YES];
     [self.myProfile getRosterListIDSync:^{
     }];
     [self setFieldValue:[NSString stringWithFormat:DOMAIN_AT_FMT,self.myProfile.s_usenameXMPP] forKey:kXMPPmyJID];
