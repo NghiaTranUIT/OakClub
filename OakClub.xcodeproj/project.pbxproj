@@ -58,6 +58,8 @@
 		97927B9A183E1150005F49FC /* UpdateProfileViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 97927B99183E1150005F49FC /* UpdateProfileViewController.xib */; };
 		97927BA2183E13B6005F49FC /* updateProfile_avatarBorder.png in Resources */ = {isa = PBXBuildFile; fileRef = 97927BA0183E13B6005F49FC /* updateProfile_avatarBorder.png */; };
 		97927BA3183E13B6005F49FC /* updateProfile_avatarBorder@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 97927BA1183E13B6005F49FC /* updateProfile_avatarBorder@2x.png */; };
+		979D67F91844B06600885FD8 /* VCAppLanguageChoose.m in Sources */ = {isa = PBXBuildFile; fileRef = 979D67F71844B06600885FD8 /* VCAppLanguageChoose.m */; };
+		979D67FA1844B06600885FD8 /* VCAppLanguageChoose.xib in Resources */ = {isa = PBXBuildFile; fileRef = 979D67F81844B06600885FD8 /* VCAppLanguageChoose.xib */; };
 		97A55D4A1823ADDE00675025 /* PhotoScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 97A55D491823ADDE00675025 /* PhotoScrollView.m */; };
 		97A55D5D1823C3E700675025 /* viewprofile_likeicon.png in Resources */ = {isa = PBXBuildFile; fileRef = 97A55D4F1823C3E700675025 /* viewprofile_likeicon.png */; };
 		97A55D5E1823C3E700675025 /* viewprofile_likeicon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 97A55D501823C3E700675025 /* viewprofile_likeicon@2x.png */; };
@@ -683,6 +685,9 @@
 		97927B99183E1150005F49FC /* UpdateProfileViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UpdateProfileViewController.xib; sourceTree = "<group>"; };
 		97927BA0183E13B6005F49FC /* updateProfile_avatarBorder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = updateProfile_avatarBorder.png; path = UpdateProfile/updateProfile_avatarBorder.png; sourceTree = "<group>"; };
 		97927BA1183E13B6005F49FC /* updateProfile_avatarBorder@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "updateProfile_avatarBorder@2x.png"; path = "UpdateProfile/updateProfile_avatarBorder@2x.png"; sourceTree = "<group>"; };
+		979D67F61844B06600885FD8 /* VCAppLanguageChoose.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VCAppLanguageChoose.h; sourceTree = "<group>"; };
+		979D67F71844B06600885FD8 /* VCAppLanguageChoose.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VCAppLanguageChoose.m; sourceTree = "<group>"; };
+		979D67F81844B06600885FD8 /* VCAppLanguageChoose.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VCAppLanguageChoose.xib; sourceTree = "<group>"; };
 		97A55D481823ADDE00675025 /* PhotoScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotoScrollView.h; sourceTree = "<group>"; };
 		97A55D491823ADDE00675025 /* PhotoScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotoScrollView.m; sourceTree = "<group>"; };
 		97A55D4F1823C3E700675025 /* viewprofile_likeicon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = viewprofile_likeicon.png; sourceTree = "<group>"; };
@@ -1837,6 +1842,9 @@
 				CD1301421821FBD100D29E0B /* VCSimpleSnapshotLoading.xib */,
 				CD13017B1822697A00D29E0B /* VCSimpleSnapshotPopup.h */,
 				CD13017C1822697A00D29E0B /* VCSimpleSnapshotPopup.m */,
+				979D67F61844B06600885FD8 /* VCAppLanguageChoose.h */,
+				979D67F71844B06600885FD8 /* VCAppLanguageChoose.m */,
+				979D67F81844B06600885FD8 /* VCAppLanguageChoose.xib */,
 			);
 			name = SnapShot;
 			sourceTree = "<group>";
@@ -3650,6 +3658,7 @@
 				97ABDF001836565800825C09 /* tutorial_options_vn.png in Resources */,
 				CD2DE6A71827B4580043AA91 /* AppIcon57x57.png in Resources */,
 				CD09E0401771AD4C004FD9F0 /* NavBarOakClub.xib in Resources */,
+				979D67FA1844B06600885FD8 /* VCAppLanguageChoose.xib in Resources */,
 				CD877C6A1820B06B0067D478 /* Menu_BG@2x.png in Resources */,
 				CD877D161821374C0067D478 /* ChatView_navbar_logo.png in Resources */,
 				CD1AB0701821804200B0FA10 /* Report_bottomItem_active@2x.png in Resources */,
@@ -4001,6 +4010,7 @@
 				CDDFFACB1719D25E00BBA321 /* AFHTTPRequestOperation.m in Sources */,
 				CDDFFACC1719D25E00BBA321 /* AFImageRequestOperation.m in Sources */,
 				9775A7651813D11200BCF28D /* Location.m in Sources */,
+				979D67F91844B06600885FD8 /* VCAppLanguageChoose.m in Sources */,
 				CDDFFACD1719D25E00BBA321 /* AFJSONRequestOperation.m in Sources */,
 				CDDFFACE1719D25E00BBA321 /* AFNetworkActivityIndicatorManager.m in Sources */,
 				CDDFFACF1719D25E00BBA321 /* AFPropertyListRequestOperation.m in Sources */,
