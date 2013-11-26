@@ -185,4 +185,12 @@
                          [appDelegate showConfirm];
                      }];
 }
+
+-(NSString* ) checkLanguage{
+    NSUserDefaults* defs = [NSUserDefaults standardUserDefaults];
+    NSArray* languages = [defs objectForKey:@"AppleLanguages"];
+    NSString* preferredLang = [languages objectAtIndex:0];
+    NSLog(@"abc %@", preferredLang);
+    return preferredLang;
+}
 @end
