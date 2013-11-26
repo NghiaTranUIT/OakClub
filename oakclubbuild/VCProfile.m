@@ -342,9 +342,10 @@ static CGFloat padding_left = 5.0;
                                           self.aboutView.frame.origin.y,
                                           self.aboutView.frame.size.width,
                                           self.lblAboutMe.frame.size.height + self.lblAboutMe.frame.origin.x);
-        NSInteger deltaPosition = abs(self.aboutView.frame.size.height - newAboutFrame.size.height);
-        self.mutualFriendsView.frame = CGRectMake(self.mutualFriendsView.frame.origin.x, self.mutualFriendsView.frame.origin.y + deltaPosition, self.mutualFriendsView.frame.size.width, self.mutualFriendsView.frame.size.height);
-        self.interestsView.frame = CGRectMake(self.interestsView.frame.origin.x, self.interestsView.frame.origin.y + deltaPosition, self.interestsView.frame.size.width, self.interestsView.frame.size.height);
+        NSInteger deltaPosition = (self.aboutView.frame.size.height - newAboutFrame.size.height);
+        self.aboutView.frame = newAboutFrame;
+        self.mutualFriendsView.frame = CGRectMake(self.mutualFriendsView.frame.origin.x, self.mutualFriendsView.frame.origin.y - deltaPosition, self.mutualFriendsView.frame.size.width, self.mutualFriendsView.frame.size.height);
+        self.interestsView.frame = CGRectMake(self.interestsView.frame.origin.x, self.interestsView.frame.origin.y - deltaPosition, self.interestsView.frame.size.width, self.interestsView.frame.size.height);
         [scrollview setContentSize:CGSizeMake(scrollview.contentSize.width, scrollview.contentSize.height + self.aboutView.frame.size.height)];
     }
     if( currentProfile.arr_MutualInterests && [currentProfile.arr_MutualInterests count] > 0)
@@ -609,7 +610,7 @@ static CGFloat padding_left = 5.0;
 #pragma mark Custom view
 -(void)customNavHeader
 {
-    if(!IS_HEIGHT_GTE_568)
+    if(!IS_OS_7_OR_LATER)
         [self.navigationController.navigationBar.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
     [self customBackButtonBarItem];
     self.lblTabBarName.frame = CGRectMake(60, 0, self.lblTabBarName.frame.size.width, 44);

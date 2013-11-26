@@ -449,6 +449,20 @@
         
         self.a_favorites = [NSArray arrayWithArray:a];
     }
+    
+    //load mutual friends list
+    self.arr_MutualFriends = [[NSMutableArray alloc]init];
+    self.arr_MutualFriends = [self parseMutualList:[data valueForKey:key_MutualFriends]];
+    
+    //load mutual interest list
+    self.arr_MutualInterests = [[NSMutableArray alloc]init];
+    self.arr_MutualInterests = [self parseMutualList:[data valueForKey:key_ShareInterests]];
+    
+    self.num_Viewed =[[data valueForKey:key_viewed] integerValue];
+    self.num_Liked =[[data valueForKey:key_liked] integerValue];
+    self.distance = [[data valueForKey:key_distance] integerValue];
+    self.active = [[data valueForKey:key_active] integerValue];
+    
 }
 -(void) parseForGetProfileInfo:(NSData *)jsonData{
     NSError *e=nil;
