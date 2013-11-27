@@ -36,11 +36,13 @@
 @property (weak, nonatomic) IBOutlet UIView *lblsPhoto;
 @property (strong, nonatomic) IBOutlet UIImageView *oakClubLogo;
 @property (strong, nonatomic) IBOutlet UILabel *lblTabBarName;
+@property (weak, nonatomic) IBOutlet UILabel *lblDistanceTitle;
+@property (weak, nonatomic) IBOutlet UILabel *lblActiveTitle;
 @property BOOL showNavigationBar;
 @end
 
 @implementation VCProfile
-@synthesize lbl_name, imgView_avatar, scrollview,lblAboutMe,lblBirthdate,lblGender, lblInterested, lblLocation, lblProfileName, lblRelationShip, likePopoverView, reportPopoverView, lblEthnicity, lblAge, lblPopularity, lblWanttoMake, btnAddToFavorite, btnIwantToMeet, btnBlock, btnChat, tableViewProfile, svPhotos,infoView, photoPageControl, photoCount,lblDistance, lblActive;
+@synthesize lbl_name, imgView_avatar, scrollview,lblAboutMe,lblBirthdate,lblGender, lblInterested, lblLocation, lblProfileName, lblRelationShip, likePopoverView, reportPopoverView, lblEthnicity, lblAge, lblPopularity, lblWanttoMake, btnAddToFavorite, btnIwantToMeet, btnBlock, btnChat, tableViewProfile, svPhotos,infoView, photoPageControl, photoCount,lblDistance, lblActive, lblActiveTitle,lblDistanceTitle;
 
 @synthesize labelInterests;
 @synthesize mutualFriendsImageView;
@@ -290,6 +292,10 @@ static CGFloat padding_left = 5.0;
 }
 
 -(void)LoadDistanceText{
+    [lblDistanceTitle setText:[@"Distance:" localize]];
+    [lblDistanceTitle sizeToFit];
+    lblDistance.frame = CGRectMake(lblDistanceTitle.frame.origin.x + lblDistanceTitle.frame.size.width + 5, lblDistanceTitle.frame.origin.y
+                                   , lblDistance.frame.size.width, lblDistanceTitle.frame.size.height);
     if(currentProfile.distance < 1){
         [lblDistance setText:[@"Less than a km away" localize]];
         return;
@@ -302,6 +308,10 @@ static CGFloat padding_left = 5.0;
 }
 
 -(void)LoadActiveText{
+    [lblActiveTitle setText:[@"Active:" localize]];
+    [lblActiveTitle sizeToFit];
+    lblActive.frame = CGRectMake(lblActiveTitle.frame.origin.x + lblActiveTitle.frame.size.width + 5, lblActiveTitle.frame.origin.y
+                                   , lblActive.frame.size.width, lblActiveTitle.frame.size.height);
     if(currentProfile.active == -1){
         [lblActive setText:[@"Online" localize]];
         return;
@@ -814,6 +824,7 @@ static CGFloat padding_left = 5.0;
          NSArray* _imagesData;
          if(currentProfile.arr_photos != nil && [currentProfile.arr_photos count]>0)
          {
+             [photoCount setText:[NSString stringWithFormat:@"%i/%i",1,[currentProfile.arr_photos count]]];
              _imagesData = [[NSArray alloc]initWithArray: currentProfile.arr_photos];
              
              if([_imagesData count] == 0)
@@ -827,7 +838,7 @@ static CGFloat padding_left = 5.0;
                  {
                      if(![[currentProfile.arr_photos objectAtIndex:i] isKindOfClass:[UIImage class]]){
                          NSString* link = [currentProfile.arr_photos objectAtIndex:i];
-                         NSLog(@"VCProfile load avatar index: %d, link: %@", i, link);
+//                         NSLog(@"VCProfile load avatar index: %d, link: %@", i, link);
                          if(![link isEqualToString:@""] )
                          {
                              AFHTTPRequestOperation *operation =
@@ -845,7 +856,7 @@ static CGFloat padding_left = 5.0;
                                       self.svPhotos.contentSize =
                                       CGSizeMake(CGRectGetWidth(self.svPhotos.frame) * (i+1), CGRectGetHeight(self.svPhotos.frame));
                                       [currentProfile.arr_photos replaceObjectAtIndex:i withObject:image];
-                                      [photoCount setText:[NSString stringWithFormat:@"%i/%i",1,(i+1)]];
+                                      
                                   }
                               }];
                              [operation start];
@@ -861,7 +872,7 @@ static CGFloat padding_left = 5.0;
                          [self.svPhotos addSubview:imageView];
                          self.svPhotos.contentSize =
                          CGSizeMake(CGRectGetWidth(self.svPhotos.frame) * (i+1), CGRectGetHeight(self.svPhotos.frame));
-                         [photoCount setText:[NSString stringWithFormat:@"%i/%i",1,(i+1)]];
+//                         [photoCount setText:[NSString stringWithFormat:@"%i/%i",1,(i+1)]];
                      }
                  }
                  
@@ -1124,7 +1135,7 @@ BOOL allowFullScreen = FALSE;
         [self.svPhotos setFrame:CGRectMake(0, 0, self.view.frame.size.width, 294)];
         self.svPhotos.contentSize =
         CGSizeMake(CGRectGetWidth(self.svPhotos.frame) * [currentProfile.arr_photos count], CGRectGetHeight(self.svPhotos.frame));
-        [self.infoView setFrame:CGRectMake(0, 320, self.infoView.frame.size.width, self.infoView.frame.size.height)];
+        [self.infoView setFrame:CGRectMake(0, self.svPhotos.frame.size.height, self.infoView.frame.size.width, self.infoView.frame.size.height)];
         [self.lblsPhoto setFrame:CGRectMake(0, self.svPhotos.frame.origin.y + self.svPhotos.frame.size.height - self.lblsPhoto.frame.size.height, self.lblsPhoto.frame.size.width, self.lblsPhoto.frame.size.height)];
         [self updateSubviewsToCenterScrollView];
     }

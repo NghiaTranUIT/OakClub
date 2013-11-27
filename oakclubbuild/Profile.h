@@ -141,6 +141,7 @@
 //-(ProfileSetting*) parseForGetAccountSetting:(NSData *)jsonData;
 +(Gender*) parseGender:(NSNumber *)genderCode;
 -(void) parseProfileWithData:(NSDictionary*)data;
+-(void) parseProfileWithData:(NSDictionary*)data withFullName:(BOOL)getFullName;
 -(void) parseGetSnapshotToProfile:(NSData *)jsonData;
 -(void) parseForGetProfileInfo:(NSData *)jsonData;
 - (void)saveSettingWithCompletion:(void(^)(bool isSuccess))completion;

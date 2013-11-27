@@ -377,13 +377,17 @@
     return photos;
 }
 
--(void) parseProfileWithData:(NSDictionary*)data
+-(void) parseProfileWithData:(NSDictionary*)data{
+    [self parseProfileWithData:data withFullName:FALSE];
+}
+-(void) parseProfileWithData:(NSDictionary*)data withFullName:(BOOL)getFullName
 {
     self.s_ID = [data valueForKey:key_profileID];
     self.s_usenameXMPP = [data valueForKey:key_usernameXMPP];
     self.s_passwordXMPP = [data valueForKey:key_passwordXMPP];
     self.s_Name = [data valueForKey:key_name];
-    self.s_Name = [self getFirstNameWithName:self.s_Name];
+    if(!getFullName)
+        self.s_Name = [self getFirstNameWithName:self.s_Name];
     self.s_Avatar = [data valueForKey:key_avatar];
     int ethnicityIndex =[[data valueForKey:key_ethnicity] integerValue];
     self.c_ethnicity= [[Ethnicity alloc]initWithID:ethnicityIndex];
