@@ -101,7 +101,7 @@
 }
 
 -(void)viewDidDisappear:(BOOL)animated{
-    [self removeNotification];
+//    [self removeNotification];
 }
 - (void)didReceiveMemoryWarning
 {
@@ -183,10 +183,9 @@
 
 - (void)rightItemPressed:(id)sender {
     NSLog(@"rightItemPressed");
-    
-        AppDelegate *appDel = [UIApplication sharedApplication].delegate;
-        appDel.rootVC.recognizesPanningOnFrontView = YES;
-        [appDel.rootVC showViewController:appDel.chat];
+    AppDelegate *appDel = [UIApplication sharedApplication].delegate;
+    appDel.rootVC.recognizesPanningOnFrontView = YES;
+    [appDel.rootVC showViewController:appDel.chat];
 }
 
 #pragma mark notification
@@ -207,12 +206,12 @@
         [self.navigationController.navigationBar addSubview:lblNumNotification];
     }
     
-     NSLog(@"subview  =  %i",[[self.navigationController.navigationBar subviews] count]);
+//     NSLog(@"subview  =  %i",[[self.navigationController.navigationBar subviews] count]);
 }
 -(void)removeNotification{
 //    if(IS_OS_7_OR_LATER){
     self.navigationController.navigationBarHidden = YES;
-    NSLog(@"subview  =  %i",[[self.navigationController.navigationBar subviews] count]);
+//    NSLog(@"subview  =  %i",[[self.navigationController.navigationBar subviews] count]);
         for(UIView* subview in [self.navigationController.navigationBar subviews]){
             if([subview isKindOfClass:[UILabel class]] || [subview isKindOfClass:[UIImageView class]])
                 [subview removeFromSuperview];

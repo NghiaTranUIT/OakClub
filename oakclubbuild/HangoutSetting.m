@@ -165,12 +165,12 @@ ProfileSetting* hangoutSetting;
     
     [self.navigationController popViewControllerAnimated:YES];
     
-    UINavigationController* activeVC = [[self appDelegate] activeViewController];
-    UIViewController* vc = [activeVC.viewControllers objectAtIndex:0];
-    if( [vc isKindOfClass:[VCHangOut class]] )
-    {
-        [(VCHangOut*)vc initDataNearByTableView];
-    }
+//    UINavigationController* activeVC = [[self appDelegate] activeViewController];
+//    UIViewController* vc = [activeVC.viewControllers objectAtIndex:0];
+//    if( [vc isKindOfClass:[VCHangOut class]] )
+//    {
+//        [(VCHangOut*)vc initDataNearByTableView];
+//    }
 }
 #pragma mark - Table view delegate
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {

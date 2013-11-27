@@ -13,12 +13,7 @@
 #import "menuViewController.h"
 
 #import "VCChat.h"
-#import "VCMyLink.h"
-#import "VCSnapshoot.h"
-#import "VCVisitor.h"
-#import "VCHangOut.h"
 #import "VCMyProfile.h"
-#import "SnapshotSetting.h"
 #import "NavConOakClub.h"
 #import "NavBarOakClub.h"
 #import "VCHangoutSetting.h" // for test

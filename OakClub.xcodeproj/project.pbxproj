@@ -9,18 +9,6 @@
 /* Begin PBXBuildFile section */
 		3715B369170AC9DC003ACE95 /* VCChat.m in Sources */ = {isa = PBXBuildFile; fileRef = 3715B35E170AC9DC003ACE95 /* VCChat.m */; };
 		3715B36A170AC9DC003ACE95 /* VCChat.m in Sources */ = {isa = PBXBuildFile; fileRef = 3715B35E170AC9DC003ACE95 /* VCChat.m */; };
-		3715B36D170AC9DC003ACE95 /* VCMyLink.m in Sources */ = {isa = PBXBuildFile; fileRef = 3715B361170AC9DC003ACE95 /* VCMyLink.m */; };
-		3715B36E170AC9DC003ACE95 /* VCMyLink.m in Sources */ = {isa = PBXBuildFile; fileRef = 3715B361170AC9DC003ACE95 /* VCMyLink.m */; };
-		3715B36F170AC9DC003ACE95 /* VCMyLink.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3715B362170AC9DC003ACE95 /* VCMyLink.xib */; };
-		3715B370170AC9DC003ACE95 /* VCMyLink.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3715B362170AC9DC003ACE95 /* VCMyLink.xib */; };
-		3715B371170AC9DC003ACE95 /* VCSnapshoot.m in Sources */ = {isa = PBXBuildFile; fileRef = 3715B364170AC9DC003ACE95 /* VCSnapshoot.m */; };
-		3715B372170AC9DC003ACE95 /* VCSnapshoot.m in Sources */ = {isa = PBXBuildFile; fileRef = 3715B364170AC9DC003ACE95 /* VCSnapshoot.m */; };
-		3715B373170AC9DC003ACE95 /* VCSnapshoot.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3715B365170AC9DC003ACE95 /* VCSnapshoot.xib */; };
-		3715B374170AC9DC003ACE95 /* VCSnapshoot.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3715B365170AC9DC003ACE95 /* VCSnapshoot.xib */; };
-		3715B375170AC9DC003ACE95 /* VCVisitor.m in Sources */ = {isa = PBXBuildFile; fileRef = 3715B367170AC9DC003ACE95 /* VCVisitor.m */; };
-		3715B376170AC9DC003ACE95 /* VCVisitor.m in Sources */ = {isa = PBXBuildFile; fileRef = 3715B367170AC9DC003ACE95 /* VCVisitor.m */; };
-		3715B377170AC9DC003ACE95 /* VCVisitor.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3715B368170AC9DC003ACE95 /* VCVisitor.xib */; };
-		3715B378170AC9DC003ACE95 /* VCVisitor.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3715B368170AC9DC003ACE95 /* VCVisitor.xib */; };
 		970924B5182E5BBF007BD6B1 /* myprofile_editVideo.png in Resources */ = {isa = PBXBuildFile; fileRef = 970924B3182E5BBF007BD6B1 /* myprofile_editVideo.png */; };
 		970924B6182E5BBF007BD6B1 /* myprofile_editVideo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 970924B4182E5BBF007BD6B1 /* myprofile_editVideo@2x.png */; };
 		970924BC182E5EFE007BD6B1 /* VideoPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 970924BB182E5EFE007BD6B1 /* VideoPicker.m */; };
@@ -113,10 +101,6 @@
 		CD038E71180BDB2700A9E177 /* MessageStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = CD038E6A180BDB2700A9E177 /* MessageStorage.m */; };
 		CD038E72180BDB2700A9E177 /* SmileyList.plist in Resources */ = {isa = PBXBuildFile; fileRef = CD038E6B180BDB2700A9E177 /* SmileyList.plist */; };
 		CD038E73180BDB2700A9E177 /* WordWarpParse.m in Sources */ = {isa = PBXBuildFile; fileRef = CD038E6D180BDB2700A9E177 /* WordWarpParse.m */; };
-		CD038E7A180BE86100A9E177 /* VCMutualMatch.m in Sources */ = {isa = PBXBuildFile; fileRef = CD038E78180BE86100A9E177 /* VCMutualMatch.m */; };
-		CD038E7B180BE86100A9E177 /* VCMutualMatch.xib in Resources */ = {isa = PBXBuildFile; fileRef = CD038E79180BE86100A9E177 /* VCMutualMatch.xib */; };
-		CD04190417327A5C000D40D8 /* VCSnapshotSetting.m in Sources */ = {isa = PBXBuildFile; fileRef = CD04190217327A5C000D40D8 /* VCSnapshotSetting.m */; };
-		CD04190517327A5C000D40D8 /* VCSnapshotSetting.xib in Resources */ = {isa = PBXBuildFile; fileRef = CD04190317327A5C000D40D8 /* VCSnapshotSetting.xib */; };
 		CD06FBAB173B9A4B007F56E3 /* NYPopover.m in Sources */ = {isa = PBXBuildFile; fileRef = CD06FBA8173B9A4B007F56E3 /* NYPopover.m */; };
 		CD06FBAC173B9A4B007F56E3 /* NYSliderPopover.m in Sources */ = {isa = PBXBuildFile; fileRef = CD06FBAA173B9A4B007F56E3 /* NYSliderPopover.m */; };
 		CD09E0401771AD4C004FD9F0 /* NavBarOakClub.xib in Resources */ = {isa = PBXBuildFile; fileRef = CD09E03F1771AD4C004FD9F0 /* NavBarOakClub.xib */; };
@@ -380,8 +364,6 @@
 		CD8AA1F4170C1B2800A97C47 /* NavBarOakClub.m in Sources */ = {isa = PBXBuildFile; fileRef = CD8AA1EF170C1B2600A97C47 /* NavBarOakClub.m */; };
 		CD8AA1F6170C1B2800A97C47 /* NavConOakClub.m in Sources */ = {isa = PBXBuildFile; fileRef = CD8AA1F2170C1B2800A97C47 /* NavConOakClub.m */; };
 		CD8AA1F7170C1B2800A97C47 /* NavConOakClub.xib in Resources */ = {isa = PBXBuildFile; fileRef = CD8AA1F3170C1B2800A97C47 /* NavConOakClub.xib */; };
-		CD8AA1FB170C1B3F00A97C47 /* VCHangOut.m in Sources */ = {isa = PBXBuildFile; fileRef = CD8AA1F9170C1B3E00A97C47 /* VCHangOut.m */; };
-		CD8AA1FC170C1B3F00A97C47 /* VCHangOut.xib in Resources */ = {isa = PBXBuildFile; fileRef = CD8AA1FA170C1B3F00A97C47 /* VCHangOut.xib */; };
 		CD8B47021816B82F00A272B7 /* menuViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CD8B47041816B82F00A272B7 /* menuViewController.xib */; };
 		CD8B47071816B91D00A272B7 /* VCChat.xib in Resources */ = {isa = PBXBuildFile; fileRef = CD8B47091816B91D00A272B7 /* VCChat.xib */; };
 		CDA89B5D18333D3200ADC648 /* myprofile_addvideo.png in Resources */ = {isa = PBXBuildFile; fileRef = CDA89B5B18333D3200ADC648 /* myprofile_addvideo.png */; };
@@ -454,8 +436,6 @@
 		CDEEFAF7170D6CCA001F9C36 /* TapDetectingImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = CDEEFAF4170D6CCA001F9C36 /* TapDetectingImageView.m */; };
 		CDEEFAF8170D6CCA001F9C36 /* ThumbImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = CDEEFAF6170D6CCA001F9C36 /* ThumbImageView.m */; };
 		CDEFB9131769B10A0033F94E /* SettingObject.m in Sources */ = {isa = PBXBuildFile; fileRef = CDEFB9121769B10A0033F94E /* SettingObject.m */; };
-		CDEFB9171769D98F0033F94E /* SnapshotSetting.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CDEFB9161769D98F0033F94E /* SnapshotSetting.storyboard */; };
-		CDEFB91A1769E0060033F94E /* SnapshotSetting.m in Sources */ = {isa = PBXBuildFile; fileRef = CDEFB9191769E0060033F94E /* SnapshotSetting.m */; };
 		CDF1AF8F1782DDE500C8FCE9 /* ProfileConfirmation.m in Sources */ = {isa = PBXBuildFile; fileRef = CDF1AF8E1782DDE500C8FCE9 /* ProfileConfirmation.m */; };
 		CDF1AF941782E9C100C8FCE9 /* PreferencesSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = CDF1AF931782E9C000C8FCE9 /* PreferencesSettings.m */; };
 		CDF4D494170403A2005E7B71 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CDF4D493170403A2005E7B71 /* CFNetwork.framework */; };
@@ -587,8 +567,6 @@
 		CDF99C541713FAFE008D8BAC /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = CDF99C531713FAFE008D8BAC /* MainWindow.xib */; };
 		CDFA306217795A280023CEBE /* AdvancedSetting.m in Sources */ = {isa = PBXBuildFile; fileRef = CDFA306117795A280023CEBE /* AdvancedSetting.m */; };
 		CDFAA78E17549607008D6567 /* ProfileCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CDFAA78D17549607008D6567 /* ProfileCell.m */; };
-		CDFC22C4178BFFE5001D71D5 /* VCGetPoints.m in Sources */ = {isa = PBXBuildFile; fileRef = CDFC22C2178BFFE5001D71D5 /* VCGetPoints.m */; };
-		CDFC22C5178BFFE5001D71D5 /* VCGetPoints.xib in Resources */ = {isa = PBXBuildFile; fileRef = CDFC22C3178BFFE5001D71D5 /* VCGetPoints.xib */; };
 		CDFED5E31738DA4000158756 /* GroupButtons.m in Sources */ = {isa = PBXBuildFile; fileRef = CDFED5E21738DA4000158756 /* GroupButtons.m */; };
 		CDFED5E71738DAC000158756 /* VCMyProfile.m in Sources */ = {isa = PBXBuildFile; fileRef = CDFED5E51738DAC000158756 /* VCMyProfile.m */; };
 		CDFED5E81738DAC000158756 /* VCMyProfile.xib in Resources */ = {isa = PBXBuildFile; fileRef = CDFED5E61738DAC000158756 /* VCMyProfile.xib */; };
@@ -620,17 +598,6 @@
 /* Begin PBXFileReference section */
 		3715B35D170AC9DC003ACE95 /* VCChat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VCChat.h; sourceTree = "<group>"; };
 		3715B35E170AC9DC003ACE95 /* VCChat.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VCChat.m; sourceTree = "<group>"; };
-		3715B360170AC9DC003ACE95 /* VCMyLink.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VCMyLink.h; sourceTree = "<group>"; };
-		3715B361170AC9DC003ACE95 /* VCMyLink.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VCMyLink.m; sourceTree = "<group>"; };
-		3715B362170AC9DC003ACE95 /* VCMyLink.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VCMyLink.xib; sourceTree = "<group>"; };
-		3715B363170AC9DC003ACE95 /* VCSnapshoot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VCSnapshoot.h; sourceTree = "<group>"; };
-		3715B364170AC9DC003ACE95 /* VCSnapshoot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VCSnapshoot.m; sourceTree = "<group>"; };
-		3715B365170AC9DC003ACE95 /* VCSnapshoot.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VCSnapshoot.xib; sourceTree = "<group>"; };
-		3715B366170AC9DC003ACE95 /* VCVisitor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VCVisitor.h; sourceTree = "<group>"; };
-		3715B367170AC9DC003ACE95 /* VCVisitor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VCVisitor.m; sourceTree = "<group>"; };
-		3715B368170AC9DC003ACE95 /* VCVisitor.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VCVisitor.xib; sourceTree = "<group>"; };
-		45BB86FF1844B48700DACE36 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		45BB87001844B4B500DACE36 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
 		970924B3182E5BBF007BD6B1 /* myprofile_editVideo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = myprofile_editVideo.png; sourceTree = "<group>"; };
 		970924B4182E5BBF007BD6B1 /* myprofile_editVideo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "myprofile_editVideo@2x.png"; sourceTree = "<group>"; };
 		970924BA182E5EFE007BD6B1 /* VideoPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoPicker.h; sourceTree = "<group>"; };
@@ -758,12 +725,6 @@
 		CD038E6B180BDB2700A9E177 /* SmileyList.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = SmileyList.plist; sourceTree = "<group>"; };
 		CD038E6C180BDB2700A9E177 /* WordWarpParse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WordWarpParse.h; sourceTree = "<group>"; };
 		CD038E6D180BDB2700A9E177 /* WordWarpParse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WordWarpParse.m; sourceTree = "<group>"; };
-		CD038E77180BE86100A9E177 /* VCMutualMatch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VCMutualMatch.h; sourceTree = "<group>"; };
-		CD038E78180BE86100A9E177 /* VCMutualMatch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VCMutualMatch.m; sourceTree = "<group>"; };
-		CD038E79180BE86100A9E177 /* VCMutualMatch.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VCMutualMatch.xib; sourceTree = "<group>"; };
-		CD04190117327A5C000D40D8 /* VCSnapshotSetting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VCSnapshotSetting.h; sourceTree = "<group>"; };
-		CD04190217327A5C000D40D8 /* VCSnapshotSetting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = VCSnapshotSetting.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		CD04190317327A5C000D40D8 /* VCSnapshotSetting.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VCSnapshotSetting.xib; sourceTree = "<group>"; };
 		CD06FBA7173B9A4B007F56E3 /* NYPopover.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NYPopover.h; sourceTree = "<group>"; };
 		CD06FBA8173B9A4B007F56E3 /* NYPopover.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NYPopover.m; sourceTree = "<group>"; };
 		CD06FBA9173B9A4B007F56E3 /* NYSliderPopover.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NYSliderPopover.h; sourceTree = "<group>"; };
@@ -963,6 +924,8 @@
 		CD819573172864C400D86C0B /* VCHangoutSetting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VCHangoutSetting.h; sourceTree = "<group>"; };
 		CD819574172864C400D86C0B /* VCHangoutSetting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = VCHangoutSetting.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		CD819575172864C400D86C0B /* VCHangoutSetting.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VCHangoutSetting.xib; sourceTree = "<group>"; };
+		CD81E6181844B87800B432AB /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
+		CD81E6191844B88C00B432AB /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		CD877C4A1820AD490067D478 /* Snapshot_btn_no_preesed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Snapshot_btn_no_preesed.png; sourceTree = "<group>"; };
 		CD877C4B1820AD490067D478 /* Snapshot_btn_no_preesed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Snapshot_btn_no_preesed@2x.png"; sourceTree = "<group>"; };
 		CD877C4C1820AD490067D478 /* Snapshot_btn_yes_pressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Snapshot_btn_yes_pressed.png; sourceTree = "<group>"; };
@@ -1070,9 +1033,6 @@
 		CD8AA1F1170C1B2700A97C47 /* NavConOakClub.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavConOakClub.h; sourceTree = "<group>"; };
 		CD8AA1F2170C1B2800A97C47 /* NavConOakClub.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavConOakClub.m; sourceTree = "<group>"; };
 		CD8AA1F3170C1B2800A97C47 /* NavConOakClub.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NavConOakClub.xib; sourceTree = "<group>"; };
-		CD8AA1F8170C1B3E00A97C47 /* VCHangOut.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VCHangOut.h; sourceTree = "<group>"; };
-		CD8AA1F9170C1B3E00A97C47 /* VCHangOut.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VCHangOut.m; sourceTree = "<group>"; };
-		CD8AA1FA170C1B3F00A97C47 /* VCHangOut.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VCHangOut.xib; sourceTree = "<group>"; };
 		CD8B47031816B82F00A272B7 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/menuViewController.xib; sourceTree = "<group>"; };
 		CD8B47081816B91D00A272B7 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/VCChat.xib; sourceTree = "<group>"; };
 		CDA89B5B18333D3200ADC648 /* myprofile_addvideo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = myprofile_addvideo.png; sourceTree = "<group>"; };
@@ -1182,9 +1142,6 @@
 		CDEEFAF6170D6CCA001F9C36 /* ThumbImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ThumbImageView.m; sourceTree = "<group>"; };
 		CDEFB9111769B10A0033F94E /* SettingObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingObject.h; sourceTree = "<group>"; };
 		CDEFB9121769B10A0033F94E /* SettingObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingObject.m; sourceTree = "<group>"; };
-		CDEFB9161769D98F0033F94E /* SnapshotSetting.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = SnapshotSetting.storyboard; sourceTree = "<group>"; };
-		CDEFB9181769E0060033F94E /* SnapshotSetting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SnapshotSetting.h; sourceTree = "<group>"; };
-		CDEFB9191769E0060033F94E /* SnapshotSetting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = SnapshotSetting.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		CDF1AF8D1782DDE500C8FCE9 /* ProfileConfirmation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileConfirmation.h; sourceTree = "<group>"; };
 		CDF1AF8E1782DDE500C8FCE9 /* ProfileConfirmation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileConfirmation.m; sourceTree = "<group>"; };
 		CDF1AF921782E9C000C8FCE9 /* PreferencesSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PreferencesSettings.h; sourceTree = "<group>"; };
@@ -1442,9 +1399,6 @@
 		CDFA306117795A280023CEBE /* AdvancedSetting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AdvancedSetting.m; sourceTree = "<group>"; };
 		CDFAA78C17549607008D6567 /* ProfileCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileCell.h; sourceTree = "<group>"; };
 		CDFAA78D17549607008D6567 /* ProfileCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileCell.m; sourceTree = "<group>"; };
-		CDFC22C1178BFFE5001D71D5 /* VCGetPoints.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VCGetPoints.h; sourceTree = "<group>"; };
-		CDFC22C2178BFFE5001D71D5 /* VCGetPoints.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VCGetPoints.m; sourceTree = "<group>"; };
-		CDFC22C3178BFFE5001D71D5 /* VCGetPoints.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VCGetPoints.xib; sourceTree = "<group>"; };
 		CDFED5E11738DA4000158756 /* GroupButtons.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupButtons.h; sourceTree = "<group>"; };
 		CDFED5E21738DA4000158756 /* GroupButtons.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupButtons.m; sourceTree = "<group>"; };
 		CDFED5E41738DABF00158756 /* VCMyProfile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VCMyProfile.h; sourceTree = "<group>"; };
@@ -1700,16 +1654,6 @@
 			path = ChattingClasses;
 			sourceTree = "<group>";
 		};
-		CD038E7C180BE86600A9E177 /* MutualMatch */ = {
-			isa = PBXGroup;
-			children = (
-				CD038E77180BE86100A9E177 /* VCMutualMatch.h */,
-				CD038E78180BE86100A9E177 /* VCMutualMatch.m */,
-				CD038E79180BE86100A9E177 /* VCMutualMatch.xib */,
-			);
-			name = MutualMatch;
-			sourceTree = "<group>";
-		};
 		CD06FBA6173B9A4B007F56E3 /* TrackingSlider */ = {
 			isa = PBXGroup;
 			children = (
@@ -1781,13 +1725,9 @@
 				CD12C1AD170AEB9C006B13B8 /* Menu */,
 				CD12C1AA170AEB27006B13B8 /* Login */,
 				CD12C1A7170AEB01006B13B8 /* SnapShot */,
-				CD12C1A8170AEB10006B13B8 /* Visitors */,
-				CD12C1A6170AEAF2006B13B8 /* MyLink */,
 				CD12C1A5170AEAE4006B13B8 /* Chat */,
 				CDDF8CFC171C0F8F00B8512D /* Profile */,
 				CDFED5E91738DAC500158756 /* MyProfile */,
-				CDFC22C7178BFFEF001D71D5 /* GetPoints */,
-				CD038E7C180BE86600A9E177 /* MutualMatch */,
 			);
 			name = ViewController;
 			sourceTree = "<group>";
@@ -1809,16 +1749,6 @@
 			name = Chat;
 			sourceTree = "<group>";
 		};
-		CD12C1A6170AEAF2006B13B8 /* MyLink */ = {
-			isa = PBXGroup;
-			children = (
-				3715B360170AC9DC003ACE95 /* VCMyLink.h */,
-				3715B361170AC9DC003ACE95 /* VCMyLink.m */,
-				3715B362170AC9DC003ACE95 /* VCMyLink.xib */,
-			);
-			name = MyLink;
-			sourceTree = "<group>";
-		};
 		CD12C1A7170AEB01006B13B8 /* SnapShot */ = {
 			isa = PBXGroup;
 			children = (
@@ -1826,15 +1756,6 @@
 				CD1134AA17E0277600C56616 /* VCSimpleSnapshot.m */,
 				CD15E86E182F6CAF00557BA5 /* VCSimpleSnapshot.xib */,
 				CD15E870182F6CCB00557BA5 /* VCSimpleSnapshot-568h.xib */,
-				3715B363170AC9DC003ACE95 /* VCSnapshoot.h */,
-				3715B364170AC9DC003ACE95 /* VCSnapshoot.m */,
-				3715B365170AC9DC003ACE95 /* VCSnapshoot.xib */,
-				CD04190117327A5C000D40D8 /* VCSnapshotSetting.h */,
-				CD04190217327A5C000D40D8 /* VCSnapshotSetting.m */,
-				CD04190317327A5C000D40D8 /* VCSnapshotSetting.xib */,
-				CDEFB9161769D98F0033F94E /* SnapshotSetting.storyboard */,
-				CDEFB9181769E0060033F94E /* SnapshotSetting.h */,
-				CDEFB9191769E0060033F94E /* SnapshotSetting.m */,
 				CDE5DB331807B46A00A96D78 /* VCSimpleSnapshotSetting.h */,
 				CDE5DB341807B46A00A96D78 /* VCSimpleSnapshotSetting.m */,
 				CDE5DB351807B46A00A96D78 /* VCSimpleSnapshotSetting.xib */,
@@ -1848,16 +1769,6 @@
 				979D67F81844B06600885FD8 /* VCAppLanguageChoose.xib */,
 			);
 			name = SnapShot;
-			sourceTree = "<group>";
-		};
-		CD12C1A8170AEB10006B13B8 /* Visitors */ = {
-			isa = PBXGroup;
-			children = (
-				3715B366170AC9DC003ACE95 /* VCVisitor.h */,
-				3715B367170AC9DC003ACE95 /* VCVisitor.m */,
-				3715B368170AC9DC003ACE95 /* VCVisitor.xib */,
-			);
-			name = Visitors;
 			sourceTree = "<group>";
 		};
 		CD12C1AA170AEB27006B13B8 /* Login */ = {
@@ -2451,9 +2362,6 @@
 				CD02C68417560ED300B1ED6A /* OverlayViewController.h */,
 				CD02C68517560ED300B1ED6A /* OverlayViewController.m */,
 				CD02C68617560ED300B1ED6A /* OverlayViewController.xib */,
-				CD8AA1F8170C1B3E00A97C47 /* VCHangOut.h */,
-				CD8AA1F9170C1B3E00A97C47 /* VCHangOut.m */,
-				CD8AA1FA170C1B3F00A97C47 /* VCHangOut.xib */,
 				CD819573172864C400D86C0B /* VCHangoutSetting.h */,
 				CD819574172864C400D86C0B /* VCHangoutSetting.m */,
 				CD819575172864C400D86C0B /* VCHangoutSetting.xib */,
@@ -3322,16 +3230,6 @@
 			name = AdvancedSetting;
 			sourceTree = "<group>";
 		};
-		CDFC22C7178BFFEF001D71D5 /* GetPoints */ = {
-			isa = PBXGroup;
-			children = (
-				CDFC22C1178BFFE5001D71D5 /* VCGetPoints.h */,
-				CDFC22C2178BFFE5001D71D5 /* VCGetPoints.m */,
-				CDFC22C3178BFFE5001D71D5 /* VCGetPoints.xib */,
-			);
-			name = GetPoints;
-			sourceTree = "<group>";
-		};
 		CDFED5E91738DAC500158756 /* MyProfile */ = {
 			isa = PBXGroup;
 			children = (
@@ -3480,10 +3378,7 @@
 				CD1301681821FD9700D29E0B /* SnapshotLoading_btn_tellyourfriend_inactive@2x.png in Resources */,
 				CDC492ED1702CF8700E83DE3 /* FacebookSDKResources.bundle in Resources */,
 				CD8B47021816B82F00A272B7 /* menuViewController.xib in Resources */,
-				3715B36F170AC9DC003ACE95 /* VCMyLink.xib in Resources */,
-				3715B373170AC9DC003ACE95 /* VCSnapshoot.xib in Resources */,
 				CD50E34F181FBF3C0036A23B /* Snapshot_bg_profiles.png in Resources */,
-				3715B377170AC9DC003ACE95 /* VCVisitor.xib in Resources */,
 				CD1AB07B1821804200B0FA10 /* Report_separators.png in Resources */,
 				CD8AA1ED170C11A700A97C47 /* Cell.xib in Resources */,
 				CD8AA1F7170C1B2800A97C47 /* NavConOakClub.xib in Resources */,
@@ -3492,14 +3387,12 @@
 				CDFF638C1823564400C8031F /* SnapshotSetting_check.png in Resources */,
 				970924B5182E5BBF007BD6B1 /* myprofile_editVideo.png in Resources */,
 				CD877CFC18212BAE0067D478 /* Info_background.png in Resources */,
-				CD8AA1FC170C1B3F00A97C47 /* VCHangOut.xib in Resources */,
 				97A55D5D1823C3E700675025 /* viewprofile_likeicon.png in Resources */,
 				CD50E354181FBF3C0036A23B /* Snapshot_btn_no@2x.png in Resources */,
 				CD877D0218212BAE0067D478 /* intropage_snap.png in Resources */,
 				CDFF63871823564400C8031F /* SnapshotSetting_btn_contactus_inactive@2x.png in Resources */,
 				CD1AB07A1821804200B0FA10 /* Report_midleItem_inactive@2x.png in Resources */,
 				CD1AB06E1821804200B0FA10 /* Report_BG@2x.png in Resources */,
-				CD038E7B180BE86100A9E177 /* VCMutualMatch.xib in Resources */,
 				CD877CEA182114560067D478 /* HistoryChat_separator@2x.png in Resources */,
 				CD2DE69E1827B2A30043AA91 /* AppIcon40x40@2x.png in Resources */,
 				CDE09895182CEF3D00734C91 /* Menu_icon_settings.png in Resources */,
@@ -3562,7 +3455,6 @@
 				CD819577172864C400D86C0B /* VCHangoutSetting.xib in Resources */,
 				97ABDF111836589100825C09 /* spashscreen_vn-568h@2x.png in Resources */,
 				CDFF638B1823564400C8031F /* SnapshotSetting_btn_logout_inactive@2x.png in Resources */,
-				CD04190517327A5C000D40D8 /* VCSnapshotSetting.xib in Resources */,
 				CDFF63861823564400C8031F /* SnapshotSetting_btn_contactus_inactive.png in Resources */,
 				CD877C6D1820B06B0067D478 /* Menu_btn_logout.png in Resources */,
 				CDFF63881823564400C8031F /* SnapshotSetting_btn_logout_active.png in Resources */,
@@ -3625,7 +3517,6 @@
 				CDF530821768699C0065701F /* EditText.xib in Resources */,
 				97A55D5E1823C3E700675025 /* viewprofile_likeicon@2x.png in Resources */,
 				CD877D0318212BAE0067D478 /* intropage_snap@2x.png in Resources */,
-				CDEFB9171769D98F0033F94E /* SnapshotSetting.storyboard in Resources */,
 				CD286262176B0F7100E81E73 /* HangoutSetting.storyboard in Resources */,
 				CDE5DB371807B46A00A96D78 /* VCSimpleSnapshotSetting.xib in Resources */,
 				CD50E3BA181FE62C0036A23B /* Navbar_BG@2x.png in Resources */,
@@ -3740,7 +3631,6 @@
 				97ABDF0D183656D500825C09 /* tutorial_options_vn-568h@2x.png in Resources */,
 				CD50E35F181FBF3C0036A23B /* Snapshot_popup_cancel.png in Resources */,
 				9775A7871813D5DE00BCF28D /* close@2x.png in Resources */,
-				CDFC22C5178BFFE5001D71D5 /* VCGetPoints.xib in Resources */,
 				CD877C4E1820AD490067D478 /* Snapshot_btn_no_preesed.png in Resources */,
 				CD50E356181FBF3C0036A23B /* Snapshot_btn_yes@2x.png in Resources */,
 				CD15E868182F5F7100557BA5 /* intropage_match-568h@2x.png in Resources */,
@@ -3816,9 +3706,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				CDC492C51702CEAB00E83DE3 /* InfoPlist.strings in Resources */,
-				3715B370170AC9DC003ACE95 /* VCMyLink.xib in Resources */,
-				3715B374170AC9DC003ACE95 /* VCSnapshoot.xib in Resources */,
-				3715B378170AC9DC003ACE95 /* VCVisitor.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3853,16 +3740,12 @@
 				9775A7851813D5DE00BCF28D /* UIView+JMNoise.m in Sources */,
 				CD12C16A170A908B006B13B8 /* DDMenuController.m in Sources */,
 				3715B369170AC9DC003ACE95 /* VCChat.m in Sources */,
-				3715B36D170AC9DC003ACE95 /* VCMyLink.m in Sources */,
-				3715B371170AC9DC003ACE95 /* VCSnapshoot.m in Sources */,
-				3715B375170AC9DC003ACE95 /* VCVisitor.m in Sources */,
 				CD8AA1E8170C109700A97C47 /* Cell.m in Sources */,
 				CD8AA1E9170C109700A97C47 /* UIGridView.m in Sources */,
 				CD8AA1EA170C109700A97C47 /* UIGridViewCell.m in Sources */,
 				CD8AA1EB170C109700A97C47 /* UIGridViewRow.m in Sources */,
 				CD8AA1F4170C1B2800A97C47 /* NavBarOakClub.m in Sources */,
 				CD8AA1F6170C1B2800A97C47 /* NavConOakClub.m in Sources */,
-				CD8AA1FB170C1B3F00A97C47 /* VCHangOut.m in Sources */,
 				CD0AB827182900CB00385CB9 /* RangeSlider.m in Sources */,
 				CDEEFAF7170D6CCA001F9C36 /* TapDetectingImageView.m in Sources */,
 				CDE5DB361807B46A00A96D78 /* VCSimpleSnapshotSetting.m in Sources */,
@@ -3930,7 +3813,6 @@
 				CDF99BC21713D629008D8BAC /* XMPPvCard.xcdatamodeld in Sources */,
 				CDF99BC31713D629008D8BAC /* XMPPvCardAvatarCoreDataStorageObject.m in Sources */,
 				9775A78C1813D5DE00BCF28D /* UAModalPanel.m in Sources */,
-				CD038E7A180BE86100A9E177 /* VCMutualMatch.m in Sources */,
 				CDF99BC41713D629008D8BAC /* XMPPvCardCoreDataStorage.m in Sources */,
 				CD038E6E180BDB2700A9E177 /* ChatEmoticon.m in Sources */,
 				CDF99BC51713D629008D8BAC /* XMPPvCardCoreDataStorageObject.m in Sources */,
@@ -4025,7 +3907,6 @@
 				CD819576172864C400D86C0B /* VCHangoutSetting.m in Sources */,
 				CDFF63921823CBB800C8031F /* Ethnicity.m in Sources */,
 				CDEC0215172A706E00C3E615 /* HistoryMessage.m in Sources */,
-				CD04190417327A5C000D40D8 /* VCSnapshotSetting.m in Sources */,
 				CDECD30A1733C3D900A6B17F /* ChatHistoryViewCell.m in Sources */,
 				CDFED5E31738DA4000158756 /* GroupButtons.m in Sources */,
 				CDFED5E71738DAC000158756 /* VCMyProfile.m in Sources */,
@@ -4054,7 +3935,6 @@
 				CD038E73180BDB2700A9E177 /* WordWarpParse.m in Sources */,
 				CDF530811768699C0065701F /* EditText.m in Sources */,
 				CDEFB9131769B10A0033F94E /* SettingObject.m in Sources */,
-				CDEFB91A1769E0060033F94E /* SnapshotSetting.m in Sources */,
 				CDBF8DBD1817165000CDBCF7 /* UIView+Localize.m in Sources */,
 				CD286265176B0FAF00E81E73 /* HangoutSetting.m in Sources */,
 				CDB88CA2182E07DC00E3ABDF /* ImageInfo.m in Sources */,
@@ -4063,7 +3943,6 @@
 				CDF1AF8F1782DDE500C8FCE9 /* ProfileConfirmation.m in Sources */,
 				CDF1AF941782E9C100C8FCE9 /* PreferencesSettings.m in Sources */,
 				CDEE8E591785668C003EB1C4 /* UIViewController+Custom.m in Sources */,
-				CDFC22C4178BFFE5001D71D5 /* VCGetPoints.m in Sources */,
 				CD4119931793B985003850B7 /* Reachability.m in Sources */,
 				CD1134AC17E0277600C56616 /* VCSimpleSnapshot.m in Sources */,
 				CD17B23117E16CEB008F7291 /* APLMoveMeView.m in Sources */,
@@ -4077,9 +3956,6 @@
 			files = (
 				CDC492C81702CEAB00E83DE3 /* oakclubbuildTests.m in Sources */,
 				3715B36A170AC9DC003ACE95 /* VCChat.m in Sources */,
-				3715B36E170AC9DC003ACE95 /* VCMyLink.m in Sources */,
-				3715B372170AC9DC003ACE95 /* VCSnapshoot.m in Sources */,
-				3715B376170AC9DC003ACE95 /* VCVisitor.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4125,7 +4001,7 @@
 			children = (
 				CD41199F1793F150003850B7 /* en */,
 				CD4119A11793F154003850B7 /* vi */,
-				45BB87001844B4B500DACE36 /* de */,
+				CD81E6181844B87800B432AB /* de */,
 			);
 			name = Localizable.strings;
 			path = Localization;
@@ -4152,7 +4028,7 @@
 			children = (
 				CDC492A61702CEAB00E83DE3 /* en */,
 				CD4119981793F0C6003850B7 /* vi */,
-				45BB86FF1844B48700DACE36 /* de */,
+				CD81E6191844B88C00B432AB /* de */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -4258,8 +4134,8 @@
 					"-ObjC",
 				);
 				PRODUCT_NAME = OakClub;
-				PROVISIONING_PROFILE = "229289F0-6EF1-437E-AEB1-B685EA09A840";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "229289F0-6EF1-437E-AEB1-B685EA09A840";
+				PROVISIONING_PROFILE = "023742AC-1369-4A69-B3B8-1DE476B7504F";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "023742AC-1369-4A69-B3B8-1DE476B7504F";
 				TARGETED_DEVICE_FAMILY = 1;
 				VALIDATE_PRODUCT = YES;
 				WRAPPER_EXTENSION = app;
@@ -4291,8 +4167,8 @@
 					"-ObjC",
 				);
 				PRODUCT_NAME = OakClub;
-				PROVISIONING_PROFILE = "229289F0-6EF1-437E-AEB1-B685EA09A840";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "229289F0-6EF1-437E-AEB1-B685EA09A840";
+				PROVISIONING_PROFILE = "023742AC-1369-4A69-B3B8-1DE476B7504F";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "023742AC-1369-4A69-B3B8-1DE476B7504F";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};

@@ -14,7 +14,7 @@
 #import "HistoryMessage.h"
 
 #import "Profile.h"
-
+#import "VCProfile.h"
 #import "WordWarpParse.h"
 #import "ChatEmoticon.h"
 #import "HistoryMessage+init.h"
@@ -249,6 +249,7 @@
     UIImage* logo = [UIImage imageNamed:@"Snapshot_logo.png"];
     UIImageView *logoView = [[UIImageView alloc]initWithFrame:CGRectMake(98, 10, 125, 26)];
     [logoView setImage:logo];
+    logoView.tag = 101;
     [self.navigationController.navigationBar  addSubview:logoView];
     //    [[self navBarOakClub] addToHeader:logoView];
 }
@@ -276,8 +277,7 @@
     for(UIView* subview in [self.navigationController.navigationBar subviews]){
         if([subview isKindOfClass:[ChatNavigationView class]] || [subview isKindOfClass:[UILabel class]] || [subview isKindOfClass:[UIButton class]])
             [subview removeFromSuperview];
-        if([subview isKindOfClass:[UIImageView class]]){
-            self.headerLogo = (UIImageView*)subview;
+        if([subview isKindOfClass:[UIImageView class]] && subview.tag == 101){
             [subview removeFromSuperview];
         }
     }
@@ -482,7 +482,8 @@ static float cellWidth = 320;
 		
 	if (![sender isEqualToString:@"you"])
     { // left aligned
-		bgImage = [[UIImage imageNamed:@"ChatView_blue_speech.png"] stretchableImageWithLeftCapWidth:14  topCapHeight:14];
+        // message from friend
+		bgImage = [[UIImage imageNamed:@"ChatView_white_speech.png"] stretchableImageWithLeftCapWidth:14  topCapHeight:14];
 		
 		[cell.messageContentView setFrame:CGRectMake(2*padding_left, padding_top, cell.messageContentView.frame.size.width, cell.messageContentView.frame.size.height)];
         
@@ -506,8 +507,8 @@ static float cellWidth = 320;
 	}
     else
     {
-        
-		bgImage = [[UIImage imageNamed:@"ChatView_white_speech.png"] stretchableImageWithLeftCapWidth:14  topCapHeight:14];
+        //message from my own
+		bgImage = [[UIImage imageNamed:@"ChatView_blue_speech.png"] stretchableImageWithLeftCapWidth:14  topCapHeight:14];
 		
 		[cell.messageContentView setFrame:CGRectMake(padding_left, padding_top, cell.messageContentView.frame.size.width + padding_left, cell.messageContentView.frame.size.height)];
         

@@ -17,6 +17,7 @@
 #import "VCSimpleSnapshotPopup.h"
 #import "LocationUpdate.h"
 #import "AppLifeCycleDelegate.h"
+#import "VCProfile.h"
 
 @interface VCSimpleSnapshot () <LocationUpdateDelegate, AppLifeCycleDelegate,APLMoveMeViewDelegate> {
     UIView *headerView;
@@ -134,6 +135,7 @@ CGFloat pageHeight;
     UIImage* logo = [UIImage imageNamed:@"Snapshot_logo.png"];
     UIImageView *logoView = [[UIImageView alloc]initWithFrame:CGRectMake(98, 10, 125, 26)];
     [logoView setImage:logo];
+    logoView.tag = 101;
     [self.navigationController.navigationBar  addSubview:logoView];
 //    [[self navBarOakClub] addToHeader:logoView];
 }
@@ -169,15 +171,15 @@ CGFloat pageHeight;
 #if ENABLE_DEMO
 -(void)loadLikeMeList{
     appDel.likedMeList = [[NSArray alloc] init];
-    
-     // get list from server
-     AFHTTPClient *request = [[AFHTTPClient alloc] initWithOakClubAPI:DOMAIN];
-     [request getPath:URL_getListWhoLikeMe parameters:nil success:^(__unused AFHTTPRequestOperation *operation, id JSON)
+    // get list from server
+    AFHTTPClient *request = [[AFHTTPClient alloc] initWithOakClubAPI:DOMAIN];
+    NSDictionary *params = [[NSDictionary alloc]initWithObjectsAndKeys:@"0",@"start",@"1000",@"limit", nil];
+    [request getPath:URL_getListWhoLikeMe parameters:params success:^(__unused AFHTTPRequestOperation *operation, id JSON)
      {
-     NSError *e=nil;
-     NSMutableDictionary *dict = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONReadingMutableContainers error:&e];
-     appDel.likedMeList= [dict valueForKey:key_data];
-     
+         NSError *e=nil;
+         NSMutableDictionary *dict = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONReadingMutableContainers error:&e];
+         appDel.likedMeList= [dict valueForKey:key_data];
+         
      } failure:^(AFHTTPRequestOperation *operation, NSError *error)
      {
          NSLog(@"URL_getListWhoLikeMe - Error Code: %i - %@",[error code], [error localizedDescription]);
@@ -584,7 +586,11 @@ CGFloat pageHeight;
     [self.moveMeView setAnswer:[answerChoice integerValue]];
     request = [[AFHTTPClient alloc]initWithOakClubAPI:DOMAIN];
     NSLog(@"current id = %@",currentProfile.s_Name);
-    NSDictionary *params = [[NSDictionary alloc]initWithObjectsAndKeys:currentProfile.s_ID,key_profileID,answerChoice,@"is_like", nil];
+    NSDictionary *params;
+    if([answerChoice integerValue] == interestedStatusYES)
+        params = [[NSDictionary alloc]initWithObjectsAndKeys:currentProfile.s_ID,key_profileID,@"1",@"is_like", nil];
+    else
+        params = [[NSDictionary alloc]initWithObjectsAndKeys:currentProfile.s_ID,key_profileID,@"0" ,@"is_like", nil];
     NSString *value = [[NSUserDefaults standardUserDefaults] objectForKey:@"currentSnapShotID"];
     if ([answerChoice isEqualToString:@"1"]) {
 //        [self showMatchView];// DEBUG
@@ -604,12 +610,6 @@ CGFloat pageHeight;
     }];
 }
 
-- (void) gotoSetting{
-    VCSnapshotSetting *viewProfile = [[VCSnapshotSetting alloc] initWithNibName:@"VCSnapshotSetting" bundle:nil];
-    //    UIImageView *avatar = [currentProfile.arr_photos objectAtIndex:0];
-    //    [viewProfile loadProfile:currentProfile andImage:avatar.image];
-    [self.navigationController pushViewController:viewProfile animated:YES];
-}
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {

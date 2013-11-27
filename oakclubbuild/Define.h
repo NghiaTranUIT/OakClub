@@ -243,7 +243,7 @@
 #define POPULARITY_VERY_HIGHT_TEXT @"Very High";
 
 //=================Interested status==================
-#define interestedStatusNO 0
+#define interestedStatusNO 3
 #define interestedStatusYES 1
 #define interestedStatusMAYBE 2
 
@@ -321,6 +321,7 @@
 
 #define key_isUseGPS @"useGPS"
 #define key_isFirstSnapshot @"isFirstSnapshot"
+#define key_hasFirstSnapshot @"hasFirstSnapshot"
 //=============== Advanced setting=============
 #define FriendList  ([NSArray arrayWithObjects:@"Tran Van Quy", @"Vanancy Luu",@"Van Khanh", @"Thu Ha",@"RuaCon ChayCham",@"Phuong Lovely Nguyen",@"Mai Xuan Tham", nil])
 

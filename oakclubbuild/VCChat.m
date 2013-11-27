@@ -7,7 +7,6 @@
 //
 
 #import "VCChat.h"
-#import "VCMyLink.h"
 #import "AppDelegate.h"
 
 #import "XMPPFramework.h"
@@ -123,7 +122,7 @@ int cellCountinSection=0;
                 --i;
                 if (!i)
                 {
-                    [indicator unlockViewAndStopIndicator];
+//                    [indicator unlockViewAndStopIndicator];
                 }
             }
         }
@@ -180,9 +179,9 @@ int cellCountinSection=0;
 }
 
 - (IBAction)pushTest:(id)sender {
-    
-    VCMyLink *myLink = [[VCMyLink alloc] initWithNibName:@"VCMyLink" bundle:nil];
-    [self.navigationController pushViewController:myLink animated:YES];
+//    
+//    VCMyLink *myLink = [[VCMyLink alloc] initWithNibName:@"VCMyLink" bundle:nil];
+//    [self.navigationController pushViewController:myLink animated:YES];
 }
 
 
@@ -813,7 +812,6 @@ int cellCountinSection=0;
     return YES;
 }
 #pragma mark Chat delegates
-
 
 - (void)newMessageReceived:(NSDictionary *)messageContent {
     NSString* sender = [messageContent objectForKey:@"sender"];
