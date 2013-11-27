@@ -384,6 +384,7 @@ UITapGestureRecognizer *tap;
             {
                 languageCell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:languageIdentifier];
                 languageCell.textLabel.text = @"Language";
+                [languageCell setFont:FONT_HELVETICANEUE_LIGHT(15.0)];
             }
             
             NSString* selectedLanguage =[[NSUserDefaults standardUserDefaults] stringForKey:key_appLanguage];
