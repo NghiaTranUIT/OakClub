@@ -344,15 +344,17 @@ enum UpdateProfileItems {
     appDelegate.myProfile = [copyProfile copy];
     
     [indicator lockViewAndDisplayIndicator];
-    NSMutableDictionary *params = [[NSMutableDictionary alloc] initWithObjectsAndKeys:
-                                   copyProfile.s_birthdayDate, @"birthday",
-                                   copyProfile.s_Email, @"email",
-                                   copyProfile.s_gender.ID, @"gender",
-                                   copyProfile.s_interested.ID, @"interested",
-                                   copyProfile.s_location.latitude, @"latitude",
-                                   copyProfile.s_location.longitude, @"longitude",
-                                   copyProfile.s_Name, @"name",
-                                   nil];
+    Location *lc = copyProfile.s_location;
+    NSNumber *longNumber = [NSNumber numberWithDouble:lc.longitude];
+    NSNumber *latiNumber = [NSNumber numberWithDouble:lc.latitude];
+    NSDictionary *params = [[NSDictionary alloc] initWithObjectsAndKeys:
+                            copyProfile.s_birthdayDate, @"birthday",
+                            copyProfile.s_Email, @"email",
+                            [NSNumber numberWithInt:copyProfile.s_gender.ID], @"gender",
+                            [NSNumber numberWithInt:copyProfile.s_interested.ID], @"interested",
+                            latiNumber, @"latitude",
+                            longNumber, @"longitude",
+                            copyProfile.s_Name, @"name", nil];
     AFHTTPClient *request = [[AFHTTPClient alloc] initWithOakClubAPI:DOMAIN];
     [request setParameterEncoding:AFFormURLParameterEncoding];
     
@@ -365,11 +367,15 @@ enum UpdateProfileItems {
         if ([[result valueForKey:key_status] boolValue])
         {
             appDelegate.myProfile.s_location.name = [result valueForKey:key_location];
+            [indicator unlockViewAndStopIndicator];
+            
+            [appDelegate gotoVCAtCompleteLogin];
         }
         
         NSLog(@"Update profile error with msg: %@", [result valueForKey:key_msg]);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Update profile error with err: %@", [error localizedDescription]);
+        [indicator unlockViewAndStopIndicator];
     }];
     
     [operation start];

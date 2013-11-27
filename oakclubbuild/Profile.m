@@ -468,7 +468,7 @@
 
     self.unread_message = 0;
     self.new_mutual_attractions = 0;
-    for (int i = 0; rosterList!=nil && i < [rosterList count]; i++) {
+    for (int i = 0; rosterList!=nil && i < rosterList.count; i++) {
         NSMutableDictionary *objectData = [rosterList objectAtIndex:i];
         
         NSLog(@"%@", objectData);
