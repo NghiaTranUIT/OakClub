@@ -314,7 +314,7 @@ UITapGestureRecognizer *tap;
                     UISwitch *autoSwitch = (id) [filterGuysCell viewWithTag:100];
                     autoSwitch.on = hasMale;
                     
-                    filterGuysCell.textLabel.text = [NSString localizeString:@"Guys"];
+                    filterGuysCell.textLabel.text = [NSString localizeString:@"Male"];
                     [filterGuysCell localizeAllViews];
                     return filterGuysCell;
                 }
@@ -340,7 +340,7 @@ UITapGestureRecognizer *tap;
                     UISwitch *autoSwitch = (id) [filterGirlsCell viewWithTag:101];
                     autoSwitch.on = hasFemale;
                     
-                    filterGirlsCell.textLabel.text = [NSString localizeString:@"Girls"];
+                    filterGirlsCell.textLabel.text = [NSString localizeString:@"Female"];
                     [filterGirlsCell localizeAllViews];
                     return filterGirlsCell;
                 }
@@ -485,7 +485,7 @@ UITapGestureRecognizer *tap;
             headerLbl.text = @"SHOW ME";
             break;
         case GenderSearchGroup:
-            headerLbl.text = @"I WOULD LIKE BE MATCHED WITH";
+            headerLbl.text = @"I WOULD LIKE TO BE MATCHED WITH";
             break;
         case RangeGroup:
             if(!isPickerShowing)

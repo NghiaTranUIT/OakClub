@@ -598,6 +598,9 @@
 /* Begin PBXFileReference section */
 		3715B35D170AC9DC003ACE95 /* VCChat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VCChat.h; sourceTree = "<group>"; };
 		3715B35E170AC9DC003ACE95 /* VCChat.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VCChat.m; sourceTree = "<group>"; };
+		45FB158C1845E18900F8B57B /* id */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = id; path = id.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		45FB158D1845E18900F8B57B /* id */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = id; path = id.lproj/Localizable.strings; sourceTree = "<group>"; };
+		45FB158E1845E18900F8B57B /* id */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = id; path = id.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		970924B3182E5BBF007BD6B1 /* myprofile_editVideo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = myprofile_editVideo.png; sourceTree = "<group>"; };
 		970924B4182E5BBF007BD6B1 /* myprofile_editVideo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "myprofile_editVideo@2x.png"; sourceTree = "<group>"; };
 		970924BA182E5EFE007BD6B1 /* VideoPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoPicker.h; sourceTree = "<group>"; };
@@ -3350,6 +3353,7 @@
 				en,
 				vi,
 				de,
+				id,
 			);
 			mainGroup = CDC492901702CEAB00E83DE3;
 			productRefGroup = CDC4929A1702CEAB00E83DE3 /* Products */;
@@ -4002,6 +4006,7 @@
 				CD41199F1793F150003850B7 /* en */,
 				CD4119A11793F154003850B7 /* vi */,
 				CD81E6181844B87800B432AB /* de */,
+				45FB158D1845E18900F8B57B /* id */,
 			);
 			name = Localizable.strings;
 			path = Localization;
@@ -4029,6 +4034,7 @@
 				CDC492A61702CEAB00E83DE3 /* en */,
 				CD4119981793F0C6003850B7 /* vi */,
 				CD81E6191844B88C00B432AB /* de */,
+				45FB158C1845E18900F8B57B /* id */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -4038,6 +4044,7 @@
 			children = (
 				CDC492C41702CEAB00E83DE3 /* en */,
 				CD4119991793F0C6003850B7 /* vi */,
+				45FB158E1845E18900F8B57B /* id */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
