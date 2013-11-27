@@ -234,8 +234,8 @@
 "1 ngày trước"="1 ngày trước";
 "....days ago"=".... ngày trước";
 ".... ngày trước"=".... ngày trước";
-"Today"="hôm nay";
-"hôm nay"="hôm nay";
+"Today"="Hôm nay";
+"Hôm nay"="Hôm nay";
 "More than 5 days ago"="hơn 5 ngày trước";
 "hơn 5 ngày trước"="hơn 5 ngày trước";
 "About Safe & Annonymous"="Nói bạn thích ai nào!";
@@ -398,3 +398,7 @@
 "Đăng nhập ẩn danh"="Đăng nhập ẩn danh";
 "Cannnot delete this photo."="Bạn không thể xoá hình này.";
 "Bạn không thể xoá hình này."="Bạn không thể xoá hình này.";
+"Country"="Country";
+"Country"="Toàn Quốc";
+"World"="World";
+"World"="Thế Giới";
