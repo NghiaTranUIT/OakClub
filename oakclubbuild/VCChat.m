@@ -216,12 +216,14 @@ int cellCountinSection=0;
 {
     fetchedResultsController = nil;
     [self.navigationController setNavigationBarHidden:YES];
-    NSString* title_1 = [NSString localizeString:@"Matches"];
-    NSString* title_2 = [NSString localizeString:@"Non Matches"];
+    NSString* title_1 = [NSString localizeString:@"Matched"];
+    NSString* title_2 = [NSString localizeString:@"Non-Matched"];
     NSString* title_3 = [NSString localizeString:@"All"];
     NSString* searchText =[NSString localizeString:@"Search"];
+    NSString* searchPleaceholder= [@"Search your matches ..." localize];
     [self.searchBar setScopeButtonTitles:[NSArray arrayWithObjects:title_1,title_2,title_3,nil]];
     [self.searchBar setText:searchText];
+    [self.searchBar setPlaceholder: searchPleaceholder];
     self.searchResult = nil;
     [self.searchBar setShowsCancelButton:NO];
     [self.searchBar setShowsSearchResultsButton:NO];

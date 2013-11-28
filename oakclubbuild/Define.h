@@ -59,10 +59,12 @@
 #define value_appLanguage_VI @"vi"
 #define value_appLanguage_EN @"en"
 #define value_appLanguage_DE @"de"
+#define value_appLanguage_ID @"id"
 #define AppLanguageList ([NSDictionary dictionaryWithObjectsAndKeys:\
                                 @"Vietnamese", value_appLanguage_VI,\
                                 @"English", value_appLanguage_EN,\
                                 @"Deutsch", value_appLanguage_DE,\
+                                @"Indonesia", value_appLanguage_ID,\
                                 nil])
 //============== APIs =============
 #define DOMAIN_AT @"@oakclub.com"

@@ -237,7 +237,7 @@
                               message:@""
                               delegate:self
                               cancelButtonTitle:nil
-                              otherButtonTitles:@"Tiếng Việt", @"English", @"Deutsch", nil];
+                              otherButtonTitles:@"Tiếng Việt", @"English", @"Deutsch", @"Indonesia", nil];
         [alert show];
     }
     else
@@ -262,7 +262,7 @@
         NSString* str=[appDelegate.languageBundle localizedStringForKey:@"was selected" value:@"" table:nil];
         NSLog(@"Vietnamese %@",str);
     }
-    else if([title isEqualToString:[@"English" localize]])
+    else if([title isEqualToString:@"English"])
     {
         [[NSUserDefaults standardUserDefaults] setObject:value_appLanguage_EN forKey:key_appLanguage];
         [[NSUserDefaults standardUserDefaults] synchronize];
@@ -270,13 +270,21 @@
         NSString* str=[appDelegate.languageBundle localizedStringForKey:@"was selected" value:@"" table:nil];
         NSLog(@"English %@",str);
     }
-    else
+    else if([title isEqualToString:@"Deutsch"])
     {
         [[NSUserDefaults standardUserDefaults] setObject:value_appLanguage_DE forKey:key_appLanguage];
         [[NSUserDefaults standardUserDefaults] synchronize];
         [appDelegate updateLanguageBundle];
         NSString* str=[appDelegate.languageBundle localizedStringForKey:@"was selected" value:@"" table:nil];
         NSLog(@"German %@",str);
+    }
+    else if([title isEqualToString:@"Indonesia"])
+    {
+        [[NSUserDefaults standardUserDefaults] setObject:value_appLanguage_ID forKey:key_appLanguage];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+        [appDelegate updateLanguageBundle];
+        NSString* str=[appDelegate.languageBundle localizedStringForKey:@"was selected" value:@"" table:nil];
+        NSLog(@"Indonesia %@",str);
     }
     
     [self.view localizeAllViews];
