@@ -397,7 +397,6 @@
 		CDC492F11702CF9F00E83DE3 /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CDC492EE1702CF9F00E83DE3 /* Accounts.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		CDC492F21702CF9F00E83DE3 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CDC492EF1702CF9F00E83DE3 /* AdSupport.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		CDC492F31702CF9F00E83DE3 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CDC492F01702CF9F00E83DE3 /* Social.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
-		CDC9E986183673D8005B82A2 /* VCProfile.xib in Resources */ = {isa = PBXBuildFile; fileRef = CDC9E985183673D8005B82A2 /* VCProfile.xib */; };
 		CDD38A99173A2FEB00D583DD /* ListForChoose.m in Sources */ = {isa = PBXBuildFile; fileRef = CDD38A97173A2FEB00D583DD /* ListForChoose.m */; };
 		CDD38A9A173A2FEB00D583DD /* ListForChoose.xib in Resources */ = {isa = PBXBuildFile; fileRef = CDD38A98173A2FEB00D583DD /* ListForChoose.xib */; };
 		CDD38A9D173A350100D583DD /* ProfileSetting.m in Sources */ = {isa = PBXBuildFile; fileRef = CDD38A9C173A350100D583DD /* ProfileSetting.m */; };
@@ -1075,7 +1074,6 @@
 		CDC492EE1702CF9F00E83DE3 /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
 		CDC492EF1702CF9F00E83DE3 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
 		CDC492F01702CF9F00E83DE3 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
-		CDC9E985183673D8005B82A2 /* VCProfile.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VCProfile.xib; sourceTree = "<group>"; };
 		CDD38A96173A2FEB00D583DD /* ListForChoose.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ListForChoose.h; sourceTree = "<group>"; };
 		CDD38A97173A2FEB00D583DD /* ListForChoose.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ListForChoose.m; sourceTree = "<group>"; };
 		CDD38A98173A2FEB00D583DD /* ListForChoose.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ListForChoose.xib; sourceTree = "<group>"; };
@@ -2501,7 +2499,6 @@
 			children = (
 				CDDF8CF7171C0F8B00B8512D /* VCProfile.h */,
 				CDDF8CF8171C0F8B00B8512D /* VCProfile.m */,
-				CDC9E985183673D8005B82A2 /* VCProfile.xib */,
 				CD3E749B1725B3A6002D8207 /* UIPopoverController+iPhone.h */,
 				CD3E749C1725B3A6002D8207 /* UIPopoverController+iPhone.m */,
 				CDFAA78C17549607008D6567 /* ProfileCell.h */,
@@ -3690,7 +3687,6 @@
 				97A55D611823C3E700675025 /* Separators.png in Resources */,
 				CDB88CAA182E456900E3ABDF /* Snapshot_shareInterest_icon@2x.png in Resources */,
 				CD50E35B181FBF3C0036A23B /* Snapshot_no_stamp.png in Resources */,
-				CDC9E986183673D8005B82A2 /* VCProfile.xib in Resources */,
 				CD877C721820B06B0067D478 /* Menu_element_active@2x.png in Resources */,
 				CD50E3BF181FE62C0036A23B /* Navbar_notification.png in Resources */,
 				CD877C6C1820B06B0067D478 /* Menu_btn_Facebook@2x.png in Resources */,
