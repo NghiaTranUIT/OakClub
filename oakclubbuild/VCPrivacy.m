@@ -39,7 +39,7 @@
         {
             [self initPrivacyText:engView];
         }
-        else
+        else //if ([value_appLanguage_VI isEqualToString:[[NSUserDefaults standardUserDefaults] objectForKey:key_appLanguage]])
         {
             [self initPrivacyText:vietView];
         }

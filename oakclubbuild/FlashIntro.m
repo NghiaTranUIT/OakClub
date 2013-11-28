@@ -38,6 +38,49 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
+    
+    BOOL isSetLanguage = [[[NSUserDefaults standardUserDefaults] objectForKey:key_ChosenLanguage] boolValue];
+    if (!isSetLanguage)
+    {
+        if([[self checkLanguage] isEqualToString:@"vi"])
+        {
+            [[NSUserDefaults standardUserDefaults] setObject:value_appLanguage_VI forKey:key_appLanguage];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+            //        NSString* selectedLanguage =[[NSUserDefaults standardUserDefaults] stringForKey:key_appLanguage];
+            [appDelegate updateLanguageBundle];
+            NSString* str=[appDelegate.languageBundle localizedStringForKey:@"was selected" value:@"" table:nil];
+            NSLog(@"Vietnamese %@",str);
+        }
+        else if([[self checkLanguage] isEqualToString:@"de"])
+        {
+            [[NSUserDefaults standardUserDefaults] setObject:value_appLanguage_DE forKey:key_appLanguage];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+            //        NSString* selectedLanguage =[[NSUserDefaults standardUserDefaults] stringForKey:key_appLanguage];
+            [appDelegate updateLanguageBundle];
+            NSString* str=[appDelegate.languageBundle localizedStringForKey:@"was selected" value:@"" table:nil];
+            NSLog(@"German %@",str);
+        }
+        else if([[self checkLanguage] isEqualToString:@"id"])
+        {
+            [[NSUserDefaults standardUserDefaults] setObject:value_appLanguage_ID forKey:key_appLanguage];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+            //        NSString* selectedLanguage =[[NSUserDefaults standardUserDefaults] stringForKey:key_appLanguage];
+            [appDelegate updateLanguageBundle];
+            NSString* str=[appDelegate.languageBundle localizedStringForKey:@"was selected" value:@"" table:nil];
+            NSLog(@"Indonesia %@",str);
+        }
+        else
+        {
+            [[NSUserDefaults standardUserDefaults] setObject:value_appLanguage_EN forKey:key_appLanguage];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+            [appDelegate updateLanguageBundle];
+            NSString* str=[appDelegate.languageBundle localizedStringForKey:@"was selected" value:@"" table:nil];
+            NSLog(@"English %@",str);
+        }
+        //[self.view localizeAllViews];
+    }
+
+    
     if(IS_OS_7_OR_LATER)
         background = [[UIImageView alloc] initWithFrame:CGRectMake(0, 10, self.view.frame.size.width, self.view.frame.size.height)];
     else
@@ -70,38 +113,6 @@
 {
     [super viewDidAppear:NO];
     [background setAlpha:1];
-    
-    BOOL isSetLanguage = [[[NSUserDefaults standardUserDefaults] objectForKey:key_ChosenLanguage] boolValue];
-    if (!isSetLanguage)
-    {
-        if([[self checkLanguage] isEqualToString:@"vi"])
-        {
-            [[NSUserDefaults standardUserDefaults] setObject:value_appLanguage_VI forKey:key_appLanguage];
-            [[NSUserDefaults standardUserDefaults] synchronize];
-            //        NSString* selectedLanguage =[[NSUserDefaults standardUserDefaults] stringForKey:key_appLanguage];
-            [appDelegate updateLanguageBundle];
-            NSString* str=[appDelegate.languageBundle localizedStringForKey:@"was selected" value:@"" table:nil];
-            NSLog(@"Vietnamese %@",str);
-        }
-        else if([[self checkLanguage] isEqualToString:@"de"])
-        {
-            [[NSUserDefaults standardUserDefaults] setObject:value_appLanguage_DE forKey:key_appLanguage];
-            [[NSUserDefaults standardUserDefaults] synchronize];
-            //        NSString* selectedLanguage =[[NSUserDefaults standardUserDefaults] stringForKey:key_appLanguage];
-            [appDelegate updateLanguageBundle];
-            NSString* str=[appDelegate.languageBundle localizedStringForKey:@"was selected" value:@"" table:nil];
-            NSLog(@"German %@",str);
-        }
-        else
-        {
-            [[NSUserDefaults standardUserDefaults] setObject:value_appLanguage_EN forKey:key_appLanguage];
-            [[NSUserDefaults standardUserDefaults] synchronize];
-            [appDelegate updateLanguageBundle];
-            NSString* str=[appDelegate.languageBundle localizedStringForKey:@"was selected" value:@"" table:nil];
-            NSLog(@"English %@",str);
-        }
-        //[self.view localizeAllViews];
-    }
     
     if (appDelegate.isFacebookActivated)
     {
@@ -190,7 +201,7 @@
     NSUserDefaults* defs = [NSUserDefaults standardUserDefaults];
     NSArray* languages = [defs objectForKey:@"AppleLanguages"];
     NSString* preferredLang = [languages objectAtIndex:0];
-    NSLog(@"abc %@", preferredLang);
+    NSLog(@"Language: %@", preferredLang);
     return preferredLang;
 }
 @end
