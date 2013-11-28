@@ -87,7 +87,6 @@
 "About me"="Tentang saya";
 "ABOUT ME"="Tentang saya";
 "Done"="Selesai";
-"Setting"="Pengaturan";
 "I WOULD LIKE TO BE MATCHED WITH"="Saya ingin dicocokkan dengan";
 "males"="pria";
 "females"="wanita";
@@ -171,7 +170,7 @@
 "18 to ....old"="18 sampai ….tahun";
 "Contact Us"="Hubungi kami";
 "Save Your Settings"="Simpan pengaturan";
-"SHARE INTERESTS"="Minat yang sama";
+"SHARE INTERESTS "="Minat yang sama ";
 "Not interested"="Tidak tertarik?";
 "Like?"="Suka?";
 "AGREE & PROCEED"="Setuju & Lanjutkan";
@@ -300,7 +299,7 @@
 "Bạn chung"="Teman Bersama";
 "Giới thiệu những người từ"="Tampilkan orang dengan usia";
 "TÌM NGƯỜI Ở GẦN TÔI"="Cari orang-orang di sekitar saya";
-"Giới hạn  trong khoảng"="Batasi pencarian pada jarak";
+"Giới hạn trong khoảng"="Batasi pencarian pada jarak";
 "khoảng 1 km"="Kurang dari 1 km";
 "Oakclub dùng những thông tin này để gợi ý đối tượng phù hợp với bạn. Những thông tin này chỉ có giá trị tham khảo tương đối. "="Oakclub menggunakan preferensi ini untuk menyarankan kecocokan potensial. Beberapa saran mungkin tidak masuk dalam kriteria yang kamu inginkan.";
 "Rung khi có thông báo"="Bergetar jika ada pemberitahuan";
@@ -365,7 +364,7 @@
 "Mời bạn bè tham gia!"="Beritahu teman!";
 "TÔI ĐẾN ĐÂY ĐỂ …"="Aku disini untuk…";
 "GIỚI THIỆU CHO TÔI"="Tunjukkan pada saya";
-"Giới hạn  trong khoảng"="Batasi pencarian pada jarak";
+"Giới hạn trong khoảng"="Batasi pencarian pada jarak";
 "GIỚI THIỆU NHỮNG NGƯỜI TỪ"="Tampilkan orang dengan usia";
 "Liên hệ"="Hubungi kami";
 "18 đến ... Tuổi"="18 sampai ….tahun";
@@ -377,11 +376,11 @@
 "TIẾP TỤC"="Setuju & Lanjutkan";
 "BẬT"="ON";
 "TẮT"="OFF";
-"spashscreen"="spashscreen";
-"Hướng dẫn_chat"="tutorial_chat";
-"Hướng dẫn_điều chỉnh"="tutorial_options";
-"Hướng dẫn_Gặp gỡ"="tutorial_snapshots";
-"Thông tin_cá nhân"="Info_background";
+"spashscreen_vn"="spashscreen";
+"tutorial_chat_vn"="tutorial_chat";
+"tutorial_options_vn"="tutorial_options";
+"tutorial_snapshots_vn"="tutorial_snapshots";
+"Info_background_vn"="Info_background";
 "Lỗi"="Error";
 "Warning"="Warning";
 "Chấp nhận"="Confirm!";
@@ -798,3 +797,12 @@
 "Cannot access to the email account on your device."="Cannot access to the email account on your device.";
 "Connect Privately"="Connect Privately";
 "Cannnot delete this photo."="Cannnot delete this photo.";
+"Country"="Country";
+"Toàn Quốc"="Country";
+"Country"="Country";
+"Country"="Country";
+"World"="World";
+"Thế Giới"="World";
+"World"="World";
+"World"="World";
+

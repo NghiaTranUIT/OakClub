@@ -63,7 +63,13 @@ float timerDuration = 8.0f;
     for (int i = 0; i < 3; i++) {
         TapDetectingImageView *imageView = [[TapDetectingImageView alloc] initWithFrame:scrollFrame];
         imageView.userInteractionEnabled = YES;
-        imageView.image = [curImages objectAtIndex:i];
+        //@try {
+            imageView.image = [curImages objectAtIndex:i];
+        //}
+        //@catch (NSException *exception) {
+            
+        //}
+
         [imageView setDelegate:self];
         imageView.contentMode = UIViewContentModeScaleAspectFit;
 //        UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self
@@ -97,10 +103,15 @@ float timerDuration = 8.0f;
     int last = [self validPageValue:curPage+1];
     
     if([curImages count] != 0) [curImages removeAllObjects];
+    //@try {
+        [curImages addObject:[imagesArray objectAtIndex:pre-1]];
+        [curImages addObject:[imagesArray objectAtIndex:curPage-1]];
+        [curImages addObject:[imagesArray objectAtIndex:last-1]];
+    //}
+    //@catch (NSException *exception) {
+
+    //}
     
-    [curImages addObject:[imagesArray objectAtIndex:pre-1]];
-    [curImages addObject:[imagesArray objectAtIndex:curPage-1]];
-    [curImages addObject:[imagesArray objectAtIndex:last-1]];
     
     return curImages;
 }

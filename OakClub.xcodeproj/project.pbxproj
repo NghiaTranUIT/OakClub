@@ -197,6 +197,7 @@
 		CD23A6DF183CCA2100042421 /* Default-image_share.png in Resources */ = {isa = PBXBuildFile; fileRef = CD23A6DE183CCA2100042421 /* Default-image_share.png */; };
 		CD23A6E1183CCD1400042421 /* Default Avatar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CD23A6E0183CCD1400042421 /* Default Avatar@2x.png */; };
 		CD25624F176718FC001B702D /* ProfileSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = CD25624E176718FC001B702D /* ProfileSettings.m */; };
+		CD2843C5184763120019A586 /* VCProfile.xib in Resources */ = {isa = PBXBuildFile; fileRef = CD2843C4184763120019A586 /* VCProfile.xib */; };
 		CD286262176B0F7100E81E73 /* HangoutSetting.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CD286261176B0F7100E81E73 /* HangoutSetting.storyboard */; };
 		CD286265176B0FAF00E81E73 /* HangoutSetting.m in Sources */ = {isa = PBXBuildFile; fileRef = CD286264176B0FAF00E81E73 /* HangoutSetting.m */; };
 		CD2DE687182758610043AA91 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD2DE686182758610043AA91 /* MessageUI.framework */; };
@@ -847,6 +848,7 @@
 		CD23A6E0183CCD1400042421 /* Default Avatar@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default Avatar@2x.png"; sourceTree = "<group>"; };
 		CD25624D176718FC001B702D /* ProfileSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileSettings.h; sourceTree = "<group>"; };
 		CD25624E176718FC001B702D /* ProfileSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileSettings.m; sourceTree = "<group>"; };
+		CD2843C4184763120019A586 /* VCProfile.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VCProfile.xib; sourceTree = "<group>"; };
 		CD286261176B0F7100E81E73 /* HangoutSetting.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = HangoutSetting.storyboard; sourceTree = "<group>"; };
 		CD286263176B0FAF00E81E73 /* HangoutSetting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HangoutSetting.h; sourceTree = "<group>"; };
 		CD286264176B0FAF00E81E73 /* HangoutSetting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = HangoutSetting.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
@@ -2499,6 +2501,7 @@
 			children = (
 				CDDF8CF7171C0F8B00B8512D /* VCProfile.h */,
 				CDDF8CF8171C0F8B00B8512D /* VCProfile.m */,
+				CD2843C4184763120019A586 /* VCProfile.xib */,
 				CD3E749B1725B3A6002D8207 /* UIPopoverController+iPhone.h */,
 				CD3E749C1725B3A6002D8207 /* UIPopoverController+iPhone.m */,
 				CDFAA78C17549607008D6567 /* ProfileCell.h */,
@@ -3416,6 +3419,7 @@
 				CDB88CA7182E456900E3ABDF /* Snapshot_mutualfriends_icon.png in Resources */,
 				CD877CC118210B380067D478 /* tutorial_options@2x.png in Resources */,
 				CD877CC318210B380067D478 /* tutorial_snapshots@2x.png in Resources */,
+				CD2843C5184763120019A586 /* VCProfile.xib in Resources */,
 				CDF99B981713D629008D8BAC /* SMChatViewController.xib in Resources */,
 				CD1AB06F1821804200B0FA10 /* Report_bottomItem_active.png in Resources */,
 				CD877D0E1821374C0067D478 /* ChatView_btn_moreOptions_pressed.png in Resources */,
