@@ -87,7 +87,6 @@
 "Tôi là người"="About me";
 "TÔI LÀ NGƯỜI"="ABOUT ME";
 "Xong"="Done";
-"Cài đặt"="Setting";
 "TÔI MUỐN ĐƯỢC GHÉP ĐÔI VỚI"="I WOULD LIKE TO BE MATCHED WITH";
 "Đàn ông"="males";
 "Phụ nữ"="females";
@@ -100,7 +99,7 @@
 "Bạn chung"="Mutual Friends";
 "Giới thiệu những người từ"="Show me people age of";
 "TÌM NGƯỜI Ở GẦN TÔI"="FIND PEOPLE AROUND ME";
-"Giới hạn  trong khoảng"="Limit my search to this distance";
+"Giới hạn trong khoảng"="Limit my search to this distance";
 "khoảng 1 km"="less than a mile away";
 "Oakclub dùng những thông tin này để gợi ý đối tượng phù hợp với bạn. Những thông tin này chỉ có giá trị tham khảo tương đối. "="Oakclub use these preferences to suggest potential matches. Some match suggestion may not fall within your desired parameters.";
 "Rung khi có thông báo"="Vibration on Notification";
@@ -165,13 +164,13 @@
 "Mời bạn bè tham gia!"="Tell your friends!";
 "TÔI ĐẾN ĐÂY ĐỂ …"="I'M HERE TO";
 "GIỚI THIỆU CHO TÔI"="SHOW ME";
-"Giới hạn  trong khoảng"="Limit my search to this distance";
+"Giới hạn trong khoảng"="Limit my search to this distance";
 "GIỚI THIỆU NHỮNG NGƯỜI TỪ"="SHOW ME PEOPLE AGE OF";
 "Liên hệ"="Contact US";
 "18 đến ... Tuổi"="18 to ....old";
 "Liên hệ"="Contact Us";
 "Đã chỉnh xong"="Save Your Settings";
-"SỞ THÍCH CHUNG"="SHARE INTERESTS";
+"SỞ THÍCH CHUNG "="SHARE INTERESTS ";
 "Không thích hả? "="Not interested";
 "Thích à?"="Like?";
 "TIẾP TỤC"="AGREE & PROCEED";
@@ -287,7 +286,6 @@
 "Über Mich"="About me";
 "Über Mich"="ABOUT ME";
 "Erledigt"="Done";
-"Einstellungen"="Setting";
 "Ich bin interessiert an"="I would like to be matched with";
 "Männern"="males";
 "Frauen"="females";
@@ -371,7 +369,7 @@
 "18 bis .... alt"="18 to ....old";
 "Kontaktiere Uns"="Contact Us";
 "Speichere Deine Einstellungen"="Save Your Settings";
-"Gemeinsame Interessen"="SHARE INTERESTS";
+"Gemeinsame Interessen "="SHARE INTERESTS ";
 "Kein Interesse?"="Not interested";
 "Like?"="Like?";
 "Zustimmen"="AGREE & PROCEED";
@@ -487,7 +485,6 @@
 "About me"="About me";
 "ABOUT ME"="ABOUT ME";
 "Done"="Done";
-"Setting"="Setting";
 "I would like to be matched with"="I would like to be matched with";
 "males"="males";
 "females"="females";
@@ -571,7 +568,7 @@
 "18 to ....old"="18 to ....old";
 "Contact Us"="Contact Us";
 "Save Your Settings"="Save Your Settings";
-"SHARE INTERESTS"="SHARE INTERESTS";
+"SHARE INTERESTS "="SHARE INTERESTS ";
 "Not interested"="Not interested";
 "Like?"="Like?";
 "AGREE & PROCEED"="AGREE & PROCEED";
@@ -687,7 +684,6 @@
 "Tentang saya"="About me";
 "Tentang saya"="ABOUT ME";
 "Selesai"="Done";
-"Pengaturan"="Setting";
 "Saya ingin dicocokkan dengan"="I would like to be matched with";
 "pria"="males";
 "wanita"="females";
@@ -771,10 +767,10 @@
 "18 sampai ….tahun"="18 to ....old";
 "Hubungi kami"="Contact Us";
 "Simpan pengaturan"="Save Your Settings";
-"Minat yang sama"="SHARE INTERESTS";
+"Minat yang sama "="SHARE INTERESTS ";
 "Tidak tertarik?"="Not interested";
 "Suka?"="Like?";
-"Setuju & Lanjutkan"="AGREE & PROCEED";
+"Setuju & Lanjutkan"="AGREE & PROCEED";∑
 "ON"="ON";
 "OFF"="OFF";
 "spashscreen"="spashscreen";
@@ -798,3 +794,11 @@
 "Cannot access to the email account on your device."="Cannot access to the email account on your device.";
 "Connect Privately"="Connect Privately";
 "Cannnot delete this photo."="Cannnot delete this photo.";
+"Country"="Country";
+"Toàn Quốc"="Country";
+"Country"="Country";
+"Country"="Country";
+"World"="World";
+"Thế Giới"="World";
+"World"="World";
+"World"="World";

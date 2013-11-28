@@ -87,7 +87,6 @@
 "About me"="Über Mich";
 "ABOUT ME"="Über Mich";
 "Done"="Erledigt";
-"Setting"="Einstellungen";
 "I would like to be matched with"="Ich bin interessiert an";
 "males"="Männern";
 "females"="Frauen";
@@ -171,7 +170,7 @@
 "18 to ....old"="18 bis .... alt";
 "Contact Us"="Kontaktiere Uns";
 "Save Your Settings"="Speichere Deine Einstellungen";
-"SHARE INTERESTS"="Gemeinsame Interessen";
+"SHARE INTERESTS "="Gemeinsame Interessen ";
 "Not interested"="Kein Interesse?";
 "Like?"="Like?";
 "AGREE & PROCEED"="Zustimmen";
@@ -300,7 +299,7 @@
 "Bạn chung"="Gemeinsame Freunde";
 "Giới thiệu những người từ"="Zeige mir Leute an, im Alter von";
 "TÌM NGƯỜI Ở GẦN TÔI"="Finde Leute in meiner Umgebung";
-"Giới hạn  trong khoảng"="Grenze meine Suche mit folgender Distanz ein";
+"Giới hạn trong khoảng"="Grenze meine Suche mit folgender Distanz ein";
 "khoảng 1 km"="Weniger als 1km entfernt";
 "Oakclub dùng những thông tin này để gợi ý đối tượng phù hợp với bạn. Những thông tin này chỉ có giá trị tham khảo tương đối. "="Oakclub benutzt diese Einstellungen um Dir so viele \"Volltreffer\" wie möglich anzuzeigen. Einige \"Volltreffer\" können nicht alle Deine Kriterien erfüllen.";
 "Rung khi có thông báo"="Vibration als Benachrichtigung";
@@ -365,7 +364,7 @@
 "Mời bạn bè tham gia!"="Teile es mit Deinen Freunden!";
 "TÔI ĐẾN ĐÂY ĐỂ …"="Ich bin hier weil ich";
 "GIỚI THIỆU CHO TÔI"="Zeige mir folgendes an";
-"Giới hạn  trong khoảng"="Grenze meine Suche mit folgender Distanz ein";
+"Giới hạn trong khoảng"="Grenze meine Suche mit folgender Distanz ein";
 "GIỚI THIỆU NHỮNG NGƯỜI TỪ"="Zeige mir Leute an, im Alter von";
 "Liên hệ"="Kontaktiere Uns";
 "18 đến ... Tuổi"="18 bis .... alt";
@@ -798,3 +797,11 @@
 "Cannot access to the email account on your device."="Cannot access to the email account on your device.";
 "Connect Privately"="Connect Privately";
 "Cannnot delete this photo."="Cannnot delete this photo.";
+"Country"="Country";
+"Toàn Quốc"="Country";
+"Country"="Country";
+"Country"="Country";
+"World"="World";
+"Thế Giới"="World";
+"World"="World";
+"World"="World";

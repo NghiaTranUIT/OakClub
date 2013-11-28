@@ -87,7 +87,6 @@
 "About me"="Tôi là người";
 "ABOUT ME"="TÔI LÀ NGƯỜI";
 "Done"="Xong";
-"Setting"="Cài đặt";
 "I WOULD LIKE TO BE MATCHED WITH"="TÔI MUỐN ĐƯỢC GHÉP ĐÔI VỚI";
 "males"="Đàn ông";
 "females"="Phụ nữ";
@@ -100,7 +99,7 @@
 "Mutual Friends"="Bạn chung";
 "Show me people age of"="Giới thiệu những người từ";
 "FIND PEOPLE AROUND ME"="TÌM NGƯỜI Ở GẦN TÔI";
-"Limit my search to this distance"="Giới hạn  trong khoảng";
+"Limit my search to this distance"="Giới hạn trong khoảng";
 "less than a mile away"="khoảng 1 km";
 "Oakclub use these preferences to suggest potential matches. Some match suggestion may not fall within your desired parameters."="Oakclub dùng những thông tin này để gợi ý đối tượng phù hợp với bạn. Những thông tin này chỉ có giá trị tham khảo tương đối. ";
 "Vibration on Notification"="Rung khi có thông báo";
@@ -165,13 +164,13 @@
 "Tell your friends!"="Mời bạn bè tham gia!";
 "I'M HERE TO"="TÔI ĐẾN ĐÂY ĐỂ …";
 "SHOW ME"="GIỚI THIỆU CHO TÔI";
-"Limit my search to this distance"="Giới hạn  trong khoảng";
+"Limit my search to this distance"="Giới hạn trong khoảng";
 "SHOW ME PEOPLE AGE OF"="GIỚI THIỆU NHỮNG NGƯỜI TỪ";
 "Contact US"="Liên hệ";
 "18 to ....old"="18 đến ... Tuổi";
 "Contact Us"="Liên hệ";
 "Save Your Settings"="Đã chỉnh xong";
-"SHARE INTERESTS"="SỞ THÍCH CHUNG";
+"SHARE INTERESTS "="SỞ THÍCH CHUNG ";
 "Not interested"="Không thích hả? ";
 "Like?"="Thích à?";
 "AGREE & PROCEED"="TIẾP TỤC";
@@ -300,7 +299,7 @@
 "Gemeinsame Freunde"="Bạn chung";
 "Zeige mir Leute an, im Alter von"="Giới thiệu những người từ";
 "Finde Leute in meiner Umgebung"="TÌM NGƯỜI Ở GẦN TÔI";
-"Grenze meine Suche mit folgender Distanz ein"="Giới hạn  trong khoảng";
+"Grenze meine Suche mit folgender Distanz ein"="Giới hạn trong khoảng";
 "Weniger als 1km entfernt"="khoảng 1 km";
 "Oakclub benutzt diese Einstellungen um Dir so viele \"Volltreffer\" wie möglich anzuzeigen. Einige \"Volltreffer\" können nicht alle Deine Kriterien erfüllen."="Oakclub dùng những thông tin này để gợi ý đối tượng phù hợp với bạn. Những thông tin này chỉ có giá trị tham khảo tương đối. ";
 "Vibration als Benachrichtigung"="Rung khi có thông báo";
@@ -365,7 +364,7 @@
 "Teile es mit Deinen Freunden!"="Mời bạn bè tham gia!";
 "Ich bin hier weil ich"="TÔI ĐẾN ĐÂY ĐỂ …";
 "Zeige mir folgendes an"="GIỚI THIỆU CHO TÔI";
-"Grenze meine Suche mit folgender Distanz ein"="Giới hạn  trong khoảng";
+"Grenze meine Suche mit folgender Distanz ein"="Giới hạn trong khoảng";
 "Zeige mir Leute an, im Alter von"="GIỚI THIỆU NHỮNG NGƯỜI TỪ";
 "Kontaktiere Uns"="Liên hệ";
 "18 bis .... alt"="18 đến ... Tuổi";
@@ -500,7 +499,7 @@
 "Bạn chung"="Bạn chung";
 "Giới thiệu những người từ"="Giới thiệu những người từ";
 "TÌM NGƯỜI Ở GẦN TÔI"="TÌM NGƯỜI Ở GẦN TÔI";
-"Giới hạn  trong khoảng"="Giới hạn  trong khoảng";
+"Giới hạn trong khoảng"="Giới hạn trong khoảng";
 "khoảng 1 km"="khoảng 1 km";
 "Oakclub dùng những thông tin này để gợi ý đối tượng phù hợp với bạn. Những thông tin này chỉ có giá trị tham khảo tương đối. "="Oakclub dùng những thông tin này để gợi ý đối tượng phù hợp với bạn. Những thông tin này chỉ có giá trị tham khảo tương đối. ";
 "Rung khi có thông báo"="Rung khi có thông báo";
@@ -565,7 +564,7 @@
 "Mời bạn bè tham gia!"="Mời bạn bè tham gia!";
 "TÔI ĐẾN ĐÂY ĐỂ …"="TÔI ĐẾN ĐÂY ĐỂ …";
 "GIỚI THIỆU CHO TÔI"="GIỚI THIỆU CHO TÔI";
-"Giới hạn  trong khoảng"="Giới hạn  trong khoảng";
+"Giới hạn trong khoảng"="Giới hạn trong khoảng";
 "GIỚI THIỆU NHỮNG NGƯỜI TỪ"="GIỚI THIỆU NHỮNG NGƯỜI TỪ";
 "Liên hệ"="Liên hệ";
 "18 đến ... Tuổi"="18 đến ... Tuổi";
@@ -700,7 +699,7 @@
 "Teman Bersama"="Bạn chung";
 "Tampilkan orang dengan usia"="Giới thiệu những người từ";
 "Cari orang-orang di sekitar saya"="TÌM NGƯỜI Ở GẦN TÔI";
-"Batasi pencarian pada jarak"="Giới hạn  trong khoảng";
+"Batasi pencarian pada jarak"="Giới hạn trong khoảng";
 "Kurang dari 1 km"="khoảng 1 km";
 "Oakclub menggunakan preferensi ini untuk menyarankan kecocokan potensial. Beberapa saran mungkin tidak masuk dalam kriteria yang kamu inginkan."="Oakclub dùng những thông tin này để gợi ý đối tượng phù hợp với bạn. Những thông tin này chỉ có giá trị tham khảo tương đối. ";
 "Bergetar jika ada pemberitahuan"="Rung khi có thông báo";
@@ -765,7 +764,7 @@
 "Beritahu teman!"="Mời bạn bè tham gia!";
 "Aku disini untuk…"="TÔI ĐẾN ĐÂY ĐỂ …";
 "Tunjukkan pada saya"="GIỚI THIỆU CHO TÔI";
-"Batasi pencarian pada jarak"="Giới hạn  trong khoảng";
+"Batasi pencarian pada jarak"="Giới hạn trong khoảng";
 "Tampilkan orang dengan usia"="GIỚI THIỆU NHỮNG NGƯỜI TỪ";
 "Hubungi kami"="Liên hệ";
 "18 sampai ….tahun"="18 đến ... Tuổi";
@@ -798,3 +797,11 @@
 "Cannot access to the email account on your device."="Không thể vào được email của bạn";
 "Connect Privately"="Kết nối riêng tư";
 "Cannnot delete this photo."="Ảnh không xóa được";
+"Toàn Quốc"="Toàn Quốc";
+"Country"="Toàn Quốc";
+"Country"="Toàn Quốc";
+"Country"="Toàn Quốc";
+"Thế Giới"="Thế Giới";
+"World"="Thế Giới";
+"World"="Thế Giới";
+"World"="Thế Giới";

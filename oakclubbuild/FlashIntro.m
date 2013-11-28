@@ -95,6 +95,7 @@
     {
         localSpashScreen = @"spashscreen";
     }
+    
     UIImage *backgroundImg = [UIImage imageNamed:localSpashScreen];
     [background setImage:backgroundImg];
     [background setContentMode:UIViewContentModeScaleAspectFit];
