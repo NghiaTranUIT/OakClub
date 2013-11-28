@@ -40,7 +40,7 @@
 "Kéo hình sang phải nghĩa là bạn có cảm tình với người này. "="Dragging a picture to the right indicates you liked";
 "Thích quá!"="Like";
 "Không thích hả? "="Not interested";
-"Kéo hình sang trái nghĩa là bạn không thích người ngày"="Dragging a picture to the left indicates you are not interested in ";
+"Kéo hình sang trái nghĩa là bạn không thích người ngày"="Dragging a picture to the left indicates you are not interested in";
 "Không thích!"="Reject";
 "Cách bạn"="Distance:";
 "Hoạt động "="Active:";
@@ -240,7 +240,7 @@
 "Wenn Du ein Foto nach rechts ziehst, \"likes\" Du die Person"="Dragging a picture to the right indicates you liked";
 "Like"="Like";
 "Kein Interesse?"="Not interested";
-"Wenn Du ein Foto nach links ziehst, lehnst Du die Person ab."="Dragging a picture to the left indicates you are not interested in ";
+"Wenn Du ein Foto nach links ziehst, lehnst Du die Person ab."="Dragging a picture to the left indicates you are not interested in";
 "Ablehnen"="Reject";
 "Distanz"="Distance:";
 "Aktiv"="Active:";
@@ -440,7 +440,7 @@
 "Dragging a picture to the right indicates you liked"="Dragging a picture to the right indicates you liked";
 "Like"="Like";
 "Not interested"="Not interested";
-"Dragging a picture to the left indicates you are not interested in "="Dragging a picture to the left indicates you are not interested in ";
+"Dragging a picture to the left indicates you are not interested in"="Dragging a picture to the left indicates you are not interested in";
 "Reject"="Reject";
 "Distance:"="Distance:";
 "Active:"="Active:";
@@ -640,7 +640,7 @@
 "Tarik gambar ke kanan jika kamu suka"="Dragging a picture to the right indicates you liked";
 "Suka?"="Like";
 "Tidak tertarik?"="Not interested";
-"Tarik gambar ke kiri jika kamu tidak tertarik"="Dragging a picture to the left indicates you are not interested in ";
+"Tarik gambar ke kiri jika kamu tidak tertarik"="Dragging a picture to the left indicates you are not interested in";
 "Tolak"="Reject";
 "Jarak"="Distance:";
 "Aktif"="Active:";
