@@ -441,7 +441,7 @@ UITapGestureRecognizer *tap;
                 
                 UIImage* logoImage = [UIImage imageNamed:@"SnapshotSetting_oakclub_logo.png"];
                 UIImageView* logoImageView = [[UIImageView alloc]initWithImage:logoImage];
-                [logoImageView setFrame:CGRectMake(106, 168, 108, 90)];
+                [logoImageView setFrame:CGRectMake((newCellView.frame.size.width - 108)/2, 168, 108, 90)];
             
                 [newCellView addSubview:logoImageView];
                 
