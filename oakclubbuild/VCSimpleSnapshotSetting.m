@@ -149,7 +149,7 @@ UITapGestureRecognizer *tap;
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     CGFloat rowHeight=0;
     switch (indexPath.section) {
-        case RangeGroup:
+        case DistanceGroup:
             rowHeight = 80;
             break;
         case MoreGroup:
@@ -180,7 +180,7 @@ UITapGestureRecognizer *tap;
         case ShowMeGroup:
             rowCount = 3;
             break;
-        case RangeGroup:
+        case DistanceGroup:
             rowCount = 1;
             break;
         case AgeGroup:
@@ -281,17 +281,6 @@ UITapGestureRecognizer *tap;
             break;
         }
         case GenderSearchGroup:
-            /*
-            if (row == 0 && ([snapshotObj.gender_of_search isEqualToString:value_Male] || [snapshotObj.gender_of_search isEqualToString:value_All]))
-            {
-                cell.accessoryType = UITableViewCellAccessoryCheckmark;
-            }
-            if (row == 1 && ([snapshotObj.gender_of_search isEqualToString:value_Female] || [snapshotObj.gender_of_search isEqualToString:value_All]) )
-            {
-                cell.accessoryType = UITableViewCellAccessoryCheckmark;
-            }
-             */
-            
             switch (row) {
                 case 0:
                 {
@@ -349,7 +338,7 @@ UITapGestureRecognizer *tap;
                     break;
             }
             break;
-        case RangeGroup:
+        case DistanceGroup:
         {
             static NSString *rangeCellID = @"RangeCell";
             UITableViewCell *rangeCell = [tableView dequeueReusableCellWithIdentifier:rangeCellID];
@@ -358,8 +347,6 @@ UITapGestureRecognizer *tap;
                 rangeCell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:rangeCellID];
                 UIView *newCellView= [[UIView alloc]initWithFrame:CGRectMake(0, 0, 320, 80)];
                 lblRange = [[UILabel alloc]initWithFrame:CGRectMake(30, 0, 280, 30)];
-//                [lblRange setText: [NSString stringWithFormat: [[@"Limit my search to this distance" localize] stringByAppendingString:@": %d km"],i_range]];
-//                [lblRange setTextColor:[UIColor blackColor]];
                 [lblRange setBackgroundColor:[UIColor clearColor]];
                 [lblRange setFont:FONT_HELVETICANEUE_LIGHT(15.0)];
                 [newCellView addSubview:self.rangeSlider];
@@ -368,9 +355,6 @@ UITapGestureRecognizer *tap;
                 [rangeCell setSelectionStyle:UITableViewCellSelectionStyleNone];
                 rangeCell.accessoryView = newCellView;
             }
-//            else{
-//                [lblRange setText: [NSString stringWithFormat: [[@"Limit my search to this distance" localize] stringByAppendingString:@": %d km"],i_range]];
-//            }
             lblRange.text = [self getRangeValue:i_range];
             [rangeCell localizeAllViews];
             return rangeCell;
@@ -383,12 +367,12 @@ UITapGestureRecognizer *tap;
             if (!languageCell)
             {
                 languageCell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:languageIdentifier];
-                languageCell.textLabel.text = @"Language";
                 [languageCell setFont:FONT_HELVETICANEUE_LIGHT(15.0)];
+                languageCell.accessoryType= UITableViewCellAccessoryDisclosureIndicator;
             }
             
             NSString* selectedLanguage =[[NSUserDefaults standardUserDefaults] stringForKey:key_appLanguage];
-            languageCell.detailTextLabel.text = [appLangs objectForKey:selectedLanguage];
+            languageCell.textLabel.text = [appLangs objectForKey:selectedLanguage];
             
             [languageCell localizeAllViews];
             return languageCell;
@@ -487,12 +471,11 @@ UITapGestureRecognizer *tap;
         case GenderSearchGroup:
             headerLbl.text = @"I WOULD LIKE TO BE MATCHED WITH";
             break;
-        case RangeGroup:
+        case DistanceGroup:
             if(!isPickerShowing)
                 headerLbl.text = @"FIND PEOPLE AROUND ME";
             break;
         case LanguageGroup:
-            return nil;
             headerLbl.text = @"CHOOSE YOUR LANGUAGE";
             break;
         case AgeGroup:
@@ -539,7 +522,7 @@ UITapGestureRecognizer *tap;
             [self.navigationController pushViewController:appLangChoose animated:YES];
             break;
         }
-//        case RangeGroup:
+//        case DistanceGroup:
 //            if (row==0) {
 //                [self gotoChooseCity];
 //            }
@@ -894,6 +877,14 @@ UITapGestureRecognizer *tap;
 -(void)initSliderForRange{
     self.rangeSlider = [[NYSliderPopover alloc] initWithFrame:CGRectMake(30, 40, 280, 23)];
     self.rangeSlider.minimumTrackTintColor = COLOR_PURPLE;
+    //custom view for slider
+    UIImage *minImage = [[UIImage imageNamed:@"SnapshotSetting_fillrange_slider.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 5, 0, 5)];
+    UIImage *maxImage = [[UIImage imageNamed:@"SnapshotSetting_fullrange_slider.png"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 5, 0, 5)];
+    UIImage *thumbImage = [UIImage imageNamed:@"SnapshotSetting_thumb_slider.png"];
+    [self.rangeSlider  setMaximumTrackImage:maxImage forState:UIControlStateNormal];
+    [self.rangeSlider  setMinimumTrackImage:minImage forState:UIControlStateNormal];
+    [self.rangeSlider  setThumbImage:thumbImage forState:UIControlStateNormal];
+    
     [self.rangeSlider addTarget:self action:@selector(updateSliderPopoverText) forControlEvents:UIControlEventValueChanged ];
     [self.rangeSlider addTarget:self action:@selector(touchDownOnSlider:) forControlEvents:UIControlEventTouchDown ];
     [self.rangeSlider addTarget:self action:@selector(touchUpOnSlider:) forControlEvents:UIControlEventTouchUpInside ];
