@@ -21,8 +21,11 @@
 #import "VCSimpleSnapshot.h"
 #import "VCReportPopup.h"
 #import "ChatNavigationView.h"
+#import "SmileyChooseCell.h"
+
 @interface SMChatViewController() <ImageRequester>
 @property UIImageView* headerLogo;
+@property (weak, nonatomic) IBOutlet UICollectionView *smileyCollection;
 @end
 
 @implementation SMChatViewController
@@ -32,6 +35,8 @@
     EmoticonString *textMsg;
     NSMutableArray *smileyLayers;
     AppDelegate* appDel;
+    
+    int smCollNRows, smCollNCols;
 }
 
 
@@ -287,10 +292,14 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    [self initSmileyCollection];
+    
 	self.tView.delegate = self;
 	self.tView.dataSource = self;
 	[self.tView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     [self.navigationController setNavigationBarHidden:NO];
+    
     
 	appDel = [self appDelegate];
 	appDel._messageDelegate = self;
@@ -679,7 +688,7 @@ NSMutableArray *cellHeight;
     scrollView.frame = CGRectMake(0, 5, screenWidth, screenHeight - 5);
     [self scrollToLastAnimated:YES];
     
-    UITapGestureRecognizer *tap = [scrollView.gestureRecognizers objectAtIndex:0];
+    UITapGestureRecognizer *tap = [scrollView.gestureRecognizers objectAtIndex:1];
     [self.scrollView removeGestureRecognizer:tap];
 }
 
@@ -699,67 +708,6 @@ NSMutableArray *cellHeight;
     NSLog(@"textFieldDidEndEditing ...");
 }
 
-- (BOOL)textField:(UITextField *)txtField shouldChangeCharactersInRange:(NSRange)rng replacementString:(NSString *)repString
-{
-    return true;
-    
-    if (!smileyLayers)
-    {
-        smileyLayers = [[NSMutableArray alloc] init];
-    }
-    
-    if (!textMsg)
-    {
-        textMsg = [[EmoticonString alloc] init];
-    }
-    
-    if ([repString isEqualToString:@""])    //backSpace
-    {
-        [textMsg removeCharactersInRange:rng];
-    }
-    else
-    {
-        [textMsg insertString:repString atIndex:rng.location];
-    }
-    
-    NSMutableArray *components = [[NSMutableArray alloc] initWithArray:[[[WordWarpParse alloc] init] parseEmoticonsForText:textMsg.textString withEmoticonData:[[ChatEmoticon instance] allKeys]] copyItems:false];
-    
-    [smileyLayers makeObjectsPerformSelector:@selector(removeFromSuperlayer)];
-    [smileyLayers removeAllObjects];
-    
-    UIFont *font = txtField.font;
-    float tabSize = 30;
-    NSMutableString *text = [[NSMutableString alloc] init];
-    float curPos = 0;
-    
-    for (NSString *component in components)
-    {
-        if ([[[ChatEmoticon instance] allKeys] containsObject:component])
-        {
-            CALayer *smiley = [[CALayer alloc] init];
-            UIImage *smileyImg = [[ChatEmoticon instance] objectForKey:component];
-            smiley.contents =  (id) [smileyImg CGImage];
-            float scaleRatio = smileyImg.size.width / tabSize;
-            smiley.frame = CGRectMake(curPos, 0, smileyImg.size.width / scaleRatio, smileyImg.size.height / scaleRatio);
-            [text appendString:@"\t"];
-            curPos += tabSize;
-            
-            [txtField.layer addSublayer:smiley];
-            [smileyLayers addObject:smiley];
-        }
-        else
-        {
-            [text appendString:component];
-            curPos += [component sizeWithFont:font].width;
-        }
-    }
-    
-    txtField.text = text;
-    
-    return false;
-}
-
-
 - (void)keyboardWasShown:(NSNotification*)aNotification {
 //    NSDictionary* info = [aNotification userInfo];
 //    CGSize kbSize = [[info objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
@@ -776,7 +724,7 @@ NSMutableArray *cellHeight;
     NSLog(@"screen.height: %f, keyboard.height: %f", screenHeight, kbSize.height);
     scrollView.frame = CGRectMake(0, 5, screenWidth, screenHeight - kbSize.height - 5);
     
-    [self scrollToLastAnimated:YES];
+    [self scrollToLastAnimated:NO];
     
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]
                                    initWithTarget:self
@@ -822,4 +770,117 @@ NSMutableArray *cellHeight;
 #endif
 }
 
+#pragma mark smiley collection datasource / delegate
+-(void)initSmileyCollection
+{
+    static NSString *smileyChooseCellID = @"smileyChooseCellID";
+    
+    [self.smileyCollection registerClass:[SmileyChooseCell class] forCellWithReuseIdentifier:smileyChooseCellID];
+    self.smileyCollection.dataSource = self;
+    self.smileyCollection.delegate = self;
+    
+    smCollNCols = self.smileyCollection.frame.size.width / 30;
+    smCollNRows = 1 + [[ChatEmoticon instance] count] / smCollNCols;
+}
+
+-(UICollectionViewCell*)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    static NSString *smileyChooseCellID = @"smileyChooseCellID";
+    
+    SmileyChooseCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:smileyChooseCellID forIndexPath:indexPath];
+    
+    if (cell)
+    {
+        NSString *smileyText = [[[ChatEmoticon instance] allKeys] objectAtIndex:(indexPath.section * smCollNCols + indexPath.row)];
+        
+        [cell setSmileyText:smileyText];
+        [cell.smileyButton addTarget:self action:@selector(smileyTouched:) forControlEvents:UIControlEventTouchUpInside];
+        cell.smileyButton.tag = indexPath.section * smCollNCols + indexPath.row;
+    }
+    
+    return cell;
+}
+
+- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
+{
+    return smCollNRows;
+}
+
+- (NSInteger)collectionView:(UICollectionView *)collectionView
+     numberOfItemsInSection:(NSInteger)section
+{
+    return (section < smCollNRows - 1)?smCollNCols:([[ChatEmoticon instance] count] % smCollNCols);
+}
+
+-(void)dismissSmileyCollection:(id)sender
+{
+    if (!self.smileyCollection.hidden)
+    {
+        [UIView animateWithDuration:0.2 animations:^{
+            [self.smileyCollection setFrame:CGRectMake(self.smileyCollection.frame.origin.x,
+                                                       self.smileyCollection.frame.origin.y + self.smileyCollection.frame.size.height,
+                                                       self.smileyCollection.frame.size.width,
+                                                       self.smileyCollection.frame.size.height)];
+            [self.tView setFrame:CGRectMake(self.tView.frame.origin.x,
+                                            self.tView.frame.origin.y,
+                                            self.tView.frame.size.width,
+                                            self.tView.frame.size.height + self.smileyCollection.frame.size.height)];
+            
+            [self scrollToLastAnimated:YES];
+            [self.tView reloadData];
+        } completion:^(BOOL finished) {
+            [self.smileyCollection setHidden:YES];
+            
+            // remove gesture
+            UITapGestureRecognizer *tap = [self.tView.gestureRecognizers objectAtIndex:3];
+            [self.tView removeGestureRecognizer:tap];
+            [self.messageField becomeFirstResponder];
+        }];
+    }
+}
+
+-(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSString *smileyText = [[[ChatEmoticon instance] allKeys] objectAtIndex:(indexPath.section * smCollNCols + indexPath.row)];
+    
+    self.messageField.text = [self.messageField.text stringByAppendingString:smileyText];
+}
+
+#pragma mark smiley button
+- (IBAction)smileyButtonTouched:(id)sender {
+    if (self.smileyCollection.hidden)
+    {
+        [self dismissKeyboard:sender];
+        
+        [self.smileyCollection setHidden:NO];
+        
+        [UIView animateWithDuration:0.2 animations:^{
+            [self.smileyCollection setFrame:CGRectMake(self.smileyCollection.frame.origin.x,
+                                                       self.smileyCollection.frame.origin.y - self.smileyCollection.frame.size.height,
+                                                       self.smileyCollection.frame.size.width,
+                                                       self.smileyCollection.frame.size.height)];
+            [self.tView setFrame:CGRectMake(self.tView.frame.origin.x,
+                                            self.tView.frame.origin.y,
+                                            self.tView.frame.size.width,
+                                            self.tView.frame.size.height - self.smileyCollection.frame.size.height)];
+            
+            [self scrollToLastAnimated:YES];
+            [self.tView reloadData];
+        } completion:^(BOOL finished) {
+            UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]
+                                           initWithTarget:self
+                                           action:@selector(dismissSmileyCollection:)];
+            
+            [self.tView addGestureRecognizer:tap];
+        }];
+    }
+}
+
+-(void)smileyTouched:(UIButton *)sender
+{
+    NSString *smileyText = [[[ChatEmoticon instance] allKeys] objectAtIndex:sender.tag];
+    
+    self.messageField.text = [self.messageField.text stringByAppendingString:smileyText];
+    
+}
 @end
