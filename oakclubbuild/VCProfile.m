@@ -291,7 +291,7 @@ static CGFloat padding_left = 5.0;
     }
 }
 
--(void)LoadDistanceText{
+-(void)LoadDistanceText{    
     [lblDistanceTitle setText:[@"Distance:" localize]];
     [lblDistanceTitle sizeToFit];
     lblDistance.frame = CGRectMake(lblDistanceTitle.frame.origin.x + lblDistanceTitle.frame.size.width + 5, lblDistanceTitle.frame.origin.y
@@ -301,7 +301,8 @@ static CGFloat padding_left = 5.0;
         return;
     }
     if(currentProfile.distance < 40){
-        [lblDistance setText:[NSString stringWithFormat:@"%i km away", currentProfile.distance]];
+        NSString *formatString = [@"%i km away" localize];
+        [lblDistance setText:[NSString stringWithFormat:formatString, currentProfile.distance]];
         return;
     }
     [lblDistance setText:[@"More than 40 km away" localize]];
