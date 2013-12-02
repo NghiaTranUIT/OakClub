@@ -7,6 +7,7 @@
 //
 
 #import "CycleScrollView.h"
+#import "UIView+Localize.h"
 
 @implementation CycleScrollView
 @synthesize delegate;
@@ -69,6 +70,7 @@ float timerDuration = 8.0f;
         //@catch (NSException *exception) {
             
         //}
+        
 
         //[imageView setDelegate:self];
         imageView.contentMode = UIViewContentModeScaleAspectFit;
@@ -111,8 +113,7 @@ float timerDuration = 8.0f;
     //@catch (NSException *exception) {
 
     //}
-    
-    
+
     return curImages;
 }
 
@@ -128,12 +129,13 @@ float timerDuration = 8.0f;
     
     int x = aScrollView.contentOffset.x;
     int y = aScrollView.contentOffset.y;
+    
 //    NSLog(@"did  x=%d  y=%d", x, y);
     
     // 水平滚动
     if(scrollDirection == CycleDirectionLandscape) {
         // 往下翻一张
-        if(x >= (2*scrollFrame.size.width)) { 
+        if(x >= (2*scrollFrame.size.width)) {
             curPage = [self validPageValue:curPage+1];
             [self refreshScrollView];
         }
@@ -206,5 +208,4 @@ float timerDuration = 8.0f;
 //    // Single tap shows or hides drawer of thumbnails.
 //    [self startTimer];
 //}
-
 @end

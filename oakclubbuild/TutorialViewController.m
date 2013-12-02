@@ -77,6 +77,7 @@
     }
 
     cycle.delegate = self;
+    [cycle refreshScrollView];
     [self.view addSubview:cycle];
     [self.view sendSubviewToBack:cycle];
     [self.view bringSubviewToFront:pageControl];
@@ -85,7 +86,8 @@
 
 -(void)cycleScrollViewDelegate:(CycleScrollView *)cycleScrollView customizeImageView:(TapDetectingImageView *)imageView atIndex:(int)index
 {
-    
+    [self transText:index :imageView];
+
 }
 
 - (void)didReceiveMemoryWarning
@@ -118,4 +120,123 @@
     [appDelegate.rootVC setLeftViewController:leftController];
     appDelegate.window.rootViewController = appDelegate.rootVC;
 }
+
+-(void) transText: (int) index: (TapDetectingImageView *)image {
+    
+    switch (index) {
+        case 0:
+        {
+            UILabel *content1Label = [[UILabel alloc] init];
+            UILabel *content2Label = [[UILabel alloc] init];
+            UILabel *content3Label = [[UILabel alloc] init];
+            
+            [content1Label setText: @""];
+            [content2Label setText: @""];
+            [content3Label setText: @""];
+            NSString *content1String = [@"Swipe photo right\nto LIKE a profile" localize];
+            NSString *content2String = [@"Swipe photo left\nto REJECT a profile" localize];
+            NSString *content3String = [@"Or just use REJECT / LIKE\nbuttons below" localize];
+            
+            
+            [content1Label setLineBreakMode: NSLineBreakByCharWrapping];
+            [content1Label setNumberOfLines: 2];
+            [content1Label setText: content1String];
+            [content1Label setFrame: CGRectMake((image.frame.size.width - 265)/2, 75, 260, 70)];
+            [content1Label setFont: [UIFont systemFontOfSize: 23]];
+            [content1Label setTextAlignment: NSTextAlignmentCenter];
+            [content1Label setBackgroundColor: [UIColor clearColor]];
+            [content1Label setTextColor: [UIColor whiteColor]];
+            
+            
+            [content2Label setLineBreakMode: NSLineBreakByCharWrapping];
+            [content2Label setNumberOfLines: 2];
+            [content2Label setText: content2String];
+            [content2Label setFrame: CGRectMake((image.frame.size.width - 224)/2, 175, 260, 70)];
+            [content2Label setFont: [UIFont systemFontOfSize: 23]];
+            [content2Label setTextAlignment: NSTextAlignmentCenter];
+            [content2Label setBackgroundColor: [UIColor clearColor]];
+            [content2Label setTextColor: [UIColor whiteColor]];
+            
+            
+            [content3Label setLineBreakMode: NSLineBreakByCharWrapping];
+            [content3Label setNumberOfLines: 2];
+            [content3Label setText: content3String];
+            [content3Label setFrame: CGRectMake((image.frame.size.width - 254)/2, 283, 260, 70)];
+            [content3Label setFont: [UIFont systemFontOfSize: 21]];
+            [content3Label setTextAlignment: NSTextAlignmentCenter];
+            [content3Label setBackgroundColor: [UIColor clearColor]];
+            [content3Label setTextColor: [UIColor whiteColor]];
+            
+            [image addSubview: content1Label];
+            [image addSubview: content2Label];
+            [image addSubview: content3Label];
+            
+            break;
+        }
+        case 1:
+        {
+            UILabel *content1Label = [[UILabel alloc] init];
+            UILabel *content2Label = [[UILabel alloc] init];
+            UILabel *content3Label = [[UILabel alloc] init];
+            [content1Label setText: @""];
+            [content2Label setText: @""];
+            [content3Label setText: @""];
+            
+            NSString *content1String = [@"If you match who someone\nyou can chat with them privately" localize];
+            [content2Label setLineBreakMode: NSLineBreakByCharWrapping];
+            [content2Label setNumberOfLines: 2];
+            [content2Label setText: content1String];
+            [content2Label setFrame: CGRectMake((image.frame.size.width - 280)/2, 180, 280, 70)];
+            [content2Label setFont: [UIFont systemFontOfSize: 18]];
+            [content2Label setTextAlignment: NSTextAlignmentCenter];
+            [content2Label setBackgroundColor: [UIColor clearColor]];
+            [content2Label setTextColor: [UIColor whiteColor]];
+            
+            [image addSubview: content1Label];
+            [image addSubview: content2Label];
+            [image addSubview: content3Label];
+            break;
+        }
+        case 2:
+        {
+            UILabel *content1Label = [[UILabel alloc] init];
+            UILabel *content2Label = [[UILabel alloc] init];
+            UILabel *content3Label = [[UILabel alloc] init];
+            [content1Label setText: @""];
+            [content2Label setText: @""];
+            [content3Label setText: @""];
+            
+            NSString *content1String = [@"You can edit your\nprofile here" localize];
+            NSString *content2String = [@"You can choose\nwho to see here" localize];
+            
+            [content1Label setLineBreakMode: NSLineBreakByCharWrapping];
+            [content1Label setNumberOfLines: 2];
+            [content1Label setText: content1String];
+            [content1Label setFrame: CGRectMake((image.frame.size.width)/2, 25, 260, 70)];
+            [content1Label setFont: [UIFont systemFontOfSize: 15]];
+            [content1Label setTextAlignment: NSTextAlignmentLeft];
+            [content1Label setBackgroundColor: [UIColor clearColor]];
+            [content1Label setTextColor: [UIColor whiteColor]];
+            
+            [content2Label setLineBreakMode: NSLineBreakByCharWrapping];
+            [content2Label setNumberOfLines: 2];
+            [content2Label setText: content2String];
+            [content2Label setFrame: CGRectMake((image.frame.size.width)/2, 80, 260, 70)];
+            [content2Label setFont: [UIFont systemFontOfSize: 15]];
+            [content2Label setTextAlignment: NSTextAlignmentLeft];
+            [content2Label setBackgroundColor: [UIColor clearColor]];
+            [content2Label setTextColor: [UIColor whiteColor]];
+            [image addSubview: content1Label];
+            [image addSubview: content2Label];
+            [image addSubview: content3Label];
+            
+            break;
+        }
+            
+            
+        default:
+            break;
+    }
+}
+
 @end
