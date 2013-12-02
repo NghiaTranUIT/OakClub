@@ -7,6 +7,7 @@
 //
 
 #import "CycleScrollView.h"
+#import "UIView+Localize.h"
 
 @implementation CycleScrollView
 @synthesize delegate;
