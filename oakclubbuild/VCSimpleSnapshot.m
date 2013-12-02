@@ -474,15 +474,7 @@ CGFloat pageHeight;
 -(void)showMatchView{
     [self.view addSubview:matchViewController.view];
     [matchViewController.view setFrame:CGRectMake(0, 0, matchViewController.view.frame.size.width, matchViewController.view.frame.size.height)];
-    if ([value_appLanguage_VI isEqualToString:[[NSUserDefaults standardUserDefaults] objectForKey:key_appLanguage]])
-    {
-        [lblMatchAlert setText:[NSString stringWithFormat:@"Còn ngại gì nữa, bạn với %@ đều thích nhau rồi!",currentProfile.s_Name]];
-    }
-    else
-    {
-        [lblMatchAlert setText:[NSString stringWithFormat:@"You and %@ have liked each other!",currentProfile.s_Name]];
-    }
-
+    [lblMatchAlert setText:[NSString stringWithFormat:[@"You and %@ have liked each other!" localize],currentProfile.s_Name]];
     [imgMatcher setImage:currentProfile.img_Avatar];
     matchedProfile = currentProfile;
 }
