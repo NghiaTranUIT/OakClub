@@ -206,7 +206,6 @@ int cellCountinSection=0;
 
 -(void)showNotifications
 {
-    AppDelegate* appDel = [UIApplication sharedApplication].delegate;
     int totalNotifications = [appDel countTotalNotifications];
     
     [[self navBarOakClub] setNotifications:totalNotifications];
@@ -612,12 +611,12 @@ int cellCountinSection=0;
     }
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+- (UITableViewCell *)tableView:(UITableView *)tbView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
 	static NSString *CellIdentifier = @"ChatHistoryViewCell";
 	
     
-	__block ChatHistoryViewCell *cell = (ChatHistoryViewCell*)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+	__block ChatHistoryViewCell *cell = (ChatHistoryViewCell*)[tbView dequeueReusableCellWithIdentifier:CellIdentifier];
 	if (cell == nil)
 	{
 		cell = [[ChatHistoryViewCell alloc] initWithStyle:UITableViewCellStyleDefault
@@ -799,7 +798,7 @@ int cellCountinSection=0;
     fetchedResultsController = nil;
     [self.searchDisplayController.searchResultsTableView reloadData];
 	[[self tableView] reloadData];
-    self.scopeButtonPressedIndexNumber = [NSNumber numberWithInt:selectedScope];
+    self.scopeButtonPressedIndexNumber = [[NSNumber numberWithInt:selectedScope] boolValue];
 }
 
 

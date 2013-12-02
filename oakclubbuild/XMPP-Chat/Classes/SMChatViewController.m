@@ -35,6 +35,7 @@
     EmoticonString *textMsg;
     NSMutableArray *smileyLayers;
     AppDelegate* appDel;
+    NSMutableArray *cellHeight;
     
     int smCollNRows, smCollNCols;
 }
@@ -176,7 +177,7 @@
         
         //NSOperationQueue *queue = [[NSOperationQueue alloc] init];
         NSString* link = _profile.s_Avatar;//[self getAvatarUrl:chatWithUser];
-        if( ![link isEqualToString:@""] )
+        if(![link isEqualToString:@""])
         {
             
             AFHTTPRequestOperation* operation = [Profile getAvatarSync:link callback:^(UIImage *avatar) {
@@ -192,7 +193,7 @@
             avatar_friend = [UIImage imageNamed:@"Default Avatar.png"];
         }
         
-        link = [self getProfilebyID:nil];
+        link = [self getProfilebyID:nil].s_Avatar;
         
         if( ![link isEqualToString:@""] )
         {
@@ -553,8 +554,6 @@ static float cellWidth = 320;
 
 #define textMeasurePadding 15
 
-NSMutableArray *cellHeight;
-
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (!cellHeight)
@@ -661,6 +660,7 @@ NSMutableArray *cellHeight;
     //[self.messageField resignFirstResponder];
     
     [self sendMessage];
+    return false;
 }
 
 // Call this method somewhere in your view controller setup code.

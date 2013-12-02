@@ -165,12 +165,12 @@
 }
 
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+- (UITableViewCell *)tableView:(UITableView *)tbView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     static NSString *CellIdentifier = @"menuCell";
 //    for (NSString *name in imageNames) {
         //        menuCell *cel= [[menuCell alloc]init];
         menuCell *cell = nil;
-        cell = (menuCell*)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+        cell = (menuCell*)[tbView dequeueReusableCellWithIdentifier:CellIdentifier];
         NSString *icon = [imageNames objectAtIndex:indexPath.row];
         NSString *label = [imageNames objectAtIndex:indexPath.row];
         if (cell == nil) {
@@ -287,7 +287,7 @@
     NSString *path = [[NSBundle mainBundle] pathForResource:@"menu_simple" ofType:@"plist"];
     NSData *plistData = [NSData dataWithContentsOfFile:path];
     NSString *error; NSPropertyListFormat format;
-    NSArray *imageNames = [NSPropertyListSerialization propertyListFromData:plistData
+    NSArray *imgNames = [NSPropertyListSerialization propertyListFromData:plistData
                                                            mutabilityOption:NSPropertyListImmutable
                                                                      format:&format
                                                            errorDescription:&error];
@@ -301,10 +301,10 @@
                                                            errorDescription:&error];
 #endif
     
-    if (!imageNames) {
+    if (!imgNames) {
         NSLog(@"Failed to read image names. Error: %@", error);
     }
-    return imageNames;
+    return imgNames;
 }
 
 

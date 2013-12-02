@@ -118,8 +118,8 @@
 //@property (strong, nonatomic) NSNumber *num_unreadMessage;
 
 @property (strong, nonatomic) NSDictionary *dic_Roster;
-@property NSArray* a_favorites;
-@property NSString* s_user_id;
+@property (strong, nonatomic) NSArray* a_favorites;
+@property (strong, nonatomic) NSString* s_user_id;
 @property (strong, nonatomic) NSMutableArray *arr_MutualInterests;
 @property (strong, nonatomic) NSMutableArray *arr_MutualFriends;
 @property (assign, nonatomic) int num_MutualFriends;
@@ -139,7 +139,7 @@
 +(NSMutableArray*) parseProfileToArrayByJSON:(NSData *)jsonData;
 -(NSMutableArray*) parseForGetFeatureList:(NSData *)jsonData;
 //-(ProfileSetting*) parseForGetAccountSetting:(NSData *)jsonData;
-+(Gender*) parseGender:(NSNumber *)genderCode;
+//+(Gender*) parseGender:(NSNumber *)genderCode;
 -(void) parseProfileWithData:(NSDictionary*)data;
 -(void) parseProfileWithData:(NSDictionary*)data withFullName:(BOOL)getFullName;
 -(void) parseGetSnapshotToProfile:(NSData *)jsonData;
@@ -148,7 +148,7 @@
 +(NSMutableArray*) parseListPhotos:(NSData *)jsonData;
 +(NSMutableDictionary*) parseListPhotosIncludeID:(NSData *)jsonData;
 
-+(void) countMutualFriends:(NSString*)profileID callback:(void(^)(NSString*))handler;
+//+(void) countMutualFriends:(NSString*)profileID callback:(void(^)(NSString*))handler;
 +(AFHTTPRequestOperation*)getAvatarSync:(NSString*)url callback:(void(^)(UIImage*))handler;
 +(AFHTTPRequestOperation*)getAvatarSyncWithOperation:(NSString*)url callback:(void(^)(AFHTTPRequestOperation*, UIImage*))handler;
 

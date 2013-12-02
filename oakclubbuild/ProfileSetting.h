@@ -35,10 +35,10 @@
     NSString *emailSetting;
 }
 
-@property NSString* deviceToken;
-@property NSString* fb_id;
-@property NSString* purpose_of_search;
-@property NSString* gender_of_search;
+@property (strong, nonatomic) NSString* deviceToken;
+@property (strong, nonatomic) NSString* fb_id;
+@property (strong, nonatomic) NSString* purpose_of_search;
+@property (strong, nonatomic) NSString* gender_of_search;
 
 @property int range;
 
@@ -54,9 +54,9 @@
 //
 //@property NSString* country;
 //@property NSString* country_code;
-@property Location* location;
+@property (strong, nonatomic) Location* location;
 //@property float latitude;
 //@property float longitude;
 
-@property NSString* emailSetting;
+@property (strong, nonatomic) NSString* emailSetting;
 @end

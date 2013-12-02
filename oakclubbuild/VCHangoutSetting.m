@@ -62,7 +62,6 @@ int fromAge, toAge;
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
-        Location *temp = [self.appDelegate accountSetting].location;
         accountSetting = [self.appDelegate accountSetting];
     }
     return self;

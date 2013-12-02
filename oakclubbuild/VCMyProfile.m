@@ -636,8 +636,8 @@ UITapGestureRecognizer *tap;
     return 1;
 }
 
-- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
-    if(pickerView == pickerWeight)
+- (NSInteger)pickerView:(UIPickerView *)pkView numberOfRowsInComponent:(NSInteger)component {
+    if(pkView == pickerWeight)
         return [weightOptionList count];
     else
         return [heightOptionList count];
@@ -647,16 +647,16 @@ UITapGestureRecognizer *tap;
 //        return 70.0;
 //}
 
-- (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
-    if(pickerView == pickerWeight)
+- (NSString *)pickerView:(UIPickerView *)pkView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
+    if(pkView == pickerWeight)
         return [weightOptionList objectAtIndex:row];
     else
         return [heightOptionList objectAtIndex:row];
     
 }
 
-- (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
-    if(pickerView == pickerWeight){
+- (void)pickerView:(UIPickerView *)pkView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
+    if(pkView == pickerWeight){
         profileObj.i_weight = [[weightOptionList objectAtIndex:row] integerValue];
         [self updateProfileItemListAtIndex:[NSString stringWithFormat:@"%i", profileObj.i_weight] andIndex:WEIGHT];
         self.lblPickingValue.text = [NSString stringWithFormat:@"%i kg", profileObj.i_weight];

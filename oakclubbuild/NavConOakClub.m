@@ -82,4 +82,9 @@
 {
     return UIInterfaceOrientationIsPortrait(toInterfaceOrientation);
 }
+
+-(void)customBackButtonBarItem
+{
+    
+}
 @end

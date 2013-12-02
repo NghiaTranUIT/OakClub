@@ -295,7 +295,7 @@ CGFloat priorityList_Y = 8;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSUInteger section = [indexPath section];
+    //NSUInteger section = [indexPath section];
     NSUInteger row = [indexPath row];
     UITableViewCell* cell = [tableView cellForRowAtIndexPath:indexPath];
     if(tableView == tb_suggestList){
@@ -388,7 +388,7 @@ CGFloat priorityList_Y = 8;
 -(void)gotoEditEmail{
     EditText *nameEditView = [[EditText alloc]initWithNibName:@"EditText" bundle:nil];
     [nameEditView initForEditting:emailADD andStyle:0];
-    nameEditView.delegate = self;
+    nameEditView.delegate = (id) self;
     [self.navigationController pushViewController:nameEditView animated:YES];
 }
 

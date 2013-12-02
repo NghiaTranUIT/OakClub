@@ -51,7 +51,7 @@ static UIImage * JMNoiseImage;
 
         CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
         CGContextRef context = CGBitmapContextCreate(nil,imageDimension,imageDimension,8,0,
-                                                     colorSpace,kCGImageAlphaPremultipliedLast);
+                                                     colorSpace,kCGBitmapAlphaInfoMask & kCGImageAlphaPremultipliedFirst);
         CFRelease(colorSpace);
 
         for (int i=0; i<(kNoiseTileDimension * kNoiseIntensity); i++)

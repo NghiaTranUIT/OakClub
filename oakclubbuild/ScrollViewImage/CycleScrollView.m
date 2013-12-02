@@ -70,7 +70,7 @@ float timerDuration = 8.0f;
             
         //}
 
-        [imageView setDelegate:self];
+        //[imageView setDelegate:self];
         imageView.contentMode = UIViewContentModeScaleAspectFit;
 //        UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self
 //                                                                                    action:@selector(handleTap:)];
@@ -162,12 +162,6 @@ float timerDuration = 8.0f;
 }
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)aScrollView {
-    
-    int x = aScrollView.contentOffset.x;
-    int y = aScrollView.contentOffset.y;
-    
-//    NSLog(@"--end  x=%d  y=%d", x, y);
-    
     if (scrollDirection == CycleDirectionLandscape) {
             [scrollView setContentOffset:CGPointMake(scrollFrame.size.width, 0) animated:YES];
     }

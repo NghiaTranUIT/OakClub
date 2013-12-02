@@ -16,7 +16,7 @@
     return copyObj;
 }
 -(RelationShip*)initWithNSString:(NSString*)relText{
-    AppDelegate *appDel = [UIApplication sharedApplication].delegate;
+    AppDelegate *appDel = (id) [UIApplication sharedApplication].delegate;
     RelationShip* rel = [RelationShip alloc];
     rel.rel_text = relText;
     for (int i =0 ; i < [appDel.relationshipList count]; i++) {

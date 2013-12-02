@@ -22,6 +22,10 @@
 @implementation Profile
 
 @synthesize s_Name, img_Avatar, i_Points, s_ProfileStatus, s_FB_id, s_ID, dic_Roster,num_Photos, s_gender, num_points,/* num_unreadMessage,*/ s_passwordXMPP, s_usenameXMPP, arr_photos, s_aboutMe, s_birthdayDate, s_interested,a_language, s_location,s_relationShip, c_ethnicity, s_age, s_meetType, s_popularity, s_interestedStatus, s_snapshotID, a_favorites, s_user_id,s_school,i_work, i_height,i_weight, num_MutualFriends, num_Liked,num_Viewed, s_Email, distance, active, s_video;
+
+@synthesize s_status_time, arr_MutualFriends, arr_MutualInterests, new_mutual_attractions;
+
+
 @synthesize is_deleted;
 @synthesize is_blocked;
 @synthesize is_available;
@@ -60,7 +64,7 @@
         _profile.s_FB_id = [objectData valueForKey:key_facebookID];
         _profile.s_ID = [objectData valueForKey:key_profileID];
         _profile.s_ProfileStatus = [objectData valueForKey:key_online];
-        _profile.num_Photos =[objectData valueForKey:key_countPhotos];
+        _profile.num_Photos = [[objectData valueForKey:key_countPhotos] integerValue];
     }
     return _profile;
 }
@@ -139,7 +143,7 @@
                 _profile.s_FB_id = [objectData valueForKey:key_facebookID];
                 _profile.s_ID = [objectData valueForKey:key_profileID];
                 _profile.s_ProfileStatus = [objectData valueForKey:key_status];
-                _profile.num_Photos =[objectData valueForKey:key_countPhotos];
+                _profile.num_Photos = [[objectData valueForKey:key_countPhotos] integerValue];
                 int is_viewed = [[objectData valueForKey:@"is_viewed"] intValue];
                 
                 if( is_viewed == 0)
@@ -176,7 +180,7 @@
             _profile.s_FB_id = [objectData valueForKey:key_facebookID];
             _profile.s_ID = [objectData valueForKey:key_profileID];
             _profile.s_ProfileStatus = [objectData valueForKey:key_online];
-            _profile.num_Photos =[objectData valueForKey:key_countPhotos];
+            _profile.num_Photos = [[objectData valueForKey:key_countPhotos] integerValue];
             
             [_arrProfile addObject:_profile];
             
@@ -207,7 +211,7 @@
         _profile.s_FB_id = [objectData valueForKey:key_facebookID];
         _profile.s_ID = [objectData valueForKey:key_profileID];
         _profile.s_ProfileStatus = [objectData valueForKey:key_online];
-        _profile.num_Photos =[objectData valueForKey:key_countPhotos];
+        _profile.num_Photos = [[objectData valueForKey:key_countPhotos] integerValue];
         [_arrProfile addObject:_profile];
         
     }
@@ -234,7 +238,7 @@
         _profile.s_Avatar = [objectData valueForKey:key_avatar];
         _profile.s_FB_id = [objectData valueForKey:key_facebookID];
         _profile.s_ID = [objectData valueForKey:key_profileID];
-        _profile.num_Photos =[objectData valueForKey:key_countPhotos];
+        _profile.num_Photos = [[objectData valueForKey:key_countPhotos] integerValue];
         [_arrProfile addObject:_profile];
         
     }
@@ -565,7 +569,7 @@
 -(void) parseGetSnapshotToProfile:(NSData*)jsonData{
     NSMutableDictionary * data;
     if([jsonData isKindOfClass:[NSDictionary class]]){
-        data=jsonData;
+        data= (id) jsonData;
     }else{
         NSError *e=nil;
         NSMutableDictionary *dict = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingMutableContainers error:&e];
@@ -836,8 +840,6 @@
     }
     if([lang length] >0)
         lang = [lang substringToIndex:[lang length]-1];
-//    NSString *lang = [self.a_language componentsJoinedByString:@","];
-    NSString *loc = [NSString stringWithFormat:@"%@",self.s_location.ID];
     NSString *work = [NSString stringWithFormat:@"%i",self.i_work.cate_id];
     NSString *email = self.s_Email;
     
@@ -1069,8 +1071,8 @@
     [httpClient postPath:URL_setReadMessages parameters:params success:^(__unused AFHTTPRequestOperation *operation, id JSON) {
         NSError *e=nil;
         NSMutableDictionary *dict = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONReadingMutableContainers error:&e];
-        BOOL status= [[dict valueForKey:key_status] boolValue];
-        if(status){
+        BOOL resultStatus= [[dict valueForKey:key_status] boolValue];
+        if(resultStatus){
             self.unread_message -= friend.unread_message;
             friend.unread_message = 0;
             AppDelegate *appDel = (id) [UIApplication sharedApplication].delegate;
