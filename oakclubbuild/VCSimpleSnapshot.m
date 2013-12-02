@@ -38,6 +38,7 @@
 @property (nonatomic, strong) IBOutlet APLMoveMeView *moveMeView;
 @property (nonatomic, weak) IBOutlet UIView *profileView;
 @property (nonatomic, weak) IBOutlet UIView *controlView;
+@property (weak, nonatomic) IBOutlet UIImageView *imgAvatarFrame;
 @property (nonatomic, weak) IBOutlet UIViewController *matchView;
 @property (strong, nonatomic) IBOutlet VCSimpleSnapshotPopup *popupFirstTimeView;
 @property (nonatomic, strong) VCProfile *viewProfile;
@@ -52,7 +53,7 @@
 @implementation VCSimpleSnapshot
 CGFloat pageWidth;
 CGFloat pageHeight;
-@synthesize sv_photos,lbl_indexPhoto, lbl_mutualFriends, lbl_mutualLikes, buttonNO, buttonProfile, buttonYES, imgMutualFriend, imgMutualLike, buttonMAYBE ,lblName, lblAge ,lblPhotoCount, viewProfile,matchView, matchViewController, lblMatchAlert, imgMatcher, imgMyAvatar, imgMainProfile, imgNextProfile, imgLoading, popupFirstTimeView;
+@synthesize sv_photos,lbl_indexPhoto, lbl_mutualFriends, lbl_mutualLikes, buttonNO, buttonProfile, buttonYES, imgMutualFriend, imgMutualLike, buttonMAYBE ,lblName, lblAge ,lblPhotoCount, viewProfile,matchView, matchViewController, lblMatchAlert, imgMatcher, imgMyAvatar, imgMainProfile, imgNextProfile, imgLoading, popupFirstTimeView,imgAvatarFrame;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -411,8 +412,10 @@ CGFloat pageHeight;
                           delay: 0
                         options: (UIViewAnimationOptionCurveLinear | UIViewAnimationOptionAllowUserInteraction)
                      animations:^{
+                         [imgAvatarFrame setAlpha:0.0f];
                          [self.navigationController setNavigationBarHidden:YES animated:YES];
-                         imgMainProfile.frame = CGRectMake((320-275)/2, 0, 275, 275);
+//                         imgMainProfile.frame = CGRectMake((320-275)/2, 0, 275, 275);
+                         imgMainProfile.frame = CGRectMake(0, -20, 320, 320);
                      }
                      completion:^(BOOL finished) {
                          [imgMainProfile setHidden:YES];
@@ -441,11 +444,13 @@ CGFloat pageHeight;
                           delay: 0
                         options: (UIViewAnimationOptionCurveLinear | UIViewAnimationOptionAllowUserInteraction)
                      animations:^{
+                         
                          [self.navigationController setNavigationBarHidden:NO animated:YES];
                          [self.imgMainProfile setFrame:CGRectMake(32, 24, 255, 255)];
                      }
                      completion:^(BOOL finished) {
                          [self.moveMeView addSubViewToCardView:imgMainProfile andAtFront:NO andTag:0];
+                         [imgAvatarFrame setAlpha:1.0f];
                          [self.imgMainProfile setFrame:CGRectMake(5, 3, 255, 255)];
                      }
      ];

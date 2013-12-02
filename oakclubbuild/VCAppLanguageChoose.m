@@ -89,6 +89,7 @@
     
     NSString *langID = [[appLanguages allKeys] objectAtIndex:indexPath.row];
     cell.textLabel.text = [appLanguages valueForKey:langID];
+    [cell.textLabel setFont:FONT_HELVETICANEUE_LIGHT(15.0)];
     NSString* appLang = [[NSUserDefaults standardUserDefaults] objectForKey:key_appLanguage];
     if ([langID isEqualToString:appLang])
     {

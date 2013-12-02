@@ -48,15 +48,17 @@
 }
 
 -(void)customBackButtonBarItem{
+    UIView* leftItemView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 80, 44)];
     UIButton* buttonBack = [UIButton buttonWithType:UIButtonTypeCustom];
-    buttonBack.frame = CGRectMake(10, 8, 40, 30);
+    buttonBack.frame = CGRectMake(IS_OS_7_OR_LATER?-5:5, 8, 40, 30);
     [buttonBack addTarget:self action:nil forControlEvents:UIControlEventTouchUpInside];
     [buttonBack setBackgroundImage:[UIImage imageNamed:@"Navbar_btn_menu.png"] forState:UIControlStateNormal];
     [buttonBack addTarget:self action:@selector(menuPressed:) forControlEvents:UIControlEventTouchUpInside];
     [buttonBack addTarget:self action:@selector(onTouchDownControllButton:) forControlEvents:UIControlEventTouchDown];
-    UIBarButtonItem *buttonItem = [[UIBarButtonItem alloc] initWithCustomView:buttonBack];
-    
+    [leftItemView addSubview:buttonBack];
+    UIBarButtonItem *buttonItem = [[UIBarButtonItem alloc] initWithCustomView:leftItemView];
     self.navigationItem.leftBarButtonItem = buttonItem;
+    
     UIView* rightItemView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 80, 44)];
     UIButton* buttonChat = [UIButton buttonWithType:UIButtonTypeCustom];
     buttonChat.frame = CGRectMake(IS_OS_7_OR_LATER?41:31, 8, 45, 30);
@@ -65,7 +67,8 @@
     [buttonChat addTarget:self action:@selector(rightItemPressed:) forControlEvents:UIControlEventTouchUpInside];
     [buttonChat addTarget:self action:@selector(onTouchDownControllButton:) forControlEvents:UIControlEventTouchDown];
     [rightItemView addSubview:buttonChat];
-    
+    UIBarButtonItem *buttonChatItem = [[UIBarButtonItem alloc] initWithCustomView:rightItemView];
+    self.navigationItem.rightBarButtonItem = buttonChatItem;
    
     AppDelegate* appdel = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     if([appdel countTotalNotifications] > 0){
@@ -82,9 +85,7 @@
     }
     
     
-    UIBarButtonItem *buttonChatItem = [[UIBarButtonItem alloc] initWithCustomView:rightItemView];
-    
-    self.navigationItem.rightBarButtonItem = buttonChatItem;
+   
     
 //    [self setNotifications:20];
 }

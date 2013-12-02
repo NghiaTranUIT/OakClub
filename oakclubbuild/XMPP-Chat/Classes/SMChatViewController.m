@@ -262,10 +262,10 @@
 //    if(!IS_OS_7_OR_LATER)
 //        [self.navigationController.navigationBar.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
     
-    [btnBackToPrevious setFrame:CGRectMake(0, 0, btnBackToPrevious.frame.size.width, btnBackToPrevious.frame.size.height)];
+    [btnBackToPrevious setFrame:CGRectMake(10, 2, btnBackToPrevious.frame.size.width, btnBackToPrevious.frame.size.height)];
     [btnBackToPrevious addTarget:self action:@selector(backToPreviousView) forControlEvents:UIControlEventTouchUpInside];
     
-    label_header.frame = CGRectMake(60, 0, label_header.frame.size.width, 44);
+    label_header.frame = CGRectMake(70, 0, label_header.frame.size.width, 44);
     
     [btnShowProfile setFrame:CGRectMake(244, 8, btnShowProfile.frame.size.width, btnShowProfile.frame.size.height)];
     

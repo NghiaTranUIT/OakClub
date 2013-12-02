@@ -505,7 +505,7 @@ UITapGestureRecognizer *tap;
                 }
                 else
                 {
-                    [self showWarning:@"Cannnot delete this photo." withTag:5];
+                    [self showWarning:@"Cannot delete this photo." withTag:5];
                 }
                 selectedPhoto = -1;
                 
