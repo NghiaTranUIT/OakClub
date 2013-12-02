@@ -34,7 +34,7 @@ id<VideoPickerDelegate> delegate;
     picker.delegate = self;
     picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
     picker.mediaTypes = @[(NSString*)kUTTypeMovie];
-    picker.videoQuality = UIImagePickerControllerQualityTypeLow;
+    picker.videoQuality = UIImagePickerControllerQualityTypeHigh;
     [parentWindow presentModalViewController:picker animated:YES];
 }
 
@@ -53,24 +53,7 @@ id<VideoPickerDelegate> delegate;
     picker = nil;
     if (delegate)
     {
-        [VideoPicker loadImageFromAssertByUrl:[info objectForKey:UIImagePickerControllerReferenceURL] completion:^(NSData * videoData) {
-            [delegate receiveVideo:videoData];
-        }];
-        
+        [delegate receiveVideo:[info objectForKey:UIImagePickerControllerReferenceURL]];
     }
-}
-
-+(void) loadImageFromAssertByUrl:(NSURL *)url completion:(void (^)(NSData*)) completion
-{
-    ALAssetsLibrary *assetLibrary=[[ALAssetsLibrary alloc] init];
-    [assetLibrary assetForURL:url resultBlock:^(ALAsset *asset) {
-        ALAssetRepresentation *rep = [asset defaultRepresentation];
-        Byte *buffer = (Byte*)malloc(rep.size);
-        NSUInteger buffered = [rep getBytes:buffer fromOffset:0.0 length:rep.size error:nil];
-        NSData *data = [NSData dataWithBytesNoCopy:buffer length:buffered freeWhenDone:YES];
-        completion(data);
-    } failureBlock:^(NSError *err) {
-        NSLog(@"Error: %@",[err localizedDescription]);
-    }];
 }
 @end

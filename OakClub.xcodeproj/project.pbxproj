@@ -27,6 +27,7 @@
 		9758AEFF184C6C7100B9D4AF /* PSTGridLayoutItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 9758AEF0184C6C7100B9D4AF /* PSTGridLayoutItem.m */; };
 		9758AF00184C6C7100B9D4AF /* PSTGridLayoutRow.m in Sources */ = {isa = PBXBuildFile; fileRef = 9758AEF2184C6C7100B9D4AF /* PSTGridLayoutRow.m */; };
 		9758AF01184C6C7100B9D4AF /* PSTGridLayoutSection.m in Sources */ = {isa = PBXBuildFile; fileRef = 9758AEF4184C6C7100B9D4AF /* PSTGridLayoutSection.m */; };
+		9758AF03184CA15A00B9D4AF /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9758AF02184CA15A00B9D4AF /* AVFoundation.framework */; };
 		9775A75D1813CF2D00BCF28D /* SCLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9775A75B1813CF2C00BCF28D /* SCLoginViewController.m */; };
 		9775A7651813D11200BCF28D /* Location.m in Sources */ = {isa = PBXBuildFile; fileRef = 9775A7641813D11200BCF28D /* Location.m */; };
 		9775A7691813D3DD00BCF28D /* UAModelPanelEx.m in Sources */ = {isa = PBXBuildFile; fileRef = 9775A7681813D3DD00BCF28D /* UAModelPanelEx.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -688,6 +689,7 @@
 		9758AEF2184C6C7100B9D4AF /* PSTGridLayoutRow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSTGridLayoutRow.m; sourceTree = "<group>"; };
 		9758AEF3184C6C7100B9D4AF /* PSTGridLayoutSection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSTGridLayoutSection.h; sourceTree = "<group>"; };
 		9758AEF4184C6C7100B9D4AF /* PSTGridLayoutSection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSTGridLayoutSection.m; sourceTree = "<group>"; };
+		9758AF02184CA15A00B9D4AF /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		9775A75A1813CF2C00BCF28D /* SCLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCLoginViewController.h; sourceTree = "<group>"; };
 		9775A75B1813CF2C00BCF28D /* SCLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCLoginViewController.m; sourceTree = "<group>"; };
 		9775A7621813D03E00BCF28D /* Define.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Define.h; path = oakclubbuild/Define.h; sourceTree = SOURCE_ROOT; };
@@ -1544,6 +1546,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9758AF03184CA15A00B9D4AF /* AVFoundation.framework in Frameworks */,
 				97A8FCBC18361E6D00B9ACEC /* MediaPlayer.framework in Frameworks */,
 				CDF4D496170404F7005E7B71 /* MobileCoreServices.framework in Frameworks */,
 				CD2DE687182758610043AA91 /* MessageUI.framework in Frameworks */,
@@ -2614,6 +2617,7 @@
 		CDC4929B1702CEAB00E83DE3 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				9758AF02184CA15A00B9D4AF /* AVFoundation.framework */,
 				97A8FCBB18361E6D00B9ACEC /* MediaPlayer.framework */,
 				CD2DE686182758610043AA91 /* MessageUI.framework */,
 				977853E318221BBF00CBB5DB /* AssetsLibrary.framework */,
@@ -4328,7 +4332,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				ONLY_ACTIVE_ARCH = YES;
-				PROVISIONING_PROFILE = "023742AC-1369-4A69-B3B8-1DE476B7504F";
+				PROVISIONING_PROFILE = "229289F0-6EF1-437E-AEB1-B685EA09A840";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -4356,7 +4360,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
-				PROVISIONING_PROFILE = "023742AC-1369-4A69-B3B8-1DE476B7504F";
+				PROVISIONING_PROFILE = "229289F0-6EF1-437E-AEB1-B685EA09A840";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 1;
 				VALIDATE_PRODUCT = YES;
@@ -4389,8 +4393,8 @@
 					"-ObjC",
 				);
 				PRODUCT_NAME = OakClub;
-				PROVISIONING_PROFILE = "023742AC-1369-4A69-B3B8-1DE476B7504F";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "023742AC-1369-4A69-B3B8-1DE476B7504F";
+				PROVISIONING_PROFILE = "229289F0-6EF1-437E-AEB1-B685EA09A840";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "229289F0-6EF1-437E-AEB1-B685EA09A840";
 				TARGETED_DEVICE_FAMILY = 1;
 				VALIDATE_PRODUCT = YES;
 				WRAPPER_EXTENSION = app;
@@ -4422,8 +4426,8 @@
 					"-ObjC",
 				);
 				PRODUCT_NAME = OakClub;
-				PROVISIONING_PROFILE = "023742AC-1369-4A69-B3B8-1DE476B7504F";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "023742AC-1369-4A69-B3B8-1DE476B7504F";
+				PROVISIONING_PROFILE = "229289F0-6EF1-437E-AEB1-B685EA09A840";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "229289F0-6EF1-437E-AEB1-B685EA09A840";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};

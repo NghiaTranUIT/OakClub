@@ -8,34 +8,20 @@
 
 #import "VideoUploader.h"
 #import "AppDelegate.h"
+#import <AVFoundation/AVFoundation.h>
 
 @interface VideoUploader() <UIAlertViewDelegate>
-{
-    NSData *video;
-}
 @end
 
 @implementation VideoUploader
 
-@synthesize delegate;
-
--(id)initWithVideoData:(NSData *)videoData
-{
-    if (self = [super init])
-    {
-        video = videoData;
-    }
-    
-    return self;
-}
-
--(void)uploadVideoWithCompletion:(void(^)(NSString *))completionHandler
++(void)uploadVideoWithData:(NSData *)videoData useCompletion:(void(^)(NSString *))completionHandler
 {
     AFHTTPClient *client= [[AFHTTPClient alloc] initWithOakClubAPI:DOMAIN];
     
     NSMutableURLRequest *myRequest = [client multipartFormRequestWithMethod:@"POST" path:URL_uploadVideo
                                                                  parameters:nil constructingBodyWithBlock: ^(id <AFMultipartFormData>formData) {
-                                                                     [formData appendPartWithFileData:video name:@"video" fileName:@"video.mov" mimeType:@"video/quicktime"];
+                                                                     [formData appendPartWithFileData:videoData name:@"video" fileName:@"video.mov" mimeType:@"video/quicktime"];
                                                                  }];
     
     AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:myRequest];
@@ -64,15 +50,28 @@
     [operation start];
 }
 
-- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
++(void)compressVideoAtURL:(NSURL *)url withQuality:(NSString *)quality useCompletion:(void (^)(NSData*)) completion
 {
-    if (buttonIndex == 0)
+    AVAsset *asset = [AVAsset assetWithURL:url];
+    AVAssetExportSession *exportSession = [[AVAssetExportSession alloc] initWithAsset:asset presetName:quality];
+    //AVAssetExportPresetLowQuality;
+    exportSession.outputFileType = AVFileTypeQuickTimeMovie;
+    
+    NSString *videoName = @"demo.m4a";
+    NSString *exportPath = [NSTemporaryDirectory() stringByAppendingPathComponent:videoName];
+    NSURL *exportUrl = [NSURL fileURLWithPath:exportPath];
+    if ([[NSFileManager defaultManager] fileExistsAtPath:exportPath])
     {
-        //[self sendPhoto];
+        [[NSFileManager defaultManager] removeItemAtPath:exportPath error:nil];
     }
-    else
-    {
-        
-    }
+    exportSession.outputURL = exportUrl;
+    
+    [exportSession exportAsynchronouslyWithCompletionHandler:^{
+        if (exportSession.status == AVAssetExportSessionStatusCompleted)
+        {
+            NSData *videoData = [NSData dataWithContentsOfURL:exportUrl];
+            completion(videoData);
+        }
+    }];
 }
 @end
