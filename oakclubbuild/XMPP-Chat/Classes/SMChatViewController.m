@@ -792,6 +792,7 @@ static float cellWidth = 320;
     layout.scrollDirection = PSTCollectionViewScrollDirectionVertical;
     self.smileyCollection = [[PSUICollectionView alloc] initWithFrame:CGRectMake(0, 568, 320, 150) collectionViewLayout:layout];
     self.smileyCollection.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    self.smileyCollection.backgroundColor = [UIColor clearColor];
     
     [self.smileyCollection setHidden:YES];
     [self.scrollView addSubview:self.smileyCollection];
