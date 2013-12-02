@@ -34,6 +34,7 @@ id<VideoPickerDelegate> delegate;
     picker.delegate = self;
     picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
     picker.mediaTypes = @[(NSString*)kUTTypeMovie];
+    picker.videoQuality = UIImagePickerControllerQualityTypeLow;
     [parentWindow presentModalViewController:picker animated:YES];
 }
 
