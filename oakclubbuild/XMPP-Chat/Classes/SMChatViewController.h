@@ -14,7 +14,7 @@
 #import "Profile.h"
 #import "MessageStorage.h"
 
-@interface SMChatViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, SMMessageDelegate, UITextFieldDelegate> {
+@interface SMChatViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, SMMessageDelegate, UITextFieldDelegate, UICollectionViewDataSource, UICollectionViewDelegate> {
 
 	UITextField		*messageField;
 	NSString		*chatWithUser;

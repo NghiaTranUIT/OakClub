@@ -56,7 +56,7 @@
 }
 #pragma mark ListForChoose DataSource/Delegate
 - (void)ListForChoose:(ListForChoose *)uvcList didSelectRow:(NSInteger)row{
-    Profile* selected = [uvcList getCurrentValue];
+    //Profile* selected = [uvcList getCurrentValue];
 }
 
 - (void)gotoChooseCity {

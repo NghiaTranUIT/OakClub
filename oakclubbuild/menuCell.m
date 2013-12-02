@@ -75,7 +75,7 @@ static CGFloat padding_left = 4.0;
     
 	CGSize size = [text sizeWithFont:font
                    constrainedToSize:textSize
-                       lineBreakMode:UILineBreakModeWordWrap];
+                       lineBreakMode:NSLineBreakByWordWrapping];
     
     size.width += (padding_left/2);
     

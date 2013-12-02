@@ -13,5 +13,6 @@
 - (void)startSpinner;
 - (void)stopSpinner;
 - (void) tryLogin;
+- (IBAction)performLogin:(id)sender;
 @property (weak, nonatomic) IBOutlet UILabel *lblNote;
 @end

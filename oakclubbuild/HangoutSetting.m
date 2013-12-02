@@ -404,7 +404,7 @@ ProfileSetting* hangoutSetting;
 #pragma mark ListForChoose DataSource/Delegate
 - (void)ListForChoose:(ListForChoose *)uvcList didSelectRow:(NSInteger)row{
     Profile* selected = [uvcList getCurrentValue];
-    SettingObject* selectedValue = [uvcList getSettingValue];
+    //SettingObject* selectedValue = [uvcList getSettingValue];
     switch ([uvcList getType]) {
         case LISTTYPE_CITY:
         {

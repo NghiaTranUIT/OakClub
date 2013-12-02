@@ -75,7 +75,7 @@ static CGFloat padding_left = 5.0;
     
 	CGSize size = [text sizeWithFont:[UIFont systemFontOfSize:14.0]
 					  constrainedToSize:textSize
-						  lineBreakMode:UILineBreakModeWordWrap];
+						  lineBreakMode:NSLineBreakByWordWrapping];
     
     size.width += (padding_left/2);
     
@@ -662,7 +662,6 @@ static CGFloat padding_left = 5.0;
 -(void)checkAddedToBlockList{
     [btnBlock setSelected:NO];
     [request getPath:URL_getListBlocking parameters:nil success:^(__unused AFHTTPRequestOperation *operation, id JSON) {
-        NSMutableArray *_arrProfile = [[NSMutableArray alloc] init];
         NSError *e=nil;
         NSMutableDictionary *dict = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONReadingMutableContainers error:&e];
         NSMutableArray * data= [dict valueForKey:key_data];
@@ -686,7 +685,6 @@ static CGFloat padding_left = 5.0;
 -(void)checkAddedToWantToMeet{
     [btnIwantToMeet setSelected:NO];
     [request getPath:URL_getListIWantToMeet parameters:nil success:^(__unused AFHTTPRequestOperation *operation, id JSON) {
-        NSMutableArray *_arrProfile = [[NSMutableArray alloc] init];
         NSError *e=nil;
         NSMutableDictionary *dict = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONReadingMutableContainers error:&e];
         NSMutableArray * data= [dict valueForKey:key_data];
@@ -1026,8 +1024,6 @@ static CGFloat padding_left = 5.0;
 #pragma mark left item bar
 -(void)backToPreviousView
 {
-    UINavigationController* activeVC = [[self appDelegate] activeViewController];
-    UIViewController* vc = [activeVC.viewControllers objectAtIndex:0];
 //    if([vc isKindOfClass:[VCSnapshoot class]] )
 //    {
 //        CATransition* transition = [CATransition animation];

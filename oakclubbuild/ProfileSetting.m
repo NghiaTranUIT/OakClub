@@ -10,6 +10,8 @@
 
 @implementation ProfileSetting
 
+@synthesize deviceToken, emailSetting;
+
 -(id)init
 {
     self = [super init];

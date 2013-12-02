@@ -76,12 +76,12 @@
 }
 - (void)menuPressed:(id)sender {
     NSLog(@"openMenu");
-    AppDelegate *appDel = [UIApplication sharedApplication].delegate;
+    AppDelegate *appDel = (id) [UIApplication sharedApplication].delegate;
     appDel.rootVC.recognizesPanningOnFrontView = YES;
     [appDel showLeftView];
 }
 -(void)onTouchDownControllButton:(id)sender{
-    AppDelegate *appDel = [UIApplication sharedApplication].delegate;
+    AppDelegate *appDel = (id) [UIApplication sharedApplication].delegate;
     appDel.rootVC.recognizesPanningOnFrontView = NO;
 }
 
@@ -90,7 +90,7 @@
     
     if(rightButtonClass != nil && [rightButtonClass length]>0 && ![rightButtonClass isEqualToString:@"VCMyProfile"]){
 #if ENABLE_DEMO
-        AppDelegate *appDel = [UIApplication sharedApplication].delegate;
+        AppDelegate *appDel = (id) [UIApplication sharedApplication].delegate;
         appDel.rootVC.recognizesPanningOnFrontView = YES;
         [appDel.rootVC showViewController:appDel.chat];
 #else
@@ -163,4 +163,8 @@
     [self.customView bringSubviewToFront:labelNotifications];
 }
 
+-(void)optionPressed:(id)sender
+{
+    
+}
 @end

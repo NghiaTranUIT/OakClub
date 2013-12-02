@@ -173,18 +173,18 @@
 #pragma mark handle onTouch in button
 - (void)menuPressed:(id)sender {
     NSLog(@"openMenu");
-    AppDelegate *appDel = [UIApplication sharedApplication].delegate;
+    AppDelegate *appDel = (id) [UIApplication sharedApplication].delegate;
     appDel.rootVC.recognizesPanningOnFrontView = YES;
     [appDel showLeftView];
 }
 -(void)onTouchDownControllButton:(id)sender{
-    AppDelegate *appDel = [UIApplication sharedApplication].delegate;
+    AppDelegate *appDel = (id) [UIApplication sharedApplication].delegate;
     appDel.rootVC.recognizesPanningOnFrontView = NO;
 }
 
 - (void)rightItemPressed:(id)sender {
     NSLog(@"rightItemPressed");
-    AppDelegate *appDel = [UIApplication sharedApplication].delegate;
+    AppDelegate *appDel = (id) [UIApplication sharedApplication].delegate;
     appDel.rootVC.recognizesPanningOnFrontView = YES;
     [appDel.rootVC showViewController:appDel.chat];
 }

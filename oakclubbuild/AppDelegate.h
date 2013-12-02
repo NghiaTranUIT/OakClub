@@ -87,7 +87,7 @@
 - (void)disconnect;
 // end chatting
 
-@property ProfileSetting* accountSetting;
+@property (strong, nonatomic) ProfileSetting* accountSetting;
 @property (strong, nonatomic) UIWindow *window;
 @property (strong, nonatomic) id<FBGraphUser> myFBProfile;
 @property (strong, nonatomic) FBSession *session;
@@ -134,9 +134,9 @@ extern NSString *const SCSessionStateChangedNotification;
 -(BOOL)isFacebookActivated;
 
 -(void)loadAllViewControllers;
--(void)loadDataForList;
+//-(void)loadDataForList;
 -(void)showChat;
--(void)showSnapshoot;
+//-(void)showSnapshoot;
 -(void)gotoLogin;
 -(void)gotoVCAtCompleteLogin;
 #if ENABLE_DEMO
@@ -145,16 +145,16 @@ extern NSString *const SCSessionStateChangedNotification;
 -(void)showMutualMatches;
 -(void)updateLanguageBundle;
 #endif
--(void)showMylink;
--(void)showVisitor;
+//-(void)showMylink;
+//-(void)showVisitor;
 -(void)showLeftView;
 -(void)logOut;
--(void)showHangOut;
+//-(void)showHangOut;
 -(void)showMyProfile;
 -(void)showConfirm;
 -(void)showInvite;
--(void)showGetPoints;
--(NavConOakClub *) createNavigationByClass:(NSString *)className;
+//-(void)showGetPoints;
+//-(NavConOakClub *) createNavigationByClass:(NSString *)className;
 -(BOOL)checkInternetConnection;
 -(void)loadFriendsList;
 -(BOOL)isAuthenticated;

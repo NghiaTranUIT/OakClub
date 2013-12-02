@@ -22,7 +22,7 @@
 #import "LoadingIndicator.h"
 #import "VCAppLanguageChoose.h"
 
-@interface VCSimpleSnapshotSetting () <LoadingIndicatorDelegate>{
+@interface VCSimpleSnapshotSetting () <LoadingIndicatorDelegate, MFMailComposeViewControllerDelegate>{
     SettingObject* snapshotObj;
     AFHTTPClient *request;
     int fromAge;
@@ -367,7 +367,7 @@ UITapGestureRecognizer *tap;
             if (!languageCell)
             {
                 languageCell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:languageIdentifier];
-                [languageCell setFont:FONT_HELVETICANEUE_LIGHT(15.0)];
+                //[languageCell setFont:FONT_HELVETICANEUE_LIGHT(15.0)];
                 languageCell.accessoryType= UITableViewCellAccessoryDisclosureIndicator;
             }
             
@@ -500,7 +500,6 @@ UITapGestureRecognizer *tap;
 {
     NSUInteger section = [indexPath section];
     NSUInteger row = [indexPath row];
-    UITableViewCell* cell = [tableView cellForRowAtIndexPath:indexPath];
     switch (section)
     {
         case LanguageGroup:
@@ -635,7 +634,7 @@ UITapGestureRecognizer *tap;
 #pragma mark ListForChoose DataSource/Delegate
 - (void)ListForChoose:(ListForChoose *)uvcList didSelectRow:(NSInteger)row{
     Profile* selected = [uvcList getCurrentValue];
-    SettingObject* selectedValue = [uvcList getSettingValue];
+    //SettingObject* selectedValue = [uvcList getSettingValue];
     switch ([uvcList getType]) {
         case LISTTYPE_CITY:
         {

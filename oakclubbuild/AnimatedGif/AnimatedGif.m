@@ -493,7 +493,7 @@ static AnimatedGif * instance;
 		bBuffer[4] |= 0x08;
 	}
 	
-    NSMutableData *GIF_string = [NSMutableData dataWithData:[[NSString stringWithString:@"GIF89a"] dataUsingEncoding: NSUTF8StringEncoding]];
+    NSMutableData *GIF_string = [NSMutableData dataWithData:[@"GIF89a" dataUsingEncoding: NSUTF8StringEncoding]];
 	[GIF_screen setData:[NSData dataWithBytes:bBuffer length:blength]];
     [GIF_string appendData: GIF_screen];
     
@@ -565,7 +565,7 @@ static AnimatedGif * instance;
     
 	if ([GIF_pointer length] >= dataPointer + length) // Don't read across the edge of the file..
     {
-		GIF_buffer = [GIF_pointer subdataWithRange:NSMakeRange(dataPointer, length)];
+		GIF_buffer = (id) [GIF_pointer subdataWithRange:NSMakeRange(dataPointer, length)];
         dataPointer += length;
 		return YES;
 	}
