@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "PSTCollectionView.h"
 
-@interface SmileyChooseCell : UICollectionViewCell
+@interface SmileyChooseCell : PSUICollectionViewCell
 @property NSString *smileyText;
 @property UIButton *smileyButton;
 @end

@@ -13,8 +13,9 @@
 #import "SMMessageViewTableCell.h"
 #import "Profile.h"
 #import "MessageStorage.h"
+#import "PSTCollectionView.h"
 
-@interface SMChatViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, SMMessageDelegate, UITextFieldDelegate, UICollectionViewDataSource, UICollectionViewDelegate> {
+@interface SMChatViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, SMMessageDelegate, UITextFieldDelegate, PSTCollectionViewDataSource, PSTCollectionViewDelegateFlowLayout> {
 
 	UITextField		*messageField;
 	NSString		*chatWithUser;

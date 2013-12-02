@@ -13,7 +13,7 @@
 //demo version FLAG
 #define ENABLE_DEMO true
 #define USE_STAGING false
-#define USE_MAINHOST true   
+#define USE_MAINHOST true
 #define USE_STAGING_MB false
 #define USE_STAGING_IOS false
 //Hangout

@@ -14,6 +14,19 @@
 		970924BC182E5EFE007BD6B1 /* VideoPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 970924BB182E5EFE007BD6B1 /* VideoPicker.m */; };
 		970B7487181533560091471F /* PickPhotoFromGarelly.m in Sources */ = {isa = PBXBuildFile; fileRef = 970B7486181533560091471F /* PickPhotoFromGarelly.m */; };
 		972B27D9182CEC7C00D0ABC5 /* PrivacyView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 972B27D8182CEC7C00D0ABC5 /* PrivacyView.xib */; };
+		9758AEF5184C6C7100B9D4AF /* NSIndexPath+PSTCollectionViewAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 9758AEDA184C6C7100B9D4AF /* NSIndexPath+PSTCollectionViewAdditions.m */; };
+		9758AEF6184C6C7100B9D4AF /* PSTCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9758AEDC184C6C7100B9D4AF /* PSTCollectionView.m */; };
+		9758AEF7184C6C7100B9D4AF /* PSTCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9758AEDE184C6C7100B9D4AF /* PSTCollectionViewCell.m */; };
+		9758AEF8184C6C7100B9D4AF /* PSTCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9758AEE1184C6C7100B9D4AF /* PSTCollectionViewController.m */; };
+		9758AEF9184C6C7100B9D4AF /* PSTCollectionViewData.m in Sources */ = {isa = PBXBuildFile; fileRef = 9758AEE3184C6C7100B9D4AF /* PSTCollectionViewData.m */; };
+		9758AEFA184C6C7100B9D4AF /* PSTCollectionViewFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 9758AEE5184C6C7100B9D4AF /* PSTCollectionViewFlowLayout.m */; };
+		9758AEFB184C6C7100B9D4AF /* PSTCollectionViewItemKey.m in Sources */ = {isa = PBXBuildFile; fileRef = 9758AEE7184C6C7100B9D4AF /* PSTCollectionViewItemKey.m */; };
+		9758AEFC184C6C7100B9D4AF /* PSTCollectionViewLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 9758AEEA184C6C7100B9D4AF /* PSTCollectionViewLayout.m */; };
+		9758AEFD184C6C7100B9D4AF /* PSTCollectionViewUpdateItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 9758AEEC184C6C7100B9D4AF /* PSTCollectionViewUpdateItem.m */; };
+		9758AEFE184C6C7100B9D4AF /* PSTGridLayoutInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 9758AEEE184C6C7100B9D4AF /* PSTGridLayoutInfo.m */; };
+		9758AEFF184C6C7100B9D4AF /* PSTGridLayoutItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 9758AEF0184C6C7100B9D4AF /* PSTGridLayoutItem.m */; };
+		9758AF00184C6C7100B9D4AF /* PSTGridLayoutRow.m in Sources */ = {isa = PBXBuildFile; fileRef = 9758AEF2184C6C7100B9D4AF /* PSTGridLayoutRow.m */; };
+		9758AF01184C6C7100B9D4AF /* PSTGridLayoutSection.m in Sources */ = {isa = PBXBuildFile; fileRef = 9758AEF4184C6C7100B9D4AF /* PSTGridLayoutSection.m */; };
 		9775A75D1813CF2D00BCF28D /* SCLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9775A75B1813CF2C00BCF28D /* SCLoginViewController.m */; };
 		9775A7651813D11200BCF28D /* Location.m in Sources */ = {isa = PBXBuildFile; fileRef = 9775A7641813D11200BCF28D /* Location.m */; };
 		9775A7691813D3DD00BCF28D /* UAModelPanelEx.m in Sources */ = {isa = PBXBuildFile; fileRef = 9775A7681813D3DD00BCF28D /* UAModelPanelEx.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -647,6 +660,34 @@
 		970B7488181534090091471F /* PhotoUpload.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotoUpload.h; sourceTree = "<group>"; };
 		970B7489181534090091471F /* PhotoUpload.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotoUpload.m; sourceTree = "<group>"; };
 		972B27D8182CEC7C00D0ABC5 /* PrivacyView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PrivacyView.xib; sourceTree = "<group>"; };
+		9758AED9184C6C7100B9D4AF /* NSIndexPath+PSTCollectionViewAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSIndexPath+PSTCollectionViewAdditions.h"; sourceTree = "<group>"; };
+		9758AEDA184C6C7100B9D4AF /* NSIndexPath+PSTCollectionViewAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSIndexPath+PSTCollectionViewAdditions.m"; sourceTree = "<group>"; };
+		9758AEDB184C6C7100B9D4AF /* PSTCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSTCollectionView.h; sourceTree = "<group>"; };
+		9758AEDC184C6C7100B9D4AF /* PSTCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSTCollectionView.m; sourceTree = "<group>"; };
+		9758AEDD184C6C7100B9D4AF /* PSTCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSTCollectionViewCell.h; sourceTree = "<group>"; };
+		9758AEDE184C6C7100B9D4AF /* PSTCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSTCollectionViewCell.m; sourceTree = "<group>"; };
+		9758AEDF184C6C7100B9D4AF /* PSTCollectionViewCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSTCollectionViewCommon.h; sourceTree = "<group>"; };
+		9758AEE0184C6C7100B9D4AF /* PSTCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSTCollectionViewController.h; sourceTree = "<group>"; };
+		9758AEE1184C6C7100B9D4AF /* PSTCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSTCollectionViewController.m; sourceTree = "<group>"; };
+		9758AEE2184C6C7100B9D4AF /* PSTCollectionViewData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSTCollectionViewData.h; sourceTree = "<group>"; };
+		9758AEE3184C6C7100B9D4AF /* PSTCollectionViewData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSTCollectionViewData.m; sourceTree = "<group>"; };
+		9758AEE4184C6C7100B9D4AF /* PSTCollectionViewFlowLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSTCollectionViewFlowLayout.h; sourceTree = "<group>"; };
+		9758AEE5184C6C7100B9D4AF /* PSTCollectionViewFlowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSTCollectionViewFlowLayout.m; sourceTree = "<group>"; };
+		9758AEE6184C6C7100B9D4AF /* PSTCollectionViewItemKey.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSTCollectionViewItemKey.h; sourceTree = "<group>"; };
+		9758AEE7184C6C7100B9D4AF /* PSTCollectionViewItemKey.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSTCollectionViewItemKey.m; sourceTree = "<group>"; };
+		9758AEE8184C6C7100B9D4AF /* PSTCollectionViewLayout+Internals.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PSTCollectionViewLayout+Internals.h"; sourceTree = "<group>"; };
+		9758AEE9184C6C7100B9D4AF /* PSTCollectionViewLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSTCollectionViewLayout.h; sourceTree = "<group>"; };
+		9758AEEA184C6C7100B9D4AF /* PSTCollectionViewLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSTCollectionViewLayout.m; sourceTree = "<group>"; };
+		9758AEEB184C6C7100B9D4AF /* PSTCollectionViewUpdateItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSTCollectionViewUpdateItem.h; sourceTree = "<group>"; };
+		9758AEEC184C6C7100B9D4AF /* PSTCollectionViewUpdateItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSTCollectionViewUpdateItem.m; sourceTree = "<group>"; };
+		9758AEED184C6C7100B9D4AF /* PSTGridLayoutInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSTGridLayoutInfo.h; sourceTree = "<group>"; };
+		9758AEEE184C6C7100B9D4AF /* PSTGridLayoutInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSTGridLayoutInfo.m; sourceTree = "<group>"; };
+		9758AEEF184C6C7100B9D4AF /* PSTGridLayoutItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSTGridLayoutItem.h; sourceTree = "<group>"; };
+		9758AEF0184C6C7100B9D4AF /* PSTGridLayoutItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSTGridLayoutItem.m; sourceTree = "<group>"; };
+		9758AEF1184C6C7100B9D4AF /* PSTGridLayoutRow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSTGridLayoutRow.h; sourceTree = "<group>"; };
+		9758AEF2184C6C7100B9D4AF /* PSTGridLayoutRow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSTGridLayoutRow.m; sourceTree = "<group>"; };
+		9758AEF3184C6C7100B9D4AF /* PSTGridLayoutSection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSTGridLayoutSection.h; sourceTree = "<group>"; };
+		9758AEF4184C6C7100B9D4AF /* PSTGridLayoutSection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSTGridLayoutSection.m; sourceTree = "<group>"; };
 		9775A75A1813CF2C00BCF28D /* SCLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCLoginViewController.h; sourceTree = "<group>"; };
 		9775A75B1813CF2C00BCF28D /* SCLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCLoginViewController.m; sourceTree = "<group>"; };
 		9775A7621813D03E00BCF28D /* Define.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Define.h; path = oakclubbuild/Define.h; sourceTree = SOURCE_ROOT; };
@@ -1543,6 +1584,41 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		9758AED8184C6C7100B9D4AF /* PSTCollectionView */ = {
+			isa = PBXGroup;
+			children = (
+				9758AED9184C6C7100B9D4AF /* NSIndexPath+PSTCollectionViewAdditions.h */,
+				9758AEDA184C6C7100B9D4AF /* NSIndexPath+PSTCollectionViewAdditions.m */,
+				9758AEDB184C6C7100B9D4AF /* PSTCollectionView.h */,
+				9758AEDC184C6C7100B9D4AF /* PSTCollectionView.m */,
+				9758AEDD184C6C7100B9D4AF /* PSTCollectionViewCell.h */,
+				9758AEDE184C6C7100B9D4AF /* PSTCollectionViewCell.m */,
+				9758AEDF184C6C7100B9D4AF /* PSTCollectionViewCommon.h */,
+				9758AEE0184C6C7100B9D4AF /* PSTCollectionViewController.h */,
+				9758AEE1184C6C7100B9D4AF /* PSTCollectionViewController.m */,
+				9758AEE2184C6C7100B9D4AF /* PSTCollectionViewData.h */,
+				9758AEE3184C6C7100B9D4AF /* PSTCollectionViewData.m */,
+				9758AEE4184C6C7100B9D4AF /* PSTCollectionViewFlowLayout.h */,
+				9758AEE5184C6C7100B9D4AF /* PSTCollectionViewFlowLayout.m */,
+				9758AEE6184C6C7100B9D4AF /* PSTCollectionViewItemKey.h */,
+				9758AEE7184C6C7100B9D4AF /* PSTCollectionViewItemKey.m */,
+				9758AEE8184C6C7100B9D4AF /* PSTCollectionViewLayout+Internals.h */,
+				9758AEE9184C6C7100B9D4AF /* PSTCollectionViewLayout.h */,
+				9758AEEA184C6C7100B9D4AF /* PSTCollectionViewLayout.m */,
+				9758AEEB184C6C7100B9D4AF /* PSTCollectionViewUpdateItem.h */,
+				9758AEEC184C6C7100B9D4AF /* PSTCollectionViewUpdateItem.m */,
+				9758AEED184C6C7100B9D4AF /* PSTGridLayoutInfo.h */,
+				9758AEEE184C6C7100B9D4AF /* PSTGridLayoutInfo.m */,
+				9758AEEF184C6C7100B9D4AF /* PSTGridLayoutItem.h */,
+				9758AEF0184C6C7100B9D4AF /* PSTGridLayoutItem.m */,
+				9758AEF1184C6C7100B9D4AF /* PSTGridLayoutRow.h */,
+				9758AEF2184C6C7100B9D4AF /* PSTGridLayoutRow.m */,
+				9758AEF3184C6C7100B9D4AF /* PSTGridLayoutSection.h */,
+				9758AEF4184C6C7100B9D4AF /* PSTGridLayoutSection.m */,
+			);
+			path = PSTCollectionView;
+			sourceTree = "<group>";
+		};
 		9775A7661813D39B00BCF28D /* Info */ = {
 			isa = PBXGroup;
 			children = (
@@ -1972,6 +2048,7 @@
 		CD12C1AE170AEC4C006B13B8 /* References */ = {
 			isa = PBXGroup;
 			children = (
+				9758AED8184C6C7100B9D4AF /* PSTCollectionView */,
 				CD13D4251816254F00F63F65 /* AnimatedGif */,
 				9775A76D1813D5DE00BCF28D /* UAModalPanel */,
 				CD1134AE17E04DC700C56616 /* MoveObject */,
@@ -3902,6 +3979,7 @@
 				CD12C16A170A908B006B13B8 /* DDMenuController.m in Sources */,
 				3715B369170AC9DC003ACE95 /* VCChat.m in Sources */,
 				CD8AA1E8170C109700A97C47 /* Cell.m in Sources */,
+				9758AF01184C6C7100B9D4AF /* PSTGridLayoutSection.m in Sources */,
 				CD8AA1E9170C109700A97C47 /* UIGridView.m in Sources */,
 				CD8AA1EA170C109700A97C47 /* UIGridViewCell.m in Sources */,
 				CD8AA1EB170C109700A97C47 /* UIGridViewRow.m in Sources */,
@@ -3919,6 +3997,7 @@
 				CDE4DAA817129D3200DC5A2C /* UIViewController+PKRevealController.m in Sources */,
 				CDF99B8F1713D629008D8BAC /* NSData+XMPP.m in Sources */,
 				CDF99B901713D629008D8BAC /* NSNumber+XMPP.m in Sources */,
+				9758AEF8184C6C7100B9D4AF /* PSTCollectionViewController.m in Sources */,
 				CDF99B911713D629008D8BAC /* NSXMLElement+XMPP.m in Sources */,
 				CDF99B931713D629008D8BAC /* NSString+Utils.m in Sources */,
 				CDF99B971713D629008D8BAC /* SMChatViewController.m in Sources */,
@@ -3942,7 +4021,9 @@
 				CDF99BA71713D629008D8BAC /* XMPPGroupCoreDataStorageObject.m in Sources */,
 				9775A75D1813CF2D00BCF28D /* SCLoginViewController.m in Sources */,
 				CDF99BA81713D629008D8BAC /* XMPPResourceCoreDataStorageObject.m in Sources */,
+				9758AEFB184C6C7100B9D4AF /* PSTCollectionViewItemKey.m in Sources */,
 				CDF99BA91713D629008D8BAC /* XMPPRoster.xcdatamodel in Sources */,
+				9758AEFF184C6C7100B9D4AF /* PSTGridLayoutItem.m in Sources */,
 				CDF99BAA1713D629008D8BAC /* XMPPRosterCoreDataStorage.m in Sources */,
 				CDF99BAB1713D629008D8BAC /* XMPPUserCoreDataStorageObject.m in Sources */,
 				CDF99BAC1713D629008D8BAC /* XMPPResourceMemoryStorageObject.m in Sources */,
@@ -4004,6 +4085,7 @@
 				CDF99BDC1713D629008D8BAC /* XMPPMessageArchiving_Message_CoreDataObject.m in Sources */,
 				CDF99BDD1713D629008D8BAC /* XMPPMessageArchivingCoreDataStorage.m in Sources */,
 				CDF99BDE1713D629008D8BAC /* XMPPMessageArchiving.m in Sources */,
+				9758AEF7184C6C7100B9D4AF /* PSTCollectionViewCell.m in Sources */,
 				CDF99BDF1713D629008D8BAC /* XMPPvCardAvatarModule.m in Sources */,
 				CDF99BE01713D629008D8BAC /* XMPPMessage+XEP_0184.m in Sources */,
 				CD1D2D6918349DF600B42424 /* ChatNavigationView.m in Sources */,
@@ -4034,14 +4116,17 @@
 				CDF99C221713D69B008D8BAC /* DDXMLDocument.m in Sources */,
 				CDF99C231713D69B008D8BAC /* DDXMLElement.m in Sources */,
 				CDF99C241713D69B008D8BAC /* DDXMLNode.m in Sources */,
+				9758AEFC184C6C7100B9D4AF /* PSTCollectionViewLayout.m in Sources */,
 				CD13D4281816254F00F63F65 /* AnimatedGif.m in Sources */,
 				CDF99C3A1713D6CF008D8BAC /* XMPPAnonymousAuthentication.m in Sources */,
 				CDF99C3B1713D6CF008D8BAC /* XMPPDeprecatedDigestAuthentication.m in Sources */,
+				9758AEF9184C6C7100B9D4AF /* PSTCollectionViewData.m in Sources */,
 				97A55D4A1823ADDE00675025 /* PhotoScrollView.m in Sources */,
 				CDF99C3C1713D6CF008D8BAC /* XMPPDeprecatedPlainAuthentication.m in Sources */,
 				CD1D562C1826246B002E312A /* Language.m in Sources */,
 				CDF99C3D1713D6CF008D8BAC /* XMPPDigestMD5Authentication.m in Sources */,
 				CDF99C3E1713D6CF008D8BAC /* XMPPPlainAuthentication.m in Sources */,
+				9758AEFA184C6C7100B9D4AF /* PSTCollectionViewFlowLayout.m in Sources */,
 				CDF99C3F1713D6CF008D8BAC /* XMPPXFacebookPlatformAuthentication.m in Sources */,
 				CD6D52EA1715EA850068BA01 /* NSString+Base64.m in Sources */,
 				CDEAC5411716AF82007857AE /* ViewCellMyLink.m in Sources */,
@@ -4061,6 +4146,7 @@
 				CDDFFACF1719D25E00BBA321 /* AFPropertyListRequestOperation.m in Sources */,
 				CDDFFAD01719D25E00BBA321 /* AFURLConnectionOperation.m in Sources */,
 				970924BC182E5EFE007BD6B1 /* VideoPicker.m in Sources */,
+				9758AEFD184C6C7100B9D4AF /* PSTCollectionViewUpdateItem.m in Sources */,
 				CDDFFAD11719D25E00BBA321 /* AFXMLRequestOperation.m in Sources */,
 				CDDFFAD21719D25E00BBA321 /* UIImageView+AFNetworking.m in Sources */,
 				CDDF8CFA171C0F8C00B8512D /* VCProfile.m in Sources */,
@@ -4073,12 +4159,15 @@
 				CDFED5E31738DA4000158756 /* GroupButtons.m in Sources */,
 				CDFED5E71738DAC000158756 /* VCMyProfile.m in Sources */,
 				9775A7691813D3DD00BCF28D /* UAModelPanelEx.m in Sources */,
+				9758AEF6184C6C7100B9D4AF /* PSTCollectionView.m in Sources */,
 				9775A7901813D5DE00BCF28D /* UARoundedRectView.m in Sources */,
+				9758AEF5184C6C7100B9D4AF /* NSIndexPath+PSTCollectionViewAdditions.m in Sources */,
 				CDD38A99173A2FEB00D583DD /* ListForChoose.m in Sources */,
 				CDD38A9D173A350100D583DD /* ProfileSetting.m in Sources */,
 				CD06FBAB173B9A4B007F56E3 /* NYPopover.m in Sources */,
 				CD06FBAC173B9A4B007F56E3 /* NYSliderPopover.m in Sources */,
 				CD1A7E83173CF45D00EC8537 /* PhotoViewController.m in Sources */,
+				9758AF00184C6C7100B9D4AF /* PSTGridLayoutRow.m in Sources */,
 				CD13017D1822697A00D29E0B /* VCSimpleSnapshotPopup.m in Sources */,
 				9775A76C1813D5B600BCF28D /* AppDelegate.m in Sources */,
 				CD1A7E95173D123C00EC8537 /* ImageScrollView.m in Sources */,
@@ -4109,6 +4198,7 @@
 				CD1134AC17E0277600C56616 /* VCSimpleSnapshot.m in Sources */,
 				CD17B23117E16CEB008F7291 /* APLMoveMeView.m in Sources */,
 				CD17B23217E16CEE008F7291 /* APLPlacardView.m in Sources */,
+				9758AEFE184C6C7100B9D4AF /* PSTGridLayoutInfo.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
