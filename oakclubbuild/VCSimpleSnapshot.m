@@ -173,9 +173,9 @@ CGFloat pageHeight;
 -(void)loadLikeMeList{
     appDel.likedMeList = [[NSArray alloc] init];
     // get list from server
-    AFHTTPClient *request = [[AFHTTPClient alloc] initWithOakClubAPI:DOMAIN];
+    AFHTTPClient *client = [[AFHTTPClient alloc] initWithOakClubAPI:DOMAIN];
     NSDictionary *params = [[NSDictionary alloc]initWithObjectsAndKeys:@"0",@"start",@"1000",@"limit", nil];
-    [request getPath:URL_getListWhoLikeMe parameters:params success:^(__unused AFHTTPRequestOperation *operation, id JSON)
+    [client getPath:URL_getListWhoLikeMe parameters:params success:^(__unused AFHTTPRequestOperation *operation, id JSON)
      {
          NSError *e=nil;
          NSMutableDictionary *dict = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONReadingMutableContainers error:&e];
@@ -482,17 +482,7 @@ CGFloat pageHeight;
     {
         [lblMatchAlert setText:[NSString stringWithFormat:@"You and %@ have liked each other!",currentProfile.s_Name]];
     }
-    
-    
-    
-//    if([currentProfile.arr_photos[0] isKindOfClass:[UIImageView class]]){
-//        UIImageView * photoView =currentProfile.arr_photos[0];
-//        [imgMatcher setImage:photoView.image];
-//    }
-//    else
-//    {
-//        [imgMatcher setImage:imgMainProfile.image];
-//    }
+
     [imgMatcher setImage:currentProfile.img_Avatar];
     matchedProfile = currentProfile;
 }

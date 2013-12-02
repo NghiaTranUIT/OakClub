@@ -10,7 +10,7 @@
 
 @implementation GroupButtons
 
-@synthesize buttons, selectedIndex, multipleChoice;
+@synthesize buttons, selectedIndex = _selectedIndex, multipleChoice;
 
 -(id)init
 {

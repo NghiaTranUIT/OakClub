@@ -94,7 +94,7 @@
 	UADebugLog(@"Fading in content for modalPanel: %@", self);
 	[UIView animateWithDuration:0.2
 						  delay:0.0
-						options:UIViewAnimationCurveEaseIn
+						options:(UIViewAnimationOptions) UIViewAnimationCurveEaseIn
 					 animations:^{
 						 self.contentView.alpha = 1.0;
 						 self.titleBar.alpha = 1.0;

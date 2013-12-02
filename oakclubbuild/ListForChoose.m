@@ -253,18 +253,18 @@ NSIndexPath* oldIndex;
     
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+- (UITableViewCell *)tableView:(UITableView *)tbView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *MyIdentifier = @"MyIdentifier";
 	
-	UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:MyIdentifier];
+	UITableViewCell *cell = [tbView dequeueReusableCellWithIdentifier:MyIdentifier];
 	if (cell == nil) {
 		cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
                                           reuseIdentifier:MyIdentifier];
 	}
     cell.accessoryType = UITableViewCellAccessoryNone;
 //    cell.selectedBackgroundView = [self customSelectdBackgroundViewForCell:cell AtIndexPath:indexPath];
-    cell.selectedBackgroundView = [tableView customSelectdBackgroundViewForCellAtIndexPath:indexPath];
+    cell.selectedBackgroundView = [tbView customSelectdBackgroundViewForCellAtIndexPath:indexPath];
     if(type == LISTTYPE_CITY){
 //        cell.accessoryType =UITableViewCellAccessoryCheckmark;
          cell.textLabel.text = [[dataSource objectAtIndex:indexPath.row] valueForKey:@"location_name"];
@@ -352,7 +352,7 @@ NSIndexPath* oldIndex;
 }
 
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+- (void)tableView:(UITableView *)tbView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     
     if(type == LISTTYPE_COUNTRY){
@@ -364,7 +364,7 @@ NSIndexPath* oldIndex;
             switch (type) {
                 case LISTTYPE_LANGUAGE:
                 {
-                    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+                    UITableViewCell *cell = [tbView cellForRowAtIndexPath:indexPath];
                     if(cell.accessoryType == UITableViewCellAccessoryNone){
                         cell.accessoryType = UITableViewCellAccessoryCheckmark;
                         Language* newLang = [[Language alloc]initWithID:[[[dataSource objectAtIndex:indexPath.row] valueForKey:@"id"] integerValue]];
@@ -393,9 +393,9 @@ NSIndexPath* oldIndex;
 //            }
         }
         else{
-            UITableViewCell *oldCell = [tableView cellForRowAtIndexPath:oldIndex];
+            UITableViewCell *oldCell = [tbView cellForRowAtIndexPath:oldIndex];
             oldCell.accessoryType = UITableViewCellAccessoryNone;
-            UITableViewCell *newCell = [tableView cellForRowAtIndexPath:indexPath];
+            UITableViewCell *newCell = [tbView cellForRowAtIndexPath:indexPath];
             newCell.accessoryType = UITableViewCellAccessoryCheckmark;
             oldIndex = indexPath;
             switch (type) {
@@ -447,7 +447,7 @@ NSIndexPath* oldIndex;
     ListForChoose *locationSubview = [[ListForChoose alloc]initWithNibName:@"ListForChoose" bundle:nil];
     currentValue.s_location.countryCode = [dataSource objectAtIndex:index];
     [locationSubview setCityListWithCountryCode:currentValue.s_location.countryCode];
-    locationSubview.delegate = self;
+    locationSubview.delegate = (id) self;
     [self.navigationController pushViewController:locationSubview animated:YES];
 }
 

@@ -18,10 +18,10 @@
 	UIView *customView;
 }
 
-@property (nonatomic) UILabel *senderAndTimeLabel;
-@property (nonatomic) UIView *messageContentView;
-@property (nonatomic) UIImageView *bgImageView;
-@property (nonatomic) UIButton *avatarImageView;
-@property (nonatomic) UIView *customView;
+@property (strong, nonatomic) UILabel *senderAndTimeLabel;
+@property (strong, nonatomic) UIView *messageContentView;
+@property (strong, nonatomic) UIImageView *bgImageView;
+@property (strong, nonatomic) UIButton *avatarImageView;
+@property (strong, nonatomic) UIView *customView;
 
 @end

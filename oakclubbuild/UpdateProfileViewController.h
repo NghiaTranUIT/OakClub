@@ -18,5 +18,5 @@
 
 @interface UIViewControllerBirthdayPicker : UIViewController
 @property (strong, nonatomic) NSDate *currentDay;
-@property id<UIViewControllerBirthdayPickerDelegate> delegate;
+@property (weak, nonatomic) id<UIViewControllerBirthdayPickerDelegate> delegate;
 @end

@@ -42,9 +42,9 @@
         s = [s stringByAppendingString:localDateString];
         s = [s stringByAppendingString:@"\""];
         
-        NSDate *nowDate = [NSDate date];
-        NSNumber *nowLong = [NSNumber numberWithUnsignedLongLong: [nowDate timeIntervalSince1970]];
-        NSString *timeString = [NSString stringWithFormat:@"%llu",[nowLong unsignedLongLongValue]];
+        //NSDate *nowDate = [NSDate date];
+        //NSNumber *nowLong = [NSNumber numberWithUnsignedLongLong: [nowDate timeIntervalSince1970]];
+        //NSString *timeString = [NSString stringWithFormat:@"%llu",[nowLong unsignedLongLongValue]];
         //    api = [api stringByAppendingString:[NSString stringWithFormat:@"?d=%@",timeString]];
         
         path = [path stringByAppendingString:api];
