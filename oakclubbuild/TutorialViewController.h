@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface TutorialViewController : UIPageViewController
+@interface TutorialViewController : UIPageViewController 
 
 @end

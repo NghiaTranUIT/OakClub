@@ -482,17 +482,7 @@ CGFloat pageHeight;
     {
         [lblMatchAlert setText:[NSString stringWithFormat:@"You and %@ have liked each other!",currentProfile.s_Name]];
     }
-    
-    
-    
-//    if([currentProfile.arr_photos[0] isKindOfClass:[UIImageView class]]){
-//        UIImageView * photoView =currentProfile.arr_photos[0];
-//        [imgMatcher setImage:photoView.image];
-//    }
-//    else
-//    {
-//        [imgMatcher setImage:imgMainProfile.image];
-//    }
+
     [imgMatcher setImage:currentProfile.img_Avatar];
     matchedProfile = currentProfile;
 }
