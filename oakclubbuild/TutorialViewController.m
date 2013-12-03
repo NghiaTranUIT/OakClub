@@ -86,7 +86,7 @@
 
 -(void)cycleScrollViewDelegate:(CycleScrollView *)cycleScrollView customizeImageView:(TapDetectingImageView *)imageView atIndex:(int)index
 {
-    [self transText:index :imageView];
+    [self transText:index forImage:imageView];
 
 }
 
@@ -121,7 +121,7 @@
     appDelegate.window.rootViewController = appDelegate.rootVC;
 }
 
--(void) transText: (int) index: (TapDetectingImageView *)image {
+-(void)transText:(int)index forImage:(TapDetectingImageView *)image {
     
     switch (index) {
         case 0:

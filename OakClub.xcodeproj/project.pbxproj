@@ -64,6 +64,7 @@
 		97927B9A183E1150005F49FC /* UpdateProfileViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 97927B99183E1150005F49FC /* UpdateProfileViewController.xib */; };
 		97927BA2183E13B6005F49FC /* updateProfile_avatarBorder.png in Resources */ = {isa = PBXBuildFile; fileRef = 97927BA0183E13B6005F49FC /* updateProfile_avatarBorder.png */; };
 		97927BA3183E13B6005F49FC /* updateProfile_avatarBorder@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 97927BA1183E13B6005F49FC /* updateProfile_avatarBorder@2x.png */; };
+		97939394184DBFDF00BEC19D /* ImagePool.m in Sources */ = {isa = PBXBuildFile; fileRef = 97939393184DBFDF00BEC19D /* ImagePool.m */; };
 		979B95F3184852A000AF5A78 /* amazed.png in Resources */ = {isa = PBXBuildFile; fileRef = 979B95CF184852A000AF5A78 /* amazed.png */; };
 		979B95F4184852A000AF5A78 /* angel.png in Resources */ = {isa = PBXBuildFile; fileRef = 979B95D0184852A000AF5A78 /* angel.png */; };
 		979B95F5184852A000AF5A78 /* angry.png in Resources */ = {isa = PBXBuildFile; fileRef = 979B95D1184852A000AF5A78 /* angry.png */; };
@@ -729,6 +730,8 @@
 		97927B99183E1150005F49FC /* UpdateProfileViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UpdateProfileViewController.xib; sourceTree = "<group>"; };
 		97927BA0183E13B6005F49FC /* updateProfile_avatarBorder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = updateProfile_avatarBorder.png; path = UpdateProfile/updateProfile_avatarBorder.png; sourceTree = "<group>"; };
 		97927BA1183E13B6005F49FC /* updateProfile_avatarBorder@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "updateProfile_avatarBorder@2x.png"; path = "UpdateProfile/updateProfile_avatarBorder@2x.png"; sourceTree = "<group>"; };
+		97939392184DBFDF00BEC19D /* ImagePool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImagePool.h; sourceTree = "<group>"; };
+		97939393184DBFDF00BEC19D /* ImagePool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImagePool.m; sourceTree = "<group>"; };
 		979B95CF184852A000AF5A78 /* amazed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = amazed.png; sourceTree = "<group>"; };
 		979B95D0184852A000AF5A78 /* angel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = angel.png; sourceTree = "<group>"; };
 		979B95D1184852A000AF5A78 /* angry.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = angry.png; sourceTree = "<group>"; };
@@ -1989,6 +1992,8 @@
 				CDB88CA1182E07DC00E3ABDF /* ImageInfo.m */,
 				97927B93183B7264005F49FC /* LoadingIndicator.h */,
 				97927B94183B7264005F49FC /* LoadingIndicator.m */,
+				97939392184DBFDF00BEC19D /* ImagePool.h */,
+				97939393184DBFDF00BEC19D /* ImagePool.m */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -4044,6 +4049,7 @@
 				CDF99BE61713D629008D8BAC /* XMPPAttentionModule.m in Sources */,
 				CDF99BE71713D629008D8BAC /* XMPPMessage+XEP_0224.m in Sources */,
 				979B96191848576700AF5A78 /* SmileyChooseCell.m in Sources */,
+				97939394184DBFDF00BEC19D /* ImagePool.m in Sources */,
 				CDF99BE91713D629008D8BAC /* DDList.m in Sources */,
 				CDF99BEA1713D629008D8BAC /* GCDMulticastDelegate.m in Sources */,
 				CDF99BEB1713D629008D8BAC /* LibIDN.m in Sources */,

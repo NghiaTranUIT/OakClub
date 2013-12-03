@@ -29,6 +29,7 @@
 #import "Reachability.h"
 #import "ProfileSetting.h"
 #import "TutorialViewController.h"
+#import "ImagePool.h"
 
 @class SettingsViewController;
 
@@ -61,7 +62,6 @@
     NSMutableDictionary *friendChatList;
     
     ProfileSetting* _accountSetting;
-    
 }
 // methods for chatting
 @property (nonatomic, assign) id  _messageDelegate;
@@ -126,6 +126,8 @@ extern NSString *const SCSessionStateChangedNotification;
 @property BOOL reloadSnapshot;
 
 @property (strong, nonatomic) NSMutableArray *appLCObservers;
+
+@property (strong, nonatomic) ImagePool *imagePool;
 
 -(void)openSession;
 -(void)openSessionWithWebDialogWithhandler:(void(^)(FBSessionState))resultHandler;

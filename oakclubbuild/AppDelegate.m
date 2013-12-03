@@ -46,6 +46,7 @@ NSString *const SCSessionStateChangedNotification =
 @implementation AppDelegate
 {
 //    NSString* s_DeviceToken;
+    NSTimer *pingTimer;
 }
 NSString *const kXMPPmyJID = @"kXMPPmyJID";
 NSString *const kXMPPmyPassword = @"kXMPPmyPassword";
@@ -89,6 +90,7 @@ NSString *const kXMPPmyPassword = @"kXMPPmyPassword";
 @synthesize session = _session;
 
 @synthesize appLCObservers;
+@synthesize imagePool;
 // Log levels: off, error, warn, info, verbose
 #if DEBUG
 static const int ddLogLevel = LOG_LEVEL_VERBOSE;
@@ -131,8 +133,8 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-
     self.appLCObservers = [[NSMutableArray alloc] init];
+    self.imagePool = [[ImagePool alloc] init];
     _messageDelegate = nil;
    
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
@@ -432,6 +434,7 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
 
 -(void)logOut {
     [self.loginView stopSpinner];
+    [self stopPingTimer];
     [self showLoginView];
     [FBSession.activeSession closeAndClearTokenInformation];
     [self teardownStream];
@@ -1543,6 +1546,8 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
               {
                   NSLog(@"FB Login request completed!");
                   
+                  [self startPingTimer];
+                  
                   AFHTTPClient *request = [[AFHTTPClient alloc] initWithOakClubAPI:DOMAIN];
                   NSLog(@"Init API completed");
                   
@@ -1607,5 +1612,37 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
              }
          }
      }];
+}
+
+#pragma mark ping timer
+-(void)startPingTimer
+{
+    if (!pingTimer)
+    {
+        pingTimer = [NSTimer scheduledTimerWithTimeInterval:60.0 target:self selector:@selector(pingToServer:) userInfo:nil repeats:YES];
+    }
+}
+
+-(void)pingToServer:(id)timer
+{
+    if (self.myFBProfile)
+    {
+        AFHTTPClient *request = [[AFHTTPClient alloc] initWithOakClubAPI:DOMAIN];
+        
+        [request getPath:URL_ping parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            NSLog(@"Ping to server completed with respond %@", [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding]);
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            NSLog(@"Cannot ping to server with error %@", [error localizedDescription]);
+        }];
+    }
+}
+
+-(void)stopPingTimer
+{
+    if (pingTimer)
+    {
+        [pingTimer invalidate];
+        pingTimer = nil;
+    }
 }
 @end

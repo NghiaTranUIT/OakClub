@@ -13,8 +13,8 @@
 //demo version FLAG
 #define ENABLE_DEMO true
 #define USE_STAGING false
-#define USE_MAINHOST true
-#define USE_STAGING_MB false
+#define USE_MAINHOST false
+#define USE_STAGING_MB true
 #define USE_STAGING_IOS false
 //Hangout
 #define sOnline @"Online"
@@ -115,6 +115,7 @@
 #define URL_reportInvalid @"service/reportUser"
 #define URL_uploadVideo @"service/uploadVideo"
 #define URL_updateProfileFirstTime @"service/updateProfileFirstTime"
+#define URL_ping @"service/pingActivities"
 //================ service API keys ================
 //root
 #define key_status @"status"

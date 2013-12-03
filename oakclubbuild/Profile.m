@@ -765,43 +765,6 @@
     
     return operation;
 }
-
-
-+(AFHTTPRequestOperation*)getAvatarSyncWithOperation:(NSString*)url callback:(void(^)(AFHTTPRequestOperation*, UIImage*))handler
-{
-    AFHTTPClient *httpClient;
-    
-    if(!([url hasPrefix:@"http://"] || [url hasPrefix:@"https://"]))
-    {       // check if this is a valid link
-        httpClient = [[AFHTTPClient alloc]initWithBaseURL:[NSURL URLWithString:DOMAIN_DATA]];
-    }
-    else{
-        httpClient = [[AFHTTPClient alloc]initWithBaseURL:[NSURL URLWithString:@""]];
-    }
-    
-    NSMutableURLRequest *request = [httpClient requestWithMethod:@"GET"
-                                                            path:url
-                                                      parameters:nil];
-    
-    AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
-    [httpClient registerHTTPOperationClass:[AFHTTPRequestOperation class]];
-    
-    [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject)
-     {
-         UIImage *avatar = [UIImage imageWithData:responseObject];
-         
-         if(handler != nil)
-             handler(operation, avatar);
-         
-     } failure:^(AFHTTPRequestOperation *operation, NSError *error)
-     {
-         NSLog(@"Download image Error: %@", error);
-         if(handler != nil)
-             handler(operation, nil);
-     }];
-    
-    return operation;
-}
 /*
 +(void) countMutualFriends:(NSString*)profileID callback:(void(^)(NSString*))handler
 {
@@ -940,54 +903,6 @@
     return self.new_mutual_attractions + self.unread_message;
 #endif
     
-}
-
-
--(void)loadPhotosByProfile:(void(^)(NSMutableArray*))handler{
-    AFHTTPClient* request;
-    for (int proIndex=0; proIndex < [self.arr_photos count]; proIndex++) {
-        if(![self.arr_photos[proIndex] isKindOfClass:[UIImageView class]]) {
-            NSString *link = [self.arr_photos objectAtIndex:proIndex];
-            if(![link isEqualToString:@""]){
-                if(!([link hasPrefix:@"http://"] || [link hasPrefix:@"https://"]))
-                {       // check if this is a valid link
-                    request = [[AFHTTPClient alloc]initWithBaseURL:[NSURL URLWithString:DOMAIN_DATA]];
-                    [request getPath:link parameters:nil success:^(__unused AFHTTPRequestOperation *operation, id JSON) {
-                        UIImage *image = [UIImage imageWithData:JSON];
-                        UIImageView *imageView = [[UIImageView alloc]initWithImage:image];
-//                        CGRect frame = self.sv_photos.frame;
-//                        frame.origin.x = CGRectGetWidth(frame) * proIndex;
-//                        frame.origin.y = 0;
-//                        imageView.frame = frame;
-                        [imageView setContentMode:UIViewContentModeScaleAspectFit];
-                        [self.arr_photos replaceObjectAtIndex:proIndex withObject:imageView];
-                        if((proIndex == [self.arr_photos count]-1) && handler != nil)
-                            handler(self.arr_photos);
-                    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                        NSLog(@"loadPhotosByProfile - Error Code: %i - %@",[error code], [error localizedDescription]);
-                    }];
-                }
-                else{
-                    request = [[AFHTTPClient alloc]initWithBaseURL:[NSURL URLWithString:@""]];
-                    [request getPath:link parameters:nil success:^(__unused AFHTTPRequestOperation *operation, id JSON) {
-                        UIImage *image = [UIImage imageWithData:JSON];
-                        UIImageView *imageView = [[UIImageView alloc]initWithImage:image];
-//                        CGRect frame = self.sv_photos.frame;
-//                        frame.origin.x = CGRectGetWidth(frame) * proIndex;
-//                        frame.origin.y = 0;
-//                        imageView.frame = frame;
-                        [imageView setContentMode:UIViewContentModeScaleAspectFit];
-                        [self.arr_photos replaceObjectAtIndex:proIndex withObject:imageView];
-                        if((proIndex == [self.arr_photos count]-1) && handler != nil)
-                            handler(self.arr_photos);
-
-                    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                        NSLog(@"loadPhotosByProfile - Error Code: %i - %@",[error code], [error localizedDescription]);
-                    }];
-                }
-            }
-        }
-    }
 }
 
 -(void)downloadAvatarImage

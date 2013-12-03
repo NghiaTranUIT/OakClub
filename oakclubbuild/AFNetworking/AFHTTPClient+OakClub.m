@@ -60,37 +60,4 @@
         return client;
     }
 }
-
-+(UIImage*) downloadImageFromOakclub:(NSString*)link{
-//    UIImage *imgDownloaded;
-    __block UIImage *imgDownloaded;
-    AFHTTPClient *request;
-    if(![link isEqualToString:@""]){
-        if(!([link hasPrefix:@"http://"] || [link hasPrefix:@"https://"]))
-        {       // check if this is a valid link
-            request = [[AFHTTPClient alloc]initWithBaseURL:[NSURL URLWithString:DOMAIN_DATA]];
-            [request getPath:link parameters:nil success:^(__unused AFHTTPRequestOperation *operation, id JSON) {
-                imgDownloaded = [UIImage imageWithData:JSON];
-//                [imageView setImage:result];
-//                if(imgDict != nil)
-//                    [imgDict setObject:result forKey:link];
-            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                NSLog(@"Error Code: %i - %@",[error code], [error localizedDescription]);
-            }];
-        }
-        else{
-            request = [[AFHTTPClient alloc]initWithBaseURL:[NSURL URLWithString:@""]];
-            [request getPath:link parameters:nil success:^(__unused AFHTTPRequestOperation *operation, id JSON) {
-               imgDownloaded = [UIImage imageWithData:JSON];
-//                [imageView setImage:result];
-//                if(imgDict != nil)
-//                    [imgDict setObject:result forKey:link];
-            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                NSLog(@"Error Code: %i - %@",[error code], [error localizedDescription]);
-            }];
-        }
-    }
-    return imgDownloaded;
-}
-
 @end
