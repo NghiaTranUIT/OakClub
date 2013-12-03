@@ -10,5 +10,4 @@
 
 @interface AFHTTPClient (OakClub)
 -(AFHTTPClient *) initWithOakClubAPI: (NSString *) api;
-+(UIImage*) downloadImageFromOakclub:(NSString*)link;
 @end

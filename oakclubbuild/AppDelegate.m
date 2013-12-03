@@ -46,6 +46,7 @@ NSString *const SCSessionStateChangedNotification =
 @implementation AppDelegate
 {
 //    NSString* s_DeviceToken;
+    NSTimer *pingTimer;
 }
 NSString *const kXMPPmyJID = @"kXMPPmyJID";
 NSString *const kXMPPmyPassword = @"kXMPPmyPassword";
@@ -89,6 +90,7 @@ NSString *const kXMPPmyPassword = @"kXMPPmyPassword";
 @synthesize session = _session;
 
 @synthesize appLCObservers;
+@synthesize imagePool;
 // Log levels: off, error, warn, info, verbose
 #if DEBUG
 static const int ddLogLevel = LOG_LEVEL_VERBOSE;
@@ -131,8 +133,8 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-
     self.appLCObservers = [[NSMutableArray alloc] init];
+    self.imagePool = [[ImagePool alloc] init];
     _messageDelegate = nil;
    
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
@@ -432,6 +434,7 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
 
 -(void)logOut {
     [self.loginView stopSpinner];
+    [self stopPingTimer];
     [self showLoginView];
     [FBSession.activeSession closeAndClearTokenInformation];
     [self teardownStream];
@@ -1542,6 +1545,8 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
              [self loadFBUserInfo:^(id status)
               {
                   NSLog(@"FB Login request completed!");
+                  
+                  [self startPingTimer];
                   
                   AFHTTPClient *request = [[AFHTTPClient alloc] initWithOakClubAPI:DOMAIN];
                   NSLog(@"Init API completed");

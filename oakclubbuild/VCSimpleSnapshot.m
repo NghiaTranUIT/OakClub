@@ -251,14 +251,12 @@ CGFloat pageHeight;
     }
     else{
         
-        AFHTTPRequestOperation *operation =
         [Profile getAvatarSync:temp.s_Avatar
                       callback:^(UIImage *image)
          {
              if(image)
                  [self.imgNextProfile setImage:image];
          }];
-        [operation start];
     }
     NSLog(@"Name of Next Profile : %@",temp.s_Name);
 }
@@ -287,7 +285,6 @@ CGFloat pageHeight;
     }
     else{
         [self.imgMainProfile setImage:[UIImage imageNamed:@"Default Avatar"]];
-        AFHTTPRequestOperation *operation =
         [Profile getAvatarSync:currentProfile.s_Avatar
                       callback:^(UIImage *image)
          {
@@ -296,7 +293,6 @@ CGFloat pageHeight;
              }
              [self stopLoadingAnim];
          }];
-        [operation start];
         /*
         if(currentProfile.arr_photos != nil ){
             if(([currentProfile.arr_photos count] > 0) && [currentProfile.arr_photos[0] isKindOfClass:[UIImage class]]){
