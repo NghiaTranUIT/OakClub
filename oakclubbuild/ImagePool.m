@@ -95,4 +95,71 @@
         [operation start];
     }
 }
+
+-(void)getImagesAtURL:(NSString *)imgID withSize:(CGSize)size asycn:(void (^)(UIImage *img, NSError *error))completion
+{
+    NSString *url = [NSString stringWithFormat: @"%@&width=%d&height=%d", imgID, (int)size.width, (int)size.height];
+    id img = [_images objectForKey:url];
+    
+    if (img)
+    {
+        if ([img isKindOfClass:[NSMutableArray class]])
+        {
+            NSMutableArray *imgRequesters = (NSMutableArray *) img;
+            [imgRequesters addObject:completion];
+        }
+        else if ([img isKindOfClass:[UIImage class]])
+        {
+            completion(img, nil);
+        }
+    }
+    else
+    {
+        NSMutableArray *imgRequesters = [[NSMutableArray alloc] init];
+        [imgRequesters addObject:completion];
+        
+        [_images setObject:imgRequesters forKey:url];
+        
+        AFHTTPClient *httpClient;
+        httpClient = [[AFHTTPClient alloc]initWithBaseURL:[NSURL URLWithString:URL_PHOTO]];
+        
+        NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:imgID, @"file",
+                                [NSNumber numberWithInteger:(int) size.width], @"width",
+                                [NSNumber numberWithInteger:(int) size.height], @"height", nil];
+        
+        NSMutableURLRequest *request = [httpClient requestWithMethod:@"GET"
+                                                                path:@""
+                                                          parameters:params];
+        
+        AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
+        [httpClient registerHTTPOperationClass:[AFHTTPRequestOperation class]];
+        
+        [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject)
+         {
+             UIImage *image = [UIImage imageWithData:responseObject];
+             NSMutableArray *reqs = (NSMutableArray *) [_images objectForKey:url];
+             [_images setObject:image forKey:url];
+             
+             for (int i = 0; i < reqs.count; ++i)
+             {
+                 void (^handler)(UIImage *img, NSError *error) = [reqs objectAtIndex:i];
+                 handler(image, nil);
+             }
+             
+         } failure:^(AFHTTPRequestOperation *operation, NSError *error)
+         {
+             NSMutableArray *reqs = (NSMutableArray *) [_images objectForKey:url];
+             [_images removeObjectForKey:url];
+             
+             for (int i = 0; i < reqs.count; ++i)
+             {
+                 void (^handler)(UIImage *img, NSError *error) = [reqs objectAtIndex:i];
+                 handler(nil, error);
+             }
+         }];
+        
+        [operation start];
+    }
+    
+}
 @end
