@@ -47,6 +47,7 @@
     else
     {
         NSMutableArray *imgRequesters = [[NSMutableArray alloc] init];
+        [imgRequesters addObject:completion];
         [_images setObject:imgRequesters forKey:imgURL];
         
         AFHTTPClient *httpClient;
