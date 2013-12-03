@@ -1618,6 +1618,35 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
 -(void)popSnapshotQueue{
     NSArray * queue = [[NSUserDefaults standardUserDefaults] objectForKey:@"snapshotQueue"];
     
+#pragma mark ping timer
+-(void)startPingTimer
+{
+    if (!pingTimer)
+    {
+        pingTimer = [NSTimer scheduledTimerWithTimeInterval:60.0 target:self selector:@selector(pingToServer:) userInfo:nil repeats:YES];
+    }
 }
 
+-(void)pingToServer:(id)timer
+{
+    if (self.myFBProfile)
+    {
+        AFHTTPClient *request = [[AFHTTPClient alloc] initWithOakClubAPI:DOMAIN];
+        
+        [request getPath:URL_ping parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            NSLog(@"Ping to server completed with respond %@", [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding]);
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            NSLog(@"Cannot ping to server with error %@", [error localizedDescription]);
+        }];
+    }
+}
+
+-(void)stopPingTimer
+{
+    if (pingTimer)
+    {
+        [pingTimer invalidate];
+        pingTimer = nil;
+    }
+}
 @end
