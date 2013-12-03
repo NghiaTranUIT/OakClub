@@ -28,6 +28,8 @@
 //================ service API link ================
 //#define DOMAIN @"http://staging.oakclub.com/app_dev.php"
 
+#define URL_PHOTO @"http://staging.oakclub.com/load_photo.php"
+
 #undef DOMAIN
 #if USE_STAGING
 #define HOSTNAME @"staging.oakclub.com"
