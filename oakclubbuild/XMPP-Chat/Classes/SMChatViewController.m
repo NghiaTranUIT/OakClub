@@ -25,7 +25,8 @@
 
 @interface SMChatViewController() <ImageRequester>
 @property UIImageView* headerLogo;
-@property (weak, nonatomic) IBOutlet UICollectionView *smileyCollection;
+@property (strong, nonatomic) PSUICollectionView *smileyCollection;
+@property (weak, nonatomic) IBOutlet UIView *textInputView;
 @end
 
 @implementation SMChatViewController
@@ -37,7 +38,10 @@
     AppDelegate* appDel;
     NSMutableArray *cellHeight;
     
-    int smCollNRows, smCollNCols;
+    int smCollNRows, smCollNCols, smNItems;
+    
+    UITapGestureRecognizer *dismissKeyboardGesture;
+    UITapGestureRecognizer *dismissSmileyCollectionGesture;
 }
 
 
@@ -669,6 +673,9 @@ static float cellWidth = 320;
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(keyboardWasShown:)
                                                  name:UIKeyboardDidShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillShown:)
+                                                 name:UIKeyboardWillShowNotification object:nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(keyboardWillBeHidden:)
@@ -688,8 +695,7 @@ static float cellWidth = 320;
     scrollView.frame = CGRectMake(0, 5, screenWidth, screenHeight - 5);
     [self scrollToLastAnimated:YES];
     
-    UITapGestureRecognizer *tap = [scrollView.gestureRecognizers objectAtIndex:1];
-    [self.scrollView removeGestureRecognizer:tap];
+    [self.scrollView removeGestureRecognizer:dismissKeyboardGesture];
 }
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField
@@ -706,6 +712,10 @@ static float cellWidth = 320;
     //messageField = nil;
     
     NSLog(@"textFieldDidEndEditing ...");
+}
+
+- (void)keyboardWillShown:(NSNotification*)aNotification {
+    [self dismissSmileyCollection:nil];
 }
 
 - (void)keyboardWasShown:(NSNotification*)aNotification {
@@ -726,11 +736,14 @@ static float cellWidth = 320;
     
     [self scrollToLastAnimated:NO];
     
-    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]
-                                   initWithTarget:self
-                                   action:@selector(dismissKeyboard:)];
+    if (!dismissKeyboardGesture)
+    {
+        dismissKeyboardGesture = [[UITapGestureRecognizer alloc]
+                                  initWithTarget:self
+                                  action:@selector(dismissKeyboard:)];
+    }
     
-    [self.scrollView addGestureRecognizer:tap];
+    [self.scrollView addGestureRecognizer:dismissKeyboardGesture];
 }
 
 - (NSUInteger)supportedInterfaceOrientations
@@ -775,15 +788,25 @@ static float cellWidth = 320;
 {
     static NSString *smileyChooseCellID = @"smileyChooseCellID";
     
+    PSUICollectionViewFlowLayout *layout = [PSUICollectionViewFlowLayout new];
+    layout.scrollDirection = PSTCollectionViewScrollDirectionVertical;
+    self.smileyCollection = [[PSUICollectionView alloc] initWithFrame:CGRectMake(0, 568, 320, 150) collectionViewLayout:layout];
+    self.smileyCollection.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    self.smileyCollection.backgroundColor = [UIColor clearColor];
+    
+    [self.smileyCollection setHidden:YES];
+    [self.scrollView addSubview:self.smileyCollection];
+    
     [self.smileyCollection registerClass:[SmileyChooseCell class] forCellWithReuseIdentifier:smileyChooseCellID];
     self.smileyCollection.dataSource = self;
     self.smileyCollection.delegate = self;
     
+    smNItems = [[ChatEmoticon instance] count];
     smCollNCols = self.smileyCollection.frame.size.width / 30;
-    smCollNRows = 1 + [[ChatEmoticon instance] count] / smCollNCols;
+    smCollNRows = 1 +  smNItems / smCollNCols;
 }
 
--(UICollectionViewCell*)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
+-(PSUICollectionViewCell *)collectionView:(PSUICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *smileyChooseCellID = @"smileyChooseCellID";
     
@@ -801,15 +824,17 @@ static float cellWidth = 320;
     return cell;
 }
 
-- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
+- (NSInteger)numberOfSectionsInCollectionView:(PSUICollectionView *)collectionView
 {
     return smCollNRows;
 }
 
-- (NSInteger)collectionView:(UICollectionView *)collectionView
+- (NSInteger)collectionView:(PSUICollectionView *)collectionView
      numberOfItemsInSection:(NSInteger)section
 {
-    return (section < smCollNRows - 1)?smCollNCols:([[ChatEmoticon instance] count] % smCollNCols);
+    int result = (section < smCollNRows - 1)?smCollNCols:(smNItems % smCollNCols);
+    
+    return result;
 }
 
 -(void)dismissSmileyCollection:(id)sender
@@ -825,6 +850,10 @@ static float cellWidth = 320;
                                             self.tView.frame.origin.y,
                                             self.tView.frame.size.width,
                                             self.tView.frame.size.height + self.smileyCollection.frame.size.height)];
+            [self.textInputView setFrame:CGRectMake(self.textInputView.frame.origin.x,
+                                                    self.textInputView.frame.origin.y + self.smileyCollection.frame.size.height,
+                                                    self.textInputView.frame.size.width,
+                                                    self.textInputView.frame.size.height)];
             
             [self scrollToLastAnimated:YES];
             [self.tView reloadData];
@@ -832,18 +861,31 @@ static float cellWidth = 320;
             [self.smileyCollection setHidden:YES];
             
             // remove gesture
-            UITapGestureRecognizer *tap = [self.tView.gestureRecognizers objectAtIndex:3];
-            [self.tView removeGestureRecognizer:tap];
+            [self.tView removeGestureRecognizer:dismissSmileyCollectionGesture];
             [self.messageField becomeFirstResponder];
         }];
     }
 }
 
--(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+-(void)collectionView:(PSUICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     NSString *smileyText = [[[ChatEmoticon instance] allKeys] objectAtIndex:(indexPath.section * smCollNCols + indexPath.row)];
     
     self.messageField.text = [self.messageField.text stringByAppendingString:smileyText];
+}
+
+#pragma mark - PSTCollectionViewDelegateFlowLayout
+
+- (CGSize)collectionView:(PSUICollectionView *)collectionView layout:(PSUICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
+    return CGSizeMake(24, 24);
+}
+
+- (CGFloat)collectionView:(PSUICollectionView *)collectionView layout:(PSUICollectionViewLayout*)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section {
+    return 6;
+}
+
+- (CGFloat)collectionView:(PSUICollectionView *)collectionView layout:(PSUICollectionViewLayout*)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section {
+    return 6;
 }
 
 #pragma mark smiley button
@@ -851,6 +893,7 @@ static float cellWidth = 320;
     if (self.smileyCollection.hidden)
     {
         [self dismissKeyboard:sender];
+        [self.smileyCollection reloadData];
         
         [self.smileyCollection setHidden:NO];
         
@@ -863,15 +906,22 @@ static float cellWidth = 320;
                                             self.tView.frame.origin.y,
                                             self.tView.frame.size.width,
                                             self.tView.frame.size.height - self.smileyCollection.frame.size.height)];
+            [self.textInputView setFrame:CGRectMake(self.textInputView.frame.origin.x,
+                                                   self.textInputView.frame.origin.y - self.smileyCollection.frame.size.height,
+                                                   self.textInputView.frame.size.width,
+                                                    self.textInputView.frame.size.height)];
             
             [self scrollToLastAnimated:YES];
             [self.tView reloadData];
         } completion:^(BOOL finished) {
-            UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]
-                                           initWithTarget:self
-                                           action:@selector(dismissSmileyCollection:)];
+            if (!dismissSmileyCollectionGesture)
+            {
+                dismissSmileyCollectionGesture = [[UITapGestureRecognizer alloc]
+                                                  initWithTarget:self
+                                                  action:@selector(dismissSmileyCollection:)];;
+            }
             
-            [self.tView addGestureRecognizer:tap];
+            [self.tView addGestureRecognizer:dismissSmileyCollectionGesture];
         }];
     }
 }

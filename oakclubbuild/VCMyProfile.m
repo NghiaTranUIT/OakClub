@@ -21,6 +21,7 @@
 #import "VideoUploader.h"
 #import "LoadingIndicator.h"
 #import <MediaPlayer/MediaPlayer.h>
+#import <AVFoundation/AVFoundation.h>
 
 @interface VCMyProfile () <PickPhotoFromGarellyDelegate, VideoPickerDelegate, UIAlertViewDelegate, ImageRequester, PhotoScrollViewDelegate, LocationUpdateDelegate, LoadingIndicatorDelegate>
 {
@@ -987,25 +988,35 @@ UITapGestureRecognizer *tap;
         uploadImage = nil;
     }
 }
--(void)receiveVideo:(NSData *)video{
-    if(video){
+
+-(void)receiveVideo:(NSURL *)videoURL{
+    if(videoURL){
         [indicator lockViewAndDisplayIndicator];
-        VideoUploader * uploadVideo = [[VideoUploader alloc]initWithVideoData:video];
-        [uploadVideo uploadVideoWithCompletion:^(NSString *link)
-         {
-             NSLog(@"Video upload completed with link %@", link);
-             [indicator unlockViewAndStopIndicator];
-             
-             profileObj.s_video = link;
-             appDelegate.myProfile.s_video = link;
-             
-             UIImage *thumb;
-             if ((thumb = self.videoThumb))
-             {
-                 [self.btnUploadVideo setBackgroundImage:thumb forState:UIControlStateNormal];
-                 self.btnUploadVideo.contentMode = UIViewContentModeScaleAspectFit;
-             }
-         }];
+        [VideoUploader compressVideoAtURL:videoURL withQuality:AVAssetExportPresetLowQuality useCompletion:^(NSData *data)
+        {
+            if (data)
+            {
+                [VideoUploader uploadVideoWithData:data useCompletion:^(NSString *link)
+                 {
+                     NSLog(@"Video upload completed with link %@", link);
+                     [indicator unlockViewAndStopIndicator];
+                     
+                     profileObj.s_video = link;
+                     appDelegate.myProfile.s_video = link;
+                     
+                     UIImage *thumb;
+                     if ((thumb = self.videoThumb))
+                     {
+                         [self.btnUploadVideo setBackgroundImage:thumb forState:UIControlStateNormal];
+                         self.btnUploadVideo.contentMode = UIViewContentModeScaleAspectFit;
+                     }
+                 }];
+            }
+            else
+            {
+                [indicator lockViewAndDisplayIndicator];
+            }
+        }];
     }
 }
 

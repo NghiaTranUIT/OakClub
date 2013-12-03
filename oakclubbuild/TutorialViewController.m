@@ -176,35 +176,27 @@
         case 1:
         {
             UILabel *content1Label = [[UILabel alloc] init];
-            UILabel *content2Label = [[UILabel alloc] init];
-            UILabel *content3Label = [[UILabel alloc] init];
             [content1Label setText: @""];
-            [content2Label setText: @""];
-            [content3Label setText: @""];
             
             NSString *content1String = [@"If you match who someone\nyou can chat with them privately" localize];
-            [content2Label setLineBreakMode: NSLineBreakByCharWrapping];
-            [content2Label setNumberOfLines: 2];
-            [content2Label setText: content1String];
-            [content2Label setFrame: CGRectMake((image.frame.size.width - 280)/2, 180, 280, 70)];
-            [content2Label setFont: [UIFont systemFontOfSize: 18]];
-            [content2Label setTextAlignment: NSTextAlignmentCenter];
-            [content2Label setBackgroundColor: [UIColor clearColor]];
-            [content2Label setTextColor: [UIColor whiteColor]];
+            [content1Label setLineBreakMode: NSLineBreakByCharWrapping];
+            [content1Label setNumberOfLines: 2];
+            [content1Label setText: content1String];
+            [content1Label setFrame: CGRectMake((image.frame.size.width - 280)/2, 180, 280, 70)];
+            [content1Label setFont: [UIFont systemFontOfSize: 18]];
+            [content1Label setTextAlignment: NSTextAlignmentCenter];
+            [content1Label setBackgroundColor: [UIColor clearColor]];
+            [content1Label setTextColor: [UIColor whiteColor]];
             
             [image addSubview: content1Label];
-            [image addSubview: content2Label];
-            [image addSubview: content3Label];
             break;
         }
         case 2:
         {
             UILabel *content1Label = [[UILabel alloc] init];
             UILabel *content2Label = [[UILabel alloc] init];
-            UILabel *content3Label = [[UILabel alloc] init];
             [content1Label setText: @""];
             [content2Label setText: @""];
-            [content3Label setText: @""];
             
             NSString *content1String = [@"You can edit your\nprofile here" localize];
             NSString *content2String = [@"You can choose\nwho to see here" localize];
@@ -212,7 +204,7 @@
             [content1Label setLineBreakMode: NSLineBreakByCharWrapping];
             [content1Label setNumberOfLines: 2];
             [content1Label setText: content1String];
-            [content1Label setFrame: CGRectMake((image.frame.size.width)/2, 25, 260, 70)];
+            [content1Label setFrame: CGRectMake((image.frame.size.width)/2, 45, 260, 70)];
             [content1Label setFont: [UIFont systemFontOfSize: 15]];
             [content1Label setTextAlignment: NSTextAlignmentLeft];
             [content1Label setBackgroundColor: [UIColor clearColor]];
@@ -221,14 +213,13 @@
             [content2Label setLineBreakMode: NSLineBreakByCharWrapping];
             [content2Label setNumberOfLines: 2];
             [content2Label setText: content2String];
-            [content2Label setFrame: CGRectMake((image.frame.size.width)/2, 80, 260, 70)];
+            [content2Label setFrame: CGRectMake((image.frame.size.width)/2, 200, 260, 70)];
             [content2Label setFont: [UIFont systemFontOfSize: 15]];
             [content2Label setTextAlignment: NSTextAlignmentLeft];
             [content2Label setBackgroundColor: [UIColor clearColor]];
             [content2Label setTextColor: [UIColor whiteColor]];
             [image addSubview: content1Label];
             [image addSubview: content2Label];
-            [image addSubview: content3Label];
             
             break;
         }

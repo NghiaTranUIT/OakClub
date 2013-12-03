@@ -8,13 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@protocol VideoUploaderDelegate
--(void)videoUploadedWithLink:(NSString*)photoLink;
-@end
-
 @interface VideoUploader : NSObject
--(id)initWithVideoData:(NSData *)videoData;
--(void)uploadVideoWithCompletion:(void(^)(NSString *))completionHandler;
-
-@property id<VideoUploaderDelegate> delegate;
++(void)uploadVideoWithData:(NSData *)videoData useCompletion:(void(^)(NSString *))completionHandler;
++(void)compressVideoAtURL:(NSURL *)url withQuality:(NSString *)quality useCompletion:(void (^)(NSData*)) completion;
 @end
