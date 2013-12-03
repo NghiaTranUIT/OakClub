@@ -609,33 +609,6 @@ CGFloat pageHeight;
     }
 }
 
-/*
--(void)backToPreviousProfile{
-    if(currentIndex > 1){
-        //increase currentIndex
-        currentIndex --;
-        //go next Profile/reload view with next Profile by next index.
-        [self loadCurrentProfile:currentIndex];
-    }else{
-        
-        
-    }
-}
-
--(void)goToNextProfile{
-    if(currentIndex < MAX_FREE_SNAPSHOT){
-        //increase currentIndex
-        currentIndex ++;
-        //go next Profile/reload view with next Profile by next index.
-        [self loadCurrentProfile:currentIndex];
-    }else{
-        //show warning getting COINS to continue.
-        [self showWarning];
-        
-    }
-}
- */
-
 -(NSString*)formatTextWithName:(NSString*)name andAge:(NSString*)age{
     NSString* result;
     if([name length] > 10){
