@@ -163,11 +163,6 @@
 "AGREE & PROCEED"="Setuju & Lanjutkan";
 "ON"="ON";
 "OFF"="OFF";
-"spashscreen"="spashscreen";
-"tutorial_chat"="tutorial_chat";
-"tutorial_options"="tutorial_options";
-"tutorial_snapshots"="tutorial_snapshots";
-"Info_background"="Info_background";
 "Error"="Error";
 "Warning"="Warning";
 "Confirm!"="Confirm!";
@@ -333,11 +328,6 @@
 "TIẾP TỤC"="Setuju & Lanjutkan";
 "BẬT"="ON";
 "TẮT"="OFF";
-"spashscreen"="spashscreen";
-"tutorial_chat"="tutorial_chat";
-"tutorial_options"="tutorial_options";
-"tutorial_snapshots"="tutorial_snapshots";
-"Info_background"="Info_background";
 "Lỗi"="Error";
 "Warning"="Warning";
 "Chấp nhận"="Confirm!";
@@ -493,11 +483,6 @@
 "Zustimmen"="Setuju & Lanjutkan";
 "ON"="ON";
 "OFF"="OFF";
-"spashscreen"="spashscreen";
-"tutorial_chat"="tutorial_chat";
-"tutorial_options"="tutorial_options";
-"tutorial_snapshots"="tutorial_snapshots";
-"Info_background"="Info_background";
 "Error"="Error";
 "Warning"="Warning";
 "Confirm!"="Confirm!";
@@ -652,11 +637,6 @@
 "Setuju & Lanjutkan"="Setuju & Lanjutkan";
 "ON"="ON";
 "OFF"="OFF";
-"spashscreen"="spashscreen";
-"tutorial_chat"="tutorial_chat";
-"tutorial_options"="tutorial_options";
-"tutorial_snapshots"="tutorial_snapshots";
-"Info_background"="Info_background";
 "Error"="Error";
 "Warning"="Warning";
 "Confirm!"="Confirm!";
