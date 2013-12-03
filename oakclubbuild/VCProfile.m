@@ -841,7 +841,6 @@ static CGFloat padding_left = 5.0;
 //                         NSLog(@"VCProfile load avatar index: %d, link: %@", i, link);
                          if(![link isEqualToString:@""] )
                          {
-                             AFHTTPRequestOperation *operation =
                              [Profile getAvatarSync:link
                                            callback:^(UIImage *image)
                               {
@@ -859,7 +858,6 @@ static CGFloat padding_left = 5.0;
                                       
                                   }
                               }];
-                             [operation start];
                          }
                      }
                      else{

@@ -1048,7 +1048,6 @@ UITapGestureRecognizer *tap;
                  
                  if((![photosID containsObject:key]) && ![link isEqualToString:@""] )
                  {
-                     AFHTTPRequestOperation *operation =
                      [Profile getAvatarSync:link
                                    callback:^(UIImage *image)
                       {
@@ -1065,7 +1064,6 @@ UITapGestureRecognizer *tap;
                               [photo_Indicator unlockViewAndStopIndicator];
                           }
                       }];
-                     [operation start];
                  }
                  else
                  {

@@ -184,11 +184,10 @@
         if(![link isEqualToString:@""])
         {
             
-            AFHTTPRequestOperation* operation = [Profile getAvatarSync:link callback:^(UIImage *avatar) {
+            [Profile getAvatarSync:link callback:^(UIImage *avatar) {
                 if(avatar)
                 avatar_friend = avatar;
             }];
-            [operation start];
             //[queue addOperation:operation];
             //[queue waitUntilAllOperationsAreFinished];
         }
@@ -202,11 +201,10 @@
         if( ![link isEqualToString:@""] )
         {
             
-            AFHTTPRequestOperation* operation = [Profile getAvatarSync:link callback:^(UIImage *avatar) {
+            [Profile getAvatarSync:link callback:^(UIImage *avatar) {
                 if(avatar)
                 avatar_me = avatar;
             }];
-            [operation start];
             //[queue addOperation:operation];
         }
         else

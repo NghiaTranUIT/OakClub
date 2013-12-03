@@ -730,41 +730,46 @@
     return result;
 }
 
-+(AFHTTPRequestOperation*)getAvatarSync:(NSString*)url callback:(void(^)(UIImage*))handler
++(void)getAvatarSync:(NSString*)url callback:(void(^)(UIImage*))handler
 {
-    AFHTTPClient *httpClient;
-    
-    if(!([url hasPrefix:@"http://"] || [url hasPrefix:@"https://"]))
-    {       // check if this is a valid link
-        httpClient = [[AFHTTPClient alloc]initWithBaseURL:[NSURL URLWithString:DOMAIN_DATA]];
-    }
-    else{
-        httpClient = [[AFHTTPClient alloc]initWithBaseURL:[NSURL URLWithString:@""]];
-    }
-    
-    NSMutableURLRequest *request = [httpClient requestWithMethod:@"GET"
-                                                            path:url
-                                                      parameters:nil];
-    
-    AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
-    [httpClient registerHTTPOperationClass:[AFHTTPRequestOperation class]];
-    
-    [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject)
-     {
-         UIImage *avatar = [UIImage imageWithData:responseObject];
-        
-         if(handler != nil)
-             handler(avatar);
-         
-     } failure:^(AFHTTPRequestOperation *operation, NSError *error)
-     {
-         NSLog(@"Download image Error: %@", error);
-         if(handler != nil)
-             handler(nil);
-     }];
-    
-    return operation;
+    AppDelegate *appDel = (id) [UIApplication sharedApplication].delegate;
+    [appDel.imagePool getImagesAtURL:url asycn:^(UIImage *img, NSError *error) {
+        handler(img);
+    }];
+//    AFHTTPClient *httpClient;
+//    
+//    if(!([url hasPrefix:@"http://"] || [url hasPrefix:@"https://"]))
+//    {       // check if this is a valid link
+//        httpClient = [[AFHTTPClient alloc]initWithBaseURL:[NSURL URLWithString:DOMAIN_DATA]];
+//    }
+//    else{
+//        httpClient = [[AFHTTPClient alloc]initWithBaseURL:[NSURL URLWithString:@""]];
+//    }
+//    
+//    NSMutableURLRequest *request = [httpClient requestWithMethod:@"GET"
+//                                                            path:url
+//                                                      parameters:nil];
+//    
+//    AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
+//    [httpClient registerHTTPOperationClass:[AFHTTPRequestOperation class]];
+//    
+//    [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject)
+//     {
+//         UIImage *avatar = [UIImage imageWithData:responseObject];
+//        
+//         if(handler != nil)
+//             handler(avatar);
+//         
+//     } failure:^(AFHTTPRequestOperation *operation, NSError *error)
+//     {
+//         NSLog(@"Download image Error: %@", error);
+//         if(handler != nil)
+//             handler(nil);
+//     }];
+//    
+//    return operation;
 }
+
 /*
 +(void) countMutualFriends:(NSString*)profileID callback:(void(^)(NSString*))handler
 {
@@ -907,7 +912,7 @@
 
 -(void)downloadAvatarImage
 {
-    AFHTTPRequestOperation* operation = [Profile getAvatarSync:self.s_Avatar callback:^(UIImage *avatar)
+    [Profile getAvatarSync:self.s_Avatar callback:^(UIImage *avatar)
     {
         NSLog(@"Finished download avatar of %@",self.s_Name);
         if(avatar)
@@ -915,7 +920,6 @@
         
         [self dispatchAvatar];
     }];
-    [operation start];
 }
 
 -(void)tryGetImageAsync:(id<ImageRequester>)_requester

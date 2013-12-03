@@ -79,7 +79,6 @@
                      
                      if( ![link isEqualToString:@""] )
                      {
-                         AFHTTPRequestOperation *operation =
                          [Profile getAvatarSync:link
                                        callback:^(UIImage *image)
                           {
@@ -91,7 +90,6 @@
                                   [loadingImageIndicator stopAnimating];
                               }
                           }];
-                         [operation start];
                          
                          kNumImages++;
                      }
