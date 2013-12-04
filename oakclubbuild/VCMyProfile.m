@@ -560,6 +560,8 @@ UITapGestureRecognizer *tap;
                              }
                              
                              profileObj.img_Avatar = uploadImage;
+                             appDelegate.myProfile.img_Avatar = uploadImage;
+                             appDelegate.myProfile.s_Avatar = imgLink;
                              profileObj.s_Avatar = imgLink;
                          }
                          
