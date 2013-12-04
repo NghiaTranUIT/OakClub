@@ -585,12 +585,30 @@ CGFloat pageHeight;
             }
         }
     }
+     NSOperationQueue *queue = [[NSOperationQueue alloc] init];
+    //update flow setLike in Snapshot
+    [request setParameterEncoding:AFFormURLParameterEncoding];
+    NSMutableURLRequest *urlReq = [request requestWithMethod:@"POST" path:URL_setFavorite parameters:params];
+    
+    AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:urlReq];
+    [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"post success !!!");
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+       NSLog(@"URL_setFavorite - Error Code: %i - %@",[error code], [error localizedDescription]);
+    }];
+    
+//    [operation start];
+    [queue addOperation:operation];
+    [queue waitUntilAllOperationsAreFinished];
+
+    /*
     [request setParameterEncoding:AFFormURLParameterEncoding];
     [request postPath:URL_setFavorite parameters:params success:^(__unused AFHTTPRequestOperation *operation, id JSON) {
         NSLog(@"post success !!!");
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"URL_setFavorite - Error Code: %i - %@",[error code], [error localizedDescription]);
     }];
+     */
 }
 
 

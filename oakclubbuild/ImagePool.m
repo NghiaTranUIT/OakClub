@@ -137,6 +137,10 @@
         [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject)
          {
              UIImage *image = [UIImage imageWithData:responseObject];
+             if(image==nil){
+                 completion(nil, nil);
+                 return;
+             }
              NSMutableArray *reqs = (NSMutableArray *) [_images objectForKey:url];
              [_images setObject:image forKey:url];
              
