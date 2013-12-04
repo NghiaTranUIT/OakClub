@@ -367,7 +367,7 @@ UITapGestureRecognizer *tap;
             if (!languageCell)
             {
                 languageCell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:languageIdentifier];
-                //[languageCell setFont:FONT_HELVETICANEUE_LIGHT(15.0)];
+                [languageCell.textLabel setFont:FONT_HELVETICANEUE_LIGHT(15.0)];
                 languageCell.accessoryType= UITableViewCellAccessoryDisclosureIndicator;
             }
             
