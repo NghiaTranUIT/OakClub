@@ -141,8 +141,8 @@ BOOL isDragging = FALSE;
 //        NSLog(@"%f",[touch locationInView:self].x);
         CGFloat dx = touchLocation.x - startLocation.x;
 //        CGFloat dy = location.y - startLocation.y;
-        NSLog(@"location.x:%f - startLocation.x:%f",touchLocation.x,startLocation.x);
-        NSLog(@"dx:%f",dx);
+//        NSLog(@"location.x:%f - startLocation.x:%f",touchLocation.x,startLocation.x);
+//        NSLog(@"dx:%f",dx);
         if(dx < (deltaMove*-1)){
 //            [self.placardView setAlphaNOPEView:fabsf(dx)/100];
             answerType = interestedStatusNO;

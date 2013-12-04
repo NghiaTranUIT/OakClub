@@ -56,7 +56,7 @@
         [client setDefaultHeader:@"Accept" value:@"text/html"];
         [client setDefaultHeader:@"X-WSSE" value:s];
         //show log
-        NSLog(@"header : %@",client);
+//        NSLog(@"header : %@",client);
         return client;
     }
 }

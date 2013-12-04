@@ -207,7 +207,45 @@ CGFloat pageHeight;
     }
     currentIndex = 0; //Vanancy cheat
     profileList = [[NSMutableArray alloc] init];
+    
     [setLikedQueue waitUntilAllOperationsAreFinished];
+    
+    request = [[AFHTTPClient alloc] initWithOakClubAPI:DOMAIN];
+    NSDictionary *params = [[NSDictionary alloc]initWithObjectsAndKeys:@"0",@"start",@"10",@"limit", nil];
+    NSMutableURLRequest *urlReq = [request requestWithMethod:@"GET" path:URL_getSnapShot parameters:params];
+    
+    AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:urlReq];
+    [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id JSON) {
+        NSLog(@"Get snapshot-DONE");
+        is_loadingProfileList = FALSE;
+        NSError *e=nil;
+        NSMutableDictionary *dict = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONReadingMutableContainers error:&e];
+        
+        int status= [[dict valueForKey:@"status"] integerValue];
+        NSArray *profiles = [dict valueForKey:key_data];
+        if (status == 0 || [profiles count] < 1)
+        {
+            [self showWarning];
+        }
+        else
+        {
+            for( id profileJSON in profiles)
+            {
+                Profile* profile = [[Profile alloc]init];
+                [profile parseGetSnapshotToProfile:profileJSON];
+                [profileList addObject:profile];
+            }
+            if(handler != nil)
+                handler();
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"Get snapshot Error Code: %i - %@",[error code], [error localizedDescription]);
+        is_loadingProfileList = NO;
+        [self showWarning];
+    }];
+    [operation start];
+//    [setLikedQueue addOperation:operation];
+    /*
     request = [[AFHTTPClient alloc] initWithOakClubAPI:DOMAIN];
     NSDictionary *params = [[NSDictionary alloc]initWithObjectsAndKeys:@"0",@"start",@"10",@"limit", nil];
     [request getPath:URL_getSnapShot parameters:params success:^(__unused AFHTTPRequestOperation *operation, id JSON)
@@ -239,6 +277,7 @@ CGFloat pageHeight;
         is_loadingProfileList = NO;
         [self showWarning];
     }];
+     */
 }
 
 -(void)loadNextProfileByCurrentIndex{
