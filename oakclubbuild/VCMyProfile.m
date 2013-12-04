@@ -1048,8 +1048,7 @@ UITapGestureRecognizer *tap;
                  
                  if((![photosID containsObject:key]) && ![link isEqualToString:@""] )
                  {
-                     [Profile getAvatarSync:link
-                                   callback:^(UIImage *image)
+                     [Profile getAvatarSync: @"LzQ0LjIwMTMvNTg2MTgxNTkxXzUyOWQ4YmRhYzM5YTIuanBn" withSize: CGSizeMake(150, 150) callback:^(UIImage *image)
                       {
                           if (image)
                           {

@@ -150,6 +150,7 @@
 
 //+(void) countMutualFriends:(NSString*)profileID callback:(void(^)(NSString*))handler;
 +(void)getAvatarSync:(NSString*)url callback:(void(^)(UIImage*))handler;
++(void)getAvatarSync:(NSString*)url withSize: (CGSize) size callback:(void(^)(UIImage*))handler;
 
 +(void) getListPeople:(NSString*)service handler:(void(^)(NSMutableArray*,int))resultHandler;
 +(void) getListPeople:(NSString*)service andParams:(NSDictionary*)params handler:(void(^)(NSMutableArray*,int))resultHandler;

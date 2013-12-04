@@ -161,7 +161,7 @@
     return [imageNames count];
 }
 -(float)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 44;
+    return 80;
 }
 
 
@@ -186,8 +186,8 @@
         [cell.labelMenu setFont:[UIFont fontWithName:cell.labelMenu.font.fontName size:18]];
     }
     
-    if(indexPath.row == 1 && self.avatar.image != nil){
-        [cell setItemIcon:self.avatar.image];
+    if(indexPath.row == 0){// && self.avatar.image != nil){
+        [cell setItemIcon: imageAvatar];
     }
     NSNumber* number = [numberNotifications objectAtIndex:indexPath.row];
     [cell setNotification:[number unsignedIntValue]];
@@ -202,10 +202,10 @@
     NSLog(@"selected id %i",indexPath.row);
 #if ENABLE_DEMO
     switch (indexPath.row) {
-        case 0:
+        case 1:
             [appDel  showSimpleSnapshot];
             break;
-        case 1:
+        case 0:
             [appDel  showMyProfile];
             break;
         case 2:

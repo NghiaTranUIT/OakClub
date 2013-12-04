@@ -31,7 +31,7 @@ static CGFloat padding_left = 4.0;
         if ([array count]>0) {
             view = [array objectAtIndex:0];
             [self.contentView addSubview:view];
-            view.frame = CGRectMake(0, 0, 320, 35);
+            view.frame = CGRectMake(0, 0, 320, 50);
             
             notificationImageView = nil;
         }
@@ -45,6 +45,9 @@ static CGFloat padding_left = 4.0;
     formatImageName=[formatImageName stringByReplacingOccurrencesOfString:@"!" withString:@""];
     iconMenu.image = [UIImage imageNamed:[NSString stringWithFormat:@"Menu_icon_%@.png",formatImageName]];
     _labelMenu.text = label;
+    iconMenu.highlightedImage = [UIImage imageNamed:[NSString stringWithFormat:@"Menu_icon_%@_pressed.png",formatImageName]];
+    _labelMenu.highlightedTextColor = [UIColor redColor];
+    
 }
 
 -(void) setItemBackground:(UIImage*)image andHighlight:(UIImage*)highlightImage{
