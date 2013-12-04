@@ -1616,7 +1616,8 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
 
 #pragma mark POP-Snapshot QUEUE
 -(void)popSnapshotQueue{
-    NSArray * queue = [[NSUserDefaults standardUserDefaults] objectForKey:@"snapshotQueue"];
+    NSArray * queue = [[NSUserDefaults standardUserDefaults] arrayForKey:@"snapshotQueue"];
+    
 }
 #pragma mark ping timer
 -(void)startPingTimer

@@ -86,7 +86,7 @@
 //#define URL_getListMutualMatch @"service/getListMutualAttractions"
 #define URL_getListIWantToMeet @"service/getListIWantToMeet"    //unused
 #define URL_getSnapShot @"service/getSnapshot"
-#define URL_setFavorite @"service/setLikedSnapshot"//@"service/setFavorite"
+#define URL_setLikedSnapshot @"service/setLikedSnapshot"//@"service/setFavorite"
 #define URL_getSnapshotSetting @"service/getSnapshotSetting"
 #define URL_setSnapshotSetting @"service/setSnapshotSetting"
 #define URL_chat_post @"service/chat/post"

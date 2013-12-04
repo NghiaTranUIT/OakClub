@@ -24,7 +24,7 @@
 -(void) gotoPROFILE;
 -(void)loadProfileList:(void(^)(void))handler;
 -(void)showMatchView;
--(void)setFavorite:(NSString*)answerChoice;
+-(void)setLikedSnapshot:(NSString*)answerChoice;
 -(BOOL)isContinueLoad;
 -(void) refreshSnapshot;
 -(void) showWarning;

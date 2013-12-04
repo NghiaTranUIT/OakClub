@@ -34,6 +34,7 @@
     BOOL isBlockedByGPS;
     BOOL isLoading;
     Profile* matchedProfile;
+    NSOperationQueue *setLikedQueue;
 }
 @property (nonatomic, strong) IBOutlet APLMoveMeView *moveMeView;
 @property (nonatomic, weak) IBOutlet UIView *profileView;
@@ -98,6 +99,8 @@ CGFloat pageHeight;
     [self.view addSubview:self.moveMeView];
     self.moveMeView.movemedelegate = self;
     self.moveMeView.frame = CGRectMake(0, 0, 320, 548);
+    
+    setLikedQueue = [[NSOperationQueue alloc] init];
     // Do any additional setup after loading the view from its nib.
 //    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"bg.png"]];
     
@@ -204,8 +207,9 @@ CGFloat pageHeight;
     }
     currentIndex = 0; //Vanancy cheat
     profileList = [[NSMutableArray alloc] init];
+    [setLikedQueue waitUntilAllOperationsAreFinished];
     request = [[AFHTTPClient alloc] initWithOakClubAPI:DOMAIN];
-    NSDictionary *params = [[NSDictionary alloc]initWithObjectsAndKeys:@"0",@"start",@"35",@"limit", nil];
+    NSDictionary *params = [[NSDictionary alloc]initWithObjectsAndKeys:@"0",@"start",@"10",@"limit", nil];
     [request getPath:URL_getSnapShot parameters:params success:^(__unused AFHTTPRequestOperation *operation, id JSON)
     {
         is_loadingProfileList = FALSE;
@@ -549,10 +553,10 @@ CGFloat pageHeight;
                          else
                              [self.moveMeView animatePlacardViewByAnswer:choose andDuration:0.5f];
                      }];
-    [self setFavorite:[NSString stringWithFormat:@"%i",choose]];
+    [self setLikedSnapshot:[NSString stringWithFormat:@"%i",choose]];
 }
 
--(void)setFavorite:(NSString*)answerChoice{
+-(void)setLikedSnapshot:(NSString*)answerChoice{
     int isFirstTime = [[[NSUserDefaults standardUserDefaults] objectForKey:key_isFirstSnapshot] integerValue];
     if(isFirstTime==0 || (isFirstTime < 4 &&
         ( (isFirstTime == interestedStatusNO && [answerChoice integerValue] == interestedStatusYES)
@@ -585,28 +589,27 @@ CGFloat pageHeight;
             }
         }
     }
-     NSOperationQueue *queue = [[NSOperationQueue alloc] init];
+    
     //update flow setLike in Snapshot
     [request setParameterEncoding:AFFormURLParameterEncoding];
-    NSMutableURLRequest *urlReq = [request requestWithMethod:@"POST" path:URL_setFavorite parameters:params];
+    NSMutableURLRequest *urlReq = [request requestWithMethod:@"POST" path:URL_setLikedSnapshot parameters:params];
     
     AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:urlReq];
     [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"post success !!!");
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-       NSLog(@"URL_setFavorite - Error Code: %i - %@",[error code], [error localizedDescription]);
+       NSLog(@"URL_setLikedSnapshot - Error Code: %i - %@",[error code], [error localizedDescription]);
     }];
     
 //    [operation start];
-    [queue addOperation:operation];
-    [queue waitUntilAllOperationsAreFinished];
+    [setLikedQueue addOperation:operation];
 
     /*
     [request setParameterEncoding:AFFormURLParameterEncoding];
-    [request postPath:URL_setFavorite parameters:params success:^(__unused AFHTTPRequestOperation *operation, id JSON) {
+    [request postPath:URL_setLikedSnapshot parameters:params success:^(__unused AFHTTPRequestOperation *operation, id JSON) {
         NSLog(@"post success !!!");
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"URL_setFavorite - Error Code: %i - %@",[error code], [error localizedDescription]);
+        NSLog(@"URL_setLikedSnapshot - Error Code: %i - %@",[error code], [error localizedDescription]);
     }];
      */
 }

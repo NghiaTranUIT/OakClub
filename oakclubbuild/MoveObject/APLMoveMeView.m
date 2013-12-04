@@ -196,8 +196,10 @@ BOOL isDragging = FALSE;
 	if ([touch view] == self.placardView) {
         if(isDragging)
             isDragging = FALSE;
-        else
+        else{
             [self.snapshotView  gotoPROFILE];
+            return;
+        }
 		/*
          Disable user interaction so subsequent touches don't interfere with animation until the placard has returned to the center. Interaction is reenabled in animationDidStop:finished:.
          */
@@ -208,14 +210,14 @@ BOOL isDragging = FALSE;
         [self.placardView setAlphaLIKEView:0];
 //        [self.snapshotView loadView];
         if(answerType >0){
-            [self.snapshotView setFavorite:[NSString stringWithFormat:@"%i",answerType]];
+            [self.snapshotView setLikedSnapshot:[NSString stringWithFormat:@"%i",answerType]];
 //            [self.snapshotView loadCurrentProfile];
         }
 		return;
 	}
 }
 
-//-(void)setFavorite:(NSString*)answerChoice{
+//-(void)setLikedSnapshot:(NSString*)answerChoice{
 //    AFHTTPClient* request = [[AFHTTPClient alloc]initWithOakClubAPI:DOMAIN];
 ////    NSLog(@"current id = %@",currentProfile.s_snapshotID);
 //    AppDelegate *appDelegate = (AppDelegate *) [UIApplication sharedApplication].delegate;
@@ -227,7 +229,7 @@ BOOL isDragging = FALSE;
 //    }
 //   
 //    NSDictionary *params = [[NSDictionary alloc]initWithObjectsAndKeys:value ,@"snapshot_id",answerChoice,@"set", nil];
-//    [request getPath:URL_setFavorite parameters:params success:^(__unused AFHTTPRequestOperation *operation, id JSON) {
+//    [request getPath:URL_setLikedSnapshot parameters:params success:^(__unused AFHTTPRequestOperation *operation, id JSON) {
 //        NSLog(@"post success !!!");
 //    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
 //        NSLog(@"Error Code: %i - %@",[error code], [error localizedDescription]);

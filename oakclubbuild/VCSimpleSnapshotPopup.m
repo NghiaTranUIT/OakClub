@@ -58,14 +58,14 @@
 }
 - (IBAction)onTouchLike:(id)sender {
     [moveMeView setAnswer:interestedStatusYES];
-    [snapshotView setFavorite:[NSString stringWithFormat:@"%i",interestedStatusYES]];
+    [snapshotView setLikedSnapshot:[NSString stringWithFormat:@"%i",interestedStatusYES]];
     [snapshotView loadCurrentProfile];
     [snapshotView loadNextProfileByCurrentIndex];
     [self.view removeFromSuperview];
 }
 - (IBAction)onTouchReject:(id)sender {
     [moveMeView setAnswer:interestedStatusNO];
-    [snapshotView setFavorite:[NSString stringWithFormat:@"%i",interestedStatusNO]];
+    [snapshotView setLikedSnapshot:[NSString stringWithFormat:@"%i",interestedStatusNO]];
     [snapshotView loadCurrentProfile];
     [snapshotView loadNextProfileByCurrentIndex];
     [self.view removeFromSuperview];
