@@ -21,7 +21,7 @@
         NSArray *array = [[NSBundle mainBundle] loadNibNamed:@"ChatHistoryViewCell" owner:self options:nil];
         avatar.layer.masksToBounds = YES;
         avatar.layer.cornerRadius = avatar.frame.size.width/2;
-        avatar.layer.borderWidth = 2.0;
+        avatar.layer.borderWidth = 1.0;
         avatar.layer.borderColor = [[UIColor lightGrayColor] CGColor];
         if ([array count]>0) {
             UIView* view = [array objectAtIndex:0];

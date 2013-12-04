@@ -93,7 +93,7 @@
     self.name.text = username;
     [self.avatar setImage:imageAvatar];
     [self.btnAvatar setBackgroundImage:imageAvatar forState:UIControlStateNormal];
-    self.tableView.center = self.view.center;
+    self.tableView.center = CGPointMake(self.view.center.x, self.view.frame.size.height/2.5) ;
 }
 -(void)viewWillAppear:(BOOL)animated{
     if([[[NSUserDefaults standardUserDefaults] objectForKey:key_appLanguage] isEqualToString:value_appLanguage_VI])
@@ -164,7 +164,10 @@
 -(float)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     return 64;//80;
 }
-
+-(void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [cell setBackgroundColor:[UIColor clearColor]];
+}
 
 - (UITableViewCell *)tableView:(UITableView *)tbView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     static NSString *CellIdentifier = @"menuCell";
@@ -177,15 +180,18 @@
         if (cell == nil) {
             cell = [[menuCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
         }
-    
+    UIView *bgColorSelected = [[UIView alloc] init];
+    [bgColorSelected setBackgroundColor:[UIColor clearColor]];
+    cell.selectedBackgroundView = bgColorSelected;
+//    [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
 //        UIImage *thumbImage = [UIImage imageNamed:[NSString stringWithFormat:@"%menu_@.png", name]];
         [cell setItemMenu:icon AndlabelName:[NSString localizeString:label]];
-    if(indexPath.row == 3){
-        UIImage* tellFriend_BG = [UIImage imageNamed:@"Menu_btn_Facebook.png"];
-        [cell setItemBackground:tellFriend_BG andHighlight:tellFriend_BG];
-        
-        [cell.labelMenu setFont:[UIFont fontWithName:cell.labelMenu.font.fontName size:18]];
-    }
+//    if(indexPath.row == 3){
+//        UIImage* tellFriend_BG = [UIImage imageNamed:@"Menu_btn_Facebook.png"];
+//        [cell setItemBackground:tellFriend_BG andHighlight:tellFriend_BG];
+//        
+//        [cell.labelMenu setFont:[UIFont fontWithName:cell.labelMenu.font.fontName size:18]];
+//    }
     
     if(indexPath.row == 0){// && self.avatar.image != nil){
         [cell setItemIcon: imageAvatar];

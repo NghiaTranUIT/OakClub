@@ -38,7 +38,7 @@
 		avatarImageView =[UIButton buttonWithType:UIButtonTypeRoundedRect];
         avatarImageView.layer.masksToBounds = YES;
         avatarImageView.layer.cornerRadius = 20;
-        avatarImageView.layer.borderWidth = 2.0;
+        avatarImageView.layer.borderWidth = 1.0;
         avatarImageView.layer.borderColor = [[UIColor lightGrayColor] CGColor];
 
         [self.customView addSubview:avatarImageView];

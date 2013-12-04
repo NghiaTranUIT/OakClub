@@ -126,13 +126,13 @@ CGFloat pageHeight;
     //matcher image view
     imgMatcher.layer.masksToBounds = YES;
     imgMatcher.layer.cornerRadius = imgMatcher.frame.size.width/2;
-    imgMatcher.layer.borderWidth = 3.0;
+    imgMatcher.layer.borderWidth = 1.5;
     imgMatcher.layer.borderColor = [[UIColor whiteColor] CGColor];
     
     //my avatar view
     imgMyAvatar.layer.masksToBounds = YES;
     imgMyAvatar.layer.cornerRadius = imgMyAvatar.frame.size.width/2;
-    imgMyAvatar.layer.borderWidth = 3.0;
+    imgMyAvatar.layer.borderWidth = 1.5;
     imgMyAvatar.layer.borderColor = [[UIColor whiteColor] CGColor];
 }
 -(void)loadHeaderLogo{
