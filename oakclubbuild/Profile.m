@@ -732,10 +732,15 @@
 
 +(void)getAvatarSync:(NSString*)url callback:(void(^)(UIImage*))handler
 {
-    AppDelegate *appDel = (id) [UIApplication sharedApplication].delegate;
-    [appDel.imagePool getImagesAtURL:url asycn:^(UIImage *img, NSError *error) {
+    AppDelegate *appDel= (id) [UIApplication sharedApplication].delegate;
+    [appDel.imagePool getImagesAtURL: url asycn:^(UIImage *img, NSError *error) {
         handler(img);
     }];
+    
+//    AppDelegate *appDel = (id) [UIApplication sharedApplication].delegate;
+//    [appDel.imagePool getImagesAtURL: @"50.2013/123_abcdefghiklmn.jpg" withSize: CGSizeMake(150, 150) asycn:^(UIImage *img, NSError *error) {
+//        handler(img);
+//    }];
 //    AFHTTPClient *httpClient;
 //    
 //    if(!([url hasPrefix:@"http://"] || [url hasPrefix:@"https://"]))
@@ -792,6 +797,15 @@
     }];
 }
 */
+
++(void)getAvatarSync:(NSString*)url withSize: (CGSize) size callback:(void(^)(UIImage*))handler
+{
+    AppDelegate *appDel = (id) [UIApplication sharedApplication].delegate;
+    [appDel.imagePool getImagesAtURL: url withSize: size asycn:^(UIImage *img, NSError *error) {
+        handler(img);
+    }];
+}
+
 - (void)saveSettingWithCompletion:(void(^)(bool isSuccess))completion{
     NSString * name = self.s_Name;
     NSString *gender = [NSString stringWithFormat:@"%i",self.s_gender.ID];

@@ -194,20 +194,20 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
 {
     if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"isFirstLogin"] boolValue])
     {
-        /*
+        
         //test
         [[NSUserDefaults standardUserDefaults] setValue:[NSNumber numberWithBool:YES] forKey:@"isFirstLogin"];
         
         TutorialViewController *tut = [[TutorialViewController alloc] init];
         self.window.rootViewController = tut;
         [self.window makeKeyAndVisible];
-         */
+         
         
-        menuViewController *leftController = [[menuViewController alloc] init];
-        [leftController setUIInfo:self.myProfile];
-        [self.rootVC setRightViewController:self.chat];
-        [self.rootVC setLeftViewController:leftController];
-        self.window.rootViewController = self.rootVC;
+//        menuViewController *leftController = [[menuViewController alloc] init];
+//        [leftController setUIInfo:self.myProfile];
+//        [self.rootVC setRightViewController:self.chat];
+//        [self.rootVC setLeftViewController:leftController];
+//        self.window.rootViewController = self.rootVC;
         
     }
     else

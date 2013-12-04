@@ -40,15 +40,8 @@
         [signInButton setBackgroundImage:[UIImage imageNamed:@"Login_btnFB_inactive.png"] forState:UIControlStateNormal];
         [signInButton setBackgroundImage:[UIImage imageNamed:@"Login_btnFB_active.png"] forState:UIControlStateHighlighted];
         [signInButton sizeToFit];
-        if ([value_appLanguage_VI isEqualToString:[[NSUserDefaults standardUserDefaults] objectForKey:key_appLanguage]])
-        {
-             signInButton.frame = CGRectMake((self.frame.size.width - 254)/2, 60, 254, 40);
-        }
-        else
-        {
-            signInButton.frame = CGRectMake((self.frame.size.width - 254)/2, 35, 254, 40);
-        }
         
+        signInButton.frame = CGRectMake((self.frame.size.width - 254)/2, 35, 254, 40);
         
         UILabel *titleLabel = [[UILabel alloc] init];
         [titleLabel setLineBreakMode:NSLineBreakByWordWrapping];

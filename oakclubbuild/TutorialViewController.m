@@ -87,6 +87,7 @@
 -(void)cycleScrollViewDelegate:(CycleScrollView *)cycleScrollView customizeImageView:(TapDetectingImageView *)imageView atIndex:(int)index
 {
     [self transText:index forImage:imageView];
+    [self localizeAllText];
 
 }
 
@@ -133,9 +134,9 @@
             [content1Label setText: @""];
             [content2Label setText: @""];
             [content3Label setText: @""];
-            NSString *content1String = [@"Swipe photo right\nto LIKE a profile" localize];
-            NSString *content2String = [@"Swipe photo left\nto REJECT a profile" localize];
-            NSString *content3String = [@"Or just use REJECT / LIKE\nbuttons below" localize];
+            NSString *content1String = [@"Swipe photo Right\nto LIKE a profile" localize];
+            NSString *content2String = [@"Swipe photo Left\nto PASS a profile" localize];
+            NSString *content3String = [@"Or just use PASS / LIKE\nbutton below" localize];
             
             
             [content1Label setLineBreakMode: NSLineBreakByCharWrapping];
@@ -178,7 +179,7 @@
             UILabel *content1Label = [[UILabel alloc] init];
             [content1Label setText: @""];
             
-            NSString *content1String = [@"If you match who someone\nyou can chat with them privately" localize];
+            NSString *content1String = [@"If you match with someone\nyou can chat with them privately" localize];
             [content1Label setLineBreakMode: NSLineBreakByCharWrapping];
             [content1Label setNumberOfLines: 2];
             [content1Label setText: content1String];
@@ -227,6 +228,12 @@
             
         default:
             break;
+    }
+}
+
+-(void) localizeAllText{
+    for(UIView* view in [self.view subviews]){
+        [view localizeText];
     }
 }
 
