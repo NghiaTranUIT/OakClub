@@ -433,6 +433,9 @@ CGFloat pageHeight;
 }
 
 -(void)backToSnapshotViewWithAnswer:(int)answer{
+    if(viewProfile.svPhotos.frame.size.height >= self.viewProfile.view.frame.size.height){
+        [imgMainProfile setFrame:viewProfile.svPhotos.frame];
+    }
     [imgMainProfile setHidden:NO];
     [UIView animateWithDuration:0.4
                      animations:^{

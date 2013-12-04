@@ -1187,14 +1187,27 @@ BOOL allowFullScreen = FALSE;
     }
     if (self.svPhotos.frame.size.height < screenHeight)
     {
-        [self.svPhotos setFrame:CGRectMake(0, 0, self.view.frame.size.width, screenHeight)];
-        self.svPhotos.contentSize =
-        CGSizeMake(CGRectGetWidth(self.svPhotos.frame) * [currentProfile.arr_photos count], CGRectGetHeight(self.svPhotos.frame));
-        [self.infoView setFrame:CGRectMake(0, screenHeight, self.infoView.frame.size.width, self.infoView.frame.size.height)];
+        [UIView animateWithDuration: 0.2
+                              delay: 0
+                            options: (UIViewAnimationOptionCurveLinear | UIViewAnimationOptionAllowUserInteraction)
+                         animations:^{
+                             [self.svPhotos setFrame:CGRectMake(0, 0, self.view.frame.size.width, screenHeight)];
+                             self.svPhotos.contentSize =
+                             CGSizeMake(CGRectGetWidth(self.svPhotos.frame) * [currentProfile.arr_photos count], CGRectGetHeight(self.svPhotos.frame));
+                             [self.infoView setFrame:CGRectMake(0, screenHeight, self.infoView.frame.size.width, self.infoView.frame.size.height)];
+                             [self updateSubviewsToCenterScrollView];
+                         }
+                         completion:^(BOOL finished) {
+                             [self.scrollview setContentOffset:CGPointMake(0, 0) animated:YES];
+                         }
+         ];
+        
+        
+        
 //        [self.lblsPhoto setFrame:CGRectMake(0, self.svPhotos.frame.origin.y + self.svPhotos.frame.size.height - self.lblsPhoto.frame.size.height, self.lblsPhoto.frame.size.width,  self.lblsPhoto.frame.size.height)];
         
-        [self.scrollview setContentOffset:CGPointMake(0, 0) animated:YES];
-        [self updateSubviewsToCenterScrollView];
+        
+        
         [self snapPhotoBarToBottomOfView];
     }
     else
