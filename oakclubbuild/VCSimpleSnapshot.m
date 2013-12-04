@@ -614,12 +614,28 @@ CGFloat pageHeight;
     }
     [self.moveMeView setAnswer:[answerChoice integerValue]];
     request = [[AFHTTPClient alloc]initWithOakClubAPI:DOMAIN];
+    
     NSLog(@"current id = %@",currentProfile.s_Name);
     NSDictionary *params;
     if([answerChoice integerValue] == interestedStatusYES)
         params = [[NSDictionary alloc]initWithObjectsAndKeys:currentProfile.s_ID,key_profileID,@"1",@"is_like", nil];
     else
         params = [[NSDictionary alloc]initWithObjectsAndKeys:currentProfile.s_ID,key_profileID,@"0" ,@"is_like", nil];
+
+    // Vanancy - add request into QUEUE
+    NSMutableDictionary* queueDict = [[NSUserDefaults standardUserDefaults] objectForKey:@"snapshotQueueByProfileID"];
+    if (!queueDict) {
+        queueDict = [[NSMutableDictionary alloc]init];
+    }
+    NSMutableArray *queue = [queueDict objectForKey:appDel.myProfile.s_ID];
+    if (queue) {
+        [queue addObject:params];
+    }else{
+        queue = [[NSMutableArray alloc]initWithObjects:params, nil];
+    }
+    [queueDict setObject:queue forKey:appDel.myProfile.s_ID];
+    [[NSUserDefaults standardUserDefaults] setObject:queueDict forKey:@"snapshotQueueByProfileID"];
+    
     NSString *value = [[NSUserDefaults standardUserDefaults] objectForKey:@"currentSnapShotID"];
     if ([answerChoice isEqualToString:@"1"]) {
 //        [self showMatchView];// DEBUG
@@ -638,6 +654,9 @@ CGFloat pageHeight;
     
     AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:urlReq];
     [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        [queue removeObject:params];
+        [queueDict setObject:queue forKey:appDel.myProfile.s_ID];
+        [[NSUserDefaults standardUserDefaults] setObject:queueDict forKey:@"snapshotQueueByProfileID"];
         NSLog(@"post success !!!");
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
        NSLog(@"URL_setLikedSnapshot - Error Code: %i - %@",[error code], [error localizedDescription]);

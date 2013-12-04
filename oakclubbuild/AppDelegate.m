@@ -1579,6 +1579,7 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
                            {
                                [self loadDataForList:^{
                                    [self parseProfileWithData:data];
+                                   [self popSnapshotQueue];
                                    if (success)
                                    {
                                        success(status);
@@ -1616,8 +1617,20 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
 
 #pragma mark POP-Snapshot QUEUE
 -(void)popSnapshotQueue{
-    NSArray * queue = [[NSUserDefaults standardUserDefaults] arrayForKey:@"snapshotQueue"];
-    
+    NSMutableDictionary* queueDict = [[NSUserDefaults standardUserDefaults] objectForKey:@"snapshotQueueByProfileID"];
+    NSArray *queue = [queueDict objectForKey:self.myProfile.s_ID];
+    // Vanancy - DEBUG - format for params
+//    NSArray *queue=@[@{@"profile_id":@"1m00ujci9g",@"is_like":@"0"},@{@"profile_id":@"1lxvpek4v2",@"is_like":@"1"},@{@"profile_id":@"dsc3jk",@"is_like":@"0"}];
+    if(queue && [queue count]>0){
+        AFHTTPClient* request = [[AFHTTPClient alloc] initWithOakClubAPI:DOMAIN];
+        NSDictionary* params = [[NSDictionary alloc]initWithObjectsAndKeys:queue,@"list_like", nil];
+        [request setParameterEncoding:AFFormURLParameterEncoding];
+        [request postPath:URL_setListLikedSnapshot parameters:params success:^(__unused AFHTTPRequestOperation *operation, id responseObject) {
+            NSLog(@"URL_setListLikedSnapshot - post success : %@",[[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding]);
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            NSLog(@"URL_setListLikedSnapshot - Error Code: %i - %@",[error code], [error localizedDescription]);
+        }];
+    }
 }
 #pragma mark ping timer
 -(void)startPingTimer
