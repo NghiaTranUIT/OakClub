@@ -93,6 +93,7 @@
     self.name.text = username;
     [self.avatar setImage:imageAvatar];
     [self.btnAvatar setBackgroundImage:imageAvatar forState:UIControlStateNormal];
+    self.tableView.center = self.view.center;
 }
 -(void)viewWillAppear:(BOOL)animated{
     if([[[NSUserDefaults standardUserDefaults] objectForKey:key_appLanguage] isEqualToString:value_appLanguage_VI])
@@ -161,7 +162,7 @@
     return [imageNames count];
 }
 -(float)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 80;
+    return 64;//80;
 }
 
 

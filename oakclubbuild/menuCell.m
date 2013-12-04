@@ -7,6 +7,7 @@
 //
 
 #import "menuCell.h"
+#import "Define.h"
 
 @interface menuCell ()
 @property (weak, nonatomic) IBOutlet UIImageView *notificationView;
@@ -31,7 +32,7 @@ static CGFloat padding_left = 4.0;
         if ([array count]>0) {
             view = [array objectAtIndex:0];
             [self.contentView addSubview:view];
-            view.frame = CGRectMake(0, 0, 320, 50);
+//            view.frame = CGRectMake(0, 0, 320, 64);
             
             notificationImageView = nil;
         }
@@ -46,7 +47,7 @@ static CGFloat padding_left = 4.0;
     iconMenu.image = [UIImage imageNamed:[NSString stringWithFormat:@"Menu_icon_%@.png",formatImageName]];
     _labelMenu.text = label;
     iconMenu.highlightedImage = [UIImage imageNamed:[NSString stringWithFormat:@"Menu_icon_%@_pressed.png",formatImageName]];
-    _labelMenu.highlightedTextColor = [UIColor redColor];
+    _labelMenu.highlightedTextColor = COLOR_PURPLE;
     
 }
 
@@ -57,8 +58,8 @@ static CGFloat padding_left = 4.0;
 -(void) setItemIcon:(UIImage*)image{
     iconMenu.layer.masksToBounds = YES;
     iconMenu.layer.cornerRadius = iconMenu.frame.size.width/2;
-    iconMenu.layer.borderWidth = 2.0;
-    iconMenu.layer.borderColor = [[UIColor whiteColor] CGColor];
+    iconMenu.layer.borderWidth = 1.0;
+    iconMenu.layer.borderColor = [[UIColor blackColor] CGColor];
     [iconMenu setImage:image];
 }
 
