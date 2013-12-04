@@ -74,7 +74,7 @@
 #define DOMAIN_AT_FMT @"%@@oakclub.com"
 #define URL_getProfileInfo @"service/getProfileInfo"
 #define URL_setProfileInfo @"service/setProfileInfo"
-#define URL_me @"service/me"
+#define URL_me @"service/me"    //unused
 #define URL_searchByLocation @"service/searchByLocation" //unused
 #define URL_setBidFeature @"service/setBidFeature"//unused
 #define URL_getAccountSetting @"service/getAccountSetting"
@@ -84,7 +84,7 @@
 #define URL_getListMyFavorites @"service/getListMyFavorites" // unused
 #define URL_getListFeature @"service/getListFeature" // unused
 //#define URL_getListMutualMatch @"service/getListMutualAttractions"
-#define URL_getListIWantToMeet @"service/getListIWantToMeet"
+#define URL_getListIWantToMeet @"service/getListIWantToMeet"    //unused
 #define URL_getSnapShot @"service/getSnapshot"
 #define URL_setFavorite @"service/setLikedSnapshot"//@"service/setFavorite"
 #define URL_getSnapshotSetting @"service/getSnapshotSetting"
@@ -94,7 +94,7 @@
 #define URL_deleteChat @"service/deleteChat"//@"service/deleteHangoutProfile" // delete history chatting messages.
 #define URL_getDetailMutualFriends @"service/getDetailMutualFriends" // unused
 #define URL_getMutualInfo @"service/getMutualInfo"// unused
-#define URL_getListCountry @"service/getListCountry"
+#define URL_getListCountry @"service/getListCountry"    //unused
 #define URL_getListPhotos @"service/getListPhotos"
 #define URL_getListCityByCountry @"service/getListCityByCountry"
 #define URL_getListLangRelWrkEth @"service/getDataLanguage"//@"service/getListLangRelWrkEth"
@@ -107,7 +107,7 @@
 #define URL_getListBlocking @"service/getListBlocking" //unused
 #define URL_getListChat @"service/getListChat"
 #define URL_getListWhoLikeMe @"service/getListWhoLikeMe"
-#define URL_getListMutualMatch @"service/getListMutualMatch"
+#define URL_getListMutualMatch @"service/getListMutualMatch"    //unused
 #define URL_setLocationUser @"service/setLocation"
 #define URL_sendRegister @"service/sendRegister"
 #define URL_uploadPhoto @"service/uploadPhoto"

@@ -733,7 +733,7 @@
 +(void)getAvatarSync:(NSString*)url callback:(void(^)(UIImage*))handler
 {
     AppDelegate *appDel = (id) [UIApplication sharedApplication].delegate;
-    [appDel.imagePool getImagesAtURL: @"50.2013/123_abcdefghiklmn.jpg" withSize: CGSizeMake(150, 150) asycn:^(UIImage *img, NSError *error) {
+    [appDel.imagePool getImagesAtURL:url asycn:^(UIImage *img, NSError *error) {
         handler(img);
     }];
 //    AFHTTPClient *httpClient;

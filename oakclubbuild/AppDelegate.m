@@ -1624,6 +1624,7 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
     if (!pingTimer)
     {
         pingTimer = [NSTimer scheduledTimerWithTimeInterval:60.0 target:self selector:@selector(pingToServer:) userInfo:nil repeats:YES];
+        [self pingToServer:pingTimer];
     }
 }
 
