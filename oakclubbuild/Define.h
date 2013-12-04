@@ -107,7 +107,7 @@
 #define URL_getListBlocking @"service/getListBlocking" //unused
 #define URL_getListChat @"service/getListChat"
 #define URL_getListWhoLikeMe @"service/getListWhoLikeMe"
-#define URL_getListMutualMatch @"service/getListMutualMatch"
+#define URL_getListMutualMatch @"service/getListMutualMatch"    //unused
 #define URL_setLocationUser @"service/setLocation"
 #define URL_sendRegister @"service/sendRegister"
 #define URL_uploadPhoto @"service/uploadPhoto"
