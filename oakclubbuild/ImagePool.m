@@ -107,6 +107,7 @@
         {
             NSMutableArray *imgRequesters = (NSMutableArray *) img;
             [imgRequesters addObject:completion];
+            completion(nil, nil);
         }
         else if ([img isKindOfClass:[UIImage class]])
         {
@@ -138,6 +139,7 @@
          {
              UIImage *image = [UIImage imageWithData:responseObject];
              if(image==nil){
+                 [_images removeObjectForKey:url];
                  completion(nil, nil);
                  return;
              }
