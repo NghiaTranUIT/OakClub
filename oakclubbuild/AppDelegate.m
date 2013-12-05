@@ -91,6 +91,7 @@ NSString *const kXMPPmyPassword = @"kXMPPmyPassword";
 
 @synthesize appLCObservers;
 @synthesize imagePool;
+@synthesize snapshotSettingsObj;
 // Log levels: off, error, warn, info, verbose
 #if DEBUG
 static const int ddLogLevel = LOG_LEVEL_VERBOSE;
@@ -135,6 +136,7 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
 {
     self.appLCObservers = [[NSMutableArray alloc] init];
     self.imagePool = [[ImagePool alloc] init];
+    self.snapshotSettingsObj = [[SettingObject alloc] init];
     _messageDelegate = nil;
    
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
@@ -773,14 +775,16 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
     }
     return YES;
 }
--(void)loadDataForList:(void(^)(void))completion{
+-(void)loadDataForList:(void(^)(void))completion
+{
     self.cityList = [[NSMutableDictionary alloc] init];
     [[NSUserDefaults standardUserDefaults] setObject:@"Never" forKey:@"key_EmailSetting"] ;
 //    if(self.relationshipList != nil && [self.relationshipList count] > 0)
 //        return;
     AFHTTPClient *request = [[AFHTTPClient alloc] initWithOakClubAPI:DOMAIN];
-     NSString* selectedLanguage =[[NSUserDefaults standardUserDefaults] stringForKey:key_appLanguage];
-      NSDictionary *params  = [[NSDictionary alloc]initWithObjectsAndKeys:selectedLanguage, @"country", nil];
+    NSString* selectedLanguage =[[NSUserDefaults standardUserDefaults] stringForKey:key_appLanguage];
+    NSDictionary *params  = [[NSDictionary alloc]initWithObjectsAndKeys:selectedLanguage, @"country", nil];
+    __block BOOL isLoadDataList = false, isLoadSnapshotSettings = false;
     [request getPath:URL_getListLangRelWrkEth parameters:params success:^(__unused AFHTTPRequestOperation *operation, id JSON)
      {
          NSLog(@"Get data for list completed");
@@ -795,7 +799,9 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
              self.genderList = GenderList_vi;
          else
              self.genderList = GenderList;
-         if(completion != nil)
+         
+         isLoadDataList = true;
+         if(isLoadSnapshotSettings && completion != nil)
          {
              completion();
          }
@@ -803,8 +809,14 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
      {
          NSLog(@"URL_getListLangRelWrkEth - Error Code: %i - %@",[error code], [error localizedDescription]);
      }];
-
-
+    
+    [self.snapshotSettingsObj loadSettingUseCompletion:^(NSError *err) {
+        isLoadSnapshotSettings = true;
+        if (!err && isLoadDataList && completion)
+        {
+            completion();
+        }
+    }];
 }
 #pragma mark Notification
 -(int)countTotalNotifications

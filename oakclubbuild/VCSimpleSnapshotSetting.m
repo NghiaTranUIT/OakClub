@@ -72,6 +72,7 @@ UITapGestureRecognizer *tap;
     [super viewDidLoad];
 //    [self customBackButtonBarItem];
     [self initSliderForRange];
+    appDel = [self appDelegate];
     indicator = [[LoadingIndicator alloc] initWithMainView:self.view andDelegate:self];
     tap = [[UITapGestureRecognizer alloc]
            initWithTarget:self
@@ -79,11 +80,10 @@ UITapGestureRecognizer *tap;
     [tap setCancelsTouchesInView:NO];
     [self.tbView addGestureRecognizer:tap];
     
-    snapshotObj = [[SettingObject alloc] init];
+    snapshotObj = appDel.snapshotSettingsObj;
     [self initAgeRangeSlider];
     [self loadSetting];
 //    self.tbView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"bg.png"]];
-    appDel = [self appDelegate];
      [self showNotifications];
     
 }
@@ -661,44 +661,24 @@ UITapGestureRecognizer *tap;
         return value_FALSE;
 }
 
-- (void) loadSetting{
-    [indicator lockViewAndDisplayIndicator];
+- (void) loadSetting
+{
+    self.hereTo = [self loadHereTo:snapshotObj.purpose_of_search];
     
-    request = [[AFHTTPClient alloc] initWithOakClubAPI:DOMAIN];
-    [request getPath:URL_getSnapshotSetting parameters:nil success:^(__unused AFHTTPRequestOperation *operation, id JSON) {
-        NSError *e=nil;
-        NSMutableDictionary *dict = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONReadingMutableContainers error:&e];
-        NSMutableDictionary * data= [dict valueForKey:key_data];
-        snapshotObj.purpose_of_search = [data valueForKey:key_purpose_of_search];
-        self.hereTo = [self loadHereTo:snapshotObj.purpose_of_search];
-        snapshotObj.gender_of_search = [data valueForKey:key_gender_of_search];//[Profile parseGender:[data valueForKey:key_gender_of_search]];
-        
-        fromAge = [[data valueForKey:key_age_from] integerValue];
-        toAge= [[data valueForKey:key_age_to] integerValue];
-        self.ageSlider.max = (CGFloat) (toAge - MIN_AGE)/(MAX_AGE-MIN_AGE);
-        [self.ageSlider setMin:(CGFloat) (fromAge - MIN_AGE)/(MAX_AGE-MIN_AGE)];
-        NSMutableDictionary* status_interested_in = [data valueForKey:key_status_interested_in];
-        snapshotObj.interested_new_people = [[status_interested_in valueForKey:key_new_people] boolValue];
-        snapshotObj.interested_friend_of_friends = [[status_interested_in valueForKey:key_status_fof] boolValue];
-        snapshotObj.interested_friends = [[status_interested_in valueForKey:key_friends] boolValue];
-        
-        i_range = [[data valueForKey:key_range] integerValue];
-        
-        [self.rangeSlider setValue:i_range/100];
-        lblRange.text = [self getRangeValue:i_range];
-        
-        NSMutableDictionary *location = [data valueForKey:key_location];
-        snapshotObj.location = [[Location alloc] initWithNSDictionary:location];
-        
-        hasMale = [snapshotObj.gender_of_search isEqualToString:value_Male] || [snapshotObj.gender_of_search isEqualToString:value_All];
-        hasFemale = [snapshotObj.gender_of_search isEqualToString:value_Female] || [snapshotObj.gender_of_search isEqualToString:value_All];
-        
-        [self.tbView reloadData];
-        [indicator unlockViewAndStopIndicator];
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"URL_getSnapshotSetting - Error Code: %i - %@",[error code], [error localizedDescription]);
-        [indicator unlockViewAndStopIndicator];
-    }];
+    fromAge = snapshotObj.age_from;
+    toAge= snapshotObj.age_to;
+    self.ageSlider.max = (CGFloat) (toAge - MIN_AGE)/(MAX_AGE-MIN_AGE);
+    [self.ageSlider setMin:(CGFloat) (fromAge - MIN_AGE)/(MAX_AGE-MIN_AGE)];
+    
+    i_range = snapshotObj.range;
+    
+    [self.rangeSlider setValue:i_range/100];
+    lblRange.text = [self getRangeValue:i_range];
+    
+    hasMale = [snapshotObj.gender_of_search isEqualToString:value_Male] || [snapshotObj.gender_of_search isEqualToString:value_All];
+    hasFemale = [snapshotObj.gender_of_search isEqualToString:value_Female] || [snapshotObj.gender_of_search isEqualToString:value_All];
+    
+    [self.tbView reloadData];
 }
 
 -(void)saveSetting{
@@ -714,7 +694,6 @@ UITapGestureRecognizer *tap;
         return;
     }
     
-    request = [[AFHTTPClient alloc] initWithOakClubAPI:DOMAIN];
     NSString * s_isNewPeople= snapshotObj.interested_new_people?@"true":@"";
     NSString * s_isFOF= snapshotObj.interested_friend_of_friends?@"true":@"";
     NSString * s_isFriend= snapshotObj.interested_friends?@"true":@"";
@@ -753,8 +732,9 @@ UITapGestureRecognizer *tap;
                             nil];
 #endif
     [indicator lockViewAndDisplayIndicator];
-    
     NSLog(@"setSnapshot setting params : %@",params);
+    
+    request = [[AFHTTPClient alloc] initWithOakClubAPI:DOMAIN];
     [request setParameterEncoding:AFFormURLParameterEncoding];
     [request postPath:URL_setSnapshotSetting parameters:params success:^(__unused AFHTTPRequestOperation *operation, id JSON) {
         NSError *e=nil;
@@ -788,7 +768,7 @@ UITapGestureRecognizer *tap;
         
         [indicator unlockViewAndStopIndicator];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"URL_getSnapshotSetting - Error Code: %i - %@",[error code], [error localizedDescription]);
+        NSLog(@"URL_setSnapshotSetting - Error Code: %i - %@",[error code], [error localizedDescription]);
         [indicator unlockViewAndStopIndicator];
     }];
 #if ENABLE_DEMO

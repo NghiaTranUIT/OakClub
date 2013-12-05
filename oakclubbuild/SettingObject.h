@@ -23,14 +23,7 @@
     bool _interested_friends;
     bool _interested_friend_of_friends;
     
-    //    NSString* _location_id;
-    //    NSString* _location_name;
-    //
-    //    NSString* _country;
-    //    NSString* _country_code;
     Location* _location;
-    float _latitude;
-    float _longitude;
 }
 @property (strong, nonatomic) NSString* fb_id;
 @property (strong, nonatomic) NSString* purpose_of_search;
@@ -51,6 +44,6 @@
 //@property NSString* country;
 //@property NSString* country_code;
 @property (strong, nonatomic) Location* location;
-@property float latitude;
-@property float longitude;
+
+-(void)loadSettingUseCompletion:(void(^)(NSError *err))completion;
 @end

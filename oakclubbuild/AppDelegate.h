@@ -128,6 +128,7 @@ extern NSString *const SCSessionStateChangedNotification;
 @property (strong, nonatomic) NSMutableArray *appLCObservers;
 
 @property (strong, nonatomic) ImagePool *imagePool;
+@property (strong, nonatomic) SettingObject *snapshotSettingsObj;
 
 -(void)openSession;
 -(void)openSessionWithWebDialogWithhandler:(void(^)(FBSessionState))resultHandler;
