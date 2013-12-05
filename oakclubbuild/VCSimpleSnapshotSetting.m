@@ -380,7 +380,7 @@ UITapGestureRecognizer *tap;
             if (moreCell == nil)
             {
                 moreCell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:moreCellID];
-                UIView *newCellView= [[UIView alloc]initWithFrame:CGRectMake(0, 0, 320, 229)];
+                UIView *newCellView= [[UIView alloc]initWithFrame:CGRectMake(0, 0, 320, 300)];
                 
 //                UIButton* btnSave = [[UIButton alloc]initWithFrame:CGRectMake(25, 26, 291, 45)];
 //                [btnSave setBackgroundImage:[UIImage imageNamed:@"SnapshotSetting_btn_save_inactive"] forState:UIControlStateNormal];
@@ -420,7 +420,7 @@ UITapGestureRecognizer *tap;
                 
                 UIImage* logoImage = [UIImage imageNamed:@"SnapshotSetting_oakclub_logo.png"];
                 UIImageView* logoImageView = [[UIImageView alloc]initWithImage:logoImage];
-                [logoImageView setFrame:CGRectMake((newCellView.frame.size.width - 108)/2, 97, 108, 90)];
+                [logoImageView setFrame:CGRectMake((newCellView.frame.size.width - 108)/2, 97  , 108, 90)];
             
                 [newCellView addSubview:logoImageView];
                 

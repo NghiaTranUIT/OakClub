@@ -45,6 +45,7 @@ static CGFloat padding_left = 4.0;
     NSString* formatImageName=[[imageName stringByReplacingOccurrencesOfString:@" " withString:@""] lowercaseString];
     formatImageName=[formatImageName stringByReplacingOccurrencesOfString:@"!" withString:@""];
     iconMenu.image = [UIImage imageNamed:[NSString stringWithFormat:@"Menu_icon_%@.png",formatImageName]];
+    [_labelMenu setMinimumScaleFactor: 0.5];
     _labelMenu.text = label;
     iconMenu.highlightedImage = [UIImage imageNamed:[NSString stringWithFormat:@"Menu_icon_%@_pressed.png",formatImageName]];
     _labelMenu.highlightedTextColor = COLOR_PURPLE;
