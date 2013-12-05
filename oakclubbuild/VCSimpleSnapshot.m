@@ -623,7 +623,7 @@ CGFloat pageHeight;
     }
     [queueDict setObject:queue forKey:appDel.myProfile.s_ID];
     [[NSUserDefaults standardUserDefaults] setObject:queueDict forKey:@"snapshotQueueByProfileID"];
-    
+    [[NSUserDefaults standardUserDefaults] synchronize];
     NSString *value = [[NSUserDefaults standardUserDefaults] objectForKey:@"currentSnapShotID"];
     if ([answerChoice isEqualToString:@"1"]) {
 //        [self showMatchView];// DEBUG
@@ -645,6 +645,7 @@ CGFloat pageHeight;
         [queue removeObject:params];
         [queueDict setObject:queue forKey:appDel.myProfile.s_ID];
         [[NSUserDefaults standardUserDefaults] setObject:queueDict forKey:@"snapshotQueueByProfileID"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
         NSLog(@"post success !!!");
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
        NSLog(@"URL_setLikedSnapshot - Error Code: %i - %@",[error code], [error localizedDescription]);
