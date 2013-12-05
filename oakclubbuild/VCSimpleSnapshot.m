@@ -19,7 +19,7 @@
 #import "AppLifeCycleDelegate.h"
 #import "VCProfile.h"
 
-@interface VCSimpleSnapshot () <LocationUpdateDelegate, AppLifeCycleDelegate,APLMoveMeViewDelegate> {
+@interface VCSimpleSnapshot () <AppLifeCycleDelegate,APLMoveMeViewDelegate> {
     UIView *headerView;
     UILabel *lblHeaderName;
     UILabel *lblHeaderFreeNum;
@@ -76,6 +76,7 @@ CGFloat pageHeight;
         is_loadingProfileList = FALSE;
         NSURL *fileURL = [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"Snapshot_gps_loading.gif" ofType:nil]];
         loadingAnim = 	[AnimatedGif getAnimationForGifAtUrl: fileURL];
+        locUpdate = [[LocationUpdate alloc] init];
 //        [loadingAnim setHidden:YES];
     }
     return self;
@@ -89,10 +90,7 @@ CGFloat pageHeight;
     [self refreshSnapshot];
     
     isBlockedByGPS = NO;
-    locUpdate = [[LocationUpdate alloc] init];
-    locUpdate.delegate = self;
     [appDel.appLCObservers addObject:self];
-    [locUpdate update];
     
     [self loadHeaderLogo];
     [self formatAvatarToCircleView];
@@ -210,6 +208,29 @@ CGFloat pageHeight;
     
     [setLikedQueue waitUntilAllOperationsAreFinished];
     
+    VCSimpleSnapshot *self_alias = self;
+    [locUpdate updateWithCompletion:^(double longitude, double latitude, NSError *e) {
+        if (!e)
+        {
+            [locUpdate setUserLocationAtLongitude:longitude andLatitude:latitude useCallback:^(NSString *locationID, NSString *locationName, NSError *err)
+             {
+                 appDel.myProfile.s_location.longitude = longitude;
+                 appDel.myProfile.s_location.latitude = latitude;
+                 appDel.myProfile.s_location.ID = locationID;
+                 appDel.myProfile.s_location.name = locationName;
+                 
+                [self_alias loadSnapshotProfilesWithHandler:handler];
+            }];
+        }
+        else
+        {
+            [self loadSnapshotProfilesWithHandler:handler];
+        }
+    }];
+}
+
+-(void)loadSnapshotProfilesWithHandler:(void(^)(void))handler
+{
     request = [[AFHTTPClient alloc] initWithOakClubAPI:DOMAIN];
     NSDictionary *params = [[NSDictionary alloc]initWithObjectsAndKeys:@"0",@"start",@"10",@"limit",
                             appDel.snapshotSettingsObj.snapshotParams, @"search_preference", nil];
@@ -245,40 +266,6 @@ CGFloat pageHeight;
         [self showWarning];
     }];
     [operation start];
-//    [setLikedQueue addOperation:operation];
-    /*
-    request = [[AFHTTPClient alloc] initWithOakClubAPI:DOMAIN];
-    NSDictionary *params = [[NSDictionary alloc]initWithObjectsAndKeys:@"0",@"start",@"10",@"limit", nil];
-    [request getPath:URL_getSnapShot parameters:params success:^(__unused AFHTTPRequestOperation *operation, id JSON)
-    {
-        is_loadingProfileList = FALSE;
-        NSError *e=nil;
-        NSMutableDictionary *dict = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONReadingMutableContainers error:&e];
-        
-        int status= [[dict valueForKey:@"status"] integerValue];
-        NSArray *profiles = [dict valueForKey:key_data];
-        if (status == 0 || [profiles count] < 1)
-        {
-            [self showWarning];
-        }
-        else
-        {
-            for( id profileJSON in profiles)
-            {
-                Profile* profile = [[Profile alloc]init];
-                [profile parseGetSnapshotToProfile:profileJSON];
-                [profileList addObject:profile];
-            }
-            if(handler != nil)
-                handler();
-        }
-        
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"Get snapshot Error Code: %i - %@",[error code], [error localizedDescription]);
-        is_loadingProfileList = NO;
-        [self showWarning];
-    }];
-     */
 }
 
 -(void)loadNextProfileByCurrentIndex{
@@ -806,7 +793,7 @@ CGFloat pageHeight;
 //        [self startLoadingAnim];
 //    }
     
-    [locUpdate update];
+    [self refreshSnapshot];
 }
 
 -(BOOL)isContinueLoad

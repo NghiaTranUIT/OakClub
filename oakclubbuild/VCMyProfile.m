@@ -23,7 +23,7 @@
 #import <MediaPlayer/MediaPlayer.h>
 #import <AVFoundation/AVFoundation.h>
 
-@interface VCMyProfile () <PickPhotoFromGarellyDelegate, VideoPickerDelegate, UIAlertViewDelegate, ImageRequester, PhotoScrollViewDelegate, LocationUpdateDelegate, LoadingIndicatorDelegate>
+@interface VCMyProfile () <PickPhotoFromGarellyDelegate, VideoPickerDelegate, UIAlertViewDelegate, ImageRequester, PhotoScrollViewDelegate, LoadingIndicatorDelegate>
 {
     GroupButtons* genderGroup;
     AppDelegate *appDelegate;
@@ -90,7 +90,6 @@ UITapGestureRecognizer *tap;
     [pickerView setMaximumDate:[[NSDate alloc] init]];
     
     locUpdate = [[LocationUpdate alloc] init];
-    locUpdate.delegate = self;
     
     avatarPicker = [[PickPhotoFromGarelly alloc] initWithParentWindow:self andDelegate:self];
     videoPicker = [[VideoPicker alloc] initWithParentWindow:self andDelegate:self];
@@ -113,7 +112,7 @@ UITapGestureRecognizer *tap;
     
     self.nameLabel.text = profileObj.s_Name;
     self.age_workLabel.text = [NSString stringWithFormat:@"%d", profileObj.age];
-    self.locationLabel.text = [NSString stringWithFormat:@"%@, %@", profileObj.i_work.cate_name, profileObj.s_location.name];
+    self.locationLabel.text = [NSString stringWithFormat:@"%@, %@", profileObj.i_work.cate_name, appDelegate.myProfile.s_location.name];
     
     [self.imgAvatar setBackgroundImage:avatarImage forState:UIControlStateNormal];
     self.imgAvatar.contentMode = UIViewContentModeScaleAspectFit;
@@ -178,7 +177,7 @@ UITapGestureRecognizer *tap;
     if(profileObj.s_relationShip.rel_text.length == 0){
         [self updateProfileItemListAtIndex:@"" andIndex:RELATIONSHIP];
     }
-    [self updateProfileItemListAtIndex:profileObj.s_location.name andIndex:LOCATION];
+    [self updateProfileItemListAtIndex:appDelegate.myProfile.s_location.name andIndex:LOCATION];
     //[self updateProfileItemListAtIndex:profileObj.c_ethnicity.text andIndex:ETHNICITY];
     for (NSDictionary * object in appDelegate.ethnicityList) {
         if ([[object valueForKey:@"id"] integerValue] == profileObj.c_ethnicity.ID) {
@@ -681,8 +680,8 @@ UITapGestureRecognizer *tap;
             [self updateProfileItemListAtIndex:profileObj.s_relationShip.rel_text andIndex:RELATIONSHIP];
             break;
         case LISTTYPE_CITY:
-            profileObj.s_location = selected.s_location;
-            [self updateProfileItemListAtIndex:profileObj.s_location.name andIndex:LOCATION];
+            appDelegate.myProfile.s_location = selected.s_location;
+            [self updateProfileItemListAtIndex:appDelegate.myProfile.s_location.name andIndex:LOCATION];
             break;
         case LISTTYPE_GENDER:
             profileObj.s_gender = selected.s_gender;
@@ -855,7 +854,14 @@ UITapGestureRecognizer *tap;
             [self gotoEmail];
             break;
         case LOCATION:
-            [locUpdate update];
+        {
+            [locUpdate updateWithCompletion:^(double longitude, double latitude, NSError *e) {
+               if (!e)
+               {
+                   [self location:locUpdate updateSuccessWithLongitude:longitude andLatitude:latitude];
+               }
+            }];
+        }
             break;
         case WORK:
             [self gotoWorkSetting];
@@ -933,23 +939,16 @@ UITapGestureRecognizer *tap;
     }
 }
 
-#pragma mark CLLocation Delegate
-
--(void)location:(LocationUpdate *)location updateFailWithError:(NSError *)e
-{
-    
-}
-
 -(void)location:(LocationUpdate *)location updateSuccessWithLongitude:(double)longt andLatitude:(double)lati
 {
     [location setUserLocationAtLongitude:longt andLatitude:lati useCallback:^(NSString *locationID, NSString *locationName, NSError *err) {
         if (!err)
         {
-            profileObj.s_location.longitude = longt;
-            profileObj.s_location.latitude = lati;
-            profileObj.s_location.ID = locationID;
-            profileObj.s_location.name = locationName;
-            [self updateProfileItemListAtIndex:profileObj.s_location.name andIndex:LOCATION];
+            appDelegate.myProfile.s_location.longitude = longt;
+            appDelegate.myProfile.s_location.latitude = lati;
+            appDelegate.myProfile.s_location.ID = locationID;
+            appDelegate.myProfile.s_location.name = locationName;
+            [self updateProfileItemListAtIndex:appDelegate.myProfile.s_location.name andIndex:LOCATION];
             [self.tableView reloadData];
         }
     }];
