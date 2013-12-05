@@ -380,21 +380,21 @@ UITapGestureRecognizer *tap;
             if (moreCell == nil)
             {
                 moreCell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:moreCellID];
-                UIView *newCellView= [[UIView alloc]initWithFrame:CGRectMake(0, 0, 320, 300)];
+                UIView *newCellView= [[UIView alloc]initWithFrame:CGRectMake(0, 0, 320, 229)];
                 
-                UIButton* btnSave = [[UIButton alloc]initWithFrame:CGRectMake(25, 26, 291, 45)];
-                [btnSave setBackgroundImage:[UIImage imageNamed:@"SnapshotSetting_btn_save_inactive"] forState:UIControlStateNormal];
-                [btnSave setBackgroundImage:[UIImage imageNamed:@"SnapshotSetting_btn_save_active"] forState:UIControlStateHighlighted];
-                [btnSave setBackgroundImage:[UIImage imageNamed:@"SnapshotSetting_btn_save_active"] forState:UIControlStateSelected];
-                [btnSave setTitle:@"Save Your Settings" forState:UIControlStateNormal];
-                [btnSave setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-                [btnSave setTitleColor:COLOR_PURPLE forState:UIControlStateHighlighted];
-                [btnSave setTitleEdgeInsets:UIEdgeInsetsMake(0, 35, 0, 0)];
-                [btnSave.titleLabel setFont:FONT_HELVETICANEUE_LIGHT(15)];
-                [btnSave addTarget:self action:@selector(onTouchSaveSetting) forControlEvents:UIControlEventTouchUpInside];
-                [newCellView addSubview:btnSave];
+//                UIButton* btnSave = [[UIButton alloc]initWithFrame:CGRectMake(25, 26, 291, 45)];
+//                [btnSave setBackgroundImage:[UIImage imageNamed:@"SnapshotSetting_btn_save_inactive"] forState:UIControlStateNormal];
+//                [btnSave setBackgroundImage:[UIImage imageNamed:@"SnapshotSetting_btn_save_active"] forState:UIControlStateHighlighted];
+//                [btnSave setBackgroundImage:[UIImage imageNamed:@"SnapshotSetting_btn_save_active"] forState:UIControlStateSelected];
+//                [btnSave setTitle:@"Save Your Settings" forState:UIControlStateNormal];
+//                [btnSave setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+//                [btnSave setTitleColor:COLOR_PURPLE forState:UIControlStateHighlighted];
+//                [btnSave setTitleEdgeInsets:UIEdgeInsetsMake(0, 35, 0, 0)];
+//                [btnSave.titleLabel setFont:FONT_HELVETICANEUE_LIGHT(15)];
+//                [btnSave addTarget:self action:@selector(onTouchSaveSetting) forControlEvents:UIControlEventTouchUpInside];
+//                [newCellView addSubview:btnSave];
                 
-                UIButton* btnContactUs = [[UIButton alloc]initWithFrame:CGRectMake(25, 97, 143, 45)];
+                UIButton* btnContactUs = [[UIButton alloc]initWithFrame:CGRectMake(25, 26, 143, 45)];
                 [btnContactUs setBackgroundImage:[UIImage imageNamed:@"SnapshotSetting_btn_contactus_inactive"] forState:UIControlStateNormal];
                 [btnContactUs setBackgroundImage:[UIImage imageNamed:@"SnapshotSetting_btn_contactus_active"] forState:UIControlStateHighlighted];
                 [btnContactUs setBackgroundImage:[UIImage imageNamed:@"SnapshotSetting_btn_contactus_active"] forState:UIControlStateSelected];
@@ -406,7 +406,7 @@ UITapGestureRecognizer *tap;
                 [btnContactUs addTarget:self action:@selector(onTouchContactUs) forControlEvents:UIControlEventTouchUpInside];
                 [newCellView addSubview:btnContactUs];
                 
-                UIButton* btnLogout = [[UIButton alloc]initWithFrame:CGRectMake(172, 97, 143, 45)];
+                UIButton* btnLogout = [[UIButton alloc]initWithFrame:CGRectMake(172, 26, 143, 45)];
                 [btnLogout setBackgroundImage:[UIImage imageNamed:@"SnapshotSetting_btn_logout_active"] forState:UIControlStateNormal];
                 [btnLogout setBackgroundImage:[UIImage imageNamed:@"SnapshotSetting_btn_logout_inactive"] forState:UIControlStateHighlighted];
                 [btnLogout setBackgroundImage:[UIImage imageNamed:@"SnapshotSetting_btn_logout_inactive"] forState:UIControlStateSelected];
@@ -420,7 +420,7 @@ UITapGestureRecognizer *tap;
                 
                 UIImage* logoImage = [UIImage imageNamed:@"SnapshotSetting_oakclub_logo.png"];
                 UIImageView* logoImageView = [[UIImageView alloc]initWithImage:logoImage];
-                [logoImageView setFrame:CGRectMake((newCellView.frame.size.width - 108)/2, 168, 108, 90)];
+                [logoImageView setFrame:CGRectMake((newCellView.frame.size.width - 108)/2, 97, 108, 90)];
             
                 [newCellView addSubview:logoImageView];
                 
