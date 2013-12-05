@@ -28,6 +28,7 @@
 @property (strong, nonatomic) NSString* fb_id;
 @property (strong, nonatomic) NSString* purpose_of_search;
 @property (strong, nonatomic) NSString* gender_of_search;
+@property BOOL hasMale, hasFemale;
 
 @property int range;
 
@@ -46,4 +47,5 @@
 @property (strong, nonatomic) Location* location;
 
 -(void)loadSettingUseCompletion:(void(^)(NSError *err))completion;
+-(NSDictionary *)snapshotParams;
 @end
