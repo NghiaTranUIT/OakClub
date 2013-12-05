@@ -25,11 +25,6 @@
 @interface VCSimpleSnapshotSetting () <LoadingIndicatorDelegate, MFMailComposeViewControllerDelegate>{
     SettingObject* snapshotObj;
     AFHTTPClient *request;
-    int fromAge;
-    int toAge;
-    BOOL hasMale;
-    BOOL hasFemale;
-    int i_range;
     NSArray *ageOptions;
     UIPickerView* picker;
     bool isPickerShowing;
@@ -254,7 +249,7 @@ UITapGestureRecognizer *tap;
             }
             break;
         case AgeGroup:
-//            cell.detailTextLabel.text = [NSString stringWithFormat:@"%d-%d %@",fromAge,toAge,[NSString localizeString:@"year old"]];
+//            cell.detailTextLabel.text = [NSString stringWithFormat:@"%d-%d %@",snapshotObj.age_from,snapshotObj.age_to,[NSString localizeString:@"year old"]];
 //            cell.textLabel.text = @"Age around";
         {
             static NSString *rangeAgeCellID = @"RangeAgeCell";
@@ -275,7 +270,7 @@ UITapGestureRecognizer *tap;
                 [rangeAgeCell setSelectionStyle:UITableViewCellSelectionStyleNone];
                 rangeAgeCell.accessoryView = newCellView;
             }
-            [lblRangeOfAge setText: [NSString stringWithFormat: @"%d %@ %d %@",fromAge,[@"to" localize],toAge,[@"years old" localize]]];
+            [lblRangeOfAge setText: [NSString stringWithFormat: @"%d %@ %d %@",snapshotObj.age_from,[@"to" localize],snapshotObj.age_to,[@"years old" localize]]];
             [rangeAgeCell localizeAllViews];
             return rangeAgeCell;
             break;
@@ -301,7 +296,7 @@ UITapGestureRecognizer *tap;
                     }
                     
                     UISwitch *autoSwitch = (id) [filterGuysCell viewWithTag:100];
-                    autoSwitch.on = hasMale;
+                    autoSwitch.on = snapshotObj.hasMale;
                     
                     filterGuysCell.textLabel.text = [NSString localizeString:@"Male"];
                     [filterGuysCell localizeAllViews];
@@ -327,7 +322,7 @@ UITapGestureRecognizer *tap;
                     }
                     
                     UISwitch *autoSwitch = (id) [filterGirlsCell viewWithTag:101];
-                    autoSwitch.on = hasFemale;
+                    autoSwitch.on = snapshotObj.hasFemale;
                     
                     filterGirlsCell.textLabel.text = [NSString localizeString:@"Female"];
                     [filterGirlsCell localizeAllViews];
@@ -355,7 +350,7 @@ UITapGestureRecognizer *tap;
                 [rangeCell setSelectionStyle:UITableViewCellSelectionStyleNone];
                 rangeCell.accessoryView = newCellView;
             }
-            lblRange.text = [self getRangeValue:i_range];
+            lblRange.text = [self getRangeValue:snapshotObj.range];
             [rangeCell localizeAllViews];
             return rangeCell;
             break;
@@ -527,20 +522,28 @@ UITapGestureRecognizer *tap;
 //            }
 //            break;
         case HereToGroup:
+        {
             self.hereTo = row;
+            NSString *newPurpose;
             switch (row) {
                 case 0:
-                    snapshotObj.purpose_of_search = value_Date;
+                    newPurpose = value_Date;
                     break;
                 case 1:
-                    snapshotObj.purpose_of_search = value_MakeFriend;
+                    newPurpose = value_MakeFriend;
                     break;
                 case 2:
-                    snapshotObj.purpose_of_search = value_Chat;
+                    newPurpose = value_Chat;
                     break;
                 default:
                     break;
             }
+            if (![newPurpose isEqualToString:snapshotObj.purpose_of_search])
+            {
+                snapshotObj.purpose_of_search = newPurpose;
+                appDel.reloadSnapshot = YES;
+            }
+        }
             break;
         case ShowMeGroup:
 //            if(row == 0){
@@ -552,66 +555,28 @@ UITapGestureRecognizer *tap;
 //            if(row == 2){
 //                snapshotObj.interested_friends = !snapshotObj.interested_friends;
 //            }
-            if(row == 0){
+            if(row == 0 && !snapshotObj.interested_new_people){
                 snapshotObj.interested_new_people = YES;
                 snapshotObj.interested_friend_of_friends = NO;
                 snapshotObj.interested_friends = NO;
+                appDel.reloadSnapshot = YES;
             }
-            if(row == 1){
+            if(row == 1 && !snapshotObj.interested_friend_of_friends){
                 snapshotObj.interested_new_people = NO;
                 snapshotObj.interested_friend_of_friends = YES;
                 snapshotObj.interested_friends = NO;
+                appDel.reloadSnapshot = YES;
             }
-            if(row == 2){
+            if(row == 2 && !snapshotObj.interested_friends){
                 snapshotObj.interested_new_people = NO;
                 snapshotObj.interested_friend_of_friends = NO;
                 snapshotObj.interested_friends = YES;
+                appDel.reloadSnapshot = YES;
             }
 
             break;
         case GenderSearchGroup:
-//            if(row == 0){
-//                if(cell.accessoryType == UITableViewCellAccessoryCheckmark){
-//                    if([snapshotObj.gender_of_search isEqualToString:value_Male])
-//                        snapshotObj.gender_of_search = @"none";
-//                    else
-//                        snapshotObj.gender_of_search = value_Female;
-//                }
-//                else{
-//                    if([snapshotObj.gender_of_search isEqualToString:value_Female])
-//                        snapshotObj.gender_of_search =value_All;
-//                    else
-//                        snapshotObj.gender_of_search = value_Male;
-//                }
-//                
-//            }
-//            if(row == 1){
-//                if(cell.accessoryType == UITableViewCellAccessoryCheckmark){
-//                    if([snapshotObj.gender_of_search isEqualToString:value_Female])
-//                        snapshotObj.gender_of_search = @"none";
-//                    else
-//                        snapshotObj.gender_of_search = value_Male;
-//                }
-//                else{
-//                    if([snapshotObj.gender_of_search isEqualToString:value_Male])
-//                        snapshotObj.gender_of_search =value_All;
-//                    else
-//                        snapshotObj.gender_of_search = value_Female;
-//                }
-//            }
-            if (row == 0)   //male
-            {
-                snapshotObj.gender_of_search = value_Male;
-                hasMale = YES;
-                hasFemale = NO;
-            }
-            else if (row == 1) // female
-            {
-                snapshotObj.gender_of_search = value_Female;
-                hasMale = NO;
-                hasFemale = YES;
-            }
-            
+            // do nothing
             break;
     }
     [self.tbView reloadData];
@@ -665,24 +630,17 @@ UITapGestureRecognizer *tap;
 {
     self.hereTo = [self loadHereTo:snapshotObj.purpose_of_search];
     
-    fromAge = snapshotObj.age_from;
-    toAge= snapshotObj.age_to;
-    self.ageSlider.max = (CGFloat) (toAge - MIN_AGE)/(MAX_AGE-MIN_AGE);
-    [self.ageSlider setMin:(CGFloat) (fromAge - MIN_AGE)/(MAX_AGE-MIN_AGE)];
+    self.ageSlider.max = (CGFloat) (snapshotObj.age_to - MIN_AGE)/(MAX_AGE-MIN_AGE);
+    [self.ageSlider setMin:(CGFloat) (snapshotObj.age_from - MIN_AGE)/(MAX_AGE-MIN_AGE)];
     
-    i_range = snapshotObj.range;
-    
-    [self.rangeSlider setValue:i_range/100];
-    lblRange.text = [self getRangeValue:i_range];
-    
-    hasMale = [snapshotObj.gender_of_search isEqualToString:value_Male] || [snapshotObj.gender_of_search isEqualToString:value_All];
-    hasFemale = [snapshotObj.gender_of_search isEqualToString:value_Female] || [snapshotObj.gender_of_search isEqualToString:value_All];
+    [self.rangeSlider setValue:snapshotObj.range/100];
+    lblRange.text = [self getRangeValue:snapshotObj.range];
     
     [self.tbView reloadData];
 }
 
 -(void)saveSetting{
-    if(fromAge > toAge){
+    if(snapshotObj.age_from > snapshotObj.age_to){
         UIAlertView *alert = [[UIAlertView alloc]
                               initWithTitle:[@"Warning" localize]
                               message:@"From age must be smaller than to age"
@@ -698,16 +656,16 @@ UITapGestureRecognizer *tap;
     NSString * s_isFOF= snapshotObj.interested_friend_of_friends?@"true":@"";
     NSString * s_isFriend= snapshotObj.interested_friends?@"true":@"";
     NSString *s_hereto = snapshotObj.purpose_of_search;
-    NSString *isMale = hasMale?@"on":@"";
-    NSString *isFemale = hasFemale?@"on":@"";
+    NSString *isMale = snapshotObj.hasMale?@"on":@"";
+    NSString *isFemale = snapshotObj.hasFemale?@"on":@"";
 #if ENABLE_DEMO
     NSDictionary *params = [[NSDictionary alloc]initWithObjectsAndKeys:
                             s_hereto,@"purpose_of_search",
                             isFemale,@"filter_female",
                             isMale,@"filter_male",
-                            [NSNumber numberWithInt:i_range],@"range",
-                            [NSNumber numberWithInt:fromAge],@"age_from",
-                            [NSNumber numberWithInt:toAge],@"age_to",
+                            [NSNumber numberWithInt:snapshotObj.range],@"range",
+                            [NSNumber numberWithInt:snapshotObj.age_from],@"age_from",
+                            [NSNumber numberWithInt:snapshotObj.age_to],@"age_to",
                             s_isNewPeople,@"new_people",
                             s_isFOF,@"fof",
                             s_isFriend,@"friends",
@@ -716,9 +674,9 @@ UITapGestureRecognizer *tap;
     NSDictionary *params = [[NSDictionary alloc]initWithObjectsAndKeys:
                             s_hereto,key_purpose_of_search, //
                             s_gender,key_gender_of_search,  //
-                            [NSString stringWithFormat:@"%i",i_range],key_range,    //
-                            [NSString stringWithFormat:@"%i",fromAge], key_age_from,    //
-                            [NSString stringWithFormat:@"%i",toAge], key_age_to,    //
+                            [NSString stringWithFormat:@"%i",snapshotObj.range],key_range,    //
+                            [NSString stringWithFormat:@"%i",snapshotObj.age_from], key_age_from,    //
+                            [NSString stringWithFormat:@"%i",snapshotObj.age_to], key_age_to,    //
                             s_isNewPeople,key_new_people_status,//
                             s_isFOF,key_FOF_status, //
                             snapshotObj.location.ID,key_locationID, //
@@ -792,8 +750,8 @@ UITapGestureRecognizer *tap;
     }
     ageOptions =  ages;
     [picker reloadAllComponents];
-    [picker selectRow:(fromAge - 16) inComponent:0 animated:NO];
-    [picker selectRow:(toAge - 16) inComponent:1 animated:NO];
+    [picker selectRow:(snapshotObj.age_from - 16) inComponent:0 animated:NO];
+    [picker selectRow:(snapshotObj.age_to - 16) inComponent:1 animated:NO];
 }
 - (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
     return 2;
@@ -817,12 +775,12 @@ UITapGestureRecognizer *tap;
     
     NSLog(@" select age is %@ OF COMPONENT %d",[ageOptions objectAtIndex:row],component);
     if(component == 0)
-        fromAge = [[ageOptions objectAtIndex:row] integerValue];
+        snapshotObj.age_from = [[ageOptions objectAtIndex:row] integerValue];
     else
-        toAge = [[ageOptions objectAtIndex:row] integerValue];
+        snapshotObj.age_to = [[ageOptions objectAtIndex:row] integerValue];
     //    [self.tbView reloadSections:[[NSIndexPath alloc] initWithIndex:2] withRowAnimation:UITableViewRowAnimationAutomatic];
     [self.tbView reloadData];
-    //    [btnAgeAround setTitle:[NSString stringWithFormat:@"%d-%d year old",fromAge,toAge] forState:UIControlStateNormal];
+    //    [btnAgeAround setTitle:[NSString stringWithFormat:@"%d-%d year old",snapshotObj.age_from,snapshotObj.age_to] forState:UIControlStateNormal];
     
 }
 
@@ -888,11 +846,14 @@ UITapGestureRecognizer *tap;
     double value = self.rangeSlider.value;
     int intValue = round(value);
     [self.rangeSlider setValue:intValue];
-    snapshotObj.range = intValue * 100;
-    i_range = snapshotObj.range;
-    NSString* sRange = [self getRangeValue:snapshotObj.range];
-//    self.rangeSlider.popover.textLabel.text = sRange;
-    lblRange.text = sRange;
+    if (snapshotObj.range != intValue)
+    {
+        snapshotObj.range = intValue * 100;
+        NSString* sRange = [self getRangeValue:snapshotObj.range];
+        lblRange.text = sRange;
+        
+        appDel.reloadSnapshot = YES;
+    }
 }
 
 -(NSString*)getRangeValue:(NSUInteger)value
@@ -997,19 +958,26 @@ UITapGestureRecognizer *tap;
     switch (tag) {
         case 100:
         {
-            hasMale = [sender isOn];
-            hasFemale = !hasMale;
+            if ([sender isOn] != snapshotObj.hasMale)
+            {
+                snapshotObj.hasMale = [sender isOn];
+                appDel.reloadSnapshot = YES;
+            }
             break;
         }
         case 101:
         {
-            hasFemale = [sender isOn];
-            hasMale = !hasFemale;
+            if ([sender isOn] != snapshotObj.hasFemale)
+            {
+                snapshotObj.hasFemale = [sender isOn];
+                appDel.reloadSnapshot = YES;
+            }
             break;
         }
         default:
             break;
     }
+    
     [self.tbView reloadData];
 }
 
@@ -1032,21 +1000,29 @@ UITapGestureRecognizer *tap;
     
 	
 	[self.ageSlider addTarget:self action:@selector(report:) forControlEvents:UIControlEventValueChanged]; // The slider sends actions when the value of the minimum or maximum changes
-	[self.ageSlider addTarget:self action:@selector(touchDownOnSlider:) forControlEvents:UIControlEventTouchDown ];
-    [self.ageSlider addTarget:self action:@selector(touchUpOnSlider:) forControlEvents:UIControlEventTouchUpInside ];
-    fromAge = 18;
-    toAge = 45;
-    [lblRangeOfAge setText: [NSString stringWithFormat: @"%d %@ %d %@",fromAge,[@"to" localize],toAge,[@"years old" localize]]];
-    self.ageSlider.max = (CGFloat) (toAge - MIN_AGE)/(MAX_AGE-MIN_AGE);
-    [self.ageSlider setMin:(CGFloat) (fromAge - MIN_AGE)/(MAX_AGE-MIN_AGE)];
+	[self.ageSlider addTarget:self action:@selector(touchDownOnSlider:) forControlEvents:UIControlEventTouchDown];
+    [self.ageSlider addTarget:self action:@selector(touchUpOnSlider:) forControlEvents:UIControlEventTouchUpInside];
+//    snapshotObj.age_from = 18;
+//    snapshotObj.age_to = 45;
+    [lblRangeOfAge setText: [NSString stringWithFormat: @"%d %@ %d %@",snapshotObj.age_from,[@"to" localize],snapshotObj.age_to,[@"years old" localize]]];
+    self.ageSlider.max = (CGFloat) (snapshotObj.age_to - MIN_AGE)/(MAX_AGE-MIN_AGE);
+    [self.ageSlider setMin:(CGFloat) (snapshotObj.age_from - MIN_AGE)/(MAX_AGE-MIN_AGE)];
 }
 
 - (void)report:(RangeSlider *)sender {
 //	NSString *report = [NSString stringWithFormat:@"current slider range is %f to %f", sender.min, sender.max];
 //	reportLabel.text = report;
+    int fromAge, toAge;
     fromAge = MIN_AGE + (sender.min * (MAX_AGE - MIN_AGE));
     toAge = MIN_AGE + (sender.max * (MAX_AGE - MIN_AGE));
-    [lblRangeOfAge setText: [NSString stringWithFormat: @"%d %@ %d %@",fromAge,[@"to" localize],toAge,[@"years old" localize]]];
+    if (fromAge != snapshotObj.age_from || toAge != snapshotObj.age_to)
+    {
+        snapshotObj.age_from = fromAge;
+        snapshotObj.age_to = toAge;
+        
+        appDel.reloadSnapshot = YES;
+    }
+    [lblRangeOfAge setText: [NSString stringWithFormat: @"%d %@ %d %@",snapshotObj.age_from,[@"to" localize],snapshotObj.age_to,[@"years old" localize]]];
 //	NSLog(@"%@",report);
     
 }
