@@ -20,11 +20,12 @@
 @property (weak, nonatomic) IBOutlet UIImageView *imgiDisable;
 @property (weak, nonatomic) IBOutlet UIImageView *imgLIKEDisable;
 @property (weak, nonatomic) IBOutlet UILabel *lblContentAlert;
+@property (weak, nonatomic) IBOutlet UIImageView *imgAvatar;
 
 @end
 
 @implementation VCSimpleSnapshotLoading
-@synthesize lblContentAlert, imgiDisable, imgLIKEDisable, imgLoading,imgNOPEDisable,btnContentAlert;
+@synthesize lblContentAlert, imgiDisable, imgLIKEDisable, imgLoading,imgNOPEDisable,btnContentAlert,imgAvatar;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -99,8 +100,11 @@
         [self.navigationController popViewControllerAnimated:NO];
     }
     [self setNotifications:[appdel countTotalNotifications]];
-
+    
     [self.view localizeAllViews];
+    
+    //load avatar
+    [imgAvatar setImage:appdel.myProfile.img_Avatar];
 }
 
 -(void)viewDidDisappear:(BOOL)animated{
@@ -120,7 +124,7 @@
         }
     }
     if(imgAnim != nil){
-        [imgAnim setFrame:CGRectMake(48, 35, imgAnim.frame.size.width, imgAnim.frame.size.height)];
+        [imgAnim setFrame:CGRectMake(9, 25, imgAnim.frame.size.width, imgAnim.frame.size.height)];
         [self.view  addSubview:imgAnim];
     }
     [self loadViewbyType];
@@ -135,9 +139,11 @@
     switch (typeOfAlert) {
         case 0:
         {
-            [self.view addSubview:imgNOPEDisable];
-            [self.view addSubview:imgLIKEDisable];
-            [self.view addSubview:imgiDisable];
+//            [self.view addSubview:imgNOPEDisable];
+//            [self.view addSubview:imgLIKEDisable];
+//            [self.view addSubview:imgiDisable];
+            [self.view addSubview:imgAvatar];
+            [self.view sendSubviewToBack:imgAvatar];
             [btnContentAlert setHidden:YES];
             [lblContentAlert setText:[@"Finding nearby people ..." localize]];
             break;
@@ -152,9 +158,9 @@
         }
         case 2:
         {
-            [self.view addSubview:imgNOPEDisable];
-            [self.view addSubview:imgLIKEDisable];
-            [self.view addSubview:imgiDisable];
+//            [self.view addSubview:imgNOPEDisable];
+//            [self.view addSubview:imgLIKEDisable];
+//            [self.view addSubview:imgiDisable];
             [imgLoading setImage:[UIImage imageNamed:@"SnapshotLoading_graymap_loaded.png"]];
             [self.view addSubview:imgLoading];
             [btnContentAlert setHidden:YES];
