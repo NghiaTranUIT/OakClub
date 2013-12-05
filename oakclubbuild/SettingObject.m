@@ -34,8 +34,6 @@
             NSMutableDictionary *location = [data valueForKey:key_location];
             self.location = [[Location alloc] initWithNSDictionary:location];
             
-            self.gender_of_search = self.gender_of_search;
-            
             if (completion)
             {
                 completion(nil);
@@ -52,5 +50,54 @@
             completion(error);
         }
     }];
+}
+
+-(NSDictionary *)snapshotParams
+{
+    return [[NSDictionary alloc] initWithObjectsAndKeys:
+            [NSNumber numberWithInteger:self.age_from], @"age_from",
+            [NSNumber numberWithInteger:self.age_to], @"age_to",
+            [self.gender_of_search isEqualToString:value_Male]?@"on":@"", @"filter_male",
+            [self.gender_of_search isEqualToString:value_Female]?@"on":@"", @"filter_female",
+            (self.interested_new_people)?@"true":@"", @"new_people",
+            (self.interested_friends)?@"true":@"", @"friends",
+            (self.interested_friend_of_friends)?@"true":@"", @"fof",
+            self.purpose_of_search, @"purpose_of_search",
+            [NSNumber numberWithInteger:self.range], @"range",
+            nil];
+}
+
+-(BOOL)hasMale
+{
+    return [self.gender_of_search isEqualToString:value_Male];
+}
+
+-(void)setHasMale:(BOOL)hasMale
+{
+    if (hasMale)
+    {
+        self.gender_of_search = value_Male;
+    }
+    else
+    {
+        self.gender_of_search = value_Female;
+    }
+}
+
+-(BOOL)hasFemale
+{
+    return [self.gender_of_search isEqualToString:value_Female];
+}
+
+-(void)setHasFemale:(BOOL)hasFemale
+{
+    if (hasFemale)
+    {
+        self.gender_of_search = value_Female;
+    }
+    else
+    {
+        self.gender_of_search = value_Male;
+    }
 }
 @end

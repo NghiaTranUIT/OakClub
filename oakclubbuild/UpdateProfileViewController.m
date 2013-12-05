@@ -21,7 +21,7 @@ enum UpdateProfileItems {
     };
 
 #define nItems 5
-@interface UpdateProfileViewController () <UITableViewDataSource, UITableViewDelegate, EditTextViewDelegate, ListForChooseDelegate, UIViewControllerBirthdayPickerDelegate, ImageRequester, LoadingIndicatorDelegate, LocationUpdateDelegate>
+@interface UpdateProfileViewController () <UITableViewDataSource, UITableViewDelegate, EditTextViewDelegate, ListForChooseDelegate, UIViewControllerBirthdayPickerDelegate, ImageRequester, LoadingIndicatorDelegate>
 {
     NSArray *updateProfileCellTitles;
     Profile *copyProfile;
@@ -47,7 +47,6 @@ enum UpdateProfileItems {
         updateProfileCellTitles = [[NSArray alloc] initWithArray:UpdateProfileItemList];
         appDelegate = (id) [UIApplication sharedApplication].delegate;
         locUpdater = [[LocationUpdate alloc] init];
-        [locUpdater setDelegate:self];
     }
     return self;
 }

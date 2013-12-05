@@ -15,11 +15,12 @@
     CLLocationManager *locationManager;
     
     BOOL isUpdated;
+    
+    NSMutableArray *callbacks;
 }
 @end
 
 @implementation LocationUpdate
-@synthesize delegate;
 
 -(id) init
 {
@@ -30,27 +31,39 @@
         locationManager.desiredAccuracy = kCLLocationAccuracyBest;
         
         isUpdated = YES;
+        
+        callbacks = [[NSMutableArray alloc] init];
     }
     
     return self;
 }
 
--(void)update
+-(void)updateWithCompletion:(void (^)(double longi, double lati, NSError *e))completion
 {
     [locationManager startUpdatingLocation];
     isUpdated = NO;
+    
+    [callbacks addObject:completion];
 }
 
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
 {
-    NSLog(@"didFailWithError: %@", error);
+    if (isUpdated)
+    {
+        return;
+    }
+    
+    NSLog(@"update location didFailWithError: %@", error);
     [manager stopUpdatingLocation];
     isUpdated = YES;
     
-    if (delegate)
+    for (int i = 0; i < callbacks.count; ++i)
     {
-        [delegate location:self updateFailWithError:error];
+        void (^callback)(double longi, double lati, NSError *e) = [callbacks objectAtIndex:i];
+        callback(0, 0, error);
     }
+    
+    [callbacks removeAllObjects];
 }
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation
@@ -62,13 +75,18 @@
     
     NSLog(@"didUpdateToLocation: %@", newLocation);
     isUpdated = YES;
-    if (delegate)
-    {
-        [delegate location:self updateSuccessWithLongitude:newLocation.coordinate.longitude andLatitude:newLocation.coordinate.latitude];
-    }
     
     // Stop Location Manager
     [manager stopUpdatingLocation];
+    
+    
+    for (int i = 0; i < callbacks.count; ++i)
+    {
+        void (^callback)(double longi, double lati, NSError *e) = [callbacks objectAtIndex:i];
+        callback(newLocation.coordinate.longitude, newLocation.coordinate.latitude, nil);
+    }
+    
+    [callbacks removeAllObjects];
     
 }
 
