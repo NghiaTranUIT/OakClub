@@ -70,7 +70,6 @@
     bool is_deleted;
     bool is_blocked;
     bool is_available;
-    bool is_match;
     
     int status;// status is chat list: 0 - NewMatch, 1-MatchViewed, 2-NewChat, 3-ChatViewed
     int unread_message;
@@ -126,7 +125,7 @@
 @property (assign, nonatomic) bool is_deleted;
 @property (assign, nonatomic) bool is_blocked;
 @property (assign, nonatomic) bool is_available;
-@property (assign, nonatomic) bool is_match;
+@property (readonly, nonatomic) bool is_match;
 @property int status;
 @property int unread_message;
 @property int num_Liked;

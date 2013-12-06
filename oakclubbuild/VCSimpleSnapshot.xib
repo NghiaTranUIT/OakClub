@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="4510" systemVersion="12F37" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="4510" systemVersion="12F45" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
     <dependencies>
         <deployment defaultVersion="1280" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3742"/>
@@ -319,7 +319,15 @@
                         <rect key="frame" x="32" y="104" width="113" height="113"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     </imageView>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Snapshot_avatar_match_bound.png" id="dJB-hU-cq0" userLabel="Image View - avatar border.png">
+                        <rect key="frame" x="32" y="104" width="113" height="113"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    </imageView>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Default Avatar.png" id="5Tc-Vx-ANn">
+                        <rect key="frame" x="176" y="104" width="113" height="113"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    </imageView>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Snapshot_avatar_match_bound.png" id="jmw-RA-tje" userLabel="Image View - avatar border.png">
                         <rect key="frame" x="176" y="104" width="113" height="113"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     </imageView>
@@ -345,6 +353,8 @@
                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                         </state>
+                        <state key="selected" backgroundImage="Snapshot_btnSendMessage_pressed.png"/>
+                        <state key="highlighted" backgroundImage="Snapshot_btnSendMessage_pressed.png"/>
                         <connections>
                             <action selector="onClickSendMessageToMatcher:" destination="-1" eventType="touchUpInside" id="Ee0-2B-ROs"/>
                         </connections>
@@ -357,6 +367,8 @@
                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                         </state>
+                        <state key="selected" backgroundImage="Snapshot_btn_KeepPlaying_pressed.png"/>
+                        <state key="highlighted" backgroundImage="Snapshot_btn_KeepPlaying_pressed.png"/>
                         <connections>
                             <action selector="dismissMatchView:" destination="-1" eventType="touchUpInside" id="v6R-X1-tud"/>
                         </connections>
@@ -510,9 +522,12 @@
     </objects>
     <resources>
         <image name="Default Avatar.png" width="255" height="255"/>
+        <image name="Snapshot_avatar_match_bound.png" width="123" height="130"/>
         <image name="Snapshot_bg_profiles.png" width="289" height="314"/>
         <image name="Snapshot_btnSendMessage.png" width="154" height="34"/>
+        <image name="Snapshot_btnSendMessage_pressed.png" width="154" height="34"/>
         <image name="Snapshot_btn_KeepPlaying.png" width="154" height="34"/>
+        <image name="Snapshot_btn_KeepPlaying_pressed.png" width="154" height="34"/>
         <image name="Snapshot_btn_info.png" width="45" height="53"/>
         <image name="Snapshot_btn_info_pressed.png" width="45" height="53"/>
         <image name="Snapshot_btn_no.png" width="81" height="83"/>
@@ -531,7 +546,7 @@
         <image name="Snapshot_popup_no_pressed.png" width="95" height="38"/>
         <image name="Snapshot_shareInterest_icon.png" width="16" height="14"/>
         <image name="Snapshot_top_polaroid.png" width="265" height="307"/>
-        <image name="Snapshot_transBG.png" width="320" height="480"/>
+        <image name="Snapshot_transBG.png" width="320" height="460"/>
         <image name="viewprofile_Bar_BG.png" width="320" height="25"/>
         <image name="viewprofile_done.png" width="58" height="34"/>
         <image name="viewprofile_like.png" width="52" height="34"/>
