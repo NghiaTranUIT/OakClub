@@ -20,11 +20,12 @@
 @property (weak, nonatomic) IBOutlet UIImageView *imgiDisable;
 @property (weak, nonatomic) IBOutlet UIImageView *imgLIKEDisable;
 @property (weak, nonatomic) IBOutlet UILabel *lblContentAlert;
+@property (weak, nonatomic) IBOutlet UIImageView *imgAvatar;
 
 @end
 
 @implementation VCSimpleSnapshotLoading
-@synthesize lblContentAlert, imgiDisable, imgLIKEDisable, imgLoading,imgNOPEDisable,btnContentAlert;
+@synthesize lblContentAlert, imgiDisable, imgLIKEDisable, imgLoading,imgNOPEDisable,btnContentAlert,imgAvatar;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -50,9 +51,10 @@
 -(void)customBackButtonBarItem{
     UIView* leftItemView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 80, 44)];
     UIButton* buttonBack = [UIButton buttonWithType:UIButtonTypeCustom];
-    buttonBack.frame = CGRectMake(IS_OS_7_OR_LATER?-5:5, 8, 40, 30);
+    buttonBack.frame = CGRectMake(IS_OS_7_OR_LATER?-10:0, 0, 44, 44);
     [buttonBack addTarget:self action:nil forControlEvents:UIControlEventTouchUpInside];
     [buttonBack setBackgroundImage:[UIImage imageNamed:@"Navbar_btn_menu.png"] forState:UIControlStateNormal];
+    [buttonBack setBackgroundImage:[UIImage imageNamed:@"Navbar_btn_menu_pressed.png"] forState:UIControlStateHighlighted];
     [buttonBack addTarget:self action:@selector(menuPressed:) forControlEvents:UIControlEventTouchUpInside];
     [buttonBack addTarget:self action:@selector(onTouchDownControllButton:) forControlEvents:UIControlEventTouchDown];
     [leftItemView addSubview:buttonBack];
@@ -61,9 +63,10 @@
     
     UIView* rightItemView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 80, 44)];
     UIButton* buttonChat = [UIButton buttonWithType:UIButtonTypeCustom];
-    buttonChat.frame = CGRectMake(IS_OS_7_OR_LATER?41:31, 8, 45, 30);
+    buttonChat.frame = CGRectMake(IS_OS_7_OR_LATER?40:36, 0, 44, 44);
     [buttonChat addTarget:self action:nil forControlEvents:UIControlEventTouchUpInside];
-    [buttonChat setBackgroundImage:[UIImage imageNamed:@"Navbar_btn_chat_up.png"] forState:UIControlStateNormal];
+    [buttonChat setBackgroundImage:[UIImage imageNamed:@"Navbar_btn_chat.png"] forState:UIControlStateNormal];
+    [buttonChat setBackgroundImage:[UIImage imageNamed:@"Navbar_btn_chat_pressed.png"] forState:UIControlStateHighlighted];
     [buttonChat addTarget:self action:@selector(rightItemPressed:) forControlEvents:UIControlEventTouchUpInside];
     [buttonChat addTarget:self action:@selector(onTouchDownControllButton:) forControlEvents:UIControlEventTouchDown];
     [rightItemView addSubview:buttonChat];
@@ -72,15 +75,15 @@
    
     AppDelegate* appdel = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     if([appdel countTotalNotifications] > 0){
-        UILabel* lblNumNotification = [[UILabel alloc]initWithFrame:CGRectMake(IS_OS_7_OR_LATER?23:13, 2, 30, 21)];
-        [lblNumNotification setFont:FONT_HELVETICANEUE_LIGHT(14)];
+        UILabel* lblNumNotification = [[UILabel alloc]initWithFrame:CGRectMake(IS_OS_7_OR_LATER?47:30,6, 20, 20)];
+        [lblNumNotification setFont:FONT_HELVETICANEUE_LIGHT(10)];
         [lblNumNotification setTextColor:[UIColor whiteColor]];
         [lblNumNotification setBackgroundColor:[UIColor clearColor]];
         [lblNumNotification setTextAlignment:NSTextAlignmentCenter];
-        UIImageView* imgViewNotification = [[UIImageView alloc]initWithFrame:CGRectMake(IS_OS_7_OR_LATER?23:13, 3, 31, 20)];
+        UIImageView* imgViewNotification = [[UIImageView alloc]initWithFrame:lblNumNotification.frame];
         [imgViewNotification setImage:[UIImage imageNamed:@"Navbar_notification.png"]];
         [rightItemView addSubview:imgViewNotification];
-        lblNumNotification.text = [NSString stringWithFormat:@"+%d", [appdel countTotalNotifications]];
+        lblNumNotification.text = [NSString stringWithFormat:@"%d+", [appdel countTotalNotifications]];
         [rightItemView addSubview:lblNumNotification];
     }
     
@@ -97,8 +100,11 @@
         [self.navigationController popViewControllerAnimated:NO];
     }
     [self setNotifications:[appdel countTotalNotifications]];
-
+    
     [self.view localizeAllViews];
+    
+    //load avatar
+    [imgAvatar setImage:appdel.myProfile.img_Avatar];
 }
 
 -(void)viewDidDisappear:(BOOL)animated{
@@ -118,7 +124,7 @@
         }
     }
     if(imgAnim != nil){
-        [imgAnim setFrame:CGRectMake(48, 35, imgAnim.frame.size.width, imgAnim.frame.size.height)];
+        [imgAnim setFrame:CGRectMake(9, 25, imgAnim.frame.size.width, imgAnim.frame.size.height)];
         [self.view  addSubview:imgAnim];
     }
     [self loadViewbyType];
@@ -133,9 +139,11 @@
     switch (typeOfAlert) {
         case 0:
         {
-            [self.view addSubview:imgNOPEDisable];
-            [self.view addSubview:imgLIKEDisable];
-            [self.view addSubview:imgiDisable];
+//            [self.view addSubview:imgNOPEDisable];
+//            [self.view addSubview:imgLIKEDisable];
+//            [self.view addSubview:imgiDisable];
+            [self.view addSubview:imgAvatar];
+            [self.view sendSubviewToBack:imgAvatar];
             [btnContentAlert setHidden:YES];
             [lblContentAlert setText:[@"Finding nearby people ..." localize]];
             break;
@@ -150,9 +158,9 @@
         }
         case 2:
         {
-            [self.view addSubview:imgNOPEDisable];
-            [self.view addSubview:imgLIKEDisable];
-            [self.view addSubview:imgiDisable];
+//            [self.view addSubview:imgNOPEDisable];
+//            [self.view addSubview:imgLIKEDisable];
+//            [self.view addSubview:imgiDisable];
             [imgLoading setImage:[UIImage imageNamed:@"SnapshotLoading_graymap_loaded.png"]];
             [self.view addSubview:imgLoading];
             [btnContentAlert setHidden:YES];
@@ -192,18 +200,18 @@
 #pragma mark notification
 -(void)setNotifications:(int)count
 {
-    UILabel* lblNumNotification = [[UILabel alloc]initWithFrame:CGRectMake(248, 1, 30, 21)];
+    UILabel* lblNumNotification = [[UILabel alloc]initWithFrame:CGRectMake(265, 6, 20, 20)];
     [lblNumNotification setBackgroundColor:[UIColor clearColor]];
     [lblNumNotification setTextColor:[UIColor whiteColor]];
-    [lblNumNotification setFont:FONT_HELVETICANEUE_LIGHT(14)];
+    [lblNumNotification setFont:FONT_HELVETICANEUE_LIGHT(10)];
     [lblNumNotification setTextAlignment:NSTextAlignmentCenter];
-    UIImageView* imgViewNotification = [[UIImageView alloc]initWithFrame:CGRectMake(248, 3, 31, 20)];
+    UIImageView* imgViewNotification = [[UIImageView alloc]initWithFrame:lblNumNotification.frame];
     [imgViewNotification setImage:[UIImage imageNamed:@"Navbar_notification.png"]];
 
     if(count > 0)
     {
         [self.navigationController.navigationBar addSubview:imgViewNotification];
-        lblNumNotification.text = [NSString stringWithFormat:@"+%d", count];
+        lblNumNotification.text = [NSString stringWithFormat:@"%d+", count];
         [self.navigationController.navigationBar addSubview:lblNumNotification];
     }
     

@@ -232,7 +232,7 @@ CGFloat pageHeight;
 -(void)loadSnapshotProfilesWithHandler:(void(^)(void))handler
 {
     request = [[AFHTTPClient alloc] initWithOakClubAPI:DOMAIN];
-    NSDictionary *params = [[NSDictionary alloc]initWithObjectsAndKeys:@"0",@"start",@"10",@"limit",
+    NSDictionary *params = [[NSDictionary alloc]initWithObjectsAndKeys:@"0",@"start",@"35",@"limit",
                             appDel.snapshotSettingsObj.snapshotParams, @"search_preference", nil];
     NSMutableURLRequest *urlReq = [request requestWithMethod:@"GET" path:URL_getSnapShot parameters:params];
     
@@ -611,18 +611,13 @@ CGFloat pageHeight;
         params = [[NSDictionary alloc]initWithObjectsAndKeys:currentProfile.s_ID,key_profileID,@"0" ,@"is_like", nil];
 
     // Vanancy - add request into QUEUE
-    NSMutableDictionary* queueDict = [[NSUserDefaults standardUserDefaults] objectForKey:@"snapshotQueueByProfileID"];
-    if (!queueDict) {
-        queueDict = [[NSMutableDictionary alloc]init];
-    }
-    NSMutableArray *queue = [queueDict objectForKey:appDel.myProfile.s_ID];
+    NSMutableDictionary* queueDict = [[NSMutableDictionary alloc]initWithDictionary:[[NSUserDefaults standardUserDefaults] objectForKey:key_snapshotQueue]] ;
+    NSMutableArray *queue = [[NSMutableArray alloc]initWithArray:[queueDict objectForKey:appDel.myProfile.s_ID]] ;
     if (queue) {
         [queue addObject:params];
-    }else{
-        queue = [[NSMutableArray alloc]initWithObjects:params, nil];
     }
     [queueDict setObject:queue forKey:appDel.myProfile.s_ID];
-    [[NSUserDefaults standardUserDefaults] setObject:queueDict forKey:@"snapshotQueueByProfileID"];
+    [[NSUserDefaults standardUserDefaults] setObject:queueDict forKey:key_snapshotQueue];
     [[NSUserDefaults standardUserDefaults] synchronize];
     NSString *value = [[NSUserDefaults standardUserDefaults] objectForKey:@"currentSnapShotID"];
     if ([answerChoice isEqualToString:@"1"]) {
@@ -644,7 +639,7 @@ CGFloat pageHeight;
     [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
         [queue removeObject:params];
         [queueDict setObject:queue forKey:appDel.myProfile.s_ID];
-        [[NSUserDefaults standardUserDefaults] setObject:queueDict forKey:@"snapshotQueueByProfileID"];
+        [[NSUserDefaults standardUserDefaults] setObject:queueDict forKey:key_snapshotQueue];
         [[NSUserDefaults standardUserDefaults] synchronize];
         NSLog(@"post success !!!");
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {

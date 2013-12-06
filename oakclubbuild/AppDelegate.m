@@ -1629,20 +1629,24 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
 
 #pragma mark POP-Snapshot QUEUE
 -(void)popSnapshotQueue{
-    NSMutableDictionary* queueDict = [[NSMutableDictionary alloc]initWithDictionary:[[NSUserDefaults standardUserDefaults] objectForKey:@"snapshotQueueByProfileID"]] ;
-    NSMutableArray *queue = [queueDict objectForKey:self.myProfile.s_ID];
+    NSMutableDictionary* queueDict = [[NSMutableDictionary alloc]initWithDictionary:[[NSUserDefaults standardUserDefaults] objectForKey:key_snapshotQueue]] ;
+    NSMutableArray *queue = [[NSMutableArray alloc]initWithArray:[queueDict objectForKey:self.myProfile.s_ID]];
+    
     // Vanancy - DEBUG - format for params
-//    NSArray *queue=@[@{@"profile_id":@"1m00ujci9g",@"is_like":@"0"},@{@"profile_id":@"1lxvpek4v2",@"is_like":@"1"},@{@"profile_id":@"dsc3jk",@"is_like":@"0"}];
+//    NSArray *queueTest=@[@{@"profile_id":@"1m00ujci9g",@"is_like":@"0"},@{@"profile_id":@"1lxvpek4v2",@"is_like":@"1"},@{@"profile_id":@"dsc3jk",@"is_like":@"0"}];
+    
+//    [queueDict setObject:queueTest forKey:self.myProfile.s_ID];
+//    [[NSUserDefaults standardUserDefaults] setObject:queueDict forKey:key_snapshotQueue];
     if(queue && [queue count]>0){
         AFHTTPClient* request = [[AFHTTPClient alloc] initWithOakClubAPI:DOMAIN];
         NSDictionary* params = [[NSDictionary alloc]initWithObjectsAndKeys:queue,@"list_like", nil];
         [request setParameterEncoding:AFFormURLParameterEncoding];
         [request postPath:URL_setListLikedSnapshot parameters:params success:^(__unused AFHTTPRequestOperation *operation, id responseObject) {
+            NSLog(@"URL_setListLikedSnapshot - post success : %@",[[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding]);
             [queue removeAllObjects];
             [queueDict setObject:queue forKey:self.myProfile.s_ID];
-            [[NSUserDefaults standardUserDefaults] setObject:queueDict forKey:@"snapshotQueueByProfileID"];
-            [[NSUserDefaults standardUserDefaults] synchronize];
-            NSLog(@"URL_setListLikedSnapshot - post success : %@",[[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding]);
+            [[NSUserDefaults standardUserDefaults] setObject:queueDict forKey:key_snapshotQueue];
+             [[NSUserDefaults standardUserDefaults] synchronize];
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             NSLog(@"URL_setListLikedSnapshot - Error Code: %i - %@",[error code], [error localizedDescription]);
         }];

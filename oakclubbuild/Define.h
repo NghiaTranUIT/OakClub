@@ -193,6 +193,8 @@
 
 #define key_reportContent @"content"
 #define key_index @"index"
+
+#define key_snapshotQueue @"snapshotQueueByProfileID"
 //================ service API values ================
 #define value_online @"Online"
 #define value_offline @"Offline"
