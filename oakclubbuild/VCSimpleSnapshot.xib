@@ -319,15 +319,7 @@
                         <rect key="frame" x="32" y="104" width="113" height="113"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     </imageView>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Snapshot_avatar_match_bound.png" id="dJB-hU-cq0" userLabel="Image View - avatar border.png">
-                        <rect key="frame" x="32" y="104" width="113" height="113"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    </imageView>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Default Avatar.png" id="5Tc-Vx-ANn">
-                        <rect key="frame" x="176" y="104" width="113" height="113"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    </imageView>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Snapshot_avatar_match_bound.png" id="jmw-RA-tje" userLabel="Image View - avatar border.png">
                         <rect key="frame" x="176" y="104" width="113" height="113"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     </imageView>
@@ -522,7 +514,6 @@
     </objects>
     <resources>
         <image name="Default Avatar.png" width="255" height="255"/>
-        <image name="Snapshot_avatar_match_bound.png" width="123" height="130"/>
         <image name="Snapshot_bg_profiles.png" width="289" height="314"/>
         <image name="Snapshot_btnSendMessage.png" width="154" height="34"/>
         <image name="Snapshot_btnSendMessage_pressed.png" width="154" height="34"/>
