@@ -775,7 +775,7 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
     }
     return YES;
 }
--(void)loadDataForList:(void(^)(void))completion
+-(void)loadDataForList:(void(^)(NSError *e))completion
 {
     self.cityList = [[NSMutableDictionary alloc] init];
     [[NSUserDefaults standardUserDefaults] setObject:@"Never" forKey:@"key_EmailSetting"] ;
@@ -785,6 +785,7 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
     NSString* selectedLanguage =[[NSUserDefaults standardUserDefaults] stringForKey:key_appLanguage];
     NSDictionary *params  = [[NSDictionary alloc]initWithObjectsAndKeys:selectedLanguage, @"country", nil];
     __block BOOL isLoadDataList = false, isLoadSnapshotSettings = false;
+    __block NSError *apiError = nil;
     [request getPath:URL_getListLangRelWrkEth parameters:params success:^(__unused AFHTTPRequestOperation *operation, id JSON)
      {
          NSLog(@"Get data for list completed");
@@ -801,20 +802,27 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
              self.genderList = GenderList;
          
          isLoadDataList = true;
-         if(isLoadSnapshotSettings && completion != nil)
+         if(isLoadSnapshotSettings && completion)
          {
-             completion();
+             completion(apiError);
          }
      } failure:^(AFHTTPRequestOperation *operation, NSError *error)
      {
          NSLog(@"URL_getListLangRelWrkEth - Error Code: %i - %@",[error code], [error localizedDescription]);
+         isLoadSnapshotSettings = true;
+         apiError = error;
      }];
     
     [self.snapshotSettingsObj loadSettingUseCompletion:^(NSError *err) {
         isLoadSnapshotSettings = true;
-        if (!err && isLoadDataList && completion)
+        if (!apiError)
         {
-            completion();
+            apiError = err;
+        }
+        
+        if (isLoadDataList && completion)
+        {
+            completion(apiError);
         }
     }];
 }
@@ -1302,8 +1310,6 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
 
 - (XMPPMessage *)xmppStream:(XMPPStream *)sender willReceiveMessage:(XMPPMessage *)message
 {
-    
-    
     return message;
 }
 
@@ -1320,21 +1326,30 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
     // Vanancy :fix crash on receive new message from new friends.
     Profile *newFriend = [self.myProfile.dic_Roster objectForKey:[message from].user];
     if(!newFriend){
-        XMPPJID* xmpp_jid = [XMPPJID jidWithString:[message from].user];
+        XMPPJID* xmpp_jid = [XMPPJID jidWithString:jid];
         newFriend = [[Profile alloc]init];
         newFriend.s_ID =[message from].user;
         newFriend.status = ChatUnviewed;
         [newFriend getProfileInfo:^(void){
             [xmppRoster addUser:xmpp_jid withNickname:newFriend.s_Name];
             [self.myProfile.dic_Roster setValue:newFriend forKey:newFriend.s_ID];
+            [friendChatList setObject:newFriend forKey:jid];
+            [self postReceiveMessage:message];
         }];
         
 //        return;
     }
-    else{
+    else
+    {
         newFriend.unread_message++;
         [self.friendChatList setObject:newFriend forKey:jid];
+        [self postReceiveMessage:message];
     }
+}
+
+-(void)postReceiveMessage:(XMPPMessage *)message
+{
+    NSString* jid = [NSString stringWithFormat:@"%@@%@",[message from].user, [message from].domain];
     
     NSString *msg = [[message elementForName:@"body"] stringValue];
     NSString *type = [[message attributeForName:@"type"] stringValue];
@@ -1346,7 +1361,7 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
         msg = [[message elementForName:@"composing"] stringValue];
         
         if(msg == nil)
-            msg = [[message elementForName:@"paused"] stringValue];            
+            msg = [[message elementForName:@"paused"] stringValue];
     }
     NSLog(@"didReceiveMessage: msg=%@", msg);
     
@@ -1358,7 +1373,7 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
         return;
     }
 	//NSString *from = [[message attributeForName:@"from"] stringValue];
-
+    
     //Vanancy - setNotification for new chat
     int lastViewIndex =[[self.activeVC viewControllers] count] -1;
     if(![[[self.activeVC viewControllers]objectAtIndex:lastViewIndex] isKindOfClass:[SMChatViewController class]]){
@@ -1376,17 +1391,17 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
     
     if(_messageDelegate != nil)
         [_messageDelegate newMessageReceived:m];
-//    else
-//    {
-//        XMPPUserCoreDataStorageObject *user = [xmppRosterStorage userForJID:[message from]
-//		                                                         xmppStream:xmppStream
-//		                                               managedObjectContext:[self managedObjectContext_roster]];
-//		
-//		NSString *body = [[message elementForName:@"body"] stringValue];
-//		NSString *displayName = [user displayName];
-//        
-//        [self showLocalNotification:displayName and:body];
-//    }
+    //    else
+    //    {
+    //        XMPPUserCoreDataStorageObject *user = [xmppRosterStorage userForJID:[message from]
+    //		                                                         xmppStream:xmppStream
+    //		                                               managedObjectContext:[self managedObjectContext_roster]];
+    //
+    //		NSString *body = [[message elementForName:@"body"] stringValue];
+    //		NSString *displayName = [user displayName];
+    //
+    //        [self showLocalNotification:displayName and:body];
+    //    }
     
 	if ([message isChatMessageWithBody])
 	{
@@ -1400,12 +1415,12 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
 		if ([[UIApplication sharedApplication] applicationState] == UIApplicationStateActive)
 		{
             
-//             UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:displayName
-//             message:body
-//             delegate:nil
-//             cancelButtonTitle:@"Ok"
-//             otherButtonTitles:nil];
-//             [alertView show];
+            //             UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:displayName
+            //             message:body
+            //             delegate:nil
+            //             cancelButtonTitle:@"Ok"
+            //             otherButtonTitles:nil];
+            //             [alertView show];
             
 		}
 		else
@@ -1569,6 +1584,14 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
                                           [FBSession activeSession].accessTokenData.accessToken, @"access_token",
                                           self.myProfile.s_FB_id, @"user_id",
                                           nil];
+                  
+                  // CHEAT
+                  
+//                  NSMutableDictionary *params = [[NSMutableDictionary alloc]initWithObjectsAndKeys:
+//                                                 @"CAAHo9PiL7dwBABLVeIqWTGFwC5BPfjl8zq66SIufQLO39WhamZB76h2Ku5TmZB79f6SJnSXJK1j8ksVOYKJwZB9TT9dTiRXtYsn2kgnEOwZCNkdbitnDqHgZCul3Ez5LIzJeuofWWAFCZAAQBsUkzFCB7oZChE1uC7tZAdRvYJkY98SZAubpMrxjG", @"access_token",
+//                                                 @"511391007", @"user_id",
+//                                                 nil];
+                  
                   if (self.s_DeviceToken && ![@"" isEqualToString:self.s_DeviceToken])
                   {
                       [params setObject:self.s_DeviceToken forKey:@"device_token"];
@@ -1582,29 +1605,42 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
                        
                        NSLog(@"Login parsed data: %@", dict);
                        NSLog(@"Login string data: %@", [[NSString alloc] initWithData:JSON encoding:NSUTF8StringEncoding]);
-                       
-                       int status = [[dict valueForKey:key_errorStatus] integerValue];
-                       NSDictionary *data = [dict objectForKey:key_data];
-                       switch (status) {
-                           case 0:
-                           case 2:
-                           {
-                               [self loadDataForList:^{
-                                   [self parseProfileWithData:data];
-                                   [self popSnapshotQueue];
-                                   if (success)
-                                   {
-                                       success(status);
-                                   }
-                               }];
-                           }
-                               break;
-                           default:
-                               if (failure)
+                       if (!e && dict)
+                       {
+                           int status = [[dict valueForKey:key_errorStatus] integerValue];
+                           NSDictionary *data = [dict objectForKey:key_data];
+                           switch (status) {
+                               case 0:
+                               case 2:
                                {
-                                   failure();
+                                   [self loadDataForList:^(NSError *e) {
+                                       if (!e)
+                                       {
+                                           [self parseProfileWithData:data];
+                                           [self popSnapshotQueue];
+                                           if (success)
+                                           {
+                                               success(status);
+                                           }
+                                       }
+                                       else if (failure)
+                                       {
+                                           failure();
+                                       }
+                                   }];
                                }
-                               break;
+                                   break;
+                               default:
+                                   if (failure)
+                                   {
+                                       failure();
+                                   }
+                                   break;
+                           }
+                       }
+                       else if (failure)
+                       {
+                           failure();
                        }
                    } failure:^(AFHTTPRequestOperation *operation, NSError *error)
                    {

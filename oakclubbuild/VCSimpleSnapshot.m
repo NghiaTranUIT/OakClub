@@ -180,7 +180,7 @@ CGFloat pageHeight;
      {
          NSError *e=nil;
          NSMutableDictionary *dict = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONReadingMutableContainers error:&e];
-         appDel.likedMeList= [dict valueForKey:key_data];
+         appDel.likedMeList = [dict valueForKey:key_data];
          
      } failure:^(AFHTTPRequestOperation *operation, NSError *error)
      {
@@ -214,10 +214,13 @@ CGFloat pageHeight;
         {
             [locUpdate setUserLocationAtLongitude:longitude andLatitude:latitude useCallback:^(NSString *locationID, NSString *locationName, NSError *err)
              {
-                 _appDel.myProfile.s_location.longitude = longitude;
-                 _appDel.myProfile.s_location.latitude = latitude;
-                 _appDel.myProfile.s_location.ID = locationID;
-                 _appDel.myProfile.s_location.name = locationName;
+                 if (!err)
+                 {
+                     _appDel.myProfile.s_location.longitude = longitude;
+                     _appDel.myProfile.s_location.latitude = latitude;
+                     _appDel.myProfile.s_location.ID = locationID;
+                     _appDel.myProfile.s_location.name = locationName;
+                 }
                  
                 [self_alias loadSnapshotProfilesWithHandler:handler];
             }];
