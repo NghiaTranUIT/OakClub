@@ -1310,8 +1310,6 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
 
 - (XMPPMessage *)xmppStream:(XMPPStream *)sender willReceiveMessage:(XMPPMessage *)message
 {
-    
-    
     return message;
 }
 
@@ -1328,21 +1326,30 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
     // Vanancy :fix crash on receive new message from new friends.
     Profile *newFriend = [self.myProfile.dic_Roster objectForKey:[message from].user];
     if(!newFriend){
-        XMPPJID* xmpp_jid = [XMPPJID jidWithString:[message from].user];
+        XMPPJID* xmpp_jid = [XMPPJID jidWithString:jid];
         newFriend = [[Profile alloc]init];
         newFriend.s_ID =[message from].user;
         newFriend.status = ChatUnviewed;
         [newFriend getProfileInfo:^(void){
             [xmppRoster addUser:xmpp_jid withNickname:newFriend.s_Name];
             [self.myProfile.dic_Roster setValue:newFriend forKey:newFriend.s_ID];
+            [friendChatList setObject:newFriend forKey:jid];
+            [self postReceiveMessage:message];
         }];
         
 //        return;
     }
-    else{
+    else
+    {
         newFriend.unread_message++;
         [self.friendChatList setObject:newFriend forKey:jid];
+        [self postReceiveMessage:message];
     }
+}
+
+-(void)postReceiveMessage:(XMPPMessage *)message
+{
+    NSString* jid = [NSString stringWithFormat:@"%@@%@",[message from].user, [message from].domain];
     
     NSString *msg = [[message elementForName:@"body"] stringValue];
     NSString *type = [[message attributeForName:@"type"] stringValue];
@@ -1354,7 +1361,7 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
         msg = [[message elementForName:@"composing"] stringValue];
         
         if(msg == nil)
-            msg = [[message elementForName:@"paused"] stringValue];            
+            msg = [[message elementForName:@"paused"] stringValue];
     }
     NSLog(@"didReceiveMessage: msg=%@", msg);
     
@@ -1366,7 +1373,7 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
         return;
     }
 	//NSString *from = [[message attributeForName:@"from"] stringValue];
-
+    
     //Vanancy - setNotification for new chat
     int lastViewIndex =[[self.activeVC viewControllers] count] -1;
     if(![[[self.activeVC viewControllers]objectAtIndex:lastViewIndex] isKindOfClass:[SMChatViewController class]]){
@@ -1384,17 +1391,17 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
     
     if(_messageDelegate != nil)
         [_messageDelegate newMessageReceived:m];
-//    else
-//    {
-//        XMPPUserCoreDataStorageObject *user = [xmppRosterStorage userForJID:[message from]
-//		                                                         xmppStream:xmppStream
-//		                                               managedObjectContext:[self managedObjectContext_roster]];
-//		
-//		NSString *body = [[message elementForName:@"body"] stringValue];
-//		NSString *displayName = [user displayName];
-//        
-//        [self showLocalNotification:displayName and:body];
-//    }
+    //    else
+    //    {
+    //        XMPPUserCoreDataStorageObject *user = [xmppRosterStorage userForJID:[message from]
+    //		                                                         xmppStream:xmppStream
+    //		                                               managedObjectContext:[self managedObjectContext_roster]];
+    //
+    //		NSString *body = [[message elementForName:@"body"] stringValue];
+    //		NSString *displayName = [user displayName];
+    //
+    //        [self showLocalNotification:displayName and:body];
+    //    }
     
 	if ([message isChatMessageWithBody])
 	{
@@ -1408,12 +1415,12 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
 		if ([[UIApplication sharedApplication] applicationState] == UIApplicationStateActive)
 		{
             
-//             UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:displayName
-//             message:body
-//             delegate:nil
-//             cancelButtonTitle:@"Ok"
-//             otherButtonTitles:nil];
-//             [alertView show];
+            //             UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:displayName
+            //             message:body
+            //             delegate:nil
+            //             cancelButtonTitle:@"Ok"
+            //             otherButtonTitles:nil];
+            //             [alertView show];
             
 		}
 		else
