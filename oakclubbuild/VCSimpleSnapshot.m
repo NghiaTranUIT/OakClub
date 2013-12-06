@@ -612,19 +612,13 @@ CGFloat pageHeight;
 
     // Vanancy - add request into QUEUE
     NSMutableDictionary* queueDict = [[NSMutableDictionary alloc]initWithDictionary:[[NSUserDefaults standardUserDefaults] objectForKey:key_snapshotQueue]] ;
-//    if (!queueDict) {
-//        queueDict = [[NSMutableDictionary alloc]init];
-//    }
     NSMutableArray *queue = [[NSMutableArray alloc]initWithArray:[queueDict objectForKey:appDel.myProfile.s_ID]] ;
     if (queue) {
         [queue addObject:params];
     }
-//    else{
-//        queue = [[NSMutableArray alloc]initWithObjects:params, nil];
-//    }
     [queueDict setObject:queue forKey:appDel.myProfile.s_ID];
     [[NSUserDefaults standardUserDefaults] setObject:queueDict forKey:key_snapshotQueue];
-    
+    [[NSUserDefaults standardUserDefaults] synchronize];
     NSString *value = [[NSUserDefaults standardUserDefaults] objectForKey:@"currentSnapShotID"];
     if ([answerChoice isEqualToString:@"1"]) {
 //        [self showMatchView];// DEBUG
@@ -646,6 +640,7 @@ CGFloat pageHeight;
         [queue removeObject:params];
         [queueDict setObject:queue forKey:appDel.myProfile.s_ID];
         [[NSUserDefaults standardUserDefaults] setObject:queueDict forKey:key_snapshotQueue];
+        [[NSUserDefaults standardUserDefaults] synchronize];
         NSLog(@"post success !!!");
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
        NSLog(@"URL_setLikedSnapshot - Error Code: %i - %@",[error code], [error localizedDescription]);
