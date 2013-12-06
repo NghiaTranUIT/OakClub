@@ -86,17 +86,7 @@
     else
         background = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
     
-    NSString *localSpashScreen;
-    if ([value_appLanguage_VI isEqualToString:[[NSUserDefaults standardUserDefaults] objectForKey:key_appLanguage]])
-    {
-        localSpashScreen = @"spashscreen_vn";
-    }
-    else
-    {
-        localSpashScreen = @"spashscreen";
-    }
-    
-    UIImage *backgroundImg = [UIImage imageNamed:localSpashScreen];
+    UIImage *backgroundImg = [UIImage imageNamed:@"Splashscreen"];
     [background setImage:backgroundImg];
     [background setContentMode:UIViewContentModeScaleAspectFit];
     [self.view addSubview:background];

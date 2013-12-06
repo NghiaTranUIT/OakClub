@@ -1642,6 +1642,10 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
         NSDictionary* params = [[NSDictionary alloc]initWithObjectsAndKeys:queue,@"list_like", nil];
         [request setParameterEncoding:AFFormURLParameterEncoding];
         [request postPath:URL_setListLikedSnapshot parameters:params success:^(__unused AFHTTPRequestOperation *operation, id responseObject) {
+            [queue removeAllObjects];
+            [queueDict setObject:queue forKey:self.myProfile.s_ID];
+            [[NSUserDefaults standardUserDefaults] setObject:queueDict forKey:@"snapshotQueueByProfileID"];
+            [[NSUserDefaults standardUserDefaults] synchronize];
             NSLog(@"URL_setListLikedSnapshot - post success : %@",[[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding]);
             [queue removeAllObjects];
             [queueDict setObject:queue forKey:self.myProfile.s_ID];
