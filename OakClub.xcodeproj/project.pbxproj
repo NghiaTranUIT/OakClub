@@ -225,7 +225,6 @@
 		CD15E861182F598900557BA5 /* tutorial_snapshots-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CD15E85E182F598900557BA5 /* tutorial_snapshots-568h@2x.png */; };
 		CD15E867182F5F7100557BA5 /* intropage_chat-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CD15E864182F5F7100557BA5 /* intropage_chat-568h@2x.png */; };
 		CD15E868182F5F7100557BA5 /* intropage_match-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CD15E865182F5F7100557BA5 /* intropage_match-568h@2x.png */; };
-		CD15E869182F5F7100557BA5 /* intropage_snap-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CD15E866182F5F7100557BA5 /* intropage_snap-568h@2x.png */; };
 		CD15E86B182F677200557BA5 /* UIImage+H568.m in Sources */ = {isa = PBXBuildFile; fileRef = CD15E86A182F677200557BA5 /* UIImage+H568.m */; };
 		CD15E86F182F6CAF00557BA5 /* VCSimpleSnapshot.xib in Resources */ = {isa = PBXBuildFile; fileRef = CD15E86E182F6CAF00557BA5 /* VCSimpleSnapshot.xib */; };
 		CD15E871182F6CCB00557BA5 /* VCSimpleSnapshot-568h.xib in Resources */ = {isa = PBXBuildFile; fileRef = CD15E870182F6CCB00557BA5 /* VCSimpleSnapshot-568h.xib */; };
@@ -3773,7 +3772,6 @@
 				CD50E368181FBF3C0036A23B /* Snapshot_popup_no@2x.png in Resources */,
 				97A55D631823C3E700675025 /* slider.png in Resources */,
 				CD13017918225D3E00D29E0B /* Login_btnFB_inactive.png in Resources */,
-				CD15E869182F5F7100557BA5 /* intropage_snap-568h@2x.png in Resources */,
 				CD877D0018212BAE0067D478 /* intropage_match.png in Resources */,
 				CD50E350181FBF3C0036A23B /* Snapshot_bg_profiles@2x.png in Resources */,
 				CD50E357181FBF3C0036A23B /* Snapshot_like_stamp.png in Resources */,

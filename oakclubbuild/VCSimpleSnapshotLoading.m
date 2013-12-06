@@ -123,9 +123,17 @@
             [subview removeFromSuperview];
         }
     }
+    
+    [self.view addSubview:imgAvatar];
     if(imgAnim != nil){
-        [imgAnim setFrame:CGRectMake(9, 25, imgAnim.frame.size.width, imgAnim.frame.size.height)];
+        CGRect gifFrame;
+        if(IS_HEIGHT_GTE_568)
+            gifFrame = CGRectMake(9, 25, imgAnim.frame.size.width, imgAnim.frame.size.height);
+        else
+            gifFrame = CGRectMake(9, 0, imgAnim.frame.size.width, imgAnim.frame.size.height);
+        [imgAnim setFrame:gifFrame];
         [self.view  addSubview:imgAnim];
+        imgAvatar.center = imgAnim.center;
     }
     [self loadViewbyType];
     
@@ -142,8 +150,7 @@
 //            [self.view addSubview:imgNOPEDisable];
 //            [self.view addSubview:imgLIKEDisable];
 //            [self.view addSubview:imgiDisable];
-            [self.view addSubview:imgAvatar];
-            [self.view sendSubviewToBack:imgAvatar];
+//            [self.view sendSubviewToBack:imgAvatar];
             [btnContentAlert setHidden:YES];
             [lblContentAlert setText:[@"Finding nearby people ..." localize]];
             break;
@@ -153,7 +160,7 @@
             [btnContentAlert setHidden:NO];
             [lblContentAlert setText:[@"You've seen all the recommendations near you." localize]];
             [imgLoading setImage:[UIImage imageNamed:@"SnapshotLoading_map_loaded.png"]];
-            [self.view addSubview:imgLoading];
+//            [self.view addSubview:imgLoading];
             break;
         }
         case 2:
@@ -162,7 +169,7 @@
 //            [self.view addSubview:imgLIKEDisable];
 //            [self.view addSubview:imgiDisable];
             [imgLoading setImage:[UIImage imageNamed:@"SnapshotLoading_graymap_loaded.png"]];
-            [self.view addSubview:imgLoading];
+//            [self.view addSubview:imgLoading];
             [btnContentAlert setHidden:YES];
             [lblContentAlert setText:[@"Location setting is disabled" localize]];
         }

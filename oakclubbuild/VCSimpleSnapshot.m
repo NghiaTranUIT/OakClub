@@ -680,7 +680,7 @@ CGFloat pageHeight;
 
 -(void)startDisabledGPS{
     loadingView = [[VCSimpleSnapshotLoading alloc]init];
-    [loadingView setTypeOfAlert:2 andAnim:nil];
+    [loadingView setTypeOfAlert:2 andAnim:loadingAnim];
     [self.navigationController pushViewController:loadingView animated:NO];
     isBlockedByGPS = TRUE;
 }
@@ -689,7 +689,7 @@ CGFloat pageHeight;
     [self stopLoadingAnim];
     loadingView = [[VCSimpleSnapshotLoading alloc]init];
     [loadingView.view setFrame:CGRectMake(0, 0, 320, 480)];
-    [loadingView setTypeOfAlert:1 andAnim:nil];
+    [loadingView setTypeOfAlert:1 andAnim:loadingAnim];
     [self.navigationController pushViewController:loadingView animated:NO];
 }
 
