@@ -103,6 +103,12 @@
 		979A9D711851A6E2003387DA /* Snapshot_btnSendMessage_pressed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 979A9D6F1851A6E2003387DA /* Snapshot_btnSendMessage_pressed@2x.png */; };
 		979A9D741851A769003387DA /* Snapshot_btn_KeepPlaying_pressed.png in Resources */ = {isa = PBXBuildFile; fileRef = 979A9D721851A769003387DA /* Snapshot_btn_KeepPlaying_pressed.png */; };
 		979A9D751851A769003387DA /* Snapshot_btn_KeepPlaying_pressed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 979A9D731851A769003387DA /* Snapshot_btn_KeepPlaying_pressed@2x.png */; };
+		979A9D7C1851DC94003387DA /* viewprofile_icon_sharedinterests@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 979A9D761851DC94003387DA /* viewprofile_icon_sharedinterests@2x.png */; };
+		979A9D7D1851DC95003387DA /* viewprofile_icon_aboutme.png in Resources */ = {isa = PBXBuildFile; fileRef = 979A9D771851DC94003387DA /* viewprofile_icon_aboutme.png */; };
+		979A9D7E1851DC95003387DA /* viewprofile_icon_aboutme@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 979A9D781851DC94003387DA /* viewprofile_icon_aboutme@2x.png */; };
+		979A9D7F1851DC95003387DA /* viewprofile_icon_mutualfriends.png in Resources */ = {isa = PBXBuildFile; fileRef = 979A9D791851DC94003387DA /* viewprofile_icon_mutualfriends.png */; };
+		979A9D801851DC95003387DA /* viewprofile_icon_mutualfriends@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 979A9D7A1851DC94003387DA /* viewprofile_icon_mutualfriends@2x.png */; };
+		979A9D811851DC95003387DA /* viewprofile_icon_sharedinterests.png in Resources */ = {isa = PBXBuildFile; fileRef = 979A9D7B1851DC94003387DA /* viewprofile_icon_sharedinterests.png */; };
 		979B95F3184852A000AF5A78 /* amazed.png in Resources */ = {isa = PBXBuildFile; fileRef = 979B95CF184852A000AF5A78 /* amazed.png */; };
 		979B95F4184852A000AF5A78 /* angel.png in Resources */ = {isa = PBXBuildFile; fileRef = 979B95D0184852A000AF5A78 /* angel.png */; };
 		979B95F5184852A000AF5A78 /* angry.png in Resources */ = {isa = PBXBuildFile; fileRef = 979B95D1184852A000AF5A78 /* angry.png */; };
@@ -789,6 +795,12 @@
 		979A9D6F1851A6E2003387DA /* Snapshot_btnSendMessage_pressed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Snapshot_btnSendMessage_pressed@2x.png"; sourceTree = "<group>"; };
 		979A9D721851A769003387DA /* Snapshot_btn_KeepPlaying_pressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Snapshot_btn_KeepPlaying_pressed.png; sourceTree = "<group>"; };
 		979A9D731851A769003387DA /* Snapshot_btn_KeepPlaying_pressed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Snapshot_btn_KeepPlaying_pressed@2x.png"; sourceTree = "<group>"; };
+		979A9D761851DC94003387DA /* viewprofile_icon_sharedinterests@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "viewprofile_icon_sharedinterests@2x.png"; sourceTree = "<group>"; };
+		979A9D771851DC94003387DA /* viewprofile_icon_aboutme.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = viewprofile_icon_aboutme.png; sourceTree = "<group>"; };
+		979A9D781851DC94003387DA /* viewprofile_icon_aboutme@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "viewprofile_icon_aboutme@2x.png"; sourceTree = "<group>"; };
+		979A9D791851DC94003387DA /* viewprofile_icon_mutualfriends.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = viewprofile_icon_mutualfriends.png; sourceTree = "<group>"; };
+		979A9D7A1851DC94003387DA /* viewprofile_icon_mutualfriends@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "viewprofile_icon_mutualfriends@2x.png"; sourceTree = "<group>"; };
+		979A9D7B1851DC94003387DA /* viewprofile_icon_sharedinterests.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = viewprofile_icon_sharedinterests.png; sourceTree = "<group>"; };
 		979B95CF184852A000AF5A78 /* amazed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = amazed.png; sourceTree = "<group>"; };
 		979B95D0184852A000AF5A78 /* angel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = angel.png; sourceTree = "<group>"; };
 		979B95D1184852A000AF5A78 /* angry.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = angry.png; sourceTree = "<group>"; };
@@ -1820,6 +1832,12 @@
 				97A55D5A1823C3E700675025 /* viewprofile_viewicon@2x.png */,
 				97A8FCB718361C3700B9ACEC /* viewprofile_videoicon.png */,
 				97A8FCB818361C3700B9ACEC /* viewprofile_videoicon@2x.png */,
+				979A9D7B1851DC94003387DA /* viewprofile_icon_sharedinterests.png */,
+				979A9D761851DC94003387DA /* viewprofile_icon_sharedinterests@2x.png */,
+				979A9D771851DC94003387DA /* viewprofile_icon_aboutme.png */,
+				979A9D781851DC94003387DA /* viewprofile_icon_aboutme@2x.png */,
+				979A9D791851DC94003387DA /* viewprofile_icon_mutualfriends.png */,
+				979A9D7A1851DC94003387DA /* viewprofile_icon_mutualfriends@2x.png */,
 			);
 			path = ViewProfile;
 			sourceTree = "<group>";
@@ -3589,6 +3607,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				979A9D7C1851DC94003387DA /* viewprofile_icon_sharedinterests@2x.png in Resources */,
 				CDC492A71702CEAB00E83DE3 /* InfoPlist.strings in Resources */,
 				459284B2184F3F65004FA3A6 /* Menu_icon_snapshots_pressed@2x.png in Resources */,
 				CDC492AF1702CEAB00E83DE3 /* Default.png in Resources */,
@@ -3646,6 +3665,7 @@
 				CDF99B981713D629008D8BAC /* SMChatViewController.xib in Resources */,
 				CD1AB06F1821804200B0FA10 /* Report_bottomItem_active.png in Resources */,
 				979B95FD184852A000AF5A78 /* doubtful.png in Resources */,
+				979A9D811851DC95003387DA /* viewprofile_icon_sharedinterests.png in Resources */,
 				45A02595184CA76300DB9E2D /* bullet.png in Resources */,
 				CD877D0E1821374C0067D478 /* ChatView_btn_moreOptions_pressed.png in Resources */,
 				CDF99C201713D69B008D8BAC /* README.txt in Resources */,
@@ -3721,6 +3741,7 @@
 				979A9D6D1851A550003387DA /* Snapshot_avatar_match_bound@2x.png in Resources */,
 				459284B4184F3F65004FA3A6 /* Menu_icon_snapshots@2x.png in Resources */,
 				979B9613184852A000AF5A78 /* tongue.png in Resources */,
+				979A9D801851DC95003387DA /* viewprofile_icon_mutualfriends@2x.png in Resources */,
 				CDAB59BB1850880C00724956 /* Navbar_notification@2x.png in Resources */,
 				CD877CC018210B380067D478 /* tutorial_options.png in Resources */,
 				459284B6184F3F65004FA3A6 /* Menu_icon_tellyourfriends_pressed@2x.png in Resources */,
@@ -3741,6 +3762,7 @@
 				CDD38A9A173A2FEB00D583DD /* ListForChoose.xib in Resources */,
 				CD1A7E99173D12E100EC8537 /* PhotoViewController.xib in Resources */,
 				CDFF63851823564400C8031F /* SnapshotSetting_btn_contactus_active@2xpng.png in Resources */,
+				979A9D7E1851DC95003387DA /* viewprofile_icon_aboutme@2x.png in Resources */,
 				CD1AB0891821A3E900B0FA10 /* ChatView_blue_speech.png in Resources */,
 				459284B0184F3F65004FA3A6 /* Menu_icon_settings@2x.png in Resources */,
 				CD50E35D181FBF3C0036A23B /* Snapshot_popup_box.png in Resources */,
@@ -3757,6 +3779,7 @@
 				977854031822551100CBB5DB /* myprofile_photoLayout@2x.png in Resources */,
 				CD50E36A181FBF3C0036A23B /* Snapshot_popup_no_pressed@2x.png in Resources */,
 				CD50E36C181FBF3C0036A23B /* Snapshot_separators@2x.png in Resources */,
+				979A9D7D1851DC95003387DA /* viewprofile_icon_aboutme.png in Resources */,
 				CDF530821768699C0065701F /* EditText.xib in Resources */,
 				97A55D5E1823C3E700675025 /* viewprofile_likeicon@2x.png in Resources */,
 				CD877D0318212BAE0067D478 /* intropage_snap@2x.png in Resources */,
@@ -3844,6 +3867,7 @@
 				CDAB59B01850880C00724956 /* Navbar_btn_chat.png in Resources */,
 				CD1AB0791821804200B0FA10 /* Report_midleItem_inactive.png in Resources */,
 				97A8FCB918361C3700B9ACEC /* viewprofile_videoicon.png in Resources */,
+				979A9D7F1851DC95003387DA /* viewprofile_icon_mutualfriends.png in Resources */,
 				CD877CC618210B9D0067D478 /* tutorial_btn_cancel.png in Resources */,
 				CD877D151821374C0067D478 /* ChatView_btn_viewprofile@2x.png in Resources */,
 				CD877C8C1820E7AB0067D478 /* Snapshot_transBG.png in Resources */,

@@ -536,15 +536,7 @@
 
 - (void) getRosterListIDSync:(void(^)(void))handler
 {
-//    NSOperationQueue *queue = [[NSOperationQueue alloc] init];
     AFHTTPClient *httpClient = [[AFHTTPClient alloc]initWithOakClubAPI:DOMAIN];
-//    NSMutableURLRequest *request = [httpClient requestWithMethod:@"GET"
-//                                                                path:URL_getListChat
-//                                                          parameters:nil];
-//    
-//    AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
-//    [httpClient registerHTTPOperationClass:[AFHTTPRequestOperation class]];
-//    [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
     [httpClient getPath:URL_getListChat parameters:nil success:^(__unused AFHTTPRequestOperation *operation, id responseObject) {
         NSError *err;
         NSMutableDictionary *dict = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:&err];
@@ -556,11 +548,6 @@
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"get list chat Error: %@", error);
     }];
-    
-    // sync
-//    [queue addOperation:operation];
-//    [queue waitUntilAllOperationsAreFinished];
-//    NSLog(@"Get chat list completed");
 }
 
 -(void) parseGetSnapshotToProfile:(NSData*)jsonData{
