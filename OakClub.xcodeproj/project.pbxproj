@@ -95,6 +95,8 @@
 		97927BA3183E13B6005F49FC /* updateProfile_avatarBorder@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 97927BA1183E13B6005F49FC /* updateProfile_avatarBorder@2x.png */; };
 		97939394184DBFDF00BEC19D /* ImagePool.m in Sources */ = {isa = PBXBuildFile; fileRef = 97939393184DBFDF00BEC19D /* ImagePool.m */; };
 		97939396184E00AB00BEC19D /* proceed-btn-on@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 97939395184E00AB00BEC19D /* proceed-btn-on@2x.png */; };
+		979A9D68185188BB003387DA /* Snapshot_btn_info_pressed.png in Resources */ = {isa = PBXBuildFile; fileRef = 979A9D66185188BB003387DA /* Snapshot_btn_info_pressed.png */; };
+		979A9D69185188BB003387DA /* Snapshot_btn_info_pressed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 979A9D67185188BB003387DA /* Snapshot_btn_info_pressed@2x.png */; };
 		979B95F3184852A000AF5A78 /* amazed.png in Resources */ = {isa = PBXBuildFile; fileRef = 979B95CF184852A000AF5A78 /* amazed.png */; };
 		979B95F4184852A000AF5A78 /* angel.png in Resources */ = {isa = PBXBuildFile; fileRef = 979B95D0184852A000AF5A78 /* angel.png */; };
 		979B95F5184852A000AF5A78 /* angry.png in Resources */ = {isa = PBXBuildFile; fileRef = 979B95D1184852A000AF5A78 /* angry.png */; };
@@ -766,6 +768,8 @@
 		97939392184DBFDF00BEC19D /* ImagePool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImagePool.h; sourceTree = "<group>"; };
 		97939393184DBFDF00BEC19D /* ImagePool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImagePool.m; sourceTree = "<group>"; };
 		97939395184E00AB00BEC19D /* proceed-btn-on@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "proceed-btn-on@2x.png"; sourceTree = "<group>"; };
+		979A9D66185188BB003387DA /* Snapshot_btn_info_pressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Snapshot_btn_info_pressed.png; sourceTree = "<group>"; };
+		979A9D67185188BB003387DA /* Snapshot_btn_info_pressed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Snapshot_btn_info_pressed@2x.png"; sourceTree = "<group>"; };
 		979B95CF184852A000AF5A78 /* amazed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = amazed.png; sourceTree = "<group>"; };
 		979B95D0184852A000AF5A78 /* angel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = angel.png; sourceTree = "<group>"; };
 		979B95D1184852A000AF5A78 /* angry.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = angry.png; sourceTree = "<group>"; };
@@ -2093,6 +2097,8 @@
 				CD50E330181FBF3C0036A23B /* Snapshot_bg_profiles@2x.png */,
 				CD50E331181FBF3C0036A23B /* Snapshot_btn_info.png */,
 				CD50E332181FBF3C0036A23B /* Snapshot_btn_info@2x.png */,
+				979A9D66185188BB003387DA /* Snapshot_btn_info_pressed.png */,
+				979A9D67185188BB003387DA /* Snapshot_btn_info_pressed@2x.png */,
 				CD50E333181FBF3C0036A23B /* Snapshot_btn_no.png */,
 				CD50E334181FBF3C0036A23B /* Snapshot_btn_no@2x.png */,
 				CD877C4A1820AD490067D478 /* Snapshot_btn_no_preesed.png */,
@@ -3842,6 +3848,7 @@
 				CD2DE69F1827B2A30043AA91 /* AppIcon60x60.png in Resources */,
 				459284B1184F3F65004FA3A6 /* Menu_icon_snapshots_pressed.png in Resources */,
 				CD50E355181FBF3C0036A23B /* Snapshot_btn_yes.png in Resources */,
+				979A9D68185188BB003387DA /* Snapshot_btn_info_pressed.png in Resources */,
 				CD877CBE18210B380067D478 /* tutorial_chat.png in Resources */,
 				97927BA3183E13B6005F49FC /* updateProfile_avatarBorder@2x.png in Resources */,
 				CDFF638D1823564400C8031F /* SnapshotSetting_check@2x.png in Resources */,
@@ -3869,6 +3876,7 @@
 				CD1301671821FD9700D29E0B /* SnapshotLoading_btn_tellyourfriend_inactive.png in Resources */,
 				CD6437161850F7710077CF4D /* Splashscreen.png in Resources */,
 				CD13016E1821FD9700D29E0B /* SnapshotLoading_map_loaded@2x.png in Resources */,
+				979A9D69185188BB003387DA /* Snapshot_btn_info_pressed@2x.png in Resources */,
 				459284AB184F3F65004FA3A6 /* Menu_icon_profile.png in Resources */,
 				45A02597184CA77400DB9E2D /* bullet@2x.png in Resources */,
 				CD877CAD1820EF5A0067D478 /* trans-bg@2x.png in Resources */,

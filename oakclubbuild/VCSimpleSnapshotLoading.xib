@@ -66,9 +66,9 @@
     </objects>
     <resources>
         <image name="SnapshotLoading_btn_i_disabled.png" width="28" height="28"/>
-        <image name="SnapshotLoading_btn_like_disabled.png" width="70" height="70"/>
+        <image name="SnapshotLoading_btn_like_disabled.png" width="81" height="83"/>
         <image name="SnapshotLoading_btn_tellyourfriend_active.png" width="237" height="44"/>
         <image name="SnapshotLoading_btn_tellyourfriend_inactive.png" width="237" height="44"/>
-        <image name="SnapshotLoading_btn_x_disabled.png" width="70" height="70"/>
+        <image name="SnapshotLoading_btn_x_disabled.png" width="81" height="83"/>
     </resources>
 </document>
