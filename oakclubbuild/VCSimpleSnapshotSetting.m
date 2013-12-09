@@ -421,8 +421,16 @@ UITapGestureRecognizer *tap;
                 UIImage* logoImage = [UIImage imageNamed:@"SnapshotSetting_oakclub_logo.png"];
                 UIImageView* logoImageView = [[UIImageView alloc]initWithImage:logoImage];
                 [logoImageView setFrame:CGRectMake((newCellView.frame.size.width - 108)/2, 97  , 108, 90)];
-            
                 [newCellView addSubview:logoImageView];
+                
+                
+                UILabel* lblVersion = [[UILabel alloc]initWithFrame:CGRectMake(100, logoImageView.frame.origin.y  + logoImageView.frame.size.height + 2, 120, 30)];
+                [lblVersion setText:[NSString stringWithFormat:@"Version %@",VersionNumber] ];
+                [lblVersion setTextColor:[UIColor lightGrayColor]];
+                [lblVersion setFont:FONT_HELVETICANEUE_LIGHT(12)];
+                [lblVersion setBackgroundColor:[UIColor clearColor]];
+                [lblVersion setTextAlignment:NSTextAlignmentCenter];
+                [newCellView addSubview:lblVersion];
                 
                 [newCellView localizeAllViews];
                 [moreCell setSelectionStyle:UITableViewCellSelectionStyleNone];

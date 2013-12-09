@@ -9,12 +9,12 @@
 #ifndef oakclubbuild_Define_h
 #define oakclubbuild_Define_h
 
-
+#define VersionNumber @"1.2.0"
 //demo version FLAG
 #define ENABLE_DEMO true
-#define USE_STAGING false
+#define USE_STAGING true
 #define USE_MAINHOST false
-#define USE_STAGING_MB true
+#define USE_STAGING_MB false
 #define USE_STAGING_IOS false
 //Hangout
 #define sOnline @"Online"
