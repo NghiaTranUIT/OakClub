@@ -52,4 +52,5 @@
 @property (weak, nonatomic) IBOutlet UIImageView *imgLoading;
 @property (weak, nonatomic) IBOutlet UIButton *buttonNO;
 
+-(void)onBackFromPopup;
 @end

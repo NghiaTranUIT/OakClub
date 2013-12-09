@@ -163,6 +163,12 @@
     [self.customView bringSubviewToFront:labelNotifications];
 }
 
+-(void) disableAllControl:(BOOL)value
+{
+    [ (UIButton *)[self.customView viewWithTag:1] setEnabled: !value];
+    [ (UIButton *)[self.customView viewWithTag:3] setEnabled: !value];
+}
+
 -(void)optionPressed:(id)sender
 {
     
