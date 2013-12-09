@@ -29,7 +29,6 @@
 @synthesize is_deleted;
 @synthesize is_blocked;
 @synthesize is_available;
-@synthesize is_match;
 @synthesize unread_message;
 @synthesize status;
 @synthesize s_Avatar = _s_avatar;
@@ -505,7 +504,6 @@
             // vanancyLuu : cheat for crash
             if(!deleted && !blocked && !blocked_by )
             {
-                bool isMatch = [[objectData valueForKey:key_match] boolValue];
                 BOOL isViewMatch =[[objectData valueForKey:@"status"] intValue] == MatchUnViewed?YES:NO;
                 if(isViewMatch){
                    self.new_mutual_attractions ++;
@@ -517,7 +515,6 @@
                 profile.unread_message = unread_count;
                 profile.is_deleted = deleted;
                 profile.is_blocked = blocked;
-                profile.is_match = isMatch;
                 profile.status =[[objectData valueForKey:@"status"] intValue];
                 profile.s_status_time = [objectData valueForKey:@"time"];
                 profile.s_Name =[objectData valueForKey:@"name"];
@@ -539,15 +536,7 @@
 
 - (void) getRosterListIDSync:(void(^)(void))handler
 {
-//    NSOperationQueue *queue = [[NSOperationQueue alloc] init];
     AFHTTPClient *httpClient = [[AFHTTPClient alloc]initWithOakClubAPI:DOMAIN];
-//    NSMutableURLRequest *request = [httpClient requestWithMethod:@"GET"
-//                                                                path:URL_getListChat
-//                                                          parameters:nil];
-//    
-//    AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
-//    [httpClient registerHTTPOperationClass:[AFHTTPRequestOperation class]];
-//    [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
     [httpClient getPath:URL_getListChat parameters:nil success:^(__unused AFHTTPRequestOperation *operation, id responseObject) {
         NSError *err;
         NSMutableDictionary *dict = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:&err];
@@ -559,11 +548,6 @@
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"get list chat Error: %@", error);
     }];
-    
-    // sync
-//    [queue addOperation:operation];
-//    [queue waitUntilAllOperationsAreFinished];
-//    NSLog(@"Get chat list completed");
 }
 
 -(void) parseGetSnapshotToProfile:(NSData*)jsonData{
@@ -904,7 +888,6 @@
     accountCopy.is_deleted = is_deleted;
     accountCopy.is_blocked = is_blocked ;
     accountCopy.is_available = is_available ;
-    accountCopy.is_match = is_match;
     accountCopy.status = status;
     accountCopy.unread_message = unread_message;
     accountCopy.distance = distance;
@@ -1056,8 +1039,14 @@
      }];
 
 }
+
 #pragma mark format Text
 -(NSString*)getFirstNameWithName:(NSString*) name{
     return [[name componentsSeparatedByString:@" "] objectAtIndex:0];
+}
+
+-(bool)is_match
+{
+    return (self.status == 0 || self.status == 1);
 }
 @end

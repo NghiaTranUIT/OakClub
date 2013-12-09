@@ -31,14 +31,15 @@
                     </accessibility>
                 </imageView>
                 <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="38">
-                    <rect key="frame" x="10" y="8" width="40" height="30"/>
+                    <rect key="frame" x="5" y="0.0" width="44" height="44"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                    <state key="normal" image="Navbar_btn_menu.png">
+                    <state key="normal" backgroundImage="Navbar_btn_menu.png">
                         <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
-                    <state key="highlighted">
+                    <state key="selected" backgroundImage="Navbar_btn_menu_pressed.png"/>
+                    <state key="highlighted" backgroundImage="Navbar_btn_menu_pressed.png">
                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
                 </button>
@@ -50,11 +51,13 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="40">
-                    <rect key="frame" x="265" y="8" width="45" height="30"/>
+                    <rect key="frame" x="271" y="0.0" width="44" height="44"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <state key="normal" backgroundImage="Navbar_btn_chat_up.png">
+                    <state key="normal" backgroundImage="Navbar_btn_chat.png">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
+                    <state key="selected" backgroundImage="Navbar_btn_chat_pressed.png"/>
+                    <state key="highlighted" backgroundImage="Navbar_btn_chat_pressed.png"/>
                 </button>
                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="4" contentMode="left" text="Header" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="49">
                     <rect key="frame" x="51" y="0.0" width="215" height="44"/>
@@ -64,14 +67,14 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <imageView hidden="YES" userInteractionEnabled="NO" tag="6" contentMode="scaleToFill" image="Navbar_notification.png" id="53">
-                    <rect key="frame" x="248" y="3" width="31" height="20"/>
+                    <rect key="frame" x="265" y="6" width="20" height="20"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <rect key="contentStretch" x="0.25" y="0.0" width="0.24999999999999967" height="1"/>
                 </imageView>
-                <label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="5" contentMode="left" text="+0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="55">
-                    <rect key="frame" x="248" y="1" width="30" height="21"/>
+                <label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="5" contentMode="left" text="0+" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" id="55">
+                    <rect key="frame" x="265" y="6" width="20" height="20"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="14"/>
+                    <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="10"/>
                     <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
@@ -82,8 +85,10 @@
     </objects>
     <resources>
         <image name="Navbar_BG.png" width="320" height="45"/>
-        <image name="Navbar_btn_chat_up.png" width="45" height="30"/>
-        <image name="Navbar_btn_menu.png" width="40" height="30"/>
-        <image name="Navbar_notification.png" width="29" height="17"/>
+        <image name="Navbar_btn_chat.png" width="44" height="44"/>
+        <image name="Navbar_btn_chat_pressed.png" width="44" height="44"/>
+        <image name="Navbar_btn_menu.png" width="44" height="44"/>
+        <image name="Navbar_btn_menu_pressed.png" width="44" height="44"/>
+        <image name="Navbar_notification.png" width="20" height="20"/>
     </resources>
 </document>

@@ -72,7 +72,10 @@
          {
              UIImage *image = [UIImage imageWithData:responseObject];
              NSMutableArray *reqs = (NSMutableArray *) [_images objectForKey:imgURL];
-             [_images setObject:image forKey:imgURL];
+             if (image)
+             {
+                 [_images setObject:image forKey:imgURL];
+             }
              
              for (int i = 0; i < reqs.count; ++i)
              {

@@ -203,6 +203,8 @@
      } failure:^{
         [self stopSpinner];
         NSLog(@"LOGIN FAIL.....");
+         
+         //Msg popup can't login
     }];
 }
 
@@ -296,10 +298,5 @@
     for(UIView* view in [self.view subviews]){
         [view localizeText];
     }
-//    self.lblNote = (UILabel*)[NSString localizeStringByObject:self.lblNote];
-//    NSString* loginText =[appDelegate.languageBundle localizedStringForKey:btnLogin.titleLabel.text value:@"" table:nil];
-//    NSString* noteText =[appDelegate.languageBundle localizedStringForKey:self.lblNote.text value:@"" table:nil];
-//    [btnLogin setTitle:loginText forState:UIControlStateNormal];
-//    [self.lblNote setText:noteText];
 }
 @end

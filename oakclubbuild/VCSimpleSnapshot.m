@@ -180,15 +180,12 @@ CGFloat pageHeight;
      {
          NSError *e=nil;
          NSMutableDictionary *dict = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONReadingMutableContainers error:&e];
-         appDel.likedMeList= [dict valueForKey:key_data];
+         appDel.likedMeList = [dict valueForKey:key_data];
          
      } failure:^(AFHTTPRequestOperation *operation, NSError *error)
      {
          NSLog(@"URL_getListWhoLikeMe - Error Code: %i - %@",[error code], [error localizedDescription]);
      }];
-    
-    //test list
-//    appDel.likedMeList = [[NSArray alloc] initWithObjects:@"1lxwk74pgu",@"1lxx1xqqs0",@"1lxwtq9jd0",@"1lxx3nhvut",@"1lxx48tf37",@"1lxx4qtd56", nil];
 }
 #endif
 
@@ -208,16 +205,22 @@ CGFloat pageHeight;
     
     [setLikedQueue waitUntilAllOperationsAreFinished];
     
+    // copy for retain cycle
     VCSimpleSnapshot *self_alias = self;
+    AppDelegate *_appDel = appDel;
+    
     [locUpdate updateWithCompletion:^(double longitude, double latitude, NSError *e) {
         if (!e)
         {
             [locUpdate setUserLocationAtLongitude:longitude andLatitude:latitude useCallback:^(NSString *locationID, NSString *locationName, NSError *err)
              {
-                 appDel.myProfile.s_location.longitude = longitude;
-                 appDel.myProfile.s_location.latitude = latitude;
-                 appDel.myProfile.s_location.ID = locationID;
-                 appDel.myProfile.s_location.name = locationName;
+                 if (!err)
+                 {
+                     _appDel.myProfile.s_location.longitude = longitude;
+                     _appDel.myProfile.s_location.latitude = latitude;
+                     _appDel.myProfile.s_location.ID = locationID;
+                     _appDel.myProfile.s_location.name = locationName;
+                 }
                  
                 [self_alias loadSnapshotProfilesWithHandler:handler];
             }];
@@ -232,7 +235,7 @@ CGFloat pageHeight;
 -(void)loadSnapshotProfilesWithHandler:(void(^)(void))handler
 {
     request = [[AFHTTPClient alloc] initWithOakClubAPI:DOMAIN];
-    NSDictionary *params = [[NSDictionary alloc]initWithObjectsAndKeys:@"0",@"start",@"10",@"limit",
+    NSDictionary *params = [[NSDictionary alloc]initWithObjectsAndKeys:@"0",@"start",@"35",@"limit",
                             appDel.snapshotSettingsObj.snapshotParams, @"search_preference", nil];
     NSMutableURLRequest *urlReq = [request requestWithMethod:@"GET" path:URL_getSnapShot parameters:params];
     
@@ -272,7 +275,6 @@ CGFloat pageHeight;
     [self.imgNextProfile setImage:[UIImage imageNamed:@"Default Avatar"]];
     if(currentIndex >= [profileList count])
     {
-//        [self showWarning];
         return;
     }
     Profile * temp  =  [[Profile alloc]init];
@@ -324,40 +326,17 @@ CGFloat pageHeight;
              }
              [self stopLoadingAnim];
          }];
-        /*
-        if(currentProfile.arr_photos != nil ){
-            if(([currentProfile.arr_photos count] > 0) && [currentProfile.arr_photos[0] isKindOfClass:[UIImage class]]){
-                [self.imgMainProfile setImage:[currentProfile.arr_photos objectAtIndex:0]];
-            }
-            else{
-                AFHTTPRequestOperation *operation =
-                [Profile getAvatarSync:currentProfile.s_Avatar
-                              callback:^(UIImage *image)
-                 {
-                     [self.imgMainProfile setImage:image];
-                     if([currentProfile.arr_photos count]<1){
-                         [currentProfile.arr_photos addObject:image];
-                     }
-                     else{
-                         [currentProfile.arr_photos replaceObjectAtIndex:0 withObject:image];
-                     }
-                 }];
-                [operation start];
-            }
-        }
-        */
     }
     currentIndex++;
 }
 
 - (void) viewWillAppear:(BOOL)animated{
-//    [self.view addSubview:loadingAnim];
     [self.moveMeView localizeAllViews];
     [self.controlView localizeAllViews];
-//    [[self navBarOakClub] setHeaderName:[NSString localizeString:@"Snapshot"]];
     
     //load data
     [self loadLikeMeList];
+    
     //load profile list if needed
     if( appDel.reloadSnapshot){
         [self refreshSnapshot];
@@ -441,7 +420,6 @@ CGFloat pageHeight;
                      animations:^{
                          [imgAvatarFrame setAlpha:0.0f];
                          [self.navigationController setNavigationBarHidden:YES animated:YES];
-//                         imgMainProfile.frame = CGRectMake((320-275)/2, 0, 275, 275);
                          imgMainProfile.frame = CGRectMake(0, -20, 320, 320);
                      }
                      completion:^(BOOL finished) {
@@ -530,7 +508,6 @@ CGFloat pageHeight;
 - (IBAction)onClickSendMessageToMatcher:(id)sender {
     [self addNewChatUser:matchedProfile];
     
-//    UIImage* avatar = currentProfile.arr_photos[0];
     NSMutableArray* array = [[NSMutableArray alloc]init];
     
     SMChatViewController *chatController =
@@ -571,7 +548,7 @@ CGFloat pageHeight;
     [stamp setAlpha:0.5f];
     [stamp setFrame:CGRectMake(66, 46, stamp.frame.size.width, stamp.frame.size.height)];
     stamp.transform = CGAffineTransformScale(CGAffineTransformIdentity, 2.0, 2.0);
-//    stamp.transform = CGAffineTransformMakeRotation(30.0f);
+    
     [self.moveMeView addSubViewToCardView:stamp andAtFront:YES andTag:101];
     [UIView animateWithDuration:0.2
                      animations:^{
@@ -611,18 +588,13 @@ CGFloat pageHeight;
         params = [[NSDictionary alloc]initWithObjectsAndKeys:currentProfile.s_ID,key_profileID,@"0" ,@"is_like", nil];
 
     // Vanancy - add request into QUEUE
-    NSMutableDictionary* queueDict = [[NSUserDefaults standardUserDefaults] objectForKey:@"snapshotQueueByProfileID"];
-    if (!queueDict) {
-        queueDict = [[NSMutableDictionary alloc]init];
-    }
-    NSMutableArray *queue = [queueDict objectForKey:appDel.myProfile.s_ID];
+    NSMutableDictionary* queueDict = [[NSMutableDictionary alloc]initWithDictionary:[[NSUserDefaults standardUserDefaults] objectForKey:key_snapshotQueue]] ;
+    NSMutableArray *queue = [[NSMutableArray alloc]initWithArray:[queueDict objectForKey:appDel.myProfile.s_ID]] ;
     if (queue) {
         [queue addObject:params];
-    }else{
-        queue = [[NSMutableArray alloc]initWithObjects:params, nil];
     }
     [queueDict setObject:queue forKey:appDel.myProfile.s_ID];
-    [[NSUserDefaults standardUserDefaults] setObject:queueDict forKey:@"snapshotQueueByProfileID"];
+    [[NSUserDefaults standardUserDefaults] setObject:queueDict forKey:key_snapshotQueue];
     [[NSUserDefaults standardUserDefaults] synchronize];
     NSString *value = [[NSUserDefaults standardUserDefaults] objectForKey:@"currentSnapShotID"];
     if ([answerChoice isEqualToString:@"1"]) {
@@ -644,7 +616,7 @@ CGFloat pageHeight;
     [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
         [queue removeObject:params];
         [queueDict setObject:queue forKey:appDel.myProfile.s_ID];
-        [[NSUserDefaults standardUserDefaults] setObject:queueDict forKey:@"snapshotQueueByProfileID"];
+        [[NSUserDefaults standardUserDefaults] setObject:queueDict forKey:key_snapshotQueue];
         [[NSUserDefaults standardUserDefaults] synchronize];
         NSLog(@"post success !!!");
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -711,7 +683,7 @@ CGFloat pageHeight;
 
 -(void)startDisabledGPS{
     loadingView = [[VCSimpleSnapshotLoading alloc]init];
-    [loadingView setTypeOfAlert:2 andAnim:nil];
+    [loadingView setTypeOfAlert:2 andAnim:loadingAnim];
     [self.navigationController pushViewController:loadingView animated:NO];
     isBlockedByGPS = TRUE;
 }
@@ -720,7 +692,7 @@ CGFloat pageHeight;
     [self stopLoadingAnim];
     loadingView = [[VCSimpleSnapshotLoading alloc]init];
     [loadingView.view setFrame:CGRectMake(0, 0, 320, 480)];
-    [loadingView setTypeOfAlert:1 andAnim:nil];
+    [loadingView setTypeOfAlert:1 andAnim:loadingAnim];
     [self.navigationController pushViewController:loadingView animated:NO];
 }
 

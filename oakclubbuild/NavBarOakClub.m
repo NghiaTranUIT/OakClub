@@ -58,8 +58,8 @@
     [rightButton setHidden:NO];
 #if ENABLE_DEMO
     if([rightButtonClass isEqualToString:@"VCChat"]){
-        [rightButton setBackgroundImage:[UIImage imageNamed:@"Navbar_btn_chat_up.png"] forState:UIControlStateNormal];
-//        [rightButton setBackgroundImage:[UIImage imageNamed:@"Navbar_btn_chat_up.png"] forState:UIControlStateHighlighted];
+        [rightButton setBackgroundImage:[UIImage imageNamed:@"Navbar_btn_chat.png"] forState:UIControlStateNormal];
+        [rightButton setBackgroundImage:[UIImage imageNamed:@"Navbar_btn_chat_pressed.png"] forState:UIControlStateHighlighted];
     }
     if([rightButtonClass isEqualToString:@"VCMyProfile"]){
         [rightButton setImage:[UIImage imageNamed:@"header_btn_save.png"] forState:UIControlStateNormal];
@@ -151,7 +151,7 @@
 
         labelNotifications.hidden = NO;
         imageNotifications.hidden = NO;
-        labelNotifications.text = [NSString stringWithFormat:@"+%d", count];
+        labelNotifications.text = [NSString stringWithFormat:@"%d+", count];
     }
     else
     {

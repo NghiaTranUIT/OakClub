@@ -523,6 +523,7 @@ int cellCountinSection=0;
             XMPPUserCoreDataStorageObject *user = [[self fetchedResultsController] objectAtIndexPath:[NSIndexPath indexPathForRow:j inSection:i]];
             XMPPJID* xmpp_jid = [user jid];
             NSString* jid = [xmpp_jid user];//[NSString stringWithFormat:@"%@@%@", [xmpp_jid user], [xmpp_jid domain]];
+            NSLog(@"User %d: %@", j + 1, user);
 //            NSLog(@"XMPPUserCoreDataStorageObject - jid :%i , %@",j,jid);
             Profile* profile =[appDel.myProfile.dic_Roster valueForKey:jid];
             if(profile == nil)
@@ -704,6 +705,10 @@ int cellCountinSection=0;
     [tableView deselectRowAtIndexPath:[tableView indexPathForSelectedRow] animated:NO];
     //SMChatViewController *chatController = [[SMChatViewController alloc] initWithUser:userName];
     UIImage* avatar = [a_avatar valueForKey:profile.s_ID];
+    if (!avatar)
+    {
+        avatar = profile.img_Avatar;
+    }
     NSMutableArray* array = [a_messages valueForKey:profile.s_ID];
 
     if (array  || profile.status <= MatchViewed)
@@ -823,12 +828,25 @@ int cellCountinSection=0;
     NSString* time = [NSString getCurrentTime];
     HistoryMessage* newHistory =[[HistoryMessage alloc] initMessageFrom:hangout_id atTime:time toHangout:appDel.myProfile.s_ID withContent:msg];
     
-    [[a_messages objectForKey:hangout_id] addObject:newHistory];
+    NSMutableArray *messages = [a_messages objectForKey:hangout_id];
+    if (!messages)  // new people
+    {
+        messages = [[NSMutableArray alloc] init];
+        [a_messages setObject:messages forKey:hangout_id];
+    }
+    
+    [messages addObject:newHistory];
+    
     Profile *friend = [appDel.friendChatList objectForKey:sender];
+    if (!friend)
+    {
+        
+    }
     friend.status = ChatUnviewed;
     [appDel.friendChatList setObject:friend forKey:sender];
-    [self.searchDisplayController.searchResultsTableView reloadData];
-	[[self tableView] reloadData];
+    
+    fetchedResultsController = nil;
+    [self.tableView reloadData];
 }
 
 -(void)lockViewForIndicator:(LoadingIndicator *)indicator
