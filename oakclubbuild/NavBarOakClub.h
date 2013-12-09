@@ -24,6 +24,7 @@
 -(void)setRightButton:(NSString*)className;
 -(void)setNotifications:(int)count;
 -(void)addToHeader:(UIView*)subview;
+-(void) disableAllControl: (BOOL) value;
 
 @property (weak, nonatomic) IBOutlet UILabel *labelNotifications;
 @property (weak, nonatomic) IBOutlet UIImageView *imageNotifications;

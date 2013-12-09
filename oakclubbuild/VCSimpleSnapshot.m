@@ -327,6 +327,7 @@ CGFloat pageHeight;
 - (void) viewWillAppear:(BOOL)animated{
     [self.moveMeView localizeAllViews];
     [self.controlView localizeAllViews];
+    [[self navBarOakClub] disableAllControl: NO];
     
     //load data
     [self loadLikeMeList];
@@ -570,6 +571,7 @@ CGFloat pageHeight;
         )
        ))
     {
+        [[self navBarOakClub] disableAllControl: YES];
         [self showFirstSnapshotPopup:answerChoice];
         [self.moveMeView setAnswer:-1];
         isFirstTime+=[answerChoice integerValue];
@@ -801,5 +803,10 @@ CGFloat pageHeight;
 	if ([touch view] == self.backgroundAvatarView) {
         NSLog(@"touchesEnded ------ backgroundAvatarView");
     }
+}
+
+-(void)onBackFromPopup
+{
+    [[self navBarOakClub] disableAllControl: NO];
 }
 @end

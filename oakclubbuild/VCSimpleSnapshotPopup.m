@@ -51,9 +51,15 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+-(NavBarOakClub*)navBarOakClub
+{
+    NavConOakClub* navcon = (NavConOakClub*)self.navigationController;
+    return (NavBarOakClub*)navcon.navigationBar;
+}
 #pragma mark handle on touch
 - (IBAction)onTouchCancel:(id)sender {
     [moveMeView setAnswer:-1];
+    [snapshotView onBackFromPopup];
     [self.view removeFromSuperview];
 }
 - (IBAction)onTouchLike:(id)sender {
@@ -61,6 +67,7 @@
     [snapshotView setLikedSnapshot:[NSString stringWithFormat:@"%i",interestedStatusYES]];
     [snapshotView loadCurrentProfile];
     [snapshotView loadNextProfileByCurrentIndex];
+    [snapshotView onBackFromPopup];
     [self.view removeFromSuperview];
 }
 - (IBAction)onTouchReject:(id)sender {
@@ -68,6 +75,7 @@
     [snapshotView setLikedSnapshot:[NSString stringWithFormat:@"%i",interestedStatusNO]];
     [snapshotView loadCurrentProfile];
     [snapshotView loadNextProfileByCurrentIndex];
+    [snapshotView onBackFromPopup];
     [self.view removeFromSuperview];
 }
 
