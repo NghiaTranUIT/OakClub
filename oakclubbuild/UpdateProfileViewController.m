@@ -21,7 +21,7 @@ enum UpdateProfileItems {
     };
 
 #define nItems 5
-@interface UpdateProfileViewController () <UITableViewDataSource, UITableViewDelegate, EditTextViewDelegate, ListForChooseDelegate, UIViewControllerBirthdayPickerDelegate, ImageRequester, LoadingIndicatorDelegate>
+@interface UpdateProfileViewController () <UITableViewDataSource, UITableViewDelegate, EditTextViewDelegate, ListForChooseDelegate, UIViewControllerBirthdayPickerDelegate, LoadingIndicatorDelegate>
 {
     NSArray *updateProfileCellTitles;
     Profile *copyProfile;
@@ -98,20 +98,16 @@ enum UpdateProfileItems {
 
 -(void)updateData
 {
-    [appDelegate.myProfile tryGetImageAsync:self];
+    [appDelegate.imagePool getImageAtURL:copyProfile.s_Avatar withSize:PHOTO_SIZE_SMALL asycn:^(UIImage *img, NSError *error) {
+        if (img)
+        {
+            [self.avatarView setImage:img];
+        }
+    }];
     self.lblName.text = copyProfile.s_Name;
     self.lblAgeWork.text = [NSString stringWithFormat:@"%d, %@,", copyProfile.age, copyProfile.i_work.cate_name];
     self.lblLocation.text = copyProfile.s_location.name;
     [self.tbView reloadData];
-}
-
-#pragma Avatar requester
--(void)setImage:(UIImage *)img
-{
-    if (img)
-    {
-        [self.avatarView setImage:img];
-    }
 }
 
 #pragma mark - Table view data source

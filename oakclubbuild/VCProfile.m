@@ -23,6 +23,7 @@
 @interface VCProfile (){
 //    BOOL popoverShowing;
     AFHTTPClient *request;
+    AppDelegate *appDel;
 }
 @property (weak, nonatomic) IBOutlet UIView *aboutView;
 @property (weak, nonatomic) IBOutlet UIView *mutualFriendsView;
@@ -58,6 +59,7 @@
         // Custom initialization
         request= [[AFHTTPClient alloc] initWithOakClubAPI:DOMAIN];
         tableSource = [[NSMutableArray alloc] init];
+        appDel = (id) [UIApplication sharedApplication].delegate;
 //        self.svPhotos = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, 320, 275)];
     }
     return self;
@@ -757,8 +759,6 @@ static CGFloat padding_left = 5.0;
     {
         
         NSString *userName = [NSString stringWithFormat:@"%@%@",currentProfile.s_ID ,DOMAIN_AT];//user.jidStr;
-        AppDelegate* appDel = [self appDelegate];
-        
         [appDel.friendChatList setObject:currentProfile forKey:userName];
         
         SMChatViewController *chatController = [[SMChatViewController alloc] initWithUser:userName
@@ -821,62 +821,40 @@ static CGFloat padding_left = 5.0;
     self.svPhotos.frame = CGRectMake(0, 0, 320, 320/*294*/);
 }
 -(void)loadPhotoForScrollview{
-         NSArray* _imagesData;
-         if(currentProfile.arr_photos != nil && [currentProfile.arr_photos count]>0)
-         {
-             [photoCount setText:[NSString stringWithFormat:@"%i/%i",1,[currentProfile.arr_photos count]]];
-             _imagesData = [[NSArray alloc]initWithArray: currentProfile.arr_photos];
-             
-             if([_imagesData count] == 0)
-             {
-                 [loadingAvatar stopAnimating];
-                 loadingAvatar.hidden = YES;
-             }
-             else
-             {
-                 for(int i = 0; i < [currentProfile.arr_photos count]; i++)
-                 {
-                     if(![[currentProfile.arr_photos objectAtIndex:i] isKindOfClass:[UIImage class]]){
-                         NSString* link = [currentProfile.arr_photos objectAtIndex:i];
-//                         NSLog(@"VCProfile load avatar index: %d, link: %@", i, link);
-                         if(![link isEqualToString:@""] )
-                         {
-                             [Profile getAvatarSync:link
-                                           callback:^(UIImage *image)
-                              {
-                                  if(image){
-                                      UIImageView *imageView = [[UIImageView alloc]initWithImage:image];
-                                      CGRect frame = self.svPhotos.frame;
-                                      frame.origin.x = CGRectGetWidth(frame) * i ;
-                                      frame.origin.y = 0;
-                                      imageView.frame = frame;
-                                      [imageView setContentMode:UIViewContentModeScaleAspectFit];
-                                      [self.svPhotos addSubview:imageView];
-                                      self.svPhotos.contentSize =
-                                      CGSizeMake(CGRectGetWidth(self.svPhotos.frame) * (i+1), CGRectGetHeight(self.svPhotos.frame));
-                                      [currentProfile.arr_photos replaceObjectAtIndex:i withObject:image];
-                                      
-                                  }
-                              }];
-                         }
-                     }
-                     else{
-                         UIImageView *imageView = [[UIImageView alloc]initWithImage:[currentProfile.arr_photos objectAtIndex:i]];
-                         CGRect frame = self.svPhotos.frame;
-                         frame.origin.x = CGRectGetWidth(frame)*i;
-                         frame.origin.y = 0;
-                         imageView.frame = frame;
-                         [imageView setContentMode:UIViewContentModeScaleAspectFit];
-                         [self.svPhotos addSubview:imageView];
-                         self.svPhotos.contentSize =
-                         CGSizeMake(CGRectGetWidth(self.svPhotos.frame) * (i+1), CGRectGetHeight(self.svPhotos.frame));
-//                         [photoCount setText:[NSString stringWithFormat:@"%i/%i",1,(i+1)]];
-                     }
-                 }
-                 
-             }
-             
-         }
+    if(currentProfile.arr_photos != nil && [currentProfile.arr_photos count]>0)
+    {
+        [photoCount setText:[NSString stringWithFormat:@"%i/%i",1,[currentProfile.arr_photos count]]];
+        
+        if([currentProfile.arr_photos count] == 0)
+        {
+            [loadingAvatar stopAnimating];
+            loadingAvatar.hidden = YES;
+        }
+        else
+        {
+            for(int i = 0; i < [currentProfile.arr_photos count]; i++)
+            {
+                NSString* link = [currentProfile.arr_photos objectAtIndex:i][key_photoLink];
+                if(![link isEqualToString:@""] )
+                {
+                    [appDel.imagePool getImageAtURL:link withSize:PHOTO_SIZE_LARGE asycn:^(UIImage *image, NSError *error) {
+                        if(image){
+                            UIImageView *imageView = [[UIImageView alloc]initWithImage:image];
+                            CGRect frame = self.svPhotos.frame;
+                            frame.origin.x = CGRectGetWidth(frame) * i ;
+                            frame.origin.y = 0;
+                            imageView.frame = frame;
+                            [imageView setContentMode:UIViewContentModeScaleAspectFit];
+                            [self.svPhotos addSubview:imageView];
+                            self.svPhotos.contentSize =
+                            CGSizeMake(CGRectGetWidth(self.svPhotos.frame) * (i+1), CGRectGetHeight(self.svPhotos.frame));
+                        }
+                    }];
+                }
+            }
+        }
+        
+    }
 }
 
 -(IBAction)onTouchAddToFavorite:(id)sender{

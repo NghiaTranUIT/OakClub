@@ -61,8 +61,8 @@
         if (!error)
         {
             NSDictionary *data = [dict objectForKey:key_data];
-            NSString *link = [data objectForKey:@"file"];
-            NSString *imgID = [data objectForKey:@"id"];
+            NSString *link = [data objectForKey:key_photoLink];
+            NSString *imgID = [data objectForKey:key_photoID];
             if (completionHandler)
             {
                 completionHandler(link, imgID, isAvatar);

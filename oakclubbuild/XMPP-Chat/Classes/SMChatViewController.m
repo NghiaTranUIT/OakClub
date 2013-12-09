@@ -23,7 +23,7 @@
 #import "ChatNavigationView.h"
 #import "SmileyChooseCell.h"
 
-@interface SMChatViewController() <ImageRequester>
+@interface SMChatViewController()
 @property UIImageView* headerLogo;
 @property (strong, nonatomic) PSUICollectionView *smileyCollection;
 @property (weak, nonatomic) IBOutlet UIView *textInputView;
@@ -137,7 +137,9 @@
         
         Profile* myProfile = [self getProfilebyID:nil];
         //Vanancy - change load avatar
-        avatar_me = myProfile.img_Avatar;
+        [appDel.imagePool getImageAtURL:myProfile.s_Avatar withSize:PHOTO_SIZE_SMALL asycn:^(UIImage *img, NSError *error) {
+            avatar_me = img;
+        }];
 //        avatar_me = [UIImage imageNamed:@"Default Avatar.png"];
 //        [myProfile tryGetImageAsync:self];
         
@@ -183,13 +185,10 @@
         NSString* link = _profile.s_Avatar;//[self getAvatarUrl:chatWithUser];
         if(![link isEqualToString:@""])
         {
-            
-            [Profile getAvatarSync:link callback:^(UIImage *avatar) {
+            [appDel.imagePool getImageAtURL:link withSize:PHOTO_SIZE_SMALL asycn:^(UIImage *avatar, NSError *error) {
                 if(avatar)
-                avatar_friend = avatar;
+                    avatar_friend = avatar;
             }];
-            //[queue addOperation:operation];
-            //[queue waitUntilAllOperationsAreFinished];
         }
         else
         {
@@ -200,12 +199,10 @@
         
         if( ![link isEqualToString:@""] )
         {
-            
-            [Profile getAvatarSync:link callback:^(UIImage *avatar) {
+            [appDel.imagePool getImageAtURL:link withSize:PHOTO_SIZE_SMALL asycn:^(UIImage *avatar, NSError *error) {
                 if(avatar)
-                avatar_me = avatar;
+                    avatar_friend = avatar;
             }];
-            //[queue addOperation:operation];
         }
         else
         {

@@ -23,7 +23,7 @@
 #import <MediaPlayer/MediaPlayer.h>
 #import <AVFoundation/AVFoundation.h>
 
-@interface VCMyProfile () <PickPhotoFromGarellyDelegate, VideoPickerDelegate, UIAlertViewDelegate, ImageRequester, PhotoScrollViewDelegate, LoadingIndicatorDelegate>
+@interface VCMyProfile () <PickPhotoFromGarellyDelegate, VideoPickerDelegate, UIAlertViewDelegate, PhotoScrollViewDelegate, LoadingIndicatorDelegate>
 {
     GroupButtons* genderGroup;
     AppDelegate *appDelegate;
@@ -32,10 +32,7 @@
     NSArray *heightOptionList;
     Profile* profileObj;
     PickPhotoFromGarelly *avatarPicker;
-    UIImage *avatarImage;
-    UIImage *newAvatarImage;
     NSMutableArray *photos;
-    NSMutableArray *photosID;
     int selectedPhoto;
     UIImage *uploadImage;
     LocationUpdate *locUpdate;
@@ -67,7 +64,6 @@ UITapGestureRecognizer *tap;
         // Custom initialization
         appDelegate =(AppDelegate *)[[UIApplication sharedApplication] delegate];
         profileItemList = [[NSMutableArray alloc] initWithArray:MyProfileItemList];
-        
     }
     return self;
 }
@@ -79,6 +75,10 @@ UITapGestureRecognizer *tap;
            action:@selector(dismissKeyboard)];
     [tap setCancelsTouchesInView:NO];
     [scrollview addGestureRecognizer:tap];
+    
+    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(avatarTouched:)];
+    [self.imgAvatar addGestureRecognizer:tapGesture];
+    
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     //    [self initGenderGroup];
@@ -99,12 +99,11 @@ UITapGestureRecognizer *tap;
     indicator = [[LoadingIndicator alloc] initWithMainView:self.view andDelegate:self];
     photo_Indicator = [[LoadingIndicator alloc] initWithMainView:self.photoSuperView andDelegate:self];
     
-    photos = [[NSMutableArray alloc] init];
-    photosID = [[NSMutableArray alloc] init];
+    photos = appDelegate.myProfile.arr_photos;
     [self reloadPhotos];
 }
 
-- (void) viewDidAppear:(BOOL)animated
+- (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
     
@@ -114,11 +113,11 @@ UITapGestureRecognizer *tap;
     self.age_workLabel.text = [NSString stringWithFormat:@"%d", profileObj.age];
     self.locationLabel.text = [NSString stringWithFormat:@"%@, %@", profileObj.i_work.cate_name, appDelegate.myProfile.s_location.name];
     
-    [self.imgAvatar setBackgroundImage:avatarImage forState:UIControlStateNormal];
-    self.imgAvatar.contentMode = UIViewContentModeScaleAspectFit;
-    [self.imgAvatar setFrame:self.avatarLayout.frame];
-    
-    [profileObj tryGetImageAsync:self];
+    [appDelegate.imagePool getImageAtURL:appDelegate.myProfile.s_Avatar withSize:PHOTO_SIZE_LARGE asycn:^(UIImage *img, NSError *error) {
+        [self.imgAvatar setImage:img];
+        self.imgAvatar.contentMode = UIViewContentModeScaleAspectFit;
+        [self.imgAvatar setFrame:self.avatarLayout.frame];
+    }];
     
     UIImage *thumb;
     if ((thumb = self.videoThumb))
@@ -161,11 +160,6 @@ UITapGestureRecognizer *tap;
     [self loadProfile];
 }
 
--(void)setImage:(UIImage *)img
-{
-    avatarImage = img;
-}
-
 -(void)loadProfile
 {
     for (NSDictionary * object in appDelegate.relationshipList) {
@@ -196,7 +190,6 @@ UITapGestureRecognizer *tap;
     }
     
     profileObj.s_gender.text = [NSString localizeString:profileObj.s_gender.text];
-    [profileObj tryGetImageAsync:self];
     for (int i =0 ; i < [profileObj.a_language count]; i++) {
         [[profileObj.a_language objectAtIndex:i] localizeNameOfLanguage];
         //        [profileObj.a_language replaceObjectAtIndex:i withObject:[NSString localizeString:profileObj.a_language[i]]];
@@ -488,7 +481,7 @@ UITapGestureRecognizer *tap;
             AFHTTPClient *client = [[AFHTTPClient alloc] initWithOakClubAPI:DOMAIN];
             [client registerHTTPOperationClass:[AFHTTPRequestOperation class]];
             [client setParameterEncoding:AFFormURLParameterEncoding];
-            NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:[photosID objectAtIndex:selectedPhoto], @"photo_id", nil];
+            NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:photos[selectedPhoto][key_photoID], @"photo_id", nil];
             NSMutableURLRequest *myRequest = [client requestWithMethod:@"POST" path:URL_deletePhoto parameters:params];
             
             AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:myRequest];
@@ -500,7 +493,6 @@ UITapGestureRecognizer *tap;
                 if (status)
                 {
                     [photos removeObjectAtIndex:selectedPhoto];
-                    [photosID removeObjectAtIndex:selectedPhoto];
                     [self reloadPhotos];
                 }
                 else
@@ -532,13 +524,17 @@ UITapGestureRecognizer *tap;
             if ([uploadData length] >= MAX_UPLOAD_SIZE)
             {
                 UIAlertView *maxSizeAlert = [[UIAlertView alloc] initWithTitle:@"Warning" message:@"The maximum size of photo is 3MB" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+                
+                uploadImage = nil;
+                selectedPhoto = -1;
+                
                 [maxSizeAlert localizeAllViews];
                 
                 [maxSizeAlert show];
             }
             else
             {
-                bool isAvatar = (selectedPhoto == photosID.count + 2);
+                bool isAvatar = (selectedPhoto == photos.count + 2);
                 PhotoUpload *uploader = [[PhotoUpload alloc] initWithPhoto:uploadData andName:@"uploadedfile" isAvatar:isAvatar];
                 [indicator lockViewAndDisplayIndicator];
                 [uploader uploadPhotoWithCompletion:^(NSString *imgLink, NSString *imgID, BOOL _isAvatar)
@@ -547,25 +543,19 @@ UITapGestureRecognizer *tap;
                      {
                          if (_isAvatar)
                          {
-                             [self.imgAvatar setBackgroundImage:uploadImage forState:UIControlStateNormal];
+                             [self.imgAvatar setImage:uploadImage];
                              self.imgAvatar.contentMode = UIViewContentModeScaleAspectFit;
                              [self.imgAvatar setFrame:self.avatarLayout.frame];
                              
-                             UIImage *thumb;
-                             if ((thumb = self.videoThumb))
-                             {
-                                 [self.btnUploadVideo setBackgroundImage:thumb forState:UIControlStateNormal];
-                                 self.btnUploadVideo.contentMode = UIViewContentModeScaleAspectFit;
-                             }
-                             
-                             profileObj.img_Avatar = uploadImage;
-                             appDelegate.myProfile.img_Avatar = uploadImage;
                              appDelegate.myProfile.s_Avatar = imgLink;
                              profileObj.s_Avatar = imgLink;
                          }
                          
-                         [photos addObject:uploadImage];
-                         [photosID addObject:imgID];
+                         [photos addObject:[[NSDictionary alloc] initWithObjectsAndKeys:
+                                            imgLink, key_photoLink,
+                                            imgID, key_photoID, nil]];
+                         [appDelegate.imagePool setImage:uploadImage forURL:imgLink andSize:PHOTO_SIZE_SMALL];
+                         [appDelegate.imagePool setImage:uploadImage forURL:imgLink andSize:PHOTO_SIZE_LARGE];
                          
                          [self reloadPhotos];
                      }
@@ -1032,52 +1022,63 @@ UITapGestureRecognizer *tap;
 
 - (void)loadProfilePhotos
 {
-    AFHTTPClient *request = [[AFHTTPClient alloc] initWithOakClubAPI:DOMAIN];
-    NSDictionary *params  = [[NSDictionary alloc]initWithObjectsAndKeys:profileObj.s_ID, key_profileID, nil];
-    [request getPath:URL_getListPhotos parameters:params
-             success:^(__unused AFHTTPRequestOperation *operation, id JSON)
-     {
-         [photo_Indicator lockViewAndDisplayIndicator];
-         NSMutableDictionary* dictPhotos = [Profile parseListPhotosIncludeID:JSON];
-         if(dictPhotos != nil)
-         {
-             NSArray *keys = [dictPhotos allKeys];
-             __block int i = [keys count];
-             for (NSString *key in keys)
-             {
-                 NSString *link = [dictPhotos valueForKey:key];
-                 
-                 if((![photosID containsObject:key]) && ![link isEqualToString:@""] )
-                 {
-                     [Profile getAvatarSync: @"LzQ0LjIwMTMvNTg2MTgxNTkxXzUyOWQ4YmRhYzM5YTIuanBn" withSize: CGSizeMake(150, 150) callback:^(UIImage *image)
-                      {
-                          if (image)
-                          {
-                              [photos addObject:image];
-                              [photosID addObject:key];
-                              [self reloadPhotos];
-                          }
-                          
-                          --i;
-                          if (!i)
-                          {
-                              [photo_Indicator unlockViewAndStopIndicator];
-                          }
-                      }];
-                 }
-                 else
-                 {
-                     --i;
-                 }
-             }
-             if (!i)
-             {
-                 [photo_Indicator unlockViewAndStopIndicator];
-             }
-         }
-     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-         NSLog(@"Get list photo Error Code: %i - %@",[error code], [error localizedDescription]);
-     }];
+//    AFHTTPClient *request = [[AFHTTPClient alloc] initWithOakClubAPI:DOMAIN];
+//    NSDictionary *params  = [[NSDictionary alloc]initWithObjectsAndKeys:profileObj.s_ID, key_profileID, nil];
+//    [photo_Indicator lockViewAndDisplayIndicator];
+//    [request getPath:URL_getListPhotos parameters:params
+//             success:^(__unused AFHTTPRequestOperation *operation, id JSON)
+//     {
+//         NSMutableDictionary* dictPhotos = [Profile parseListPhotosIncludeID:JSON];
+//         if(dictPhotos != nil)
+//         {
+//             NSArray *keys = [dictPhotos allKeys];
+//             __block int i = [keys count];
+//             for (NSString *key in keys)
+//             {
+//                 if ([key isKindOfClass:[NSNull class]])
+//                 {
+//                     --i;
+//                     if (!i)
+//                     {
+//                         [photo_Indicator unlockViewAndStopIndicator];
+//                     }
+//                     continue;
+//                 }
+//                 
+//                 NSString *link = [dictPhotos valueForKey:key];
+//                 
+//                 if((![photosID containsObject:key]) && ![link isEqualToString:@""] )
+//                 {
+//                     [appDelegate.imagePool getImageAtURL:link withSize:PHOTO_SIZE_SMALL asycn:^(UIImage *image, NSError *error) {
+//                          if (image)
+//                          {
+//                              [photos addObject:image];
+//                              [photosID addObject:key];
+//                              [self reloadPhotos];
+//                          }
+//                          
+//                          --i;
+//                          if (!i)
+//                          {
+//                              [photo_Indicator unlockViewAndStopIndicator];
+//                          }
+//                      }];
+//                 }
+//                 else
+//                 {
+//                     --i;
+//                 }
+//             }
+//             if (!i)
+//             {
+//                 [photo_Indicator unlockViewAndStopIndicator];
+//             }
+//         }
+//     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+//         NSLog(@"Get list photo Error Code: %i - %@",[error code], [error localizedDescription]);
+//     }];
+    
+    [self reloadPhotos];
 }
 
 -(void)photoButtonTouchedAtIndex:(int)index
@@ -1114,7 +1115,19 @@ UITapGestureRecognizer *tap;
 {
     if (index < photos.count)
     {
-        return [photos objectAtIndex:index];
+        UIImage *img = [appDelegate.imagePool getImageSycnAtURL:photos[index][key_photoLink] withSize:PHOTO_SIZE_SMALL];
+        if (img)
+        {
+            return img;
+        }
+        else
+        {
+            [appDelegate.imagePool getImageAtURL:photos[index][key_photoLink] withSize:PHOTO_SIZE_SMALL asycn:^(UIImage *img, NSError *error) {
+                [self.photoScrollView updatePhotoAtIndex:index];
+            }];
+            
+            return [UIImage imageNamed:@"Default Avatar"];
+        }
     }
     
     return [UIImage imageNamed:@"myprofile_addphoto"];

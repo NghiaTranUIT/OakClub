@@ -91,7 +91,7 @@
         <image name="HistoryChat_matchup_off.png" width="24" height="24"/>
         <image name="HistoryChat_matchup_on.png" width="24" height="24"/>
         <image name="HistoryChat_separator.png" width="270" height="1"/>
-        <image name="action-people.png" width="320" height="93"/>
+        <image name="action-people.png" width="255" height="255"/>
         <image name="friend_.png" width="66" height="32"/>
     </resources>
 </document>

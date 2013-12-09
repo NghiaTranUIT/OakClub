@@ -12,18 +12,14 @@
 #import "Profile.h"
 
 @interface PhotoViewController ()
-
+{
+    AppDelegate *appDel;
+}
 @end
 
 @implementation PhotoViewController
 
 @synthesize labelCurrentImage, buttonClose, profile_id,imageBackground, loadingImageIndicator;
-
-
-
-- (AppDelegate *)appDelegate {
-	return (AppDelegate *)[[UIApplication sharedApplication] delegate];
-}
 
 - (IBAction)onTap_ButtonClose:(id)sender {
     self.navigationController.navigationBarHidden = NO;
@@ -36,6 +32,7 @@
     self = [super initWithNibName:@"PhotoViewController" bundle:nil];
     if (self) {
         self.profile_id = _id;
+        appDel = (id) [UIApplication sharedApplication].delegate;
     }
     return self;
 }
@@ -79,9 +76,7 @@
                      
                      if( ![link isEqualToString:@""] )
                      {
-                         [Profile getAvatarSync:link
-                                       callback:^(UIImage *image)
-                          {
+                         [appDel.imagePool getImageAtURL:link withSize:PHOTO_SIZE_SMALL asycn:^(UIImage *image, NSError *error) {
                               [photos setObject:image forKey:link];
                               
                               if( i == 0)

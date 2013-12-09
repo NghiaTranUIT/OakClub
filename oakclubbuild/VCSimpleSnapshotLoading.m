@@ -104,7 +104,9 @@
     [self.view localizeAllViews];
     
     //load avatar
-    [imgAvatar setImage:appdel.myProfile.img_Avatar];
+    [appdel.imagePool getImageAtURL:appdel.myProfile.s_Avatar withSize:PHOTO_SIZE_SMALL asycn:^(UIImage *img, NSError *error) {
+        [imgAvatar setImage:img];
+    }];
 }
 
 -(void)viewDidDisappear:(BOOL)animated{

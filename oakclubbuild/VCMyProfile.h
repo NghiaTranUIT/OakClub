@@ -34,7 +34,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *labelName;
 @property (weak, nonatomic) IBOutlet UIButton *btnBirthdate;
 @property (weak, nonatomic) IBOutlet UITextView *textviewAbout;
-@property (strong, nonatomic) IBOutlet UIButton *imgAvatar;
+@property (strong, nonatomic) IBOutlet UIImageView *imgAvatar;
 @property (strong, nonatomic) UIImageView *avatar;
 @property (weak, nonatomic) IBOutlet UITableView *tbEditProfile;
 

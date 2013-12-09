@@ -21,17 +21,10 @@
 #import "Ethnicity.h"
 #import "Language.h"
 
-@protocol ImageRequester <NSObject>
-
--(void)setImage:(UIImage *)img;
-
-@end
-
 @interface Profile : NSObject <NSCopying> {
     NSString *s_Name; // name of profile. < 20 characters
     NSString *s_ID; // profile ID.
     NSString *s_Avatar; // image link.
-    UIImage *img_Avatar; //avatar image
     NSString *s_ProfileStatus; // "Online".
     int i_Points; // points of profile.
     NSString * s_FB_id; // Facebook ID
@@ -86,7 +79,6 @@
 @property (strong, nonatomic) NSString *s_Email;
 @property (strong, nonatomic) NSString *s_ID; 
 @property (strong, nonatomic) NSString *s_Avatar;
-@property (strong, nonatomic) UIImage *img_Avatar;
 @property (strong, nonatomic) NSString *s_ProfileStatus;
 @property (strong, nonatomic) NSString *s_birthdayDate;
 @property (strong, nonatomic) NSString *s_age;
@@ -148,16 +140,11 @@
 +(NSMutableDictionary*) parseListPhotosIncludeID:(NSData *)jsonData;
 
 //+(void) countMutualFriends:(NSString*)profileID callback:(void(^)(NSString*))handler;
-+(void)getAvatarSync:(NSString*)url callback:(void(^)(UIImage*))handler;
-+(void)getAvatarSync:(NSString*)url withSize: (CGSize) size callback:(void(^)(UIImage*))handler;
 
 +(void) getListPeople:(NSString*)service handler:(void(^)(NSMutableArray*,int))resultHandler;
 +(void) getListPeople:(NSString*)service andParams:(NSDictionary*)params handler:(void(^)(NSMutableArray*,int))resultHandler;
 -(int) countTotalNotifications;
 
--(void)tryGetImageAsync:(id<ImageRequester>)requester;
--(void)trySetImageSync:(UIImage *)img;
--(void)dispatchAvatar;
 -(NSInteger)age;
 -(NSString*)languagesDescription;
 

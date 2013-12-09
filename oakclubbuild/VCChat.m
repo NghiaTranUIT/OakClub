@@ -63,7 +63,6 @@ int cellCountinSection=0;
 
 -(void)loadFriendsInfo:(id)_arg {
 
-    a_avatar = [[NSMutableDictionary alloc] init];
     a_messages = [[NSMutableDictionary alloc] init];
     
     NSLog(@"***** loadFriendsInfo begin!");
@@ -81,11 +80,6 @@ int cellCountinSection=0;
         for(NSString* key in [appDel.friendChatList allKeys])
         {
             Profile* profile = [appDel.friendChatList objectForKey:key];
-            if(profile.img_Avatar == nil)
-                profile.img_Avatar = [UIImage imageNamed:@"Default Avatar"];
-            [a_avatar setObject:profile.img_Avatar forKey:profile.s_ID];
-            //        [tableView reloadData];
-            [self.searchDisplayController.searchResultsTableView reloadData];
             [[self tableView] reloadData];
             NSLog(@"Loading information for %@", profile.s_Name);
             
@@ -292,7 +286,6 @@ int cellCountinSection=0;
     [self setTableView:nil];
     [super viewDidUnload];
     
-    a_avatar = nil;
     a_messages = nil;
 }
 - (void)viewDidLoad
@@ -523,7 +516,7 @@ int cellCountinSection=0;
             XMPPUserCoreDataStorageObject *user = [[self fetchedResultsController] objectAtIndexPath:[NSIndexPath indexPathForRow:j inSection:i]];
             XMPPJID* xmpp_jid = [user jid];
             NSString* jid = [xmpp_jid user];//[NSString stringWithFormat:@"%@@%@", [xmpp_jid user], [xmpp_jid domain]];
-            NSLog(@"User %d: %@", j + 1, user);
+            //NSLog(@"User %d: %@", j + 1, user);
 //            NSLog(@"XMPPUserCoreDataStorageObject - jid :%i , %@",j,jid);
             Profile* profile =[appDel.myProfile.dic_Roster valueForKey:jid];
             if(profile == nil)
@@ -643,7 +636,19 @@ int cellCountinSection=0;
 //        {
 //            [cell.avatar setImage:avatar];
 //        }
-        [cell.avatar setImage:profile.img_Avatar];
+        UIImage *img = [appDel.imagePool getImageSycnAtURL:profile.s_Avatar withSize:PHOTO_SIZE_SMALL];
+        if (img)
+        {
+            [cell.avatar setImage:img];
+        }
+        else
+        {
+            [cell.avatar setImage:[UIImage imageNamed:@"Default Avatar"]];
+            [appDel.imagePool getImageAtURL:profile.s_Avatar withSize:PHOTO_SIZE_SMALL asycn:^(UIImage *img, NSError *error)
+             {
+                 [self.tableView reloadData];
+             }];
+        }
 //        [cell setMutualFriends:profile.num_MutualFriends];
         
         cell.last_message.text = @"";
@@ -704,33 +709,30 @@ int cellCountinSection=0;
     [self.searchBar resignFirstResponder];
     [tableView deselectRowAtIndexPath:[tableView indexPathForSelectedRow] animated:NO];
     //SMChatViewController *chatController = [[SMChatViewController alloc] initWithUser:userName];
-    UIImage* avatar = [a_avatar valueForKey:profile.s_ID];
-    if (!avatar)
-    {
-        avatar = profile.img_Avatar;
-    }
-    NSMutableArray* array = [a_messages valueForKey:profile.s_ID];
-
-    if (array  || profile.status <= MatchViewed)
-    {
-        SMChatViewController *chatController =
-        [[SMChatViewController alloc] initWithUser:[NSString stringWithFormat:DOMAIN_AT_FMT, profile.s_ID]
-                                       withProfile:profile
-                                        withAvatar:avatar
-                                      withMessages:array];
+    [appDel.imagePool getImageAtURL:profile.s_Avatar withSize:PHOTO_SIZE_SMALL asycn:^(UIImage *img, NSError *error) {
+        NSMutableArray* array = [a_messages valueForKey:profile.s_ID];
+        
+        if (array  || profile.status <= MatchViewed)
+        {
+            SMChatViewController *chatController =
+            [[SMChatViewController alloc] initWithUser:[NSString stringWithFormat:DOMAIN_AT_FMT, profile.s_ID]
+                                           withProfile:profile
+                                            withAvatar:img
+                                          withMessages:array];
 #if ENABLE_DEMO
-        [appDel.rootVC setFrontViewController:appDel.chat focusAfterChange:YES completion:^(BOOL finished) {
-            
-        }];
+            [appDel.rootVC setFrontViewController:appDel.chat focusAfterChange:YES completion:^(BOOL finished) {
+                
+            }];
 #endif
-//        if(IS_OS_7_OR_LATER){
-//            [self.navigationController setNavigationBarHidden:NO];
-//            [self.navigationController presentModalViewController:chatController animated:animated];
-//        }
-//        else{
+            //        if(IS_OS_7_OR_LATER){
+            //            [self.navigationController setNavigationBarHidden:NO];
+            //            [self.navigationController presentModalViewController:chatController animated:animated];
+            //        }
+            //        else{
             [self.navigationController pushViewController:chatController animated:animated];
-//        }
-    }
+            //        }
+        }
+    }];
 }
 
 -(void)reloadFriendList

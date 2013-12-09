@@ -12,9 +12,9 @@
 
 //demo version FLAG
 #define ENABLE_DEMO true
-#define USE_STAGING false
+#define USE_STAGING true
 #define USE_MAINHOST false
-#define USE_STAGING_MB true
+#define USE_STAGING_MB false
 #define USE_STAGING_IOS false
 //Hangout
 #define sOnline @"Online"
@@ -29,6 +29,8 @@
 //#define DOMAIN @"http://staging.oakclub.com/app_dev.php"
 
 #define URL_PHOTO @"http://staging.oakclub.com/load_photo.php"
+#define PHOTO_SIZE_LARGE CGSizeMake(0, 0)
+#define PHOTO_SIZE_SMALL CGSizeMake(100, 100)
 
 #undef DOMAIN
 #if USE_STAGING
@@ -236,6 +238,7 @@
 #define key_age @"age"
 #define key_avatar @"avatar"
 #define key_photos @"photos"
+#define key_photoID @"id"
 #define key_photoLink @"tweet_image_link"
 #define key_isProfilePicture @"is_profile_picture"
 #define key_distance @"distance"

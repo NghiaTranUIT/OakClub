@@ -76,6 +76,10 @@
              {
                  [_images setObject:image forKey:imgURL];
              }
+             else
+             {
+                 [_images removeObjectForKey:imgURL];
+             }
              
              for (int i = 0; i < reqs.count; ++i)
              {
@@ -99,9 +103,9 @@
     }
 }
 
--(void)getImagesAtURL:(NSString *)imgID withSize:(CGSize)size asycn:(void (^)(UIImage *img, NSError *error))completion
+-(void)getImageAtURL:(NSString *)imgID withSize:(CGSize)size asycn:(void (^)(UIImage *img, NSError *error))completion
 {
-    NSString *url = [NSString stringWithFormat: @"%@&width=%d&height=%d", imgID, (int)size.width, (int)size.height];
+    NSString *url = [NSString stringWithFormat: @"%@?width=%d&height=%d", imgID, (int)size.width, (int)size.height];
     id img = [_images objectForKey:url];
     
     if (img)
@@ -110,7 +114,6 @@
         {
             NSMutableArray *imgRequesters = (NSMutableArray *) img;
             [imgRequesters addObject:completion];
-            completion(nil, nil);
         }
         else if ([img isKindOfClass:[UIImage class]])
         {
@@ -129,7 +132,8 @@
         
         NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:imgID, @"file",
                                 [NSNumber numberWithInteger:(int) size.width], @"width",
-                                [NSNumber numberWithInteger:(int) size.height], @"height", nil];
+                                [NSNumber numberWithInteger:(int) size.height], @"height",
+                                [NSNumber numberWithInt:0], @"mode", nil];
         
         NSMutableURLRequest *request = [httpClient requestWithMethod:@"GET"
                                                                 path:@""
@@ -141,13 +145,13 @@
         [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject)
          {
              UIImage *image = [UIImage imageWithData:responseObject];
-             if(image==nil){
-                 [_images removeObjectForKey:url];
-                 completion(nil, nil);
-                 return;
-             }
              NSMutableArray *reqs = (NSMutableArray *) [_images objectForKey:url];
-             [_images setObject:image forKey:url];
+             [_images removeObjectForKey:url];
+             
+             if(image)
+             {
+                 [_images setObject:image forKey:url];
+             }
              
              for (int i = 0; i < reqs.count; ++i)
              {
@@ -169,6 +173,27 @@
         
         [operation start];
     }
+}
+
+-(UIImage *)getImageSycnAtURL:(NSString *)imgID withSize:(CGSize)size
+{
+    NSString *url = [NSString stringWithFormat: @"%@?width=%d&height=%d", imgID, (int)size.width, (int)size.height];
+    id img = [_images objectForKey:url];
     
+    if (img && [img isKindOfClass:[UIImage class]])
+    {
+        return img;
+    }
+    
+    return nil;
+}
+
+-(void)setImage:(UIImage *)img forURL:(NSString *)imgID andSize:(CGSize)size
+{
+    NSString *url = [NSString stringWithFormat: @"%@?width=%d&height=%d", imgID, (int)size.width, (int)size.height];
+    if (img)
+    {
+        [_images setValue:img forKey:url];
+    }
 }
 @end

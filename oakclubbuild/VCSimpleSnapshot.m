@@ -145,7 +145,9 @@ CGFloat pageHeight;
     currentIndex = 0; //Vanancy cheat
     profileList = [[NSMutableArray alloc] init];
     [self loadProfileList:^(void){
-        [self.imgMyAvatar setImage:appDel.myProfile.img_Avatar];
+        [appDel.imagePool getImageAtURL:appDel.myProfile.s_Avatar withSize:PHOTO_SIZE_LARGE asycn:^(UIImage *img, NSError *error) {
+            [self.imgMyAvatar setImage:img];
+        }];
         [self loadCurrentProfile];
         [self loadNextProfileByCurrentIndex];
     }];
@@ -239,6 +241,9 @@ CGFloat pageHeight;
                             appDel.snapshotSettingsObj.snapshotParams, @"search_preference", nil];
     NSMutableURLRequest *urlReq = [request requestWithMethod:@"GET" path:URL_getSnapShot parameters:params];
     
+    NSString *paramsDesc = [[[NSString stringWithFormat:@"%@", params] stringByReplacingOccurrencesOfString:@"=" withString:@":"] stringByReplacingOccurrencesOfString:@";" withString:@","];
+    NSLog(@"Get snapshot params: %@", paramsDesc);
+    
     AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:urlReq];
     [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id JSON) {
         NSLog(@"Get snapshot-DONE");
@@ -279,18 +284,14 @@ CGFloat pageHeight;
     }
     Profile * temp  =  [[Profile alloc]init];
     temp = [profileList objectAtIndex:currentIndex];
-    if(temp.img_Avatar != nil){
-        [self.imgNextProfile setImage:temp.img_Avatar];
-    }
-    else{
-        
-        [Profile getAvatarSync:temp.s_Avatar
-                      callback:^(UIImage *image)
-         {
-             if(image)
-                 [self.imgNextProfile setImage:image];
-         }];
-    }
+    
+    [appDel.imagePool getImageAtURL:temp.s_Avatar withSize:PHOTO_SIZE_LARGE
+                               asycn:^(UIImage *image, NSError *err)
+     {
+         if(image)
+             [self.imgNextProfile setImage:image];
+     }];
+    
     NSLog(@"Name of Next Profile : %@",temp.s_Name);
 }
 -(void)loadCurrentProfile{
@@ -312,21 +313,14 @@ CGFloat pageHeight;
     
     [lblPhotoCount setText:@"0"];
     [lblPhotoCount setText:[NSString stringWithFormat:@"%i",[currentProfile.arr_photos count]]];
-    if(currentProfile.img_Avatar!= nil){
-        [self.imgMainProfile setImage:currentProfile.img_Avatar];
+    [self.imgMainProfile setImage:[UIImage imageNamed:@"Default Avatar"]];
+    
+    [appDel.imagePool getImageAtURL:currentProfile.s_Avatar withSize:PHOTO_SIZE_LARGE asycn:^(UIImage *image, NSError *error) {
+        if(image){
+            [self.imgMainProfile setImage:image];
+        }
         [self stopLoadingAnim];
-    }
-    else{
-        [self.imgMainProfile setImage:[UIImage imageNamed:@"Default Avatar"]];
-        [Profile getAvatarSync:currentProfile.s_Avatar
-                      callback:^(UIImage *image)
-         {
-             if(image){
-                 [self.imgMainProfile setImage:image];
-             }
-             [self stopLoadingAnim];
-         }];
-    }
+    }];
     currentIndex++;
 }
 
@@ -390,7 +384,9 @@ CGFloat pageHeight;
     NSLog(@"current id = %@",currentProfile.s_ID);
     viewProfile = [[VCProfile alloc] initWithNibName:@"VCProfile" bundle:nil];
     
-    [viewProfile loadProfile:currentProfile andImage:currentProfile.img_Avatar];
+    [appDel.imagePool getImageAtURL:currentProfile.s_Avatar withSize:PHOTO_SIZE_LARGE asycn:^(UIImage *img, NSError *error) {
+        [viewProfile loadProfile:currentProfile andImage:img];
+    }];
 
     [self.view addSubview:viewProfile.view];
     if(IS_OS_7_OR_LATER){
@@ -483,7 +479,9 @@ CGFloat pageHeight;
     [self.view addSubview:matchViewController.view];
     [matchViewController.view setFrame:CGRectMake(0, 0, matchViewController.view.frame.size.width, matchViewController.view.frame.size.height)];
     [lblMatchAlert setText:[NSString stringWithFormat:[@"You and %@ have liked each other!" localize],currentProfile.s_Name]];
-    [imgMatcher setImage:currentProfile.img_Avatar];
+    [appDel.imagePool getImageAtURL:currentProfile.s_Avatar withSize:PHOTO_SIZE_SMALL asycn:^(UIImage *img, NSError *error) {
+        [imgMatcher setImage:img];
+    }];
     matchedProfile = currentProfile;
 }
 
@@ -510,15 +508,16 @@ CGFloat pageHeight;
     
     NSMutableArray* array = [[NSMutableArray alloc]init];
     
-    SMChatViewController *chatController =
-    [[SMChatViewController alloc] initWithUser:[NSString stringWithFormat:@"%@@oakclub.com", matchedProfile.s_ID]
-                                   withProfile:matchedProfile
-                                    withAvatar:matchedProfile.img_Avatar
-                                  withMessages:array];
-    [self.navigationController pushViewController:chatController animated:NO];
-    [matchViewController.view removeFromSuperview];
-	[lblMatchAlert setText:@""];
-    matchedProfile = nil;
+    [appDel.imagePool getImageAtURL:matchedProfile.s_Avatar withSize:PHOTO_SIZE_SMALL asycn:^(UIImage *img, NSError *error) {
+        SMChatViewController *chatController =
+        [[SMChatViewController alloc] initWithUser:[NSString stringWithFormat:@"%@@oakclub.com", matchedProfile.s_ID]
+                                       withProfile:matchedProfile
+                                        withAvatar:img
+                                      withMessages:array];
+        [self.navigationController pushViewController:chatController animated:NO];
+        [matchViewController.view removeFromSuperview];
+        [lblMatchAlert setText:@""];
+        matchedProfile = nil;    }];
 }
 -(IBAction)onNOPEClick:(id)sender{
 //    [self doAnswer:interestedStatusNO];
