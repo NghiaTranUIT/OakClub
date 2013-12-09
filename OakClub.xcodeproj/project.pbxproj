@@ -174,7 +174,6 @@
 		97C57690181FDDF200D8510D /* TutorialViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 97C5768F181FDDF200D8510D /* TutorialViewController.m */; };
 		97DEDD02181623A5001B0E53 /* ConfirmViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 97DEDD01181623A5001B0E53 /* ConfirmViewController.m */; };
 		97FB5E871828CFE800228140 /* LocationUpdate.m in Sources */ = {isa = PBXBuildFile; fileRef = 97FB5E861828CFE800228140 /* LocationUpdate.m */; };
-		97FBA2251855EDCC0008D4EE /* VCProfile.xib in Resources */ = {isa = PBXBuildFile; fileRef = 97FBA2241855EDCC0008D4EE /* VCProfile.xib */; };
 		CD025DB61829F760007CBEDA /* SnapshotSetting_fillrange_slider@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CD025DB31829F760007CBEDA /* SnapshotSetting_fillrange_slider@2x.png */; };
 		CD025DB71829F760007CBEDA /* SnapshotSetting_fullrange_slider@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CD025DB41829F760007CBEDA /* SnapshotSetting_fullrange_slider@2x.png */; };
 		CD025DB81829F760007CBEDA /* SnapshotSetting_thumb_slider@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CD025DB51829F760007CBEDA /* SnapshotSetting_thumb_slider@2x.png */; };
@@ -877,7 +876,6 @@
 		97FB5E851828CFE700228140 /* LocationUpdate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationUpdate.h; sourceTree = "<group>"; };
 		97FB5E861828CFE800228140 /* LocationUpdate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationUpdate.m; sourceTree = "<group>"; };
 		97FB5E88182906BC00228140 /* AppLifeCycleDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppLifeCycleDelegate.h; sourceTree = "<group>"; };
-		97FBA2241855EDCC0008D4EE /* VCProfile.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VCProfile.xib; sourceTree = "<group>"; };
 		CD025DB31829F760007CBEDA /* SnapshotSetting_fillrange_slider@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SnapshotSetting_fillrange_slider@2x.png"; sourceTree = "<group>"; };
 		CD025DB41829F760007CBEDA /* SnapshotSetting_fullrange_slider@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SnapshotSetting_fullrange_slider@2x.png"; sourceTree = "<group>"; };
 		CD025DB51829F760007CBEDA /* SnapshotSetting_thumb_slider@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SnapshotSetting_thumb_slider@2x.png"; sourceTree = "<group>"; };
@@ -2739,7 +2737,6 @@
 			children = (
 				CDDF8CF7171C0F8B00B8512D /* VCProfile.h */,
 				CDDF8CF8171C0F8B00B8512D /* VCProfile.m */,
-				97FBA2241855EDCC0008D4EE /* VCProfile.xib */,
 				CD3E749B1725B3A6002D8207 /* UIPopoverController+iPhone.h */,
 				CD3E749C1725B3A6002D8207 /* UIPopoverController+iPhone.m */,
 				CDFAA78C17549607008D6567 /* ProfileCell.h */,
@@ -3616,7 +3613,6 @@
 				977853F2182228A900CBB5DB /* myprofile_deleteButton.png in Resources */,
 				979B95FC184852A000AF5A78 /* devil.png in Resources */,
 				CD50E36B181FBF3C0036A23B /* Snapshot_separators.png in Resources */,
-				97FBA2251855EDCC0008D4EE /* VCProfile.xib in Resources */,
 				97A55D661823C3E700675025 /* viewprofile_avatarBorder@2x.png in Resources */,
 				CD1301681821FD9700D29E0B /* SnapshotLoading_btn_tellyourfriend_inactive@2x.png in Resources */,
 				CDC492ED1702CF8700E83DE3 /* FacebookSDKResources.bundle in Resources */,
