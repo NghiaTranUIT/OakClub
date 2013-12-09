@@ -13,15 +13,14 @@
 
 @interface Profile()
 {
-    NSMutableArray *requester;
+    AppDelegate *appDel;
 }
-//@property (strong, nonatomic) NSString *s_Avatar;
-//@property (weak, nonatomic) UIImage *img_Avatar;
+
 @end
 
 @implementation Profile
 
-@synthesize s_Name, img_Avatar, i_Points, s_ProfileStatus, s_FB_id, s_ID, dic_Roster,num_Photos, s_gender, num_points,/* num_unreadMessage,*/ s_passwordXMPP, s_usenameXMPP, arr_photos, s_aboutMe, s_birthdayDate, s_interested,a_language, s_location,s_relationShip, c_ethnicity, s_age, s_meetType, s_popularity, s_interestedStatus, s_snapshotID, a_favorites, s_user_id,s_school,i_work, i_height,i_weight, num_MutualFriends, num_Liked,num_Viewed, s_Email, distance, active, s_video;
+@synthesize s_Name, i_Points, s_ProfileStatus, s_FB_id, s_ID, dic_Roster,num_Photos, s_gender, num_points,/* num_unreadMessage,*/ s_passwordXMPP, s_usenameXMPP, arr_photos, s_aboutMe, s_birthdayDate, s_interested,a_language, s_location,s_relationShip, c_ethnicity, s_age, s_meetType, s_popularity, s_interestedStatus, s_snapshotID, a_favorites, s_user_id,s_school,i_work, i_height,i_weight, num_MutualFriends, num_Liked,num_Viewed, s_Email, distance, active, s_video;
 
 @synthesize s_status_time, arr_MutualFriends, arr_MutualInterests, new_mutual_attractions;
 
@@ -36,18 +35,8 @@
     self = [super init];
     self.i_weight=0;
     self.i_height=0;
-    self.img_Avatar = [[UIImage alloc] init];
+    appDel = (id) [UIApplication sharedApplication].delegate;
     return self;
-}
-
--(void)setS_Avatar:(NSString *)avatar
-{
-    if (avatar != NULL && ![avatar isEqualToString:_s_avatar])
-    {
-        _s_avatar = avatar;
-        img_Avatar = nil;
-        [self downloadAvatarImage];
-    }
 }
 
 -(Profile*) parseProfile:(NSString *)responeString{
@@ -425,17 +414,14 @@
         self.s_aboutMe = @"";
     }
     //load photos of profile
-    self.arr_photos = [[NSMutableArray alloc] init];
-    NSMutableArray *_arrTemp = [[NSMutableArray alloc] init];
-    _arrTemp = [data valueForKey:key_photos];
-    self.num_Photos = [_arrTemp count];
+    arr_photos = [data valueForKey:key_photos];
+    self.num_Photos = [arr_photos count];
     for (int i = 0; i < self.num_Photos; i++) {
-        NSMutableDictionary *photoItem = [_arrTemp objectAtIndex:i];
+        NSMutableDictionary *photoItem = [arr_photos objectAtIndex:i];
         if ([[photoItem valueForKey:key_isProfilePicture] integerValue])
         {
             self.s_Avatar =[photoItem valueForKey:key_photoLink];
         }
-        [self.arr_photos addObject: [photoItem valueForKey:key_photoLink]];
     }
     if(self.s_Avatar == nil){
         self.s_Avatar = [data valueForKey:key_avatar];
@@ -530,7 +516,6 @@
     NSLog(@"unread message: %d", self.unread_message);
     
     self.dic_Roster = rosterDict;//[NSDictionary dictionaryWithDictionary:rosterDict];
-    AppDelegate *appDel = (id) [UIApplication sharedApplication].delegate;
     [appDel loadFriendsList];
 }
 
@@ -567,16 +552,13 @@
     self.s_age = [data valueForKey:key_age];
     self.s_snapshotID =[data valueForKey:key_snapshotID];
     //load photos of profile
-    self.arr_photos = [[NSMutableArray alloc] init];
-    NSMutableArray *_arrTemp = [[NSMutableArray alloc] init];
-    _arrTemp = [data valueForKey:key_photos];
-    self.num_Photos = [_arrTemp count];
+    self.arr_photos = [data valueForKey:key_photos];
+    self.num_Photos = [arr_photos count];
     for (int i = 0; i < self.num_Photos; i++) {
-        NSMutableDictionary *photoItem = [_arrTemp objectAtIndex:i];
+        NSMutableDictionary *photoItem = [arr_photos objectAtIndex:i];
         if ([[photoItem valueForKey:key_isProfilePicture] integerValue]) {
             self.s_Avatar =[photoItem valueForKey:key_photoLink];
         }
-        [self.arr_photos addObject: [photoItem valueForKey:key_photoLink]];
     }
     if(self.s_Avatar == nil){
         self.s_Avatar = [data valueForKey:key_avatar];
@@ -714,82 +696,6 @@
     return result;
 }
 
-+(void)getAvatarSync:(NSString*)url callback:(void(^)(UIImage*))handler
-{
-    AppDelegate *appDel= (id) [UIApplication sharedApplication].delegate;
-    [appDel.imagePool getImagesAtURL: url asycn:^(UIImage *img, NSError *error) {
-        handler(img);
-    }];
-    
-//    AppDelegate *appDel = (id) [UIApplication sharedApplication].delegate;
-//    [appDel.imagePool getImagesAtURL: @"50.2013/123_abcdefghiklmn.jpg" withSize: CGSizeMake(150, 150) asycn:^(UIImage *img, NSError *error) {
-//        handler(img);
-//    }];
-//    AFHTTPClient *httpClient;
-//    
-//    if(!([url hasPrefix:@"http://"] || [url hasPrefix:@"https://"]))
-//    {       // check if this is a valid link
-//        httpClient = [[AFHTTPClient alloc]initWithBaseURL:[NSURL URLWithString:DOMAIN_DATA]];
-//    }
-//    else{
-//        httpClient = [[AFHTTPClient alloc]initWithBaseURL:[NSURL URLWithString:@""]];
-//    }
-//    
-//    NSMutableURLRequest *request = [httpClient requestWithMethod:@"GET"
-//                                                            path:url
-//                                                      parameters:nil];
-//    
-//    AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
-//    [httpClient registerHTTPOperationClass:[AFHTTPRequestOperation class]];
-//    
-//    [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject)
-//     {
-//         UIImage *avatar = [UIImage imageWithData:responseObject];
-//        
-//         if(handler != nil)
-//             handler(avatar);
-//         
-//     } failure:^(AFHTTPRequestOperation *operation, NSError *error)
-//     {
-//         NSLog(@"Download image Error: %@", error);
-//         if(handler != nil)
-//             handler(nil);
-//     }];
-//    
-//    return operation;
-}
-
-/*
-+(void) countMutualFriends:(NSString*)profileID callback:(void(^)(NSString*))handler
-{
-    NSLog(@"profileID : %@",profileID);
-    AFHTTPClient* httpClient = [[AFHTTPClient alloc]initWithOakClubAPI:DOMAIN];
-    NSDictionary *params = [[NSDictionary alloc]initWithObjectsAndKeys:profileID,key_profileID, nil];
-    [httpClient getPath:URL_getDetailMutualFriends parameters:params success:^(__unused AFHTTPRequestOperation *operation, id JSON) {
-        NSError *e=nil;
-        NSMutableDictionary *dict = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONReadingMutableContainers error:&e];
-        NSMutableArray * data= [dict valueForKey:key_data];
-        
-        if(data != nil)
-        {
-            NSString *mutualCount = [NSString stringWithFormat:@"%i",[data count]];
-            handler(mutualCount);
-        }
-        
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"Error Code: %i - %@",[error code], [error localizedDescription]);
-    }];
-}
-*/
-
-+(void)getAvatarSync:(NSString*)url withSize: (CGSize) size callback:(void(^)(UIImage*))handler
-{
-    AppDelegate *appDel = (id) [UIApplication sharedApplication].delegate;
-    [appDel.imagePool getImagesAtURL: url withSize: size asycn:^(UIImage *img, NSError *error) {
-        handler(img);
-    }];
-}
-
 - (void)saveSettingWithCompletion:(void(^)(bool isSuccess))completion{
     NSString * name = self.s_Name;
     NSString *gender = [NSString stringWithFormat:@"%i",self.s_gender.ID];
@@ -851,7 +757,6 @@
     accountCopy.s_Name = [s_Name copyWithZone:zone];
     accountCopy.s_Email = [s_Email copyWithZone:zone];
     accountCopy.s_Avatar = [s_Avatar copyWithZone:zone];
-    accountCopy.img_Avatar = [img_Avatar copy];
     accountCopy.s_video = [s_video copyWithZone:zone];
     accountCopy.s_ProfileStatus = [s_ProfileStatus copyWithZone:zone];
     accountCopy.i_Points = i_Points;
@@ -906,52 +811,6 @@
 #endif
     
 }
-
--(void)downloadAvatarImage
-{
-    [Profile getAvatarSync:self.s_Avatar callback:^(UIImage *avatar)
-    {
-        NSLog(@"Finished download avatar of %@",self.s_Name);
-        if(avatar)
-            self.img_Avatar = avatar;
-        
-        [self dispatchAvatar];
-    }];
-}
-
--(void)tryGetImageAsync:(id<ImageRequester>)_requester
-{
-    if (self.img_Avatar == nil)
-    {
-        if (!requester)
-        {
-            requester = [[NSMutableArray alloc] init];
-        }
-        
-        if (![requester containsObject:_requester])
-        {
-            [requester addObject:_requester];
-        }
-    }
-    else
-    {
-        [_requester setImage:self.img_Avatar];
-    }
-}
-
--(void)trySetImageSync:(UIImage *)img
-{
-    self.img_Avatar = img;
-    [self dispatchAvatar];
-}
-
--(void)dispatchAvatar
-{
-    for (id<ImageRequester> _requester in requester)
-    {
-        [_requester setImage:self.img_Avatar];
-    }
-}
 -(NSInteger)age
 {
     NSDate *now = [NSDate date];
@@ -991,7 +850,6 @@
         if(resultStatus){
             self.unread_message -= friend.unread_message;
             friend.unread_message = 0;
-            AppDelegate *appDel = (id) [UIApplication sharedApplication].delegate;
             [appDel updateNavigationWithNotification];
             NSLog(@"POST READ-MESSAGES SUCCESS!!!");
         }

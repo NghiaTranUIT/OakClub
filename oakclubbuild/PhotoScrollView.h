@@ -23,5 +23,7 @@
 -(id)initWithFrame:(CGRect)frame;
 -(void)reloadScrollView;
 
+-(void)updatePhotoAtIndex:(int)index;
+
 @property id<PhotoScrollViewDelegate> photoDelegate;
 @end

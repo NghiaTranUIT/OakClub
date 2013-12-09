@@ -10,7 +10,7 @@
                 <outlet property="age_workLabel" destination="0cX-39-zAI" id="fLR-jT-B2F"/>
                 <outlet property="avatarLayout" destination="nEL-w0-U9C" id="v8j-td-kdZ"/>
                 <outlet property="btnUploadVideo" destination="twZ-Li-Rjg" id="ZaE-DX-yfX"/>
-                <outlet property="imgAvatar" destination="uIL-AR-Rpe" id="PRm-Yl-g2V"/>
+                <outlet property="imgAvatar" destination="ajT-hV-9k6" id="AVe-xj-JOo"/>
                 <outlet property="lblPickingValue" destination="G0P-1l-2J7" id="hK5-Uh-OM7"/>
                 <outlet property="locationLabel" destination="d5W-sZ-5OI" id="NRO-ho-Boy"/>
                 <outlet property="nameLabel" destination="bfQ-WK-XEf" id="Ydg-Qb-tw4"/>
@@ -45,19 +45,10 @@
                                 <outlet property="delegate" destination="-1" id="280"/>
                             </connections>
                         </tableView>
-                        <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="uIL-AR-Rpe" userLabel="Button-imgAvatar">
-                            <rect key="frame" x="26" y="67" width="126" height="125"/>
+                        <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="ajT-hV-9k6" userLabel="Image View-imgAvatar">
+                            <rect key="frame" x="26" y="67" width="125" height="125"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                            <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="15"/>
-                            <state key="normal">
-                                <color key="titleColor" red="0.93725496529999996" green="0.93725496529999996" blue="0.93725496529999996" alpha="1" colorSpace="deviceRGB"/>
-                                <color key="titleShadowColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                            </state>
-                            <connections>
-                                <action selector="avatarTouched:" destination="-1" eventType="touchUpInside" id="AE1-Jm-xMp"/>
-                            </connections>
-                        </button>
+                        </imageView>
                         <button hidden="YES" opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="twZ-Li-Rjg" userLabel="Button-uploadVideo">
                             <rect key="frame" x="174" y="71" width="125" height="123"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -112,7 +103,7 @@
                             <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="myprofile_editAvatar.png" id="nEL-w0-U9C">
+                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="myprofile_editAvatar.png" id="nEL-w0-U9C">
                             <rect key="frame" x="26" y="67" width="126" height="125"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -234,6 +225,13 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA
             <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
             <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
         </viewController>
+        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="wRo-fQ-8bq">
+            <rect key="frame" x="0.0" y="0.0" width="42" height="21"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+            <nil key="highlightedColor"/>
+        </label>
     </objects>
     <resources>
         <image name="myprofile_addvideo.png" width="125" height="125"/>

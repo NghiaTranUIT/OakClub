@@ -16,7 +16,6 @@
 //,UITableViewDelegate,UITableViewDataSource>{†
     NSFetchedResultsController *fetchedResultsController;
     NSMutableDictionary* a_messages;
-    NSMutableDictionary* a_avatar;
     BOOL isChatLoaded;
     Profile* selectedProfile;
 }

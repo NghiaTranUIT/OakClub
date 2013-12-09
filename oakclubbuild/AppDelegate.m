@@ -871,6 +871,10 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
             //[xmppRoster setNickname:friend.s_Name forUser:jid];
             NSLog(@"%d.2 Set nick name: %s for user_id: %s", i, friend.s_Name.UTF8String, xmpp_id.UTF8String);
             
+            // cache avatar
+            [imagePool getImageAtURL:friend.s_Avatar withSize:PHOTO_SIZE_SMALL asycn:^(UIImage *img, NSError *error) {
+                
+            }];
         }
 /*
         NSDictionary *params = [[NSDictionary alloc]initWithObjectsAndKeys:profile.s_ID , key_profileID, nil];
@@ -1334,7 +1338,10 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
             [xmppRoster addUser:xmpp_jid withNickname:newFriend.s_Name];
             [self.myProfile.dic_Roster setValue:newFriend forKey:newFriend.s_ID];
             [friendChatList setObject:newFriend forKey:jid];
-            [self postReceiveMessage:message];
+            // cache avatar
+            [imagePool getImageAtURL:newFriend.s_Avatar withSize:PHOTO_SIZE_SMALL asycn:^(UIImage *img, NSError *error) {
+                [self postReceiveMessage:message];
+            }];
         }];
         
 //        return;

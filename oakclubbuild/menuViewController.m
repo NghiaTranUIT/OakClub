@@ -14,7 +14,7 @@
 #import "NSString+Utils.h"
 #import "VCLogout.h"
 
-@interface menuViewController () <ImageRequester>
+@interface menuViewController ()
 {
     AppDelegate *appDel;
     
@@ -77,13 +77,6 @@
     username = profile.s_Name;
     numPoints = [NSString stringWithFormat:@"%@ coins", [profile.num_points stringValue]];
     //[self downloadAvatarImage:profile.s_Avatar ];
-    [profile tryGetImageAsync:self];
-}
-
--(void)setImage:(UIImage *)img
-{
-    imageAvatar = img;
-    [self.avatar setImage:img];
 }
 
 - (void)viewDidLoad
@@ -110,7 +103,12 @@
     
     
     Profile *myProfile = ((AppDelegate *) [UIApplication sharedApplication].delegate).myProfile;
-    [self.avatar setImage:myProfile.img_Avatar];
+    [appDel.imagePool getImageAtURL:myProfile.s_Avatar withSize:PHOTO_SIZE_SMALL asycn:^(UIImage *img, NSError *error) {
+        if (img)
+        {
+            [self.avatar setImage:img];
+        }
+    }];
     
     [self.view localizeAllViews];
     
@@ -194,7 +192,10 @@
 //    }
     
     if(indexPath.row == 0){// && self.avatar.image != nil){
-        [cell setItemIcon: imageAvatar];
+        
+        [appDel.imagePool getImageAtURL:appDel.myProfile.s_Avatar withSize:PHOTO_SIZE_SMALL asycn:^(UIImage *img, NSError *error) {
+            [cell setItemIcon:img];
+        }];
     }
     NSNumber* number = [numberNotifications objectAtIndex:indexPath.row];
     [cell setNotification:[number unsignedIntValue]];

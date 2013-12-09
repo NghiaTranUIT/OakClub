@@ -9,6 +9,9 @@
 #import "PhotoScrollView.h"
 
 @interface PhotoScrollView()
+{
+    bool isReloading;
+}
 @end
 
 @implementation PhotoScrollView
@@ -18,6 +21,7 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
+        isReloading = false;
     }
     return self;
 }
@@ -33,15 +37,24 @@
 
 -(void)reloadScrollView
 {
+    if (isReloading)
+    {
+        return;
+    }
+    
+    isReloading = true;
     [self.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
     self.contentSize = CGSizeMake(self.photoDelegate.elementPadding.width, self.photoDelegate.elementSize.height);
     
     for (int i = 0; i < [self.photoDelegate numberOfPhoto]; ++i)
     {
-        UIButton *photoButton = [[UIButton alloc] initWithFrame:CGRectMake(self.contentSize.width, self.photoDelegate.elementPadding.height, self.photoDelegate.elementSize.width, self.photoDelegate.elementSize.height)];
-        [photoButton setBackgroundImage:[self.photoDelegate photoAtIndex:i] forState:UIControlStateNormal];
+        UIImageView *photoButton = [[UIImageView alloc] initWithFrame:CGRectMake(self.contentSize.width, self.photoDelegate.elementPadding.height, self.photoDelegate.elementSize.width, self.photoDelegate.elementSize.height)];
+        [photoButton setImage:[self.photoDelegate photoAtIndex:i]];
+        [photoButton setContentMode:UIViewContentModeScaleAspectFit];
         photoButton.tag = i;
-        [photoButton addTarget:self action:@selector(photoTouched:) forControlEvents:UIControlEventTouchUpInside];
+        UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(photoTouched:)];
+        [photoButton addGestureRecognizer:tapGesture];
+        [photoButton setUserInteractionEnabled:YES];
         UIImage *borderLayoutImg = [self.photoDelegate borderAtIndex:i];
         [self addSubview:photoButton];
         
@@ -56,13 +69,23 @@
         
         self.contentSize = CGSizeMake(self.contentSize.width + self.photoDelegate.elementSize.width + self.photoDelegate.elementPadding.width/2, self.contentSize.height);
     }
+    isReloading = false;
+}
+
+-(void)updatePhotoAtIndex:(int)index
+{
+    UIImageView *photoView = (UIImageView *) [self viewWithTag:index];
+    if (photoView)
+    {
+        [photoView setImage:[self.photoDelegate photoAtIndex:index]];
+    }
 }
 
 -(void)photoTouched:(id)photoButton
 {
     if (self.photoDelegate)
     {
-        [self.photoDelegate photoButton:photoButton touchedAtIndex:[photoButton tag]];
+        [self.photoDelegate photoButton:photoButton touchedAtIndex:[[photoButton view] tag]];
     }
 }
 @end
