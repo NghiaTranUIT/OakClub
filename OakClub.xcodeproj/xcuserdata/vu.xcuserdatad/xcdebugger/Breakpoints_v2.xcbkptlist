@@ -86,11 +86,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "oakclubbuild/AppDelegate.m"
-            timestampString = "408273169.030378"
+            timestampString = "408358771.140657"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1575"
-            endingLineNumber = "1575">
+            startingLineNumber = "1577"
+            endingLineNumber = "1577"
+            landmarkName = "-tryLoginWithSuccess:failure:"
+            landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -116,11 +118,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "oakclubbuild/AppDelegate.m"
-            timestampString = "408273169.030378"
+            timestampString = "408358771.140657"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1657"
-            endingLineNumber = "1657">
+            startingLineNumber = "1659"
+            endingLineNumber = "1659"
+            landmarkName = "-tryLoginWithSuccess:failure:"
+            landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
