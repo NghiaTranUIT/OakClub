@@ -112,7 +112,25 @@
     
     [self.view localizeAllViews];
     
+    
+    
+//    [UIView transitionWithView: tableView
+//                      duration:5.1f
+//                       options:UIViewAnimationOptionTransitionCrossDissolve
+//                    animations:^(void) {
+//                        [tableView reloadData];
+//                    } completion:NULL];
+
     [tableView reloadData];
+        
+    CATransition *animation = [CATransition animation];
+    [animation setType: kCATransitionPush];
+    [animation setSubtype:kCATransitionFromBottom];
+    [animation setTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut]];
+    [animation setFillMode: kCAFillModeBoth];
+    [animation setDuration:0.2];
+    [[tableView layer] addAnimation:animation forKey: nil];
+
 }
 - (void)didReceiveMemoryWarning
 {
