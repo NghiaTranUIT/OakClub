@@ -42,9 +42,9 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    [self.navigationItem setHidesBackButton:YES];
-    [self.navigationController setNavigationBarHidden:NO];
-    [self customBackButtonBarItem];
+//    [self.navigationItem setHidesBackButton:YES];
+//    [self.navigationController setNavigationBarHidden:NO];
+//    [self customBackButtonBarItem];
     [self  loadViewbyType];
 }
 
@@ -83,7 +83,7 @@
         UIImageView* imgViewNotification = [[UIImageView alloc]initWithFrame:lblNumNotification.frame];
         [imgViewNotification setImage:[UIImage imageNamed:@"Navbar_notification.png"]];
         [rightItemView addSubview:imgViewNotification];
-        lblNumNotification.text = [NSString stringWithFormat:@"%d+", [appdel countTotalNotifications]];
+        lblNumNotification.text = [NSString stringWithFormat:@"%d", [appdel countTotalNotifications]];
         [rightItemView addSubview:lblNumNotification];
     }
     
@@ -139,6 +139,9 @@
     }
     [self loadViewbyType];
     
+}
+-(void)setTypeOfAlert:(int)type{
+    [self setTypeOfAlert:type andAnim:loadingAnim];
 }
 -(int)typeOfAlert
 {
@@ -220,7 +223,7 @@
     if(count > 0)
     {
         [self.navigationController.navigationBar addSubview:imgViewNotification];
-        lblNumNotification.text = [NSString stringWithFormat:@"%d+", count];
+        lblNumNotification.text = [NSString stringWithFormat:@"%d", count];
         [self.navigationController.navigationBar addSubview:lblNumNotification];
     }
     

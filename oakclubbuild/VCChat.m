@@ -209,8 +209,8 @@ int cellCountinSection=0;
 {
     fetchedResultsController = nil;
     [self.navigationController setNavigationBarHidden:YES];
-    NSString* title_1 = [NSString localizeString:@"Matched"];
-    NSString* title_2 = [NSString localizeString:@"Non-Matched"];
+    NSString* title_1 = [NSString localizeString:@"Matches"];
+    NSString* title_2 = [NSString localizeString:@"VIPs"];
     NSString* title_3 = [NSString localizeString:@"All"];
     NSString* searchText =[NSString localizeString:@"Search your matches ..."];
     NSString* searchPleaceholder= [@"Search your matches ..." localize];

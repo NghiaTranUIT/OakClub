@@ -425,7 +425,7 @@ UITapGestureRecognizer *tap;
                 
                 
                 UILabel* lblVersion = [[UILabel alloc]initWithFrame:CGRectMake(100, logoImageView.frame.origin.y  + logoImageView.frame.size.height + 2, 120, 30)];
-                [lblVersion setText:[NSString stringWithFormat:@"Version %@",VersionNumber] ];
+                [lblVersion setText:[NSString stringWithFormat:@"Version %@",[[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"]] ];
                 [lblVersion setTextColor:[UIColor lightGrayColor]];
                 [lblVersion setFont:FONT_HELVETICANEUE_LIGHT(12)];
                 [lblVersion setBackgroundColor:[UIColor clearColor]];
