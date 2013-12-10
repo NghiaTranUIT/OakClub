@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="4510" systemVersion="12F45" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="4510" systemVersion="12F37" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
     <dependencies>
         <deployment defaultVersion="1280" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3742"/>
@@ -81,23 +81,20 @@
                             <autoresizingMask key="autoresizingMask"/>
                         </imageView>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Snapshot_camera_icon.png" id="nfS-GR-glr">
-                            <rect key="frame" x="193" y="244" width="20" height="13"/>
+                            <rect key="frame" x="230" y="248" width="25" height="25"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         </imageView>
                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="37">
-                            <rect key="frame" x="221" y="239" width="22" height="21"/>
+                            <rect key="frame" x="232" y="277" width="22" height="21"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="17"/>
-                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                            <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="18"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="38">
-                            <rect key="frame" x="10" y="239" width="148" height="21"/>
+                            <rect key="frame" x="16" y="277" width="129" height="21"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="18"/>
-                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
-                            <color key="shadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             <size key="shadowOffset" width="1" height="1"/>
                         </label>
                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="58">
@@ -110,17 +107,16 @@
                             <size key="shadowOffset" width="1" height="1"/>
                         </label>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Snapshot_mutualfriends_icon.png" id="4I8-eq-ZOi">
-                            <rect key="frame" x="33" y="271" width="23" height="13"/>
+                            <rect key="frame" x="155" y="248" width="25" height="25"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         </imageView>
                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="39">
-                            <rect key="frame" x="63" y="267" width="38" height="21"/>
+                            <rect key="frame" x="150" y="277" width="38" height="21"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="20"/>
-                            <color key="textColor" red="0.76470595600000002" green="0.76470595600000002" blue="0.76470595600000002" alpha="1" colorSpace="deviceRGB"/>
+                            <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="18"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Mutual Friends" textAlignment="center" lineBreakMode="tailTruncation" adjustsFontSizeToFit="NO" id="mw5-J3-XJt">
+                        <label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Mutual Friends" textAlignment="center" lineBreakMode="tailTruncation" adjustsFontSizeToFit="NO" id="mw5-J3-XJt">
                             <rect key="frame" x="17" y="281" width="95" height="21"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="11"/>
@@ -128,17 +124,16 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Snapshot_shareInterest_icon.png" id="OcV-Ih-XNG">
-                            <rect key="frame" x="159" y="271" width="16" height="14"/>
+                            <rect key="frame" x="193" y="248" width="26" height="26"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         </imageView>
                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="40">
-                            <rect key="frame" x="185" y="267" width="38" height="21"/>
+                            <rect key="frame" x="188" y="277" width="38" height="21"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="20"/>
-                            <color key="textColor" red="0.76470595600000002" green="0.76470595600000002" blue="0.76470595600000002" alpha="1" colorSpace="deviceRGB"/>
+                            <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="18"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Share Interests" textAlignment="center" lineBreakMode="tailTruncation" adjustsFontSizeToFit="NO" id="EU0-W5-TfB">
+                        <label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Share Interests" textAlignment="center" lineBreakMode="tailTruncation" adjustsFontSizeToFit="NO" id="EU0-W5-TfB">
                             <rect key="frame" x="146" y="282" width="95" height="21"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="11"/>
@@ -161,7 +156,7 @@
                     </connections>
                 </view>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="34">
-                    <rect key="frame" x="53" y="392" width="70" height="70"/>
+                    <rect key="frame" x="65" y="392" width="81" height="83"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
                     <inset key="contentEdgeInsets" minX="0.0" minY="28" maxX="0.0" maxY="0.0"/>
@@ -179,7 +174,7 @@
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="35">
-                    <rect key="frame" x="193" y="392" width="70" height="70"/>
+                    <rect key="frame" x="177" y="392" width="81" height="83"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
                     <inset key="contentEdgeInsets" minX="0.0" minY="28" maxX="0.0" maxY="0.0"/>
@@ -197,7 +192,7 @@
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="36">
-                    <rect key="frame" x="137" y="400" width="45" height="53"/>
+                    <rect key="frame" x="137" y="405" width="45" height="53"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                     <state key="normal" backgroundImage="Snapshot_btn_info.png">
@@ -520,11 +515,11 @@
         <image name="Snapshot_btn_info_pressed.png" width="45" height="53"/>
         <image name="Snapshot_btn_no.png" width="81" height="83"/>
         <image name="Snapshot_btn_no_preesed.png" width="81" height="83"/>
-        <image name="Snapshot_btn_yes.png" width="161" height="165"/>
+        <image name="Snapshot_btn_yes.png" width="81" height="83"/>
         <image name="Snapshot_btn_yes_pressed.PNG" width="80" height="82"/>
-        <image name="Snapshot_camera_icon.png" width="20" height="13"/>
+        <image name="Snapshot_camera_icon.png" width="25" height="25"/>
         <image name="Snapshot_like_stamp.png" width="143" height="148"/>
-        <image name="Snapshot_mutualfriends_icon.png" width="23" height="13"/>
+        <image name="Snapshot_mutualfriends_icon.png" width="25" height="25"/>
         <image name="Snapshot_no_stamp.png" width="143" height="148"/>
         <image name="Snapshot_popup_box.png" width="273" height="213"/>
         <image name="Snapshot_popup_cancel.png" width="96" height="38"/>
@@ -532,8 +527,8 @@
         <image name="Snapshot_popup_like.png" width="95" height="38"/>
         <image name="Snapshot_popup_no.png" width="95" height="38"/>
         <image name="Snapshot_popup_no_pressed.png" width="95" height="38"/>
-        <image name="Snapshot_shareInterest_icon.png" width="16" height="14"/>
-        <image name="Snapshot_top_polaroid.png" width="265" height="307"/>
+        <image name="Snapshot_shareInterest_icon.png" width="26" height="26"/>
+        <image name="Snapshot_top_polaroid.png" width="261" height="303"/>
         <image name="Snapshot_transBG.png" width="320" height="460"/>
         <image name="viewprofile_Bar_BG.png" width="320" height="25"/>
         <image name="viewprofile_done.png" width="58" height="34"/>

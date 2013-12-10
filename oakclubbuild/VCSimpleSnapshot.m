@@ -145,9 +145,9 @@ CGFloat pageHeight;
     currentIndex = 0; //Vanancy cheat
     profileList = [[NSMutableArray alloc] init];
     [self loadProfileList:^(void){
-        [appDel.imagePool getImageAtURL:appDel.myProfile.s_Avatar withSize:PHOTO_SIZE_LARGE asycn:^(UIImage *img, NSError *error) {
-            [self.imgMyAvatar setImage:img];
-        }];
+//        [appDel.imagePool getImageAtURL:appDel.myProfile.s_Avatar withSize:PHOTO_SIZE_LARGE asycn:^(UIImage *img, NSError *error) {
+//            [self.imgMyAvatar setImage:img];
+//        }];
         [self loadCurrentProfile];
         [self loadNextProfileByCurrentIndex];
     }];
