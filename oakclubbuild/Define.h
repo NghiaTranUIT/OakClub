@@ -9,7 +9,7 @@
 #ifndef oakclubbuild_Define_h
 #define oakclubbuild_Define_h
 
-
+#define VersionNumber @"1.2.0"
 //demo version FLAG
 #define ENABLE_DEMO true
 #define USE_STAGING true
