@@ -172,6 +172,9 @@
 		97C5767B181FB5AA00D8510D /* FlashIntro.m in Sources */ = {isa = PBXBuildFile; fileRef = 97C5767A181FB5AA00D8510D /* FlashIntro.m */; };
 		97C57689181FCED000D8510D /* VCPrivacy.m in Sources */ = {isa = PBXBuildFile; fileRef = 97C57688181FCED000D8510D /* VCPrivacy.m */; };
 		97C57690181FDDF200D8510D /* TutorialViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 97C5768F181FDDF200D8510D /* TutorialViewController.m */; };
+		97D7B487185705D3008F9946 /* CGRect+Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = 97D7B486185705D3008F9946 /* CGRect+Utils.m */; };
+		97D7B48A18570C04008F9946 /* splashscreen_logo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 97D7B48818570C04008F9946 /* splashscreen_logo@2x.png */; };
+		97D7B48B18570C04008F9946 /* splashscreen_logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 97D7B48918570C04008F9946 /* splashscreen_logo.png */; };
 		97DEDD02181623A5001B0E53 /* ConfirmViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 97DEDD01181623A5001B0E53 /* ConfirmViewController.m */; };
 		97FB5E871828CFE800228140 /* LocationUpdate.m in Sources */ = {isa = PBXBuildFile; fileRef = 97FB5E861828CFE800228140 /* LocationUpdate.m */; };
 		97FBA2291855EFF20008D4EE /* VCProfile.xib in Resources */ = {isa = PBXBuildFile; fileRef = 97FBA2281855EFF20008D4EE /* VCProfile.xib */; };
@@ -335,8 +338,6 @@
 		CD50E36D181FBF3C0036A23B /* Snapshot_top_polaroid.png in Resources */ = {isa = PBXBuildFile; fileRef = CD50E34D181FBF3C0036A23B /* Snapshot_top_polaroid.png */; };
 		CD50E36E181FBF3C0036A23B /* Snapshot_top_polaroid@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CD50E34E181FBF3C0036A23B /* Snapshot_top_polaroid@2x.png */; };
 		CD56159B174247930060F60C /* Gender.m in Sources */ = {isa = PBXBuildFile; fileRef = CD56159A174247930060F60C /* Gender.m */; };
-		CD6437161850F7710077CF4D /* Splashscreen.png in Resources */ = {isa = PBXBuildFile; fileRef = CD6437131850F7710077CF4D /* Splashscreen.png */; };
-		CD6437171850F7710077CF4D /* Splashscreen@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CD6437141850F7710077CF4D /* Splashscreen@2x.png */; };
 		CD6D52EA1715EA850068BA01 /* NSString+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = CD6D52E91715EA850068BA01 /* NSString+Base64.m */; };
 		CD819576172864C400D86C0B /* VCHangoutSetting.m in Sources */ = {isa = PBXBuildFile; fileRef = CD819574172864C400D86C0B /* VCHangoutSetting.m */; };
 		CD819577172864C400D86C0B /* VCHangoutSetting.xib in Resources */ = {isa = PBXBuildFile; fileRef = CD819575172864C400D86C0B /* VCHangoutSetting.xib */; };
@@ -872,6 +873,10 @@
 		97C57688181FCED000D8510D /* VCPrivacy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VCPrivacy.m; sourceTree = "<group>"; };
 		97C5768E181FDDF200D8510D /* TutorialViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TutorialViewController.h; sourceTree = "<group>"; };
 		97C5768F181FDDF200D8510D /* TutorialViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TutorialViewController.m; sourceTree = "<group>"; };
+		97D7B485185705D3008F9946 /* CGRect+Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CGRect+Utils.h"; sourceTree = "<group>"; };
+		97D7B486185705D3008F9946 /* CGRect+Utils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CGRect+Utils.m"; sourceTree = "<group>"; };
+		97D7B48818570C04008F9946 /* splashscreen_logo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "splashscreen_logo@2x.png"; sourceTree = "<group>"; };
+		97D7B48918570C04008F9946 /* splashscreen_logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = splashscreen_logo.png; sourceTree = "<group>"; };
 		97DEDD00181623A5001B0E53 /* ConfirmViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConfirmViewController.h; sourceTree = "<group>"; };
 		97DEDD01181623A5001B0E53 /* ConfirmViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConfirmViewController.m; sourceTree = "<group>"; };
 		97FB5E851828CFE700228140 /* LocationUpdate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationUpdate.h; sourceTree = "<group>"; };
@@ -1075,9 +1080,6 @@
 		CD50E34E181FBF3C0036A23B /* Snapshot_top_polaroid@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Snapshot_top_polaroid@2x.png"; sourceTree = "<group>"; };
 		CD561599174247930060F60C /* Gender.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Gender.h; sourceTree = "<group>"; };
 		CD56159A174247930060F60C /* Gender.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Gender.m; sourceTree = "<group>"; };
-		CD6437121850F7710077CF4D /* Splashscreen-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Splashscreen-568h@2x.png"; sourceTree = "<group>"; };
-		CD6437131850F7710077CF4D /* Splashscreen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Splashscreen.png; sourceTree = "<group>"; };
-		CD6437141850F7710077CF4D /* Splashscreen@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Splashscreen@2x.png"; sourceTree = "<group>"; };
 		CD6D52E81715EA850068BA01 /* NSString+Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Base64.h"; sourceTree = "<group>"; };
 		CD6D52E91715EA850068BA01 /* NSString+Base64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Base64.m"; sourceTree = "<group>"; };
 		CD819573172864C400D86C0B /* VCHangoutSetting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VCHangoutSetting.h; sourceTree = "<group>"; };
@@ -2050,6 +2052,8 @@
 				97927B94183B7264005F49FC /* LoadingIndicator.m */,
 				97939392184DBFDF00BEC19D /* ImagePool.h */,
 				97939393184DBFDF00BEC19D /* ImagePool.m */,
+				97D7B485185705D3008F9946 /* CGRect+Utils.h */,
+				97D7B486185705D3008F9946 /* CGRect+Utils.m */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -2461,9 +2465,8 @@
 		CD877CAE1820FBDD0067D478 /* SplashScreen */ = {
 			isa = PBXGroup;
 			children = (
-				CD6437121850F7710077CF4D /* Splashscreen-568h@2x.png */,
-				CD6437131850F7710077CF4D /* Splashscreen.png */,
-				CD6437141850F7710077CF4D /* Splashscreen@2x.png */,
+				97D7B48818570C04008F9946 /* splashscreen_logo@2x.png */,
+				97D7B48918570C04008F9946 /* splashscreen_logo.png */,
 			);
 			path = SplashScreen;
 			sourceTree = "<group>";
@@ -3677,6 +3680,7 @@
 				CDF99C4F1713FA6C008D8BAC /* defaultPerson.png in Resources */,
 				979A9D751851A769003387DA /* Snapshot_btn_KeepPlaying_pressed@2x.png in Resources */,
 				CDB88CAD182E47A100E3ABDF /* Snapshot_camera_icon.png in Resources */,
+				97D7B48A18570C04008F9946 /* splashscreen_logo@2x.png in Resources */,
 				CDF99C511713FA6C008D8BAC /* orange.png in Resources */,
 				CD877C881820E7AB0067D478 /* Snapshot_btn_KeepPlaying.png in Resources */,
 				CDF99C541713FAFE008D8BAC /* MainWindow.xib in Resources */,
@@ -3768,6 +3772,7 @@
 				CD877CE9182114560067D478 /* HistoryChat_separator.png in Resources */,
 				CD1AB0771821804200B0FA10 /* Report_midleItem_active.png in Resources */,
 				CD13016B1821FD9700D29E0B /* SnapshotLoading_graymap_loaded.png in Resources */,
+				97D7B48B18570C04008F9946 /* splashscreen_logo.png in Resources */,
 				CDAB59AE1850880C00724956 /* Navbar_btn_chat_pressed.png in Resources */,
 				CDAB59AC1850880C00724956 /* Navbar_btn_back.png in Resources */,
 				977853F1182228A900CBB5DB /* myprofile_background.png in Resources */,
@@ -3798,7 +3803,6 @@
 				CD877D0018212BAE0067D478 /* intropage_match.png in Resources */,
 				CD50E350181FBF3C0036A23B /* Snapshot_bg_profiles@2x.png in Resources */,
 				CD50E357181FBF3C0036A23B /* Snapshot_like_stamp.png in Resources */,
-				CD6437171850F7710077CF4D /* Splashscreen@2x.png in Resources */,
 				CDFF638F1823564400C8031F /* SnapshotSetting_oakclub_logo@2x.png in Resources */,
 				CD877CA11820EF260067D478 /* Logout_btn_active.png in Resources */,
 				CD13017718225D3E00D29E0B /* Login_btnFB_active.png in Resources */,
@@ -3948,7 +3952,6 @@
 				CD877D0118212BAE0067D478 /* intropage_match@2x.png in Resources */,
 				CD13017A18225D3E00D29E0B /* Login_btnFB_inactive@2x.png in Resources */,
 				CD1301671821FD9700D29E0B /* SnapshotLoading_btn_tellyourfriend_inactive.png in Resources */,
-				CD6437161850F7710077CF4D /* Splashscreen.png in Resources */,
 				CD13016E1821FD9700D29E0B /* SnapshotLoading_map_loaded@2x.png in Resources */,
 				979A9D69185188BB003387DA /* Snapshot_btn_info_pressed@2x.png in Resources */,
 				CDAB59B91850880C00724956 /* Navbar_btn_viewprofile@2x.png in Resources */,
@@ -4230,6 +4233,7 @@
 				CD038E71180BDB2700A9E177 /* MessageStorage.m in Sources */,
 				CD19FFB11741ECE10048BEF1 /* RelationShip.m in Sources */,
 				CD19FFB41741ED390048BEF1 /* WorkCate.m in Sources */,
+				97D7B487185705D3008F9946 /* CGRect+Utils.m in Sources */,
 				CD56159B174247930060F60C /* Gender.m in Sources */,
 				CDFAA78E17549607008D6567 /* ProfileCell.m in Sources */,
 				CD02C68717560ED300B1ED6A /* OverlayViewController.m in Sources */,
