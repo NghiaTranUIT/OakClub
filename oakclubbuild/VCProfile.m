@@ -574,15 +574,19 @@ static CGFloat padding_left = 5.0;
     [self.profileView localizeAllViews];
     [self.view localizeAllViews];
     
-    [self customNavHeader];
+//    [self customNavHeader];
     
     [self refreshScrollView];
     [self loadPhotoForScrollview];
 }
 
 -(void) viewWillAppear:(BOOL)animated{
+    [self.navigationController setNavigationBarHidden:YES];
+//    [self.navigationItem setHidesBackButton:YES];
+}
+
+-(void) viewWillDisappear:(BOOL)animated{
     [self.navigationController setNavigationBarHidden:NO];
-    [self.navigationItem setHidesBackButton:YES];
 }
 
 - (void)viewDidUnload {
@@ -998,6 +1002,23 @@ static CGFloat padding_left = 5.0;
 }
 
 #pragma mark left item bar
+-(void) addDoneItemController{
+    UIImageView* controlBG = [[UIImageView alloc]initWithFrame:CGRectMake(0, IS_OS_7_OR_LATER?20:0, 320, 46)];
+    [controlBG setImage:[UIImage imageNamed:@"viewprofile_Bar_BG.png"]];
+    [self.view addSubview:controlBG];
+    UIButton* btnDone = [[UIButton alloc]initWithFrame:CGRectMake(8,IS_OS_7_OR_LATER?26:6, 51, 34)];
+    [btnDone setTitle:@"Done" forState:UIControlStateNormal];
+    [btnDone.titleLabel setFont:FONT_HELVETICANEUE_LIGHT(15)];
+    [btnDone.titleLabel setText:@"Done"];
+    [btnDone setImage:[UIImage imageNamed:@"viewprofile_done.png"] forState:UIControlStateNormal];
+    [btnDone addTarget:self action:@selector(backToPreviousView) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:btnDone];
+
+    //update position of view for iOS7
+    if (IS_OS_7_OR_LATER) {
+        scrollview.frame = CGRectMake(0, scrollview.frame.origin.y+20, scrollview.frame.size.width, scrollview.frame.size.height);
+    }
+}
 -(void)backToPreviousView
 {
 //    if([vc isKindOfClass:[VCSnapshoot class]] )

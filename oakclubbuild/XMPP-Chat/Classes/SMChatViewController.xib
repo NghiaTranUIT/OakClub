@@ -92,7 +92,7 @@
             </connections>
         </button>
         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="36">
-            <rect key="frame" x="0.0" y="0.0" width="33" height="30"/>
+            <rect key="frame" x="0.0" y="0.0" width="44" height="44"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
             <state key="normal" backgroundImage="ChatView_btn_moreOptions.png">
@@ -108,7 +108,7 @@
             </connections>
         </button>
         <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="24">
-            <rect key="frame" x="0.0" y="0.0" width="33" height="30"/>
+            <rect key="frame" x="0.0" y="0.0" width="44" height="44"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <fontDescription key="fontDescription" type="system" pointSize="15"/>
             <state key="normal" image="ChatView_btn_viewprofile.png">
@@ -131,9 +131,9 @@
     </objects>
     <resources>
         <image name="ChatView_btn_moreOptions.png" width="33" height="30"/>
-        <image name="ChatView_btn_moreOptions_pressed.png" width="33" height="30"/>
-        <image name="ChatView_btn_viewprofile.png" width="33" height="30"/>
-        <image name="ChatView_btn_viewprofile_pressed.png" width="33" height="30"/>
+        <image name="ChatView_btn_moreOptions_pressed.png" width="44" height="44"/>
+        <image name="ChatView_btn_viewprofile.png" width="44" height="44"/>
+        <image name="ChatView_btn_viewprofile_pressed.png" width="44" height="44"/>
         <image name="Navbar_btn_back.png" width="57" height="40"/>
         <image name="menu bam vao.png" width="97" height="61"/>
     </resources>

@@ -344,6 +344,7 @@ UITapGestureRecognizer *tap;
                 lblRange = [[UILabel alloc]initWithFrame:CGRectMake(30, 0, 280, 30)];
                 [lblRange setBackgroundColor:[UIColor clearColor]];
                 [lblRange setFont:FONT_HELVETICANEUE_LIGHT(15.0)];
+                lblRange.adjustsFontSizeToFitWidth = YES;
                 [newCellView addSubview:self.rangeSlider];
                 [newCellView addSubview:lblRange];
                 

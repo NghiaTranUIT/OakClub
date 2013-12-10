@@ -675,7 +675,7 @@ CGFloat pageHeight;
 }
 #pragma mark LOADING - animation
 -(void)startLoadingAnim{
-    [self stopWarning];
+//    [self stopWarning];
 //    loadingView = [[VCSimpleSnapshotLoading alloc]init];
     [appDel showSnapshotLoading];
     VCSimpleSnapshotLoading* vc = [appDel.activeVC.viewControllers objectAtIndex:0];
