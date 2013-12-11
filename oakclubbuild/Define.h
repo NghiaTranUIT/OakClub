@@ -16,6 +16,9 @@
 #define USE_MAINHOST true
 #define USE_STAGING_MB false
 #define USE_STAGING_IOS false
+
+//disable hereTo and show me in Snapshot Settings
+#define DISABLE_HERETO_SHOWME
 //Hangout
 #define sOnline @"Online"
 #define LOG_HTTP false
@@ -417,12 +420,19 @@ typedef enum{
 typedef enum {
     LanguageGroup               = 0,
     GenderSearchGroup           = 1,
+#ifndef DISABLE_HERETO_SHOWME
     HereToGroup                 = 2,
     ShowMeGroup                 = 3,
     AgeGroup                    = 4,
     DistanceGroup               = 5,
     MoreGroup                   = 6,
     NumOfSettingGroup           = 7,
+#else
+    AgeGroup                    = 2,
+    DistanceGroup               = 3,
+    MoreGroup                   = 4,
+    NumOfSettingGroup           = 5,
+#endif
 } SettingGroup;
 
 typedef enum{

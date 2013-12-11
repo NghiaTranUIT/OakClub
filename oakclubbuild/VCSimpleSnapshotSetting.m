@@ -148,7 +148,7 @@ UITapGestureRecognizer *tap;
             rowHeight = 80;
             break;
         case MoreGroup:
-            rowHeight = 300;
+            rowHeight = 250;
             break;
         case AgeGroup:
             rowHeight = 80;
@@ -169,12 +169,14 @@ UITapGestureRecognizer *tap;
         case GenderSearchGroup:
             rowCount = 2;
             break;
+#ifndef DISABLE_HERETO_SHOWME
         case HereToGroup:
             rowCount = 3;
             break;
         case ShowMeGroup:
             rowCount = 3;
             break;
+#endif
         case DistanceGroup:
             rowCount = 1;
             break;
@@ -201,6 +203,7 @@ UITapGestureRecognizer *tap;
     
     switch (section)
     {
+#ifndef DISABLE_HERETO_SHOWME
         case HereToGroup:
             if (row == self.hereTo)
             {
@@ -248,6 +251,7 @@ UITapGestureRecognizer *tap;
                     break;
             }
             break;
+#endif
         case AgeGroup:
 //            cell.detailTextLabel.text = [NSString stringWithFormat:@"%d-%d %@",snapshotObj.age_from,snapshotObj.age_to,[NSString localizeString:@"year old"]];
 //            cell.textLabel.text = @"Age around";
@@ -381,7 +385,7 @@ UITapGestureRecognizer *tap;
             if (moreCell == nil)
             {
                 moreCell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:moreCellID];
-                UIView *newCellView= [[UIView alloc]initWithFrame:CGRectMake(0, 0, 320, 300)];
+                UIView *newCellView= [[UIView alloc]initWithFrame:CGRectMake(0, 0, 320, 250)];
                 
 //                UIButton* btnSave = [[UIButton alloc]initWithFrame:CGRectMake(25, 26, 291, 45)];
 //                [btnSave setBackgroundImage:[UIImage imageNamed:@"SnapshotSetting_btn_save_inactive"] forState:UIControlStateNormal];
@@ -466,12 +470,14 @@ UITapGestureRecognizer *tap;
     UIFont *newfont = FONT_HELVETICANEUE_LIGHT(15.0);
     [headerLbl setFont:newfont];
     switch (section) {
+#ifndef DISABLE_HERETO_SHOWME
         case HereToGroup:
             headerLbl.text = @"I'M HERE TO";
             break;
         case ShowMeGroup:
             headerLbl.text = @"SHOW ME";
             break;
+#endif
         case GenderSearchGroup:
             headerLbl.text = @"I WOULD LIKE TO BE MATCHED WITH";
             break;
@@ -530,6 +536,7 @@ UITapGestureRecognizer *tap;
 //                [self gotoChooseCity];
 //            }
 //            break;
+#ifndef DISABLE_HERETO_SHOWME
         case HereToGroup:
         {
             self.hereTo = row;
@@ -584,6 +591,7 @@ UITapGestureRecognizer *tap;
             }
 
             break;
+#endif
         case GenderSearchGroup:
             // do nothing
             break;
