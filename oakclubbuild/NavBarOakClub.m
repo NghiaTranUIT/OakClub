@@ -151,7 +151,10 @@
 
         labelNotifications.hidden = NO;
         imageNotifications.hidden = NO;
-        labelNotifications.text = [NSString stringWithFormat:@"%d", count];
+        if(count > 99)
+            labelNotifications.text = [NSString stringWithFormat:@"99+"];
+        else
+            labelNotifications.text = [NSString stringWithFormat:@"%d", count];
     }
     else
     {

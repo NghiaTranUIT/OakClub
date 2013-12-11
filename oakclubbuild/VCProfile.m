@@ -581,6 +581,7 @@ static CGFloat padding_left = 5.0;
 }
 
 -(void) viewWillAppear:(BOOL)animated{
+//    [appDel.activeVC.navigationController setNavigationBarHidden:YES];
     [self.navigationController setNavigationBarHidden:YES];
 //    [self.navigationItem setHidesBackButton:YES];
 }
