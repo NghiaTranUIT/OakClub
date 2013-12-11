@@ -234,13 +234,26 @@
     
     if (!isSetLanguage)
     {
-        UIAlertView *alert = [[UIAlertView alloc]
-                              initWithTitle:[@"Choose your language" localize]
-                              message:@""
-                              delegate:self
-                              cancelButtonTitle:nil
-                              otherButtonTitles:@"Tiếng Việt", @"English", @"Deutsch", @"Indonesia", nil];
-        [alert show];
+        if(flagLanguage)
+        {
+            UIAlertView *alert = [[UIAlertView alloc]
+                                  initWithTitle:[@"Choose your language" localize]
+                                  message:@""
+                                  delegate:self
+                                  cancelButtonTitle:nil
+                                  otherButtonTitles:@"Tiếng Việt", @"English", @"Deutsch", @"Indonesia", @"ภาษาไทย", @"Türk", nil];
+            [alert show];
+        }
+        else
+        {
+            UIAlertView *alert = [[UIAlertView alloc]
+                                  initWithTitle:[@"Choose your language" localize]
+                                  message:@""
+                                  delegate:self
+                                  cancelButtonTitle:nil
+                                  otherButtonTitles:@"Tiếng Việt", @"English", @"Deutsch", @"Indonesia", nil];
+            [alert show];
+        }
     }
     else
     {
@@ -287,6 +300,22 @@
         [appDelegate updateLanguageBundle];
         NSString* str=[appDelegate.languageBundle localizedStringForKey:@"was selected" value:@"" table:nil];
         NSLog(@"Indonesia %@",str);
+    }
+    else if([title isEqualToString:@"ภาษาไทย"])
+    {
+        [[NSUserDefaults standardUserDefaults] setObject:value_appLanguage_TH forKey:key_appLanguage];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+        [appDelegate updateLanguageBundle];
+        NSString* str=[appDelegate.languageBundle localizedStringForKey:@"was selected" value:@"" table:nil];
+        NSLog(@"ภาษาไทย %@",str);
+    }
+    else if([title isEqualToString:@"Türk"])
+    {
+        [[NSUserDefaults standardUserDefaults] setObject:value_appLanguage_TR forKey:key_appLanguage];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+        [appDelegate updateLanguageBundle];
+        NSString* str=[appDelegate.languageBundle localizedStringForKey:@"was selected" value:@"" table:nil];
+        NSLog(@"Türk %@",str);
     }
     
     [self.view localizeAllViews];

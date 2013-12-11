@@ -64,15 +64,20 @@
 #define key_appLanguage @"appLanguage"
 #define key_ChosenLanguage @"appChosenLanguage"
 //============== application value =============
+#define flagLanguage @"YES"
 #define value_appLanguage_VI @"vi"
 #define value_appLanguage_EN @"en"
 #define value_appLanguage_DE @"de"
 #define value_appLanguage_ID @"id"
+#define value_appLanguage_TH @"th"
+#define value_appLanguage_TR @"tr"
 #define AppLanguageList ([NSDictionary dictionaryWithObjectsAndKeys:\
                                 @"Vietnamese", value_appLanguage_VI,\
                                 @"English", value_appLanguage_EN,\
                                 @"Deutsch", value_appLanguage_DE,\
                                 @"Indonesia", value_appLanguage_ID,\
+                                @"Thai", value_appLanguage_TH,\
+                                @"Türk", value_appLanguage_TR,\
                                 nil])
 //============== APIs =============
 #define DOMAIN_AT @"@oakclub.com"

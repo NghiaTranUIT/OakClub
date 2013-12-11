@@ -49,8 +49,11 @@
     label.textAlignment = NSTextAlignmentCenter;
     [label setText:[@"Language" localize]];
     label.textColor = [UIColor blackColor]; // change this color
+    //[label setAdjustsFontSizeToFitWidth: YES];
     [label sizeToFit];
+    [label setFrame: CGRectMake(0, 0, 150, 80)];//(150, 80)];
     self.navigationItem.titleView = label;
+    
     
     [self.view localizeAllViews];
     [self.navigationController.view localizeAllViews];
