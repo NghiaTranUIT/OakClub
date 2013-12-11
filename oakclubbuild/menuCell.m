@@ -48,6 +48,16 @@ static CGFloat padding_left = 4.0;
     _labelMenu.text = label;
     iconMenu.highlightedImage = [UIImage imageNamed:[NSString stringWithFormat:@"Menu_icon_%@_pressed.png",formatImageName]];
     _labelMenu.highlightedTextColor = COLOR_PURPLE;
+//    {
+//        CATransition *animation = [CATransition animation];
+//        [animation setType: kCATransitionPush];
+//        [animation setSubtype:kCATransitionFromBottom];
+//        //[animation setTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut]];
+//        //[animation setFillMode: kCAFillModeBoth];
+//        [animation setDuration:5.3];
+//        [[self layer] addAnimation:animation forKey: nil];
+//        
+//    }
     
 }
 

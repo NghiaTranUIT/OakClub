@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		3715B369170AC9DC003ACE95 /* VCChat.m in Sources */ = {isa = PBXBuildFile; fileRef = 3715B35E170AC9DC003ACE95 /* VCChat.m */; };
 		3715B36A170AC9DC003ACE95 /* VCChat.m in Sources */ = {isa = PBXBuildFile; fileRef = 3715B35E170AC9DC003ACE95 /* VCChat.m */; };
+		4507A45D18570C0500C76A6B /* Animation.m in Sources */ = {isa = PBXBuildFile; fileRef = 4507A45C18570C0500C76A6B /* Animation.m */; };
 		4592849C184F3F65004FA3A6 /* Menu_BG-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4592847F184F3F65004FA3A6 /* Menu_BG-568h@2x.png */; };
 		4592849D184F3F65004FA3A6 /* Menu_BG.png in Resources */ = {isa = PBXBuildFile; fileRef = 45928480184F3F65004FA3A6 /* Menu_BG.png */; };
 		4592849E184F3F65004FA3A6 /* Menu_BG@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 45928481184F3F65004FA3A6 /* Menu_BG@2x.png */; };
@@ -663,6 +664,8 @@
 /* Begin PBXFileReference section */
 		3715B35D170AC9DC003ACE95 /* VCChat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VCChat.h; sourceTree = "<group>"; };
 		3715B35E170AC9DC003ACE95 /* VCChat.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VCChat.m; sourceTree = "<group>"; };
+		4507A45B18570C0500C76A6B /* Animation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Animation.h; sourceTree = "<group>"; };
+		4507A45C18570C0500C76A6B /* Animation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Animation.m; sourceTree = "<group>"; };
 		4592847F184F3F65004FA3A6 /* Menu_BG-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Menu_BG-568h@2x.png"; sourceTree = "<group>"; };
 		45928480184F3F65004FA3A6 /* Menu_BG.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Menu_BG.png; sourceTree = "<group>"; };
 		45928481184F3F65004FA3A6 /* Menu_BG@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Menu_BG@2x.png"; sourceTree = "<group>"; };
@@ -2072,6 +2075,8 @@
 				CDD98228170EC97E00F6BF46 /* menuCell.h */,
 				CDD98229170EC97E00F6BF46 /* menuCell.m */,
 				CDD9822A170EC97E00F6BF46 /* menuCell.xib */,
+				4507A45B18570C0500C76A6B /* Animation.h */,
+				4507A45C18570C0500C76A6B /* Animation.m */,
 			);
 			name = Menu;
 			sourceTree = "<group>";
@@ -4235,6 +4240,7 @@
 				CD02C68717560ED300B1ED6A /* OverlayViewController.m in Sources */,
 				CD3C7C761758B942004D35E1 /* ODRefreshControl.m in Sources */,
 				CD038E73180BDB2700A9E177 /* WordWarpParse.m in Sources */,
+				4507A45D18570C0500C76A6B /* Animation.m in Sources */,
 				CDF530811768699C0065701F /* EditText.m in Sources */,
 				CDEFB9131769B10A0033F94E /* SettingObject.m in Sources */,
 				CDBF8DBD1817165000CDBCF7 /* UIView+Localize.m in Sources */,
