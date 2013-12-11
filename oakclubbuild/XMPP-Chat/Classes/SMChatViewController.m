@@ -267,9 +267,9 @@
     
     label_header.frame = CGRectMake(70, 0, label_header.frame.size.width, 44);
     
-    [btnShowProfile setFrame:CGRectMake(244, 8, btnShowProfile.frame.size.width, btnShowProfile.frame.size.height)];
+    [btnShowProfile setFrame:CGRectMake(230, 0, btnShowProfile.frame.size.width, btnShowProfile.frame.size.height)];
     
-    [btnMoreOption setFrame:CGRectMake(282, 8, btnMoreOption.frame.size.width, btnMoreOption.frame.size.height)];
+    [btnMoreOption setFrame:CGRectMake(276, 0, btnMoreOption.frame.size.width, btnMoreOption.frame.size.height)];
 
 
     ChatNavigationView *headerView = [[ChatNavigationView alloc]initWithFrame:CGRectMake(0, 0, 320, 44)];
@@ -431,13 +431,14 @@
         }
         VCProfile *viewProfile = [[VCProfile alloc] initWithNibName:@"VCProfile" bundle:nil];
         [viewProfile loadProfile:userProfile andImage:avatar_friend];
+        [viewProfile addDoneItemController];
         [self.navigationController.navigationBar setUserInteractionEnabled:YES];
         [self.navigationController setNavigationBarHidden:NO];
         [self.navigationController pushViewController:viewProfile animated:YES];
-        if(!IS_OS_7_OR_LATER){
-            //vanancy ; bug crash on iOS7
-            [viewProfile.navigationController setNavigationBarHidden:NO];
-        }
+//        if(!IS_OS_7_OR_LATER){
+//            //vanancy ; bug crash on iOS7
+//            [viewProfile.navigationController setNavigationBarHidden:YES];
+//        }
     }];
     
     

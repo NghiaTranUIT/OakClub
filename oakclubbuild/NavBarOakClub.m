@@ -151,7 +151,7 @@
 
         labelNotifications.hidden = NO;
         imageNotifications.hidden = NO;
-        labelNotifications.text = [NSString stringWithFormat:@"%d+", count];
+        labelNotifications.text = [NSString stringWithFormat:@"%d", count];
     }
     else
     {

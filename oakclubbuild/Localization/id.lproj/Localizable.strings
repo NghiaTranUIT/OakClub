@@ -51,7 +51,7 @@
 "to"="untuk";
 "Snapshots"="Cuplikan";
 "Tell your friends"="Beritahu teman!";
-"Matched"="Cocok";
+"Matches"="Sepasang";
 "Non-Matched"="Tidak cocok";
 "All"="Semua";
 "You matched with %@ 10 hours ago"="Kamu cocok dengan %@ 10 hari ago";
@@ -239,7 +239,7 @@
 "đến"="untuk";
 "Tình cờ"="Cuplikan";
 "Mời bạn bè tham gia!"="Beritahu teman!";
-"Phù hợp"="Cocok";
+"Cặp đôi"="Sepasang";
 "Chưa hợp"="Tidak cocok";
 "Tất cả"="Semua";
 "Kết đôi với %@ 10 tiếng trước"="Kamu cocok dengan %@ 10 hari ago";
@@ -420,7 +420,7 @@
 "bis"="untuk";
 "Snapshot"="Cuplikan";
 "Teile es mit Deinen Freunden!"="Beritahu teman!";
-"Volltreffer"="Cocok";
+"Paar"="Sepasang";
 "Kein Volltreffer"="Tidak cocok";
 "Alle"="Semua";
 "Du bist mit  %@ seit tage verbunden"="Kamu cocok dengan %@ 10 hari ago";
@@ -600,7 +600,7 @@
 "untuk"="untuk";
 "Cuplikan"="Cuplikan";
 "Beritahu teman!"="Beritahu teman!";
-"Cocok"="Cocok";
+"Sepasang"="Sepasang";
 "Tidak cocok"="Tidak cocok";
 "Semua"="Semua";
 "Kamu cocok dengan %@ 10 hari ago"="Kamu cocok dengan %@ 10 hari ago";

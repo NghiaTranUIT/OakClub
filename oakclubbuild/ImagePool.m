@@ -133,7 +133,7 @@
         NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:imgID, @"file",
                                 [NSNumber numberWithInteger:(int) size.width], @"width",
                                 [NSNumber numberWithInteger:(int) size.height], @"height",
-                                [NSNumber numberWithInt:0], @"mode", nil];
+                                [NSNumber numberWithInt:1], @"mode", nil];
         
         NSMutableURLRequest *request = [httpClient requestWithMethod:@"GET"
                                                                 path:@""

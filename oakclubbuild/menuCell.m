@@ -125,7 +125,7 @@ static CGFloat padding_left = 4.0;
 {
     if(nNotifications > 0)
     {
-        NSString* text = [NSString stringWithFormat:@"+%d",nNotifications ];
+        NSString* text = [NSString stringWithFormat:@"%d",nNotifications ];
         if(notificationImageView == nil)
         {
             notificationImageView =[ menuCell getLabelWithBackground:text

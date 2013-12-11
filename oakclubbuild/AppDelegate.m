@@ -75,7 +75,7 @@ NSString *const kXMPPmyPassword = @"kXMPPmyPassword";
 #if ENABLE_DEMO
 @synthesize simpleSnapShot = _simpleSnapShot;
 @synthesize snapShotSettings = _snapShotSettings;
-@synthesize mutualMatches = _mutualMatches;
+@synthesize snapshotLoading = _snapshotLoading;
 // multi language
 @synthesize languageBundle = _languageBundle;
 #endif
@@ -144,6 +144,8 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
     self.window.backgroundColor = [UIColor whiteColor];
     //Vanancy - add flag for reload data in Snapshot
     self.reloadSnapshot = FALSE;
+    
+    [self tryGetLanguageFromDevice];
     
     //load first screen of Application.
     self.flashIntro = [[FlashIntro alloc] init];
@@ -228,11 +230,12 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
     self.simpleSnapShot = [self createNavigationByClass:@"VCSimpleSnapshot" AndHeaderName:nil/*[NSString localizeString:@"Snapshot"]*/ andRightButton:@"VCChat" andIsStoryBoard:NO];
     //     self.snapShotSettings = [self.storyboard instantiateViewControllerWithIdentifier:@"SnapshotSettings"];
     self.snapShotSettings = [self createNavigationByClass:@"VCSimpleSnapshotSetting" AndHeaderName:[NSString localizeString:@"Settings"] andRightButton:@"VCChat" andIsStoryBoard:NO];
-//    self.mutualMatches = [self createNavigationByClass:@"VCMutualMatch" AndHeaderName:[NSString localizeString:@"Mutual Matches"] andRightButton:nil andIsStoryBoard:NO];
+    self.snapshotLoading = [self createNavigationByClass:@"VCSimpleSnapshotLoading" AndHeaderName:nil andRightButton:@"VCChat" andIsStoryBoard:NO];
     self.myProfileVC = [self createNavigationByClass:@"VCMyProfile" AndHeaderName:[NSString localizeString:@"Edit Profile"] andRightButton:@"VCChat" andIsStoryBoard:NO];
 //    self.getPoints = [self createNavigationByClass:@"VCGetPoints" AndHeaderName:@"Get Coins" andRightButton:nil andIsStoryBoard:NO];
     self.confirmVC = [self createNavigationByClass:@"UpdateProfileViewController" AndHeaderName:[@"Update Profile" localize] andRightButton:nil andIsStoryBoard:NO];
     // PKRevealController
+    
 #if ENABLE_DEMO
     activeVC = _simpleSnapShot;
     self.rootVC = [PKRevealController revealControllerWithFrontViewController:self.simpleSnapShot
@@ -366,11 +369,11 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
         
     }];
 }
--(void)showMutualMatches {
+-(void)showSnapshotLoading {
     //    [self.rootVC setRootController:self.myLink animated:YES];
     //    [self.rootVC setContentViewController:self.myLink snapToContentViewController:YES animated:YES];
-    activeVC = _mutualMatches;
-    [self.rootVC setFrontViewController:self.mutualMatches focusAfterChange:YES completion:^(BOOL finished) {
+    activeVC = _snapshotLoading;
+    [self.rootVC setFrontViewController:self.snapshotLoading focusAfterChange:YES completion:^(BOOL finished) {
         
     }];
 }
@@ -1726,5 +1729,59 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
         [pingTimer invalidate];
         pingTimer = nil;
     }
+}
+
+#pragma mark check language
+-(void)tryGetLanguageFromDevice
+{
+    BOOL isSetLanguage = [[[NSUserDefaults standardUserDefaults] objectForKey:key_ChosenLanguage] boolValue];
+    if (!isSetLanguage)
+    {
+        if([[self checkLanguage] isEqualToString:@"vi"])
+        {
+            [[NSUserDefaults standardUserDefaults] setObject:value_appLanguage_VI forKey:key_appLanguage];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+            //        NSString* selectedLanguage =[[NSUserDefaults standardUserDefaults] stringForKey:key_appLanguage];
+            [self updateLanguageBundle];
+            NSString* str=[self.languageBundle localizedStringForKey:@"was selected" value:@"" table:nil];
+            NSLog(@"Vietnamese %@",str);
+        }
+        else if([[self checkLanguage] isEqualToString:@"de"])
+        {
+            [[NSUserDefaults standardUserDefaults] setObject:value_appLanguage_DE forKey:key_appLanguage];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+            //        NSString* selectedLanguage =[[NSUserDefaults standardUserDefaults] stringForKey:key_appLanguage];
+            [self updateLanguageBundle];
+            NSString* str=[self.languageBundle localizedStringForKey:@"was selected" value:@"" table:nil];
+            NSLog(@"German %@",str);
+        }
+        else if([[self checkLanguage] isEqualToString:@"id"])
+        {
+            [[NSUserDefaults standardUserDefaults] setObject:value_appLanguage_ID forKey:key_appLanguage];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+            //        NSString* selectedLanguage =[[NSUserDefaults standardUserDefaults] stringForKey:key_appLanguage];
+            [self updateLanguageBundle];
+            NSString* str=[self.languageBundle localizedStringForKey:@"was selected" value:@"" table:nil];
+            NSLog(@"Indonesia %@",str);
+        }
+        else
+        {
+            [[NSUserDefaults standardUserDefaults] setObject:value_appLanguage_EN forKey:key_appLanguage];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+            [self updateLanguageBundle];
+            NSString* str=[self.languageBundle localizedStringForKey:@"was selected" value:@"" table:nil];
+            NSLog(@"English %@",str);
+        }
+        //[self.view localizeAllViews];
+    }
+}
+
+-(NSString* ) checkLanguage
+{
+    NSUserDefaults* defs = [NSUserDefaults standardUserDefaults];
+    NSArray* languages = [defs objectForKey:@"AppleLanguages"];
+    NSString* preferredLang = [languages objectAtIndex:0];
+    NSLog(@"Language: %@", preferredLang);
+    return preferredLang;
 }
 @end
