@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="4510" systemVersion="12F45" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="4510" systemVersion="12F37" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
     <dependencies>
         <deployment defaultVersion="1280" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3742"/>
@@ -79,9 +79,9 @@
         </view>
     </objects>
     <resources>
-        <image name="Login_bottomBG.png" width="320" height="93"/>
-        <image name="Login_btnFB_active.png" width="254" height="40"/>
-        <image name="Login_btnFB_inactive.png" width="254" height="40"/>
-        <image name="Login_info.png" width="30" height="30"/>
+        <image name="Login_bottomBG.png" width="320" height="95"/>
+        <image name="Login_btnFB_active.png" width="253" height="40"/>
+        <image name="Login_btnFB_inactive.png" width="253" height="40"/>
+        <image name="Login_info.png" width="44" height="44"/>
     </resources>
 </document>
