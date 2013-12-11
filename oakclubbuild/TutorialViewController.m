@@ -158,20 +158,21 @@
             [content2Label setBackgroundColor: [UIColor clearColor]];
             [content2Label setTextColor: [UIColor whiteColor]];
             
-            
-            //CGSize stringSize = [content3String sizeWithFont:FONT_HELVETICANEUE_LIGHT(21)];
-            
-            //CGFloat width = stringSize.width;
-            
             [content3Label setLineBreakMode: NSLineBreakByWordWrapping];
             [content3Label setNumberOfLines: 2];
             [content3Label setText: content3String];
-//            [content3Label setFrame: CGRectMake((image.frame.size.width - 254)/2, 283, 280, 70)];
             [content3Label setFrame: CGRectMake(0, 283, self.view.frame.size.width, 70)];
             [content3Label setFont: [UIFont systemFontOfSize: 21]];
             [content3Label setTextAlignment: NSTextAlignmentCenter];
             [content3Label setBackgroundColor: [UIColor clearColor]];
             [content3Label setTextColor: [UIColor whiteColor]];
+            
+            if(IS_HEIGHT_GTE_568)
+            {
+                [content1Label setFrame:CGRectMake(0, 95, self.view.frame.size.width, 70)];
+                [content2Label setFrame: CGRectMake(0, 195, self.view.frame.size.width, 70)];
+                [content3Label setFrame: CGRectMake(0, 303, self.view.frame.size.width, 70)];
+            }
             
             [image addSubview: content1Label];
             [image addSubview: content2Label];
@@ -194,6 +195,11 @@
             [content1Label setBackgroundColor: [UIColor clearColor]];
             [content1Label setTextColor: [UIColor whiteColor]];
             
+            if(IS_HEIGHT_GTE_568)
+            {
+                [content1Label setFrame:CGRectMake(0, 205, self.view.frame.size.width, 70)];
+
+            }
             [image addSubview: content1Label];
             break;
         }
@@ -208,7 +214,7 @@
             NSString *content2String = [@"You can choose\nwho to see here" localize];
             
             [content1Label setLineBreakMode: NSLineBreakByWordWrapping];
-            [content1Label setNumberOfLines: 2];
+            [content1Label setNumberOfLines: 4];
             [content1Label setText: content1String];
             [content1Label setFrame: CGRectMake((image.frame.size.width)/2, 53, 260, 70)];
             [content1Label setFont: [UIFont systemFontOfSize: 15]];
@@ -224,6 +230,12 @@
             [content2Label setTextAlignment: NSTextAlignmentLeft];
             [content2Label setBackgroundColor: [UIColor clearColor]];
             [content2Label setTextColor: [UIColor whiteColor]];
+            
+            if(IS_HEIGHT_GTE_568)
+            {
+                [content1Label setFrame: CGRectMake(3 * (image.frame.size.width)/ 5 - 10, 55, 140, 80)];
+                [content2Label setFrame: CGRectMake(3 * (image.frame.size.width)/ 5 - 10, 235, 140, 80)];
+            }
             [image addSubview: content1Label];
             [image addSubview: content2Label];
             

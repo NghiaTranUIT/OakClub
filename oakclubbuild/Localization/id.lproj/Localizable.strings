@@ -169,7 +169,7 @@
 "Email is invalid"="Email tidak valid";
 "Settings saved"="Pengaturan disimpan";
 "Settings cannot be saved now."="Pengaturan tidak bisa disimpan sekarang.";
-"Cannot access to the email account on your device."="Tidak bisa mengakses akun email pada  perangkat kamu.";
+"Cannot access to the email account on your device."="Tidak bisa mengakses akun email pada perangkat kamu.";
 "Connect Privately"="Hubungkan secara Pribadi";
 "Cannot delete this photo."="Foto ini tidak bisa dihapus.";
 "Country"="Negara";
@@ -193,9 +193,9 @@
 "Tiếng Đức"="Jerman";
 "Tiếng Indonesia"="Indonesia";
 "Hủy"="Batal";
-"\"Thích\" hoặc \"bỏ qua\" người mà OakClub  giới thiệu một cách bí mật"="\"Suka\" atau \"lewati\" orang tak dikenal yang disarankan OakClub";
+"\"Thích\" hoặc \"bỏ qua\" người mà OakClub giới thiệu một cách bí mật"="\"Suka\" atau \"lewati\" orang tak dikenal yang disarankan OakClub";
 "Đăng nhập bằng Facebook"="Masuk dengan Facebook";
-"Không bao giờ tự động  đăng tin lên Facebook"="Kami tidak akan memposting di Facebook kamu";
+"Không bao giờ tự động đăng tin lên Facebook"="Kami tidak akan memposting di Facebook kamu";
 "nếu người ta cũng thích bạn thì sao nhỉ…"="jika orang yang kamu sukai ternyata juga menyukaimu ...";
 "Hợp nhau quá rồi!"="Cocok!";
 "Bạn và %@ đều cùng thích nhau"="Kamu dan %@ saling menyukai";
@@ -247,7 +247,7 @@
 "Người kia đang viết!"="Pengguna ini sedang mengetik!";
 "Tin nhắn gần đây nhất vào ngày"="Pesan terakhir pada";
 "Báo sai phạm"="Laporkan";
-"Người  này giả mạo"="Ini spam atau tipuan";
+"Người này giả mạo"="Ini spam atau tipuan";
 "Người này quấy rối tôi"="Mereka membuatku tidak nyaman";
 "Lý do khác"="Lainnya, ketuk untuk menjelaskan";
 "Chặn người này"="Blokir pengguna ini";
@@ -267,7 +267,7 @@
 "Tôi là người"="Tentang saya";
 "TÔI LÀ NGƯỜI"="TENTANG SAYA";
 "Xong"="Selesai";
-"TÔI MUỐN  ĐƯỢC GHÉP ĐÔI VỚI"="SAYA INGIN DICOCOKKAN DENGAN";
+"TÔI MUỐN ĐƯỢC GHÉP ĐÔI VỚI"="SAYA INGIN DICOCOKKAN DENGAN";
 "Tôi đến đây để"="AKU DISINI UNTUK";
 "Chat"="Obrolan";
 "Hẹn hò"="Berkencan";
@@ -277,7 +277,7 @@
 "Bạn Chung"="Teman Bersama";
 "Giới thiệu những người từ"="Tampilkan orang dengan usia";
 "TÌM NGƯỜI Ờ GẦN TÔI"="CARI ORANG-ORANG DI SEKITAR SAYA";
-"Giới hạn  trong khoảng"="Batasi pencarian pada jarak";
+"Giới hạn trong khoảng"="Batasi pencarian pada jarak";
 "khoảng 1 km"="kurang dari 1 km";
 "OakClub dùng những thông tin này để gợi ý đối tượng phù hợp với bạn. Những thông tin này chỉ có giá trị tham khảo tương đối."="OakClub menggunakan preferensi ini untuk menyarankan kecocokan potensial. Beberapa saran mungkin tidak masuk dalam kriteria yang kamu inginkan.";
 "Rung khi có thông báo"="Bergetar jika ada pemberitahuan";
@@ -289,8 +289,8 @@
 "Mình là thành viên OakClub, còn bạn?"="Saya di OakClub, kamu?";
 "Đang chơi trong www.oakclub.com vui quá. Gặp quá trời người hợp tính. OakClub rất an toàn, đáng tin mà lại còn bảo mật nữa."="Gabung di www.OakClub.com dan temui banyak singel keren di sekitarmu. Aman, terpercaya dan gratis.";
 "khoảng 1 km"="Kurang dari 1 km";
-"hơn  %i km"="Lebih dari %i km";
-"Hơn  40 km"="Lebih dari 40 km";
+"hơn %i km"="Lebih dari %i km";
+"Hơn 40 km"="Lebih dari 40 km";
 "Hôm qua"="Kemarin";
 "ngày trước"="hari yang lalu";
 "Hôm nay"="Hari ini";
@@ -298,7 +298,7 @@
 "Về chế độ An toàn & Bảo mật"="Tentang Keamanan dan Tanpa Nama";
 "đã được chọn"="dipilih";
 "ĐĂNG NHẬP BẰNG FACEBOOK"="MASUK DENGAN FACEBOOK";
-"OakClub không bao giờ tự động  đăng tin lên Facebook  của bạn."="Kami tidak akan memposting apapun ke Facebook.";
+"OakClub không bao giờ tự động đăng tin lên Facebook của bạn."="Kami tidak akan memposting apapun ke Facebook.";
 "THÍCH QUÁ"="SUKA";
 "Những người phù hợp mới nhất"="Kecocokan yang baru";
 "xu"="koin";
@@ -327,10 +327,10 @@
 "Đã chỉnh xong"="Simpan pengaturan";
 "Chỉnh"="Edit";
 "CHỌN NGÔN NGỮ"="PILIH BAHASA";
-"Tôi muốn  được ghép đôi với"="Saya ingin dicocokkan dengan";
+"Tôi muốn được ghép đôi với"="Saya ingin dicocokkan dengan";
 "TÔI ĐẾN ĐÂY ĐỂ"="AKU DISINI UNTUK";
 "GIỚI THIỆU CHO TÔI"="TUNJUKKAN PADA SAYA";
-"Giới hạn  trong khoảng"="Batasi pencarian pada jarak mil";
+"Giới hạn trong khoảng"="Batasi pencarian pada jarak mil";
 "GIỚI THIỆU NHỮNG NGƯỜI TỪ"="TAMPILKAN ORANG DENGAN USIA";
 "SỞ THÍCH CHUNG"="MINAT YANG SAMA";
 "Không thích hả"="Tidak tertarik";
@@ -350,7 +350,7 @@
 "Email không hợp lệ"="Email tidak valid";
 "Đã lưu"="Pengaturan disimpan";
 "Chưa lưu."="Pengaturan tidak bisa disimpan sekarang.";
-"Không thể vào được email của bạn."="Tidak bisa mengakses akun email pada  perangkat kamu.";
+"Không thể vào được email của bạn."="Tidak bisa mengakses akun email pada perangkat kamu.";
 "Kết nối riêng tư"="Hubungkan secara Pribadi";
 "Ảnh không xóa được."="Foto ini tidak bisa dihapus.";
 "Trong nước"="Negara";
@@ -363,7 +363,7 @@
 "Tìm kiếm"="Pencarian";
 "Quyền riêng tư\ncủa bạn là tuyệt mật"="Kami menghargai\nprivasimu";
 "Mỗi thành viên đều được kiểm tra. Hồ sơ giả mạo\nsẽ bị xóa"="Kami mengecek setiap pengguna. Akun palsu dan mencurigakan\nakan dihapus";
-"OakClub KHÔNG BAO GIỜ tự động đăng tin lên Facebook  của bạn"="Kami TIDAK AKAN memposting apapun ke Facebook";
+"OakClub KHÔNG BAO GIỜ tự động đăng tin lên Facebook của bạn"="Kami TIDAK AKAN memposting apapun ke Facebook";
 "Người ta sẽ KHÔNG BAO GIỜ biết khi bạn để ý họ\ntrừ khi họ cũng phải thích bạn lại"="Pengguna lainTIDAK AKAN tahu kamu suka mereka\nsampai mereka juga menyukaimu";
 "Nếu hai người không hợp với nhau\nngười ta sẽ không được gửi tin nhắn cho bạn"="Pengguna lain tidak dapat menghubungimu\nsampai kalian menjadi cocok";
 "Những thành viên khác sẽ KHÔNG BAO GIỜ nhìn thấy địa điểm của bạn"="Pengguna lain TIDAK AKAN tahu dimana lokasimu";
@@ -423,7 +423,7 @@
 "Paar"="Sepasang";
 "Kein Volltreffer"="Tidak cocok";
 "Alle"="Semua";
-"Du bist mit  %@ seit tage verbunden"="Kamu cocok dengan %@ 10 hari ago";
+"Du bist mit %@ seit tage verbunden"="Kamu cocok dengan %@ 10 hari ago";
 "Ein Gespräch zu starten ist immer etwas komisch, aber nicht bei OakClub!"="Memulai obrolan memang canggung, tapi tidak di OakClub!";
 "Der User schreibt etwas!"="Pengguna ini sedang mengetik!";
 "Letzte Nachricht am"="Pesan terakhir pada";
@@ -530,7 +530,7 @@
 "E-Mail ist ungültig"="Email tidak valid";
 "Einstellungen gespeichert"="Pengaturan disimpan";
 "Einstellungen können jetzt nicht gespeichert werden."="Pengaturan tidak bisa disimpan sekarang.";
-"Kann auf das E-Mail-Konto auf Ihrem Gerät nicht zugreifen."="Tidak bisa mengakses akun email pada  perangkat kamu.";
+"Kann auf das E-Mail-Konto auf Ihrem Gerät nicht zugreifen."="Tidak bisa mengakses akun email pada perangkat kamu.";
 "Privat verbinden"="Hubungkan secara Pribadi";
 "Dieses Foto kann nicht gelöscht werden."="Foto ini tidak bisa dihapus.";
 "Land"="Negara";
@@ -705,7 +705,7 @@
 "Email tidak valid"="Email tidak valid";
 "Pengaturan disimpan"="Pengaturan disimpan";
 "Pengaturan tidak bisa disimpan sekarang."="Pengaturan tidak bisa disimpan sekarang.";
-"Tidak bisa mengakses akun email pada  perangkat kamu."="Tidak bisa mengakses akun email pada  perangkat kamu.";
+"Tidak bisa mengakses akun email pada perangkat kamu."="Tidak bisa mengakses akun email pada perangkat kamu.";
 "Hubungkan secara Pribadi"="Hubungkan secara Pribadi";
 "Foto ini tidak bisa dihapus."="Foto ini tidak bisa dihapus.";
 "Negara"="Negara";

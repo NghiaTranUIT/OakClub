@@ -54,7 +54,7 @@
 "Matches"="Paar";
 "Non-Matched"="Kein Volltreffer";
 "All"="Alle";
-"You matched with %@ 10 hours ago"="Du bist mit  %@ seit tage verbunden";
+"You matched with %@ 10 hours ago"="Du bist mit %@ seit tage verbunden";
 "Starting conversations are awward, but not at Oakclub!"="Ein Gespräch zu starten ist immer etwas komisch, aber nicht bei OakClub!";
 "The user is typing!"="Der User schreibt etwas!";
 "Last messages on"="Letzte Nachricht am";
@@ -192,9 +192,9 @@
 "Tiếng Đức"="Deutsch";
 "Tiếng Indonesia"="Indonesier";
 "Hủy"="Abbrechen";
-"\"Thích\" hoặc \"bỏ qua\" người mà OakClub  giới thiệu một cách bí mật"="Du kannst unsere Vorschläge ganz anonym \"liken\" oder \"ablehnen\"";
+"\"Thích\" hoặc \"bỏ qua\" người mà OakClub giới thiệu một cách bí mật"="Du kannst unsere Vorschläge ganz anonym \"liken\" oder \"ablehnen\"";
 "Đăng nhập bằng Facebook"="Melde Dich mit Facebook an";
-"Không bao giờ tự động  đăng tin lên Facebook"="Wir werden niemals auf Deine Facebook-Wand posten!";
+"Không bao giờ tự động đăng tin lên Facebook"="Wir werden niemals auf Deine Facebook-Wand posten!";
 "nếu người ta cũng thích bạn thì sao nhỉ…"="wenn jemand den Du \"geliked\" hast, Dich auch toll findet...";
 "Hợp nhau quá rồi!"="Volltreffer!";
 "Bạn và %@ đều cùng thích nhau"="%@ und Du habt Euch geliked";
@@ -213,7 +213,7 @@
 "Chỉnh sửa thông tin"="Profil bearbeiten";
 "Chỉnh sửa"="Einstellungen";
 "Còn chọn người\nmà bạn muốn gặp thì ở chỗ này."="Hier kannst Du einstellen\nwen Du sehen möchtest";
-"Kéo sang \"Phải\"\nlà THÍCH đó nha"="Wische ein Foto nach rechts\num es zu \"liken\"";
+"Kéo sang Phải\nlà THÍCH đó nha"="Wische ein Foto nach rechts\num es zu \"liken\"";
 "Tìm được người phù hợp\n thì có thể chat riêng ngay lập tức"="Sobald Du mit jemandem ein \"Volltreffer\" bist\n kannst Du mit der Person ganz privat chatten.";
 "Đang tìm những người gần bạn"="Leute in Deiner Umgebung finden";
 "Hôm nay bạn đã xem hết những người mà OakClub gợi ý đang ở gần nơi bạn rồi"="Du hast alle unsere Vorschläge gesehen, die in Deiner Umgebung sind";
@@ -241,12 +241,12 @@
 "Cặp đôi"="Paar";
 "Chưa hợp"="Kein Volltreffer";
 "Tất cả"="Alle";
-"Kết đôi với %@ 10 tiếng trước"="Du bist mit  %@ seit tage verbunden";
+"Kết đôi với %@ 10 tiếng trước"="Du bist mit %@ seit tage verbunden";
 "Đừng mắc cỡ, làm quen với người ta đi nào!"="Ein Gespräch zu starten ist immer etwas komisch, aber nicht bei OakClub!";
 "Người kia đang viết!"="Der User schreibt etwas!";
 "Tin nhắn gần đây nhất vào ngày"="Letzte Nachricht am";
 "Báo sai phạm"="Melden";
-"Người  này giả mạo"="Dies ist eine Spam-Nachricht";
+"Người này giả mạo"="Dies ist eine Spam-Nachricht";
 "Người này quấy rối tôi"="Geben mir ein ungutes Gefühl";
 "Lý do khác"="Andere, klicke um es zu umschreiben";
 "Chặn người này"="Diesen Nutzer blocken";
@@ -266,7 +266,7 @@
 "Tôi là người"="Über Mich";
 "TÔI LÀ NGƯỜI"="ÜBER MICH";
 "Xong"="Erledigt";
-"TÔI MUỐN  ĐƯỢC GHÉP ĐÔI VỚI"="ICH BIN INTERESSIERT AN";
+"TÔI MUỐN ĐƯỢC GHÉP ĐÔI VỚI"="ICH BIN INTERESSIERT AN";
 "Tôi đến đây để"="Ich bin hier weil ich";
 "Chat"="Chat";
 "Hẹn hò"="Ein Date suche";
@@ -276,7 +276,7 @@
 "Bạn Chung"="Gemeinsame Freunde";
 "Giới thiệu những người từ"="Zeige mir Leute an, im Alter von";
 "TÌM NGƯỜI Ờ GẦN TÔI"="FINDE LEUTE IN MEINER UMGEBUNG";
-"Giới hạn  trong khoảng"="Grenze meine Suche mit folgender Distanz ein";
+"Giới hạn trong khoảng"="Grenze meine Suche mit folgender Distanz ein";
 "khoảng 1 km"="weniger als 1km entfernt";
 "OakClub dùng những thông tin này để gợi ý đối tượng phù hợp với bạn. Những thông tin này chỉ có giá trị tham khảo tương đối."="OakClub benutzt diese Einstellungen um Dir so viele volltreffer wie möglich anzuzeigen. Einige volltreffer können nicht alle Deine Kriterien erfüllen.";
 "Rung khi có thông báo"="Vibration als Benachrichtigung";
@@ -288,8 +288,8 @@
 "Mình là thành viên OakClub, còn bạn?"="Ich bin im OakClub, Sie?";
 "Đang chơi trong www.oakclub.com vui quá. Gặp quá trời người hợp tính. OakClub rất an toàn, đáng tin mà lại còn bảo mật nữa."="Registriert www.OakClub.com und treffen viele coole Singles in der Nähe. Sicher, vertrauenswürdig und privat.";
 "khoảng 1 km"="Weniger als 1km entfernt";
-"hơn  %i km"="weiter als %i km";
-"Hơn  40 km"="Weiter als 40 km";
+"hơn %i km"="weiter als %i km";
+"Hơn 40 km"="Weiter als 40 km";
 "Hôm qua"="1 Tag alt";
 "ngày trước"="tage alt";
 "Hôm nay"="Heute";
@@ -297,7 +297,7 @@
 "Về chế độ An toàn & Bảo mật"="Über Safe & Annonymous";
 "đã được chọn"="wurde ausgewählt";
 "ĐĂNG NHẬP BẰNG FACEBOOK"="MELDE DICH MIT FACEBOOK AN";
-"OakClub không bao giờ tự động  đăng tin lên Facebook  của bạn."="Wir werden niemals auf Deine Facebook-Wand posten.";
+"OakClub không bao giờ tự động đăng tin lên Facebook của bạn."="Wir werden niemals auf Deine Facebook-Wand posten.";
 "THÍCH QUÁ"="LIKE";
 "Những người phù hợp mới nhất"="Neue gemeinsame Spiele";
 "xu"="coins";
@@ -327,10 +327,10 @@
 "Đã chỉnh xong"="Speichere Deine Einstellungen";
 "Chỉnh"="Bearbeiten";
 "CHỌN NGÔN NGỮ"="WÄHLE DEINE SPRACHE";
-"Tôi muốn  được ghép đôi với"="Ich bin interessiert an";
+"Tôi muốn được ghép đôi với"="Ich bin interessiert an";
 "TÔI ĐẾN ĐÂY ĐỂ"="ICH BIN HIER WEIL ICH";
 "GIỚI THIỆU CHO TÔI"="ZEIGE MIR FOLGENDES AN";
-"Giới hạn  trong khoảng"="Grenze meine Suche mit folgender distanz ein";
+"Giới hạn trong khoảng"="Grenze meine Suche mit folgender distanz ein";
 "GIỚI THIỆU NHỮNG NGƯỜI TỪ"="ZEIGE MIR LEUTE AN, IM ALTER VON";
 "SỞ THÍCH CHUNG"="GEMEINSAME INTERESSEN";
 "Không thích hả"="Kein interesse";
@@ -363,7 +363,7 @@
 "Tìm kiếm"="Suche";
 "Quyền riêng tư\ncủa bạn là tuyệt mật"="Wir nehmen Deine\nPrivatsphäre sehr ernst";
 "Mỗi thành viên đều được kiểm tra. Hồ sơ giả mạo\nsẽ bị xóa"="Wir prüfen jeden Benutzer. Gefälschte und\nverdächtige Konto gelöscht";
-"OakClub KHÔNG BAO GIỜ tự động đăng tin lên Facebook  của bạn"="Wir werden NIEMALS auf Deine Facebook-Wand posten";
+"OakClub KHÔNG BAO GIỜ tự động đăng tin lên Facebook của bạn"="Wir werden NIEMALS auf Deine Facebook-Wand posten";
 "Người ta sẽ KHÔNG BAO GIỜ biết khi bạn để ý họ\ntrừ khi họ cũng phải thích bạn lại"="Andere Leute werden NIEMALS erfahren ob Du Sie \"geliked\" hast\nes sei denn sie \"liken\" Dich zurück";
 "Nếu hai người không hợp với nhau\nngười ta sẽ không được gửi tin nhắn cho bạn"="Andere Leute können Dich nicht kontaktieren, es sei denn, Ihr seid als \"Volltreffer\" bereits miteinander verbunden";
 "Những thành viên khác sẽ KHÔNG BAO GIỜ nhìn thấy địa điểm của bạn"="Deine Ortsangabe wird NIE mit anderen Nutzern geteilt";
@@ -423,7 +423,7 @@
 "Paar"="Paar";
 "Kein Volltreffer"="Kein Volltreffer";
 "Alle"="Alle";
-"Du bist mit  %@ seit tage verbunden"="Du bist mit  %@ seit tage verbunden";
+"Du bist mit %@ seit tage verbunden"="Du bist mit %@ seit tage verbunden";
 "Ein Gespräch zu starten ist immer etwas komisch, aber nicht bei OakClub!"="Ein Gespräch zu starten ist immer etwas komisch, aber nicht bei OakClub!";
 "Der User schreibt etwas!"="Der User schreibt etwas!";
 "Letzte Nachricht am"="Letzte Nachricht am";
@@ -599,7 +599,7 @@
 "Sepasang"="Paar";
 "Tidak cocok"="Kein Volltreffer";
 "Semua"="Alle";
-"Kamu cocok dengan %@ 10 hari ago"="Du bist mit  %@ seit tage verbunden";
+"Kamu cocok dengan %@ 10 hari ago"="Du bist mit %@ seit tage verbunden";
 "Memulai obrolan memang canggung, tapi tidak di OakClub!"="Ein Gespräch zu starten ist immer etwas komisch, aber nicht bei OakClub!";
 "Pengguna ini sedang mengetik!"="Der User schreibt etwas!";
 "Pesan terakhir pada"="Letzte Nachricht am";
@@ -706,7 +706,7 @@
 "Email tidak valid"="E-Mail ist ungültig";
 "Pengaturan disimpan"="Einstellungen gespeichert";
 "Pengaturan tidak bisa disimpan sekarang."="Einstellungen können jetzt nicht gespeichert werden.";
-"Tidak bisa mengakses akun email pada  perangkat kamu."="Kann auf das E-Mail-Konto auf Ihrem Gerät nicht zugreifen.";
+"Tidak bisa mengakses akun email pada perangkat kamu."="Kann auf das E-Mail-Konto auf Ihrem Gerät nicht zugreifen.";
 "Hubungkan secara Pribadi"="Privat verbinden";
 "Foto ini tidak bisa dihapus."="Dieses Foto kann nicht gelöscht werden.";
 "Negara"="Land";
