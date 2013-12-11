@@ -316,7 +316,7 @@ CGFloat pageHeight;
         if(image){
             [self.imgMainProfile setImage:image];
         }
-//        [self stopLoadingAnim];
+        [self stopLoadingAnim];
     }];
     currentIndex++;
 }
