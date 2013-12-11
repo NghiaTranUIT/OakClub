@@ -336,7 +336,7 @@ CGFloat pageHeight;
 {
     [[self navBarOakClub] setHidden:NO];
 
-    self.navigationController.navigationBarHidden = NO;
+//    self.navigationController.navigationBarHidden = NO;
     [self showNotifications];
     
     //load profile list if needed

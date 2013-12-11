@@ -366,7 +366,6 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
     //    [self.rootVC setContentViewController:self.snapShoot snapToContentViewController:YES animated:YES];
     activeVC = _simpleSnapShot;
     [self.rootVC setFrontViewController:self.simpleSnapShot focusAfterChange:YES completion:^(BOOL finished) {
-        
     }];
 }
 -(void)showSnapshotLoading {
