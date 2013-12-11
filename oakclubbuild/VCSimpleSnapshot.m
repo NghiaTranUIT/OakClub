@@ -145,9 +145,6 @@ CGFloat pageHeight;
     currentIndex = 0; //Vanancy cheat
     profileList = [[NSMutableArray alloc] init];
     [self loadProfileList:^(void){
-//        [appDel.imagePool getImageAtURL:appDel.myProfile.s_Avatar withSize:PHOTO_SIZE_LARGE asycn:^(UIImage *img, NSError *error) {
-//            [self.imgMyAvatar setImage:img];
-//        }];
         [self loadCurrentProfile];
         [self loadNextProfileByCurrentIndex];
     }];
@@ -319,7 +316,7 @@ CGFloat pageHeight;
         if(image){
             [self.imgMainProfile setImage:image];
         }
-        [self stopLoadingAnim];
+//        [self stopLoadingAnim];
     }];
     currentIndex++;
 }
@@ -332,11 +329,7 @@ CGFloat pageHeight;
     //load data
     [self loadLikeMeList];
     
-    //load profile list if needed
-    if( appDel.reloadSnapshot){
-        [self refreshSnapshot];
-        appDel.reloadSnapshot = FALSE;
-    }
+   
 }
 
 -(void)viewDidAppear:(BOOL)animated
@@ -345,6 +338,12 @@ CGFloat pageHeight;
 
     self.navigationController.navigationBarHidden = NO;
     [self showNotifications];
+    
+    //load profile list if needed
+    if( appDel.reloadSnapshot){
+        [self refreshSnapshot];
+        appDel.reloadSnapshot = FALSE;
+    }
 }
 
 - (void)viewDidUnload
@@ -731,7 +730,7 @@ CGFloat pageHeight;
 -(void)stopLoadingAnim{
     if (isLoading)
     {
-        [self.spinner stopAnimating];
+//        [self.spinner stopAnimating];
         [self disableAllControl:NO];
         isLoading = NO;
         [appDel showSimpleSnapshot];

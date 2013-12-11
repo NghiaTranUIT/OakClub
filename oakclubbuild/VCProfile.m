@@ -1009,8 +1009,10 @@ static CGFloat padding_left = 5.0;
     UIButton* btnDone = [[UIButton alloc]initWithFrame:CGRectMake(8,IS_OS_7_OR_LATER?26:6, 51, 34)];
     [btnDone setTitle:@"Done" forState:UIControlStateNormal];
     [btnDone.titleLabel setFont:FONT_HELVETICANEUE_LIGHT(15)];
-    [btnDone.titleLabel setText:@"Done"];
-    [btnDone setImage:[UIImage imageNamed:@"viewprofile_done.png"] forState:UIControlStateNormal];
+    [btnDone.titleLabel setTextColor:[UIColor whiteColor]];
+    btnDone.titleLabel.adjustsFontSizeToFitWidth = YES;
+//    [btnDone.titleLabel setText:@"Done"];
+    [btnDone setBackgroundImage:[UIImage imageNamed:@"viewprofile_done.png"] forState:UIControlStateNormal];
     [btnDone addTarget:self action:@selector(backToPreviousView) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:btnDone];
 
