@@ -236,6 +236,7 @@
     {
         if(flagLanguage)
         {
+            
             UIAlertView *alert = [[UIAlertView alloc]
                                   initWithTitle:[@"Choose your language" localize]
                                   message:@""

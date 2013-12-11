@@ -571,6 +571,7 @@ CGFloat pageHeight;
        ))
     {
         [[self navBarOakClub] disableAllControl: YES];
+        appDel.rootVC.recognizesPanningOnFrontView = NO;
         [self showFirstSnapshotPopup:answerChoice];
         [self.moveMeView setAnswer:-1];
         isFirstTime+=[answerChoice integerValue];
@@ -819,5 +820,6 @@ CGFloat pageHeight;
 -(void)onBackFromPopup
 {
     [[self navBarOakClub] disableAllControl: NO];
+    appDel.rootVC.recognizesPanningOnFrontView = YES;
 }
 @end
