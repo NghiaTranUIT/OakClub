@@ -21,11 +21,11 @@
 {
     if (self = [super initWithFrame:frame])
     {
-        NSString *titleString = [@"We take your\nprivacy seriously" localize];
-        NSString *content1String = [@"We check every user, Fake and suspicious\naccount get deleted" localize];
+        NSString *titleString = [@"We take your privacy seriously" localize];
+        NSString *content1String = [@"We check every user, Fake and suspicious account get deleted" localize];
         NSString *content2String = [@"We will NEVER post anything to Facebook" localize];
-        NSString *content3String = [@"Other users will NEVER know if you've liked them\nunless they like you back" localize];
-        NSString *content4String = [@"Other users can't contact you\nunless you've already been matched" localize];
+        NSString *content3String = [@"Other users will NEVER know if you've liked them unless they like you back" localize];
+        NSString *content4String = [@"Other users can't contact you unless you've already been matched" localize];
         NSString *content5String = [@"Your location will NEVER be shown to other users" localize];
         
                                 

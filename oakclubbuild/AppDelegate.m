@@ -200,8 +200,7 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
     {
         
         //test
-//        [[NSUserDefaults standardUserDefaults] setValue:[NSNumber numberWithBool:YES] forKey:@"isFirstLogin"];
-//        
+//        [[NSUserDefaults standardUserDefaults] setValue:[NSNumber numberWithBool:YES] forKey:@"isFirstLogin"];        
 //        TutorialViewController *tut = [[TutorialViewController alloc] init];
 //        self.window.rootViewController = tut;
 //        [self.window makeKeyAndVisible];

@@ -476,6 +476,8 @@ CGFloat pageHeight;
 }
 
 -(void)showMatchView{
+    [[self navBarOakClub] disableAllControl: YES];
+    appDel.rootVC.recognizesPanningOnFrontView = NO;
     [self.view addSubview:matchViewController.view];
     [matchViewController.view setFrame:CGRectMake(0, 0, matchViewController.view.frame.size.width, matchViewController.view.frame.size.height)];
     [lblMatchAlert setText:[NSString stringWithFormat:[@"You and %@ have liked each other!" localize],currentProfile.s_Name]];
@@ -483,6 +485,7 @@ CGFloat pageHeight;
         [imgMatcher setImage:img];
     }];
     matchedProfile = currentProfile;
+    [[self view] localizeAllViews];
 }
 
 -(void)addNewChatUser:(Profile*)newChat{
@@ -502,6 +505,8 @@ CGFloat pageHeight;
     matchedProfile = nil;
     [matchViewController.view removeFromSuperview];
     [lblMatchAlert setText:@""];
+    [[self navBarOakClub] disableAllControl: NO];
+    appDel.rootVC.recognizesPanningOnFrontView = YES;
 }
 - (IBAction)onClickSendMessageToMatcher:(id)sender {
     [self addNewChatUser:matchedProfile];
@@ -518,6 +523,8 @@ CGFloat pageHeight;
         [matchViewController.view removeFromSuperview];
         [lblMatchAlert setText:@""];
         matchedProfile = nil;    }];
+    [[self navBarOakClub] disableAllControl: NO];
+    appDel.rootVC.recognizesPanningOnFrontView = YES;
 }
 -(IBAction)onNOPEClick:(id)sender{
 //    [self doAnswer:interestedStatusNO];

@@ -81,6 +81,7 @@
                                               pictures:pageImages];
         
     }
+    
     cycle.delegate = self;
     [cycle setBackgroundColor:[UIColor whiteColor]];
     [cycle refreshScrollView];
@@ -177,6 +178,10 @@
     lbl.numberOfLines = 2;
     lbl.textAlignment = NSTextAlignmentCenter;
     [lbl setFrame:CGRectMake(0, 5, 300, 50)];
+    if (IS_HEIGHT_GTE_568)
+    {
+        [lbl setFrame:CGRectMake(0, 50, 300, 50)];
+    }
     [lbl setText:[descText objectAtIndex:index]];
     [lbl localizeAllViews];
     [lbl setFrame:CGRectMake((imageView.frame.size.width - lbl.frame.size.width) / 2, lbl.frame.origin.y, lbl.frame.size.width, lbl.frame.size.height)];
