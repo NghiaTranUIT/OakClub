@@ -60,7 +60,6 @@
     <resources>
         <image name="Default Avatar.png" width="255" height="255"/>
         <image name="SnapshotLoading_btn_tellyourfriend_active.png" width="200" height="44"/>
-        <image name="SnapshotLoading_btn_tellyourfriend_active.png" width="200" height="44"/>
         <image name="SnapshotLoading_btn_tellyourfriend_inactive.png" width="200" height="44"/>
     </resources>
 </document>
