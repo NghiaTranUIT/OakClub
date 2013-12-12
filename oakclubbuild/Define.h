@@ -17,8 +17,12 @@
 #define USE_STAGING_MB false
 #define USE_STAGING_IOS false
 
+//===============FLAG FOR ENABLE/DISABLE FEATURES============
 //disable hereTo and show me in Snapshot Settings
 #define DISABLE_HERETO_SHOWME
+//enable Choose Location manually
+#define ENABLE_LOCATION_MANUALLY
+
 //Hangout
 #define sOnline @"Online"
 #define LOG_HTTP false
@@ -315,7 +319,11 @@
 #define WantToSeeOptionList  ([NSArray arrayWithObjects:@"New People", @"Friends",@"Friends of Friends", nil])
 
 #define ProfileItems  ([NSArray arrayWithObjects:@"Name", @"Birthdate",@"Interested In", @"Gender",@"Relationship",@"Location",@"Height",@"Weight",@"Ethnicity",@"School",@"Language",@"Work",@"About me",@"Popularity",  nil])
+#ifdef ENABLE_LOCATION_MANUALLY
+#define MyProfileItemList  ([NSArray arrayWithObjects:@"Name", @"Birthdate",@"Email",@"Gender", @"Relationship",@"Height",@"Weight", @"Interested In",@"Update location automatically", @"Location",@"Ethnicity",@"School",@"Language",@"Work",@"About me", nil])
+#else
 #define MyProfileItemList  ([NSArray arrayWithObjects:@"Name", @"Birthdate",@"Email",@"Gender", @"Relationship",@"Height",@"Weight", @"Interested In", @"Location",@"Ethnicity",@"School",@"Language",@"Work",@"About me", nil])
+#endif
 #define UpdateProfileItemList  ([NSArray arrayWithObjects:@"Name", @"Birthdate",@"Email",@"Gender", @"Interested In", nil])
 #define SnapshotSettingItemList  ([NSArray arrayWithObjects:@"I'm here to", @"I want to see",@"With who", @"Age around",@"Nearby GPS",@"Where",@"Range", nil])
 //==============================
@@ -378,6 +386,9 @@ typedef enum {
     HEIGHT,
     WEIGHT,
     INTERESTED_IN,
+#ifdef ENABLE_LOCATION_MANUALLY
+    AUTO_LOCATION,
+#endif
     LOCATION,
     ETHNICITY,
     SCHOOL,

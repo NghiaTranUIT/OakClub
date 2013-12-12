@@ -225,6 +225,12 @@ UITapGestureRecognizer *tap;
     //    textviewAbout.text = profileObj.s_aboutMe;
     //    [profileItemList replaceObjectAtIndex:ABOUT_ME withObject:[[NSMutableDictionary alloc] initWithObjectsAndKeys:profileObj.s_aboutMe,@"value",@"About me",@"key", nil]];
     [self updateProfileItemListAtIndex:profileObj.s_aboutMe andIndex:ABOUT_ME];
+    
+    //loadGPS option
+#ifdef ENABLE_LOCATION_MANUALLY
+    NSString *autoLocationState = [[NSUserDefaults standardUserDefaults] objectForKey:@"AutoLocationSwitch"];
+    [self updateProfileItemListAtIndex:autoLocationState andIndex:AUTO_LOCATION];
+#endif
     [self.tbEditProfile reloadData];
     
     selectedPhoto = -1;
@@ -486,28 +492,28 @@ UITapGestureRecognizer *tap;
             
             AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:myRequest];
             [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject)
-            {
-                NSDictionary *result = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
-                NSLog(@"Delete photo result %@", result);
-                bool status = [[result valueForKey:key_status] boolValue];
-                if (status)
-                {
-                    [photos removeObjectAtIndex:selectedPhoto];
-                    [self reloadPhotos];
-                }
-                else
-                {
-                    [self showWarning:@"Cannot delete this photo." withTag:5];
-                }
-                selectedPhoto = -1;
-                
-                [indicator unlockViewAndStopIndicator];
-            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                NSLog(@"Delete photo error %@", error);
-                selectedPhoto = -1;
-                
-                [indicator unlockViewAndStopIndicator];
-            }];
+             {
+                 NSDictionary *result = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
+                 NSLog(@"Delete photo result %@", result);
+                 bool status = [[result valueForKey:key_status] boolValue];
+                 if (status)
+                 {
+                     [photos removeObjectAtIndex:selectedPhoto];
+                     [self reloadPhotos];
+                 }
+                 else
+                 {
+                     [self showWarning:@"Cannot delete this photo." withTag:5];
+                 }
+                 selectedPhoto = -1;
+                 
+                 [indicator unlockViewAndStopIndicator];
+             } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                 NSLog(@"Delete photo error %@", error);
+                 selectedPhoto = -1;
+                 
+                 [indicator unlockViewAndStopIndicator];
+             }];
             
             [operation start];
         }
@@ -811,6 +817,53 @@ UITapGestureRecognizer *tap;
         case HEIGHT:
             cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ cm",[[profileItemList objectAtIndex:indexPath.row] valueForKey:@"value"]] ;
             break;
+#ifdef ENABLE_LOCATION_MANUALLY
+        case AUTO_LOCATION:
+        {
+            static NSString *AutoLocationID = @"ALID";
+            UITableViewCell *autoLocationCell = [tableView dequeueReusableCellWithIdentifier:AutoLocationID];
+            if (autoLocationCell == nil)
+            {
+                autoLocationCell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:AutoLocationID];
+                autoLocationCell.textLabel.text = [NSString localizeString:@"Auto location"] ;
+                [autoLocationCell.textLabel setFont:FONT_HELVETICANEUE_LIGHT(17)];
+                autoLocationCell.selectionStyle = UITableViewCellSelectionStyleNone;
+                UISwitch *autoSwitch = [[UISwitch alloc] init];
+                [autoSwitch addTarget:self action:@selector(switchAutoUpdateLocation:) forControlEvents:UIControlEventValueChanged];
+                autoSwitch.frame = CGRectMake(cell.frame.size.width - autoSwitch.frame.size.width - 30, (cell.frame.size.height - autoSwitch.frame.size.height) / 2, autoSwitch.frame.size.width, autoSwitch.frame.size.height);
+                autoSwitch.tag = 100;
+                [autoSwitch setOnTintColor:COLOR_PURPLE];
+                [autoLocationCell.contentView addSubview:autoSwitch];
+            }
+            else
+            {
+//                autoLocationCell.textLabel.text = [NSString localizeString:@"Auto location"] ;
+                
+                UISwitch *autoSwitch = (id) [autoLocationCell viewWithTag:100];
+                autoSwitch.on = [[[profileItemList objectAtIndex:indexPath.row] valueForKey:@"value"] isEqualToString:@"YES"];
+                if (autoSwitch.on)
+                {
+                    [locUpdate updateWithCompletion:^(double longitude, double latitude, NSError *e) {
+                        if (!e)
+                        {
+                            [self location:locUpdate updateSuccessWithLongitude:longitude andLatitude:latitude];
+                            
+                        }
+                    }];
+                    //                    [self tryUpdateLocation];
+                }
+            }
+            return autoLocationCell;
+        }
+            break;
+        case LOCATION:
+            if ([[[profileItemList objectAtIndex:AUTO_LOCATION] valueForKey:@"value"] isEqualToString:@"YES"])
+            {
+                cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            }
+            cell.detailTextLabel.text = [[profileItemList objectAtIndex:indexPath.row] valueForKey:@"value"];
+#endif
+            break;
         default:
             cell.detailTextLabel.text = [[profileItemList objectAtIndex:indexPath.row] valueForKey:@"value"];
             break;
@@ -845,12 +898,30 @@ UITapGestureRecognizer *tap;
             break;
         case LOCATION:
         {
+#ifdef ENABLE_LOCATION_MANUALLY
+            NSString *autoLoc = [[profileItemList objectAtIndex:AUTO_LOCATION] valueForKey:@"value"];
+            if (![autoLoc isEqualToString:@"YES"])
+            {
+                [self gotoLocationSetting];
+            }
+            else
+            {
+                [locUpdate updateWithCompletion:^(double longitude, double latitude, NSError *e) {
+                    if (!e)
+                    {
+                        [self location:locUpdate updateSuccessWithLongitude:longitude andLatitude:latitude];
+                    }
+                }];
+            }
+#else
             [locUpdate updateWithCompletion:^(double longitude, double latitude, NSError *e) {
-               if (!e)
-               {
-                   [self location:locUpdate updateSuccessWithLongitude:longitude andLatitude:latitude];
-               }
+                if (!e)
+                {
+                    [self location:locUpdate updateSuccessWithLongitude:longitude andLatitude:latitude];
+                }
             }];
+#endif
+            
         }
             break;
         case WORK:
@@ -943,8 +1014,25 @@ UITapGestureRecognizer *tap;
         }
     }];
 }
+#ifdef ENABLE_LOCATION_MANUALLY
 #pragma mark Switch Delegate
-
+-(void)switchAutoUpdateLocation:(id)sender
+{
+    BOOL state = [sender isOn];
+    NSString *rez = state == YES ? @"YES" : @"NO";
+    [[profileItemList objectAtIndex:AUTO_LOCATION] setValue:rez forKey:@"value"];
+    [[NSUserDefaults standardUserDefaults] setObject:rez forKey:@"AutoLocationSwitch"];
+    
+    [locUpdate updateWithCompletion:^(double longitude, double latitude, NSError *e) {
+        if (!e)
+        {
+            [self location:locUpdate updateSuccessWithLongitude:longitude andLatitude:latitude];
+//            [self.tableView reloadData];
+        }
+    }];
+    
+}
+#endif
 - (IBAction)avatarTouched:(id)sender
 {
     if (selectedPhoto < 0 && uploadImage == nil)
@@ -984,30 +1072,30 @@ UITapGestureRecognizer *tap;
     if(videoURL){
         [indicator lockViewAndDisplayIndicator];
         [VideoUploader compressVideoAtURL:videoURL withQuality:AVAssetExportPresetLowQuality useCompletion:^(NSData *data)
-        {
-            if (data)
-            {
-                [VideoUploader uploadVideoWithData:data useCompletion:^(NSString *link)
-                 {
-                     NSLog(@"Video upload completed with link %@", link);
-                     [indicator unlockViewAndStopIndicator];
-                     
-                     profileObj.s_video = link;
-                     appDelegate.myProfile.s_video = link;
-                     
-                     UIImage *thumb;
-                     if ((thumb = self.videoThumb))
-                     {
-                         [self.btnUploadVideo setBackgroundImage:thumb forState:UIControlStateNormal];
-                         self.btnUploadVideo.contentMode = UIViewContentModeScaleAspectFit;
-                     }
-                 }];
-            }
-            else
-            {
-                [indicator lockViewAndDisplayIndicator];
-            }
-        }];
+         {
+             if (data)
+             {
+                 [VideoUploader uploadVideoWithData:data useCompletion:^(NSString *link)
+                  {
+                      NSLog(@"Video upload completed with link %@", link);
+                      [indicator unlockViewAndStopIndicator];
+                      
+                      profileObj.s_video = link;
+                      appDelegate.myProfile.s_video = link;
+                      
+                      UIImage *thumb;
+                      if ((thumb = self.videoThumb))
+                      {
+                          [self.btnUploadVideo setBackgroundImage:thumb forState:UIControlStateNormal];
+                          self.btnUploadVideo.contentMode = UIViewContentModeScaleAspectFit;
+                      }
+                  }];
+             }
+             else
+             {
+                 [indicator lockViewAndDisplayIndicator];
+             }
+         }];
     }
 }
 
@@ -1022,61 +1110,61 @@ UITapGestureRecognizer *tap;
 
 - (void)loadProfilePhotos
 {
-//    AFHTTPClient *request = [[AFHTTPClient alloc] initWithOakClubAPI:DOMAIN];
-//    NSDictionary *params  = [[NSDictionary alloc]initWithObjectsAndKeys:profileObj.s_ID, key_profileID, nil];
-//    [photo_Indicator lockViewAndDisplayIndicator];
-//    [request getPath:URL_getListPhotos parameters:params
-//             success:^(__unused AFHTTPRequestOperation *operation, id JSON)
-//     {
-//         NSMutableDictionary* dictPhotos = [Profile parseListPhotosIncludeID:JSON];
-//         if(dictPhotos != nil)
-//         {
-//             NSArray *keys = [dictPhotos allKeys];
-//             __block int i = [keys count];
-//             for (NSString *key in keys)
-//             {
-//                 if ([key isKindOfClass:[NSNull class]])
-//                 {
-//                     --i;
-//                     if (!i)
-//                     {
-//                         [photo_Indicator unlockViewAndStopIndicator];
-//                     }
-//                     continue;
-//                 }
-//                 
-//                 NSString *link = [dictPhotos valueForKey:key];
-//                 
-//                 if((![photosID containsObject:key]) && ![link isEqualToString:@""] )
-//                 {
-//                     [appDelegate.imagePool getImageAtURL:link withSize:PHOTO_SIZE_SMALL asycn:^(UIImage *image, NSError *error) {
-//                          if (image)
-//                          {
-//                              [photos addObject:image];
-//                              [photosID addObject:key];
-//                              [self reloadPhotos];
-//                          }
-//                          
-//                          --i;
-//                          if (!i)
-//                          {
-//                              [photo_Indicator unlockViewAndStopIndicator];
-//                          }
-//                      }];
-//                 }
-//                 else
-//                 {
-//                     --i;
-//                 }
-//             }
-//             if (!i)
-//             {
-//                 [photo_Indicator unlockViewAndStopIndicator];
-//             }
-//         }
-//     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-//         NSLog(@"Get list photo Error Code: %i - %@",[error code], [error localizedDescription]);
-//     }];
+    //    AFHTTPClient *request = [[AFHTTPClient alloc] initWithOakClubAPI:DOMAIN];
+    //    NSDictionary *params  = [[NSDictionary alloc]initWithObjectsAndKeys:profileObj.s_ID, key_profileID, nil];
+    //    [photo_Indicator lockViewAndDisplayIndicator];
+    //    [request getPath:URL_getListPhotos parameters:params
+    //             success:^(__unused AFHTTPRequestOperation *operation, id JSON)
+    //     {
+    //         NSMutableDictionary* dictPhotos = [Profile parseListPhotosIncludeID:JSON];
+    //         if(dictPhotos != nil)
+    //         {
+    //             NSArray *keys = [dictPhotos allKeys];
+    //             __block int i = [keys count];
+    //             for (NSString *key in keys)
+    //             {
+    //                 if ([key isKindOfClass:[NSNull class]])
+    //                 {
+    //                     --i;
+    //                     if (!i)
+    //                     {
+    //                         [photo_Indicator unlockViewAndStopIndicator];
+    //                     }
+    //                     continue;
+    //                 }
+    //
+    //                 NSString *link = [dictPhotos valueForKey:key];
+    //
+    //                 if((![photosID containsObject:key]) && ![link isEqualToString:@""] )
+    //                 {
+    //                     [appDelegate.imagePool getImageAtURL:link withSize:PHOTO_SIZE_SMALL asycn:^(UIImage *image, NSError *error) {
+    //                          if (image)
+    //                          {
+    //                              [photos addObject:image];
+    //                              [photosID addObject:key];
+    //                              [self reloadPhotos];
+    //                          }
+    //
+    //                          --i;
+    //                          if (!i)
+    //                          {
+    //                              [photo_Indicator unlockViewAndStopIndicator];
+    //                          }
+    //                      }];
+    //                 }
+    //                 else
+    //                 {
+    //                     --i;
+    //                 }
+    //             }
+    //             if (!i)
+    //             {
+    //                 [photo_Indicator unlockViewAndStopIndicator];
+    //             }
+    //         }
+    //     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+    //         NSLog(@"Get list photo Error Code: %i - %@",[error code], [error localizedDescription]);
+    //     }];
     
     [self reloadPhotos];
 }
@@ -1226,7 +1314,7 @@ UITapGestureRecognizer *tap;
 {
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:NO];
-   
+    
     [self customBackButtonBarItem];
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectZero] ;
     label.backgroundColor = [UIColor clearColor];
