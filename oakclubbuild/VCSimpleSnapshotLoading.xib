@@ -35,12 +35,14 @@
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 </imageView>
-                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="RwU-ax-9LY">
-                    <rect key="frame" x="42" y="397" width="237" height="44"/>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="RwU-ax-9LY">
+                    <rect key="frame" x="60" y="396" width="200" height="44"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="15"/>
+                    <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <inset key="contentEdgeInsets" minX="29" minY="0.0" maxX="0.0" maxY="0.0"/>
                     <state key="normal" title="Invite your friends" backgroundImage="SnapshotLoading_btn_tellyourfriend_inactive.png">
+                        <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
                     <state key="selected" backgroundImage="SnapshotLoading_btn_tellyourfriend_active.png"/>
@@ -57,7 +59,7 @@
     </objects>
     <resources>
         <image name="Default Avatar.png" width="255" height="255"/>
-        <image name="SnapshotLoading_btn_tellyourfriend_active.png" width="237" height="44"/>
-        <image name="SnapshotLoading_btn_tellyourfriend_inactive.png" width="237" height="44"/>
+        <image name="SnapshotLoading_btn_tellyourfriend_active.png" width="200" height="44"/>
+        <image name="SnapshotLoading_btn_tellyourfriend_inactive.png" width="200" height="44"/>
     </resources>
 </document>

@@ -193,77 +193,18 @@
 //        
 //        [cell.labelMenu setFont:[UIFont fontWithName:cell.labelMenu.font.fontName size:18]];
 //    }
-    
-//    CATransition *transition = [CATransition animation];
-//    transition.duration = 1;
-//    transition.type = kCATransitionPush;
-//    transition.subtype = kCATransitionFromLeft;
-//    transition.timingFunction = [CAMediaTimingFunction
-//                                 functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
-//    // Next add it to the containerView's layer. This will perform the transition based on how we change its contents.
-//    [cell.layer addAnimation:transition forKey:nil];
 
-        CABasicAnimation *movex1 = [CABasicAnimation animationWithKeyPath:@"transform.translation.x" ];
-//        [movex1 setFromValue:[NSNumber numberWithFloat:2 * indexPath.row]];
-//        [movex1 setToValue:[NSNumber numberWithFloat:-2 * indexPath.row]];
-//        [movex1 setDelegate: self];
-//    [[cell layer]addAnimation:movex1 forKey:nil];
-       //[movex1 setDuration: duration];
-        //movex.autoreverses = YES;
-        //[[cell layer] addAnimation:movex forKey:@"transform.translation.x"];
-    
-//        CABasicAnimation *movey1 = [CABasicAnimation animationWithKeyPath:@"transform.translation.y" ];
-//        [movey1 setFromValue:[NSNumber numberWithFloat: -2 * indexPath.row]];
-//        [movey1 setToValue:[NSNumber numberWithFloat: 2 * indexPath.row]];
-//        [movey1 setDelegate: self];
-//        //[movey1 setDuration:duration];
-//        //movey.autoreverses = YES;
-//        //[[view layer] addAnimation:movey forKey:@"transform.translation.y"];
+//    Animation *anim = [[Animation alloc] init];
+//    [anim setView:cell];
+//    [anim setIndex:0];
 //    
-//        CAAnimationGroup *animationsGroup1 = [CAAnimationGroup animation];
-//        animationsGroup1.animations = [NSArray arrayWithObjects:movex1, movey1, nil];
-//        [animationsGroup1 setDelegate: self];
-//
-//        CABasicAnimation *movex2 = [CABasicAnimation animationWithKeyPath:@"transform.translation.x" ];
-//        [movex2 setFromValue:[NSNumber numberWithFloat:-2 * indexPath.row]];
-//        [movex2 setToValue:[NSNumber numberWithFloat:2 * indexPath.row]];
-//    [movex2 setDelegate: self];
-//        //[movex2 setDuration: duration];
-//        //movex.autoreverses = YES;
-//        //[[view layer] addAnimation:movex forKey:@"transform.translation.x1"];
+//    [anim translationX:0 withFromValue:10 * indexPath.row withToValue:-2 * indexPath.row withDuration:1.0f];
+//    [anim translationY:1 withFromValue:-2 * indexPath.row withToValue:2 * indexPath.row withDuration:1.f];
+//    [anim translationX:2 withFromValue:-2 * indexPath.row withToValue:0 * indexPath.row withDuration:1.f];
+//    [anim translationY:3 withFromValue:2 * indexPath.row withToValue:0 * indexPath.row withDuration:1.f];
+//    //[anim topToBottom:cell withFromValue:-1 * indexPath.row withToValue:1 * indexPath.row withDuration:1.f];
 //    
-//        
-//        CABasicAnimation *movey2 = [CABasicAnimation animationWithKeyPath:@"transform.translation.y" ];
-//        [movey2 setFromValue:[NSNumber numberWithFloat: 2 * indexPath.row]];
-//        [movey2 setToValue:[NSNumber numberWithFloat:  -2 * indexPath.row]];
-//    [movey2 setDelegate: self];
-//        //[movey2 setDuration:duration];
-//        //movey.autoreverses = YES;
-//        //[[view layer] addAnimation:movey forKey:@"transform.translation.y1"];
-//    
-//        CAAnimationGroup *animationsGroup2 = [CAAnimationGroup animation];
-//        animationsGroup2.animations = [NSArray arrayWithObjects:movex2, movey2, nil];
-//    [animationsGroup2 setDelegate: self];
-//    
-//        CAAnimationGroup *animationsGroup3 = [CAAnimationGroup animation];
-//        animationsGroup3.animations = [NSArray arrayWithObjects:animationsGroup1, animationsGroup2, nil];
-//        animationsGroup3.duration = 1.f;
-//        [[cell layer] addAnimation:animationsGroup3 forKey:nil];
-
-    Animation *anim = [[Animation alloc] init];
-    [anim setView:cell];
-    [anim setIndex:0];
-    
-    [anim translationX:0 withFromValue:10 * indexPath.row withToValue:-2 * indexPath.row withDuration:1.0f];
-    [anim translationY:1 withFromValue:-2 * indexPath.row withToValue:2 * indexPath.row withDuration:1.f];
-    [anim translationX:2 withFromValue:-2 * indexPath.row withToValue:0 * indexPath.row withDuration:1.f];
-    [anim translationY:3 withFromValue:2 * indexPath.row withToValue:0 * indexPath.row withDuration:1.f];
-    //[anim topToBottom:cell withFromValue:-1 * indexPath.row withToValue:1 * indexPath.row withDuration:1.f];
-    
-    [anim start];
-    
-    //[anim leftToRight:cell withFromValue:-2 * indexPath.row withToValue:0 * indexPath.row withDuration:1.7f];
-    //[anim bottomToTop:cell withFromValue:2 * indexPath.row withToValue:0 * indexPath.row withDuration:1.7f];
+//    [anim start];
     
     if(indexPath.row == 0){// && self.avatar.image != nil){
         

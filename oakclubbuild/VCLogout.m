@@ -11,7 +11,6 @@
 @interface VCLogout (){
     AppDelegate *appDel;
 }
-
 @end
 
 @implementation VCLogout
