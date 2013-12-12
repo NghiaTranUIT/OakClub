@@ -141,7 +141,7 @@
     if(btnLogin.selected)
         return;
     
-    if (appDelegate.isFacebookActivated)
+    if (appDelegate.isFacebookActivated || DISABLE_POCLICY)
     {
         [self startSpinner];
         [self tryLogin];

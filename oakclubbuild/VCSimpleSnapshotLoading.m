@@ -60,7 +60,7 @@
     [self.view localizeAllViews];
     
     //load avatar
-    [appdel.imagePool getImageAtURL:appdel.myProfile.s_Avatar withSize:PHOTO_SIZE_SMALL asycn:^(UIImage *img, NSError *error) {
+    [appdel.imagePool getImageAtURL:appdel.myProfile.s_Avatar withSize:PHOTO_SIZE_SMALL asycn:^(UIImage *img, NSError *error, bool isFirstLoad) {
         [imgAvatar setImage:img];
     }];
     [self showNotifications];

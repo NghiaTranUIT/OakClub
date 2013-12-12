@@ -144,8 +144,8 @@ extern NSString *const SCSessionStateChangedNotification;
 -(void)gotoVCAtCompleteLogin;
 #if ENABLE_DEMO
 -(void)showSnapshotSettings;
--(void)showSimpleSnapshot;
--(void)showSnapshotLoading;
+-(void)showSimpleSnapshotThenFocus:(BOOL)focus;
+-(void)showSnapshotLoadingThenFocus:(BOOL)focus;
 -(void)updateLanguageBundle;
 #endif
 //-(void)showMylink;

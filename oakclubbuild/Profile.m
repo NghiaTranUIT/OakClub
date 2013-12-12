@@ -30,7 +30,8 @@
 @synthesize is_available;
 @synthesize unread_message;
 @synthesize status;
-@synthesize s_Avatar = _s_avatar;
+
+@synthesize s_Avatar;
 -(id)init {
     self = [super init];
     self.i_weight=0;

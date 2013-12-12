@@ -12,13 +12,17 @@
 #define VersionNumber @"1.2.0"
 //demo version FLAG
 #define ENABLE_DEMO true
-#define USE_STAGING false
-#define USE_MAINHOST true
+#define USE_STAGING true
+#define USE_MAINHOST false
 #define USE_STAGING_MB false
 #define USE_STAGING_IOS false
 
+// APP FEATURES
 //disable hereTo and show me in Snapshot Settings
 #define DISABLE_HERETO_SHOWME
+//disable policty
+#define DISABLE_POCLICY TRUE
+
 //Hangout
 #define sOnline @"Online"
 #define LOG_HTTP false
@@ -64,7 +68,7 @@
 #define key_appLanguage @"appLanguage"
 #define key_ChosenLanguage @"appChosenLanguage"
 //============== application value =============
-#define flagLanguage @"YES"
+#define flagLanguage YES
 #define value_appLanguage_VI @"vi"
 #define value_appLanguage_EN @"en"
 #define value_appLanguage_DE @"de"

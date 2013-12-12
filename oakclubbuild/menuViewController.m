@@ -106,7 +106,7 @@
     
     
     Profile *myProfile = ((AppDelegate *) [UIApplication sharedApplication].delegate).myProfile;
-    [appDel.imagePool getImageAtURL:myProfile.s_Avatar withSize:PHOTO_SIZE_SMALL asycn:^(UIImage *img, NSError *error) {
+    [appDel.imagePool getImageAtURL:myProfile.s_Avatar withSize:PHOTO_SIZE_SMALL asycn:^(UIImage *img, NSError *error, bool isFirstLoad) {
         if (img)
         {
             [self.avatar setImage:img];
@@ -267,7 +267,7 @@
     
     if(indexPath.row == 0){// && self.avatar.image != nil){
         
-        [appDel.imagePool getImageAtURL:appDel.myProfile.s_Avatar withSize:PHOTO_SIZE_SMALL asycn:^(UIImage *img, NSError *error) {
+        [appDel.imagePool getImageAtURL:appDel.myProfile.s_Avatar withSize:PHOTO_SIZE_SMALL asycn:^(UIImage *img, NSError *error, bool isFirstLoad) {
             [cell setItemIcon:img];
         }];
     }
@@ -286,7 +286,7 @@
 #if ENABLE_DEMO
     switch (indexPath.row) {
         case 1:
-            [appDel  showSimpleSnapshot];
+            [appDel  showSimpleSnapshotThenFocus:YES];
             break;
         case 0:
             [appDel  showMyProfile];

@@ -103,7 +103,7 @@
     }
 }
 
--(void)getImageAtURL:(NSString *)imgID withSize:(CGSize)size asycn:(void (^)(UIImage *img, NSError *error))completion
+-(void)getImageAtURL:(NSString *)imgID withSize:(CGSize)size asycn:(void (^)(UIImage *img, NSError *error, bool isFirstLoad))completion
 {
     NSString *url = [NSString stringWithFormat: @"%@?width=%d&height=%d", imgID, (int)size.width, (int)size.height];
     id img = [_images objectForKey:url];
@@ -117,7 +117,7 @@
         }
         else if ([img isKindOfClass:[UIImage class]])
         {
-            completion(img, nil);
+            completion(img, nil, NO);
         }
     }
     else
@@ -127,13 +127,27 @@
         
         [_images setObject:imgRequesters forKey:url];
         
-        AFHTTPClient *httpClient;
-        httpClient = [[AFHTTPClient alloc]initWithBaseURL:[NSURL URLWithString:URL_PHOTO]];
+        NSString *photoRequestURL;
+        NSDictionary *params;
+        if ([imgID hasPrefix:@"http"])
+        {
+            photoRequestURL = imgID;
+            params = [NSDictionary dictionaryWithObjectsAndKeys:
+                      [NSNumber numberWithInteger:(int) size.width], @"width",
+                      [NSNumber numberWithInteger:(int) size.height], @"height",
+                      nil];
+        }
+        else
+        {
+            photoRequestURL = URL_PHOTO;
+            params = [NSDictionary dictionaryWithObjectsAndKeys:imgID, @"file",
+                      [NSNumber numberWithInteger:(int) size.width], @"width",
+                      [NSNumber numberWithInteger:(int) size.height], @"height",
+                      [NSNumber numberWithInt:1], @"mode", nil];
+        }
         
-        NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:imgID, @"file",
-                                [NSNumber numberWithInteger:(int) size.width], @"width",
-                                [NSNumber numberWithInteger:(int) size.height], @"height",
-                                [NSNumber numberWithInt:1], @"mode", nil];
+        AFHTTPClient *httpClient;
+        httpClient = [[AFHTTPClient alloc]initWithBaseURL:[NSURL URLWithString:photoRequestURL]];
         
         NSMutableURLRequest *request = [httpClient requestWithMethod:@"GET"
                                                                 path:@""
@@ -155,8 +169,8 @@
              
              for (int i = 0; i < reqs.count; ++i)
              {
-                 void (^handler)(UIImage *img, NSError *error) = [reqs objectAtIndex:i];
-                 handler(image, nil);
+                 void (^handler)(UIImage *img, NSError *error, bool isFirstLoad) = [reqs objectAtIndex:i];
+                 handler(image, nil, YES);
              }
              
          } failure:^(AFHTTPRequestOperation *operation, NSError *error)
@@ -166,8 +180,8 @@
              
              for (int i = 0; i < reqs.count; ++i)
              {
-                 void (^handler)(UIImage *img, NSError *error) = [reqs objectAtIndex:i];
-                 handler(nil, error);
+                 void (^handler)(UIImage *img, NSError *error, bool isFirstLoad) = [reqs objectAtIndex:i];
+                 handler(nil, error, YES);
              }
          }];
         

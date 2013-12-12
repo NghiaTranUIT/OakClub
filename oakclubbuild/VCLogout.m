@@ -31,13 +31,15 @@
     // Do any additional setup after loading the view from its nib.
     appDel = (AppDelegate *) [UIApplication sharedApplication].delegate;
 }
--(void)viewDidAppear:(BOOL)animated{
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
      appDel.rootVC.recognizesPanningOnFrontView = NO;
     [appDel.rootVC setRecognizesResetTapOnFrontView:NO];
     [self.navigationController.navigationBar setUserInteractionEnabled:NO];
 }
--(void)viewDidDisappear:(BOOL)animated{
-    [appDel.rootVC setRecognizesResetTapOnFrontView:NO];
+-(void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    [appDel.rootVC setRecognizesResetTapOnFrontView:YES];
     appDel.rootVC.recognizesPanningOnFrontView = YES;
     [self.navigationController.navigationBar setUserInteractionEnabled:YES];
 }
@@ -59,7 +61,6 @@
                      }completion:^(BOOL finished) {
                          [self.view removeFromSuperview];
                      }];
-    
 }
 
 @end

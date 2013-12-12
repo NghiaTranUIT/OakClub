@@ -87,7 +87,7 @@ CGFloat pageHeight;
     [super viewDidLoad];
     // load profile List
     is_loadingProfileList = FALSE;
-    [self refreshSnapshot];
+    [self refreshSnapshotFocus:NO];
     
     isBlockedByGPS = NO;
     [appDel.appLCObservers addObject:self];
@@ -117,6 +117,10 @@ CGFloat pageHeight;
         [self.moveMeView setupNextDisplayString];
     }
      */
+    
+    [appDel.imagePool getImageAtURL:appDel.myProfile.s_Avatar withSize:PHOTO_SIZE_SMALL asycn:^(UIImage *img, NSError *error, bool isFirstLoad) {
+        [imgMyAvatar setImage:img];
+    }];
 }
 
 
@@ -141,13 +145,13 @@ CGFloat pageHeight;
     [self.navigationController.navigationBar  addSubview:logoView];
 //    [[self navBarOakClub] addToHeader:logoView];
 }
--(void) refreshSnapshot{
+-(void) refreshSnapshotFocus:(BOOL)focus{
     currentIndex = 0; //Vanancy cheat
     profileList = [[NSMutableArray alloc] init];
-    [self loadProfileList:^(void){
+    [self loadProfileListUseHandler:^(void){
         [self loadCurrentProfile];
         [self loadNextProfileByCurrentIndex];
-    }];
+    } withFocus:focus];
 }
 -(void)disableAllControl:(BOOL)value{
     [buttonYES setEnabled:!value];
@@ -191,14 +195,10 @@ CGFloat pageHeight;
 +(void) setReloadProfileList:(BOOL)flag{
     
 }
--(void)loadProfileList:(void(^)(void))handler{
+-(void)loadProfileListUseHandler:(void(^)(void))handler withFocus:(BOOL)focus{
     if(is_loadingProfileList)
         return;
-    is_loadingProfileList = TRUE;
-    if (!isLoading)
-    {
-        [self startLoadingAnim];
-    }
+    [self startLoadingAnimFocus:focus];
     currentIndex = 0; //Vanancy cheat
     profileList = [[NSMutableArray alloc] init];
     
@@ -221,12 +221,12 @@ CGFloat pageHeight;
                      _appDel.myProfile.s_location.name = locationName;
                  }
                  
-                [self_alias loadSnapshotProfilesWithHandler:handler];
+                 [self_alias loadSnapshotProfilesWithHandler:handler];
             }];
         }
         else
         {
-            [self loadSnapshotProfilesWithHandler:handler];
+            [self startDisabledGPS:focus];
         }
     }];
 }
@@ -242,6 +242,7 @@ CGFloat pageHeight;
     NSLog(@"Get snapshot params: %@", paramsDesc);
     
     AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:urlReq];
+    is_loadingProfileList = TRUE;
     [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id JSON) {
         NSLog(@"Get snapshot-DONE");
         is_loadingProfileList = FALSE;
@@ -264,10 +265,12 @@ CGFloat pageHeight;
             }
             if(handler != nil)
                 handler();
+            
+            [self stopLoadingAnim];
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Get snapshot Error Code: %i - %@",[error code], [error localizedDescription]);
-        is_loadingProfileList = NO;
+        is_loadingProfileList = FALSE;
         [self showWarning];
     }];
     [operation start];
@@ -283,7 +286,7 @@ CGFloat pageHeight;
     temp = [profileList objectAtIndex:currentIndex];
     
     [appDel.imagePool getImageAtURL:temp.s_Avatar withSize:PHOTO_SIZE_LARGE
-                               asycn:^(UIImage *image, NSError *err)
+                               asycn:^(UIImage *image, NSError *err, bool isFirstLoad)
      {
          if(image)
              [self.imgNextProfile setImage:image];
@@ -312,7 +315,7 @@ CGFloat pageHeight;
     [lblPhotoCount setText:[NSString stringWithFormat:@"%i",[currentProfile.arr_photos count]]];
     [self.imgMainProfile setImage:[UIImage imageNamed:@"Default Avatar"]];
     
-    [appDel.imagePool getImageAtURL:currentProfile.s_Avatar withSize:PHOTO_SIZE_LARGE asycn:^(UIImage *image, NSError *error) {
+    [appDel.imagePool getImageAtURL:currentProfile.s_Avatar withSize:PHOTO_SIZE_LARGE asycn:^(UIImage *image, NSError *error, bool isFirstLoad) {
         if(image){
             [self.imgMainProfile setImage:image];
         }
@@ -341,7 +344,7 @@ CGFloat pageHeight;
     
     //load profile list if needed
     if( appDel.reloadSnapshot){
-        [self refreshSnapshot];
+        [self refreshSnapshotFocus:YES];
         appDel.reloadSnapshot = FALSE;
     }
 }
@@ -384,7 +387,7 @@ CGFloat pageHeight;
     NSLog(@"current id = %@",currentProfile.s_ID);
     viewProfile = [[VCProfile alloc] initWithNibName:@"VCProfile" bundle:nil];
     
-    [appDel.imagePool getImageAtURL:currentProfile.s_Avatar withSize:PHOTO_SIZE_LARGE asycn:^(UIImage *img, NSError *error) {
+    [appDel.imagePool getImageAtURL:currentProfile.s_Avatar withSize:PHOTO_SIZE_LARGE asycn:^(UIImage *img, NSError *error, bool isFirstLoad) {
         [viewProfile loadProfile:currentProfile andImage:img];
     }];
 
@@ -479,7 +482,7 @@ CGFloat pageHeight;
     [self.view addSubview:matchViewController.view];
     [matchViewController.view setFrame:CGRectMake(0, 0, matchViewController.view.frame.size.width, matchViewController.view.frame.size.height)];
     [lblMatchAlert setText:[NSString stringWithFormat:[@"You and %@ have liked each other!" localize],currentProfile.s_Name]];
-    [appDel.imagePool getImageAtURL:currentProfile.s_Avatar withSize:PHOTO_SIZE_SMALL asycn:^(UIImage *img, NSError *error) {
+    [appDel.imagePool getImageAtURL:currentProfile.s_Avatar withSize:PHOTO_SIZE_SMALL asycn:^(UIImage *img, NSError *error, bool isFirstLoad) {
         [imgMatcher setImage:img];
     }];
     matchedProfile = currentProfile;
@@ -493,6 +496,7 @@ CGFloat pageHeight;
     NSString* s_jid = [NSString stringWithFormat:@"%@%@", newChat.s_ID, DOMAIN_AT];
     XMPPJID* xmpp_jid = [XMPPJID jidWithString:s_jid];
     newChat.status = MatchViewed;
+    newChat.is_match = true;
     [appDel.xmppRoster addUser:xmpp_jid withNickname:newChat.s_Name];
     [appDel.myProfile.dic_Roster setValue:newChat forKey:newChat.s_ID];
     [appDel.friendChatList setObject:newChat forKey:s_jid];
@@ -508,7 +512,7 @@ CGFloat pageHeight;
     
     NSMutableArray* array = [[NSMutableArray alloc]init];
     
-    [appDel.imagePool getImageAtURL:matchedProfile.s_Avatar withSize:PHOTO_SIZE_SMALL asycn:^(UIImage *img, NSError *error) {
+    [appDel.imagePool getImageAtURL:matchedProfile.s_Avatar withSize:PHOTO_SIZE_SMALL asycn:^(UIImage *img, NSError *error, bool isFirstLoad) {
         SMChatViewController *chatController =
         [[SMChatViewController alloc] initWithUser:[NSString stringWithFormat:@"%@@oakclub.com", matchedProfile.s_ID]
                                        withProfile:matchedProfile
@@ -674,32 +678,32 @@ CGFloat pageHeight;
     // Dispose of any resources that can be recreated.
 }
 #pragma mark LOADING - animation
--(void)startLoadingAnim{
+-(void)startLoadingAnimFocus:(BOOL)focus{
 //    [self stopWarning];
 //    loadingView = [[VCSimpleSnapshotLoading alloc]init];
-    [appDel showSnapshotLoading];
+    [appDel showSnapshotLoadingThenFocus:focus];
     VCSimpleSnapshotLoading* vc = [appDel.activeVC.viewControllers objectAtIndex:0];
     [vc setTypeOfAlert:0];
     isLoading = YES;
 //    [self.navigationController pushViewController:loadingView animated:NO];
 }
 
--(void)startDisabledGPS{
+-(void)startDisabledGPS:(BOOL)focus{
 //    loadingView = [[VCSimpleSnapshotLoading alloc]init];
 //    [loadingView setTypeOfAlert:2 andAnim:loadingAnim];
 //    [self.navigationController pushViewController:loadingView animated:NO];
-    [appDel showSnapshotLoading];
+    [appDel showSnapshotLoadingThenFocus:focus];
     VCSimpleSnapshotLoading* vc = [appDel.activeVC.viewControllers objectAtIndex:0];
     [vc setTypeOfAlert:2 /*andAnim:loadingAnim*/];
     isBlockedByGPS = TRUE;
 }
 
-- (void)showWarning{
+- (void)showWarning:(BOOL)focus{
     [self stopLoadingAnim];
 //    loadingView = [[VCSimpleSnapshotLoading alloc]init];
 //    [loadingView.view setFrame:CGRectMake(0, 0, 320, 480)];
 //    [loadingView setTypeOfAlert:1 andAnim:loadingAnim];
-    [appDel showSnapshotLoading];
+    [appDel showSnapshotLoadingThenFocus:focus];
     VCSimpleSnapshotLoading* vc = [appDel.activeVC.viewControllers objectAtIndex:0];
     [vc setTypeOfAlert:1 /*andAnim:loadingAnim*/];
 //    [self.navigationController pushViewController:loadingView animated:NO];
@@ -713,7 +717,7 @@ CGFloat pageHeight;
         VCSimpleSnapshotLoading *currentLoading = (VCSimpleSnapshotLoading *) self.navigationController.topViewController;
         if (currentLoading && currentLoading.typeOfAlert == 1)
         {
-            [appDel showSimpleSnapshot];
+            [appDel showSimpleSnapshotThenFocus:NO];
 //            [self.navigationController popViewControllerAnimated:NO];
             
         }
@@ -723,7 +727,7 @@ CGFloat pageHeight;
 -(void)stopDisabledGPS
 {
     [self disableAllControl:NO];
-    [appDel showSimpleSnapshot];
+    [appDel showSimpleSnapshotThenFocus:NO];
 //    [self.navigationController popViewControllerAnimated:NO];
     isBlockedByGPS = FALSE;
 }
@@ -734,7 +738,7 @@ CGFloat pageHeight;
 //        [self.spinner stopAnimating];
         [self disableAllControl:NO];
         isLoading = NO;
-        [appDel showSimpleSnapshot];
+        [appDel showSimpleSnapshotThenFocus:NO];
 //        [self.navigationController popViewControllerAnimated:NO];
     }
 }
@@ -749,37 +753,10 @@ CGFloat pageHeight;
     }
 }
 
-#pragma mark Location delegate
--(void)location:(LocationUpdate *)location updateFailWithError:(NSError *)e
-{
-    NSLog(@"Location failed");
-//    if (isLoading)
-//    {
-//        [self stopLoadingAnim];
-//    }
-//    
-//    [self startDisabledGPS];
-}
-
--(void)location:(LocationUpdate *)location updateSuccessWithLongitude:(double)longt andLatitude:(double)lati
-{
-    //    [self refreshSnapshot];
-    //    appDel.reloadSnapshot = FALSE;
-}
-
 #pragma mark App life cycle delegate
 -(void)applicationDidBecomeActive:(UIApplication *)application
 {
-    if (isBlockedByGPS)
-    {
-        [self stopDisabledGPS];
-    }
-//    if (!isLoading)
-//    {
-//        [self startLoadingAnim];
-//    }
-    
-    [self refreshSnapshot];
+    [self refreshSnapshotFocus:NO];
 }
 
 -(BOOL)isContinueLoad
@@ -798,7 +775,7 @@ CGFloat pageHeight;
     }
     else if (!self.isContinueLoad)
     {
-        [self refreshSnapshot];
+        [self refreshSnapshotFocus:NO];
     }
 }
 

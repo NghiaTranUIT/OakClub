@@ -12,8 +12,6 @@
 @property (readonly, strong, nonatomic) NSDictionary *images;
 
 //-(void)getImagesAtURL:(NSString *)imgURL asycn:(void(^)(UIImage *img, NSError *error))completion;
--(void)getImageAtURL:(NSString *)imgURL withSize:(CGSize)size asycn:(void (^)(UIImage *img, NSError *error))completion;
--(UIImage *)getImageSycnAtURL:(NSString *)imgURL withSize:(CGSize)size;
-
+-(void)getImageAtURL:(NSString *)imgURL withSize:(CGSize)size asycn:(void (^)(UIImage *img, NSError *error, bool isFirstLoad))completion;
 -(void)setImage:(UIImage *)img forURL:(NSString *)imgURL andSize:(CGSize)size;
 @end

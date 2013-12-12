@@ -635,20 +635,19 @@ int cellCountinSection=0;
 //        if(avatar != nil)
 //        {
 //            [cell.avatar setImage:avatar];
-//        }
-        UIImage *img = [appDel.imagePool getImageSycnAtURL:profile.s_Avatar withSize:PHOTO_SIZE_SMALL];
-        if (img)
-        {
-            [cell.avatar setImage:img];
-        }
-        else
-        {
-            [cell.avatar setImage:[UIImage imageNamed:@"Default Avatar"]];
-            [appDel.imagePool getImageAtURL:profile.s_Avatar withSize:PHOTO_SIZE_SMALL asycn:^(UIImage *img, NSError *error)
+        //        }
+        [cell.avatar setImage:[UIImage imageNamed:@"Default Avatar"]];
+        [appDel.imagePool getImageAtURL:profile.s_Avatar withSize:PHOTO_SIZE_SMALL asycn:^(UIImage *img, NSError *error, bool isFirstLoad)
+         {
+             if (img && isFirstLoad)
              {
                  [self.tableView reloadData];
-             }];
-        }
+             }
+             else if (img)
+             {
+                 [cell.avatar setImage:img];
+             }
+         }];
 //        [cell setMutualFriends:profile.num_MutualFriends];
         
         cell.last_message.text = @"";
@@ -709,7 +708,7 @@ int cellCountinSection=0;
     [self.searchBar resignFirstResponder];
     [tableView deselectRowAtIndexPath:[tableView indexPathForSelectedRow] animated:NO];
     //SMChatViewController *chatController = [[SMChatViewController alloc] initWithUser:userName];
-    [appDel.imagePool getImageAtURL:profile.s_Avatar withSize:PHOTO_SIZE_SMALL asycn:^(UIImage *img, NSError *error) {
+    [appDel.imagePool getImageAtURL:profile.s_Avatar withSize:PHOTO_SIZE_SMALL asycn:^(UIImage *img, NSError *error, bool isFirstLoad) {
         NSMutableArray* array = [a_messages valueForKey:profile.s_ID];
         
         if (array  || profile.status <= MatchViewed)

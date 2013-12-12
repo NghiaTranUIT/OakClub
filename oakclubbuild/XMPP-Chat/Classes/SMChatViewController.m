@@ -137,7 +137,7 @@
         
         Profile* myProfile = [self getProfilebyID:nil];
         //Vanancy - change load avatar
-        [appDel.imagePool getImageAtURL:myProfile.s_Avatar withSize:PHOTO_SIZE_SMALL asycn:^(UIImage *img, NSError *error) {
+        [appDel.imagePool getImageAtURL:myProfile.s_Avatar withSize:PHOTO_SIZE_SMALL asycn:^(UIImage *img, NSError *error, bool isFirstLoad) {
             avatar_me = img;
         }];
 //        avatar_me = [UIImage imageNamed:@"Default Avatar.png"];
@@ -185,7 +185,7 @@
         NSString* link = _profile.s_Avatar;//[self getAvatarUrl:chatWithUser];
         if(![link isEqualToString:@""])
         {
-            [appDel.imagePool getImageAtURL:link withSize:PHOTO_SIZE_SMALL asycn:^(UIImage *avatar, NSError *error) {
+            [appDel.imagePool getImageAtURL:link withSize:PHOTO_SIZE_SMALL asycn:^(UIImage *avatar, NSError *error, bool isFirstLoad) {
                 if(avatar)
                     avatar_friend = avatar;
             }];
@@ -199,7 +199,7 @@
         
         if( ![link isEqualToString:@""] )
         {
-            [appDel.imagePool getImageAtURL:link withSize:PHOTO_SIZE_SMALL asycn:^(UIImage *avatar, NSError *error) {
+            [appDel.imagePool getImageAtURL:link withSize:PHOTO_SIZE_SMALL asycn:^(UIImage *avatar, NSError *error, bool isFirstLoad) {
                 if(avatar)
                     avatar_friend = avatar;
             }];
@@ -385,7 +385,7 @@
 		
         
 		[messages addMessage:[[HistoryMessage alloc] initMessageFrom:@"you" atTime:time toHangout:hangout_id withContent:messageStr]];
-        //[self addMessage:messageStr atTime:time fromUser:[self appDelegate].myProfile.s_ID toUser:hangout_id];
+        [self addMessage:messageStr atTime:time fromUser:[self appDelegate].myProfile.s_ID toUser:hangout_id];
 		[self.tView reloadData];
         
         NSIndexPath *topIndexPath = [NSIndexPath indexPathForRow:(messages.count - 1) inSection:0];

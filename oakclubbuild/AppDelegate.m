@@ -359,18 +359,18 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
         [appDel.rootVC setRightViewController:appDel.chat];
     }];
 }
--(void)showSimpleSnapshot {
+-(void)showSimpleSnapshotThenFocus:(BOOL)focus{
     //    [self.rootVC setRootController:self.snapShoot animated:YES];
     //    [self.rootVC setContentViewController:self.snapShoot snapToContentViewController:YES animated:YES];
     activeVC = _simpleSnapShot;
-    [self.rootVC setFrontViewController:self.simpleSnapShot focusAfterChange:YES completion:^(BOOL finished) {
+    [self.rootVC setFrontViewController:self.simpleSnapShot focusAfterChange:focus completion:^(BOOL finished) {
     }];
 }
--(void)showSnapshotLoading {
+-(void)showSnapshotLoadingThenFocus:(BOOL)focus{
     //    [self.rootVC setRootController:self.myLink animated:YES];
     //    [self.rootVC setContentViewController:self.myLink snapToContentViewController:YES animated:YES];
     activeVC = _snapshotLoading;
-    [self.rootVC setFrontViewController:self.snapshotLoading focusAfterChange:YES completion:^(BOOL finished) {
+    [self.rootVC setFrontViewController:self.snapshotLoading focusAfterChange:focus completion:^(BOOL finished) {
         
     }];
 }
@@ -521,7 +521,7 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
     [self.myProfile parseProfileWithData:data withFullName:YES];
     [self.myProfile getRosterListIDSync:^{
     }];
-    [self.imagePool getImageAtURL:self.myProfile.s_Avatar withSize:PHOTO_SIZE_LARGE asycn:^(UIImage *img, NSError *error) {
+    [self.imagePool getImageAtURL:self.myProfile.s_Avatar withSize:PHOTO_SIZE_LARGE asycn:^(UIImage *img, NSError *error, bool isFirstLoad) {
         
     }];
     [self setFieldValue:[NSString stringWithFormat:DOMAIN_AT_FMT,self.myProfile.s_usenameXMPP] forKey:kXMPPmyJID];
@@ -863,7 +863,7 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
             NSLog(@"%d.2 Set nick name: %s for user_id: %s", i, friend.s_Name.UTF8String, xmpp_id.UTF8String);
             
             // cache avatar
-            [imagePool getImageAtURL:friend.s_Avatar withSize:PHOTO_SIZE_SMALL asycn:^(UIImage *img, NSError *error) {
+            [imagePool getImageAtURL:friend.s_Avatar withSize:PHOTO_SIZE_SMALL asycn:^(UIImage *img, NSError *error, bool isFirstLoad) {
                 
             }];
         }
@@ -1330,7 +1330,7 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
             [self.myProfile.dic_Roster setValue:newFriend forKey:newFriend.s_ID];
             [friendChatList setObject:newFriend forKey:jid];
             // cache avatar
-            [imagePool getImageAtURL:newFriend.s_Avatar withSize:PHOTO_SIZE_SMALL asycn:^(UIImage *img, NSError *error) {
+            [imagePool getImageAtURL:newFriend.s_Avatar withSize:PHOTO_SIZE_SMALL asycn:^(UIImage *img, NSError *error, bool isFirstLoad) {
                 [self postReceiveMessage:message];
             }];
         }];

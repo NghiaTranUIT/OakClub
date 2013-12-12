@@ -113,7 +113,7 @@ UITapGestureRecognizer *tap;
     self.age_workLabel.text = [NSString stringWithFormat:@"%d", profileObj.age];
     self.locationLabel.text = [NSString stringWithFormat:@"%@, %@", profileObj.i_work.cate_name, appDelegate.myProfile.s_location.name];
     
-    [appDelegate.imagePool getImageAtURL:appDelegate.myProfile.s_Avatar withSize:PHOTO_SIZE_LARGE asycn:^(UIImage *img, NSError *error) {
+    [appDelegate.imagePool getImageAtURL:appDelegate.myProfile.s_Avatar withSize:PHOTO_SIZE_LARGE asycn:^(UIImage *img, NSError *error, bool isFirstLoad) {
         [self.imgAvatar setImage:img];
         self.imgAvatar.contentMode = UIViewContentModeScaleAspectFit;
         [self.imgAvatar setFrame:self.avatarLayout.frame];
@@ -1115,19 +1115,19 @@ UITapGestureRecognizer *tap;
 {
     if (index < photos.count)
     {
-        UIImage *img = [appDelegate.imagePool getImageSycnAtURL:photos[index][key_photoLink] withSize:PHOTO_SIZE_SMALL];
-        if (img)
-        {
-            return img;
-        }
-        else
-        {
-            [appDelegate.imagePool getImageAtURL:photos[index][key_photoLink] withSize:PHOTO_SIZE_SMALL asycn:^(UIImage *img, NSError *error) {
+        __block UIImage *photo = [UIImage imageNamed:@"Default Avatar"];
+        [appDelegate.imagePool getImageAtURL:photos[index][key_photoLink] withSize:PHOTO_SIZE_SMALL asycn:^(UIImage *img, NSError *error, bool isFirstLoad) {
+            if (isFirstLoad)
+            {
                 [self.photoScrollView updatePhotoAtIndex:index];
-            }];
-            
-            return [UIImage imageNamed:@"Default Avatar"];
-        }
+            }
+            else
+            {
+                photo = img;
+            }
+        }];
+        
+        return photo;
     }
     
     return [UIImage imageNamed:@"myprofile_addphoto"];

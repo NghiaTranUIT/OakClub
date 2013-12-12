@@ -21,7 +21,7 @@
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 </imageView>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="3HU-xt-aOb">
-                    <rect key="frame" x="11" y="277" width="299" height="45"/>
+                    <rect key="frame" x="11" y="220" width="299" height="45"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
                     <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="15"/>
                     <state key="normal" title="Other, tap to explain" backgroundImage="Report_bottomItem_inactive.png">
@@ -35,7 +35,7 @@
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="S91-IP-UqT">
-                    <rect key="frame" x="11" y="232" width="299" height="45"/>
+                    <rect key="frame" x="11" y="175" width="299" height="45"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
                     <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="15"/>
                     <state key="normal" title="They make me uncomfortable" backgroundImage="Report_midleItem_inactive.png">
@@ -49,7 +49,7 @@
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="R3S-Qv-IuG">
-                    <rect key="frame" x="11" y="187" width="299" height="45"/>
+                    <rect key="frame" x="11" y="130" width="299" height="45"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
                     <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="15"/>
                     <state key="normal" title="This is a spam or scam" backgroundImage="Report_topItem_inactive.png">
@@ -63,15 +63,15 @@
                     </connections>
                 </button>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Report_separators.png" id="udL-FA-tg0">
-                    <rect key="frame" x="11" y="277" width="299" height="1"/>
+                    <rect key="frame" x="11" y="220" width="299" height="1"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
                 </imageView>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Report_separators.png" id="jQd-Uq-Vmd">
-                    <rect key="frame" x="11" y="232" width="299" height="1"/>
+                    <rect key="frame" x="11" y="175" width="299" height="1"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
                 </imageView>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="8CT-yT-6ZV">
-                    <rect key="frame" x="-6" y="325" width="333" height="79"/>
+                    <rect key="frame" x="-6" y="255" width="333" height="79"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
                     <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="15"/>
                     <state key="normal" title="Block this user" backgroundImage="Report_btn_block_inactive.png">
@@ -88,7 +88,7 @@
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="jHo-hk-vac">
-                    <rect key="frame" x="-6" y="401" width="333" height="79"/>
+                    <rect key="frame" x="-6" y="307" width="333" height="79"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
                     <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="15"/>
                     <state key="normal" title="Cancel" backgroundImage="Report_btn_block_inactive.png">

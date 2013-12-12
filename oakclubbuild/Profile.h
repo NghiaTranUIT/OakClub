@@ -117,7 +117,7 @@
 @property (assign, nonatomic) bool is_deleted;
 @property (assign, nonatomic) bool is_blocked;
 @property (assign, nonatomic) bool is_available;
-@property (readonly, nonatomic) bool is_match;
+@property (assign, nonatomic) bool is_match;
 @property int status;
 @property int unread_message;
 @property int num_Liked;

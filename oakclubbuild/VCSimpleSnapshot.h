@@ -22,11 +22,11 @@
 -(void)loadCurrentProfile;
 -(void)loadNextProfileByCurrentIndex;
 -(void) gotoPROFILE;
--(void)loadProfileList:(void(^)(void))handler;
+-(void)loadProfileListUseHandler:(void(^)(void))handler withFocus:(BOOL)focus;
 -(void)showMatchView;
 -(void)setLikedSnapshot:(NSString*)answerChoice;
 -(BOOL)isContinueLoad;
--(void) refreshSnapshot;
+-(void) refreshSnapshotFocus:(BOOL)focus;
 -(void) showWarning;
 @property (weak, nonatomic) IBOutlet UILabel *lbl_indexPhoto;
 @property (weak, nonatomic) IBOutlet UILabel *lbl_mutualFriends;

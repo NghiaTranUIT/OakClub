@@ -842,7 +842,7 @@ static CGFloat padding_left = 5.0;
                 NSString* link = [currentProfile.arr_photos objectAtIndex:i][key_photoLink];
                 if(![link isEqualToString:@""] )
                 {
-                    [appDel.imagePool getImageAtURL:link withSize:PHOTO_SIZE_LARGE asycn:^(UIImage *image, NSError *error) {
+                    [appDel.imagePool getImageAtURL:link withSize:PHOTO_SIZE_LARGE asycn:^(UIImage *image, NSError *error, bool isFirstLoad) {
                         if(image){
                             UIImageView *imageView = [[UIImageView alloc]initWithImage:image];
                             CGRect frame = self.svPhotos.frame;
