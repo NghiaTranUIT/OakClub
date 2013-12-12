@@ -134,44 +134,50 @@
             [content1Label setText: @""];
             [content2Label setText: @""];
             [content3Label setText: @""];
-            NSString *content1String = [@"Swipe photo Right\nto LIKE a profile" localize];
-            NSString *content2String = [@"Swipe photo Left\nto PASS a profile" localize];
-            NSString *content3String = [@"Or just use PASS / LIKE\nbutton below" localize];
+            NSString *content1String = [@"Swipe photo Right to LIKE a profile" localize];
+            NSString *content2String = [@"Swipe photo Left to PASS a profile" localize];
+            NSString *content3String = [@"Or just use PASS / LIKE button below" localize];
             
             
             [content1Label setLineBreakMode: NSLineBreakByWordWrapping];
             [content1Label setNumberOfLines: 2];
             [content1Label setText: content1String];
-            [content1Label setFrame: CGRectMake(0, 75, self.view.frame.size.width, 70)];
-            [content1Label setFont: [UIFont systemFontOfSize: 23]];
+            [content1Label setFrame: CGRectMake(10, 75, 240, 100)];
+            [content1Label setFont: FONT_HELVETICANEUE_LIGHT(20)];
             [content1Label setTextAlignment: NSTextAlignmentCenter];
             [content1Label setBackgroundColor: [UIColor clearColor]];
             [content1Label setTextColor: [UIColor whiteColor]];
+            [content1Label sizeToFit];
+            
+//            [content1Label setAdjustsFontSizeToFitWidth: YES];
+//            [content1Label setMinimumFontSize:10];
             
             
             [content2Label setLineBreakMode: NSLineBreakByWordWrapping];
             [content2Label setNumberOfLines: 2];
             [content2Label setText: content2String];
-            [content2Label setFrame: CGRectMake(0, 175, self.view.frame.size.width, 70)];
-            [content2Label setFont: [UIFont systemFontOfSize: 23]];
+            [content2Label setFrame: CGRectMake(100, 150, 210, 70)];
+            [content2Label setFont: FONT_HELVETICANEUE_LIGHT(20)];
             [content2Label setTextAlignment: NSTextAlignmentCenter];
             [content2Label setBackgroundColor: [UIColor clearColor]];
             [content2Label setTextColor: [UIColor whiteColor]];
+            [content2Label setAdjustsFontSizeToFitWidth:YES];
             
             [content3Label setLineBreakMode: NSLineBreakByWordWrapping];
             [content3Label setNumberOfLines: 2];
             [content3Label setText: content3String];
-            [content3Label setFrame: CGRectMake(0, 283, self.view.frame.size.width, 70)];
-            [content3Label setFont: [UIFont systemFontOfSize: 21]];
+            [content3Label setFrame: CGRectMake(10, 283, self.view.frame.size.width - 20, 70)];
+            [content3Label setFont: FONT_HELVETICANEUE_LIGHT(20)];
             [content3Label setTextAlignment: NSTextAlignmentCenter];
             [content3Label setBackgroundColor: [UIColor clearColor]];
             [content3Label setTextColor: [UIColor whiteColor]];
+            [content3Label setAdjustsFontSizeToFitWidth:YES];
             
             if(IS_HEIGHT_GTE_568)
             {
-                [content1Label setFrame:CGRectMake(0, 95, self.view.frame.size.width, 70)];
-                [content2Label setFrame: CGRectMake(0, 195, self.view.frame.size.width, 70)];
-                [content3Label setFrame: CGRectMake(0, 303, self.view.frame.size.width, 70)];
+                [content1Label setFrame: CGRectMake(3, 75, 240, 100)];
+                [content2Label setFrame: CGRectMake(70, 170, 250, 70)];
+                [content3Label setFrame: CGRectMake(10, 310, self.view.frame.size.width - 20, 70)];
             }
             
             [image addSubview: content1Label];
@@ -185,12 +191,12 @@
             UILabel *content1Label = [[UILabel alloc] init];
             [content1Label setText: @""];
             
-            NSString *content1String = [@"If you match with someone\nyou can chat with them privately" localize];
+            NSString *content1String = [@"If you match with someone you can chat with them privately" localize];
             [content1Label setLineBreakMode: NSLineBreakByWordWrapping];
-            [content1Label setNumberOfLines: 2];
+            [content1Label setNumberOfLines: 3];
             [content1Label setText: content1String];
-            [content1Label setFrame: CGRectMake(0, 190, self.view.frame.size.width, 70)];
-            [content1Label setFont: [UIFont systemFontOfSize: 18]];
+            [content1Label setFrame: CGRectMake(20, 190, self.view.frame.size.width - 40, 100)];
+            [content1Label setFont: FONT_HELVETICANEUE_LIGHT(20)];
             [content1Label setTextAlignment: NSTextAlignmentCenter];
             [content1Label setBackgroundColor: [UIColor clearColor]];
             [content1Label setTextColor: [UIColor whiteColor]];
@@ -210,31 +216,31 @@
             [content1Label setText: @""];
             [content2Label setText: @""];
             
-            NSString *content1String = [@"You can edit your\nprofile here" localize];
-            NSString *content2String = [@"You can choose\nwho to see here" localize];
+            NSString *content1String = [@"You can edit your profile here" localize];
+            NSString *content2String = [@"You can choose who to see here" localize];
             
             [content1Label setLineBreakMode: NSLineBreakByWordWrapping];
             [content1Label setNumberOfLines: 4];
             [content1Label setText: content1String];
-            [content1Label setFrame: CGRectMake((image.frame.size.width)/2, 53, 260, 70)];
-            [content1Label setFont: [UIFont systemFontOfSize: 15]];
+            [content1Label setFrame: CGRectMake((image.frame.size.width)/2, 53, 160, 100)];
+            [content1Label setFont: FONT_HELVETICANEUE_LIGHT(20)];
             [content1Label setTextAlignment: NSTextAlignmentLeft];
             [content1Label setBackgroundColor: [UIColor clearColor]];
             [content1Label setTextColor: [UIColor whiteColor]];
             
             [content2Label setLineBreakMode: NSLineBreakByWordWrapping];
-            [content2Label setNumberOfLines: 4];
+            [content2Label setNumberOfLines: 5];
             [content2Label setText: content2String];
-            [content2Label setFrame: CGRectMake((image.frame.size.width)/2, 205, 160, 80)];
-            [content2Label setFont: [UIFont systemFontOfSize: 15]];
+            [content2Label setFrame: CGRectMake((image.frame.size.width)/2, 190, 160, 120)];
+            [content2Label setFont: FONT_HELVETICANEUE_LIGHT(20)];
             [content2Label setTextAlignment: NSTextAlignmentLeft];
             [content2Label setBackgroundColor: [UIColor clearColor]];
             [content2Label setTextColor: [UIColor whiteColor]];
             
             if(IS_HEIGHT_GTE_568)
             {
-                [content1Label setFrame: CGRectMake(3 * (image.frame.size.width)/ 5 - 10, 55, 140, 80)];
-                [content2Label setFrame: CGRectMake(3 * (image.frame.size.width)/ 5 - 10, 235, 140, 80)];
+                [content1Label setFrame: CGRectMake(3 * (image.frame.size.width)/ 5, 55, 120, 100)];
+                [content2Label setFrame: CGRectMake(3 * (image.frame.size.width)/ 5, 235, 120, 120)];
             }
             [image addSubview: content1Label];
             [image addSubview: content2Label];
