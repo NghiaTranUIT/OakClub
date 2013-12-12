@@ -1,4 +1,4 @@
-//
+    //
 //  SCLoginViewController.m
 //  OakClub
 //
@@ -94,6 +94,13 @@
     //init for pageControl
     pageControl.numberOfPages = pageImages.count;
     pageControl.currentPage = 0;
+    
+    [self.view localizeAllViews];
+}
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
 }
 
 -(void)viewDidAppear:(BOOL)animated

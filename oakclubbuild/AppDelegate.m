@@ -152,7 +152,8 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
     [self.flashIntro.view setFrame:CGRectMake(0, 0, self.window.frame.size.width, self.window.frame.size.height)];
     self.window.rootViewController = self.flashIntro;
     [self.window makeKeyAndVisible];
-
+    
+    self.loginView = [[SCLoginViewController alloc] initWithNibName:@"SCLoginViewController" bundle:nil];
     
     [[UIApplication sharedApplication] registerForRemoteNotificationTypes:
      (UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeBadge)];
@@ -169,7 +170,6 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
 		}
 	}
     
-    [self updateLanguageBundle];
     return YES;
 }
 
@@ -185,13 +185,11 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
 
 -(void)gotoLogin
 {
-    if (!self.loginView)
-    {
-        self.loginView = [[SCLoginViewController alloc] initWithNibName:@"SCLoginViewController" bundle:nil];
+    if(!self.loginView.isBeingPresented) {
+        //        self.loginView = [[SCLoginViewController alloc] initWithNibName:@"SCLoginViewController" bundle:nil];
+        //        [self.rootVC presentModalViewController:self.loginView animated:YES];
+        self.window.rootViewController = self.loginView;
     }
-    
-    self.window.rootViewController = self.loginView;
-    [self.window makeKeyAndVisible];
 }
 
 -(void)gotoVCAtCompleteLogin
@@ -439,23 +437,11 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
 -(void)logOut {
     [self.loginView stopSpinner];
     [self stopPingTimer];
-    [self showLoginView];
+    [self gotoLogin];
     [FBSession.activeSession closeAndClearTokenInformation];
     [self teardownStream];
     [self  disconnect];
 	[[self  xmppvCardTempModule] removeDelegate:self];
-}
-
-- (void)showLoginView {
-    // If the login screen is not already displayed, display it. If the login screen is
-    // displayed, then getting back here means the login in progress did not successfully
-    // complete. In that case, notify the login view so it can update its UI appropriately.
-    
-    if(!self.loginView.isBeingPresented) {
-//        self.loginView = [[SCLoginViewController alloc] initWithNibName:@"SCLoginViewController" bundle:nil];
-//        [self.rootVC presentModalViewController:self.loginView animated:YES];
-        self.window.rootViewController = self.loginView;
-    }
 }
 
 -(void)showConfirm
@@ -534,6 +520,9 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
     self.myProfile = [[Profile alloc] init];
     [self.myProfile parseProfileWithData:data withFullName:YES];
     [self.myProfile getRosterListIDSync:^{
+    }];
+    [self.imagePool getImageAtURL:self.myProfile.s_Avatar withSize:PHOTO_SIZE_LARGE asycn:^(UIImage *img, NSError *error) {
+        
     }];
     [self setFieldValue:[NSString stringWithFormat:DOMAIN_AT_FMT,self.myProfile.s_usenameXMPP] forKey:kXMPPmyJID];
     [self setFieldValue:self.myProfile.s_passwordXMPP forKey:kXMPPmyPassword];
@@ -1740,8 +1729,6 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
         {
             [[NSUserDefaults standardUserDefaults] setObject:value_appLanguage_VI forKey:key_appLanguage];
             [[NSUserDefaults standardUserDefaults] synchronize];
-            //        NSString* selectedLanguage =[[NSUserDefaults standardUserDefaults] stringForKey:key_appLanguage];
-            [self updateLanguageBundle];
             NSString* str=[self.languageBundle localizedStringForKey:@"was selected" value:@"" table:nil];
             NSLog(@"Vietnamese %@",str);
         }
@@ -1749,8 +1736,6 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
         {
             [[NSUserDefaults standardUserDefaults] setObject:value_appLanguage_DE forKey:key_appLanguage];
             [[NSUserDefaults standardUserDefaults] synchronize];
-            //        NSString* selectedLanguage =[[NSUserDefaults standardUserDefaults] stringForKey:key_appLanguage];
-            [self updateLanguageBundle];
             NSString* str=[self.languageBundle localizedStringForKey:@"was selected" value:@"" table:nil];
             NSLog(@"German %@",str);
         }
@@ -1758,8 +1743,6 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
         {
             [[NSUserDefaults standardUserDefaults] setObject:value_appLanguage_ID forKey:key_appLanguage];
             [[NSUserDefaults standardUserDefaults] synchronize];
-            //        NSString* selectedLanguage =[[NSUserDefaults standardUserDefaults] stringForKey:key_appLanguage];
-            [self updateLanguageBundle];
             NSString* str=[self.languageBundle localizedStringForKey:@"was selected" value:@"" table:nil];
             NSLog(@"Indonesia %@",str);
         }
@@ -1767,12 +1750,13 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
         {
             [[NSUserDefaults standardUserDefaults] setObject:value_appLanguage_EN forKey:key_appLanguage];
             [[NSUserDefaults standardUserDefaults] synchronize];
-            [self updateLanguageBundle];
             NSString* str=[self.languageBundle localizedStringForKey:@"was selected" value:@"" table:nil];
             NSLog(@"English %@",str);
         }
         //[self.view localizeAllViews];
     }
+    
+    [self updateLanguageBundle];
 }
 
 -(NSString* ) checkLanguage

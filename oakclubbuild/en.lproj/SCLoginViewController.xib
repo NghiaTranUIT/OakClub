@@ -79,9 +79,9 @@
         </view>
     </objects>
     <resources>
-        <image name="Login_bottomBG.png" width="320" height="93"/>
-        <image name="Login_btnFB_active.png" width="254" height="40"/>
-        <image name="Login_btnFB_inactive.png" width="254" height="40"/>
-        <image name="Login_info.png" width="30" height="30"/>
+        <image name="Login_bottomBG.png" width="320" height="95"/>
+        <image name="Login_btnFB_active.png" width="253" height="40"/>
+        <image name="Login_btnFB_inactive.png" width="253" height="40"/>
+        <image name="Login_info.png" width="44" height="44"/>
     </resources>
 </document>
