@@ -500,6 +500,10 @@
 		CDEC0215172A706E00C3E615 /* HistoryMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = CDEC0214172A706E00C3E615 /* HistoryMessage.m */; };
 		CDECD30A1733C3D900A6B17F /* ChatHistoryViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CDECD3081733C3D800A6B17F /* ChatHistoryViewCell.m */; };
 		CDECD30B1733C3D900A6B17F /* ChatHistoryViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CDECD3091733C3D900A6B17F /* ChatHistoryViewCell.xib */; };
+		CDEDEDF71859DB5B00B0A6AC /* icon_invitefriend_normal.png in Resources */ = {isa = PBXBuildFile; fileRef = CDEDEDF31859DB5B00B0A6AC /* icon_invitefriend_normal.png */; };
+		CDEDEDF81859DB5B00B0A6AC /* icon_invitefriend_normal@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CDEDEDF41859DB5B00B0A6AC /* icon_invitefriend_normal@2x.png */; };
+		CDEDEDF91859DB5B00B0A6AC /* icon_invitefriend_pressed-.png in Resources */ = {isa = PBXBuildFile; fileRef = CDEDEDF51859DB5B00B0A6AC /* icon_invitefriend_pressed-.png */; };
+		CDEDEDFA1859DB5B00B0A6AC /* icon_invitefriend_pressed-@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CDEDEDF61859DB5B00B0A6AC /* icon_invitefriend_pressed-@2x.png */; };
 		CDEE8E591785668C003EB1C4 /* UIViewController+Custom.m in Sources */ = {isa = PBXBuildFile; fileRef = CDEE8E581785668C003EB1C4 /* UIViewController+Custom.m */; };
 		CDEEFAF7170D6CCA001F9C36 /* TapDetectingImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = CDEEFAF4170D6CCA001F9C36 /* TapDetectingImageView.m */; };
 		CDEEFAF8170D6CCA001F9C36 /* ThumbImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = CDEEFAF6170D6CCA001F9C36 /* ThumbImageView.m */; };
@@ -1295,6 +1299,10 @@
 		CDECD3071733C3D800A6B17F /* ChatHistoryViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatHistoryViewCell.h; sourceTree = "<group>"; };
 		CDECD3081733C3D800A6B17F /* ChatHistoryViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatHistoryViewCell.m; sourceTree = "<group>"; };
 		CDECD3091733C3D900A6B17F /* ChatHistoryViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChatHistoryViewCell.xib; sourceTree = "<group>"; };
+		CDEDEDF31859DB5B00B0A6AC /* icon_invitefriend_normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = icon_invitefriend_normal.png; path = Loading/icon_invitefriend_normal.png; sourceTree = "<group>"; };
+		CDEDEDF41859DB5B00B0A6AC /* icon_invitefriend_normal@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon_invitefriend_normal@2x.png"; path = "Loading/icon_invitefriend_normal@2x.png"; sourceTree = "<group>"; };
+		CDEDEDF51859DB5B00B0A6AC /* icon_invitefriend_pressed-.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon_invitefriend_pressed-.png"; path = "Loading/icon_invitefriend_pressed-.png"; sourceTree = "<group>"; };
+		CDEDEDF61859DB5B00B0A6AC /* icon_invitefriend_pressed-@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon_invitefriend_pressed-@2x.png"; path = "Loading/icon_invitefriend_pressed-@2x.png"; sourceTree = "<group>"; };
 		CDEE8E571785668C003EB1C4 /* UIViewController+Custom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+Custom.h"; sourceTree = "<group>"; };
 		CDEE8E581785668C003EB1C4 /* UIViewController+Custom.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+Custom.m"; sourceTree = "<group>"; };
 		CDEEFAF3170D6CCA001F9C36 /* TapDetectingImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TapDetectingImageView.h; sourceTree = "<group>"; };
@@ -2185,6 +2193,10 @@
 		CD1301481821FD8D00D29E0B /* Loading */ = {
 			isa = PBXGroup;
 			children = (
+				CDEDEDF31859DB5B00B0A6AC /* icon_invitefriend_normal.png */,
+				CDEDEDF41859DB5B00B0A6AC /* icon_invitefriend_normal@2x.png */,
+				CDEDEDF51859DB5B00B0A6AC /* icon_invitefriend_pressed-.png */,
+				CDEDEDF61859DB5B00B0A6AC /* icon_invitefriend_pressed-@2x.png */,
 				CD0457301857227800AF9FC2 /* Snapshot_gps_loading.gif */,
 				CD0457311857227800AF9FC2 /* Snapshot_gps_loading@2x.gif */,
 				CD13014B1821FD9700D29E0B /* Snapshot_graypin.png */,
@@ -3739,6 +3751,7 @@
 				CD877D171821374C0067D478 /* ChatView_navbar_logo@2x.png in Resources */,
 				4592849D184F3F65004FA3A6 /* Menu_BG.png in Resources */,
 				97A55D741824DFAB00675025 /* viewprofile_x@2x.png in Resources */,
+				CDEDEDFA1859DB5B00B0A6AC /* icon_invitefriend_pressed-@2x.png in Resources */,
 				972B27D9182CEC7C00D0ABC5 /* PrivacyView.xib in Resources */,
 				CD877C511820AD490067D478 /* Snapshot_btn_yes_pressed@2x.PNG in Resources */,
 				979B9602184852A000AF5A78 /* karate.png in Resources */,
@@ -3810,6 +3823,7 @@
 				CD1AB07D1821804200B0FA10 /* Report_topItem_active.png in Resources */,
 				CD23A6D4183CA44500042421 /* Login_bottomBG.png in Resources */,
 				CD23A6DF183CCA2100042421 /* Default-image_share.png in Resources */,
+				CDEDEDF71859DB5B00B0A6AC /* icon_invitefriend_normal.png in Resources */,
 				4592849F184F3F65004FA3A6 /* Menu_btn_Facebook.png in Resources */,
 				CD50E368181FBF3C0036A23B /* Snapshot_popup_no@2x.png in Resources */,
 				97A55D631823C3E700675025 /* slider.png in Resources */,
@@ -3864,6 +3878,7 @@
 				4592849C184F3F65004FA3A6 /* Menu_BG-568h@2x.png in Resources */,
 				459284AF184F3F65004FA3A6 /* Menu_icon_settings.png in Resources */,
 				CD877CA21820EF260067D478 /* Logout_btn_active@2x.png in Resources */,
+				CDEDEDF81859DB5B00B0A6AC /* icon_invitefriend_normal@2x.png in Resources */,
 				CD877CE1182114560067D478 /* HistoryChat_item_active.png in Resources */,
 				CD877CE4182114560067D478 /* HistoryChat_item_inactive@2x.png in Resources */,
 				977853FE18224F2F00CBB5DB /* myprofile_editAvatar.png in Resources */,
@@ -3917,6 +3932,7 @@
 				CD50E362181FBF3C0036A23B /* Snapshot_popup_cancel_pressed@2x.png in Resources */,
 				979B95FA184852A000AF5A78 /* cool.png in Resources */,
 				CD025DB61829F760007CBEDA /* SnapshotSetting_fillrange_slider@2x.png in Resources */,
+				CDEDEDF91859DB5B00B0A6AC /* icon_invitefriend_pressed-.png in Resources */,
 				CD41199A1793F11E003850B7 /* RegisterConfirmation.storyboard in Resources */,
 				CD877CA41820EF260067D478 /* Logout_btn_cancel_active@2x.png in Resources */,
 				CDAB59AA1850880C00724956 /* Navbar_BG.png in Resources */,
