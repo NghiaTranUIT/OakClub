@@ -11,4 +11,5 @@
 @interface VCSimpleSnapshotLoading : UIViewController
 -(void) setTypeOfAlert:(int)type andAnim:(UIImageView*)imgAnim;
 -(int)typeOfAlert;
+-(void)setTypeOfAlert:(int)type;
 @end

@@ -12,10 +12,13 @@
 #define VersionNumber @"1.2.0"
 //demo version FLAG
 #define ENABLE_DEMO true
-#define USE_STAGING true
-#define USE_MAINHOST false
+#define USE_STAGING false
+#define USE_MAINHOST true
 #define USE_STAGING_MB false
 #define USE_STAGING_IOS false
+
+//disable hereTo and show me in Snapshot Settings
+#define DISABLE_HERETO_SHOWME
 //Hangout
 #define sOnline @"Online"
 #define LOG_HTTP false
@@ -61,15 +64,20 @@
 #define key_appLanguage @"appLanguage"
 #define key_ChosenLanguage @"appChosenLanguage"
 //============== application value =============
+#define flagLanguage @"YES"
 #define value_appLanguage_VI @"vi"
 #define value_appLanguage_EN @"en"
 #define value_appLanguage_DE @"de"
 #define value_appLanguage_ID @"id"
+#define value_appLanguage_TH @"th"
+#define value_appLanguage_TR @"tr"
 #define AppLanguageList ([NSDictionary dictionaryWithObjectsAndKeys:\
                                 @"Vietnamese", value_appLanguage_VI,\
                                 @"English", value_appLanguage_EN,\
                                 @"Deutsch", value_appLanguage_DE,\
                                 @"Indonesia", value_appLanguage_ID,\
+                                @"Thai", value_appLanguage_TH,\
+                                @"Türk", value_appLanguage_TR,\
                                 nil])
 //============== APIs =============
 #define DOMAIN_AT @"@oakclub.com"
@@ -417,12 +425,19 @@ typedef enum{
 typedef enum {
     LanguageGroup               = 0,
     GenderSearchGroup           = 1,
+#ifndef DISABLE_HERETO_SHOWME
     HereToGroup                 = 2,
     ShowMeGroup                 = 3,
     AgeGroup                    = 4,
     DistanceGroup               = 5,
     MoreGroup                   = 6,
     NumOfSettingGroup           = 7,
+#else
+    AgeGroup                    = 2,
+    DistanceGroup               = 3,
+    MoreGroup                   = 4,
+    NumOfSettingGroup           = 5,
+#endif
 } SettingGroup;
 
 typedef enum{

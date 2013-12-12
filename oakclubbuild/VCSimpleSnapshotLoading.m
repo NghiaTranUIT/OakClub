@@ -42,64 +42,20 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    [self.navigationItem setHidesBackButton:YES];
-    [self.navigationController setNavigationBarHidden:NO];
-    [self customBackButtonBarItem];
+//    [self.navigationItem setHidesBackButton:YES];
+//    [self.navigationController setNavigationBarHidden:NO];
+//    [self customBackButtonBarItem];
     [self  loadViewbyType];
-}
-
--(void)customBackButtonBarItem{
-    UIView* leftItemView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 80, 44)];
-    UIButton* buttonBack = [UIButton buttonWithType:UIButtonTypeCustom];
-    buttonBack.frame = CGRectMake(IS_OS_7_OR_LATER?-10:0, 0, 44, 44);
-    [buttonBack addTarget:self action:nil forControlEvents:UIControlEventTouchUpInside];
-    [buttonBack setBackgroundImage:[UIImage imageNamed:@"Navbar_btn_menu.png"] forState:UIControlStateNormal];
-    [buttonBack setBackgroundImage:[UIImage imageNamed:@"Navbar_btn_menu_pressed.png"] forState:UIControlStateHighlighted];
-    [buttonBack addTarget:self action:@selector(menuPressed:) forControlEvents:UIControlEventTouchUpInside];
-    [buttonBack addTarget:self action:@selector(onTouchDownControllButton:) forControlEvents:UIControlEventTouchDown];
-    [leftItemView addSubview:buttonBack];
-    UIBarButtonItem *buttonItem = [[UIBarButtonItem alloc] initWithCustomView:leftItemView];
-    self.navigationItem.leftBarButtonItem = buttonItem;
-    
-    UIView* rightItemView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 80, 44)];
-    UIButton* buttonChat = [UIButton buttonWithType:UIButtonTypeCustom];
-    buttonChat.frame = CGRectMake(IS_OS_7_OR_LATER?40:36, 0, 44, 44);
-    [buttonChat addTarget:self action:nil forControlEvents:UIControlEventTouchUpInside];
-    [buttonChat setBackgroundImage:[UIImage imageNamed:@"Navbar_btn_chat.png"] forState:UIControlStateNormal];
-    [buttonChat setBackgroundImage:[UIImage imageNamed:@"Navbar_btn_chat_pressed.png"] forState:UIControlStateHighlighted];
-    [buttonChat addTarget:self action:@selector(rightItemPressed:) forControlEvents:UIControlEventTouchUpInside];
-    [buttonChat addTarget:self action:@selector(onTouchDownControllButton:) forControlEvents:UIControlEventTouchDown];
-    [rightItemView addSubview:buttonChat];
-    UIBarButtonItem *buttonChatItem = [[UIBarButtonItem alloc] initWithCustomView:rightItemView];
-    self.navigationItem.rightBarButtonItem = buttonChatItem;
-   
-    AppDelegate* appdel = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-    if([appdel countTotalNotifications] > 0){
-        UILabel* lblNumNotification = [[UILabel alloc]initWithFrame:CGRectMake(IS_OS_7_OR_LATER?47:30,6, 20, 20)];
-        [lblNumNotification setFont:FONT_HELVETICANEUE_LIGHT(10)];
-        [lblNumNotification setTextColor:[UIColor whiteColor]];
-        [lblNumNotification setBackgroundColor:[UIColor clearColor]];
-        [lblNumNotification setTextAlignment:NSTextAlignmentCenter];
-        UIImageView* imgViewNotification = [[UIImageView alloc]initWithFrame:lblNumNotification.frame];
-        [imgViewNotification setImage:[UIImage imageNamed:@"Navbar_notification.png"]];
-        [rightItemView addSubview:imgViewNotification];
-        lblNumNotification.text = [NSString stringWithFormat:@"%d+", [appdel countTotalNotifications]];
-        [rightItemView addSubview:lblNumNotification];
-    }
-    
-    
-   
-    
-//    [self setNotifications:20];
+    [self loadHeaderLogo];
 }
 -(void)viewWillAppear:(BOOL)animated{
 //    [self  loadViewbyType];
-    
-    AppDelegate* appdel = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-    if(appdel.reloadSnapshot){
-        [self.navigationController popViewControllerAnimated:NO];
-    }
-    [self setNotifications:[appdel countTotalNotifications]];
+     AppDelegate* appdel = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+   
+//    if(appdel.reloadSnapshot){
+//        [self.navigationController popViewControllerAnimated:NO];
+//    }
+//    [self setNotifications:[appdel countTotalNotifications]];
     
     [self.view localizeAllViews];
     
@@ -107,6 +63,7 @@
     [appdel.imagePool getImageAtURL:appdel.myProfile.s_Avatar withSize:PHOTO_SIZE_SMALL asycn:^(UIImage *img, NSError *error) {
         [imgAvatar setImage:img];
     }];
+    [self showNotifications];
 }
 
 -(void)viewDidDisappear:(BOOL)animated{
@@ -117,6 +74,8 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+
 #pragma mark Load view by typeOfAlert
 -(void) setTypeOfAlert:(int)type andAnim:(UIImageView*)imgAnim{
     typeOfAlert = type;
@@ -126,7 +85,6 @@
         }
     }
     
-    [self.view addSubview:imgAvatar];
     if(imgAnim != nil){
         CGRect gifFrame;
         if(IS_HEIGHT_GTE_568)
@@ -135,10 +93,17 @@
             gifFrame = CGRectMake(9, 0, imgAnim.frame.size.width, imgAnim.frame.size.height);
         [imgAnim setFrame:gifFrame];
         [self.view  addSubview:imgAnim];
+        imgAvatar.layer.masksToBounds = YES;
+        imgAvatar.layer.cornerRadius = imgAvatar.frame.size.width/2;
+        imgAvatar.layer.borderWidth = 0;
+        [self.view addSubview:imgAvatar];
         imgAvatar.center = imgAnim.center;
     }
     [self loadViewbyType];
     
+}
+-(void)setTypeOfAlert:(int)type{
+    [self setTypeOfAlert:type andAnim:loadingAnim];
 }
 -(int)typeOfAlert
 {
@@ -161,7 +126,7 @@
         {
             [btnContentAlert setHidden:NO];
             [lblContentAlert setText:[@"You've seen all the recommendations near you." localize]];
-            [imgLoading setImage:[UIImage imageNamed:@"SnapshotLoading_map_loaded.png"]];
+//            [imgLoading setImage:[UIImage imageNamed:@"SnapshotLoading_map_loaded.png"]];
 //            [self.view addSubview:imgLoading];
             break;
         }
@@ -170,7 +135,7 @@
 //            [self.view addSubview:imgNOPEDisable];
 //            [self.view addSubview:imgLIKEDisable];
 //            [self.view addSubview:imgiDisable];
-            [imgLoading setImage:[UIImage imageNamed:@"SnapshotLoading_graymap_loaded.png"]];
+//            [imgLoading setImage:[UIImage imageNamed:@"SnapshotLoading_graymap_loaded.png"]];
 //            [self.view addSubview:imgLoading];
             [btnContentAlert setHidden:YES];
             [lblContentAlert setText:[@"Location setting is disabled" localize]];
@@ -207,6 +172,28 @@
 }
 
 #pragma mark notification
+-(NavBarOakClub*)navBarOakClub
+{
+    NavConOakClub* navcon = (NavConOakClub*)self.navigationController;
+    return (NavBarOakClub*)navcon.navigationBar;
+}
+
+-(void)showNotifications
+{
+    AppDelegate* appDel = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    int totalNotifications = [appDel countTotalNotifications];
+    
+    [[self navBarOakClub] setNotifications:totalNotifications];
+}
+-(void)loadHeaderLogo{
+    UIImage* logo = [UIImage imageNamed:@"Snapshot_logo.png"];
+    UIImageView *logoView = [[UIImageView alloc]initWithFrame:CGRectMake(98, 10, 125, 26)];
+    [logoView setImage:logo];
+    logoView.tag = 101;
+    [self.navigationController.navigationBar  addSubview:logoView];
+    //    [[self navBarOakClub] addToHeader:logoView];
+}
+/*
 -(void)setNotifications:(int)count
 {
     UILabel* lblNumNotification = [[UILabel alloc]initWithFrame:CGRectMake(265, 6, 20, 20)];
@@ -220,7 +207,7 @@
     if(count > 0)
     {
         [self.navigationController.navigationBar addSubview:imgViewNotification];
-        lblNumNotification.text = [NSString stringWithFormat:@"%d+", count];
+        lblNumNotification.text = [NSString stringWithFormat:@"%d", count];
         [self.navigationController.navigationBar addSubview:lblNumNotification];
     }
     
@@ -235,5 +222,6 @@
                 [subview removeFromSuperview];
         }
 //    }
-}
+}*/
+
 @end

@@ -67,6 +67,19 @@
             [self addSubview:photoImgView];
         }
         
+        if (i == [self.photoDelegate numberOfPhoto] - 1)
+        {
+            UILabel *label = [[UILabel alloc] init];
+            [label setText: [NSString localizedStringWithFormat: @"Add photo"]];
+            [label setFont: [UIFont systemFontOfSize:11]];
+            [label setBackgroundColor: [UIColor clearColor]];
+            [label setTextColor: [UIColor colorWithRed:116/255.0 green:1/255.0 blue:5/255.0 alpha:1.0]];
+            [label setFrame: CGRectMake(photoButton.frame.origin.x + 10, photoButton.frame.origin.y + 10, photoButton.frame.size.width - 15, photoButton.frame.size.height)];
+            [label setAdjustsFontSizeToFitWidth:YES];
+            [label setMinimumFontSize:5];
+            [self addSubview: label];
+        }
+        
         self.contentSize = CGSizeMake(self.contentSize.width + self.photoDelegate.elementSize.width + self.photoDelegate.elementPadding.width/2, self.contentSize.height);
     }
     isReloading = false;

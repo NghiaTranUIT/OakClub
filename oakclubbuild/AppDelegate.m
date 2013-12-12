@@ -75,7 +75,7 @@ NSString *const kXMPPmyPassword = @"kXMPPmyPassword";
 #if ENABLE_DEMO
 @synthesize simpleSnapShot = _simpleSnapShot;
 @synthesize snapShotSettings = _snapShotSettings;
-@synthesize mutualMatches = _mutualMatches;
+@synthesize snapshotLoading = _snapshotLoading;
 // multi language
 @synthesize languageBundle = _languageBundle;
 #endif
@@ -197,7 +197,7 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
     if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"isFirstLogin"] boolValue])
     {
         
-//        //test
+        //test
 //        [[NSUserDefaults standardUserDefaults] setValue:[NSNumber numberWithBool:YES] forKey:@"isFirstLogin"];
 //        
 //        TutorialViewController *tut = [[TutorialViewController alloc] init];
@@ -228,11 +228,12 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
     self.simpleSnapShot = [self createNavigationByClass:@"VCSimpleSnapshot" AndHeaderName:nil/*[NSString localizeString:@"Snapshot"]*/ andRightButton:@"VCChat" andIsStoryBoard:NO];
     //     self.snapShotSettings = [self.storyboard instantiateViewControllerWithIdentifier:@"SnapshotSettings"];
     self.snapShotSettings = [self createNavigationByClass:@"VCSimpleSnapshotSetting" AndHeaderName:[NSString localizeString:@"Settings"] andRightButton:@"VCChat" andIsStoryBoard:NO];
-//    self.mutualMatches = [self createNavigationByClass:@"VCMutualMatch" AndHeaderName:[NSString localizeString:@"Mutual Matches"] andRightButton:nil andIsStoryBoard:NO];
+    self.snapshotLoading = [self createNavigationByClass:@"VCSimpleSnapshotLoading" AndHeaderName:nil andRightButton:@"VCChat" andIsStoryBoard:NO];
     self.myProfileVC = [self createNavigationByClass:@"VCMyProfile" AndHeaderName:[NSString localizeString:@"Edit Profile"] andRightButton:@"VCChat" andIsStoryBoard:NO];
 //    self.getPoints = [self createNavigationByClass:@"VCGetPoints" AndHeaderName:@"Get Coins" andRightButton:nil andIsStoryBoard:NO];
     self.confirmVC = [self createNavigationByClass:@"UpdateProfileViewController" AndHeaderName:[@"Update Profile" localize] andRightButton:nil andIsStoryBoard:NO];
     // PKRevealController
+    
 #if ENABLE_DEMO
     activeVC = _simpleSnapShot;
     self.rootVC = [PKRevealController revealControllerWithFrontViewController:self.simpleSnapShot
@@ -363,14 +364,13 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
     //    [self.rootVC setContentViewController:self.snapShoot snapToContentViewController:YES animated:YES];
     activeVC = _simpleSnapShot;
     [self.rootVC setFrontViewController:self.simpleSnapShot focusAfterChange:YES completion:^(BOOL finished) {
-        
     }];
 }
--(void)showMutualMatches {
+-(void)showSnapshotLoading {
     //    [self.rootVC setRootController:self.myLink animated:YES];
     //    [self.rootVC setContentViewController:self.myLink snapToContentViewController:YES animated:YES];
-    activeVC = _mutualMatches;
-    [self.rootVC setFrontViewController:self.mutualMatches focusAfterChange:YES completion:^(BOOL finished) {
+    activeVC = _snapshotLoading;
+    [self.rootVC setFrontViewController:self.snapshotLoading focusAfterChange:YES completion:^(BOOL finished) {
         
     }];
 }

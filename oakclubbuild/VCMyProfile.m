@@ -351,7 +351,7 @@ UITapGestureRecognizer *tap;
 }
 - (void)onTouchBirthdate {
     if (pickerView.hidden) {
-        [self.pickingViewController setTitle:@"Birthday"];
+        [self.pickingViewController setTitle:[@"Birthdate" localize]];
         [self.navigationController pushViewController:self.pickingViewController animated:YES];
         NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
         [dateFormat setDateFormat:@"MM/dd/yyyy"];

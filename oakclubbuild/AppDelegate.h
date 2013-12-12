@@ -101,7 +101,7 @@ extern NSString *const SCSessionStateChangedNotification;
 #if ENABLE_DEMO
 @property (strong, nonatomic) UINavigationController *snapShotSettings;
 @property (strong, nonatomic) UINavigationController *simpleSnapShot;
-@property (strong, nonatomic) UINavigationController *mutualMatches;
+@property (strong, nonatomic) UINavigationController *snapshotLoading;
 //multi Language
 @property (strong, nonatomic) NSBundle *languageBundle;
 
@@ -145,7 +145,7 @@ extern NSString *const SCSessionStateChangedNotification;
 #if ENABLE_DEMO
 -(void)showSnapshotSettings;
 -(void)showSimpleSnapshot;
--(void)showMutualMatches;
+-(void)showSnapshotLoading;
 -(void)updateLanguageBundle;
 #endif
 //-(void)showMylink;

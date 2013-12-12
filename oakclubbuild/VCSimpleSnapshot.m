@@ -26,8 +26,8 @@
     AppDelegate *appDel;
     NSMutableDictionary* photos;
     BOOL is_loadingProfileList;
-    VCSimpleSnapshotLoading* loadingView;
-    UIImageView* loadingAnim;
+//    VCSimpleSnapshotLoading* loadingView;
+//    UIImageView* loadingAnim;
     BOOL reloadProfileList;
     LocationUpdate *locUpdate;
     
@@ -74,8 +74,8 @@ CGFloat pageHeight;
         matchedProfile =[[Profile alloc]init];
         appDel = (AppDelegate *) [UIApplication sharedApplication].delegate;
         is_loadingProfileList = FALSE;
-        NSURL *fileURL = [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"Snapshot_gps_loading.gif" ofType:nil]];
-        loadingAnim = 	[AnimatedGif getAnimationForGifAtUrl: fileURL];
+//        NSURL *fileURL = [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"Snapshot_gps_loading.gif" ofType:nil]];
+//        loadingAnim = 	[AnimatedGif getAnimationForGifAtUrl: fileURL];
         locUpdate = [[LocationUpdate alloc] init];
 //        [loadingAnim setHidden:YES];
     }
@@ -145,9 +145,6 @@ CGFloat pageHeight;
     currentIndex = 0; //Vanancy cheat
     profileList = [[NSMutableArray alloc] init];
     [self loadProfileList:^(void){
-        [appDel.imagePool getImageAtURL:appDel.myProfile.s_Avatar withSize:PHOTO_SIZE_LARGE asycn:^(UIImage *img, NSError *error) {
-            [self.imgMyAvatar setImage:img];
-        }];
         [self loadCurrentProfile];
         [self loadNextProfileByCurrentIndex];
     }];
@@ -332,19 +329,21 @@ CGFloat pageHeight;
     //load data
     [self loadLikeMeList];
     
-    //load profile list if needed
-    if( appDel.reloadSnapshot){
-        [self refreshSnapshot];
-        appDel.reloadSnapshot = FALSE;
-    }
+   
 }
 
 -(void)viewDidAppear:(BOOL)animated
 {
     [[self navBarOakClub] setHidden:NO];
 
-    self.navigationController.navigationBarHidden = NO;
+//    self.navigationController.navigationBarHidden = NO;
     [self showNotifications];
+    
+    //load profile list if needed
+    if( appDel.reloadSnapshot){
+        [self refreshSnapshot];
+        appDel.reloadSnapshot = FALSE;
+    }
 }
 
 - (void)viewDidUnload
@@ -572,6 +571,7 @@ CGFloat pageHeight;
        ))
     {
         [[self navBarOakClub] disableAllControl: YES];
+        appDel.rootVC.recognizesPanningOnFrontView = NO;
         [self showFirstSnapshotPopup:answerChoice];
         [self.moveMeView setAnswer:-1];
         isFirstTime+=[answerChoice integerValue];
@@ -675,36 +675,47 @@ CGFloat pageHeight;
 }
 #pragma mark LOADING - animation
 -(void)startLoadingAnim{
-    [self stopWarning];
-    loadingView = [[VCSimpleSnapshotLoading alloc]init];
-    [loadingView setTypeOfAlert:0 andAnim:loadingAnim];
+//    [self stopWarning];
+//    loadingView = [[VCSimpleSnapshotLoading alloc]init];
+    [appDel showSnapshotLoading];
+    VCSimpleSnapshotLoading* vc = [appDel.activeVC.viewControllers objectAtIndex:0];
+    [vc setTypeOfAlert:0];
     isLoading = YES;
-    [self.navigationController pushViewController:loadingView animated:NO];
+//    [self.navigationController pushViewController:loadingView animated:NO];
 }
 
 -(void)startDisabledGPS{
-    loadingView = [[VCSimpleSnapshotLoading alloc]init];
-    [loadingView setTypeOfAlert:2 andAnim:loadingAnim];
-    [self.navigationController pushViewController:loadingView animated:NO];
+//    loadingView = [[VCSimpleSnapshotLoading alloc]init];
+//    [loadingView setTypeOfAlert:2 andAnim:loadingAnim];
+//    [self.navigationController pushViewController:loadingView animated:NO];
+    [appDel showSnapshotLoading];
+    VCSimpleSnapshotLoading* vc = [appDel.activeVC.viewControllers objectAtIndex:0];
+    [vc setTypeOfAlert:2 /*andAnim:loadingAnim*/];
     isBlockedByGPS = TRUE;
 }
 
 - (void)showWarning{
     [self stopLoadingAnim];
-    loadingView = [[VCSimpleSnapshotLoading alloc]init];
-    [loadingView.view setFrame:CGRectMake(0, 0, 320, 480)];
-    [loadingView setTypeOfAlert:1 andAnim:loadingAnim];
-    [self.navigationController pushViewController:loadingView animated:NO];
+//    loadingView = [[VCSimpleSnapshotLoading alloc]init];
+//    [loadingView.view setFrame:CGRectMake(0, 0, 320, 480)];
+//    [loadingView setTypeOfAlert:1 andAnim:loadingAnim];
+    [appDel showSnapshotLoading];
+    VCSimpleSnapshotLoading* vc = [appDel.activeVC.viewControllers objectAtIndex:0];
+    [vc setTypeOfAlert:1 /*andAnim:loadingAnim*/];
+//    [self.navigationController pushViewController:loadingView animated:NO];
 }
 
 -(void)stopWarning
 {
+    
     if ([self.navigationController.topViewController isKindOfClass:[VCSimpleSnapshotLoading class]])
     {
         VCSimpleSnapshotLoading *currentLoading = (VCSimpleSnapshotLoading *) self.navigationController.topViewController;
         if (currentLoading && currentLoading.typeOfAlert == 1)
         {
-            [self.navigationController popViewControllerAnimated:NO];
+            [appDel showSimpleSnapshot];
+//            [self.navigationController popViewControllerAnimated:NO];
+            
         }
     }
 }
@@ -712,18 +723,19 @@ CGFloat pageHeight;
 -(void)stopDisabledGPS
 {
     [self disableAllControl:NO];
-    //    [loadingAnim setHidden:YES];
-    [self.navigationController popViewControllerAnimated:NO];
+    [appDel showSimpleSnapshot];
+//    [self.navigationController popViewControllerAnimated:NO];
     isBlockedByGPS = FALSE;
 }
 
 -(void)stopLoadingAnim{
     if (isLoading)
     {
-        [self.spinner stopAnimating];
+//        [self.spinner stopAnimating];
         [self disableAllControl:NO];
         isLoading = NO;
-        [self.navigationController popViewControllerAnimated:NO];
+        [appDel showSimpleSnapshot];
+//        [self.navigationController popViewControllerAnimated:NO];
     }
 }
 
@@ -808,5 +820,6 @@ CGFloat pageHeight;
 -(void)onBackFromPopup
 {
     [[self navBarOakClub] disableAllControl: NO];
+    appDel.rootVC.recognizesPanningOnFrontView = YES;
 }
 @end
