@@ -76,6 +76,7 @@
 }
 
 @property (strong, nonatomic) NSString *s_Name;
+@property (readonly, nonatomic) NSString *firstName;
 @property (strong, nonatomic) NSString *s_Email;
 @property (strong, nonatomic) NSString *s_ID; 
 @property (strong, nonatomic) NSString *s_Avatar;

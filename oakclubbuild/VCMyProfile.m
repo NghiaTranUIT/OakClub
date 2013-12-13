@@ -109,7 +109,7 @@ UITapGestureRecognizer *tap;
     
     [self.navigationController setNavigationBarHidden:NO];
     
-    self.nameLabel.text = profileObj.s_Name;
+    self.nameLabel.text = profileObj.firstName;
     self.age_workLabel.text = [NSString stringWithFormat:@"%d", profileObj.age];
     self.locationLabel.text = [NSString stringWithFormat:@"%@, %@", profileObj.i_work.cate_name, appDelegate.myProfile.s_location.name];
     
