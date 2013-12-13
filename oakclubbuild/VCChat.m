@@ -341,9 +341,9 @@ int cellCountinSection=0;
 		                                          inManagedObjectContext:moc];
 		
 		NSSortDescriptor *sd1 = [[NSSortDescriptor alloc] initWithKey:@"sectionNum" ascending:YES];
-		NSSortDescriptor *sd2 = [[NSSortDescriptor alloc] initWithKey:@"displayName" ascending:YES];
+		//NSSortDescriptor *sd2 = [[NSSortDescriptor alloc] initWithKey:@"displayName" ascending:YES];
 		
-		NSArray *sortDescriptors = [NSArray arrayWithObjects:sd1, sd2, nil];
+		NSArray *sortDescriptors = [NSArray arrayWithObjects:sd1, nil];
 		
 		NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
 		[fetchRequest setEntity:entity];
@@ -546,11 +546,38 @@ int cellCountinSection=0;
             Profile *p1, *p2;
             p1 = [appDel.myProfile.dic_Roster objectForKey:obj1];
             p2 = [appDel.myProfile.dic_Roster objectForKey:obj2];
+            
+            if (p1.status != p2.status)
+            {
+                switch (p1.status) {
+                    case 0:
+                    case 2:
+                        switch (p2.status) {
+                            case 1:
+                            case 3:
+                                return NSOrderedAscending;
+                            default:
+                                break;
+                        }
+                        break;
+                    case 1:
+                    case 3:
+                        switch (p2.status) {
+                            case 0:
+                            case 2:
+                                return NSOrderedDescending;
+                            default:
+                                break;
+                        }
+                    default:
+                        break;
+                }
+            }
+            
             NSDate *d1, *d2;
             d1 = [dateFormatter dateFromString:[p1 s_status_time]];
             d2 = [dateFormatter dateFromString:[p2 s_status_time]];
             
-            //NSLog(@"Day %@ %d %@", d1, ([d1 compare:d2]), d2);
             return ([d2 compare:d1]);
         }];
     }

@@ -17,7 +17,7 @@
 #define USE_STAGING_MB false
 #define USE_STAGING_IOS false
 
-#define DAN_CHEAT false
+#define DAN_CHEAT true	
 
 //===============FLAG FOR ENABLE/DISABLE FEATURES============
 //disable hereTo and show me in Snapshot Settings

@@ -42,11 +42,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "oakclubbuild/VCSimpleSnapshot.m"
-            timestampString = "408602921.850718"
+            timestampString = "408620961.006699"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "571"
-            endingLineNumber = "571"
+            startingLineNumber = "578"
+            endingLineNumber = "578"
             landmarkName = "-doAnswer:"
             landmarkType = "5">
          </BreakpointContent>
@@ -368,22 +368,6 @@
             startingLineNumber = "112"
             endingLineNumber = "112"
             landmarkName = "-viewDidAppear:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "oakclubbuild/VCSimpleSnapshot.m"
-            timestampString = "408619668.406619"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "495"
-            endingLineNumber = "495"
-            landmarkName = "-addNewChatUser:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
