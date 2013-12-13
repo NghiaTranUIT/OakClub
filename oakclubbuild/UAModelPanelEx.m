@@ -126,14 +126,14 @@
         [signInButton setTitle:@"Connect Privately" forState:UIControlStateNormal];
         [signInButton.titleLabel setFont:[UIFont systemFontOfSize:15]];
         
-        if(IS_OS_7_OR_LATER)
-        {
-            [image1 setFrame: CGRectMake((self.frame.size.width - 240)/2, 175, 11, 11)];
-            [image2 setFrame: CGRectMake((self.frame.size.width - 240)/2, 207, 11, 11)];
-            [image3 setFrame: CGRectMake((self.frame.size.width - 240)/2, 238, 11, 11)];
-            [image4 setFrame: CGRectMake((self.frame.size.width - 240)/2, 270, 11, 11)];
-            [image5 setFrame: CGRectMake((self.frame.size.width - 240)/2, 301, 11, 11)];
-        }
+//        if(IS_OS_7_OR_LATER)
+//        {
+//            [image1 setFrame: CGRectMake((self.frame.size.width - 240)/2, 175, 11, 11)];
+//            [image2 setFrame: CGRectMake((self.frame.size.width - 240)/2, 207, 11, 11)];
+//            [image3 setFrame: CGRectMake((self.frame.size.width - 240)/2, 238, 11, 11)];
+//            [image4 setFrame: CGRectMake((self.frame.size.width - 240)/2, 270, 11, 11)];
+//            [image5 setFrame: CGRectMake((self.frame.size.width - 240)/2, 301, 11, 11)];
+//        }
         
         [self addSubview: titleLabel];
         [self addSubview: content1Label];

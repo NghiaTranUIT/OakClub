@@ -251,18 +251,18 @@
         if(flagLanguage)
         {
             
-//            UIAlertView *alert = [[UIAlertView alloc]
-//                                  initWithTitle:[@"Choose your language" localize]
-//                                  message:@""
-//                                  delegate:self
-//                                  cancelButtonTitle:nil
-//                                  otherButtonTitles:@"Tiếng Việt", @"English", @"Deutsch", @"Indonesia", @"ภาษาไทย", @"Türk", nil];
-//            [alert show];
-            UIAlert *alert = [[UIAlert alloc] init];
-            [alert setFrame: CGRectMake(150, 150, 320, 320)];
-            [alert setButton:@"OK" withFrame: CGRectMake(0, 0, 50, 80)];
-            
+            UIAlertView *alert = [[UIAlertView alloc]
+                                  initWithTitle:[@"Choose your language" localize]
+                                  message:@""
+                                  delegate:self
+                                  cancelButtonTitle:nil
+                                  otherButtonTitles:@"Tiếng Việt", @"English", @"Deutsch", @"Indonesia", @"ภาษาไทย", @"Türk", nil];
             [alert show];
+//            UIAlert *alert = [[UIAlert alloc] init];
+//            [alert setFrame: CGRectMake(150, 150, 320, 320)];
+//            [alert setButton:@"OK" withFrame: CGRectMake(0, 0, 50, 80)];
+//            
+//            [alert show];
         }
         else
         {
