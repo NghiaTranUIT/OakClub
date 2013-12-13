@@ -1577,17 +1577,16 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
                   
                   [self parseFBInfoToProfile:self.myFBProfile];
                   
+#if DAN_CHEAT
+                  NSMutableDictionary *params = [[NSMutableDictionary alloc]initWithObjectsAndKeys: @"CAAHo9PiL7dwBABLVeIqWTGFwC5BPfjl8zq66SIufQLO39WhamZB76h2Ku5TmZB79f6SJnSXJK1j8ksVOYKJwZB9TT9dTiRXtYsn2kgnEOwZCNkdbitnDqHgZCul3Ez5LIzJeuofWWAFCZAAQBsUkzFCB7oZChE1uC7tZAdRvYJkY98SZAubpMrxjG", @"access_token",
+                                                 @"511391007", @"user_id",
+                                                 nil];
+#else
                   NSMutableDictionary *params = [[NSMutableDictionary alloc]initWithObjectsAndKeys:
-                                          [FBSession activeSession].accessTokenData.accessToken, @"access_token",
-                                          self.myProfile.s_FB_id, @"user_id",
-                                          nil];
-                  
-                  // CHEAT
-                  
-//                  NSMutableDictionary *params = [[NSMutableDictionary alloc]initWithObjectsAndKeys:
-//                                                 @"CAAHo9PiL7dwBABLVeIqWTGFwC5BPfjl8zq66SIufQLO39WhamZB76h2Ku5TmZB79f6SJnSXJK1j8ksVOYKJwZB9TT9dTiRXtYsn2kgnEOwZCNkdbitnDqHgZCul3Ez5LIzJeuofWWAFCZAAQBsUkzFCB7oZChE1uC7tZAdRvYJkY98SZAubpMrxjG", @"access_token",
-//                                                 @"511391007", @"user_id",
-//                                                 nil];
+                                                 [FBSession activeSession].accessTokenData.accessToken, @"access_token",
+                                                 self.myProfile.s_FB_id, @"user_id",
+                                                 nil];
+#endif
                   
                   if (self.s_DeviceToken && ![@"" isEqualToString:self.s_DeviceToken])
                   {

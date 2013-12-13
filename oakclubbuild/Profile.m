@@ -28,6 +28,7 @@
 @synthesize is_deleted;
 @synthesize is_blocked;
 @synthesize is_available;
+@synthesize is_match;
 @synthesize unread_message;
 @synthesize status;
 
@@ -503,6 +504,7 @@
                 profile.is_deleted = deleted;
                 profile.is_blocked = blocked;
                 profile.status =[[objectData valueForKey:@"status"] intValue];
+                profile.is_match = [[objectData valueForKey:@"matches"] boolValue];
                 profile.s_status_time = [objectData valueForKey:@"time"];
                 profile.s_Name =[objectData valueForKey:@"name"];
                 profile.s_Avatar = [objectData valueForKey:@"avatar"];
@@ -794,6 +796,7 @@
     accountCopy.is_deleted = is_deleted;
     accountCopy.is_blocked = is_blocked ;
     accountCopy.is_available = is_available ;
+    accountCopy.is_match = is_match;
     accountCopy.status = status;
     accountCopy.unread_message = unread_message;
     accountCopy.distance = distance;
@@ -902,10 +905,5 @@
 #pragma mark format Text
 -(NSString*)getFirstNameWithName:(NSString*) name{
     return [[name componentsSeparatedByString:@" "] objectAtIndex:0];
-}
-
--(bool)is_match
-{
-    return (self.status == 0 || self.status == 1);
 }
 @end
