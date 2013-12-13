@@ -47,7 +47,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "571"
             endingLineNumber = "571"
-            landmarkName = "-setLikedSnapshot:"
+            landmarkName = "-doAnswer:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -111,7 +111,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1156"
             endingLineNumber = "1156"
-            landmarkName = "-elementPadding"
+            landmarkName = "-loadProfilePhotos"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -127,7 +127,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1165"
             endingLineNumber = "1165"
-            landmarkName = "-lockViewForIndicator:"
+            landmarkName = "-loadProfilePhotos"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -143,8 +143,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1016"
             endingLineNumber = "1016"
-            landmarkName = "@implementation VCMyProfile"
-            landmarkType = "3">
+            landmarkName = "-location:updateSuccessWithLongitude:andLatitude:"
+            landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
