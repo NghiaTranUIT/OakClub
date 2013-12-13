@@ -117,6 +117,13 @@
         [[NSUserDefaults standardUserDefaults] setObject:langID forKey:key_appLanguage];
         [[NSUserDefaults standardUserDefaults] synchronize];
         [appDel updateLanguageBundle];
+        [appDel loadDataForList:^(NSError *e) {
+            if (!e)
+            {
+                //[appDel parseProfileWithData:data];
+                //[appDel popSnapshotQueue];
+            }
+        }];
         
         [self.view localizeAllViews];
         [self.navigationController.view localizeAllViews];

@@ -138,6 +138,7 @@ extern NSString *const SCSessionStateChangedNotification;
 
 -(void)loadAllViewControllers;
 //-(void)loadDataForList;
+-(void)loadDataForList:(void(^)(NSError *e))completion;
 -(void)showChat;
 //-(void)showSnapshoot;
 -(void)gotoLogin;
