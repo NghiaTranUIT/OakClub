@@ -71,16 +71,16 @@
                     <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
                 </imageView>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="8CT-yT-6ZV">
-                    <rect key="frame" x="-6" y="255" width="333" height="79"/>
+                    <rect key="frame" x="0.0" y="268" width="320" height="58"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
                     <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="15"/>
                     <state key="normal" title="Block this user" backgroundImage="Report_btn_block_inactive.png">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
-                    <state key="selected" backgroundImage="Report_btn_block_active.png">
+                    <state key="selected" backgroundImage="Report_btn_active.png">
                         <color key="titleColor" red="0.47450980390000003" green="0.0039215686269999999" blue="0.34509803919999998" alpha="1" colorSpace="calibratedRGB"/>
                     </state>
-                    <state key="highlighted" backgroundImage="Report_btn_block_active.png">
+                    <state key="highlighted" backgroundImage="Report_btn_active.png">
                         <color key="titleColor" red="0.47450980390000003" green="0.0039215686269999999" blue="0.34509803919999998" alpha="1" colorSpace="calibratedRGB"/>
                     </state>
                     <connections>
@@ -88,16 +88,16 @@
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="jHo-hk-vac">
-                    <rect key="frame" x="-6" y="307" width="333" height="79"/>
+                    <rect key="frame" x="0.0" y="321" width="320" height="58"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
                     <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="15"/>
-                    <state key="normal" title="Cancel" backgroundImage="Report_btn_block_inactive.png">
+                    <state key="normal" title="Cancel" backgroundImage="Report_btn_cancel_inactive.png">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
-                    <state key="selected" backgroundImage="Report_btn_block_active.png">
+                    <state key="selected" backgroundImage="Report_btn_active.png">
                         <color key="titleColor" red="0.47450980390000003" green="0.0039215686269999999" blue="0.34509803919999998" alpha="1" colorSpace="calibratedRGB"/>
                     </state>
-                    <state key="highlighted" backgroundImage="Report_btn_block_active.png">
+                    <state key="highlighted" backgroundImage="Report_btn_active.png">
                         <color key="titleColor" red="0.47450980390000003" green="0.0039215686269999999" blue="0.34509803919999998" alpha="1" colorSpace="calibratedRGB"/>
                     </state>
                     <connections>
@@ -112,12 +112,20 @@
     </objects>
     <resources>
         <image name="Report_bottomItem_active.png" width="299" height="45"/>
+        <image name="Report_bottomItem_active.png" width="299" height="45"/>
         <image name="Report_bottomItem_inactive.png" width="299" height="45"/>
-        <image name="Report_btn_block_active.png" width="333" height="79"/>
-        <image name="Report_btn_block_inactive.png" width="333" height="79"/>
+        <image name="Report_btn_active.png" width="310" height="55"/>
+        <image name="Report_btn_active.png" width="310" height="55"/>
+        <image name="Report_btn_active.png" width="310" height="55"/>
+        <image name="Report_btn_active.png" width="310" height="55"/>
+        <image name="Report_btn_block_inactive.png" width="310" height="55"/>
+        <image name="Report_btn_cancel_inactive.png" width="310" height="55"/>
+        <image name="Report_midleItem_active.png" width="299" height="45"/>
         <image name="Report_midleItem_active.png" width="299" height="45"/>
         <image name="Report_midleItem_inactive.png" width="299" height="45"/>
         <image name="Report_separators.png" width="299" height="1"/>
+        <image name="Report_separators.png" width="299" height="1"/>
+        <image name="Report_topItem_active.png" width="299" height="45"/>
         <image name="Report_topItem_active.png" width="299" height="45"/>
         <image name="Report_topItem_inactive.png" width="299" height="45"/>
         <image name="trans-bg.png" width="320" height="480"/>
