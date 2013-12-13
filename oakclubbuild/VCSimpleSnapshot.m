@@ -270,7 +270,7 @@ CGFloat pageHeight;
             [self stopLoadingAnim];
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"Get snapshot Error Code: %i - %@",[error code], [error localizedDescription]);
+        NSLog(@"Get snapshot Error Code: %i - %@",[error code], error);
         is_loadingProfileList = FALSE;
         [self showWarning:focus];
     }];
@@ -496,21 +496,28 @@ CGFloat pageHeight;
     [[self view] localizeAllViews];
 }
 
--(void)addNewChatUser:(Profile*)newChat{
+-(void)addNewChatUser:(Profile*)newChat isMatchViewed:(BOOL)viewed{
     NSDate *currentDate = [[NSDate alloc] init];
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"MM/dd/yyyy"];
     newChat.s_status_time =[dateFormatter stringFromDate:currentDate];
     NSString* s_jid = [NSString stringWithFormat:@"%@%@", newChat.s_ID, DOMAIN_AT];
     XMPPJID* xmpp_jid = [XMPPJID jidWithString:s_jid];
-    newChat.status = MatchViewed;
+    if (viewed)
+    {
+        newChat.status = MatchViewed;
+    }
+    else
+    {
+        newChat.status = MatchUnViewed;
+    }
     newChat.is_match = true;
     [appDel.xmppRoster addUser:xmpp_jid withNickname:newChat.s_Name];
     [appDel.myProfile.dic_Roster setValue:newChat forKey:newChat.s_ID];
     [appDel.friendChatList setObject:newChat forKey:s_jid];
 }
 - (IBAction)dismissMatchView:(id)sender {
-    [self addNewChatUser:matchedProfile];
+    [self addNewChatUser:matchedProfile isMatchViewed:NO];
     matchedProfile = nil;
     [matchViewController.view removeFromSuperview];
     [lblMatchAlert setText:@""];
@@ -518,7 +525,7 @@ CGFloat pageHeight;
     appDel.rootVC.recognizesPanningOnFrontView = YES;
 }
 - (IBAction)onClickSendMessageToMatcher:(id)sender {
-    [self addNewChatUser:matchedProfile];
+    [self addNewChatUser:matchedProfile isMatchViewed:YES];
     
     NSMutableArray* array = [[NSMutableArray alloc]init];
     
