@@ -13,6 +13,7 @@
 #import "UIView+Localize.h"
 #import "VCPrivacy.h"
 #import "TutorialViewController.h"
+#import "UIAlert.h"
 
 @interface SCLoginViewController (){
     AppDelegate* appDelegate;
@@ -20,6 +21,7 @@
     NSArray *descText;
 }
 - (IBAction)performLogin:(id)sender;
+@property (weak, nonatomic) UITableView *tBView;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *spinner;
 @property (weak, nonatomic) IBOutlet UIButton *btnLogin;
 @property (weak, nonatomic) IBOutlet UIButton *btnInfo;
@@ -256,6 +258,11 @@
                                   cancelButtonTitle:nil
                                   otherButtonTitles:@"Tiếng Việt", @"English", @"Deutsch", @"Indonesia", @"ภาษาไทย", @"Türk", nil];
             [alert show];
+//            UIAlert *alert = [[UIAlert alloc] init];
+//            [alert setFrame: CGRectMake(150, 150, 320, 320)];
+//            [alert setButton:@"OK" withFrame: CGRectMake(0, 0, 50, 80)];
+//            
+//            [alert show];
         }
         else
         {
