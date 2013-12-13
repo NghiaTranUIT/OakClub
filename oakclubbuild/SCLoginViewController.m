@@ -215,7 +215,7 @@
         {
             [appDelegate showConfirm];
         }
-        else if (status == 2)
+        else if (status == 2 || status == -1)
         {
             [appDelegate gotoVCAtCompleteLogin];
         }
