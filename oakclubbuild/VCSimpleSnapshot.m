@@ -499,7 +499,7 @@ CGFloat pageHeight;
 -(void)addNewChatUser:(Profile*)newChat{
     NSDate *currentDate = [[NSDate alloc] init];
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:@"dd-MM-yyyy"];
+    [dateFormatter setDateFormat:@"MM/dd/yyyy"];
     newChat.s_status_time =[dateFormatter stringFromDate:currentDate];
     NSString* s_jid = [NSString stringWithFormat:@"%@%@", newChat.s_ID, DOMAIN_AT];
     XMPPJID* xmpp_jid = [XMPPJID jidWithString:s_jid];

@@ -540,7 +540,23 @@ int cellCountinSection=0;
             }
         }
         
+        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+        [dateFormatter setDateFormat:@"MM/dd/yyyy"];
+        [friendChatIDs sortUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+            Profile *p1, *p2;
+            p1 = [appDel.myProfile.dic_Roster objectForKey:obj1];
+            p2 = [appDel.myProfile.dic_Roster objectForKey:obj2];
+            NSDate *d1, *d2;
+            d1 = [dateFormatter dateFromString:[p1 s_status_time]];
+            d2 = [dateFormatter dateFromString:[p2 s_status_time]];
+            
+            //NSLog(@"Day %@ %d %@", d1, ([d1 compare:d2]), d2);
+            return ([d2 compare:d1]);
+        }];
     }
+    
+    //revert
+    //friendChatIDs = [NSMutableArray arrayWithArray:[[friendChatIDs reverseObjectEnumerator] allObjects]];
     
     return friendChatIDs.count;
 }
@@ -670,8 +686,7 @@ int cellCountinSection=0;
             }
         }
         else{
-           
-            profile.s_status_time = [profile.s_status_time stringByReplacingOccurrencesOfString:@"/" withString:@"-"];
+            //profile.s_status_time = [profile.s_status_time stringByReplacingOccurrencesOfString:@"/" withString:@"-"];
             cell.lblMatched.text = [NSString stringWithFormat:@"%@ %@", [@"Matched on" localize],profile.s_status_time];
         }
         
