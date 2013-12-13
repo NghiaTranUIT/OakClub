@@ -142,12 +142,11 @@
             [content1Label setLineBreakMode: NSLineBreakByWordWrapping];
             [content1Label setNumberOfLines: 2];
             [content1Label setText: content1String];
-            [content1Label setFrame: CGRectMake(10, 75, 240, 100)];
+            [content1Label setFrame: CGRectMake(10, 50, 210, 100)];
             [content1Label setFont: FONT_HELVETICANEUE_LIGHT(20)];
             [content1Label setTextAlignment: NSTextAlignmentCenter];
             [content1Label setBackgroundColor: [UIColor clearColor]];
             [content1Label setTextColor: [UIColor whiteColor]];
-            [content1Label sizeToFit];
             
 //            [content1Label setAdjustsFontSizeToFitWidth: YES];
 //            [content1Label setMinimumFontSize:10];

@@ -13,24 +13,30 @@
 #import "UIView+Localize.h"
 #import "VCPrivacy.h"
 #import "TutorialViewController.h"
-#import "UIAlert.h"
 
 @interface SCLoginViewController (){
     AppDelegate* appDelegate;
-    
+    NSDictionary *appLanguages;
     NSArray *descText;
 }
+@property (weak, nonatomic) IBOutlet UIView *pickingView;
+@property (weak, nonatomic) IBOutlet UIButton *btnDone;
+@property (weak, nonatomic) IBOutlet UIPickerView *pickerView;
 - (IBAction)performLogin:(id)sender;
 @property (weak, nonatomic) UITableView *tBView;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *spinner;
 @property (weak, nonatomic) IBOutlet UIButton *btnLogin;
 @property (weak, nonatomic) IBOutlet UIButton *btnInfo;
 @property (weak, nonatomic) IBOutlet UIPageControl *pageControl;
+- (IBAction)onTouchDown:(id)sender;
 
 @end
 
+
+
 @implementation SCLoginViewController
-@synthesize spinner,btnLogin,pageControl;
+@synthesize spinner,btnLogin,pageControl, pickerView, pickingView, btnInfo;
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
 //    NSString* language = [[NSUserDefaults standardUserDefaults] objectForKey:key_language];
@@ -41,6 +47,7 @@
     if (self) {
         // Custom initialization
         appDelegate = (id) [UIApplication sharedApplication].delegate;
+        appLanguages = AppLanguageList;
     }
 
     return self;
@@ -250,19 +257,13 @@
     {
         if(flagLanguage)
         {
-            
-            UIAlertView *alert = [[UIAlertView alloc]
-                                  initWithTitle:[@"Choose your language" localize]
-                                  message:@""
-                                  delegate:self
-                                  cancelButtonTitle:nil
-                                  otherButtonTitles:@"Tiếng Việt", @"English", @"Deutsch", @"Indonesia", @"ภาษาไทย", @"Türk", nil];
-            [alert show];
-//            UIAlert *alert = [[UIAlert alloc] init];
-//            [alert setFrame: CGRectMake(150, 150, 320, 320)];
-//            [alert setButton:@"OK" withFrame: CGRectMake(0, 0, 50, 80)];
-//            
-//            [alert show];
+            [pickingView setFrame: CGRectMake(0, 0, pickingView.frame.size.width, pickingView.frame.size.height)];
+            pickingView.tag = 7;
+            [self.view addSubview:pickingView];
+            [pickerView setHidden: NO];
+            [pickerView reloadAllComponents];
+            [pickerView selectRow:0 inComponent:0 animated:YES];
+             [self disableAll: YES];
         }
         else
         {
@@ -284,7 +285,29 @@
         }
     }
 }
+- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
+    return 1;
+}
+- (NSInteger)pickerView:(UIPickerView *)pkView numberOfRowsInComponent:(NSInteger)component
+{
+    return [appLanguages count];
+}
 
+- (NSString *)pickerView:(UIPickerView *)pkView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
+    NSString *langID = [[appLanguages allKeys] objectAtIndex:row];
+    return [appLanguages valueForKey:langID];
+    
+}
+- (void)pickerView:(UIPickerView *)pkView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
+    NSString *langID = [[appLanguages allKeys] objectAtIndex:row];
+    NSLog(@"abc: %@", langID);
+    [[NSUserDefaults standardUserDefaults] setObject: langID forKey:key_appLanguage];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    [appDelegate updateLanguageBundle];
+    NSString* str=[appDelegate.languageBundle localizedStringForKey:@"was selected" value:@"" table:nil];
+    NSLog(@"%@ %@",langID, str);
+    //[self.view localizeAllViews];
+}
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     NSString *title = [alertView buttonTitleAtIndex:buttonIndex];
@@ -342,10 +365,27 @@
     //[appDelegate loadAllViewControllers];
 }
 
+-(void) disableAll: (BOOL) value
+{
+    btnLogin.userInteractionEnabled = !value;
+    btnInfo.userInteractionEnabled = !value;
+    pageControl.userInteractionEnabled = !value;
+}
+
 #pragma mark Load TEXT for all control
 -(void) localizeAllText{
     for(UIView* view in [self.view subviews]){
         [view localizeText];
     }
+}
+- (IBAction)onTouchDown:(id)sender
+{
+    [self.view localizeAllViews];
+    for (UIView *subview in [self.view subviews]) {
+        if (subview.tag == 7) {
+            [subview removeFromSuperview];
+        }
+    }
+    [self disableAll: NO];
 }
 @end
