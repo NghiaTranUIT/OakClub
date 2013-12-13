@@ -41,7 +41,6 @@
 		459284B8184F3F65004FA3A6 /* Menu_icon_tellyourfriends@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4592849B184F3F65004FA3A6 /* Menu_icon_tellyourfriends@2x.png */; };
 		45A02595184CA76300DB9E2D /* bullet.png in Resources */ = {isa = PBXBuildFile; fileRef = 45A02594184CA76300DB9E2D /* bullet.png */; };
 		45A02597184CA77400DB9E2D /* bullet@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 45A02596184CA77400DB9E2D /* bullet@2x.png */; };
-		45E5A6DC185ADD74000B41BE /* UIAlert.m in Sources */ = {isa = PBXBuildFile; fileRef = 45E5A6DB185ADD74000B41BE /* UIAlert.m */; };
 		45EDE123184D823A002F10D7 /* intropage_snap-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 45EDE122184D823A002F10D7 /* intropage_snap-568h@2x.png */; };
 		45EDE125184D8251002F10D7 /* Info_background-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 45EDE124184D8251002F10D7 /* Info_background-568h@2x.png */; };
 		970924B5182E5BBF007BD6B1 /* myprofile_editVideo.png in Resources */ = {isa = PBXBuildFile; fileRef = 970924B3182E5BBF007BD6B1 /* myprofile_editVideo.png */; };
@@ -703,8 +702,6 @@
 		4592849B184F3F65004FA3A6 /* Menu_icon_tellyourfriends@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Menu_icon_tellyourfriends@2x.png"; sourceTree = "<group>"; };
 		45A02594184CA76300DB9E2D /* bullet.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bullet.png; sourceTree = "<group>"; };
 		45A02596184CA77400DB9E2D /* bullet@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bullet@2x.png"; sourceTree = "<group>"; };
-		45E5A6DA185ADD74000B41BE /* UIAlert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIAlert.h; sourceTree = "<group>"; };
-		45E5A6DB185ADD74000B41BE /* UIAlert.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIAlert.m; sourceTree = "<group>"; };
 		45ECC70A1858850600D22867 /* th */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = th; path = th.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		45ECC70B1858850700D22867 /* th */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = th; path = th.lproj/Localizable.strings; sourceTree = "<group>"; };
 		45ECC70C1858850700D22867 /* th */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = th; path = th.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -2025,8 +2022,6 @@
 				9775A75A1813CF2C00BCF28D /* SCLoginViewController.h */,
 				9775A75B1813CF2C00BCF28D /* SCLoginViewController.m */,
 				CD13D43A181652A700F63F65 /* SCLoginViewController.xib */,
-				45E5A6DA185ADD74000B41BE /* UIAlert.h */,
-				45E5A6DB185ADD74000B41BE /* UIAlert.m */,
 			);
 			name = Login;
 			sourceTree = "<group>";
@@ -4187,7 +4182,6 @@
 				CDF99BE71713D629008D8BAC /* XMPPMessage+XEP_0224.m in Sources */,
 				979B96191848576700AF5A78 /* SmileyChooseCell.m in Sources */,
 				97939394184DBFDF00BEC19D /* ImagePool.m in Sources */,
-				45E5A6DC185ADD74000B41BE /* UIAlert.m in Sources */,
 				CDF99BE91713D629008D8BAC /* DDList.m in Sources */,
 				CDF99BEA1713D629008D8BAC /* GCDMulticastDelegate.m in Sources */,
 				CDF99BEB1713D629008D8BAC /* LibIDN.m in Sources */,

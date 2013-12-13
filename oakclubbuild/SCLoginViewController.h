@@ -16,3 +16,7 @@
 - (IBAction)performLogin:(id)sender;
 @property (weak, nonatomic) IBOutlet UILabel *lblNote;
 @end
+
+@interface PickingViewControllerLanguage : UIViewController
+
+@end
