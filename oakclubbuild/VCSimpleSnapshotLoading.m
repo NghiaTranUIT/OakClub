@@ -88,9 +88,9 @@
     if(imgAnim != nil){
         CGRect gifFrame;
         if(IS_HEIGHT_GTE_568)
-            gifFrame = CGRectMake(9, 25, imgAnim.frame.size.width, imgAnim.frame.size.height);
+            gifFrame = CGRectMake(9, 25, 300, 325);
         else
-            gifFrame = CGRectMake(9, 0, imgAnim.frame.size.width, imgAnim.frame.size.height);
+            gifFrame = CGRectMake(9, 0, 300, 325);
         [imgAnim setFrame:gifFrame];
         [self.view  addSubview:imgAnim];
         imgAvatar.layer.masksToBounds = YES;

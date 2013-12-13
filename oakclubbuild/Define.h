@@ -24,9 +24,8 @@
 #define DISABLE_HERETO_SHOWME
 //disable policty
 #define DISABLE_POCLICY TRUE
-//enable Choose Location manually
+// enable Select location manually
 #define ENABLE_LOCATION_MANUALLY
-
 //Hangout
 #define sOnline @"Online"
 #define LOG_HTTP false

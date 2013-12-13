@@ -24,6 +24,7 @@
 //    BOOL popoverShowing;
     AFHTTPClient *request;
     AppDelegate *appDel;
+    ImagePool *userImagePool;
 }
 @property (weak, nonatomic) IBOutlet UIView *aboutView;
 @property (weak, nonatomic) IBOutlet UIView *mutualFriendsView;
@@ -420,35 +421,9 @@ static CGFloat padding_left = 5.0;
         
         UIImageView *favIcon = [[UIImageView alloc] initWithFrame:imageView.frame];
         [favIcon setImage:[UIImage imageNamed:@"Default Avatar"]];
-        NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInt:((int) rect.size.width)], @"width",
-                                [NSNumber numberWithInt:((int) rect.size.height)], @"height", nil];
-        
-        AFHTTPClient *downloadFAVIcon = [[AFHTTPClient alloc] initWithBaseURL:[NSURL URLWithString:fav.avatar]];
-        [downloadFAVIcon registerHTTPOperationClass:[AFHTTPRequestOperation class]];
-         
-        NSMutableURLRequest *iconRequest = [downloadFAVIcon requestWithMethod:@"GET"
-                                                                         path:nil
-                                                                   parameters:params];
-        /*
-        AFHTTPClient *downloadFAVIcon = [[AFHTTPClient alloc] initWithBaseURL:[NSURL URLWithString:fav.avatar]];
-        [downloadFAVIcon registerHTTPOperationClass:[AFHTTPRequestOperation class]];
-        
-        NSMutableURLRequest *iconRequest = [downloadFAVIcon requestWithMethod:@"GET"
-                                                                path:nil
-                                            parameters:params];
-        */
-        AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:iconRequest];
-        [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject)
-         {
-             UIImage *img = [UIImage imageWithData:responseObject];
-             
-             [favIcon setImage:img];
-         } failure:^(AFHTTPRequestOperation *operation, NSError *error)
-         {
-             NSLog(@"Download image Error: %@", error);
-         }];
-        
-        [operation start];
+        [userImagePool getImageAtURL:fav.avatar withSize:PHOTO_SIZE_SMALL asycn:^(UIImage *img, NSError *error, bool isFirstLoad) {
+            [favIcon setImage:img];
+        }];
         
         UILabel* name = [[UILabel alloc] initWithFrame:CGRectMake(rect.origin.x, rect.origin.y + rect.size.height, 58, 15)];
         [name setBackgroundColor:[UIColor clearColor]];
@@ -561,6 +536,7 @@ static CGFloat padding_left = 5.0;
     [self.svPhotos addGestureRecognizer:photoTap];
     
     // Do any additional setup after loading the view from its nib.
+    userImagePool = [[ImagePool alloc] init];
     [self loadInfoView];
 }
 -(void)viewDidAppear:(BOOL)animated
@@ -622,6 +598,7 @@ static CGFloat padding_left = 5.0;
     [self setMutualFriendsView:nil];
     [self setInterestsView:nil];
     [self setProfileView:nil];
+    userImagePool = nil;
     [super viewDidUnload];
 }
 
@@ -632,7 +609,7 @@ static CGFloat padding_left = 5.0;
         [self.navigationController.navigationBar.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
     [self customBackButtonBarItem];
     self.lblTabBarName.frame = CGRectMake(60, 0, self.lblTabBarName.frame.size.width, 44);
-    self.lblTabBarName.text = currentProfile.s_Name;
+    self.lblTabBarName.text = currentProfile.firstName;
     [self.navigationController.navigationBar addSubview:self.lblTabBarName];
 
 }
@@ -842,7 +819,7 @@ static CGFloat padding_left = 5.0;
                 NSString* link = [currentProfile.arr_photos objectAtIndex:i][key_photoLink];
                 if(![link isEqualToString:@""] )
                 {
-                    [appDel.imagePool getImageAtURL:link withSize:PHOTO_SIZE_LARGE asycn:^(UIImage *image, NSError *error, bool isFirstLoad) {
+                    [userImagePool getImageAtURL:link withSize:PHOTO_SIZE_LARGE asycn:^(UIImage *image, NSError *error, bool isFirstLoad) {
                         if(image){
                             UIImageView *imageView = [[UIImageView alloc]initWithImage:image];
                             CGRect frame = self.svPhotos.frame;
