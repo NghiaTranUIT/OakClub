@@ -15,7 +15,6 @@
                 <outlet property="buttonYES" destination="35" id="49"/>
                 <outlet property="controlView" destination="105" id="106"/>
                 <outlet property="imgAvatarFrame" destination="Kwi-D8-XKy" id="TD2-nc-nbP"/>
-                <outlet property="imgLoading" destination="dOI-Ht-cCI" id="Nx0-U4-IkN"/>
                 <outlet property="imgMainProfile" destination="0hi-Qh-GUe" id="B3Z-kw-cit"/>
                 <outlet property="imgMatcher" destination="5Tc-Vx-ANn" id="E9M-9N-jhC"/>
                 <outlet property="imgMyAvatar" destination="4M7-C4-0fu" id="I61-Wo-C9l"/>
@@ -215,11 +214,6 @@
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <color key="color" red="0.5" green="0.0" blue="0.5" alpha="1" colorSpace="calibratedRGB"/>
                 </activityIndicatorView>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="dOI-Ht-cCI">
-                    <rect key="frame" x="0.0" y="-19" width="320" height="586"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                </imageView>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
@@ -292,6 +286,7 @@
                 </view>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <gestureRecognizers/>
             <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
         </view>

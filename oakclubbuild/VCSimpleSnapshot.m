@@ -346,6 +346,11 @@ CGFloat pageHeight;
         [self refreshSnapshotFocus:YES];
         appDel.reloadSnapshot = FALSE;
     }
+    else{
+        if ([profileList count]==0) {
+            [self showWarning:YES];
+        }
+    }
 }
 
 - (void)viewDidUnload

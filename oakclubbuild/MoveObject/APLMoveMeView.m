@@ -95,6 +95,16 @@ BOOL isDragging = FALSE;
 -(APLPlacardView*) getCardView{
     return self.placardView;
 }
+- (BOOL)pointInside:(CGPoint)point withEvent:(UIEvent *)event
+{
+    AppDelegate *appDel = (AppDelegate *) [UIApplication sharedApplication].delegate;
+    CGRect limitFrame = CGRectMake(0, 0,320 , self.placardView.frame.origin.y+self.placardView.frame.size.height);
+    if (CGRectContainsPoint(limitFrame, point))
+        appDel.rootVC.recognizesPanningOnFrontView = NO;
+    else
+        appDel.rootVC.recognizesPanningOnFrontView = YES;
+    return YES;
+}
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
 //    [self changeView];
 	// We only support single touches, so anyObject retrieves just that touch from touches.
@@ -114,7 +124,6 @@ BOOL isDragging = FALSE;
 //        startLocation = CGPointMake(160, 240);
             [self animateFirstTouchAtPoint:touchPoint];
 //        }
-       
     }
 	// Only move the placard view if the touch was in the placard view.
 //	if ([touch view] != self.placardView) {
@@ -164,18 +173,6 @@ BOOL isDragging = FALSE;
             [self.placardView setAlphaLIKEView:dx/100];
         }
 
-//        if(touchLocation.x < 60){
-//            answerType = interestedStatusNO;
-//        }
-//        else{
-//            if(touchLocation.x > 260){
-//                answerType = interestedStatusYES;
-//            }
-//            else{
-//                answerType = -1;
-//            }
-//           
-//        }
         CGPoint newCenter = CGPointMake(self.placardView.center.x + (location.x-startCardPoint.x), self.placardView.center.y/* + (location.y-startCardPoint.y)*/);
 		self.placardView.center = newCenter;
         
@@ -191,7 +188,6 @@ BOOL isDragging = FALSE;
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
 	
 	UITouch *touch = [touches anyObject];
-    
 	// If the touch was in the placardView, bounce it back to the center.
 	if ([touch view] == self.placardView) {
         if(isDragging)
@@ -568,11 +564,11 @@ BOOL isDragging = FALSE;
 	
     
     //add new animation
-    [NSTimer scheduledTimerWithTimeInterval:0.2f
-                                     target:self
-                                   selector:@selector(handleTimer)
-                                   userInfo:nil
-                                    repeats:NO];
+//    [NSTimer scheduledTimerWithTimeInterval:0.2f
+//                                     target:self
+//                                   selector:@selector(handleTimer)
+//                                   userInfo:nil
+//                                    repeats:NO];
 	// Set the placard view's center and transformation to the original values in preparation for the end of the animation.
     if(IS_HEIGHT_GTE_568)
         placardView.center = CENTER_POINT_568H;
