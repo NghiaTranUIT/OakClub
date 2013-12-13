@@ -19,8 +19,9 @@
     else{
         NSString *accessToken = [FBSession activeSession].accessTokenData.accessToken;
         
-        // CHEAT
-//        accessToken = @"CAAHo9PiL7dwBABLVeIqWTGFwC5BPfjl8zq66SIufQLO39WhamZB76h2Ku5TmZB79f6SJnSXJK1j8ksVOYKJwZB9TT9dTiRXtYsn2kgnEOwZCNkdbitnDqHgZCul3Ez5LIzJeuofWWAFCZAAQBsUkzFCB7oZChE1uC7tZAdRvYJkY98SZAubpMrxjG";
+#if DAN_CHEAT
+        accessToken = @"CAAHo9PiL7dwBABLVeIqWTGFwC5BPfjl8zq66SIufQLO39WhamZB76h2Ku5TmZB79f6SJnSXJK1j8ksVOYKJwZB9TT9dTiRXtYsn2kgnEOwZCNkdbitnDqHgZCul3Ez5LIzJeuofWWAFCZAAQBsUkzFCB7oZChE1uC7tZAdRvYJkY98SZAubpMrxjG";
+#endif
         
         
         if(accessToken == nil)
@@ -38,9 +39,11 @@
         
         //create header string for request
         NSString *s = @"UsernameToken Username=\"";
+#if DAN_CHEAT
+        s = [s stringByAppendingString:@"511391007"];
+#else
         s = [s stringByAppendingString:appDelegate.myFBProfile.id ];
-        // CHEAT
-        //s = [s stringByAppendingString:@"511391007"];
+#endif
         s = [s stringByAppendingString:@"\", AccessToken=\""];
         s = [s stringByAppendingString:accessToken];
         s = [s stringByAppendingString:@"\", Nonce=\""];
