@@ -27,7 +27,6 @@
 -(void)setLikedSnapshot:(NSString*)answerChoice;
 -(BOOL)isContinueLoad;
 -(void) refreshSnapshotFocus:(BOOL)focus;
--(void) showWarning;
 @property (weak, nonatomic) IBOutlet UILabel *lbl_indexPhoto;
 @property (weak, nonatomic) IBOutlet UILabel *lbl_mutualFriends;
 @property (weak, nonatomic) IBOutlet UIButton *buttonProfile;
