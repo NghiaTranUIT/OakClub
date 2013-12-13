@@ -26,8 +26,6 @@
     AppDelegate *appDel;
     NSMutableDictionary* photos;
     BOOL is_loadingProfileList;
-//    VCSimpleSnapshotLoading* loadingView;
-//    UIImageView* loadingAnim;
     BOOL reloadProfileList;
     LocationUpdate *locUpdate;
     
@@ -35,6 +33,7 @@
     BOOL isLoading;
     Profile* matchedProfile;
     NSOperationQueue *setLikedQueue;
+    ImagePool *snapshotImagePool;
 }
 @property (nonatomic, strong) IBOutlet APLMoveMeView *moveMeView;
 @property (nonatomic, weak) IBOutlet UIView *profileView;
@@ -77,6 +76,7 @@ CGFloat pageHeight;
 //        NSURL *fileURL = [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"Snapshot_gps_loading.gif" ofType:nil]];
 //        loadingAnim = 	[AnimatedGif getAnimationForGifAtUrl: fileURL];
         locUpdate = [[LocationUpdate alloc] init];
+        snapshotImagePool = [[ImagePool alloc] init];
 //        [loadingAnim setHidden:YES];
     }
     return self;
@@ -221,7 +221,7 @@ CGFloat pageHeight;
                      _appDel.myProfile.s_location.name = locationName;
                  }
                  
-                 [self_alias loadSnapshotProfilesWithHandler:handler];
+                 [self_alias loadSnapshotProfilesWithHandler:handler andFocus:focus];
             }];
         }
         else
@@ -231,7 +231,7 @@ CGFloat pageHeight;
     }];
 }
 
--(void)loadSnapshotProfilesWithHandler:(void(^)(void))handler
+-(void)loadSnapshotProfilesWithHandler:(void(^)(void))handler andFocus:(BOOL)focus
 {
     request = [[AFHTTPClient alloc] initWithOakClubAPI:DOMAIN];
     NSDictionary *params = [[NSDictionary alloc]initWithObjectsAndKeys:@"0",@"start",@"35",@"limit",
@@ -253,11 +253,12 @@ CGFloat pageHeight;
         NSArray *profiles = [dict valueForKey:key_data];
         if (status == 0 || [profiles count] < 1)
         {
-            [self showWarning];
+            [self showWarning:focus];
         }
         else
         {
-            for( id profileJSON in profiles)
+            snapshotImagePool = [[ImagePool alloc] init];
+            for(id profileJSON in profiles)
             {
                 Profile* profile = [[Profile alloc]init];
                 [profile parseGetSnapshotToProfile:profileJSON];
@@ -271,7 +272,7 @@ CGFloat pageHeight;
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Get snapshot Error Code: %i - %@",[error code], [error localizedDescription]);
         is_loadingProfileList = FALSE;
-        [self showWarning];
+        [self showWarning:focus];
     }];
     [operation start];
 }
@@ -285,7 +286,7 @@ CGFloat pageHeight;
     Profile * temp  =  [[Profile alloc]init];
     temp = [profileList objectAtIndex:currentIndex];
     
-    [appDel.imagePool getImageAtURL:temp.s_Avatar withSize:PHOTO_SIZE_LARGE
+    [snapshotImagePool getImageAtURL:temp.s_Avatar withSize:PHOTO_SIZE_LARGE
                                asycn:^(UIImage *image, NSError *err, bool isFirstLoad)
      {
          if(image)
@@ -315,7 +316,7 @@ CGFloat pageHeight;
     [lblPhotoCount setText:[NSString stringWithFormat:@"%i",[currentProfile.arr_photos count]]];
     [self.imgMainProfile setImage:[UIImage imageNamed:@"Default Avatar"]];
     
-    [appDel.imagePool getImageAtURL:currentProfile.s_Avatar withSize:PHOTO_SIZE_LARGE asycn:^(UIImage *image, NSError *error, bool isFirstLoad) {
+    [snapshotImagePool getImageAtURL:currentProfile.s_Avatar withSize:PHOTO_SIZE_LARGE asycn:^(UIImage *image, NSError *error, bool isFirstLoad) {
         if(image){
             [self.imgMainProfile setImage:image];
         }
@@ -331,8 +332,6 @@ CGFloat pageHeight;
     
     //load data
     [self loadLikeMeList];
-    
-   
 }
 
 -(void)viewDidAppear:(BOOL)animated
@@ -354,6 +353,7 @@ CGFloat pageHeight;
     [self setLblName:nil];
     [self setLblAge:nil];
     [self setLblPhotoCount:nil];
+    snapshotImagePool = nil;
     [super viewDidUnload];
 }
 #pragma mark Button Event Handle
@@ -387,7 +387,7 @@ CGFloat pageHeight;
     NSLog(@"current id = %@",currentProfile.s_ID);
     viewProfile = [[VCProfile alloc] initWithNibName:@"VCProfile" bundle:nil];
     
-    [appDel.imagePool getImageAtURL:currentProfile.s_Avatar withSize:PHOTO_SIZE_LARGE asycn:^(UIImage *img, NSError *error, bool isFirstLoad) {
+    [snapshotImagePool getImageAtURL:currentProfile.s_Avatar withSize:PHOTO_SIZE_LARGE asycn:^(UIImage *img, NSError *error, bool isFirstLoad) {
         [viewProfile loadProfile:currentProfile andImage:img];
     }];
 
@@ -484,7 +484,7 @@ CGFloat pageHeight;
     [self.view addSubview:matchViewController.view];
     [matchViewController.view setFrame:CGRectMake(0, 0, matchViewController.view.frame.size.width, matchViewController.view.frame.size.height)];
     [lblMatchAlert setText:[NSString stringWithFormat:[@"You and %@ have liked each other!" localize],currentProfile.s_Name]];
-    [appDel.imagePool getImageAtURL:currentProfile.s_Avatar withSize:PHOTO_SIZE_SMALL asycn:^(UIImage *img, NSError *error, bool isFirstLoad) {
+    [snapshotImagePool getImageAtURL:currentProfile.s_Avatar withSize:PHOTO_SIZE_SMALL asycn:^(UIImage *img, NSError *error, bool isFirstLoad) {
         [imgMatcher setImage:img];
     }];
     matchedProfile = currentProfile;
@@ -517,7 +517,7 @@ CGFloat pageHeight;
     
     NSMutableArray* array = [[NSMutableArray alloc]init];
     
-    [appDel.imagePool getImageAtURL:matchedProfile.s_Avatar withSize:PHOTO_SIZE_SMALL asycn:^(UIImage *img, NSError *error, bool isFirstLoad) {
+    [snapshotImagePool getImageAtURL:matchedProfile.s_Avatar withSize:PHOTO_SIZE_SMALL asycn:^(UIImage *img, NSError *error, bool isFirstLoad) {
         SMChatViewController *chatController =
         [[SMChatViewController alloc] initWithUser:[NSString stringWithFormat:@"%@@oakclub.com", matchedProfile.s_ID]
                                        withProfile:matchedProfile
