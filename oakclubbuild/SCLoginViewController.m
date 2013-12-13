@@ -221,6 +221,7 @@
         }
         
         [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithBool:YES] forKey:key_ChosenLanguage];
+         [[NSUserDefaults standardUserDefaults]synchronize];
      } failure:^{
         [self stopSpinner];
         NSLog(@"LOGIN FAIL.....");

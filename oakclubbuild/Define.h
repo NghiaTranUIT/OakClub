@@ -13,8 +13,8 @@
 //demo version FLAG
 #define ENABLE_DEMO true
 #define USE_STAGING false
-#define USE_MAINHOST true
-#define USE_STAGING_MB false
+#define USE_MAINHOST false
+#define USE_STAGING_MB true
 #define USE_STAGING_IOS false
 
 #define DAN_CHEAT false
