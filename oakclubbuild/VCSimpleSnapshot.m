@@ -483,7 +483,7 @@ CGFloat pageHeight;
     appDel.rootVC.recognizesPanningOnFrontView = NO;
     [self.view addSubview:matchViewController.view];
     [matchViewController.view setFrame:CGRectMake(0, 0, matchViewController.view.frame.size.width, matchViewController.view.frame.size.height)];
-    [lblMatchAlert setText:[NSString stringWithFormat:[@"You and %@ have liked each other!" localize],currentProfile.s_Name]];
+    [lblMatchAlert setText:[NSString stringWithFormat:[@"You and %@ have liked each other!" localize],currentProfile.firstName]];
     [snapshotImagePool getImageAtURL:currentProfile.s_Avatar withSize:PHOTO_SIZE_SMALL asycn:^(UIImage *img, NSError *error, bool isFirstLoad) {
         [imgMatcher setImage:img];
     }];

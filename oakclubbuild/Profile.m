@@ -906,4 +906,8 @@
 -(NSString*)getFirstNameWithName:(NSString*) name{
     return [[name componentsSeparatedByString:@" "] objectAtIndex:0];
 }
+-(NSString*)firstName
+{
+    return [self getFirstNameWithName:self.s_Name];
+}
 @end

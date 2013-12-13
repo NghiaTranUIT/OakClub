@@ -332,7 +332,7 @@ static CGFloat padding_left = 5.0;
 }
 
 -(void)loadInfoView{
-    lbl_name.text = currentProfile.s_Name;
+    lbl_name.text = currentProfile.firstName;
     lblAge.text = [NSString stringWithFormat:@"%@",currentProfile.s_age];
     self.lblnViews.text = [NSString stringWithFormat:@"%i", currentProfile.num_Viewed];
     self.lblnLikes.text = [NSString stringWithFormat:@"%i", currentProfile.num_Liked];
@@ -609,7 +609,7 @@ static CGFloat padding_left = 5.0;
         [self.navigationController.navigationBar.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
     [self customBackButtonBarItem];
     self.lblTabBarName.frame = CGRectMake(60, 0, self.lblTabBarName.frame.size.width, 44);
-    self.lblTabBarName.text = currentProfile.s_Name;
+    self.lblTabBarName.text = currentProfile.firstName;
     [self.navigationController.navigationBar addSubview:self.lblTabBarName];
 
 }

@@ -627,7 +627,7 @@ int cellCountinSection=0;
 		
     if(profile)
     {
-        cell.name.text = profile.s_Name;
+        cell.name.text = profile.firstName;
 //        [cell setMatched:profile.is_match];
         [cell setStatus:profile.status];
 //        UIImage* avatar = [a_avatar objectForKey:profile.s_ID];
