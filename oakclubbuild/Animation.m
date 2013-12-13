@@ -26,8 +26,8 @@
     CABasicAnimation *movex = [CABasicAnimation animationWithKeyPath:@"transform.translation.x" ];
     [movex setFromValue:[NSNumber numberWithFloat:fromValue]];
     [movex setToValue:[NSNumber numberWithFloat:toValue]];
-    [movex setDuration: duration];
-    [movex setDelegate:self];
+    [movex setSpeed: duration];
+    //[movex setDelegate:self];
     //[[view layer] addAnimation:movex forKey:@"transform.translation.x"];
     [movex setValue: [NSString stringWithFormat:@"%d", index1] forKey:[NSString stringWithFormat:@"%d", index1]];
     [arr addObject: movex];
@@ -38,19 +38,23 @@
     CABasicAnimation *movey = [CABasicAnimation animationWithKeyPath:@"transform.translation.y" ];
     [movey setFromValue:[NSNumber numberWithFloat: fromValue]];
     [movey setToValue:[NSNumber numberWithFloat: toValue]];
-    [movey setDuration:duration];
-    [movey setDelegate: self];
+    [movey setSpeed:duration];
+    //[movey setDelegate: self];
     //[[view layer] addAnimation:movey forKey:@"transform.translation.y"];
     [movey setValue: [NSString stringWithFormat:@"%d", index1] forKey:[NSString stringWithFormat:@"%d", index1]];
     [arr addObject: movey];
 }
 -(void) start
 {
-    if (index < [arr count])
+    if (index < 2)
     {
-        for (int i = 0; i < 2; i++)
+        for (int i = 0; i < step; i++)
         {
-            [[view layer] addAnimation:(CABasicAnimation*) arr[index] forKey:nil];
+            if (i == step - 1)
+            {
+                [arr[i + index] setDelegate: self];
+            }
+            [[view layer] addAnimation:(CABasicAnimation*) arr[i + index] forKey:nil];
         }
     }
     else
@@ -61,7 +65,7 @@
 -(void)animationDidStop:(CAAnimation *)anim finished:(BOOL)flag
 {
     NSLog(@"stop");
-    if ([[anim valueForKey:[NSString stringWithFormat:@"%d", index]] isEqualToString:[NSString stringWithFormat:@"%d", index]])
+    if ([[anim valueForKey:[NSString stringWithFormat:@"%d", step + index - 1]] isEqualToString:[NSString stringWithFormat:@"%d", step + index - 1]])
     {
         index++;
         [self start];
@@ -75,6 +79,10 @@
 -(void) setIndex:(int)index1
 {
     index =index1;
+}
+-(void) setStep:(int)step1
+{
+    step = step1;
 }
 -(void) setArr:(NSArray *)arr1
 {

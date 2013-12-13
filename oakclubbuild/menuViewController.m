@@ -194,17 +194,19 @@
 //        [cell.labelMenu setFont:[UIFont fontWithName:cell.labelMenu.font.fontName size:18]];
 //    }
 
-//    Animation *anim = [[Animation alloc] init];
-//    [anim setView:cell];
-//    [anim setIndex:0];
-//    
-//    [anim translationX:0 withFromValue:10 * indexPath.row withToValue:-2 * indexPath.row withDuration:1.0f];
-//    [anim translationY:1 withFromValue:-2 * indexPath.row withToValue:2 * indexPath.row withDuration:1.f];
-//    [anim translationX:2 withFromValue:-2 * indexPath.row withToValue:0 * indexPath.row withDuration:1.f];
-//    [anim translationY:3 withFromValue:2 * indexPath.row withToValue:0 * indexPath.row withDuration:1.f];
-//    //[anim topToBottom:cell withFromValue:-1 * indexPath.row withToValue:1 * indexPath.row withDuration:1.f];
-//    
-//    [anim start];
+    Animation *anim = [[Animation alloc] init];
+    [anim setView:cell];
+    [anim setIndex:0];
+    [anim setStep:2];
+    
+    float duration = 0.1f;
+    
+    [anim translationX:0 withFromValue:10 * indexPath.row withToValue:-2 * indexPath.row withDuration:duration];
+    [anim translationY:1 withFromValue:-2 * indexPath.row withToValue:2 * indexPath.row withDuration:duration];
+    [anim translationX:2 withFromValue:-2 * indexPath.row withToValue:0 * indexPath.row withDuration:duration];
+    [anim translationY:3 withFromValue:2 * indexPath.row withToValue:0 * indexPath.row withDuration:duration];
+    
+    //[anim start];
     
     if(indexPath.row == 0){// && self.avatar.image != nil){
         

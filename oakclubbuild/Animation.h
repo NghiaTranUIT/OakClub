@@ -14,11 +14,13 @@
     UIView* view;
     NSMutableArray *arr;
     int index;
+    int step;
 }
 -(void) translationX: (int) index withFromValue: (int) fromValue withToValue: (int) toValue withDuration: (float) duration;
 -(void) translationY: (int) index withFromValue: (int) fromValue withToValue: (int) toValue withDuration: (float) duration;
 -(void) start;
 -(void) setView: (UIView*) view;
 -(void) setIndex: (int) index;
+-(void) setStep: (int) step;
 -(void) setArr: (NSArray*) arr;
 @end
