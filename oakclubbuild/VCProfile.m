@@ -332,7 +332,7 @@ static CGFloat padding_left = 5.0;
 }
 
 -(void)loadInfoView{
-    lbl_name.text = currentProfile.firstName;
+    lbl_name.text = currentProfile.s_Name;
     lblAge.text = [NSString stringWithFormat:@"%@",currentProfile.s_age];
     self.lblnViews.text = [NSString stringWithFormat:@"%i", currentProfile.num_Viewed];
     self.lblnLikes.text = [NSString stringWithFormat:@"%i", currentProfile.num_Liked];
