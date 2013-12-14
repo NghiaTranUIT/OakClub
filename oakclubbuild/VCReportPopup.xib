@@ -7,6 +7,9 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="VCReportPopup">
             <connections>
+                <outlet property="chooseReportView" destination="SrG-Dh-Agv" id="Yfo-Yg-j6T"/>
+                <outlet property="explainReportView" destination="aIi-kN-hH6" id="Vr8-46-qZ2"/>
+                <outlet property="reportDescTextView" destination="wau-ej-X3t" id="tpa-TL-yID"/>
                 <outlet property="view" destination="SrG-Dh-Agv" id="qmN-Fr-Zwf"/>
             </connections>
         </placeholder>
@@ -21,7 +24,7 @@
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 </imageView>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="3HU-xt-aOb">
-                    <rect key="frame" x="11" y="220" width="299" height="45"/>
+                    <rect key="frame" x="11" y="301" width="299" height="45"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
                     <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="15"/>
                     <state key="normal" title="Other, tap to explain" backgroundImage="Report_bottomItem_inactive.png">
@@ -35,7 +38,7 @@
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="S91-IP-UqT">
-                    <rect key="frame" x="11" y="175" width="299" height="45"/>
+                    <rect key="frame" x="11" y="256" width="299" height="45"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
                     <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="15"/>
                     <state key="normal" title="They make me uncomfortable" backgroundImage="Report_midleItem_inactive.png">
@@ -49,7 +52,7 @@
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="R3S-Qv-IuG">
-                    <rect key="frame" x="11" y="130" width="299" height="45"/>
+                    <rect key="frame" x="11" y="211" width="299" height="45"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
                     <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="15"/>
                     <state key="normal" title="This is a spam or scam" backgroundImage="Report_topItem_inactive.png">
@@ -63,15 +66,15 @@
                     </connections>
                 </button>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Report_separators.png" id="udL-FA-tg0">
-                    <rect key="frame" x="11" y="220" width="299" height="1"/>
+                    <rect key="frame" x="11" y="301" width="299" height="1"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
                 </imageView>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Report_separators.png" id="jQd-Uq-Vmd">
-                    <rect key="frame" x="11" y="175" width="299" height="1"/>
+                    <rect key="frame" x="11" y="256" width="299" height="1"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
                 </imageView>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="8CT-yT-6ZV">
-                    <rect key="frame" x="0.0" y="268" width="320" height="58"/>
+                    <rect key="frame" x="0.0" y="349" width="320" height="58"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
                     <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="15"/>
                     <state key="normal" title="Block this user" backgroundImage="Report_btn_block_inactive.png">
@@ -88,7 +91,7 @@
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="jHo-hk-vac">
-                    <rect key="frame" x="0.0" y="321" width="320" height="58"/>
+                    <rect key="frame" x="0.0" y="402" width="320" height="58"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
                     <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="15"/>
                     <state key="normal" title="Cancel" backgroundImage="Report_btn_cancel_inactive.png">
@@ -109,18 +112,94 @@
             <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
         </view>
+        <view contentMode="scaleToFill" id="aIi-kN-hH6" userLabel="View - explain report">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <subviews>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="trans-bg.png" id="jXa-2D-n0I">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                </imageView>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="QeI-h1-b6o">
+                    <rect key="frame" x="0.0" y="198" width="320" height="58"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxY="YES"/>
+                    <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="15"/>
+                    <state key="normal" title="Report" backgroundImage="Report_btn_block_inactive.png">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <state key="selected" backgroundImage="Report_btn_active.png">
+                        <color key="titleColor" red="0.47450980390000003" green="0.0039215686269999999" blue="0.34509803919999998" alpha="1" colorSpace="calibratedRGB"/>
+                    </state>
+                    <state key="highlighted" backgroundImage="Report_btn_active.png">
+                        <color key="titleColor" red="0.47450980390000003" green="0.0039215686269999999" blue="0.34509803919999998" alpha="1" colorSpace="calibratedRGB"/>
+                    </state>
+                    <connections>
+                        <action selector="onTouchBlockThisUser:" destination="-1" eventType="touchUpInside" id="8Qr-dH-mkf"/>
+                        <action selector="touchSendExplainReport:" destination="-1" eventType="touchUpInside" id="84u-Cc-TXz"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="BTU-cw-Yj2">
+                    <rect key="frame" x="-1" y="252" width="320" height="58"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxY="YES"/>
+                    <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="15"/>
+                    <state key="normal" title="Cancel" backgroundImage="Report_btn_cancel_inactive.png">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <state key="selected" backgroundImage="Report_btn_active.png">
+                        <color key="titleColor" red="0.47450980390000003" green="0.0039215686269999999" blue="0.34509803919999998" alpha="1" colorSpace="calibratedRGB"/>
+                    </state>
+                    <state key="highlighted" backgroundImage="Report_btn_active.png">
+                        <color key="titleColor" red="0.47450980390000003" green="0.0039215686269999999" blue="0.34509803919999998" alpha="1" colorSpace="calibratedRGB"/>
+                    </state>
+                    <connections>
+                        <action selector="touchCancelExplainReport:" destination="-1" eventType="touchUpInside" id="1fk-ji-Y3o"/>
+                    </connections>
+                </button>
+                <view contentMode="scaleToFill" id="RoM-uW-8u0">
+                    <rect key="frame" x="11" y="74" width="298" height="121"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxY="YES"/>
+                    <subviews>
+                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="wau-ej-X3t">
+                            <rect key="frame" x="8" y="8" width="283" height="106"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                        </textView>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                </view>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
+        </view>
     </objects>
     <resources>
         <image name="Report_bottomItem_active.png" width="299" height="45"/>
+        <image name="Report_bottomItem_active.png" width="299" height="45"/>
         <image name="Report_bottomItem_inactive.png" width="299" height="45"/>
         <image name="Report_btn_active.png" width="310" height="55"/>
+        <image name="Report_btn_active.png" width="310" height="55"/>
+        <image name="Report_btn_active.png" width="310" height="55"/>
+        <image name="Report_btn_active.png" width="310" height="55"/>
+        <image name="Report_btn_active.png" width="310" height="55"/>
+        <image name="Report_btn_active.png" width="310" height="55"/>
+        <image name="Report_btn_active.png" width="310" height="55"/>
+        <image name="Report_btn_active.png" width="310" height="55"/>
+        <image name="Report_btn_block_inactive.png" width="310" height="55"/>
         <image name="Report_btn_block_inactive.png" width="310" height="55"/>
         <image name="Report_btn_cancel_inactive.png" width="310" height="55"/>
+        <image name="Report_btn_cancel_inactive.png" width="310" height="55"/>
+        <image name="Report_midleItem_active.png" width="299" height="45"/>
         <image name="Report_midleItem_active.png" width="299" height="45"/>
         <image name="Report_midleItem_inactive.png" width="299" height="45"/>
         <image name="Report_separators.png" width="299" height="1"/>
+        <image name="Report_separators.png" width="299" height="1"/>
+        <image name="Report_topItem_active.png" width="299" height="45"/>
         <image name="Report_topItem_active.png" width="299" height="45"/>
         <image name="Report_topItem_inactive.png" width="299" height="45"/>
+        <image name="trans-bg.png" width="320" height="480"/>
         <image name="trans-bg.png" width="320" height="480"/>
     </resources>
 </document>
