@@ -9,12 +9,11 @@
 #ifndef oakclubbuild_Define_h
 #define oakclubbuild_Define_h
 
-#define VersionNumber @"1.2.0"
 //demo version FLAG
 #define ENABLE_DEMO true
-#define USE_STAGING true
+#define USE_STAGING false
 #define USE_MAINHOST false
-#define USE_STAGING_MB false
+#define USE_STAGING_MB true
 #define USE_STAGING_IOS false
 
 #define DAN_CHEAT true	
@@ -72,12 +71,14 @@
 #define key_ChosenLanguage @"appChosenLanguage"
 //============== application value =============
 #define flagLanguage YES
-#define value_appLanguage_VI @"vi"
-#define value_appLanguage_EN @"en"
-#define value_appLanguage_DE @"de"
-#define value_appLanguage_ID @"id"
-#define value_appLanguage_TH @"th"
-#define value_appLanguage_TR @"tr"
+#define value_appLanguage_VI @"vi" //Vietnamese
+#define value_appLanguage_EN @"en" //English
+#define value_appLanguage_DE @"de" //Germany
+#define value_appLanguage_ID @"id" //Indonesia
+#define value_appLanguage_TH @"th" //Thai
+#define value_appLanguage_TR @"tr" //Turkish
+#define value_appLanguage_FR @"fr" //France
+#define value_appLanguage_ES @"es" //Espano
 #define AppLanguageList ([NSDictionary dictionaryWithObjectsAndKeys:\
                                 @"Vietnamese", value_appLanguage_VI,\
                                 @"English", value_appLanguage_EN,\
