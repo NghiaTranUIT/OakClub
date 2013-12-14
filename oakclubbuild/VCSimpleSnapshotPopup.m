@@ -20,11 +20,15 @@
 @property (strong, nonatomic) IBOutlet UILabel *lblNopeTurotial;
 @property (strong, nonatomic) IBOutlet UILabel *lblLikeTurotial;
 
+@property (weak, nonatomic) IBOutlet UIButton *btnPass;
+@property (weak, nonatomic) IBOutlet UIButton *btnCancelPass;
+@property (weak, nonatomic) IBOutlet UIButton *btnLike;
+@property (weak, nonatomic) IBOutlet UIButton *btnCancelLike;
 
 @end
 
 @implementation VCSimpleSnapshotPopup
-@synthesize likePopupView,notInterestedPopupView,moveMeView, snapshotView, lblLikeTurotial,lblNopeTurotial;
+@synthesize likePopupView,notInterestedPopupView,moveMeView, snapshotView, lblLikeTurotial,lblNopeTurotial, btnCancelLike, btnCancelPass, btnLike, btnPass;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -88,12 +92,16 @@
         case interestedStatusNO:
             pref = [@"Dragging a picture to the left indicates you are not interested in" localize];
             [lblNopeTurotial setText:[NSString stringWithFormat:[pref stringByAppendingString:@" %@."],name]];
+            [btnPass.titleLabel setText: [@"Pass" localize]];
+            [btnCancelPass.titleLabel setText: [@"Cancel" localize]];
             [likePopupView setHidden:YES];
             [notInterestedPopupView setHidden:NO];
             break;
         case interestedStatusYES:
             pref = [@"Dragging a picture to the right indicates you liked" localize];
             [lblLikeTurotial setText:[NSString stringWithFormat:[pref stringByAppendingString:@" %@."],name]];
+            [btnLike.titleLabel setText: [@"Like" localize]];
+            [btnCancelLike.titleLabel setText: [@"Cancel" localize]];
             [likePopupView setHidden:NO];
             [notInterestedPopupView setHidden:YES];
             break;
