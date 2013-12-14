@@ -53,7 +53,9 @@
         
         CGPoint startPoint = CGPointMake((self.frame.size.width - 210)/2, 167);
         CGFloat textWidth = 250;
-        CGFloat spacingParagraph = 2;
+        CGFloat spacingParagraph=2;
+        if(IS_HEIGHT_GTE_568)
+            spacingParagraph = 10;
         CGFloat deltaIconPosition = 2;
         
         UIImageView *image1 = [[UIImageView alloc] init];
