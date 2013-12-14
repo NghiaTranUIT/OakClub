@@ -262,6 +262,10 @@ CGFloat pageHeight;
             {
                 Profile* profile = [[Profile alloc]init];
                 [profile parseGetSnapshotToProfile:profileJSON];
+                //cache profile avatar
+                [snapshotImagePool getImageAtURL:profile.s_Avatar withSize:PHOTO_SIZE_LARGE asycn:^(UIImage *img, NSError *error, bool isFirstLoad) {
+                    
+                }];
                 [profileList addObject:profile];
             }
             if(handler != nil)

@@ -42,11 +42,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "oakclubbuild/VCSimpleSnapshot.m"
-            timestampString = "408620961.006699"
+            timestampString = "408686878.472029"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "578"
-            endingLineNumber = "578"
+            startingLineNumber = "582"
+            endingLineNumber = "582"
             landmarkName = "-doAnswer:"
             landmarkType = "5">
          </BreakpointContent>
