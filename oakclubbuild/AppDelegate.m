@@ -1608,6 +1608,7 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
                            switch (status) {
                                case 0:
                                case 2:
+                               case -1:
                                {
                                    [self loadDataForList:^(NSError *e) {
                                        if (!e)
