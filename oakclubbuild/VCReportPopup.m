@@ -13,7 +13,11 @@
 @interface VCReportPopup () <UIAlertViewDelegate>
 {
     NSString *profileID;
+    UITapGestureRecognizer *dismissKeyboardTap;
 }
+@property (strong, nonatomic) IBOutlet UIView *explainReportView;
+@property (weak, nonatomic) IBOutlet UITextView *reportDescTextView;
+@property (strong, nonatomic) IBOutlet UIView *chooseReportView;
 @end
 
 @implementation VCReportPopup
@@ -33,6 +37,9 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     [self.navigationItem setHidesBackButton:YES];
+    
+    dismissKeyboardTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissKeyboardFromReportDescTextView:)];
+    [self.explainReportView addGestureRecognizer:dismissKeyboardTap];
 }
 -(void)viewWillAppear:(BOOL)animated{
     [self.view localizeAllViews];
@@ -66,27 +73,27 @@
 
 - (IBAction)onTouchExplainReport:(id)sender
 {
-    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:[@"Report" localize] message:@"" delegate:self cancelButtonTitle:[@"Report" localize] otherButtonTitles: nil];
-    alertView.alertViewStyle = UIAlertViewStylePlainTextInput;
-    
-    [alertView localizeAllViews];
-    [alertView show];
-    //[[alertView textFieldAtIndex:0] resignFirstResponder];
+    self.view = self.explainReportView;
+    [self.reportDescTextView becomeFirstResponder];
 }
 
--(void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
+-(void)dismissKeyboardFromReportDescTextView:(id)sender
 {
-    UITextField *reportTxtField = [alertView textFieldAtIndex:0];
-    NSString *reportContent = reportTxtField.text;
-    
-    [self sendReportWithContent:reportContent];
-    [self backToChat];
+    [self.reportDescTextView resignFirstResponder];
 }
 
 -(void)backToChat
 {
     [self.navigationController.navigationBar setUserInteractionEnabled:YES];
     [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (IBAction)touchSendExplainReport:(id)sender {
+    [self sendReportWithContent:self.reportDescTextView.text];
+    [self backToChat];
+}
+- (IBAction)touchCancelExplainReport:(id)sender {
+    self.view = self.chooseReportView;
 }
 
 -(void)sendReportWithContent:(NSString *)content

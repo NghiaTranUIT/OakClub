@@ -840,7 +840,7 @@
         [langDesc addObject:lang.name];
     }
     
-    return [langDesc componentsJoinedByString:@","];
+    return [langDesc componentsJoinedByString:@", "];
 }
 #pragma mark request API
 -(void)resetUnreadMessageWithFriend:(Profile*)friend{
