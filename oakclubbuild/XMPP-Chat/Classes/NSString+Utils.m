@@ -26,7 +26,7 @@
 + (NSDate*) getDateWithString:(NSString*) timeStr
 {
     NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
-    [dateFormat setDateFormat:@"dd-MM-yyyy HH:mm:ss"];
+    [dateFormat setDateFormat:DATETIME_FORMAT];
     
     return [dateFormat dateFromString:timeStr];
 }
@@ -41,7 +41,7 @@
     //return [dateFormatter stringFromDate:nowUTC];
     
     NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
-    [dateFormat setDateFormat:@"dd-MM-yyyy HH:mm:ss"];
+    [dateFormat setDateFormat:DATETIME_FORMAT];
     
 	
     

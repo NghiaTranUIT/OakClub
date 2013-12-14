@@ -360,7 +360,7 @@ UITapGestureRecognizer *tap;
         [self.pickingViewController setTitle:[@"Birthdate" localize]];
         [self.navigationController pushViewController:self.pickingViewController animated:YES];
         NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
-        [dateFormat setDateFormat:@"MM/dd/yyyy"];
+        [dateFormat setDateFormat:DATE_FORMAT];
         NSDate *birth = [dateFormat dateFromString:profileObj.s_birthdayDate];
         [pickerView setDate:birth animated:YES];
         CGPoint bottomOffset = CGPointMake(0, 170);
@@ -595,7 +595,7 @@ UITapGestureRecognizer *tap;
 
 -(IBAction)onTouchUpDatePicker:(id)sender{
     NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
-    [dateFormat setDateFormat:@"MM/dd/yyyy"];
+    [dateFormat setDateFormat:DATE_FORMAT];
     NSString *theDate = [dateFormat stringFromDate:self.pickerView.date];
     profileObj.s_birthdayDate = theDate;
     [self updateProfileItemListAtIndex:theDate andIndex:BIRTHDATE];

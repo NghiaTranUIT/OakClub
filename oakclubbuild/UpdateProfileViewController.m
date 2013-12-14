@@ -221,7 +221,7 @@ enum UpdateProfileItems {
 -(void)gotoChooseBirthday
 {
     NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
-    [dateFormat setDateFormat:@"MM/dd/yyyy"];
+    [dateFormat setDateFormat:DATE_FORMAT];
     NSDate *birthDay = [dateFormat dateFromString:copyProfile.s_birthdayDate];
     [self.birthdayVC setCurrentDay:birthDay];
     [self.birthdayVC setDelegate:self];
@@ -326,7 +326,7 @@ enum UpdateProfileItems {
 -(void)dateChanged:(NSDate *)date
 {
     NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
-    [dateFormat setDateFormat:@"MM/dd/yyyy"];
+    [dateFormat setDateFormat:DATE_FORMAT];
     
     copyProfile.s_birthdayDate = [dateFormat stringFromDate:date];
     
@@ -428,7 +428,7 @@ enum UpdateProfileItems {
     [super viewDidLoad];
     
     dateFormat = [[NSDateFormatter alloc] init];
-    [dateFormat setDateFormat:@"MM/dd/yyyy"];
+    [dateFormat setDateFormat:DATE_FORMAT];
 }
 
 -(void)viewWillAppear:(BOOL)animated

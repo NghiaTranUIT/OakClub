@@ -300,6 +300,7 @@ CGFloat pageHeight;
     NSLog(@"Name of Next Profile : %@",temp.s_Name);
 }
 -(void)loadCurrentProfile{
+    NSLog(@"Current focus : %@", self.navigationController.viewControllers);
     [self.imgMainProfile setImage:[UIImage imageNamed:@"Default Avatar"]];
     if(currentIndex >= [profileList count])
     {
@@ -345,16 +346,6 @@ CGFloat pageHeight;
 //    self.navigationController.navigationBarHidden = NO;
     [self showNotifications];
     
-    //load profile list if needed
-    if( appDel.reloadSnapshot){
-        [self refreshSnapshotFocus:YES];
-        appDel.reloadSnapshot = FALSE;
-    }
-    else{
-        if ([profileList count]==0) {
-            [self showWarning:YES];
-        }
-    }
 }
 
 - (void)viewDidUnload
@@ -503,7 +494,7 @@ CGFloat pageHeight;
 -(void)addNewChatUser:(Profile*)newChat isMatchViewed:(BOOL)viewed{
     NSDate *currentDate = [[NSDate alloc] init];
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:@"MM/dd/yyyy"];
+    [dateFormatter setDateFormat:DATE_FORMAT];
     newChat.s_status_time =[dateFormatter stringFromDate:currentDate];
     NSString* s_jid = [NSString stringWithFormat:@"%@%@", newChat.s_ID, DOMAIN_AT];
     XMPPJID* xmpp_jid = [XMPPJID jidWithString:s_jid];

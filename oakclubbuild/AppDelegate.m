@@ -362,6 +362,8 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
     //    [self.rootVC setRootController:self.snapShoot animated:YES];
     //    [self.rootVC setContentViewController:self.snapShoot snapToContentViewController:YES animated:YES];
     activeVC = _simpleSnapShot;
+    AppDelegate *selfCopy = self;   // copy for retain cycle
+    VCSimpleSnapshot *VCSSnapshot = self.simpleSnapShot.viewControllers[0];
     [self.rootVC setFrontViewController:self.simpleSnapShot focusAfterChange:focus completion:^(BOOL finished) {
         if(!focus){
             [self.rootVC disableUserInteractionForContainedView];
@@ -523,6 +525,11 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
     self.myProfile = [[Profile alloc] init];
     [self.myProfile parseProfileWithData:data withFullName:YES];
     [self.myProfile getRosterListIDSync:^{
+        if (self.chat)
+        {
+            VCChat *vcChat = self.chat.viewControllers[0];
+            [vcChat loadFriendsInfo];
+        }
     }];
     [self.imagePool getImageAtURL:self.myProfile.s_Avatar withSize:PHOTO_SIZE_LARGE asycn:^(UIImage *img, NSError *error, bool isFirstLoad) {
         
