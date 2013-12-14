@@ -30,7 +30,7 @@
     LocationUpdate *locUpdate;
     
     BOOL isBlockedByGPS;
-    BOOL isLoading;
+    
     Profile* matchedProfile;
     NSOperationQueue *setLikedQueue;
     ImagePool *snapshotImagePool;
@@ -48,12 +48,13 @@
 @property (weak, nonatomic) IBOutlet UIButton *btnHeart;
 @property (weak, nonatomic) IBOutlet UIView *backgroundAvatarView;
 @property (nonatomic, strong) NSArray *pageImages;
+
 @end
 
 @implementation VCSimpleSnapshot
 CGFloat pageWidth;
 CGFloat pageHeight;
-@synthesize sv_photos,lbl_indexPhoto, lbl_mutualFriends, lbl_mutualLikes, buttonNO, buttonProfile, buttonYES, imgMutualFriend, imgMutualLike, buttonMAYBE ,lblName, lblAge ,lblPhotoCount, viewProfile,matchView, matchViewController, lblMatchAlert, imgMatcher, imgMyAvatar, imgMainProfile, imgNextProfile, imgLoading, popupFirstTimeView,imgAvatarFrame;
+@synthesize sv_photos,lbl_indexPhoto, lbl_mutualFriends, lbl_mutualLikes, buttonNO, buttonProfile, buttonYES, imgMutualFriend, imgMutualLike, buttonMAYBE ,lblName, lblAge ,lblPhotoCount, viewProfile,matchView, matchViewController, lblMatchAlert, imgMatcher, imgMyAvatar, imgMainProfile, imgNextProfile, imgLoading, popupFirstTimeView,imgAvatarFrame,isLoading;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -694,12 +695,13 @@ CGFloat pageHeight;
 }
 #pragma mark LOADING - animation
 -(void)startLoadingAnimFocus:(BOOL)focus{
+    isLoading = YES;
 //    [self stopWarning];
 //    loadingView = [[VCSimpleSnapshotLoading alloc]init];
     [appDel showSnapshotLoadingThenFocus:focus];
     VCSimpleSnapshotLoading* vc = [appDel.activeVC.viewControllers objectAtIndex:0];
     [vc setTypeOfAlert:0];
-    isLoading = YES;
+    
 //    [self.navigationController pushViewController:loadingView animated:NO];
 }
 
@@ -771,7 +773,17 @@ CGFloat pageHeight;
 #pragma mark App life cycle delegate
 -(void)applicationDidBecomeActive:(UIApplication *)application
 {
-    [self refreshSnapshotFocus:NO];
+    /*
+    UINavigationController* activeVC = [appDel activeViewController];
+    UIViewController* vc = [activeVC.viewControllers objectAtIndex:0];
+    PKRevealControllerState* state =  appDel.rootVC.state;
+    if(![vc isKindOfClass:[VCChat class]]){
+        [self refreshSnapshotFocus:NO];
+    }*/
+    PKRevealControllerState state =  appDel.rootVC.state;
+    if(state == PKRevealControllerFocusesFrontViewController){
+        [self refreshSnapshotFocus:NO];
+    }
 }
 
 -(BOOL)isContinueLoad

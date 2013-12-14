@@ -31,7 +31,8 @@
 #import "UIView+Localize.h"
 
 #import "AppLifeCycleDelegate.h"
-#import "APLMoveMeView.h"
+#import "VCSimpleSnapshot.h"
+
 NSString *const SCSessionStateChangedNotification =
 @"com.facebook.Scrumptious:SCSessionStateChangedNotification";
 @interface AppDelegate()
@@ -359,16 +360,31 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
     }];
 }
 -(void)showSimpleSnapshotThenFocus:(BOOL)focus{
+    PKRevealControllerState state =  self.rootVC.state;
+    if(state == PKRevealControllerFocusesRightViewController){
+        return;
+    }
     //    [self.rootVC setRootController:self.snapShoot animated:YES];
     //    [self.rootVC setContentViewController:self.snapShoot snapToContentViewController:YES animated:YES];
     activeVC = _simpleSnapShot;
     AppDelegate *selfCopy = self;   // copy for retain cycle
     VCSimpleSnapshot *VCSSnapshot = self.simpleSnapShot.viewControllers[0];
+    
     [self.rootVC setFrontViewController:self.simpleSnapShot focusAfterChange:focus completion:^(BOOL finished) {
-        if(!focus){
-            [self.rootVC disableUserInteractionForContainedView];
-            
+        //load profile list if needed
+        if(selfCopy.reloadSnapshot){
+            [VCSSnapshot refreshSnapshotFocus:focus];
+            selfCopy.reloadSnapshot = FALSE;
         }
+        if(!focus){
+            [self.rootVC.frontViewController.view setUserInteractionEnabled:NO];
+        }
+    }];
+}
+-(void)showSimpleSnapshot{
+    
+    activeVC = _simpleSnapShot;
+    [self.rootVC setFrontViewController:self.simpleSnapShot focusAfterChange:NO completion:^(BOOL finished) {
     }];
 }
 -(void)showSnapshotLoadingThenFocus:(BOOL)focus{
