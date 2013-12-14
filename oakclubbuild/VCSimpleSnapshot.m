@@ -627,6 +627,7 @@ CGFloat pageHeight;
     NSString *value = [[NSUserDefaults standardUserDefaults] objectForKey:@"currentSnapShotID"];
     if ([answerChoice isEqualToString:@"1"]) {
 //        [self showMatchView];// DEBUG
+//        return; //DEBUG
         for (int i=0; i < [appDel.likedMeList count]; i++) {
             NSString *s_profileID = [[appDel.likedMeList objectAtIndex:i] valueForKey:key_profileID];
             if([s_profileID isEqualToString:value]){
