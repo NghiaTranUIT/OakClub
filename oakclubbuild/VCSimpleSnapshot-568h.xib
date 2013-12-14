@@ -389,7 +389,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="15"/>
                                 <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <state key="normal" title="Pass" backgroundImage="Snapshot_popup_no.png">
+                                <state key="normal" backgroundImage="Snapshot_popup_no.png">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -418,7 +418,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="15"/>
                                 <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <state key="normal" title="Cancel" backgroundImage="Snapshot_popup_cancel.png">
+                                <state key="normal" backgroundImage="Snapshot_popup_cancel.png">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -446,7 +446,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="15"/>
                                 <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <state key="normal" title="Like" backgroundImage="Snapshot_popup_like.png">
+                                <state key="normal" backgroundImage="Snapshot_popup_like.png">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -475,7 +475,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="15"/>
                                 <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <state key="normal" title="Cancel" backgroundImage="Snapshot_popup_cancel.png">
+                                <state key="normal" backgroundImage="Snapshot_popup_cancel.png">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -499,6 +499,10 @@
             <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
+                <outlet property="btnCancelLike" destination="I6B-ZH-rci" id="YWn-8J-Y1B"/>
+                <outlet property="btnCancelPass" destination="dwS-1R-e4V" id="hcF-cI-12e"/>
+                <outlet property="btnLike" destination="toj-ca-w6R" id="9vI-9Z-FqX"/>
+                <outlet property="btnPass" destination="NgB-iu-oks" id="CEe-UW-dNG"/>
                 <outlet property="lblLikeTurotial" destination="gWh-0V-v8Q" id="acW-iD-Dv2"/>
                 <outlet property="lblNopeTurotial" destination="f7S-Vm-ATS" id="aII-BR-Foh"/>
                 <outlet property="likePopupView" destination="xmA-N4-VKs" id="RqV-eE-f9z"/>

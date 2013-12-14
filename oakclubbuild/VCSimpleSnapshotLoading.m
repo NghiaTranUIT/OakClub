@@ -151,7 +151,7 @@
     activityViewController.excludedActivityTypes = @[UIActivityTypePostToWeibo, UIActivityTypeAssignToContact,UIActivityTypePrint,UIActivityTypeCopyToPasteboard,UIActivityTypeSaveToCameraRoll];
     [self presentViewController:activityViewController animated:YES completion:nil];
 }
-
+/*
 #pragma mark handle onTouch in button
 - (void)menuPressed:(id)sender {
     NSLog(@"openMenu");
@@ -170,7 +170,7 @@
     appDel.rootVC.recognizesPanningOnFrontView = YES;
     [appDel.rootVC showViewController:appDel.chat];
 }
-
+*/
 #pragma mark notification
 -(NavBarOakClub*)navBarOakClub
 {

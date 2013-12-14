@@ -505,8 +505,8 @@
             <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
-                <outlet property="btnCancalPass" destination="dwS-1R-e4V" id="Gja-q7-FeW"/>
                 <outlet property="btnCancelLike" destination="I6B-ZH-rci" id="2It-Of-bQb"/>
+                <outlet property="btnCancelPass" destination="dwS-1R-e4V" id="MgE-tm-IG5"/>
                 <outlet property="btnLike" destination="toj-ca-w6R" id="ub1-rr-XOI"/>
                 <outlet property="btnPass" destination="NgB-iu-oks" id="qle-3y-j9N"/>
                 <outlet property="lblLikeTurotial" destination="gWh-0V-v8Q" id="acW-iD-Dv2"/>

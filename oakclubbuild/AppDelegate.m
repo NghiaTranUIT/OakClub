@@ -31,7 +31,7 @@
 #import "UIView+Localize.h"
 
 #import "AppLifeCycleDelegate.h"
-
+#import "APLMoveMeView.h"
 NSString *const SCSessionStateChangedNotification =
 @"com.facebook.Scrumptious:SCSessionStateChangedNotification";
 @interface AppDelegate()
@@ -363,6 +363,10 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
     //    [self.rootVC setContentViewController:self.snapShoot snapToContentViewController:YES animated:YES];
     activeVC = _simpleSnapShot;
     [self.rootVC setFrontViewController:self.simpleSnapShot focusAfterChange:focus completion:^(BOOL finished) {
+        if(!focus){
+            [self.rootVC disableUserInteractionForContainedView];
+            
+        }
     }];
 }
 -(void)showSnapshotLoadingThenFocus:(BOOL)focus{

@@ -581,9 +581,9 @@ CGFloat pageHeight;
                         [stamp setAlpha:1.0f];
                          stamp.transform = CGAffineTransformIdentity;
                      }completion:^(BOOL finished) {
-                         if([self.moveMeView getAnswer] == -1)
-                             [self.moveMeView animatePlacardViewByAnswer:-1 andDuration:0.5f];
-                         else
+//                         if([self.moveMeView getAnswer] == -1)
+//                             [self.moveMeView animatePlacardViewByAnswer:-1 andDuration:0.5f];
+//                         else
                              [self.moveMeView animatePlacardViewByAnswer:choose andDuration:0.5f];
                      }];
     [self setLikedSnapshot:[NSString stringWithFormat:@"%i",choose]];
@@ -591,11 +591,11 @@ CGFloat pageHeight;
 
 -(void)setLikedSnapshot:(NSString*)answerChoice{
     int isFirstTime = [[[NSUserDefaults standardUserDefaults] objectForKey:key_isFirstSnapshot] integerValue];
-//    if(isFirstTime==0 || (isFirstTime < 4 &&
-//        ( (isFirstTime == interestedStatusNO && [answerChoice integerValue] == interestedStatusYES)
-//           || (isFirstTime == interestedStatusYES && [answerChoice integerValue]== interestedStatusNO)
-//        )
-//       ))
+    if(isFirstTime==0 || (isFirstTime < 4 &&
+        ( (isFirstTime == interestedStatusNO && [answerChoice integerValue] == interestedStatusYES)
+           || (isFirstTime == interestedStatusYES && [answerChoice integerValue]== interestedStatusNO)
+        )
+       ))
     {
         [[self navBarOakClub] disableAllControl: YES];
         appDel.rootVC.recognizesPanningOnFrontView = NO;
