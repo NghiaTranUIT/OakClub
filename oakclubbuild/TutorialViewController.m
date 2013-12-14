@@ -210,6 +210,7 @@
         }
         case 2:
         {
+            CGFloat textWidth = 120;
             UILabel *content1Label = [[UILabel alloc] init];
             UILabel *content2Label = [[UILabel alloc] init];
             [content1Label setText: @""];
@@ -221,8 +222,11 @@
             [content1Label setLineBreakMode: NSLineBreakByWordWrapping];
             [content1Label setNumberOfLines: 4];
             [content1Label setText: content1String];
-            [content1Label setFrame: CGRectMake((image.frame.size.width)/2, 53, 160, 100)];
             [content1Label setFont: FONT_HELVETICANEUE_LIGHT(20)];
+            CGSize size1 = [content1Label.text sizeWithFont:content1Label.font
+                                          constrainedToSize:CGSizeMake(textWidth, MAXFLOAT)
+                                              lineBreakMode:NSLineBreakByWordWrapping];
+            [content1Label setFrame: CGRectMake((image.frame.size.width)/2, 53, size1.width, size1.height)];
             [content1Label setTextAlignment: NSTextAlignmentLeft];
             [content1Label setBackgroundColor: [UIColor clearColor]];
             [content1Label setTextColor: [UIColor whiteColor]];
@@ -230,16 +234,19 @@
             [content2Label setLineBreakMode: NSLineBreakByWordWrapping];
             [content2Label setNumberOfLines: 5];
             [content2Label setText: content2String];
-            [content2Label setFrame: CGRectMake((image.frame.size.width)/2, 190, 160, 120)];
             [content2Label setFont: FONT_HELVETICANEUE_LIGHT(20)];
+            CGSize size2 = [content2Label.text sizeWithFont:content2Label.font
+                                          constrainedToSize:CGSizeMake(textWidth, MAXFLOAT)
+                                              lineBreakMode:NSLineBreakByWordWrapping];
+            [content2Label setFrame: CGRectMake((image.frame.size.width)/2, 190, size2.width, size2.height)];
             [content2Label setTextAlignment: NSTextAlignmentLeft];
             [content2Label setBackgroundColor: [UIColor clearColor]];
             [content2Label setTextColor: [UIColor whiteColor]];
             
             if(IS_HEIGHT_GTE_568)
             {
-                [content1Label setFrame: CGRectMake(3 * (image.frame.size.width)/ 5, 55, 120, 100)];
-                [content2Label setFrame: CGRectMake(3 * (image.frame.size.width)/ 5, 235, 120, 120)];
+                [content1Label setFrame: CGRectMake(3 * (image.frame.size.width)/ 5, 55, size1.width, size1.height)];
+                [content2Label setFrame: CGRectMake(3 * (image.frame.size.width)/ 5, 235, size2.width, size2.height)];
             }
             [image addSubview: content1Label];
             [image addSubview: content2Label];
