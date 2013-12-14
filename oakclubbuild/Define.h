@@ -9,7 +9,6 @@
 #ifndef oakclubbuild_Define_h
 #define oakclubbuild_Define_h
 
-#define VersionNumber @"1.2.0"
 //demo version FLAG
 #define ENABLE_DEMO true
 #define USE_STAGING false
@@ -17,7 +16,7 @@
 #define USE_STAGING_MB true
 #define USE_STAGING_IOS false
 
-#define DAN_CHEAT true	
+#define DAN_CHEAT true
 
 //===============FLAG FOR ENABLE/DISABLE FEATURES============
 //disable hereTo and show me in Snapshot Settings
