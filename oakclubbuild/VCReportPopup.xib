@@ -177,29 +177,15 @@
     </objects>
     <resources>
         <image name="Report_bottomItem_active.png" width="299" height="45"/>
-        <image name="Report_bottomItem_active.png" width="299" height="45"/>
         <image name="Report_bottomItem_inactive.png" width="299" height="45"/>
         <image name="Report_btn_active.png" width="310" height="55"/>
-        <image name="Report_btn_active.png" width="310" height="55"/>
-        <image name="Report_btn_active.png" width="310" height="55"/>
-        <image name="Report_btn_active.png" width="310" height="55"/>
-        <image name="Report_btn_active.png" width="310" height="55"/>
-        <image name="Report_btn_active.png" width="310" height="55"/>
-        <image name="Report_btn_active.png" width="310" height="55"/>
-        <image name="Report_btn_active.png" width="310" height="55"/>
-        <image name="Report_btn_block_inactive.png" width="310" height="55"/>
         <image name="Report_btn_block_inactive.png" width="310" height="55"/>
         <image name="Report_btn_cancel_inactive.png" width="310" height="55"/>
-        <image name="Report_btn_cancel_inactive.png" width="310" height="55"/>
-        <image name="Report_midleItem_active.png" width="299" height="45"/>
         <image name="Report_midleItem_active.png" width="299" height="45"/>
         <image name="Report_midleItem_inactive.png" width="299" height="45"/>
         <image name="Report_separators.png" width="299" height="1"/>
-        <image name="Report_separators.png" width="299" height="1"/>
-        <image name="Report_topItem_active.png" width="299" height="45"/>
         <image name="Report_topItem_active.png" width="299" height="45"/>
         <image name="Report_topItem_inactive.png" width="299" height="45"/>
-        <image name="trans-bg.png" width="320" height="480"/>
         <image name="trans-bg.png" width="320" height="480"/>
     </resources>
 </document>

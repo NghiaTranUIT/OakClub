@@ -521,8 +521,7 @@ int cellCountinSection=0;
             Profile* profile =[appDel.myProfile.dic_Roster valueForKey:jid];
             if(profile == nil)
                 continue;
-            bool v_isMatch = profile.is_match;
-            if ([self isValidFriendWithMatch:v_isMatch])
+            if ([self isValidFriendWithMatch:profile])
             {
                 bool isContained = NO;
                 for (NSString *_jid in friendChatIDs)
@@ -588,15 +587,15 @@ int cellCountinSection=0;
     return friendChatIDs.count;
 }
 
-- (BOOL) isValidFriendWithMatch:(BOOL)isMatch
+- (BOOL) isValidFriendWithMatch:(Profile *)friend
 {
     if (self.searchBar.selectedScopeButtonIndex == 0)
     {
-        return isMatch;
+        return friend.is_match;
     }
     else if (self.searchBar.selectedScopeButtonIndex == 1)
     {
-        return !isMatch;
+        return friend.is_vip;
     }
     
     return  true;

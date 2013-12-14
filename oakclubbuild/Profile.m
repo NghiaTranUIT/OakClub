@@ -28,7 +28,7 @@
 @synthesize is_deleted;
 @synthesize is_blocked;
 @synthesize is_available;
-@synthesize is_match;
+@synthesize is_match, is_vip;
 @synthesize unread_message;
 @synthesize status;
 
@@ -505,6 +505,7 @@
                 profile.is_blocked = blocked;
                 profile.status =[[objectData valueForKey:@"status"] intValue];
                 profile.is_match = [[objectData valueForKey:@"matches"] boolValue];
+                profile.is_vip = [[objectData valueForKey:@"is_vip"] boolValue];
                 profile.s_status_time = [objectData valueForKey:@"time"];
                 profile.s_Name =[objectData valueForKey:@"name"];
                 profile.s_Avatar = [objectData valueForKey:@"avatar"];
@@ -797,6 +798,7 @@
     accountCopy.is_blocked = is_blocked ;
     accountCopy.is_available = is_available ;
     accountCopy.is_match = is_match;
+    accountCopy.is_vip = is_vip;
     accountCopy.status = status;
     accountCopy.unread_message = unread_message;
     accountCopy.distance = distance;
