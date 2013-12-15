@@ -349,7 +349,7 @@ CGFloat pageHeight;
     
     if(!appDel.reloadSnapshot){
         if([profileList count]==0){
-            [self showWarning:NO];
+            [self showWarning:YES];
         }
             
     }
@@ -723,14 +723,14 @@ CGFloat pageHeight;
 }
 
 - (void)showWarning:(BOOL)focus{
-//    [self stopLoadingAnim];
-//    loadingView = [[VCSimpleSnapshotLoading alloc]init];
-//    [loadingView.view setFrame:CGRectMake(0, 0, 320, 480)];
-//    [loadingView setTypeOfAlert:1 andAnim:loadingAnim];
-    [appDel showSnapshotLoadingThenFocus:focus];
-    VCSimpleSnapshotLoading* vc = [appDel.activeVC.viewControllers objectAtIndex:0];
-    [vc setTypeOfAlert:1 /*andAnim:loadingAnim*/];
-//    [self.navigationController pushViewController:loadingView animated:NO];
+    if(isBlockedByGPS){
+        [self startDisabledGPS:YES];
+    }
+    else{
+        [appDel showSnapshotLoadingThenFocus:focus];
+        VCSimpleSnapshotLoading* vc = [appDel.activeVC.viewControllers objectAtIndex:0];
+        [vc setTypeOfAlert:1 /*andAnim:loadingAnim*/];
+    }
 }
 
 -(void)stopWarning

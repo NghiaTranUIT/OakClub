@@ -145,7 +145,7 @@
 //            [imgLoading setImage:[UIImage imageNamed:@"SnapshotLoading_graymap_loaded.png"]];
 //            [self.view addSubview:imgLoading];
             [btnContentAlert setHidden:YES];
-            [lblContentAlert setText:[@"Location setting is disabled" localize]];
+            [lblContentAlert setText:[NSString stringWithFormat:@"GPS : %@",[@"OFF" localize]] ];
         }
         default:
             break;
