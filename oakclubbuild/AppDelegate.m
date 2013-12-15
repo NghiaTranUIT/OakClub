@@ -32,7 +32,7 @@
 
 #import "AppLifeCycleDelegate.h"
 #import "VCSimpleSnapshot.h"
-
+#import "VCSimpleSnapshotLoading.h"
 NSString *const SCSessionStateChangedNotification =
 @"com.facebook.Scrumptious:SCSessionStateChangedNotification";
 @interface AppDelegate()
@@ -360,15 +360,24 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
     }];
 }
 -(void)showSimpleSnapshotThenFocus:(BOOL)focus{
+    
+    AppDelegate *selfCopy = self;   // copy for retain cycle
+    VCSimpleSnapshot *VCSSnapshot = self.simpleSnapShot.viewControllers[0];
+    
+    UIViewController* vc = [activeVC.viewControllers objectAtIndex:0];
+    if( ![vc isKindOfClass:[VCSimpleSnapshotLoading class]] && !focus)
+    {
+        if(selfCopy.reloadSnapshot){
+            [VCSSnapshot refreshSnapshotFocus:focus];
+            selfCopy.reloadSnapshot = FALSE;
+        }
+        return;
+    }
+    activeVC = _simpleSnapShot;
     PKRevealControllerState state =  self.rootVC.state;
     if(state == PKRevealControllerFocusesRightViewController){
         return;
     }
-    //    [self.rootVC setRootController:self.snapShoot animated:YES];
-    //    [self.rootVC setContentViewController:self.snapShoot snapToContentViewController:YES animated:YES];
-    activeVC = _simpleSnapShot;
-    AppDelegate *selfCopy = self;   // copy for retain cycle
-    VCSimpleSnapshot *VCSSnapshot = self.simpleSnapShot.viewControllers[0];
     
     [self.rootVC setFrontViewController:self.simpleSnapShot focusAfterChange:focus completion:^(BOOL finished) {
         //load profile list if needed
