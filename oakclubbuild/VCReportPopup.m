@@ -66,7 +66,9 @@
 }
 - (IBAction)onTouchBlockThisUser:(id)sender
 {
-    [self.navigationController pushViewController:self.makeSureBlockVC animated:YES];
+    //[self.navigationController pushViewController:self.makeSureBlockVC animated:YES];
+    [self sendBlockReport];
+    [self backToChat];
 }
 
 - (IBAction)onTouchSendReport:(id)sender
@@ -117,7 +119,6 @@
 }
 - (IBAction)onTouchSureBlock:(id)sender {
     [self sendBlockReport];
-    
     [self backToChat];
 }
 
