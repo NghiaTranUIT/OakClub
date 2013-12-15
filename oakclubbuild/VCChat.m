@@ -772,7 +772,7 @@ int cellCountinSection=0;
             //            [self.navigationController presentModalViewController:chatController animated:animated];
             //        }
             //        else{
-            [self.navigationController pushViewController:chatController animated:animated];
+            [appDel.chat pushViewController:chatController animated:animated];
             //        }
         }
     }];

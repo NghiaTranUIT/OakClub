@@ -375,7 +375,8 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
     }
     activeVC = _simpleSnapShot;
     PKRevealControllerState state =  self.rootVC.state;
-    if(state == PKRevealControllerFocusesRightViewController){
+//    UIViewController* vchat = [self.chat.viewControllers objectAtIndex:0]; //DEBUG
+    if(state == PKRevealControllerFocusesRightViewController && [[self.chat viewControllers] count] > 1){
         return;
     }
     
@@ -385,7 +386,7 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
             [VCSSnapshot refreshSnapshotFocus:focus];
             selfCopy.reloadSnapshot = FALSE;
         }
-        if(!focus){
+        if(!focus && self.rootVC.state != PKRevealControllerFocusesFrontViewController){
             [self.rootVC.frontViewController.view setUserInteractionEnabled:NO];
         }
     }];
