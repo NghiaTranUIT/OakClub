@@ -184,9 +184,9 @@
             
             if(IS_HEIGHT_GTE_568)
             {
-                [content1Label setFrame: CGRectMake(3, 75, 240, 100)];
-                [content2Label setFrame: CGRectMake(70, 170, 250, 70)];
-                [content3Label setFrame: CGRectMake(10, 310, self.view.frame.size.width - 20, 70)];
+                [content1Label setFrame: CGRectMake(10, 75, size1.width, size1.height)];
+                [content2Label setFrame: CGRectMake(100, 170, size2.width, size2.height)];
+                [content3Label setFrame: CGRectMake(10, 310, size3.width, size3.height)];
             }
             
             [image addSubview: content1Label];

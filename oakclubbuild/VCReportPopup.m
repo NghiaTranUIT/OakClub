@@ -18,10 +18,15 @@
 @property (strong, nonatomic) IBOutlet UIView *explainReportView;
 @property (weak, nonatomic) IBOutlet UITextView *reportDescTextView;
 @property (strong, nonatomic) IBOutlet UIView *chooseReportView;
+@property (strong, nonatomic) IBOutlet UIViewController *explainReportVC;
+@property (strong, nonatomic) IBOutlet UIViewController *makeSureReportVC;
+@property (strong, nonatomic) IBOutlet UIViewController *makeSureBlockVC;
 @end
 
 @implementation VCReportPopup
-
+{
+    NSString *reportContent;
+}
 -(id)initWithProfileID:(NSString *)_profileID
 {
     self = [super init];
@@ -61,19 +66,18 @@
 }
 - (IBAction)onTouchBlockThisUser:(id)sender
 {
-    [self sendBlockReport];
-    [self backToChat];
+    [self.navigationController pushViewController:self.makeSureBlockVC animated:YES];
 }
 
 - (IBAction)onTouchSendReport:(id)sender
 {
-    [self sendReportWithContent:[sender title]];
-    [self backToChat];
+    reportContent = [sender title];
+    [self makeSureSendReport];
 }
 
 - (IBAction)onTouchExplainReport:(id)sender
 {
-    self.view = self.explainReportView;
+    [self.navigationController pushViewController:self.explainReportVC animated:YES];
     [self.reportDescTextView becomeFirstResponder];
 }
 
@@ -85,15 +89,36 @@
 -(void)backToChat
 {
     [self.navigationController.navigationBar setUserInteractionEnabled:YES];
-    [self.navigationController popViewControllerAnimated:YES];
+    [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
 - (IBAction)touchSendExplainReport:(id)sender {
-    [self sendReportWithContent:self.reportDescTextView.text];
+    reportContent = self.reportDescTextView.text;
+    [self makeSureSendReport];
+}
+
+- (IBAction)touchCancelExplainReport:(id)sender {
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+-(void)makeSureSendReport
+{
+    [self.navigationController pushViewController:self.makeSureReportVC animated:YES];
+}
+- (IBAction)onTouchSureReport:(id)sender {
+    if (reportContent)
+    {
+        [self sendReportWithContent:reportContent];
+        
+        reportContent = nil;
+    }
+    
     [self backToChat];
 }
-- (IBAction)touchCancelExplainReport:(id)sender {
-    self.view = self.chooseReportView;
+- (IBAction)onTouchSureBlock:(id)sender {
+    [self sendBlockReport];
+    
+    [self backToChat];
 }
 
 -(void)sendReportWithContent:(NSString *)content

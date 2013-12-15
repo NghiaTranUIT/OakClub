@@ -70,7 +70,9 @@
 #define key_appLanguage @"appLanguage"
 #define key_ChosenLanguage @"appChosenLanguage"
 //============== application value =============
-#define flagLanguage YES
+#define flagLanguage true
+
+
 #define value_appLanguage_VI @"vi" //Vietnamese
 #define value_appLanguage_EN @"en" //English
 #define value_appLanguage_DE @"de" //Germany
@@ -79,6 +81,7 @@
 #define value_appLanguage_TR @"tr" //Turkish
 #define value_appLanguage_FR @"fr" //France
 #define value_appLanguage_ES @"es" //Espano
+#if flagLanguage
 #define AppLanguageList ([NSDictionary dictionaryWithObjectsAndKeys:\
                                 @"Vietnamese", value_appLanguage_VI,\
                                 @"English", value_appLanguage_EN,\
@@ -87,6 +90,15 @@
                                 @"Thai", value_appLanguage_TH,\
                                 @"Türk", value_appLanguage_TR,\
                                 nil])
+#else
+#define AppLanguageList ([NSDictionary dictionaryWithObjectsAndKeys:\
+                                @"Vietnamese", value_appLanguage_VI,\
+                                @"English", value_appLanguage_EN,\
+                                @"Deutsch", value_appLanguage_DE,\
+                                @"Indonesia", value_appLanguage_ID,\
+                                nil])
+#endif
+
 //============== APIs =============
 #define DOMAIN_AT @"@oakclub.com"
 #define DOMAIN_AT_FMT @"%@@oakclub.com"

@@ -63,7 +63,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1577"
             endingLineNumber = "1577"
-            landmarkName = "-tryLoginWithSuccess:failure:"
+            landmarkName = "-xmppRoster:didReceiveBuddyRequest:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -223,8 +223,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1591"
             endingLineNumber = "1591"
-            landmarkName = "-tryLoginWithSuccess:failure:"
-            landmarkType = "5">
+            landmarkName = "@implementation AppDelegate"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -255,7 +255,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "686"
             endingLineNumber = "686"
-            landmarkName = "-loadFBUserInfo:"
+            landmarkName = "-openSessionWithWebDialogWithhandler:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -271,7 +271,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "688"
             endingLineNumber = "688"
-            landmarkName = "-loadFBUserInfo:"
+            landmarkName = "-openSessionWithWebDialogWithhandler:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -319,7 +319,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1680"
             endingLineNumber = "1680"
-            landmarkName = "-popSnapshotQueue"
+            landmarkName = "-tryLoginWithSuccess:failure:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -367,7 +367,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "784"
             endingLineNumber = "784"
-            landmarkName = "-animationDidStop:andAnswerType:"
+            landmarkName = "-applicationDidBecomeActive:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -399,7 +399,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "379"
             endingLineNumber = "379"
-            landmarkName = "-showSnapshotLoadingThenFocus:"
+            landmarkName = "-showSimpleSnapshotThenFocus:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -416,6 +416,22 @@
             startingLineNumber = "133"
             endingLineNumber = "133"
             landmarkName = "-initWithUser:withProfile:withAvatar:withMessages:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "oakclubbuild/SCLoginViewController.m"
+            timestampString = "408776556.996398"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "220"
+            endingLineNumber = "220"
+            landmarkName = "-tryLogin"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
