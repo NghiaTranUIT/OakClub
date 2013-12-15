@@ -16,7 +16,7 @@
 #define USE_STAGING_MB false
 #define USE_STAGING_IOS false
 
-#define DAN_CHEAT true	
+#define DAN_CHEAT false
 
 //===============FLAG FOR ENABLE/DISABLE FEATURES============
 //disable hereTo and show me in Snapshot Settings
@@ -24,7 +24,7 @@
 //disable policty
 #define DISABLE_POCLICY TRUE
 // enable Select location manually
-#define ENABLE_LOCATION_MANUALLY
+//#define ENABLE_LOCATION_MANUALLY
 //Hangout
 #define sOnline @"Online"
 #define LOG_HTTP false

@@ -749,6 +749,11 @@ int cellCountinSection=0;
     //SMChatViewController *chatController = [[SMChatViewController alloc] initWithUser:userName];
     [appDel.imagePool getImageAtURL:profile.s_Avatar withSize:PHOTO_SIZE_SMALL asycn:^(UIImage *img, NSError *error, bool isFirstLoad) {
         NSMutableArray* array = [a_messages valueForKey:profile.s_ID];
+        if (!array)
+        {
+            array = [[NSMutableArray alloc] init];
+            [a_messages setObject:array forKey:profile.s_ID];
+        }
         
         if (array  || profile.status <= MatchViewed)
         {

@@ -385,6 +385,8 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
     
     activeVC = _simpleSnapShot;
     [self.rootVC setFrontViewController:self.simpleSnapShot focusAfterChange:NO completion:^(BOOL finished) {
+        
+            [self.rootVC.frontViewController.view setUserInteractionEnabled:NO];
     }];
 }
 -(void)showSnapshotLoadingThenFocus:(BOOL)focus{
