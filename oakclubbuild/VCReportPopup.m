@@ -71,7 +71,9 @@
 }
 - (IBAction)onTouchBlockThisUser:(id)sender
 {
-    [self.navigationController pushViewController:self.makeSureBlockVC animated:YES];
+    //[self.navigationController pushViewController:self.makeSureBlockVC animated:YES];
+    [self sendBlockReport];
+    [self backToChat];
 }
 
 - (IBAction)onTouchSendReport:(id)sender
@@ -83,7 +85,10 @@
 - (IBAction)onTouchExplainReport:(id)sender
 {
     [self.navigationController pushViewController:self.explainReportVC animated:YES];
+    [self.explainReportVC.view localizeAllViews];
     [self.reportDescTextView becomeFirstResponder];
+    
+    [self.navigationController.navigationItem setHidesBackButton:YES];
 }
 
 -(void)dismissKeyboardFromReportDescTextView:(id)sender
@@ -94,7 +99,7 @@
 -(void)backToChat
 {
     [self.navigationController.navigationBar setUserInteractionEnabled:YES];
-    [self.navigationController popToRootViewControllerAnimated:YES];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (IBAction)touchSendExplainReport:(id)sender {
@@ -109,6 +114,9 @@
 -(void)makeSureSendReport
 {
     [self.navigationController pushViewController:self.makeSureReportVC animated:YES];
+    [self.makeSureReportVC.view localizeAllViews];
+    
+    [self.navigationController.navigationItem setHidesBackButton:YES];
 }
 - (IBAction)onTouchSureReport:(id)sender {
     if (reportContent)
@@ -122,7 +130,6 @@
 }
 - (IBAction)onTouchSureBlock:(id)sender {
     [self sendBlockReport];
-    
     [self backToChat];
 }
 
@@ -171,6 +178,18 @@
      }];
     
     [operation start];
+}
+
+@end
+
+@implementation VCReportMore
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self.view localizeAllViews];
+    
+    self.navigationItem.hidesBackButton = YES;
 }
 
 @end

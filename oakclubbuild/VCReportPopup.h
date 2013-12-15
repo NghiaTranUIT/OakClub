@@ -7,7 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Profile.h"
 
 @interface VCReportPopup : UIViewController
--(id)initWithProfileID:(NSString *)_profileID;
+-(id)initWithProfileID:(Profile *)_profile;
+@end
+
+@interface VCReportMore : UIViewController
+
 @end
