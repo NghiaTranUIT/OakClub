@@ -11,8 +11,8 @@
 
 //demo version FLAG
 #define ENABLE_DEMO true
-#define USE_STAGING true
-#define USE_MAINHOST false
+#define USE_STAGING false
+#define USE_MAINHOST true
 #define USE_STAGING_MB false
 #define USE_STAGING_IOS false
 
@@ -37,7 +37,6 @@
 //================ service API link ================
 //#define DOMAIN @"http://staging.oakclub.com/app_dev.php"
 
-#define URL_PHOTO @"http://staging.oakclub.com/load_photo.php"
 #define PHOTO_SIZE_LARGE CGSizeMake(0, 0)
 #define PHOTO_SIZE_SMALL CGSizeMake(100, 100)
 
@@ -47,24 +46,28 @@
 #define DOMAIN @"http://staging.oakclub.com"
 #define DOMAIN_DATA @"http://data1.oakclub.com/"
 #define MAX_UPLOAD_SIZE 8192000 //~8MB
+#define URL_PHOTO @"http://staging.oakclub.com/load_photo.php"
 #endif
 #if USE_MAINHOST
 #define HOSTNAME @"xmpp.oakclub.com"
 #define DOMAIN @"https://oakclub.com"
 #define DOMAIN_DATA @"http://data2.oakclub.com/" //data2
 #define MAX_UPLOAD_SIZE 3072000 //~3MB
+#define URL_PHOTO @"http://oakclub.com/load_photo.php"
 #endif
 #if USE_STAGING_MB
 #define HOSTNAME @"staging.oakclub.com"
 #define DOMAIN @"http://staging-mb.oakclub.com"
 #define DOMAIN_DATA @"http://data1.oakclub.com/"
 #define MAX_UPLOAD_SIZE 8192000 //~8MB
+#define URL_PHOTO @"http://staging.oakclub.com/load_photo.php"
 #endif
 #if USE_STAGING_IOS
 #define HOSTNAME @"staging.oakclub.com"
 #define DOMAIN @"http://staging-ios.oakclub.com"
 #define DOMAIN_DATA @"http://data1.oakclub.com/"
 #define MAX_UPLOAD_SIZE 8192000 //~8MB
+#define URL_PHOTO @"http://staging.oakclub.com/load_photo.php"
 #endif
 //============== application key =============
 #define key_appLanguage @"appLanguage"
