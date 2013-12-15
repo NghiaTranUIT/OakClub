@@ -11,12 +11,12 @@
 
 //demo version FLAG
 #define ENABLE_DEMO true
-#define USE_STAGING false
+#define USE_STAGING true
 #define USE_MAINHOST false
-#define USE_STAGING_MB true
+#define USE_STAGING_MB false
 #define USE_STAGING_IOS false
 
-#define DAN_CHEAT false
+#define DAN_CHEAT true	
 
 //===============FLAG FOR ENABLE/DISABLE FEATURES============
 //disable hereTo and show me in Snapshot Settings
@@ -213,6 +213,9 @@
 #define key_index @"index"
 
 #define key_snapshotQueue @"snapshotQueueByProfileID"
+
+#define DATE_FORMAT @"MM/dd/yyyy"
+#define DATETIME_FORMAT @"MM/dd/yyyy HH:mm:ss"
 //================ service API values ================
 #define value_online @"Online"
 #define value_offline @"Offline"

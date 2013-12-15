@@ -27,5 +27,6 @@
 
 - (IBAction)pushTest:(id)sender;
 //@property (strong, nonatomic) IBOutlet RootViewController *tbVC_ChatList;
+-(void)loadFriendsInfo;
 -(void)reloadFriendList;
 @end

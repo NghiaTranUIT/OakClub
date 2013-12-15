@@ -42,11 +42,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "oakclubbuild/VCSimpleSnapshot.m"
-            timestampString = "408686878.472029"
+            timestampString = "408704787.475137"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "582"
-            endingLineNumber = "582"
+            startingLineNumber = "578"
+            endingLineNumber = "578"
             landmarkName = "-doAnswer:"
             landmarkType = "5">
          </BreakpointContent>
@@ -58,11 +58,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "oakclubbuild/AppDelegate.m"
-            timestampString = "408611744.579285"
+            timestampString = "408708663.763183"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1564"
-            endingLineNumber = "1564"
+            startingLineNumber = "1577"
+            endingLineNumber = "1577"
             landmarkName = "-tryLoginWithSuccess:failure:"
             landmarkType = "5">
          </BreakpointContent>
@@ -74,11 +74,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "oakclubbuild/AppDelegate.m"
-            timestampString = "408687860.682896"
+            timestampString = "408708663.763183"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1646"
-            endingLineNumber = "1646"
+            startingLineNumber = "1659"
+            endingLineNumber = "1659"
             landmarkName = "-tryLoginWithSuccess:failure:"
             landmarkType = "5">
          </BreakpointContent>
@@ -202,11 +202,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "oakclubbuild/AppDelegate.m"
-            timestampString = "408611744.579285"
+            timestampString = "408708663.763183"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1580"
-            endingLineNumber = "1580"
+            startingLineNumber = "1593"
+            endingLineNumber = "1593"
             landmarkName = "-tryLoginWithSuccess:failure:"
             landmarkType = "5">
          </BreakpointContent>
@@ -218,11 +218,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "oakclubbuild/AppDelegate.m"
-            timestampString = "408611744.579285"
+            timestampString = "408708663.763183"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1578"
-            endingLineNumber = "1578"
+            startingLineNumber = "1591"
+            endingLineNumber = "1591"
             landmarkName = "-tryLoginWithSuccess:failure:"
             landmarkType = "5">
          </BreakpointContent>
@@ -234,11 +234,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "oakclubbuild/AppDelegate.m"
-            timestampString = "408611744.579285"
+            timestampString = "408708663.763183"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1584"
-            endingLineNumber = "1584"
+            startingLineNumber = "1597"
+            endingLineNumber = "1597"
             landmarkName = "-tryLoginWithSuccess:failure:"
             landmarkType = "5">
          </BreakpointContent>
@@ -250,11 +250,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "oakclubbuild/AppDelegate.m"
-            timestampString = "408602768.340454"
+            timestampString = "408708663.763183"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "673"
-            endingLineNumber = "673"
+            startingLineNumber = "686"
+            endingLineNumber = "686"
             landmarkName = "-loadFBUserInfo:"
             landmarkType = "5">
          </BreakpointContent>
@@ -266,11 +266,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "oakclubbuild/AppDelegate.m"
-            timestampString = "408602768.340454"
+            timestampString = "408708663.763183"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "675"
-            endingLineNumber = "675"
+            startingLineNumber = "688"
+            endingLineNumber = "688"
             landmarkName = "-loadFBUserInfo:"
             landmarkType = "5">
          </BreakpointContent>
@@ -298,27 +298,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "oakclubbuild/AppDelegate.m"
-            timestampString = "408602768.340454"
+            timestampString = "408708663.763183"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "521"
-            endingLineNumber = "521"
-            landmarkName = "-parseProfileWithData:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "oakclubbuild/AppDelegate.m"
-            timestampString = "408687860.682896"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1657"
-            endingLineNumber = "1657"
+            startingLineNumber = "1670"
+            endingLineNumber = "1670"
             landmarkName = "-tryLoginWithSuccess:failure:"
             landmarkType = "5">
          </BreakpointContent>
@@ -330,11 +314,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "oakclubbuild/AppDelegate.m"
-            timestampString = "408687860.682896"
+            timestampString = "408708663.763183"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1667"
-            endingLineNumber = "1667"
+            startingLineNumber = "1680"
+            endingLineNumber = "1680"
             landmarkName = "-popSnapshotQueue"
             landmarkType = "5">
          </BreakpointContent>
@@ -368,6 +352,54 @@
             startingLineNumber = "112"
             endingLineNumber = "112"
             landmarkName = "-viewDidAppear:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "oakclubbuild/VCSimpleSnapshot.m"
+            timestampString = "408704787.475137"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "784"
+            endingLineNumber = "784"
+            landmarkName = "-animationDidStop:andAnswerType:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "oakclubbuild/AppDelegate.m"
+            timestampString = "408704787.475137"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "357"
+            endingLineNumber = "357"
+            landmarkName = "-showSnapshotSettings"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "oakclubbuild/AppDelegate.m"
+            timestampString = "408704787.475137"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "379"
+            endingLineNumber = "379"
+            landmarkName = "-showSnapshotLoadingThenFocus:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

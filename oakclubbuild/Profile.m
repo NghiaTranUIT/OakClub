@@ -653,7 +653,7 @@
         return @"";
     NSString *result=@"";
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
-    [dateFormatter setDateFormat:@"MM/DD/YYYY"];
+    [dateFormatter setDateFormat:DATE_FORMAT];
     NSDate *dateOfBirth = [dateFormatter dateFromString:s_dateOfBirth];
     
     NSCalendar *calendar = [NSCalendar currentCalendar];
@@ -821,7 +821,7 @@
 {
     NSDate *now = [NSDate date];
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:@"MM/dd/yyyy"];
+    [dateFormatter setDateFormat:DATE_FORMAT];
     NSDate *birthDate = [[NSDate alloc] init];
     birthDate = [dateFormatter dateFromString:self.s_birthdayDate];
     NSDateComponents* ageComponents = [[NSCalendar currentCalendar]

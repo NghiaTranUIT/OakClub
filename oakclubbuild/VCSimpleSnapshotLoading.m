@@ -10,6 +10,7 @@
 #import "AnimatedGif.h"
 #import "AppDelegate.h"
 #import "UIView+Localize.h"
+#import "VCSimpleSnapshot.h"
 @interface VCSimpleSnapshotLoading (){
     int typeOfAlert; // 0-Finding, 1-DoneSearching , 2-Noresult
     UIImageView* loadingAnim;
@@ -66,7 +67,13 @@
     [self showNotifications];
 }
 
--(void)viewDidDisappear:(BOOL)animated{
+-(void)viewDidAppear:(BOOL)animated{
+    AppDelegate* appdel = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+    VCSimpleSnapshot *VCSSnapshot = appdel.simpleSnapShot.viewControllers[0];
+    if(!VCSSnapshot.isLoading){
+        [appdel showSimpleSnapshot];
+    }
+    
 //    [self removeNotification];
 }
 - (void)didReceiveMemoryWarning
@@ -151,7 +158,7 @@
     activityViewController.excludedActivityTypes = @[UIActivityTypePostToWeibo, UIActivityTypeAssignToContact,UIActivityTypePrint,UIActivityTypeCopyToPasteboard,UIActivityTypeSaveToCameraRoll];
     [self presentViewController:activityViewController animated:YES completion:nil];
 }
-
+/*
 #pragma mark handle onTouch in button
 - (void)menuPressed:(id)sender {
     NSLog(@"openMenu");
@@ -170,7 +177,7 @@
     appDel.rootVC.recognizesPanningOnFrontView = YES;
     [appDel.rootVC showViewController:appDel.chat];
 }
-
+*/
 #pragma mark notification
 -(NavBarOakClub*)navBarOakClub
 {
@@ -223,5 +230,4 @@
         }
 //    }
 }*/
-
 @end

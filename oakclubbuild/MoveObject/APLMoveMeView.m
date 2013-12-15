@@ -108,6 +108,7 @@ BOOL isDragging = FALSE;
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
 //    [self changeView];
 	// We only support single touches, so anyObject retrieves just that touch from touches.
+   
 	UITouch *touch = [touches anyObject];
 	if ([touch view] == self.placardView) {
 //        if ([touch tapCount] == 2) {
@@ -564,11 +565,11 @@ BOOL isDragging = FALSE;
 	
     
     //add new animation
-//    [NSTimer scheduledTimerWithTimeInterval:0.2f
-//                                     target:self
-//                                   selector:@selector(handleTimer)
-//                                   userInfo:nil
-//                                    repeats:NO];
+    [NSTimer scheduledTimerWithTimeInterval:0.3f
+                                     target:self
+                                   selector:@selector(handleTimer)
+                                   userInfo:nil
+                                    repeats:NO];
 	// Set the placard view's center and transformation to the original values in preparation for the end of the animation.
     if(IS_HEIGHT_GTE_568)
         placardView.center = CENTER_POINT_568H;

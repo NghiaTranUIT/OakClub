@@ -374,7 +374,7 @@
 #pragma mark DatePicker Events
 -(void)onTouchUpDatePicker{
     NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
-    [dateFormat setDateFormat:@"MM/dd/yyyy"];
+    [dateFormat setDateFormat:DATE_FORMAT];
     NSString *theDate = [dateFormat stringFromDate:pickerBirthdate.date];
     newAccount.s_birthdayDate = theDate;
     [tb_Profile reloadData];

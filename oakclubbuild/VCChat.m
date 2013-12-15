@@ -57,14 +57,12 @@ int cellCountinSection=0;
     if (self) {
         // Custom initialization
         appDel = (AppDelegate *) [UIApplication sharedApplication].delegate;
+        a_messages = [[NSMutableDictionary alloc] init];
     }
     return self;
 }
 
--(void)loadFriendsInfo:(id)_arg {
-
-    a_messages = [[NSMutableDictionary alloc] init];
-    
+-(void)loadFriendsInfo{
     NSLog(@"***** loadFriendsInfo begin!");
     
 //    NSMutableArray* a_profile_id = [[NSMutableArray alloc] init];
@@ -88,7 +86,7 @@ int cellCountinSection=0;
             //        AFHTTPRequestOperation *operation =
             //        [HistoryMessage getHistoryMessagesSync:profile.s_ID
             //                                      callback:^(NSMutableArray * array)
-            if(profile.status > MatchViewed)
+            if(profile.status > MatchViewed && ![a_messages valueForKey:profile.s_ID])
             {
                 [HistoryMessage getHistoryMessages:profile.s_ID callback:^(NSMutableArray* array)
                  {
@@ -298,7 +296,7 @@ int cellCountinSection=0;
     
     indicator = [[LoadingIndicator alloc] initWithMainView:self.view andDelegate:self];
     
-    [self loadFriendsInfo:nil];
+    [self loadFriendsInfo];
     
     [self.searchDisplayController.searchResultsTableView removeFromSuperview];
     
@@ -540,7 +538,7 @@ int cellCountinSection=0;
         }
         
         NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-        [dateFormatter setDateFormat:@"MM/dd/yyyy"];
+        [dateFormatter setDateFormat:DATE_FORMAT];
         [friendChatIDs sortUsingComparator:^NSComparisonResult(id obj1, id obj2) {
             Profile *p1, *p2;
             p1 = [appDel.myProfile.dic_Roster objectForKey:obj1];
