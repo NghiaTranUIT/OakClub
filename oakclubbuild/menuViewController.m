@@ -167,6 +167,14 @@
 }
 -(void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    CABasicAnimation *rotationAnimation;
+    rotationAnimation = [CABasicAnimation animationWithKeyPath:@"transform.rotation.z"];
+    rotationAnimation.fromValue = cell;
+    rotationAnimation.toValue = [NSNumber numberWithFloat: 45 * (M_PI / 180)];
+    rotationAnimation.duration = 0.75;
+    rotationAnimation.repeatCount = 1.0;
+    rotationAnimation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+    [cell.layer addAnimation:rotationAnimation forKey:@"rotationAnimation"];
     [cell setBackgroundColor:[UIColor clearColor]];
 }
 
@@ -193,7 +201,7 @@
 //        
 //        [cell.labelMenu setFont:[UIFont fontWithName:cell.labelMenu.font.fontName size:18]];
 //    }
-
+    
     Animation *anim = [[Animation alloc] init];
     [anim setView:cell];
     [anim setIndex:0];
