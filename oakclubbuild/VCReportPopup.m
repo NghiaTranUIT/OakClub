@@ -12,7 +12,7 @@
 
 @interface VCReportPopup () <UIAlertViewDelegate>
 {
-    NSString *profileID;
+    Profile *profile;
     UITapGestureRecognizer *dismissKeyboardTap;
 }
 @property (strong, nonatomic) IBOutlet UIView *explainReportView;
@@ -21,18 +21,22 @@
 @property (strong, nonatomic) IBOutlet UIViewController *explainReportVC;
 @property (strong, nonatomic) IBOutlet UIViewController *makeSureReportVC;
 @property (strong, nonatomic) IBOutlet UIViewController *makeSureBlockVC;
+@property (weak, nonatomic) IBOutlet UILabel *lbMakeSureReport;
 @end
 
 @implementation VCReportPopup
 {
     NSString *reportContent;
+    SMChatViewController *chatVC;
 }
--(id)initWithProfileID:(NSString *)_profileID
+@synthesize lbMakeSureReport;
+-(id)initWithProfileID:(Profile *)_profile andChat:(id)_chatVC
 {
     self = [super init];
     if (self) {
         // Custom initialization
-        profileID = _profileID;
+        profile = _profile;
+        chatVC = _chatVC;
     }
     return self;
 }
@@ -52,6 +56,10 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
+    lbMakeSureReport.text = [NSString stringWithFormat:[@"are you sure you want to report %@ for making you uncomfortable?" localize], profile.firstName ];
+    [lbMakeSureReport setNumberOfLines:5];
+    [lbMakeSureReport setFont: FONT_HELVETICANEUE_LIGHT(15)];
+    [lbMakeSureReport setLineBreakMode: NSLineBreakByWordWrapping];
      [self.navigationController.navigationBar setUserInteractionEnabled:NO];
 }
 
@@ -66,7 +74,9 @@
 }
 - (IBAction)onTouchBlockThisUser:(id)sender
 {
-    [self.navigationController pushViewController:self.makeSureBlockVC animated:YES];
+    //[self.navigationController pushViewController:self.makeSureBlockVC animated:YES];
+    [self sendBlockReport];
+    [self backToChat];
 }
 
 - (IBAction)onTouchSendReport:(id)sender
@@ -78,7 +88,10 @@
 - (IBAction)onTouchExplainReport:(id)sender
 {
     [self.navigationController pushViewController:self.explainReportVC animated:YES];
+    [self.explainReportVC.view localizeAllViews];
     [self.reportDescTextView becomeFirstResponder];
+    
+    [self.navigationController.navigationItem setHidesBackButton:YES];
 }
 
 -(void)dismissKeyboardFromReportDescTextView:(id)sender
@@ -89,7 +102,7 @@
 -(void)backToChat
 {
     [self.navigationController.navigationBar setUserInteractionEnabled:YES];
-    [self.navigationController popToRootViewControllerAnimated:YES];
+    [self.navigationController popToViewController:chatVC animated:YES];
 }
 
 - (IBAction)touchSendExplainReport:(id)sender {
@@ -104,6 +117,9 @@
 -(void)makeSureSendReport
 {
     [self.navigationController pushViewController:self.makeSureReportVC animated:YES];
+    [self.makeSureReportVC.view localizeAllViews];
+    
+    [self.navigationController.navigationItem setHidesBackButton:YES];
 }
 - (IBAction)onTouchSureReport:(id)sender {
     if (reportContent)
@@ -117,7 +133,6 @@
 }
 - (IBAction)onTouchSureBlock:(id)sender {
     [self sendBlockReport];
-    
     [self backToChat];
 }
 
@@ -127,7 +142,7 @@
     [client setParameterEncoding:AFFormURLParameterEncoding];
     [client registerHTTPOperationClass:[AFHTTPRequestOperation class]];
     
-    NSMutableDictionary *params = [[NSMutableDictionary alloc] initWithObjectsAndKeys:profileID, key_profileID, content, key_reportContent, nil];
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] initWithObjectsAndKeys:profile.s_ID, key_profileID, content, key_reportContent, nil];
     NSMutableURLRequest *myRequest = [client requestWithMethod:@"POST" path:URL_reportInvalid parameters:params];
     
     AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:myRequest];
@@ -146,7 +161,7 @@
 
 -(void)sendBlockReport
 {
-    NSDictionary *params = [[NSDictionary alloc]initWithObjectsAndKeys:profileID,key_profileID, nil];
+    NSDictionary *params = [[NSDictionary alloc]initWithObjectsAndKeys:profile.s_ID,key_profileID, nil];
     AFHTTPClient *client= [[AFHTTPClient alloc] initWithOakClubAPI:DOMAIN];
     NSMutableURLRequest *myRequest = [client requestWithMethod:@"POST" path:URL_blockHangoutProfile parameters:params];
     
@@ -166,6 +181,18 @@
      }];
     
     [operation start];
+}
+
+@end
+
+@implementation VCReportMore
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self.view localizeAllViews];
+    
+    self.navigationItem.hidesBackButton = YES;
 }
 
 @end

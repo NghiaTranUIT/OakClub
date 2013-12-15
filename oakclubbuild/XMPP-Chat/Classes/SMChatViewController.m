@@ -400,8 +400,7 @@
 - (IBAction)onTouchMoreOption:(id)sender {
     
     NSArray *chunks = [chatWithUser componentsSeparatedByString: @"@"];
-    NSString* hangout_id = [chunks objectAtIndex:0];
-    VCReportPopup* reportPopup= [[VCReportPopup alloc]initWithProfileID:hangout_id];
+    VCReportPopup* reportPopup= [[VCReportPopup alloc]initWithProfileID:userProfile andChat:self];
     [self dismissKeyboard:sender];
     [reportPopup.view setFrame:CGRectMake(0, 0, reportPopup.view.frame.size.width, reportPopup.view.frame.size.height)];
 

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="4510" systemVersion="12F45" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="4510" systemVersion="12F45" targetRuntime="iOS.CocoaTouch" variant="6xAndEarlier" propertyAccessControl="none">
     <dependencies>
         <deployment defaultVersion="1280" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3742"/>
@@ -10,6 +10,7 @@
                 <outlet property="chooseReportView" destination="SrG-Dh-Agv" id="Yfo-Yg-j6T"/>
                 <outlet property="explainReportVC" destination="A1W-wo-aLk" id="pGC-eF-Khf"/>
                 <outlet property="explainReportView" destination="aIi-kN-hH6" id="Vr8-46-qZ2"/>
+                <outlet property="lbMakeSureReport" destination="ggZ-3p-5SQ" id="7UZ-wr-ZIy"/>
                 <outlet property="makeSureBlockVC" destination="t2O-GK-12D" id="hGu-Pw-0TQ"/>
                 <outlet property="makeSureReportVC" destination="Kht-Y3-8XC" id="2GQ-VN-RTb"/>
                 <outlet property="reportDescTextView" destination="wau-ej-X3t" id="tpa-TL-yID"/>
@@ -115,13 +116,13 @@
             <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
         </view>
-        <viewController id="A1W-wo-aLk" userLabel="View Controller - explain vc">
+        <viewController id="A1W-wo-aLk" userLabel="View Controller - explain vc" customClass="VCReportMore">
             <view key="view" contentMode="scaleToFill" id="aIi-kN-hH6" userLabel="View - explain report">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                <rect key="frame" x="0.0" y="20" width="320" height="460"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="trans-bg.png" id="jXa-2D-n0I">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="460"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </imageView>
@@ -181,15 +182,83 @@
             <nil key="simulatedTopBarMetrics"/>
             <nil key="simulatedBottomBarMetrics"/>
             <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
-            <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
+            <nil key="simulatedDestinationMetrics"/>
         </viewController>
-        <viewController id="Kht-Y3-8XC" userLabel="View Controller - make sure report vc">
+        <viewController id="t2O-GK-12D" userLabel="View Controller - make sure block" customClass="VCReportMore">
+            <view key="view" contentMode="scaleToFill" id="C5F-FT-D7F" userLabel="View - make sure report">
+                <rect key="frame" x="0.0" y="20" width="320" height="460"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="trans-bg.png" id="oh0-sY-hb0">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="460"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </imageView>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="V20-a7-enJ">
+                        <rect key="frame" x="0.0" y="198" width="320" height="58"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxY="YES"/>
+                        <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="15"/>
+                        <state key="normal" title="Block" backgroundImage="Report_btn_block_inactive.png">
+                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                        </state>
+                        <state key="selected" backgroundImage="Report_btn_active.png">
+                            <color key="titleColor" red="0.47450980390000003" green="0.0039215686269999999" blue="0.34509803919999998" alpha="1" colorSpace="calibratedRGB"/>
+                        </state>
+                        <state key="highlighted" backgroundImage="Report_btn_active.png">
+                            <color key="titleColor" red="0.47450980390000003" green="0.0039215686269999999" blue="0.34509803919999998" alpha="1" colorSpace="calibratedRGB"/>
+                        </state>
+                        <connections>
+                            <action selector="onTouchSureBlock:" destination="-1" eventType="touchUpInside" id="Rn7-bH-qNB"/>
+                        </connections>
+                    </button>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="X9n-ui-Qaq">
+                        <rect key="frame" x="-1" y="252" width="320" height="58"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxY="YES"/>
+                        <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="15"/>
+                        <state key="normal" title="Cancel" backgroundImage="Report_btn_cancel_inactive.png">
+                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                        </state>
+                        <state key="selected" backgroundImage="Report_btn_active.png">
+                            <color key="titleColor" red="0.47450980390000003" green="0.0039215686269999999" blue="0.34509803919999998" alpha="1" colorSpace="calibratedRGB"/>
+                        </state>
+                        <state key="highlighted" backgroundImage="Report_btn_active.png">
+                            <color key="titleColor" red="0.47450980390000003" green="0.0039215686269999999" blue="0.34509803919999998" alpha="1" colorSpace="calibratedRGB"/>
+                        </state>
+                        <connections>
+                            <action selector="onTouchCancel:" destination="-1" eventType="touchUpInside" id="bJH-Nt-6JW"/>
+                        </connections>
+                    </button>
+                    <view contentMode="scaleToFill" id="vme-tD-sVa">
+                        <rect key="frame" x="11" y="74" width="298" height="121"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxY="YES"/>
+                        <subviews>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="jot-UK-kmE" userLabel="Label - sure lbl">
+                                <rect key="frame" x="20" y="13" width="258" height="93"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                </subviews>
+                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
+            </view>
+            <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
+            <nil key="simulatedTopBarMetrics"/>
+            <nil key="simulatedBottomBarMetrics"/>
+            <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
+            <nil key="simulatedDestinationMetrics"/>
+        </viewController>
+        <viewController id="Kht-Y3-8XC" userLabel="View Controller - make sure report vc" customClass="VCReportMore">
             <view key="view" contentMode="scaleToFill" id="ktt-Kk-qw6" userLabel="View - make sure report">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                <rect key="frame" x="0.0" y="20" width="320" height="460"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="trans-bg.png" id="bfa-zX-KsD">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="460"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </imageView>
@@ -208,7 +277,6 @@
                         </state>
                         <connections>
                             <action selector="onTouchSureReport:" destination="-1" eventType="touchUpInside" id="Xi8-cs-H8v"/>
-                            <action selector="touchSendExplainReport:" destination="-1" eventType="touchUpInside" id="dM3-g3-zlr"/>
                         </connections>
                     </button>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="hnv-7q-fSG">
@@ -250,117 +318,20 @@
             <nil key="simulatedTopBarMetrics"/>
             <nil key="simulatedBottomBarMetrics"/>
             <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
-            <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
-        </viewController>
-        <viewController id="t2O-GK-12D" userLabel="View Controller - make sure block">
-            <view key="view" contentMode="scaleToFill" id="C5F-FT-D7F" userLabel="View - make sure report">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
-                <autoresizingMask key="autoresizingMask"/>
-                <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="trans-bg.png" id="oh0-sY-hb0">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                    </imageView>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="V20-a7-enJ">
-                        <rect key="frame" x="0.0" y="198" width="320" height="58"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxY="YES"/>
-                        <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="15"/>
-                        <state key="normal" title="Block" backgroundImage="Report_btn_block_inactive.png">
-                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                        </state>
-                        <state key="selected" backgroundImage="Report_btn_active.png">
-                            <color key="titleColor" red="0.47450980390000003" green="0.0039215686269999999" blue="0.34509803919999998" alpha="1" colorSpace="calibratedRGB"/>
-                        </state>
-                        <state key="highlighted" backgroundImage="Report_btn_active.png">
-                            <color key="titleColor" red="0.47450980390000003" green="0.0039215686269999999" blue="0.34509803919999998" alpha="1" colorSpace="calibratedRGB"/>
-                        </state>
-                        <connections>
-                            <action selector="onTouchSureBlock:" destination="-1" eventType="touchUpInside" id="Rn7-bH-qNB"/>
-                        </connections>
-                    </button>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="X9n-ui-Qaq">
-                        <rect key="frame" x="-1" y="252" width="320" height="58"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxY="YES"/>
-                        <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="15"/>
-                        <state key="normal" title="Cancel" backgroundImage="Report_btn_cancel_inactive.png">
-                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                        </state>
-                        <state key="selected" backgroundImage="Report_btn_active.png">
-                            <color key="titleColor" red="0.47450980390000003" green="0.0039215686269999999" blue="0.34509803919999998" alpha="1" colorSpace="calibratedRGB"/>
-                        </state>
-                        <state key="highlighted" backgroundImage="Report_btn_active.png">
-                            <color key="titleColor" red="0.47450980390000003" green="0.0039215686269999999" blue="0.34509803919999998" alpha="1" colorSpace="calibratedRGB"/>
-                        </state>
-                        <connections>
-                            <action selector="onTouchCancel:" destination="-1" eventType="touchUpInside" id="bJH-Nt-6JW"/>
-                            <action selector="touchCancelExplainReport:" destination="-1" eventType="touchUpInside" id="w99-Oj-hef"/>
-                        </connections>
-                    </button>
-                    <view contentMode="scaleToFill" id="vme-tD-sVa">
-                        <rect key="frame" x="11" y="74" width="298" height="121"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxY="YES"/>
-                        <subviews>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="jot-UK-kmE" userLabel="Label - sure lbl">
-                                <rect key="frame" x="20" y="13" width="258" height="93"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                    </view>
-                </subviews>
-                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
-            </view>
-            <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
-            <nil key="simulatedTopBarMetrics"/>
-            <nil key="simulatedBottomBarMetrics"/>
-            <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
-            <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
+            <nil key="simulatedDestinationMetrics"/>
         </viewController>
     </objects>
     <resources>
         <image name="Report_bottomItem_active.png" width="299" height="45"/>
-        <image name="Report_bottomItem_active.png" width="299" height="45"/>
         <image name="Report_bottomItem_inactive.png" width="299" height="45"/>
         <image name="Report_btn_active.png" width="310" height="55"/>
-        <image name="Report_btn_active.png" width="310" height="55"/>
-        <image name="Report_btn_active.png" width="310" height="55"/>
-        <image name="Report_btn_active.png" width="310" height="55"/>
-        <image name="Report_btn_active.png" width="310" height="55"/>
-        <image name="Report_btn_active.png" width="310" height="55"/>
-        <image name="Report_btn_active.png" width="310" height="55"/>
-        <image name="Report_btn_active.png" width="310" height="55"/>
-        <image name="Report_btn_active.png" width="310" height="55"/>
-        <image name="Report_btn_active.png" width="310" height="55"/>
-        <image name="Report_btn_active.png" width="310" height="55"/>
-        <image name="Report_btn_active.png" width="310" height="55"/>
-        <image name="Report_btn_active.png" width="310" height="55"/>
-        <image name="Report_btn_active.png" width="310" height="55"/>
-        <image name="Report_btn_active.png" width="310" height="55"/>
-        <image name="Report_btn_active.png" width="310" height="55"/>
-        <image name="Report_btn_block_inactive.png" width="310" height="55"/>
-        <image name="Report_btn_block_inactive.png" width="310" height="55"/>
-        <image name="Report_btn_block_inactive.png" width="310" height="55"/>
         <image name="Report_btn_block_inactive.png" width="310" height="55"/>
         <image name="Report_btn_cancel_inactive.png" width="310" height="55"/>
-        <image name="Report_btn_cancel_inactive.png" width="310" height="55"/>
-        <image name="Report_btn_cancel_inactive.png" width="310" height="55"/>
-        <image name="Report_btn_cancel_inactive.png" width="310" height="55"/>
-        <image name="Report_midleItem_active.png" width="299" height="45"/>
         <image name="Report_midleItem_active.png" width="299" height="45"/>
         <image name="Report_midleItem_inactive.png" width="299" height="45"/>
         <image name="Report_separators.png" width="299" height="1"/>
-        <image name="Report_separators.png" width="299" height="1"/>
-        <image name="Report_topItem_active.png" width="299" height="45"/>
         <image name="Report_topItem_active.png" width="299" height="45"/>
         <image name="Report_topItem_inactive.png" width="299" height="45"/>
-        <image name="trans-bg.png" width="320" height="480"/>
-        <image name="trans-bg.png" width="320" height="480"/>
-        <image name="trans-bg.png" width="320" height="480"/>
         <image name="trans-bg.png" width="320" height="480"/>
     </resources>
 </document>

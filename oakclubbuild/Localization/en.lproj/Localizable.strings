@@ -370,12 +370,12 @@
 "Blokir pengguna ini"="Block this user";
 "บล็อกผู้ใช้คนนี้"="Block this user";
 "Bu kullanıcıyı blokla"="Block this user";
-"are you sure you want to report ... for making you uncomfortable?"="are you sure you want to report ... for making you uncomfortable?";
-"bạn có chắc là muốn trình báo về ... không? Người này quấy rối tôi"="are you sure you want to report ... for making you uncomfortable?";
-"bist Du sicher, dass Du ... melden möchtest? Geben mir ein ungutes Gefühl"="are you sure you want to report ... for making you uncomfortable?";
-"anda yakin ingin melaporkan ...? Mereka membuatku tidak nyaman"="are you sure you want to report ... for making you uncomfortable?";
-"คุณแน่ใจว่าต้องการรายงาน ...หรือไม่? พวกเขาทำให้ฉันอึดอัด"="are you sure you want to report ... for making you uncomfortable?";
-"sizi rahatsız ettiği için ... raporlamak istediğinize emin misiniz?"="are you sure you want to report ... for making you uncomfortable?";
+"are you sure you want to report %@ for making you uncomfortable?"="are you sure you want to report %@ for making you uncomfortable?";
+"bạn có chắc là muốn trình báo về %@ không? Người này quấy rối tôi"="are you sure you want to report %@ for making you uncomfortable?";
+"bist Du sicher, dass Du %@ melden möchtest? Geben mir ein ungutes Gefühl"="are you sure you want to report %@ for making you uncomfortable?";
+"anda yakin ingin melaporkan %@? Mereka membuatku tidak nyaman"="are you sure you want to report %@ for making you uncomfortable?";
+"คุณแน่ใจว่าต้องการรายงาน %@ หรือไม่? พวกเขาทำให้ฉันอึดอัด"="are you sure you want to report %@ for making you uncomfortable?";
+"sizi rahatsız ettiği için %@ raporlamak istediğinize emin misiniz?"="are you sure you want to report %@ for making you uncomfortable?";
 "Upload additional photos"="Upload additional photos";
 "Thêm hình"="Upload additional photos";
 "Foto hinzufügen"="Upload additional photos";
@@ -1118,4 +1118,6 @@
 "Perbarui profil"="Update profile";
 "อัพเดทประวัติ"="Update profile";
 "Profilimi güncelle"="Update profile";
+"Update profile"="Update profile";
+"Update profile"="Update profile";
 
