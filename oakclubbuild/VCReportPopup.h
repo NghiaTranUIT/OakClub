@@ -12,3 +12,7 @@
 @interface VCReportPopup : UIViewController
 -(id)initWithProfileID:(Profile *)_profile;
 @end
+
+@interface VCReportMore : UIViewController
+
+@end

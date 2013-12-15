@@ -98,7 +98,7 @@
 -(void)backToChat
 {
     [self.navigationController.navigationBar setUserInteractionEnabled:YES];
-    [self.navigationController popToRootViewControllerAnimated:YES];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (IBAction)touchSendExplainReport:(id)sender {
@@ -177,6 +177,18 @@
      }];
     
     [operation start];
+}
+
+@end
+
+@implementation VCReportMore
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self.view localizeAllViews];
+    
+    self.navigationItem.hidesBackButton = YES;
 }
 
 @end
