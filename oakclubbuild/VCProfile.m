@@ -985,7 +985,7 @@ static CGFloat padding_left = 5.0;
     [controlBG setImage:[UIImage imageNamed:@"viewprofile_Bar_BG.png"]];
     [self.view addSubview:controlBG];
     UIButton* btnDone = [[UIButton alloc]initWithFrame:CGRectMake(8,IS_OS_7_OR_LATER?26:6, 51, 34)];
-    [btnDone setTitle:@"Done" forState:UIControlStateNormal];
+    [btnDone setTitle:[@"Done" localize] forState:UIControlStateNormal];
     [btnDone.titleLabel setFont:FONT_HELVETICANEUE_LIGHT(15)];
     [btnDone.titleLabel setTextColor:[UIColor whiteColor]];
     btnDone.titleLabel.adjustsFontSizeToFitWidth = YES;
