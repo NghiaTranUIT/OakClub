@@ -84,7 +84,10 @@
 - (IBAction)onTouchExplainReport:(id)sender
 {
     [self.navigationController pushViewController:self.explainReportVC animated:YES];
+    [self.explainReportVC.view localizeAllViews];
     [self.reportDescTextView becomeFirstResponder];
+    
+    [self.navigationController.navigationItem setHidesBackButton:YES];
 }
 
 -(void)dismissKeyboardFromReportDescTextView:(id)sender
@@ -110,6 +113,9 @@
 -(void)makeSureSendReport
 {
     [self.navigationController pushViewController:self.makeSureReportVC animated:YES];
+    [self.makeSureReportVC.view localizeAllViews];
+    
+    [self.navigationController.navigationItem setHidesBackButton:YES];
 }
 - (IBAction)onTouchSureReport:(id)sender {
     if (reportContent)

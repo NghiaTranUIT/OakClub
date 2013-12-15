@@ -184,6 +184,74 @@
             <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
             <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
         </viewController>
+        <viewController id="t2O-GK-12D" userLabel="View Controller - make sure block">
+            <view key="view" contentMode="scaleToFill" id="C5F-FT-D7F" userLabel="View - make sure report">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="trans-bg.png" id="oh0-sY-hb0">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </imageView>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="V20-a7-enJ">
+                        <rect key="frame" x="0.0" y="198" width="320" height="58"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxY="YES"/>
+                        <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="15"/>
+                        <state key="normal" title="Block" backgroundImage="Report_btn_block_inactive.png">
+                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                        </state>
+                        <state key="selected" backgroundImage="Report_btn_active.png">
+                            <color key="titleColor" red="0.47450980390000003" green="0.0039215686269999999" blue="0.34509803919999998" alpha="1" colorSpace="calibratedRGB"/>
+                        </state>
+                        <state key="highlighted" backgroundImage="Report_btn_active.png">
+                            <color key="titleColor" red="0.47450980390000003" green="0.0039215686269999999" blue="0.34509803919999998" alpha="1" colorSpace="calibratedRGB"/>
+                        </state>
+                        <connections>
+                            <action selector="onTouchSureBlock:" destination="-1" eventType="touchUpInside" id="Rn7-bH-qNB"/>
+                        </connections>
+                    </button>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="X9n-ui-Qaq">
+                        <rect key="frame" x="-1" y="252" width="320" height="58"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxY="YES"/>
+                        <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="15"/>
+                        <state key="normal" title="Cancel" backgroundImage="Report_btn_cancel_inactive.png">
+                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                        </state>
+                        <state key="selected" backgroundImage="Report_btn_active.png">
+                            <color key="titleColor" red="0.47450980390000003" green="0.0039215686269999999" blue="0.34509803919999998" alpha="1" colorSpace="calibratedRGB"/>
+                        </state>
+                        <state key="highlighted" backgroundImage="Report_btn_active.png">
+                            <color key="titleColor" red="0.47450980390000003" green="0.0039215686269999999" blue="0.34509803919999998" alpha="1" colorSpace="calibratedRGB"/>
+                        </state>
+                        <connections>
+                            <action selector="onTouchCancel:" destination="-1" eventType="touchUpInside" id="bJH-Nt-6JW"/>
+                        </connections>
+                    </button>
+                    <view contentMode="scaleToFill" id="vme-tD-sVa">
+                        <rect key="frame" x="11" y="74" width="298" height="121"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxY="YES"/>
+                        <subviews>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="jot-UK-kmE" userLabel="Label - sure lbl">
+                                <rect key="frame" x="20" y="13" width="258" height="93"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                </subviews>
+                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
+            </view>
+            <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
+            <nil key="simulatedTopBarMetrics"/>
+            <nil key="simulatedBottomBarMetrics"/>
+            <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
+            <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
+        </viewController>
         <viewController id="Kht-Y3-8XC" userLabel="View Controller - make sure report vc">
             <view key="view" contentMode="scaleToFill" id="ktt-Kk-qw6" userLabel="View - make sure report">
                 <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
@@ -234,75 +302,6 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxY="YES"/>
                         <subviews>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ggZ-3p-5SQ" userLabel="Label - sure lbl">
-                                <rect key="frame" x="20" y="13" width="258" height="93"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                    </view>
-                </subviews>
-                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
-            </view>
-            <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
-            <nil key="simulatedTopBarMetrics"/>
-            <nil key="simulatedBottomBarMetrics"/>
-            <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
-            <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
-        </viewController>
-        <viewController id="t2O-GK-12D" userLabel="View Controller - make sure block">
-            <view key="view" contentMode="scaleToFill" id="C5F-FT-D7F" userLabel="View - make sure report">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
-                <autoresizingMask key="autoresizingMask"/>
-                <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="trans-bg.png" id="oh0-sY-hb0">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                    </imageView>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="V20-a7-enJ">
-                        <rect key="frame" x="0.0" y="198" width="320" height="58"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxY="YES"/>
-                        <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="15"/>
-                        <state key="normal" title="Block" backgroundImage="Report_btn_block_inactive.png">
-                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                        </state>
-                        <state key="selected" backgroundImage="Report_btn_active.png">
-                            <color key="titleColor" red="0.47450980390000003" green="0.0039215686269999999" blue="0.34509803919999998" alpha="1" colorSpace="calibratedRGB"/>
-                        </state>
-                        <state key="highlighted" backgroundImage="Report_btn_active.png">
-                            <color key="titleColor" red="0.47450980390000003" green="0.0039215686269999999" blue="0.34509803919999998" alpha="1" colorSpace="calibratedRGB"/>
-                        </state>
-                        <connections>
-                            <action selector="onTouchSureBlock:" destination="-1" eventType="touchUpInside" id="Rn7-bH-qNB"/>
-                        </connections>
-                    </button>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="X9n-ui-Qaq">
-                        <rect key="frame" x="-1" y="252" width="320" height="58"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxY="YES"/>
-                        <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="15"/>
-                        <state key="normal" title="Cancel" backgroundImage="Report_btn_cancel_inactive.png">
-                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                        </state>
-                        <state key="selected" backgroundImage="Report_btn_active.png">
-                            <color key="titleColor" red="0.47450980390000003" green="0.0039215686269999999" blue="0.34509803919999998" alpha="1" colorSpace="calibratedRGB"/>
-                        </state>
-                        <state key="highlighted" backgroundImage="Report_btn_active.png">
-                            <color key="titleColor" red="0.47450980390000003" green="0.0039215686269999999" blue="0.34509803919999998" alpha="1" colorSpace="calibratedRGB"/>
-                        </state>
-                        <connections>
-                            <action selector="onTouchCancel:" destination="-1" eventType="touchUpInside" id="bJH-Nt-6JW"/>
-                            <action selector="touchCancelExplainReport:" destination="-1" eventType="touchUpInside" id="w99-Oj-hef"/>
-                        </connections>
-                    </button>
-                    <view contentMode="scaleToFill" id="vme-tD-sVa">
-                        <rect key="frame" x="11" y="74" width="298" height="121"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxY="YES"/>
-                        <subviews>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="jot-UK-kmE" userLabel="Label - sure lbl">
                                 <rect key="frame" x="20" y="13" width="258" height="93"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
