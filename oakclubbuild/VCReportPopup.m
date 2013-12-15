@@ -12,7 +12,7 @@
 
 @interface VCReportPopup () <UIAlertViewDelegate>
 {
-    NSString *profileID;
+    Profile *profile;
     UITapGestureRecognizer *dismissKeyboardTap;
 }
 @property (strong, nonatomic) IBOutlet UIView *explainReportView;
@@ -21,18 +21,20 @@
 @property (strong, nonatomic) IBOutlet UIViewController *explainReportVC;
 @property (strong, nonatomic) IBOutlet UIViewController *makeSureReportVC;
 @property (strong, nonatomic) IBOutlet UIViewController *makeSureBlockVC;
+@property (weak, nonatomic) IBOutlet UILabel *lbMakeSureReport;
 @end
 
 @implementation VCReportPopup
 {
     NSString *reportContent;
 }
--(id)initWithProfileID:(NSString *)_profileID
+@synthesize lbMakeSureReport;
+-(id)initWithProfileID:(Profile *)_profile
 {
     self = [super init];
     if (self) {
         // Custom initialization
-        profileID = _profileID;
+        profile = _profile;
     }
     return self;
 }
@@ -52,6 +54,8 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
+    lbMakeSureReport.text = [NSString stringWithFormat:[@"are you sure you want to report %@ for making you uncomfortable?" localize], profile.firstName ];
+
      [self.navigationController.navigationBar setUserInteractionEnabled:NO];
 }
 
@@ -128,7 +132,7 @@
     [client setParameterEncoding:AFFormURLParameterEncoding];
     [client registerHTTPOperationClass:[AFHTTPRequestOperation class]];
     
-    NSMutableDictionary *params = [[NSMutableDictionary alloc] initWithObjectsAndKeys:profileID, key_profileID, content, key_reportContent, nil];
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] initWithObjectsAndKeys:profile.s_ID, key_profileID, content, key_reportContent, nil];
     NSMutableURLRequest *myRequest = [client requestWithMethod:@"POST" path:URL_reportInvalid parameters:params];
     
     AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:myRequest];
@@ -147,7 +151,7 @@
 
 -(void)sendBlockReport
 {
-    NSDictionary *params = [[NSDictionary alloc]initWithObjectsAndKeys:profileID,key_profileID, nil];
+    NSDictionary *params = [[NSDictionary alloc]initWithObjectsAndKeys:profile.s_ID,key_profileID, nil];
     AFHTTPClient *client= [[AFHTTPClient alloc] initWithOakClubAPI:DOMAIN];
     NSMutableURLRequest *myRequest = [client requestWithMethod:@"POST" path:URL_blockHangoutProfile parameters:params];
     

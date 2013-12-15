@@ -10,6 +10,7 @@
                 <outlet property="chooseReportView" destination="SrG-Dh-Agv" id="Yfo-Yg-j6T"/>
                 <outlet property="explainReportVC" destination="A1W-wo-aLk" id="pGC-eF-Khf"/>
                 <outlet property="explainReportView" destination="aIi-kN-hH6" id="Vr8-46-qZ2"/>
+                <outlet property="lbMakeSureReport" destination="ggZ-3p-5SQ" id="7UZ-wr-ZIy"/>
                 <outlet property="makeSureBlockVC" destination="t2O-GK-12D" id="hGu-Pw-0TQ"/>
                 <outlet property="makeSureReportVC" destination="Kht-Y3-8XC" id="2GQ-VN-RTb"/>
                 <outlet property="reportDescTextView" destination="wau-ej-X3t" id="tpa-TL-yID"/>
