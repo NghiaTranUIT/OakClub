@@ -118,7 +118,7 @@
         </view>
         <viewController id="A1W-wo-aLk" userLabel="View Controller - explain vc" customClass="VCReportMore">
             <view key="view" contentMode="scaleToFill" id="aIi-kN-hH6" userLabel="View - explain report">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="460"/>
+                <rect key="frame" x="0.0" y="20" width="320" height="460"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="trans-bg.png" id="jXa-2D-n0I">
@@ -186,7 +186,7 @@
         </viewController>
         <viewController id="t2O-GK-12D" userLabel="View Controller - make sure block" customClass="VCReportMore">
             <view key="view" contentMode="scaleToFill" id="C5F-FT-D7F" userLabel="View - make sure report">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="460"/>
+                <rect key="frame" x="0.0" y="20" width="320" height="460"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="trans-bg.png" id="oh0-sY-hb0">
