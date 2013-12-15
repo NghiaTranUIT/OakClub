@@ -178,40 +178,6 @@
     //cell.layer.anchorPoint = CGPointMake(0, 0);
     //[cell.layer addAnimation:rotationAnimation forKey:@"rotationAnimation"];
     
-//    CALayer *msgLayer = cell.layer; // Getting the imageView layer
-//    
-//    CABasicAnimation *valueAnimation = [CABasicAnimation animationWithKeyPath:@"transform.rotation.z"]; //Giving the transform axis can be x, y or z
-//    
-//    // For rotating right
-//    
-//    valueAnimation.toValue = [NSNumber numberWithFloat: M_PI * 2.0 /* full rotation*/ * 1 * 2 ];
-//    
-//    // For rotating left
-//    
-//    valueAnimation.toValue = [NSNumber numberWithFloat: M_PI * 2.0 /* full rotation*/ * 1 * -2 ];
-//    
-//    valueAnimation.duration = 10; // Duration of rotation
-//    
-//    valueAnimation.cumulative = YES;
-//    
-//    valueAnimation.repeatCount = -1; // -1 means repeat forever
-//    
-//    CAAnimationGroup *theGroup = [CAAnimationGroup animation];
-//    
-//    theGroup.delegate = self; // For assigning delegate
-//    
-//    theGroup.duration = 5;
-//    
-//    theGroup.repeatCount = 200;
-//    
-//    theGroup.animations = [NSArray arrayWithObjects:valueAnimation,nil]; // you can add more
-//    
-//    theGroup.removedOnCompletion = YES;
-//    
-//    // Add the animation group to the layer
-//    
-//    [msgLayer addAnimation:theGroup forKey:@"rotationAnimation"];    //[cell.layer addAnimation:movex forKey:nil];
-    
     
     [cell setBackgroundColor:[UIColor clearColor]];
 }

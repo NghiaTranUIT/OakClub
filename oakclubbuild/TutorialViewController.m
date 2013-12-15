@@ -145,7 +145,7 @@
             
             [content1Label setFont: FONT_HELVETICANEUE_LIGHT(20)];
             CGSize size1 = [content1Label.text sizeWithFont:content1Label.font
-                                          constrainedToSize:CGSizeMake(150, MAXFLOAT)
+                                          constrainedToSize:CGSizeMake(200, MAXFLOAT)
                                               lineBreakMode:NSLineBreakByWordWrapping];
             [content1Label setFrame: CGRectMake(10, 50, size1.width, size1.height)];
             [content1Label setTextAlignment: NSTextAlignmentCenter];
@@ -161,7 +161,7 @@
             [content2Label setText: content2String];
             [content2Label setFont: FONT_HELVETICANEUE_LIGHT(20)];
             CGSize size2 = [content2Label.text sizeWithFont:content2Label.font
-                                          constrainedToSize:CGSizeMake(150, MAXFLOAT)
+                                          constrainedToSize:CGSizeMake(200, MAXFLOAT)
                                               lineBreakMode:NSLineBreakByWordWrapping];
             [content2Label setFrame: CGRectMake(100, 150, size2.width, size2.height)];
             [content2Label setTextAlignment: NSTextAlignmentCenter];
@@ -184,9 +184,9 @@
             
             if(IS_HEIGHT_GTE_568)
             {
-                [content1Label setFrame: CGRectMake(3, 75, 240, 100)];
-                [content2Label setFrame: CGRectMake(70, 170, 250, 70)];
-                [content3Label setFrame: CGRectMake(10, 310, self.view.frame.size.width - 20, 70)];
+                [content1Label setFrame: CGRectMake(10, 75, size1.width, size1.height)];
+                [content2Label setFrame: CGRectMake(100, 170, size2.width, size2.height)];
+                [content3Label setFrame: CGRectMake(10, 310, size3.width, size3.height)];
             }
             
             [image addSubview: content1Label];

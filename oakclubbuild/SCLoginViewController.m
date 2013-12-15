@@ -256,26 +256,22 @@
     
     if (!isSetLanguage)
     {
-        if(flagLanguage)
-        {
-            [pickingView setFrame: CGRectMake(0, 0, pickingView.frame.size.width, pickingView.frame.size.height)];
-            pickingView.tag = 7;
-            [self.view addSubview:pickingView];
-            [pickerView setHidden: NO];
-            [pickerView reloadAllComponents];
-            [pickerView selectRow:0 inComponent:0 animated:YES];
-             [self disableAll: YES];
-        }
-        else
-        {
-            UIAlertView *alert = [[UIAlertView alloc]
-                                  initWithTitle:[@"Choose your language" localize]
-                                  message:@""
-                                  delegate:self
-                                  cancelButtonTitle:nil
-                                  otherButtonTitles:@"Tiếng Việt", @"English", @"Deutsch", @"Indonesia", nil];
-            [alert show];
-        }
+        [pickingView setFrame: CGRectMake(0, 0, pickingView.frame.size.width, pickingView.frame.size.height)];
+        pickingView.tag = 7;
+        [self.view addSubview:pickingView];
+        [pickerView setHidden: NO];
+        [pickerView reloadAllComponents];
+        [pickerView selectRow:0 inComponent:0 animated:YES];
+        [self disableAll: YES];
+        
+//         UIAlertView *alert = [[UIAlertView alloc]
+//                                    initWithTitle:[@"Choose your language" localize]
+//                                    message:@""
+//                                    delegate:self
+//                                    cancelButtonTitle:nil
+//                                    otherButtonTitles:@"Tiếng Việt", @"English", @"Deutsch", @"Indonesia", nil];
+//        [alert show];
+
     }
     else
     {
