@@ -55,7 +55,8 @@
 {
     [super viewDidAppear:animated];
     lbMakeSureReport.text = [NSString stringWithFormat:[@"are you sure you want to report %@ for making you uncomfortable?" localize], profile.firstName ];
-    [lbMakeSureReport setFont: FONT_HELVETICANEUE_LIGHT(11)];
+    [lbMakeSureReport setNumberOfLines:5];
+    [lbMakeSureReport setFont: FONT_HELVETICANEUE_LIGHT(15)];
     [lbMakeSureReport setLineBreakMode: NSLineBreakByWordWrapping];
      [self.navigationController.navigationBar setUserInteractionEnabled:NO];
 }
