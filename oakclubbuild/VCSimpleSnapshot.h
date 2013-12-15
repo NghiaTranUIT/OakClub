@@ -50,6 +50,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *lblPhotoCount;
 @property (weak, nonatomic) IBOutlet UIImageView *imgLoading;
 @property (weak, nonatomic) IBOutlet UIButton *buttonNO;
-
+@property BOOL isLoading;
 -(void)onBackFromPopup;
 @end

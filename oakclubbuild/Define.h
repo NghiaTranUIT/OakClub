@@ -11,9 +11,9 @@
 
 //demo version FLAG
 #define ENABLE_DEMO true
-#define USE_STAGING false
+#define USE_STAGING true
 #define USE_MAINHOST false
-#define USE_STAGING_MB true
+#define USE_STAGING_MB false
 #define USE_STAGING_IOS false
 
 #define DAN_CHEAT false
@@ -24,7 +24,7 @@
 //disable policty
 #define DISABLE_POCLICY TRUE
 // enable Select location manually
-#define ENABLE_LOCATION_MANUALLY
+//#define ENABLE_LOCATION_MANUALLY
 //Hangout
 #define sOnline @"Online"
 #define LOG_HTTP false

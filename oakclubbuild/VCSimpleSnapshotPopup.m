@@ -92,16 +92,16 @@
         case interestedStatusNO:
             pref = [@"Dragging a picture to the left indicates you are not interested in" localize];
             [lblNopeTurotial setText:[NSString stringWithFormat:[pref stringByAppendingString:@" %@."],name]];
-            [btnPass.titleLabel setText: [@"Pass" localize]];
-            [btnCancelPass.titleLabel setText: [@"Cancel" localize]];
+            [btnPass.titleLabel setText: @"Pass"];
+            [btnCancelPass.titleLabel setText: @"Cancel"];
             [likePopupView setHidden:YES];
             [notInterestedPopupView setHidden:NO];
             break;
         case interestedStatusYES:
             pref = [@"Dragging a picture to the right indicates you liked" localize];
             [lblLikeTurotial setText:[NSString stringWithFormat:[pref stringByAppendingString:@" %@."],name]];
-            [btnLike.titleLabel setText: [@"Like" localize]];
-            [btnCancelLike.titleLabel setText: [@"Cancel" localize]];
+            [btnLike.titleLabel setText: @"Like" ];
+            [btnCancelLike.titleLabel setText: @"Cancel"];
             [likePopupView setHidden:NO];
             [notInterestedPopupView setHidden:YES];
             break;

@@ -30,7 +30,7 @@
     LocationUpdate *locUpdate;
     
     BOOL isBlockedByGPS;
-    BOOL isLoading;
+    
     Profile* matchedProfile;
     NSOperationQueue *setLikedQueue;
     ImagePool *snapshotImagePool;
@@ -48,12 +48,13 @@
 @property (weak, nonatomic) IBOutlet UIButton *btnHeart;
 @property (weak, nonatomic) IBOutlet UIView *backgroundAvatarView;
 @property (nonatomic, strong) NSArray *pageImages;
+
 @end
 
 @implementation VCSimpleSnapshot
 CGFloat pageWidth;
 CGFloat pageHeight;
-@synthesize sv_photos,lbl_indexPhoto, lbl_mutualFriends, lbl_mutualLikes, buttonNO, buttonProfile, buttonYES, imgMutualFriend, imgMutualLike, buttonMAYBE ,lblName, lblAge ,lblPhotoCount, viewProfile,matchView, matchViewController, lblMatchAlert, imgMatcher, imgMyAvatar, imgMainProfile, imgNextProfile, imgLoading, popupFirstTimeView,imgAvatarFrame;
+@synthesize sv_photos,lbl_indexPhoto, lbl_mutualFriends, lbl_mutualLikes, buttonNO, buttonProfile, buttonYES, imgMutualFriend, imgMutualLike, buttonMAYBE ,lblName, lblAge ,lblPhotoCount, viewProfile,matchView, matchViewController, lblMatchAlert, imgMatcher, imgMyAvatar, imgMainProfile, imgNextProfile, imgLoading, popupFirstTimeView,imgAvatarFrame,isLoading;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -346,6 +347,13 @@ CGFloat pageHeight;
 //    self.navigationController.navigationBarHidden = NO;
     [self showNotifications];
     
+    if(!appDel.reloadSnapshot){
+        if([profileList count]==0){
+            [self showWarning:NO];
+        }
+            
+    }
+    
 }
 
 - (void)viewDidUnload
@@ -572,9 +580,9 @@ CGFloat pageHeight;
                         [stamp setAlpha:1.0f];
                          stamp.transform = CGAffineTransformIdentity;
                      }completion:^(BOOL finished) {
-                         if([self.moveMeView getAnswer] == -1)
-                             [self.moveMeView animatePlacardViewByAnswer:-1 andDuration:0.5f];
-                         else
+//                         if([self.moveMeView getAnswer] == -1)
+//                             [self.moveMeView animatePlacardViewByAnswer:-1 andDuration:0.5f];
+//                         else
                              [self.moveMeView animatePlacardViewByAnswer:choose andDuration:0.5f];
                      }];
     [self setLikedSnapshot:[NSString stringWithFormat:@"%i",choose]];
@@ -582,11 +590,11 @@ CGFloat pageHeight;
 
 -(void)setLikedSnapshot:(NSString*)answerChoice{
     int isFirstTime = [[[NSUserDefaults standardUserDefaults] objectForKey:key_isFirstSnapshot] integerValue];
-//    if(isFirstTime==0 || (isFirstTime < 4 &&
-//        ( (isFirstTime == interestedStatusNO && [answerChoice integerValue] == interestedStatusYES)
-//           || (isFirstTime == interestedStatusYES && [answerChoice integerValue]== interestedStatusNO)
-//        )
-//       ))
+    if(isFirstTime==0 || (isFirstTime < 4 &&
+        ( (isFirstTime == interestedStatusNO && [answerChoice integerValue] == interestedStatusYES)
+           || (isFirstTime == interestedStatusYES && [answerChoice integerValue]== interestedStatusNO)
+        )
+       ))
     {
         [[self navBarOakClub] disableAllControl: YES];
         appDel.rootVC.recognizesPanningOnFrontView = NO;
@@ -694,12 +702,13 @@ CGFloat pageHeight;
 }
 #pragma mark LOADING - animation
 -(void)startLoadingAnimFocus:(BOOL)focus{
+    isLoading = YES;
 //    [self stopWarning];
 //    loadingView = [[VCSimpleSnapshotLoading alloc]init];
     [appDel showSnapshotLoadingThenFocus:focus];
     VCSimpleSnapshotLoading* vc = [appDel.activeVC.viewControllers objectAtIndex:0];
     [vc setTypeOfAlert:0];
-    isLoading = YES;
+    
 //    [self.navigationController pushViewController:loadingView animated:NO];
 }
 
@@ -714,7 +723,7 @@ CGFloat pageHeight;
 }
 
 - (void)showWarning:(BOOL)focus{
-    [self stopLoadingAnim];
+//    [self stopLoadingAnim];
 //    loadingView = [[VCSimpleSnapshotLoading alloc]init];
 //    [loadingView.view setFrame:CGRectMake(0, 0, 320, 480)];
 //    [loadingView setTypeOfAlert:1 andAnim:loadingAnim];
@@ -771,7 +780,17 @@ CGFloat pageHeight;
 #pragma mark App life cycle delegate
 -(void)applicationDidBecomeActive:(UIApplication *)application
 {
-    [self refreshSnapshotFocus:NO];
+    /*
+    UINavigationController* activeVC = [appDel activeViewController];
+    UIViewController* vc = [activeVC.viewControllers objectAtIndex:0];
+    PKRevealControllerState* state =  appDel.rootVC.state;
+    if(![vc isKindOfClass:[VCChat class]]){
+        [self refreshSnapshotFocus:NO];
+    }*/
+    PKRevealControllerState state =  appDel.rootVC.state;
+    if(state == PKRevealControllerFocusesFrontViewController){
+        [self refreshSnapshotFocus:NO];
+    }
 }
 
 -(BOOL)isContinueLoad
