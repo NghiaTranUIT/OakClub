@@ -140,7 +140,7 @@
             
             
             [content1Label setLineBreakMode: NSLineBreakByWordWrapping];
-            [content1Label setNumberOfLines: 3];
+            [content1Label setNumberOfLines: 0];
             [content1Label setText: content1String];
             
             [content1Label setFont: FONT_HELVETICANEUE_LIGHT(20)];
@@ -157,7 +157,7 @@
             
             
             [content2Label setLineBreakMode: NSLineBreakByWordWrapping];
-            [content2Label setNumberOfLines: 3];
+            [content2Label setNumberOfLines: 0];
             [content2Label setText: content2String];
             [content2Label setFont: FONT_HELVETICANEUE_LIGHT(20)];
             CGSize size2 = [content2Label.text sizeWithFont:content2Label.font
@@ -170,7 +170,7 @@
             [content2Label setAdjustsFontSizeToFitWidth:YES];
             
             [content3Label setLineBreakMode: NSLineBreakByWordWrapping];
-            [content3Label setNumberOfLines: 3];
+            [content3Label setNumberOfLines: 0];
             [content3Label setText: content3String];
             [content3Label setFont: FONT_HELVETICANEUE_LIGHT(20)];
             CGSize size3 = [content3Label.text sizeWithFont:content3Label.font
@@ -202,7 +202,7 @@
             
             NSString *content1String = [@"If you match with someone you can chat with them privately" localize];
             [content1Label setLineBreakMode: NSLineBreakByWordWrapping];
-            [content1Label setNumberOfLines: 3];
+            [content1Label setNumberOfLines: 0];
             [content1Label setText: content1String];
             [content1Label setFrame: CGRectMake(20, 190, self.view.frame.size.width - 40, 100)];
             [content1Label setFont: FONT_HELVETICANEUE_LIGHT(20)];
@@ -230,7 +230,7 @@
             NSString *content2String = [@"You can choose who to see here" localize];
             
             [content1Label setLineBreakMode: NSLineBreakByWordWrapping];
-            [content1Label setNumberOfLines: 4];
+            [content1Label setNumberOfLines: 0];
             [content1Label setText: content1String];
             [content1Label setFont: FONT_HELVETICANEUE_LIGHT(20)];
             CGSize size1 = [content1Label.text sizeWithFont:content1Label.font
@@ -242,7 +242,7 @@
             [content1Label setTextColor: [UIColor whiteColor]];
             
             [content2Label setLineBreakMode: NSLineBreakByWordWrapping];
-            [content2Label setNumberOfLines: 5];
+            [content2Label setNumberOfLines: 0];
             [content2Label setText: content2String];
             [content2Label setFont: FONT_HELVETICANEUE_LIGHT(20)];
             CGSize size2 = [content2Label.text sizeWithFont:content2Label.font
