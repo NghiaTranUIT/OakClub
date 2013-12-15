@@ -27,14 +27,16 @@
 @implementation VCReportPopup
 {
     NSString *reportContent;
+    SMChatViewController *chatVC;
 }
 @synthesize lbMakeSureReport;
--(id)initWithProfileID:(Profile *)_profile
+-(id)initWithProfileID:(Profile *)_profile andChat:(id)_chatVC
 {
     self = [super init];
     if (self) {
         // Custom initialization
         profile = _profile;
+        chatVC = _chatVC;
     }
     return self;
 }
@@ -98,7 +100,7 @@
 -(void)backToChat
 {
     [self.navigationController.navigationBar setUserInteractionEnabled:YES];
-    [self.navigationController popViewControllerAnimated:YES];
+    [self.navigationController popToViewController:chatVC animated:YES];
 }
 
 - (IBAction)touchSendExplainReport:(id)sender {
