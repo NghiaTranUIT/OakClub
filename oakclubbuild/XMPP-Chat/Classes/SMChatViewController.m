@@ -382,16 +382,19 @@
         
         NSString* time = [NSString getCurrentTime];
 		[m setObject:time forKey:@"time"];
-		
         
 		[messages addMessage:[[HistoryMessage alloc] initMessageFrom:@"you" atTime:time toHangout:hangout_id withContent:messageStr]];
         [self addMessage:messageStr atTime:time fromUser:[self appDelegate].myProfile.s_ID toUser:hangout_id];
+        userProfile.status = ChatViewed;
+        NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+        [dateFormat setDateFormat:DATE_FORMAT];
+        userProfile.s_status_time = [dateFormat stringFromDate:[[NSDate alloc] init]];
+        
 		[self.tView reloadData];
         
         NSIndexPath *topIndexPath = [NSIndexPath indexPathForRow:(messages.count - 1) inSection:0];
         
         [self.tView scrollToRowAtIndexPath:topIndexPath atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
-		
     }
 }
 - (IBAction)onTouchMoreOption:(id)sender {
