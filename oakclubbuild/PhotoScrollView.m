@@ -74,7 +74,7 @@
             [label setFont: FONT_HELVETICANEUE_LIGHT(18)];
             [label setBackgroundColor: [UIColor clearColor]];
             [label setTextColor: COLOR_PURPLE /*[UIColor colorWithRed:116/255.0 green:1/255.0 blue:5/255.0 alpha:1.0]*/];
-            [label setFrame: CGRectMake(photoButton.frame.origin.x + 10, photoButton.frame.origin.y + 10, photoButton.frame.size.width - 15, photoButton.frame.size.height)];
+            [label setFrame: CGRectMake(photoButton.frame.origin.x + 10, photoButton.frame.origin.y + 10, photoButton.frame.size.width - 17, photoButton.frame.size.height)];
             [label setAdjustsFontSizeToFitWidth:YES];
 //            [label setMinimumFontSize:5];
             [self addSubview: label];
