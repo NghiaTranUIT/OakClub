@@ -169,12 +169,50 @@
 {
     CABasicAnimation *rotationAnimation;
     rotationAnimation = [CABasicAnimation animationWithKeyPath:@"transform.rotation.z"];
-    rotationAnimation.fromValue = cell;
-    rotationAnimation.toValue = [NSNumber numberWithFloat: 45 * (M_PI / 180)];
+    //rotationAnimation.fromValue = cell;
+    rotationAnimation.fromValue = [NSNumber numberWithInt: 85 * (M_PI / 180)];
+    rotationAnimation.toValue = [NSNumber numberWithFloat: 95 * (M_PI / 180)];
     rotationAnimation.duration = 0.75;
     rotationAnimation.repeatCount = 1.0;
     rotationAnimation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
-    [cell.layer addAnimation:rotationAnimation forKey:@"rotationAnimation"];
+    //cell.layer.anchorPoint = CGPointMake(0, 0);
+    //[cell.layer addAnimation:rotationAnimation forKey:@"rotationAnimation"];
+    
+    CALayer *msgLayer = cell.layer; // Getting the imageView layer
+    
+    CABasicAnimation *valueAnimation = [CABasicAnimation animationWithKeyPath:@"transform.rotation.z"]; //Giving the transform axis can be x, y or z
+    
+    // For rotating right
+    
+    valueAnimation.toValue = [NSNumber numberWithFloat: M_PI * 2.0 /* full rotation*/ * 1 * 2 ];
+    
+    // For rotating left
+    
+    valueAnimation.toValue = [NSNumber numberWithFloat: M_PI * 2.0 /* full rotation*/ * 1 * -2 ];
+    
+    valueAnimation.duration = 10; // Duration of rotation
+    
+    valueAnimation.cumulative = YES;
+    
+    valueAnimation.repeatCount = -1; // -1 means repeat forever
+    
+    CAAnimationGroup *theGroup = [CAAnimationGroup animation];
+    
+    theGroup.delegate = self; // For assigning delegate
+    
+    theGroup.duration = 5;
+    
+    theGroup.repeatCount = 200;
+    
+    theGroup.animations = [NSArray arrayWithObjects:valueAnimation,nil]; // you can add more
+    
+    theGroup.removedOnCompletion = YES;
+    
+    // Add the animation group to the layer
+    
+    [msgLayer addAnimation:theGroup forKey:@"rotationAnimation"];    //[cell.layer addAnimation:movex forKey:nil];
+    
+    
     [cell setBackgroundColor:[UIColor clearColor]];
 }
 
@@ -207,12 +245,12 @@
     [anim setIndex:0];
     [anim setStep:2];
     
-    float duration = 0.1f;
+    float duration = 0.5f;
     
     [anim translationX:0 withFromValue:10 * indexPath.row withToValue:-2 * indexPath.row withDuration:duration];
     [anim translationY:1 withFromValue:-2 * indexPath.row withToValue:2 * indexPath.row withDuration:duration];
-    [anim translationX:2 withFromValue:-2 * indexPath.row withToValue:0 * indexPath.row withDuration:duration];
-    [anim translationY:3 withFromValue:2 * indexPath.row withToValue:0 * indexPath.row withDuration:duration];
+    //[anim translationX:2 withFromValue:-2 * indexPath.row withToValue:0 * indexPath.row withDuration:duration];
+    //[anim translationY:3 withFromValue:2 * indexPath.row withToValue:0 * indexPath.row withDuration:duration];
     
     //[anim start];
     

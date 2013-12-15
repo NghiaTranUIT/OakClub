@@ -83,7 +83,7 @@ enum UpdateProfileItems {
     label.backgroundColor = [UIColor clearColor];
     label.font = FONT_HELVETICANEUE_LIGHT(20.0);//[UIFont boldSystemFontOfSize:20.0];
     label.textAlignment = NSTextAlignmentCenter;
-    [label setText:@"Update profile"];
+    [label setText:[@"Update profile" localize]];
     label.textColor = [UIColor blackColor]; // change this color
     [label sizeToFit];
     self.navigationItem.titleView = label;
