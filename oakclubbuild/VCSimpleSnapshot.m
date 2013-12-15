@@ -347,6 +347,13 @@ CGFloat pageHeight;
 //    self.navigationController.navigationBarHidden = NO;
     [self showNotifications];
     
+    if(!appDel.reloadSnapshot){
+        if([profileList count]==0){
+            [self showWarning:NO];
+        }
+            
+    }
+    
 }
 
 - (void)viewDidUnload
@@ -716,7 +723,7 @@ CGFloat pageHeight;
 }
 
 - (void)showWarning:(BOOL)focus{
-    [self stopLoadingAnim];
+//    [self stopLoadingAnim];
 //    loadingView = [[VCSimpleSnapshotLoading alloc]init];
 //    [loadingView.view setFrame:CGRectMake(0, 0, 320, 480)];
 //    [loadingView setTypeOfAlert:1 andAnim:loadingAnim];
