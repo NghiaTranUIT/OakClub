@@ -91,7 +91,7 @@
     switch (type) {
         case interestedStatusNO:
             pref = [@"Dragging a picture to the left indicates you are not interested" localize];
-            [lblNopeTurotial setText:[NSString stringWithFormat:[pref stringByAppendingString:@" %@."],name]];
+            [lblNopeTurotial setText: pref];//[NSString stringWithFormat:[pref stringByAppendingString:@" %@."],name]];
             [btnPass.titleLabel setText: @"Pass"];
             [btnCancelPass.titleLabel setText: @"Cancel"];
             [likePopupView setHidden:YES];

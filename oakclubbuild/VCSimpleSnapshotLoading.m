@@ -131,6 +131,7 @@
         }
         case 1:
         {
+            [btnContentAlert.titleLabel setAdjustsFontSizeToFitWidth:YES];
             [btnContentAlert setHidden:NO];
             [lblContentAlert setText:[@"You've seen all the recommendations near you." localize]];
 //            [imgLoading setImage:[UIImage imageNamed:@"SnapshotLoading_map_loaded.png"]];

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="4510" systemVersion="12F37" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="4510" systemVersion="12F45" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
     <dependencies>
         <deployment defaultVersion="1280" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3742"/>
@@ -7,9 +7,10 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SCLoginViewController">
             <connections>
-                <outlet property="btnDone" destination="r8r-nO-aAe" id="Qyz-Fv-aLJ"/>
+                <outlet property="btnDone" destination="r8r-nO-aAe" id="AWr-B2-zBJ"/>
                 <outlet property="btnInfo" destination="FDX-l8-RWJ" id="66b-Q6-h3v"/>
                 <outlet property="btnLogin" destination="39" id="74"/>
+                <outlet property="lbChoose" destination="zGt-EE-r7f" id="IUb-0u-zra"/>
                 <outlet property="lblNote" destination="vCU-qP-nRz" id="TKi-KW-2Gh"/>
                 <outlet property="pageControl" destination="eKY-f1-FTR" id="R9t-lK-YEb"/>
                 <outlet property="pickerView" destination="Ihl-L9-ntk" id="kmp-a3-7Md"/>
@@ -102,7 +103,7 @@
                     <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                    <state key="normal" title="Done" backgroundImage="myprofile_doneButton.png">
+                    <state key="normal" backgroundImage="myprofile_doneButton.png">
                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="titleShadowColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                     </state>

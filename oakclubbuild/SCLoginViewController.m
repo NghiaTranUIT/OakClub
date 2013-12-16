@@ -259,7 +259,7 @@
     if (!isSetLanguage)
     {
         [lbChoose setText:[@"Choose your language" localize]];
-        btnDone.titleLabel.text = [@"Done" localize];
+        [btnDone setTitle:[@"Done" localize] forState:UIControlStateNormal];
         [pickingView setFrame: CGRectMake(0, 0, pickingView.frame.size.width, pickingView.frame.size.height)];
         pickingView.tag = 7;
         [self.view addSubview:pickingView];
