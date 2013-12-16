@@ -297,8 +297,7 @@ static CGFloat padding_left = 5.0;
 -(void)LoadDistanceText{    
     [lblDistanceTitle setText:[@"Distance:" localize]];
     [lblDistanceTitle sizeToFit];
-    lblDistance.frame = CGRectMake(lblDistanceTitle.frame.origin.x + lblDistanceTitle.frame.size.width + 5, lblDistanceTitle.frame.origin.y
-                                   , lblDistance.frame.size.width, lblDistanceTitle.frame.size.height);
+    lblDistance.frame = CGRectMake(lblDistanceTitle.frame.origin.x + lblDistanceTitle.frame.size.width + 5, lblDistanceTitle.frame.origin.y, lblDistance.frame.origin.x + (self.view.frame.size.width - lblDistanceTitle.frame.size.width), lblDistanceTitle.frame.size.height);
     if(currentProfile.distance < 1){
         [lblDistance setText:[@"Less than a km away" localize]];
         return;
