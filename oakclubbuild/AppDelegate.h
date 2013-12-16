@@ -149,6 +149,7 @@ extern NSString *const SCSessionStateChangedNotification;
 -(void)showSimpleSnapshotThenFocus:(BOOL)focus;
 -(void)showSnapshotLoadingThenFocus:(BOOL)focus;
 -(void)updateLanguageBundle;
+-(void)updateLocalNotification:(int)num;
 #endif
 //-(void)showMylink;
 //-(void)showVisitor;
