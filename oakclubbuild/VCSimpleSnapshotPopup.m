@@ -47,7 +47,7 @@
 -(void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    [self.view localizeAllViews];
+//    [self.view localizeAllViews];
 }
     
 - (void)didReceiveMemoryWarning
@@ -100,7 +100,7 @@
         case interestedStatusYES:
             pref = [@"Dragging a picture to the right indicates you liked" localize];
             [lblLikeTurotial setText:[NSString stringWithFormat:[pref stringByAppendingString:@" %@."],name]];
-            [btnLike.titleLabel setText: @"Like" ];
+            [btnLike.titleLabel setText: @"Like"];
             [btnCancelLike.titleLabel setText: @"Cancel"];
             [likePopupView setHidden:NO];
             [notInterestedPopupView setHidden:YES];

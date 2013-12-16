@@ -54,7 +54,7 @@
 @implementation VCSimpleSnapshot
 CGFloat pageWidth;
 CGFloat pageHeight;
-@synthesize sv_photos,lbl_indexPhoto, lbl_mutualFriends, lbl_mutualLikes, buttonNO, buttonProfile, buttonYES, imgMutualFriend, imgMutualLike, buttonMAYBE ,lblName, lblAge ,lblPhotoCount, viewProfile,matchView, matchViewController, lblMatchAlert, imgMatcher, imgMyAvatar, imgMainProfile, imgNextProfile, imgLoading, popupFirstTimeView,imgAvatarFrame,isLoading;
+@synthesize sv_photos,lbl_indexPhoto, lbl_mutualFriends, lbl_mutualLikes, buttonNO, buttonProfile, buttonYES, imgMutualFriend, imgMutualLike, buttonMAYBE ,lblName, lblAge ,lblPhotoCount, viewProfile,matchView, matchViewController, lblMatchAlert, imgMatcher, imgMyAvatar, imgMainProfile, imgNextProfile, imgLoading, popupFirstTimeView,imgAvatarFrame,isLoading, btnSayHi, btnKeepSwiping;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -489,14 +489,18 @@ CGFloat pageHeight;
 -(void)showMatchView{
     [[self navBarOakClub] disableAllControl: YES];
     appDel.rootVC.recognizesPanningOnFrontView = NO;
-    [self.view addSubview:matchViewController.view];
+    matchedProfile = currentProfile;
+    //    btnSayHi.titleLabel.text = [@"Say Hi!" localize];
+//    btnKeepSwiping.titleLabel.text = [@"Keep Swiping!" localize];
     [matchViewController.view setFrame:CGRectMake(0, 0, matchViewController.view.frame.size.width, matchViewController.view.frame.size.height)];
     [lblMatchAlert setText:[NSString stringWithFormat:[@"You and %@ have liked each other!" localize],currentProfile.firstName]];
     [snapshotImagePool getImageAtURL:currentProfile.s_Avatar withSize:PHOTO_SIZE_SMALL asycn:^(UIImage *img, NSError *error, bool isFirstLoad) {
         [imgMatcher setImage:img];
+        [matchViewController.view localizeAllViews];
+        [self.view addSubview:matchViewController.view];
+
     }];
-    matchedProfile = currentProfile;
-    [[self view] localizeAllViews];
+//    [[self view] localizeAllViews];
 }
 
 -(void)addNewChatUser:(Profile*)newChat isMatchViewed:(BOOL)viewed{
@@ -773,6 +777,7 @@ CGFloat pageHeight;
     if(answer > -1){
         [popupFirstTimeView enableViewbyType:answer andFriendName:currentProfile.s_Name];
         [popupFirstTimeView.view setFrame:CGRectMake(0, 0, popupFirstTimeView.view.frame.size.width, popupFirstTimeView.view.frame.size.height)];
+        [popupFirstTimeView.view localizeAllViews];
         [self.view addSubview:popupFirstTimeView.view];
     }
 }

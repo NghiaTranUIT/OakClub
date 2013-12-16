@@ -39,6 +39,8 @@
 @property (weak, nonatomic) IBOutlet UIImageView *imgMyAvatar;
 @property (strong, nonatomic) IBOutlet UIViewController *matchViewController;
 @property (weak, nonatomic) IBOutlet UILabel *lblMatchAlert;
+@property (weak, nonatomic) IBOutlet UIButton *btnSayHi;
+@property (weak, nonatomic) IBOutlet UIButton *btnKeepSwiping;
 
 @property (weak, nonatomic) IBOutlet UIImageView *imgMutualFriend;
 @property (weak, nonatomic) IBOutlet UIImageView *imgMutualLike;
