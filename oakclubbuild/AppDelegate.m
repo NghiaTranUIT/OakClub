@@ -301,7 +301,7 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
     
     if (updateUI)
     {
-        
+//        [self showChat];
     }
 }
 
@@ -868,6 +868,27 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
     [(NavBarOakClub*)self.activeVC.navigationBar setNotifications:[self countTotalNotifications]];
 }
 
+
+-(void)showLocalNotification
+{
+    /*
+     // We are not active, so use a local notification instead
+     UILocalNotification *localNotification = [[UILocalNotification alloc] init];
+     localNotification.alertAction = @"Ok";
+     localNotification.alertBody = [NSString stringWithFormat:@"From: %@\n\n%@",displayName, body];
+     
+     [[UIApplication sharedApplication] presentLocalNotificationNow:localNotification];
+     */
+    UILocalNotification* localNotification = [[UILocalNotification alloc] init];
+    localNotification.applicationIconBadgeNumber = [[UIApplication sharedApplication] applicationIconBadgeNumber];
+    [[UIApplication sharedApplication] scheduleLocalNotification:localNotification];
+    [UIApplication sharedApplication].applicationIconBadgeNumber = [[UIApplication sharedApplication] applicationIconBadgeNumber];
+}
+-(void)updateLocalNotification:(int)num{
+    [UIApplication sharedApplication].applicationIconBadgeNumber = num;
+//    [self showLocalNotification];
+}
+
 -(void)loadFriendsList
 {
     if (![xmppStream isAuthenticated]) {
@@ -1334,16 +1355,6 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
     [self.xmppStream sendElement:message];
 }
 
--(void)showLocalNotification:(NSString*) displayName and:(NSString*)body
-{
-    // We are not active, so use a local notification instead
-    UILocalNotification *localNotification = [[UILocalNotification alloc] init];
-    localNotification.alertAction = @"Ok";
-    localNotification.alertBody = [NSString stringWithFormat:@"From: %@\n\n%@",displayName, body];
-    
-    [[UIApplication sharedApplication] presentLocalNotificationNow:localNotification];
-}
-
 - (XMPPMessage *)xmppStream:(XMPPStream *)sender willReceiveMessage:(XMPPMessage *)message
 {
     return message;
@@ -1450,7 +1461,8 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
 		
 		NSString *body = [[message elementForName:@"body"] stringValue];
 		NSString *displayName = [user displayName];
-        
+        [self showLocalNotification];
+        /*
 		if ([[UIApplication sharedApplication] applicationState] == UIApplicationStateActive)
 		{
             
@@ -1466,6 +1478,7 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
 		{
 			[self showLocalNotification:displayName and:body];
 		}
+        */
 	}
 }
 

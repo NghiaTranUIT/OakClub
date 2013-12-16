@@ -164,6 +164,9 @@
     
     [self.customView bringSubviewToFront:imageNotifications];
     [self.customView bringSubviewToFront:labelNotifications];
+    
+     AppDelegate *appDel = (id) [UIApplication sharedApplication].delegate;
+    [appDel updateLocalNotification:count];
 }
 
 -(void) disableAllControl:(BOOL)value
