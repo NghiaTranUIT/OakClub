@@ -338,7 +338,7 @@ static CGFloat padding_left = 5.0;
     [self LoadDistanceText];
     [self LoadActiveText];
     // SCROLL SIZE
-    [scrollview setContentSize:CGSizeMake(320, 790)];
+    [scrollview setContentSize:CGSizeMake(320, scrollview.frame.size.height + self.profileView.frame.size.height)];
     NSLog(@"Init Content size: %f - %f", scrollview.contentSize.width, infoView.frame.origin.y);
     
     [[self aboutView] setFrame:CGRectMake(self.aboutView.frame.origin.x,
