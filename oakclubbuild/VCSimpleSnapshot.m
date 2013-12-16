@@ -199,11 +199,13 @@ CGFloat pageHeight;
 -(void)loadProfileListUseHandler:(void(^)(void))handler withFocus:(BOOL)focus{
     if(is_loadingProfileList)
         return;
-    [self startLoadingAnimFocus:focus];
+    [self startLoadingAnimFocus:focus and:^void(){
+        [setLikedQueue waitUntilAllOperationsAreFinished];
+    }];
     currentIndex = 0; //Vanancy cheat
     profileList = [[NSMutableArray alloc] init];
     
-    [setLikedQueue waitUntilAllOperationsAreFinished];
+    
     
     // copy for retain cycle
     VCSimpleSnapshot *self_alias = self;
@@ -716,11 +718,15 @@ CGFloat pageHeight;
     // Dispose of any resources that can be recreated.
 }
 #pragma mark LOADING - animation
--(void)startLoadingAnimFocus:(BOOL)focus{
+-(void)startLoadingAnimFocus:(BOOL)focus and:(void(^)(void))handler{
     isLoading = YES;
 //    [self stopWarning];
 //    loadingView = [[VCSimpleSnapshotLoading alloc]init];
-    [appDel showSnapshotLoadingThenFocus:focus];
+    [appDel showSnapshotLoadingThenFocus:focus and:^void {
+        if (handler) {
+            handler();
+        }
+    }];
     VCSimpleSnapshotLoading* vc = [appDel.activeVC.viewControllers objectAtIndex:0];
     [vc setTypeOfAlert:0];
     
@@ -731,7 +737,9 @@ CGFloat pageHeight;
 //    loadingView = [[VCSimpleSnapshotLoading alloc]init];
 //    [loadingView setTypeOfAlert:2 andAnim:loadingAnim];
 //    [self.navigationController pushViewController:loadingView animated:NO];
-    [appDel showSnapshotLoadingThenFocus:focus];
+    [appDel showSnapshotLoadingThenFocus:focus and:^void(){
+        
+    }];
     VCSimpleSnapshotLoading* vc = [appDel.activeVC.viewControllers objectAtIndex:0];
     [vc setTypeOfAlert:2 /*andAnim:loadingAnim*/];
     isBlockedByGPS = TRUE;
@@ -742,7 +750,7 @@ CGFloat pageHeight;
         [self startDisabledGPS:YES];
     }
     else{
-        [appDel showSnapshotLoadingThenFocus:focus];
+        [appDel showSnapshotLoadingThenFocus:focus and:^void(){}];
         VCSimpleSnapshotLoading* vc = [appDel.activeVC.viewControllers objectAtIndex:0];
         [vc setTypeOfAlert:1 /*andAnim:loadingAnim*/];
     }

@@ -399,12 +399,13 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
             [self.rootVC.frontViewController.view setUserInteractionEnabled:NO];
     }];
 }
--(void)showSnapshotLoadingThenFocus:(BOOL)focus{
+-(void)showSnapshotLoadingThenFocus:(BOOL)focus and:(void(^)(void))handler{
     //    [self.rootVC setRootController:self.myLink animated:YES];
     //    [self.rootVC setContentViewController:self.myLink snapToContentViewController:YES animated:YES];
     activeVC = _snapshotLoading;
     [self.rootVC setFrontViewController:self.snapshotLoading focusAfterChange:focus completion:^(BOOL finished) {
-        
+        if(handler)
+            handler();
     }];
 }
 #endif
