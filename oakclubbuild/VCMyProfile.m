@@ -181,7 +181,7 @@ UITapGestureRecognizer *tap;
     }
     for (NSDictionary * object in appDelegate.workList) {
         if ([[object valueForKey:@"cate_id"] integerValue] == profileObj.i_work.cate_id) {
-            profileObj.i_work.cate_name = [object valueForKey:@"cate_name"];
+//            profileObj.i_work.cate_name = [object valueForKey:@"cate_name"];
             [self updateProfileItemListAtIndex:profileObj.i_work.cate_name andIndex:WORK];
         }
     }
