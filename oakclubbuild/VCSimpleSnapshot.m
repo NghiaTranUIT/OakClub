@@ -262,7 +262,11 @@ CGFloat pageHeight;
             for(id profileJSON in profiles)
             {
                 Profile* profile = [[Profile alloc]init];
+#if VIEWPROFILE_FULLDATA
+                [profile parseGetSnapshotToProfileFullData:profileJSON];
+#else
                 [profile parseGetSnapshotToProfile:profileJSON];
+#endif
                 //cache profile avatar
                 [snapshotImagePool getImageAtURL:profile.s_Avatar withSize:PHOTO_SIZE_LARGE asycn:^(UIImage *img, NSError *error, bool isFirstLoad) {
                     
@@ -407,6 +411,7 @@ CGFloat pageHeight;
         viewProfile.view.frame = CGRectMake(0, [[UIScreen mainScreen]applicationFrame].size.height, 320, [[UIScreen mainScreen]applicationFrame].size.height);
     }
     
+    [viewProfile.view setUserInteractionEnabled:NO];
     [viewProfile.svPhotos setHidden:YES];
     [UIView animateWithDuration:0.4
                      animations:^{
@@ -417,13 +422,15 @@ CGFloat pageHeight;
                              viewProfile.view.frame = CGRectMake(0, 0, 320, [[UIScreen mainScreen]applicationFrame].size.height);
                          }
                      }completion:^(BOOL finished) {
-                          [viewProfile.svPhotos setHidden:NO];
+                         [viewProfile.svPhotos setHidden:NO];
+                         [viewProfile.view setUserInteractionEnabled:YES];
                      }];
     [self.view addSubview:imgMainProfile];
+    [self.moveMeView setUserInteractionEnabled:NO];
     [imgMainProfile setFrame:CGRectMake(50, 30, 228, 228)];
     [UIView animateWithDuration: 0.4
                           delay: 0
-                        options: (UIViewAnimationOptionCurveLinear | UIViewAnimationOptionAllowUserInteraction)
+                        options: (UIViewAnimationOptionCurveLinear)
                      animations:^{
                          [imgAvatarFrame setAlpha:0.0f];
                          [self.navigationController setNavigationBarHidden:YES animated:YES];
@@ -431,6 +438,7 @@ CGFloat pageHeight;
                      }
                      completion:^(BOOL finished) {
                          [imgMainProfile setHidden:YES];
+                         [self.moveMeView setUserInteractionEnabled:YES];
                      }
      ];
     [UIView animateWithDuration:0.4
@@ -530,6 +538,9 @@ CGFloat pageHeight;
     [lblMatchAlert setText:@""];
     [[self navBarOakClub] disableAllControl: NO];
     appDel.rootVC.recognizesPanningOnFrontView = YES;
+    
+    ++appDel.myProfile.new_mutual_attractions;
+    [self showNotifications];
 }
 - (IBAction)onClickSendMessageToMatcher:(id)sender {
     [self addNewChatUser:matchedProfile isMatchViewed:YES];

@@ -341,6 +341,9 @@ static CGFloat padding_left = 5.0;
     [scrollview setContentSize:CGSizeMake(320, 790)];
     NSLog(@"Init Content size: %f - %f", scrollview.contentSize.width, infoView.frame.origin.y);
     
+    [[self aboutView] setFrame:CGRectMake(self.aboutView.frame.origin.x,
+                                         self.profileView.frame.origin.y + self.profileView.frame.size.height, self.aboutView.frame.size.width
+                                          , self.aboutView.frame.size.height)];
     self.lblAboutMe.text = [currentProfile s_aboutMe];
     if ([lblAboutMe.text length] <= 0) {
         self.aboutView.hidden = YES;
@@ -784,6 +787,27 @@ static CGFloat padding_left = 5.0;
     NSLog(@"Set VCProfile profile avatar: %@", currentProfile.s_Avatar);
 //    [self refreshScrollView];
 //    [self loadPhotoForScrollview];
+    
+    // fill data to table source
+    [self addToTableSourceWithKey:@"Name" andValue:currentProfile.s_Name];
+    [self addToTableSourceWithKey:@"Birthdate" andValue:currentProfile.s_birthdayDate];
+    [self addToTableSourceWithKey:@"Interested In" andValue:currentProfile.s_interested.text];
+    [self addToTableSourceWithKey:@"Gender" andValue:currentProfile.s_gender.text];
+    [self addToTableSourceWithKey:@"Relationship" andValue:currentProfile.s_relationShip.rel_text];
+    [self addToTableSourceWithKey:@"Height" andValue:[NSString stringWithFormat:@"%d", currentProfile.i_height]];
+    [self addToTableSourceWithKey:@"Weight" andValue:[NSString stringWithFormat:@"%d", currentProfile.i_weight]];
+    [self addToTableSourceWithKey:@"Ethnicity" andValue:currentProfile.c_ethnicity.name];
+    [self addToTableSourceWithKey:@"School" andValue:currentProfile.s_school];
+    [self addToTableSourceWithKey:@"Language" andValue:currentProfile.languagesDescription];
+    [self addToTableSourceWithKey:@"Work" andValue:currentProfile.i_work.cate_name];
+    [self addToTableSourceWithKey:@"About me" andValue:currentProfile.s_aboutMe];
+}
+
+-(void)addToTableSourceWithKey:(NSString *)key andValue:(NSString *)value
+{
+    NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:key, @"key", value, @"value", nil];
+    
+    [tableSource addObject:dict];
 }
 
 -(void) loadProfile:(Profile*) _profile{
@@ -967,14 +991,16 @@ static CGFloat padding_left = 5.0;
 
     static NSString *CellIdentifier = @"ProfileCellIdentifier";
     
-	ProfileCell *cell = (ProfileCell*)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+	UITableViewCell *cell = (UITableViewCell*)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
 	if (cell == nil)
 	{
-		cell = [[ProfileCell alloc] initWithStyle:UITableViewCellStyleDefault
+		cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1
                                           reuseIdentifier:CellIdentifier];
 	}
-    NSString* cellKeyName = [[tableSource objectAtIndex:indexPath.row] valueForKey:@"key"];
-    [cell setNames:[[tableSource objectAtIndex:indexPath.row] valueForKey:@"value"] AndKeyName:[NSString localizeString:cellKeyName]];
+    cell.textLabel.text = [[tableSource objectAtIndex:indexPath.row] valueForKey:@"key"];
+    //[cell setNames:[[tableSource objectAtIndex:indexPath.row] valueForKey:@"value"] AndKeyName:[NSString localizeString:cellKeyName]];
+    cell.detailTextLabel.text = [[tableSource objectAtIndex:indexPath.row] valueForKey:@"value"];
+    [cell localizeAllViews];
     return cell;
 }
 

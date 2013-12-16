@@ -11,8 +11,8 @@
 
 //demo version FLAG
 #define ENABLE_DEMO true
-#define USE_STAGING false
-#define USE_MAINHOST true
+#define USE_STAGING true
+#define USE_MAINHOST false
 #define USE_STAGING_MB false
 #define USE_STAGING_IOS false
 
@@ -25,6 +25,9 @@
 #define DISABLE_POCLICY TRUE
 // enable Select location manually
 //#define ENABLE_LOCATION_MANUALLY
+//view other's profile with full data
+#define VIEWPROFILE_FULLDATA true
+
 //Hangout
 #define sOnline @"Online"
 #define LOG_HTTP false
@@ -190,6 +193,9 @@
 //location of profile
 #define key_location @"location"
 //#define key_locationID @"id"
+#define key_isLike @"is_like"
+#define key_isVip @"is_vip"
+#define key_statusTime @"time"
 #define key_locationName @"name"
 #define key_locationCountry @"country"
 #define key_locationCountryCode @"country_code"

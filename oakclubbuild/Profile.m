@@ -28,7 +28,7 @@
 @synthesize is_deleted;
 @synthesize is_blocked;
 @synthesize is_available;
-@synthesize is_match, is_vip;
+@synthesize is_match, is_vip, is_like;
 @synthesize unread_message;
 @synthesize status;
 
@@ -503,12 +503,12 @@
                 profile.unread_message = unread_count;
                 profile.is_deleted = deleted;
                 profile.is_blocked = blocked;
-                profile.status =[[objectData valueForKey:@"status"] intValue];
-                profile.is_match = [[objectData valueForKey:@"matches"] boolValue];
-                profile.is_vip = [[objectData valueForKey:@"is_vip"] boolValue];
-                profile.s_status_time = [objectData valueForKey:@"time"];
-                profile.s_Name =[objectData valueForKey:@"name"];
-                profile.s_Avatar = [objectData valueForKey:@"avatar"];
+                profile.status =[[objectData valueForKey:key_status] intValue];
+                profile.is_match = [[objectData valueForKey:key_match] boolValue];
+                profile.is_vip = [[objectData valueForKey:key_isVip] boolValue];
+                profile.s_status_time = [objectData valueForKey:key_statusTime];
+                profile.s_Name =[objectData valueForKey:key_name];
+                profile.s_Avatar = [objectData valueForKey:key_avatar];
                 [rosterDict setObject:profile forKey:profile.s_ID];
                 NSLog(@"%d. unread message: %d", i, unread_count);
                 
@@ -579,6 +579,78 @@
     self.num_Liked =[[data valueForKey:key_liked] integerValue];
     self.distance = [[data valueForKey:key_distance] integerValue];
     self.active = [[data valueForKey:key_active] integerValue];
+}
+
+-(void)parseGetSnapshotToProfileFullData:(NSData *)jsonData
+{
+    NSMutableDictionary * data;
+    if([jsonData isKindOfClass:[NSDictionary class]]){
+        data= (id) jsonData;
+    }else{
+        NSError *e=nil;
+        NSMutableDictionary *dict = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingMutableContainers error:&e];
+        data= [dict valueForKey:key_data];
+    }
+    
+    self.s_Name = [data valueForKey:key_name];
+    self.s_Name = [self getFirstNameWithName:self.s_Name];
+    self.s_ID = [data valueForKey:key_profileID];
+    self.s_age = [data valueForKey:key_age];
+    self.s_snapshotID =[data valueForKey:key_snapshotID];
+    //load photos of profile
+    self.arr_photos = [data valueForKey:key_photos];
+    self.num_Photos = [arr_photos count];
+    for (int i = 0; i < self.num_Photos; i++) {
+        NSMutableDictionary *photoItem = [arr_photos objectAtIndex:i];
+        if ([[photoItem valueForKey:key_isProfilePicture] integerValue]) {
+            self.s_Avatar =[photoItem valueForKey:key_photoLink];
+        }
+    }
+    if(self.s_Avatar == nil){
+        self.s_Avatar = [data valueForKey:key_avatar];
+    }
+    //load mutual friends list
+    self.arr_MutualFriends = [[NSMutableArray alloc]init];
+    self.arr_MutualFriends = [self parseMutualList:[data valueForKey:key_MutualFriends]];
+    
+    //load mutual interest list
+    self.arr_MutualInterests = [[NSMutableArray alloc]init];
+    self.arr_MutualInterests = [self parseMutualList:[data valueForKey:key_ShareInterests]];
+    
+    self.num_Viewed =[[data valueForKey:key_viewed] integerValue];
+    self.num_Liked =[[data valueForKey:key_liked] integerValue];
+    self.distance = [[data valueForKey:key_distance] integerValue];
+    self.active = [[data valueForKey:key_active] integerValue];
+    
+    // new
+    self.s_video = [data valueForKey:key_video];
+    self.s_gender = [self parseGender:[data valueForKey:key_gender]];
+    self.s_birthdayDate =[data valueForKey:key_birthday];
+    self.i_weight =MAX([[data valueForKey:key_weight] integerValue], 0);
+    self.i_height = MAX([[data valueForKey:key_height] integerValue], 0);
+    self.s_interested = [self parseGender:[data valueForKey:key_interested]] ;
+    self.is_vip = [[data valueForKey:@"is_vip"] boolValue];
+    self.s_aboutMe = [data valueForKey:key_aboutMe];
+    if([self.s_aboutMe isKindOfClass:[NSNull class]]){
+        self.s_aboutMe = @"";
+    }
+    self.i_work = [[WorkCate alloc]initWithID:[[data valueForKey:key_work] integerValue]];
+    self.a_language = [Language initArrayLanguageWithArray:[data valueForKey:key_language]];// [data valueForKey:key_language];
+    self.s_school = [data valueForKey:key_school];
+    int ethnicityIndex =[[data valueForKey:key_ethnicity] integerValue];
+    self.c_ethnicity= [[Ethnicity alloc]initWithID:ethnicityIndex];
+    
+    NSMutableDictionary *dict_Location = [data valueForKey:key_location];
+    if (dict_Location != nil && ![dict_Location isKindOfClass:[NSNull class]])
+    {
+        self.s_location = [[Location alloc] initWithNSDictionary:dict_Location];
+    }
+    else
+    {
+        self.s_location = nil;
+    }
+    
+    self.is_like = [[data valueForKey:key_isLike] boolValue];
 }
 
 -(Gender*) parseGender:(NSNumber *)genderCode{

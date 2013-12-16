@@ -120,6 +120,7 @@
 @property (assign, nonatomic) bool is_available;
 @property (assign, nonatomic) bool is_match;
 @property (assign, nonatomic) bool is_vip;
+@property (assign, nonatomic) bool is_like;
 @property int status;
 @property int unread_message;
 @property int num_Liked;
@@ -136,6 +137,7 @@
 -(void) parseProfileWithData:(NSDictionary*)data;
 -(void) parseProfileWithData:(NSDictionary*)data withFullName:(BOOL)getFullName;
 -(void) parseGetSnapshotToProfile:(NSData *)jsonData;
+-(void) parseGetSnapshotToProfileFullData:(NSData *)jsonData;
 -(void) parseForGetProfileInfo:(NSData *)jsonData;
 - (void)saveSettingWithCompletion:(void(^)(bool isSuccess))completion;
 +(NSMutableArray*) parseListPhotos:(NSData *)jsonData;
