@@ -89,6 +89,7 @@
 @property (assign, nonatomic) int i_weight;
 @property (assign, nonatomic) int i_height;
 @property (strong, nonatomic) NSString *s_school;
+@property (strong, nonatomic) NSString *hometown;
 @property (strong, nonatomic) Location *s_location;
 @property (strong, nonatomic) NSMutableArray *a_language;
 @property (strong, nonatomic) NSString *s_aboutMe;
@@ -120,6 +121,7 @@
 @property (assign, nonatomic) bool is_available;
 @property (assign, nonatomic) bool is_match;
 @property (assign, nonatomic) bool is_vip;
+@property (assign, nonatomic) bool is_like;
 @property int status;
 @property int unread_message;
 @property int num_Liked;
@@ -136,6 +138,7 @@
 -(void) parseProfileWithData:(NSDictionary*)data;
 -(void) parseProfileWithData:(NSDictionary*)data withFullName:(BOOL)getFullName;
 -(void) parseGetSnapshotToProfile:(NSData *)jsonData;
+-(void) parseGetSnapshotToProfileFullData:(NSData *)jsonData;
 -(void) parseForGetProfileInfo:(NSData *)jsonData;
 - (void)saveSettingWithCompletion:(void(^)(bool isSuccess))completion;
 +(NSMutableArray*) parseListPhotos:(NSData *)jsonData;

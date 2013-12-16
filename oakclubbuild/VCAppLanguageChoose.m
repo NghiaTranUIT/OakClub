@@ -55,7 +55,7 @@
     self.navigationItem.titleView = label;
     
     
-    [self.view localizeAllViews];
+    //[self.view localizeAllViews];
     [self.navigationController.view localizeAllViews];
 }
 
@@ -103,7 +103,7 @@
         cell.accessoryType = UITableViewCellAccessoryNone;
     }
     
-    [cell localizeAllViews];
+    //[cell localizeAllViews];
     return cell;
 }
 
@@ -125,7 +125,7 @@
             }
         }];
         
-        [self.view localizeAllViews];
+        //[self.view localizeAllViews];
         [self.navigationController.view localizeAllViews];
     }
     

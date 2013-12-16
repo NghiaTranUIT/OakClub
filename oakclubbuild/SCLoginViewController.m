@@ -22,6 +22,7 @@
 @property (weak, nonatomic) IBOutlet UIView *pickingView;
 @property (weak, nonatomic) IBOutlet UIButton *btnDone;
 @property (weak, nonatomic) IBOutlet UIPickerView *pickerView;
+@property (weak, nonatomic) IBOutlet UILabel *lbChoose;
 - (IBAction)performLogin:(id)sender;
 @property (weak, nonatomic) UITableView *tBView;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *spinner;
@@ -35,7 +36,7 @@
 
 
 @implementation SCLoginViewController
-@synthesize spinner,btnLogin,pageControl, pickerView, pickingView, btnInfo;
+@synthesize spinner,btnLogin,pageControl, pickerView, pickingView, btnInfo, btnDone, lbChoose;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -63,7 +64,7 @@
 {
     [super viewDidLoad];
     
-    [self showMenuLanguage];
+    
     
     descText = [[NSArray alloc] initWithObjects:
                 @"Anonymouly \"like\" or \"pass\" on people OakClub suggests",
@@ -106,6 +107,7 @@
     pageControl.currentPage = 0;
     
     [self.view localizeAllViews];
+    [self showMenuLanguage];
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -117,7 +119,7 @@
 {
     [super viewDidAppear:animated];
     
-    [self.view localizeAllViews];
+    //  [self.view localizeAllViews];
 }
 
 - (NSUInteger)supportedInterfaceOrientations
@@ -256,6 +258,8 @@
     
     if (!isSetLanguage)
     {
+        [lbChoose setText:[@"Choose your language" localize]];
+        [btnDone setTitle:[@"Done" localize] forState:UIControlStateNormal];
         [pickingView setFrame: CGRectMake(0, 0, pickingView.frame.size.width, pickingView.frame.size.height)];
         pickingView.tag = 7;
         [self.view addSubview:pickingView];
