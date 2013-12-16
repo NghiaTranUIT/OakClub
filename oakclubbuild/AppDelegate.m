@@ -562,6 +562,9 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
     [self.imagePool getImageAtURL:self.myProfile.s_Avatar withSize:PHOTO_SIZE_LARGE asycn:^(UIImage *img, NSError *error, bool isFirstLoad) {
         
     }];
+    [self.imagePool getImageAtURL:self.myProfile.s_Avatar withSize:PHOTO_SIZE_SMALL asycn:^(UIImage *img, NSError *error, bool isFirstLoad) {
+        
+    }];
     [self setFieldValue:[NSString stringWithFormat:DOMAIN_AT_FMT,self.myProfile.s_usenameXMPP] forKey:kXMPPmyJID];
     [self setFieldValue:self.myProfile.s_passwordXMPP forKey:kXMPPmyPassword];
     [DDLog addLogger:[DDTTYLogger sharedInstance]];
@@ -1608,6 +1611,8 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
              [self loadFBUserInfo:^(id status)
               {
                   NSLog(@"FB Login request completed!");
+                  // clear image cache
+                  self.imagePool = [[ImagePool alloc] init];
                   
                   [self startPingTimer];
                   

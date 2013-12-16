@@ -494,12 +494,12 @@ CGFloat pageHeight;
 //    btnKeepSwiping.titleLabel.text = [@"Keep Swiping!" localize];
     [matchViewController.view setFrame:CGRectMake(0, 0, matchViewController.view.frame.size.width, matchViewController.view.frame.size.height)];
     [lblMatchAlert setText:[NSString stringWithFormat:[@"You and %@ have liked each other!" localize],currentProfile.firstName]];
-    [snapshotImagePool getImageAtURL:currentProfile.s_Avatar withSize:PHOTO_SIZE_SMALL asycn:^(UIImage *img, NSError *error, bool isFirstLoad) {
+    [snapshotImagePool getImageAtURL:currentProfile.s_Avatar withSize:PHOTO_SIZE_LARGE asycn:^(UIImage *img, NSError *error, bool isFirstLoad) {
         [imgMatcher setImage:img];
-        [matchViewController.view localizeAllViews];
-        [self.view addSubview:matchViewController.view];
 
     }];
+    [matchViewController.view localizeAllViews];
+    [self.view addSubview:matchViewController.view];
 //    [[self view] localizeAllViews];
 }
 
@@ -536,7 +536,7 @@ CGFloat pageHeight;
     
     NSMutableArray* array = [[NSMutableArray alloc]init];
     
-    [snapshotImagePool getImageAtURL:matchedProfile.s_Avatar withSize:PHOTO_SIZE_SMALL asycn:^(UIImage *img, NSError *error, bool isFirstLoad) {
+    [snapshotImagePool getImageAtURL:matchedProfile.s_Avatar withSize:PHOTO_SIZE_LARGE asycn:^(UIImage *img, NSError *error, bool isFirstLoad) {
         SMChatViewController *chatController =
         [[SMChatViewController alloc] initWithUser:[NSString stringWithFormat:@"%@@oakclub.com", matchedProfile.s_ID]
                                        withProfile:matchedProfile
