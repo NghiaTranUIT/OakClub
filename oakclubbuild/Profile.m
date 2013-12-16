@@ -20,7 +20,7 @@
 
 @implementation Profile
 
-@synthesize s_Name, i_Points, s_ProfileStatus, s_FB_id, s_ID, dic_Roster,num_Photos, s_gender, num_points,/* num_unreadMessage,*/ s_passwordXMPP, s_usenameXMPP, arr_photos, s_aboutMe, s_birthdayDate, s_interested,a_language, s_location,s_relationShip, c_ethnicity, s_age, s_meetType, s_popularity, s_interestedStatus, s_snapshotID, a_favorites, s_user_id,s_school,i_work, i_height,i_weight, num_MutualFriends, num_Liked,num_Viewed, s_Email, distance, active, s_video;
+@synthesize s_Name, i_Points, s_ProfileStatus, s_FB_id, s_ID, dic_Roster,num_Photos, s_gender, num_points,/* num_unreadMessage,*/ s_passwordXMPP, s_usenameXMPP, arr_photos, s_aboutMe, s_birthdayDate, s_interested,a_language, hometown, s_location,s_relationShip, c_ethnicity, s_age, s_meetType, s_popularity, s_interestedStatus, s_snapshotID, a_favorites, s_user_id,s_school,i_work, i_height,i_weight, num_MutualFriends, num_Liked,num_Viewed, s_Email, distance, active, s_video;
 
 @synthesize s_status_time, arr_MutualFriends, arr_MutualInterests, new_mutual_attractions;
 
@@ -640,14 +640,30 @@
     int ethnicityIndex =[[data valueForKey:key_ethnicity] integerValue];
     self.c_ethnicity= [[Ethnicity alloc]initWithID:ethnicityIndex];
     
-    NSMutableDictionary *dict_Location = [data valueForKey:key_location];
-    if (dict_Location != nil && ![dict_Location isKindOfClass:[NSNull class]])
+//    NSMutableDictionary *dict_Location = [data valueForKey:key_location];
+//    if (dict_Location != nil && ![dict_Location isKindOfClass:[NSNull class]])
+//    {
+//        self.s_location = [[Location alloc] initWithNSDictionary:dict_Location];
+//    }
+//    else
+//    {
+//        self.s_location = nil;
+//    }
+    NSString *location_Name = [data valueForKey:@"location_name"];
+    if (location_Name)
     {
-        self.s_location = [[Location alloc] initWithNSDictionary:dict_Location];
+        self.s_location = [[Location alloc] init];
+        self.s_location.name = location_Name;
+    }
+    
+    NSString *hometown_name = [data valueForKey:@"howntown_name"];
+    if (hometown_name)
+    {
+        self.hometown = hometown_name;
     }
     else
     {
-        self.s_location = nil;
+        self.hometown = @"";
     }
     
     self.is_like = [[data valueForKey:key_isLike] boolValue];
@@ -850,6 +866,7 @@
     accountCopy.i_weight = i_weight;
     accountCopy.i_height = i_height;
     accountCopy.s_location = [s_location copy];
+    accountCopy.hometown = [hometown copy];
     accountCopy.a_language = [a_language mutableCopy];
     accountCopy.s_aboutMe = [s_aboutMe copyWithZone:zone];
     accountCopy.c_ethnicity = [c_ethnicity copy];
@@ -871,6 +888,7 @@
     accountCopy.is_available = is_available ;
     accountCopy.is_match = is_match;
     accountCopy.is_vip = is_vip;
+    accountCopy.is_like = is_like;
     accountCopy.status = status;
     accountCopy.unread_message = unread_message;
     accountCopy.distance = distance;

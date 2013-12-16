@@ -401,9 +401,9 @@ CGFloat pageHeight;
     
     [snapshotImagePool getImageAtURL:currentProfile.s_Avatar withSize:PHOTO_SIZE_LARGE asycn:^(UIImage *img, NSError *error, bool isFirstLoad) {
         [viewProfile loadProfile:currentProfile andImage:img];
+        [self.view addSubview:viewProfile.view];
     }];
 
-    [self.view addSubview:viewProfile.view];
     if(IS_OS_7_OR_LATER){
         viewProfile.view.frame = CGRectMake(0, [[UIScreen mainScreen]applicationFrame].size.height, 320, [[UIScreen mainScreen]applicationFrame].size.height);
     }

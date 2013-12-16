@@ -19,6 +19,7 @@
 #import <math.h>
 #import "ImageInfo.h"
 #import <MediaPlayer/MediaPlayer.h>
+#import "ProfileInfoCell.h"
 
 @interface VCProfile (){
 //    BOOL popoverShowing;
@@ -330,6 +331,7 @@ static CGFloat padding_left = 5.0;
     [lblActive setText:[@"More than 5 days ago" localize]];
 }
 
+#define ABOUTVIEW_PADDING 10
 -(void)loadInfoView{
     lbl_name.text = currentProfile.s_Name;
     lblAge.text = [NSString stringWithFormat:@"%@",currentProfile.s_age];
@@ -338,53 +340,43 @@ static CGFloat padding_left = 5.0;
     [self LoadDistanceText];
     [self LoadActiveText];
     // SCROLL SIZE
-    [scrollview setContentSize:CGSizeMake(320, scrollview.frame.size.height + self.profileView.frame.size.height)];
+    [scrollview setContentSize:CGSizeMake(320, scrollview.frame.size.height)];
     NSLog(@"Init Content size: %f - %f", scrollview.contentSize.width, infoView.frame.origin.y);
     
-    [[self aboutView] setFrame:CGRectMake(self.aboutView.frame.origin.x,
-                                         self.profileView.frame.origin.y + self.profileView.frame.size.height, self.aboutView.frame.size.width
-                                          , self.aboutView.frame.size.height)];
-    self.lblAboutMe.text = [currentProfile s_aboutMe];
-    if ([lblAboutMe.text length] <= 0) {
-        self.aboutView.hidden = YES;
-        self.mutualFriendsView.frame = [self moveToFrame:self.interestsView.frame from:self.mutualFriendsView.frame];
-        self.interestsView.frame = [self moveToFrame:self.aboutView.frame from:self.interestsView.frame];
-    }
-    else{
-        self.aboutView.hidden = NO;
-        lblAboutMe.numberOfLines = 0;
-        [lblAboutMe sizeToFit];
-        CGRect newAboutFrame = CGRectMake(self.aboutView.frame.origin.x,
-                                          self.aboutView.frame.origin.y,
-                                          self.aboutView.frame.size.width,
-                                          self.lblAboutMe.frame.size.height + self.lblAboutMe.frame.origin.x);
-        NSInteger deltaPosition = (self.aboutView.frame.size.height - newAboutFrame.size.height);
-        self.aboutView.frame = newAboutFrame;
-        self.mutualFriendsView.frame = CGRectMake(self.mutualFriendsView.frame.origin.x, self.mutualFriendsView.frame.origin.y - deltaPosition, self.mutualFriendsView.frame.size.width, self.mutualFriendsView.frame.size.height);
-        self.interestsView.frame = CGRectMake(self.interestsView.frame.origin.x, self.interestsView.frame.origin.y - deltaPosition, self.interestsView.frame.size.width, self.interestsView.frame.size.height);
-        [scrollview setContentSize:CGSizeMake(scrollview.contentSize.width, scrollview.contentSize.height + self.aboutView.frame.size.height)];
-    }
+//    [[self aboutView] setFrame:CGRectMake(self.aboutView.frame.origin.x,
+//                                         self.profileView.frame.origin.y + self.profileView.frame.size.height, self.aboutView.frame.size.width
+//                                          , self.aboutView.frame.size.height)];
+    CGPoint startPosition = CGPointMake(0, self.lblnLikes.frame.origin.y + self.lblnLikes.frame.size.height);
     if( currentProfile.arr_MutualInterests && [currentProfile.arr_MutualInterests count] > 0)
     {
         NSLog(@"Before Interest Content size: %f - %f", scrollview.contentSize.width, scrollview.contentSize.height);
         self.interestsView.hidden = NO;
+        CGRect interestsFrame = self.interestsView.frame;
+        interestsFrame.origin = startPosition;
+        [self.interestsView setFrame:interestsFrame];
+        
         [self loadInterestedThumbnailList:currentProfile.arr_MutualInterests andContentView:self.interestsView andScrollView:self.scrollViewInterest];
         [scrollview setContentSize:CGSizeMake(scrollview.contentSize.width, scrollview.contentSize.height + self.interestsView.frame.size.height)];
+        startPosition.y += interestsFrame.size.height;
         NSLog(@"Interest Content size: %f - %f", scrollview.contentSize.width, scrollview.contentSize.height);
     }
     else
     {
         self.interestsView.hidden = YES;
-//        self.profileView.frame = [self moveToFrame:self.mutualFriendsView.frame from:self.profileView.frame];
-        self.mutualFriendsView.frame = [self moveToFrame:self.interestsView.frame from:self.mutualFriendsView.frame];
+//        self.mutualFriendsView.frame = [self moveToFrame:self.interestsView.frame from:self.mutualFriendsView.frame];
     }
     
-    if( currentProfile.arr_MutualFriends && [currentProfile.arr_MutualFriends count] > 0)
+    if(currentProfile.arr_MutualFriends && [currentProfile.arr_MutualFriends count] > 0)
     {
         NSLog(@"Before Interest Content size: %f - %f", scrollview.contentSize.width, scrollview.contentSize.height);
         self.mutualFriendsView.hidden = NO;
+        CGRect mutualFriendsFrame = self.mutualFriendsView.frame;
+        mutualFriendsFrame.origin = startPosition;
+        [self.mutualFriendsView setFrame:mutualFriendsFrame];
+        
         [self loadInterestedThumbnailList:currentProfile.arr_MutualFriends andContentView:self.mutualFriendsView andScrollView:self.mutualFriendsImageView];
         [scrollview setContentSize:CGSizeMake(scrollview.contentSize.width, scrollview.contentSize.height + self.mutualFriendsView.frame.size.height)];
+        startPosition.y += self.mutualFriendsView.frame.size.height;
         NSLog(@"Interest Content size: %f - %f", scrollview.contentSize.width, scrollview.contentSize.height);
     }
     else
@@ -394,8 +386,60 @@ static CGFloat padding_left = 5.0;
 //        self.profileView.frame = [self moveToFrame:self.mutualFriendsView.frame from:self.profileView.frame];
 //        self.mutualFriendsView.frame = [self moveToFrame:self.interestsView.frame from:self.mutualFriendsView.frame];
     }
-//    [self initMutualInterestsList];
-//    [self initMutualFriendsList];
+    
+    
+    
+    self.lblAboutMe.text = [currentProfile s_aboutMe];
+    if (lblAboutMe.text.length > 0)
+    {
+        self.aboutView.hidden = NO;
+        lblAboutMe.numberOfLines = 0;
+        [lblAboutMe sizeToFit];
+        CGRect newAboutFrame = CGRectMake(self.aboutView.frame.origin.x,
+                                          self.aboutView.frame.origin.y,
+                                          self.aboutView.frame.size.width,
+                                          self.lblAboutMe.frame.size.height + self.lblAboutMe.frame.origin.y + ABOUTVIEW_PADDING);
+//        NSInteger deltaPosition = (self.aboutView.frame.size.height - newAboutFrame.size.height);
+
+        newAboutFrame.origin = startPosition;
+        [self.aboutView setFrame:newAboutFrame];
+        
+        [scrollview setContentSize:CGSizeMake(scrollview.contentSize.width, scrollview.contentSize.height + self.aboutView.frame.size.height)];
+        startPosition.y += self.aboutView.frame.size.height;
+    }
+    else
+    {
+        self.aboutView.hidden = YES;
+    }
+    
+//    if ([lblAboutMe.text length] <= 0) {
+//        self.aboutView.hidden = YES;
+//        self.mutualFriendsView.frame = [self moveToFrame:self.interestsView.frame from:self.mutualFriendsView.frame];
+//        self.interestsView.frame = [self moveToFrame:self.aboutView.frame from:self.interestsView.frame];
+//    }
+//    else{
+//        self.aboutView.hidden = NO;
+//        lblAboutMe.numberOfLines = 0;
+//        [lblAboutMe sizeToFit];
+//        CGRect newAboutFrame = CGRectMake(self.aboutView.frame.origin.x,
+//                                          self.aboutView.frame.origin.y,
+//                                          self.aboutView.frame.size.width,
+//                                          self.lblAboutMe.frame.size.height + self.lblAboutMe.frame.origin.x);
+//        NSInteger deltaPosition = (self.aboutView.frame.size.height - newAboutFrame.size.height);
+//        self.aboutView.frame = newAboutFrame;
+//        self.mutualFriendsView.frame = CGRectMake(self.mutualFriendsView.frame.origin.x, self.mutualFriendsView.frame.origin.y - deltaPosition, self.mutualFriendsView.frame.size.width, self.mutualFriendsView.frame.size.height);
+//        self.interestsView.frame = CGRectMake(self.interestsView.frame.origin.x, self.interestsView.frame.origin.y - deltaPosition, self.interestsView.frame.size.width, self.interestsView.frame.size.height);
+//        [scrollview setContentSize:CGSizeMake(scrollview.contentSize.width, scrollview.contentSize.height + self.aboutView.frame.size.height)];
+//    }
+    
+    // UPDATE FRAME FOR PROFILE VIEW
+    CGRect profileViewFrame = self.profileView.frame;
+    profileViewFrame.origin = startPosition;
+    profileViewFrame.size.height = 30 * [tableSource count];
+    [self.profileView setFrame:profileViewFrame];
+    [scrollview setContentSize:CGSizeMake(scrollview.contentSize.width, scrollview.contentSize.height + self.profileView.frame.size.height)];
+    startPosition.y += self.profileView.frame.size.height;
+    
     [self  disableControllerButtons:NO];
     
     loadingAvatar.hidden = YES;
@@ -540,6 +584,9 @@ static CGFloat padding_left = 5.0;
     // Do any additional setup after loading the view from its nib.
     userImagePool = [[ImagePool alloc] init];
     [self loadInfoView];
+    
+    [self refreshScrollView];
+    [self loadPhotoForScrollview];
 }
 -(void)viewDidAppear:(BOOL)animated
 {
@@ -553,9 +600,6 @@ static CGFloat padding_left = 5.0;
     [self.view localizeAllViews];
     
 //    [self customNavHeader];
-    
-    [self refreshScrollView];
-    [self loadPhotoForScrollview];
 }
 
 -(void) viewWillAppear:(BOOL)animated{
@@ -789,18 +833,36 @@ static CGFloat padding_left = 5.0;
 //    [self loadPhotoForScrollview];
     
     // fill data to table source
-    [self addToTableSourceWithKey:@"Name" andValue:currentProfile.s_Name];
-    [self addToTableSourceWithKey:@"Birthdate" andValue:currentProfile.s_birthdayDate];
-    [self addToTableSourceWithKey:@"Interested In" andValue:currentProfile.s_interested.text];
-    [self addToTableSourceWithKey:@"Gender" andValue:currentProfile.s_gender.text];
-    [self addToTableSourceWithKey:@"Relationship" andValue:currentProfile.s_relationShip.rel_text];
-    [self addToTableSourceWithKey:@"Height" andValue:[NSString stringWithFormat:@"%d", currentProfile.i_height]];
-    [self addToTableSourceWithKey:@"Weight" andValue:[NSString stringWithFormat:@"%d", currentProfile.i_weight]];
-    [self addToTableSourceWithKey:@"Ethnicity" andValue:currentProfile.c_ethnicity.name];
-    [self addToTableSourceWithKey:@"School" andValue:currentProfile.s_school];
-    [self addToTableSourceWithKey:@"Language" andValue:currentProfile.languagesDescription];
-    [self addToTableSourceWithKey:@"Work" andValue:currentProfile.i_work.cate_name];
-    [self addToTableSourceWithKey:@"About me" andValue:currentProfile.s_aboutMe];
+    if (currentProfile.s_location.name && currentProfile.s_location.name.length > 0)
+    {
+        [self addToTableSourceWithKey:@"viewprofile_location_icon" andValue:currentProfile.s_location.name];
+    }
+    if (currentProfile.hometown && currentProfile.hometown.length > 0)
+    {
+        [self addToTableSourceWithKey:@"viewprofile_hometown_icon" andValue:currentProfile.hometown];
+    }
+    if (currentProfile.s_birthdayDate && currentProfile.s_birthdayDate.length > 0)
+    {
+        [self addToTableSourceWithKey:@"viewprofile_birthdate_icon" andValue:currentProfile.s_birthdayDate];
+    }
+    if (currentProfile.s_school && currentProfile.s_school.length > 0)
+    {
+        [self addToTableSourceWithKey:@"viewprofile_school_icon" andValue:currentProfile.s_school];
+    }
+    if (currentProfile.i_work.cate_name && currentProfile.i_work.cate_name.length > 0)
+    {
+        [self addToTableSourceWithKey:@"viewprofile_work_icon" andValue:currentProfile.i_work.cate_name];
+    }
+    if (currentProfile.s_interested.text && currentProfile.s_interested.text.length > 0)
+    {
+        [self addToTableSourceWithKey:@"viewprofile_interested_in_icon" andValue:currentProfile.s_interested.text];
+    }
+    
+    
+//    [self addToTableSourceWithKey:@"viewprofile_birthdate_icon" andValue:currentProfile.s_birthdayDate];
+//    [self addToTableSourceWithKey:@"viewprofile_school_icon" andValue:currentProfile.s_school];
+//    [self addToTableSourceWithKey:@"viewprofile_work_icon" andValue:currentProfile.i_work.cate_name];
+//    [self addToTableSourceWithKey:@"viewprofile_interested_in_icon" andValue:currentProfile.s_interested.text];
 }
 
 -(void)addToTableSourceWithKey:(NSString *)key andValue:(NSString *)value
@@ -985,22 +1047,21 @@ static CGFloat padding_left = 5.0;
     return [tableSource count];
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 21;
+    return 30;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
 
     static NSString *CellIdentifier = @"ProfileCellIdentifier";
     
-	UITableViewCell *cell = (UITableViewCell*)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+	ProfileInfoCell *cell = (ProfileInfoCell*)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
 	if (cell == nil)
 	{
-		cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1
+		cell = [[ProfileInfoCell alloc] initWithStyle:UITableViewCellStyleDefault
                                           reuseIdentifier:CellIdentifier];
+        [cell.imgViewTitle setContentMode:UIViewContentModeScaleAspectFit];
 	}
-    cell.textLabel.text = [[tableSource objectAtIndex:indexPath.row] valueForKey:@"key"];
-    //[cell setNames:[[tableSource objectAtIndex:indexPath.row] valueForKey:@"value"] AndKeyName:[NSString localizeString:cellKeyName]];
-    cell.detailTextLabel.text = [[tableSource objectAtIndex:indexPath.row] valueForKey:@"value"];
-    [cell localizeAllViews];
+    cell.imgViewTitle.image = [UIImage imageNamed:[[tableSource objectAtIndex:indexPath.row] valueForKey:@"key"]];
+    cell.lblDetail.text = [[tableSource objectAtIndex:indexPath.row] valueForKey:@"value"];
     return cell;
 }
 
@@ -1088,7 +1149,7 @@ BOOL allowFullScreen = FALSE;
             }
             else
             {
-                [self.svPhotos setFrame:CGRectMake(0, 0, 320, self.svPhotos.frame.size.height +  fabsf(scrollOffset))];
+                [self.svPhotos setFrame:CGRectMake(0, 0, 320, self.svPhotos.frame.size.height + fabsf(scrollOffset))];
                 self.svPhotos.contentSize =
                 CGSizeMake(CGRectGetWidth(self.svPhotos.frame) * [currentProfile.arr_photos count], CGRectGetHeight(self.svPhotos.frame));
                 [self.infoView setFrame:CGRectMake(0, self.infoView.frame.origin.y +fabsf(scrollOffset), self.infoView.frame.size.width, self.infoView.frame.size.height)];

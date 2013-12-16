@@ -89,6 +89,7 @@
 @property (assign, nonatomic) int i_weight;
 @property (assign, nonatomic) int i_height;
 @property (strong, nonatomic) NSString *s_school;
+@property (strong, nonatomic) NSString *hometown;
 @property (strong, nonatomic) Location *s_location;
 @property (strong, nonatomic) NSMutableArray *a_language;
 @property (strong, nonatomic) NSString *s_aboutMe;
