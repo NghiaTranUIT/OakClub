@@ -113,8 +113,6 @@
     <resources>
         <image name="Logout_BG.png" width="334" height="156"/>
         <image name="Logout_btn_active.png" width="298" height="44"/>
-        <image name="Logout_btn_active.png" width="298" height="44"/>
-        <image name="Logout_btn_cancel_active.png" width="320" height="66"/>
         <image name="Logout_btn_cancel_active.png" width="320" height="66"/>
         <image name="Logout_btn_cancel_inactive.png" width="320" height="66"/>
         <image name="Logout_btn_inactive.png" width="298" height="44"/>

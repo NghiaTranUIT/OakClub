@@ -93,8 +93,8 @@
                                 @"English", value_appLanguage_EN,\
                                 @"Deutsch", value_appLanguage_DE,\
                                 @"Indonesia", value_appLanguage_ID,\
-                                @"Thai", value_appLanguage_TH,\
-                                @"Türk", value_appLanguage_TR,\
+                                @"ภาษาไทย", value_appLanguage_TH,\
+                                @"Türkce", value_appLanguage_TR,\
                                 nil])
 #else
 #define AppLanguageList ([NSDictionary dictionaryWithObjectsAndKeys:\
