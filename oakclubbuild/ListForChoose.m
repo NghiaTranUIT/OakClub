@@ -429,7 +429,7 @@ NSIndexPath* oldIndex;
                     break;
                 case LISTTYPE_WORK:
                     currentValue.i_work.cate_id = [[[dataSource objectAtIndex:indexPath.row] valueForKey:@"cate_id"] integerValue];
-                    currentValue.i_work.cate_name = [[dataSource objectAtIndex:indexPath.row] valueForKey:@"cate_name"] ;
+//                    currentValue.i_work.cate_name = [[dataSource objectAtIndex:indexPath.row] valueForKey:@"cate_name"] ;
                     break;
                 default:
                     break;
