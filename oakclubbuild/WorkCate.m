@@ -13,20 +13,24 @@
 -(id) copyWithZone: (NSZone *) zone{
     WorkCate *copyObj = [[WorkCate allocWithZone: zone] init];
     copyObj.cate_id = self.cate_id;
-    copyObj.cate_name = [self.cate_name copyWithZone:zone];
+//    copyObj.cate_name = [self.cate_name copyWithZone:zone];
     return copyObj;
 }
 -(WorkCate*) initWithID:(int)workID{
-    AppDelegate *appDel = (id) [UIApplication sharedApplication].delegate;
     WorkCate* workcate = [WorkCate alloc];
     workcate.cate_id = workID;
+    return workcate;
+}
+
+-(NSString *)cate_name
+{
+    AppDelegate *appDel = (id) [UIApplication sharedApplication].delegate;
     for (NSDictionary *object in appDel.workList){
-        if([[object valueForKey:@"cate_id"] integerValue] == workID){
-            workcate.cate_name = [object valueForKey:@"cate_name"] ;
-            return workcate;
+        if([[object valueForKey:@"cate_id"] integerValue] == self.cate_id){
+            return [object valueForKey:@"cate_name"] ;
         }
-        
     }
-    return nil;
+    
+    return @"";
 }
 @end
