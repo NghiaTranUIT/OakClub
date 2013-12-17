@@ -639,11 +639,11 @@ CGFloat pageHeight;
 
 -(void)setLikedSnapshot:(NSString*)answerChoice{
     int isFirstTime = [[[NSUserDefaults standardUserDefaults] objectForKey:key_isFirstSnapshot] integerValue];
-//    if(isFirstTime==0 || (isFirstTime < 4 &&
-//        ( (isFirstTime == interestedStatusNO && [answerChoice integerValue] == interestedStatusYES)
-//           || (isFirstTime == interestedStatusYES && [answerChoice integerValue]== interestedStatusNO)
-//        )
-//       ))
+    if(isFirstTime==0 || (isFirstTime < 4 &&
+        ( (isFirstTime == interestedStatusNO && [answerChoice integerValue] == interestedStatusYES)
+           || (isFirstTime == interestedStatusYES && [answerChoice integerValue]== interestedStatusNO)
+        )
+       ))
     {
         [[self navBarOakClub] disableAllControl: YES];
         appDel.rootVC.recognizesPanningOnFrontView = NO;
