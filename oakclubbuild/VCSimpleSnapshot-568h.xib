@@ -309,11 +309,11 @@
                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Default Avatar.png" id="4M7-C4-0fu">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Default Avatar.png" id="4M7-C4-0fu">
                         <rect key="frame" x="32" y="98" width="113" height="113"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     </imageView>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Default Avatar.png" id="5Tc-Vx-ANn">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Default Avatar.png" id="5Tc-Vx-ANn">
                         <rect key="frame" x="176" y="98" width="113" height="113"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     </imageView>
@@ -516,28 +516,45 @@
     </objects>
     <resources>
         <image name="Default Avatar.png" width="255" height="255"/>
+        <image name="Default Avatar.png" width="255" height="255"/>
+        <image name="Default Avatar.png" width="255" height="255"/>
+        <image name="Default Avatar.png" width="255" height="255"/>
         <image name="Snapshot_bg_profiles.png" width="289" height="314"/>
         <image name="Snapshot_btnSendMessage.png" width="154" height="34"/>
         <image name="Snapshot_btnSendMessage_pressed.png" width="154" height="34"/>
+        <image name="Snapshot_btnSendMessage_pressed.png" width="154" height="34"/>
+        <image name="Snapshot_btn_KeepPlaying.png" width="154" height="34"/>
         <image name="Snapshot_btn_KeepPlaying.png" width="154" height="34"/>
         <image name="Snapshot_btn_KeepPlaying_pressed.png" width="154" height="34"/>
         <image name="Snapshot_btn_info.png" width="45" height="53"/>
         <image name="Snapshot_btn_info_pressed.png" width="45" height="53"/>
+        <image name="Snapshot_btn_info_pressed.png" width="45" height="53"/>
         <image name="Snapshot_btn_no.png" width="81" height="83"/>
         <image name="Snapshot_btn_no_preesed.png" width="81" height="83"/>
+        <image name="Snapshot_btn_no_preesed.png" width="81" height="83"/>
         <image name="Snapshot_btn_yes.png" width="81" height="83"/>
+        <image name="Snapshot_btn_yes_pressed.PNG" width="80" height="82"/>
         <image name="Snapshot_btn_yes_pressed.PNG" width="80" height="82"/>
         <image name="Snapshot_camera_icon.png" width="25" height="25"/>
         <image name="Snapshot_like_stamp.png" width="143" height="148"/>
         <image name="Snapshot_mutualfriends_icon.png" width="25" height="25"/>
         <image name="Snapshot_no_stamp.png" width="143" height="148"/>
         <image name="Snapshot_popup_box.png" width="273" height="213"/>
+        <image name="Snapshot_popup_box.png" width="273" height="213"/>
         <image name="Snapshot_popup_cancel.png" width="96" height="38"/>
+        <image name="Snapshot_popup_cancel.png" width="96" height="38"/>
+        <image name="Snapshot_popup_cancel_pressed.png" width="96" height="38"/>
+        <image name="Snapshot_popup_cancel_pressed.png" width="96" height="38"/>
+        <image name="Snapshot_popup_cancel_pressed.png" width="96" height="38"/>
         <image name="Snapshot_popup_cancel_pressed.png" width="96" height="38"/>
         <image name="Snapshot_popup_like.png" width="95" height="38"/>
         <image name="Snapshot_popup_no.png" width="95" height="38"/>
         <image name="Snapshot_popup_no_pressed.png" width="95" height="38"/>
+        <image name="Snapshot_popup_no_pressed.png" width="95" height="38"/>
+        <image name="Snapshot_popup_no_pressed.png" width="95" height="38"/>
+        <image name="Snapshot_popup_no_pressed.png" width="95" height="38"/>
         <image name="Snapshot_shareInterest_icon.png" width="26" height="26"/>
+        <image name="Snapshot_top_polaroid.png" width="261" height="303"/>
         <image name="Snapshot_top_polaroid.png" width="261" height="303"/>
         <image name="Snapshot_transBG.png" width="320" height="460"/>
         <image name="viewprofile_Bar_BG.png" width="320" height="25"/>
