@@ -386,24 +386,26 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
             [VCSSnapshot refreshSnapshotFocus:focus];
             selfCopy.reloadSnapshot = FALSE;
         }
-        if(!focus && self.rootVC.state != PKRevealControllerFocusesFrontViewController){
-            [self.rootVC.frontViewController.view setUserInteractionEnabled:NO];
+        if(!focus && selfCopy.rootVC.state != PKRevealControllerFocusesFrontViewController){
+            [selfCopy.rootVC.frontViewController.view setUserInteractionEnabled:NO];
         }
     }];
 }
 -(void)showSimpleSnapshot{
-    
+    AppDelegate *selfCopy = self;   // copy for retain cycle
     activeVC = _simpleSnapShot;
     [self.rootVC setFrontViewController:self.simpleSnapShot focusAfterChange:NO completion:^(BOOL finished) {
         
-            [self.rootVC.frontViewController.view setUserInteractionEnabled:NO];
+            [selfCopy.rootVC.frontViewController.view setUserInteractionEnabled:NO];
     }];
 }
 -(void)showSnapshotLoadingThenFocus:(BOOL)focus and:(void(^)(void))handler{
+    AppDelegate *selfCopy = self;   // copy for retain cycle
     //    [self.rootVC setRootController:self.myLink animated:YES];
     //    [self.rootVC setContentViewController:self.myLink snapToContentViewController:YES animated:YES];
     activeVC = _snapshotLoading;
     [self.rootVC setFrontViewController:self.snapshotLoading focusAfterChange:focus completion:^(BOOL finished) {
+        [selfCopy.rootVC.frontViewController.view setUserInteractionEnabled:YES];
         if(handler)
             handler();
     }];
@@ -1378,6 +1380,7 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
         newFriend = [[Profile alloc]init];
         newFriend.s_ID =[message from].user;
         newFriend.status = ChatUnviewed;
+        newFriend.unread_message++;
         [newFriend getProfileInfo:^(void){
             [xmppRoster addUser:xmpp_jid withNickname:newFriend.s_Name];
             [self.myProfile.dic_Roster setValue:newFriend forKey:newFriend.s_ID];

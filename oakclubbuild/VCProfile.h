@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "Profile.h"
 #import "AFHTTPClient+OakClub.h"
-#import "ProfileCell.h"
+
 @interface VCProfile : UIViewController<UIPopoverControllerDelegate, UITableViewDataSource, UITableViewDelegate, UIScrollViewDelegate>{
     Profile *currentProfile;
     UIImage *img_avatar;

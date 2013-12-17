@@ -34,6 +34,8 @@
     Profile* matchedProfile;
     NSOperationQueue *setLikedQueue;
     ImagePool *snapshotImagePool;
+    
+    NSTimer *checkQueueTimer;
 }
 @property (nonatomic, strong) IBOutlet APLMoveMeView *moveMeView;
 @property (nonatomic, weak) IBOutlet UIView *profileView;
@@ -147,12 +149,20 @@ CGFloat pageHeight;
 //    [[self navBarOakClub] addToHeader:logoView];
 }
 -(void) refreshSnapshotFocus:(BOOL)focus{
+    if(is_loadingProfileList)
+        return;
     currentIndex = 0; //Vanancy cheat
     profileList = [[NSMutableArray alloc] init];
-    [self loadProfileListUseHandler:^(void){
-        [self loadCurrentProfile];
-        [self loadNextProfileByCurrentIndex];
-    } withFocus:focus];
+    [self startLoadingAnimFocus:focus and:^void(){}];
+    checkQueueTimer = [NSTimer scheduledTimerWithTimeInterval:1.0f
+                                                       target:self
+                                                     selector:@selector(CheckAllOperationsFinishedWithHandler:andFocus:)
+                                                     userInfo:nil
+                                                      repeats:YES];
+//    [self loadProfileListUseHandler:^(void){
+//        [self loadCurrentProfile];
+//        [self loadNextProfileByCurrentIndex];
+//    } withFocus:focus];
 }
 -(void)disableAllControl:(BOOL)value{
     [buttonYES setEnabled:!value];
@@ -193,24 +203,23 @@ CGFloat pageHeight;
 }
 #endif
 
-+(void) setReloadProfileList:(BOOL)flag{
-    
+-(void) CheckAllOperationsFinishedWithHandler:(void(^)(void))handler andFocus:(BOOL)focus{
+    if(setLikedQueue.operationCount == 0 && !is_loadingProfileList){
+        //do load profile list.
+//        [self requestProfileListWithHandler:nil andFocus:NO];
+        [self requestProfileListWithHandler:^(void){
+            [self loadCurrentProfile];
+            [self loadNextProfileByCurrentIndex];
+        } andFocus:NO];
+
+        [checkQueueTimer invalidate];
+    }
 }
--(void)loadProfileListUseHandler:(void(^)(void))handler withFocus:(BOOL)focus{
-    if(is_loadingProfileList)
-        return;
-    [self startLoadingAnimFocus:focus and:^void(){
-        
-    }];
-    currentIndex = 0; //Vanancy cheat
-    profileList = [[NSMutableArray alloc] init];
-    
-    [setLikedQueue waitUntilAllOperationsAreFinished];
-    
+-(void)requestProfileListWithHandler:(void(^)(void))handler andFocus:(BOOL)focus{
     // copy for retain cycle
     VCSimpleSnapshot *self_alias = self;
     AppDelegate *_appDel = appDel;
-    
+    is_loadingProfileList = TRUE;
     [locUpdate updateWithCompletion:^(double longitude, double latitude, NSError *e) {
         if (!e)
         {
@@ -225,7 +234,7 @@ CGFloat pageHeight;
                  }
                  
                  [self_alias loadSnapshotProfilesWithHandler:handler andFocus:focus];
-            }];
+             }];
         }
         else
         {
@@ -233,11 +242,28 @@ CGFloat pageHeight;
         }
     }];
 }
+-(void)loadProfileListUseHandler:(void(^)(void))handler withFocus:(BOOL)focus{
+    if(is_loadingProfileList)
+        return;
+//    [self startLoadingAnimFocus:focus and:^void(){
+//        
+//    }];
+//    currentIndex = 0; //Vanancy cheat
+//    profileList = [[NSMutableArray alloc] init];
+    
+    checkQueueTimer = [NSTimer scheduledTimerWithTimeInterval:1.0f
+                                                       target:self
+                                                     selector:@selector(CheckAllOperationsFinishedWithHandler:andFocus:)
+                                                     userInfo:nil
+                                                      repeats:YES];
+//    [setLikedQueue waitUntilAllOperationsAreFinished];
+    
+}
 
 -(void)loadSnapshotProfilesWithHandler:(void(^)(void))handler andFocus:(BOOL)focus
 {
     request = [[AFHTTPClient alloc] initWithOakClubAPI:DOMAIN];
-    NSDictionary *params = [[NSDictionary alloc]initWithObjectsAndKeys:@"0",@"start",@"35",@"limit",
+    NSDictionary *params = [[NSDictionary alloc]initWithObjectsAndKeys:@"0",@"start",@"10",@"limit",
                             appDel.snapshotSettingsObj.snapshotParams, @"search_preference", nil];
     NSMutableURLRequest *urlReq = [request requestWithMethod:@"GET" path:URL_getSnapShot parameters:params];
     
@@ -245,7 +271,7 @@ CGFloat pageHeight;
     NSLog(@"Get snapshot params: %@", paramsDesc);
     
     AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:urlReq];
-    is_loadingProfileList = TRUE;
+    
     [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id JSON) {
         NSLog(@"Get snapshot-DONE");
         is_loadingProfileList = FALSE;
@@ -261,6 +287,8 @@ CGFloat pageHeight;
         else
         {
             snapshotImagePool = [[ImagePool alloc] init];
+            [self.spinner setHidden:NO];
+            [self.spinner startAnimating];
             for(id profileJSON in profiles)
             {
                 Profile* profile = [[Profile alloc]init];
@@ -271,6 +299,9 @@ CGFloat pageHeight;
 #endif
                 //cache profile avatar
                 [snapshotImagePool getImageAtURL:profile.s_Avatar withSize:PHOTO_SIZE_LARGE asycn:^(UIImage *img, NSError *error, bool isFirstLoad) {
+                    if (!self.spinner.hidden) {
+                        [self.spinner stopAnimating];
+                    }
                     
                 }];
                 [profileList addObject:profile];
@@ -600,18 +631,19 @@ CGFloat pageHeight;
 //                         if([self.moveMeView getAnswer] == -1)
 //                             [self.moveMeView animatePlacardViewByAnswer:-1 andDuration:0.5f];
 //                         else
-                             [self.moveMeView animatePlacardViewByAnswer:choose andDuration:0.5f];
+                         [self.moveMeView animatePlacardViewByAnswer:choose andDuration:0.5f];
+                         [self setLikedSnapshot:[NSString stringWithFormat:@"%i",choose]];
                      }];
-    [self setLikedSnapshot:[NSString stringWithFormat:@"%i",choose]];
+    
 }
 
 -(void)setLikedSnapshot:(NSString*)answerChoice{
     int isFirstTime = [[[NSUserDefaults standardUserDefaults] objectForKey:key_isFirstSnapshot] integerValue];
-    if(isFirstTime==0 || (isFirstTime < 4 &&
-        ( (isFirstTime == interestedStatusNO && [answerChoice integerValue] == interestedStatusYES)
-           || (isFirstTime == interestedStatusYES && [answerChoice integerValue]== interestedStatusNO)
-        )
-       ))
+//    if(isFirstTime==0 || (isFirstTime < 4 &&
+//        ( (isFirstTime == interestedStatusNO && [answerChoice integerValue] == interestedStatusYES)
+//           || (isFirstTime == interestedStatusYES && [answerChoice integerValue]== interestedStatusNO)
+//        )
+//       ))
     {
         [[self navBarOakClub] disableAllControl: YES];
         appDel.rootVC.recognizesPanningOnFrontView = NO;
@@ -773,7 +805,7 @@ CGFloat pageHeight;
 
 -(void)stopDisabledGPS
 {
-    [self disableAllControl:NO];
+//    [self disableAllControl:NO];
     [appDel showSimpleSnapshotThenFocus:NO];
 //    [self.navigationController popViewControllerAnimated:NO];
     isBlockedByGPS = FALSE;
@@ -783,7 +815,7 @@ CGFloat pageHeight;
     if (isLoading)
     {
 //        [self.spinner stopAnimating];
-        [self disableAllControl:NO];
+//        [self disableAllControl:NO];
         isLoading = NO;
         [appDel showSimpleSnapshotThenFocus:NO];
 //        [self.navigationController popViewControllerAnimated:NO];

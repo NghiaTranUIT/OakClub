@@ -77,6 +77,7 @@ CGPoint startLocation;
 CGPoint startCardPoint;
 int deltaMove = 100;
 int answerType = -1;
+BOOL isReversedAnim = FALSE;
 BOOL isDragging = FALSE;
 -(void) addSubViewToCardView:(UIView*)subview andAtFront:(BOOL)toFront andTag:(int)numTag{
     subview.tag = numTag;
@@ -473,9 +474,76 @@ BOOL isDragging = FALSE;
 	
 	placardView.transform = CGAffineTransformIdentity;
 }
-
-- (void)animatePlacardViewByAnswer:(int)answer andDuration:(CGFloat)duration{
+- (void)animatePlacardViewByReverseAnswer:(int)answer WithDuration:(CGFloat)duration{
+    isReversedAnim = TRUE;
+    APLPlacardView *placardView = self.placardView;
+    CALayer *welcomeLayer = placardView.layer;
+	//update position of PalcardView
+    switch (answer) {
+        case interestedStatusNO:
+            placardView.center = LEFT_POINT;
+            break;
+        case interestedStatusYES:
+            placardView.center = RIGHT_POINT;
+            break;
+        default:
+            if(IS_HEIGHT_GTE_568)
+                placardView.center = CENTER_POINT_568H;
+            else
+                placardView.center = CENTER_POINT;
+            
+    }
+	// Create a keyframe animation to follow a path back to the center.
+	CAKeyframeAnimation *bounceAnimation = [CAKeyframeAnimation animationWithKeyPath:@"position"];
+	bounceAnimation.removedOnCompletion = NO;
+    
 	
+	// Create the path for the bounces.
+	UIBezierPath *bouncePath = [[UIBezierPath alloc] init];
+	
+    CGPoint centerPoint;// = self.center;
+    if(IS_HEIGHT_GTE_568)
+        centerPoint = CENTER_POINT_568H;
+    else
+        centerPoint = CENTER_POINT;
+
+    
+	CGFloat midX = centerPoint.x;
+	CGFloat midY = centerPoint.y;
+    
+	// Start the path at the placard's current location.
+	[bouncePath moveToPoint:CGPointMake(placardView.center.x, placardView.center.y)];
+	[bouncePath addLineToPoint:CGPointMake(midX, midY)];
+
+	bounceAnimation.path = [bouncePath CGPath];
+	bounceAnimation.duration = duration;
+	
+	// Create a basic animation to restore the size of the placard.
+	CABasicAnimation *transformAnimation = [CABasicAnimation animationWithKeyPath:@"transform"];
+	transformAnimation.removedOnCompletion = YES;
+	transformAnimation.duration = duration;
+	transformAnimation.toValue = [NSValue valueWithCATransform3D:CATransform3DIdentity];
+	
+	
+	// Create an animation group to combine the keyframe and basic animations.
+	CAAnimationGroup *theGroup = [CAAnimationGroup animation];
+	
+	// Set self as the delegate to allow for a callback to reenable user interaction.
+	theGroup.delegate = self;
+	theGroup.duration = duration;
+	theGroup.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseIn];
+	
+	theGroup.animations = @[bounceAnimation, transformAnimation];
+	
+	
+	// Add the animation group to the layer.
+	[welcomeLayer addAnimation:theGroup forKey:@"animatePlacardViewToCenter"];
+	
+	// Set the placard view's center and transformation to the original values in preparation for the end of the animation.
+	placardView.center = centerPoint;
+	placardView.transform = CGAffineTransformIdentity;
+}
+- (void)animatePlacardViewByAnswer:(int)answer andDuration:(CGFloat)duration{
     answerType = answer;
     APLPlacardView *placardView = self.placardView;
     CALayer *welcomeLayer = placardView.layer;
@@ -488,25 +556,25 @@ BOOL isDragging = FALSE;
 	
 	// Create the path for the bounces.
 	UIBezierPath *bouncePath = [[UIBezierPath alloc] init];
-    CGPoint centerPoint;
+    CGPoint targetPoint;
     switch (answer) {
         case interestedStatusNO:
-            centerPoint = LEFT_POINT;
+            targetPoint = LEFT_POINT;
             break;
         case interestedStatusYES:
-            centerPoint = RIGHT_POINT;
+            targetPoint = RIGHT_POINT;
             break;
-        default:
-        {
-            if(IS_HEIGHT_GTE_568)
-                centerPoint = CENTER_POINT_568H;
-            else
-                centerPoint = CENTER_POINT;
-            break;
-        }
+//        default:
+//        {
+//            if(IS_HEIGHT_GTE_568)
+//                centerPoint = CENTER_POINT_568H;
+//            else
+//                centerPoint = CENTER_POINT;
+//            break;
+//        }
     }
-	CGFloat midX = centerPoint.x;
-	CGFloat midY = centerPoint.y;
+	CGFloat midX = targetPoint.x;
+	CGFloat midY = targetPoint.y;
     //	CGFloat originalOffsetX = placardView.center.x - midX;
     //	CGFloat originalOffsetY = placardView.center.y - midY;
     //	CGFloat offsetDivider = 4.0f;
@@ -571,10 +639,11 @@ BOOL isDragging = FALSE;
                                    userInfo:nil
                                     repeats:NO];
 	// Set the placard view's center and transformation to the original values in preparation for the end of the animation.
-    if(IS_HEIGHT_GTE_568)
-        placardView.center = CENTER_POINT_568H;
-    else
-        placardView.center = CENTER_POINT;
+//    if(IS_HEIGHT_GTE_568)
+//        placardView.center = CENTER_POINT_568H;
+//    else
+//        placardView.center = CENTER_POINT;
+    placardView.center = targetPoint;
 	placardView.transform = CGAffineTransformIdentity;
 }
 
@@ -586,17 +655,28 @@ BOOL isDragging = FALSE;
 	self.placardView.transform = CGAffineTransformIdentity;
 	self.userInteractionEnabled = YES;
     [self.placardView setAlpha:1];
-    if(IS_HEIGHT_GTE_568)
-        self.placardView.center = CENTER_POINT_568H;
-    else
-        self.placardView.center = CENTER_POINT;
-    self.placardView.transform = CGAffineTransformIdentity;
-    if (movemedelegate) {
-        if ([movemedelegate respondsToSelector:@selector(animationDidStop:andAnswerType:)]) {
-            [movemedelegate animationDidStop:theAnimation andAnswerType:answerType];
+    if(!isReversedAnim){
+        if( ((self.placardView.center.x == LEFT_POINT.x && self.placardView.center.y == LEFT_POINT.y)
+            || (self.placardView.center.x == RIGHT_POINT.x && self.placardView.center.y == RIGHT_POINT.y))
+           && answerType == -1)
+        {
+        }else{
+            if(IS_HEIGHT_GTE_568)
+                self.placardView.center = CENTER_POINT_568H;
+            else
+                self.placardView.center = CENTER_POINT;
+            
+            self.placardView.transform = CGAffineTransformIdentity;
+        }
+        
+        if (movemedelegate) {
+            if ([movemedelegate respondsToSelector:@selector(animationDidStop:andAnswerType:)]) {
+                [movemedelegate animationDidStop:theAnimation andAnswerType:answerType];
+            }
         }
     }
     answerType = -1;
+    isReversedAnim = FALSE;
 }
 
 

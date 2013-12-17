@@ -655,7 +655,6 @@
 		CDF99C511713FA6C008D8BAC /* orange.png in Resources */ = {isa = PBXBuildFile; fileRef = CDF99C4C1713FA6C008D8BAC /* orange.png */; };
 		CDF99C541713FAFE008D8BAC /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = CDF99C531713FAFE008D8BAC /* MainWindow.xib */; };
 		CDFA306217795A280023CEBE /* AdvancedSetting.m in Sources */ = {isa = PBXBuildFile; fileRef = CDFA306117795A280023CEBE /* AdvancedSetting.m */; };
-		CDFAA78E17549607008D6567 /* ProfileCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CDFAA78D17549607008D6567 /* ProfileCell.m */; };
 		CDFED5E31738DA4000158756 /* GroupButtons.m in Sources */ = {isa = PBXBuildFile; fileRef = CDFED5E21738DA4000158756 /* GroupButtons.m */; };
 		CDFED5E71738DAC000158756 /* VCMyProfile.m in Sources */ = {isa = PBXBuildFile; fileRef = CDFED5E51738DAC000158756 /* VCMyProfile.m */; };
 		CDFED5E81738DAC000158756 /* VCMyProfile.xib in Resources */ = {isa = PBXBuildFile; fileRef = CDFED5E61738DAC000158756 /* VCMyProfile.xib */; };
@@ -1601,8 +1600,6 @@
 		CDF99C531713FAFE008D8BAC /* MainWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainWindow.xib; sourceTree = "<group>"; };
 		CDFA306017795A280023CEBE /* AdvancedSetting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AdvancedSetting.h; sourceTree = "<group>"; };
 		CDFA306117795A280023CEBE /* AdvancedSetting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AdvancedSetting.m; sourceTree = "<group>"; };
-		CDFAA78C17549607008D6567 /* ProfileCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileCell.h; sourceTree = "<group>"; };
-		CDFAA78D17549607008D6567 /* ProfileCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileCell.m; sourceTree = "<group>"; };
 		CDFED5E11738DA4000158756 /* GroupButtons.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupButtons.h; sourceTree = "<group>"; };
 		CDFED5E21738DA4000158756 /* GroupButtons.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupButtons.m; sourceTree = "<group>"; };
 		CDFED5E41738DABF00158756 /* VCMyProfile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VCMyProfile.h; sourceTree = "<group>"; };
@@ -2821,8 +2818,6 @@
 				97FBA2281855EFF20008D4EE /* VCProfile.xib */,
 				CD3E749B1725B3A6002D8207 /* UIPopoverController+iPhone.h */,
 				CD3E749C1725B3A6002D8207 /* UIPopoverController+iPhone.m */,
-				CDFAA78C17549607008D6567 /* ProfileCell.h */,
-				CDFAA78D17549607008D6567 /* ProfileCell.m */,
 				97EC5876185F0E4F00B15ACA /* ProfileInfoCell.xib */,
 				97EC5878185F0E8800B15ACA /* ProfileInfoCell.h */,
 				97EC5879185F0E8800B15ACA /* ProfileInfoCell.m */,
@@ -4337,7 +4332,6 @@
 				CD19FFB41741ED390048BEF1 /* WorkCate.m in Sources */,
 				97D7B487185705D3008F9946 /* CGRect+Utils.m in Sources */,
 				CD56159B174247930060F60C /* Gender.m in Sources */,
-				CDFAA78E17549607008D6567 /* ProfileCell.m in Sources */,
 				CD02C68717560ED300B1ED6A /* OverlayViewController.m in Sources */,
 				CD3C7C761758B942004D35E1 /* ODRefreshControl.m in Sources */,
 				97EC587A185F0E8800B15ACA /* ProfileInfoCell.m in Sources */,

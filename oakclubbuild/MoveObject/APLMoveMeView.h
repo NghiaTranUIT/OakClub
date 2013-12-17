@@ -66,6 +66,7 @@
 -(int) getAnswer;
 -(void) setAnswer:(int)type;
 - (void)animatePlacardViewByAnswer:(int)answer andDuration:(CGFloat)duration;
+- (void)animatePlacardViewByReverseAnswer:(int)answer WithDuration:(CGFloat)duration;
 //-(void) setUserProfile:(Profile*)profile andImage:(UIImage*)image;
 @end
 

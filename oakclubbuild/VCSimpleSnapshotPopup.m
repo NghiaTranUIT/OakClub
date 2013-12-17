@@ -61,26 +61,33 @@
     return (NavBarOakClub*)navcon.navigationBar;
 }
 #pragma mark handle on touch
-- (IBAction)onTouchCancel:(id)sender {
+-(void)cancelByAnswer:(int)answer{
     [moveMeView setAnswer:-1];
+    [moveMeView animatePlacardViewByReverseAnswer:answer WithDuration:0.3f];
+    [snapshotView onBackFromPopup];
+    [self.view removeFromSuperview];
+}
+- (IBAction)onTouchCancelLike:(id)sender {
+    [self cancelByAnswer:interestedStatusYES];
+}
+- (IBAction)onTouchCancelPass:(id)sender {
+    [self cancelByAnswer:interestedStatusNO];
+}
+
+-(void)doByAnswer:(int)answer{
+    [moveMeView setAnswer:answer];
+    [moveMeView animatePlacardViewByReverseAnswer:-1 WithDuration:0.3f];
+    [snapshotView setLikedSnapshot:[NSString stringWithFormat:@"%i",answer]];
+    [snapshotView loadCurrentProfile];
+    [snapshotView loadNextProfileByCurrentIndex];
     [snapshotView onBackFromPopup];
     [self.view removeFromSuperview];
 }
 - (IBAction)onTouchLike:(id)sender {
-    [moveMeView setAnswer:interestedStatusYES];
-    [snapshotView setLikedSnapshot:[NSString stringWithFormat:@"%i",interestedStatusYES]];
-    [snapshotView loadCurrentProfile];
-    [snapshotView loadNextProfileByCurrentIndex];
-    [snapshotView onBackFromPopup];
-    [self.view removeFromSuperview];
+    [self doByAnswer:interestedStatusYES];
 }
 - (IBAction)onTouchReject:(id)sender {
-    [moveMeView setAnswer:interestedStatusNO];
-    [snapshotView setLikedSnapshot:[NSString stringWithFormat:@"%i",interestedStatusNO]];
-    [snapshotView loadCurrentProfile];
-    [snapshotView loadNextProfileByCurrentIndex];
-    [snapshotView onBackFromPopup];
-    [self.view removeFromSuperview];
+    [self doByAnswer:interestedStatusNO];
 }
 
 

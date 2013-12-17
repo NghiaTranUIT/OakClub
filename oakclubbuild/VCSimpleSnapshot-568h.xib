@@ -210,7 +210,7 @@
                     </connections>
                 </button>
                 <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" hidesWhenStopped="YES" style="whiteLarge" id="133">
-                    <rect key="frame" x="141" y="100" width="37" height="37"/>
+                    <rect key="frame" x="143" y="157" width="37" height="37"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <color key="color" red="0.2196078598" green="0.7607843876" blue="0.82745105029999999" alpha="1" colorSpace="deviceRGB"/>
                 </activityIndicatorView>
@@ -429,7 +429,7 @@
                                 </state>
                                 <state key="highlighted" backgroundImage="Snapshot_popup_cancel_pressed.png"/>
                                 <connections>
-                                    <action selector="onTouchCancel:" destination="xNI-f9-zcu" eventType="touchUpInside" id="WZQ-8P-e0D"/>
+                                    <action selector="onTouchCancelPass:" destination="xNI-f9-zcu" eventType="touchUpInside" id="cYn-bY-rkn"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -486,7 +486,7 @@
                                 </state>
                                 <state key="highlighted" backgroundImage="Snapshot_popup_cancel_pressed.png"/>
                                 <connections>
-                                    <action selector="onTouchCancel:" destination="xNI-f9-zcu" eventType="touchUpInside" id="d1Q-Ju-QVJ"/>
+                                    <action selector="onTouchCancelLike:" destination="xNI-f9-zcu" eventType="touchUpInside" id="slf-nX-o5g"/>
                                 </connections>
                             </button>
                         </subviews>
