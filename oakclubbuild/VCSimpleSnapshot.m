@@ -200,12 +200,12 @@ CGFloat pageHeight;
     if(is_loadingProfileList)
         return;
     [self startLoadingAnimFocus:focus and:^void(){
-        [setLikedQueue waitUntilAllOperationsAreFinished];
+        
     }];
     currentIndex = 0; //Vanancy cheat
     profileList = [[NSMutableArray alloc] init];
     
-    
+    [setLikedQueue waitUntilAllOperationsAreFinished];
     
     // copy for retain cycle
     VCSimpleSnapshot *self_alias = self;
