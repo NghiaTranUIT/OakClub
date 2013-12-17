@@ -332,6 +332,7 @@ static CGFloat padding_left = 5.0;
 }
 
 #define ABOUTVIEW_PADDING 10
+#define VIEW_PADDING 3
 -(void)loadInfoView{
     lbl_name.text = currentProfile.s_Name;
     lblAge.text = [NSString stringWithFormat:@"%@",currentProfile.s_age];
@@ -346,7 +347,7 @@ static CGFloat padding_left = 5.0;
 //    [[self aboutView] setFrame:CGRectMake(self.aboutView.frame.origin.x,
 //                                         self.profileView.frame.origin.y + self.profileView.frame.size.height, self.aboutView.frame.size.width
 //                                          , self.aboutView.frame.size.height)];
-    CGPoint startPosition = CGPointMake(0, self.lblnLikes.frame.origin.y + self.lblnLikes.frame.size.height);
+    CGPoint startPosition = CGPointMake(0, self.lblnLikes.frame.origin.y + self.lblnLikes.frame.size.height + VIEW_PADDING);
     if( currentProfile.arr_MutualInterests && [currentProfile.arr_MutualInterests count] > 0)
     {
         NSLog(@"Before Interest Content size: %f - %f", scrollview.contentSize.width, scrollview.contentSize.height);
@@ -1215,7 +1216,7 @@ BOOL allowFullScreen = FALSE;
 -(void)snapPhotoBarToBottomOfView{
     [UIView animateWithDuration: 0.2
                           delay: 0
-                        options: (UIViewAnimationOptionCurveLinear | UIViewAnimationOptionAllowUserInteraction)
+                        options: (UIViewAnimationOptionCurveLinear )
                      animations:^{
                         [self.lblsPhoto setFrame:CGRectMake(0, self.svPhotos.frame.origin.y + self.svPhotos.frame.size.height - self.lblsPhoto.frame.size.height, self.lblsPhoto.frame.size.width, self.lblsPhoto.frame.size.height)];
                      }
@@ -1250,15 +1251,15 @@ BOOL allowFullScreen = FALSE;
     {
         screenHeight += 26;
     }
-    if (self.svPhotos.frame.size.height < screenHeight)
+    if (self.svPhotos.frame.size.height != screenHeight)
     {
         [UIView animateWithDuration: 0.2
                               delay: 0
-                            options: (UIViewAnimationOptionCurveLinear | UIViewAnimationOptionAllowUserInteraction)
+                            options: (UIViewAnimationOptionCurveLinear)
                          animations:^{
                              [self.svPhotos setFrame:CGRectMake(0, 0, self.view.frame.size.width, screenHeight)];
                              self.svPhotos.contentSize =
-                             CGSizeMake(CGRectGetWidth(self.svPhotos.frame) * [currentProfile.arr_photos count], CGRectGetHeight(self.svPhotos.frame));
+                             CGSizeMake(CGRectGetWidth(self.svPhotos.frame) * [currentProfile.arr_photos count], screenHeight);
                              [self.infoView setFrame:CGRectMake(0, screenHeight, self.infoView.frame.size.width, self.infoView.frame.size.height)];
                              [self updateSubviewsToCenterScrollView];
                          }
