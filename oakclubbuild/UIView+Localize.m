@@ -16,12 +16,15 @@
     if([self isKindOfClass:[UILabel class]]){
         UILabel* result = (UILabel*)self;
         NSString* text =[appDelegate.languageBundle localizedStringForKey:result.text value:@"" table:nil];
+        NSLog(@"%@-text:-%@", result,text);
         [result setText:text];
         return result;
     }
     else if([self isKindOfClass:[UIButton class]]){
         UIButton* result = (UIButton*)self;
         NSString* text =[appDelegate.languageBundle localizedStringForKey:result.titleLabel.text value:@"" table:nil];
+        
+        NSLog(@"%@-text:-%@", result,text);
         [result setTitle:text forState:UIControlStateNormal];
         return result;
     }
@@ -44,6 +47,10 @@
 
 -(void)localizeAllViews{
     [self localizeText];
+    
+    if([self isKindOfClass:[UIButton class]])
+        return;
+    
     for(UIView* view in [self subviews])
     {
         [view localizeAllViews];

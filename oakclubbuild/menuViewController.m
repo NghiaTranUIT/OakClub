@@ -23,11 +23,12 @@
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) IBOutlet UIView *confirmLogoutView;
 @property (strong, nonatomic) IBOutlet VCLogout *logoutViewController;
+@property (weak, nonatomic) IBOutlet UIButton *btnLogout;
 
 @end
 
 @implementation menuViewController
-@synthesize name, numCoins, btnAvatar, avatar;
+@synthesize name, numCoins, btnAvatar, avatar, btnLogout;
 @synthesize tableView, logoutViewController;
 
 
@@ -102,7 +103,7 @@
     }
     
     self.numCoins.text =  numPoints;
-    [self.view localizeAllViews];
+    //[self.view localizeAllViews];
     
     
     Profile *myProfile = ((AppDelegate *) [UIApplication sharedApplication].delegate).myProfile;
@@ -112,10 +113,11 @@
             [self.avatar setImage:img];
         }
     }];
+    [btnLogout setTitle: [@"Logout" localize] forState:UIControlStateNormal];
+    [tableView reloadData];
     
     [self.view localizeAllViews];
     
-    [tableView reloadData];
 }
 - (void)didReceiveMemoryWarning
 {
@@ -366,7 +368,7 @@
 //    VCLogout* logoutView= [[VCLogout alloc]init];
     
     [logoutViewController.view setFrame:CGRectMake(0, self.view.frame.size.height-logoutViewController.view.frame.size.height, 246, logoutViewController.view.frame.size.height)];
-    [logoutViewController.view localizeAllViews];
+    //[logoutViewController.view localizeAllViews];
     [self.view addSubview:logoutViewController.view];
 //    [self.navigationController pushViewController:logoutViewController animated:NO];
     [UIView animateWithDuration:0.4
