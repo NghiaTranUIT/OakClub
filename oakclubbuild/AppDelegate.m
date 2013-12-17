@@ -1766,36 +1766,29 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
 -(void)tryGetLanguageFromDevice
 {
     BOOL isSetLanguage = [[[NSUserDefaults standardUserDefaults] objectForKey:key_ChosenLanguage] boolValue];
+    NSDictionary *appLanguage = AppLanguageList;
     if (!isSetLanguage)
     {
-        if([[self checkLanguage] isEqualToString:@"vi"])
+        for (int i = 0; i < appLanguage.count; i++)
         {
-            [[NSUserDefaults standardUserDefaults] setObject:value_appLanguage_VI forKey:key_appLanguage];
-            [[NSUserDefaults standardUserDefaults] synchronize];
-            NSString* str=[self.languageBundle localizedStringForKey:@"was selected" value:@"" table:nil];
-            NSLog(@"Vietnamese %@",str);
+            NSString *langID = [[appLanguage  allKeys] objectAtIndex:i];
+            if ([[self checkLanguage] isEqualToString: langID])
+            {
+                [[NSUserDefaults standardUserDefaults] setObject:langID forKey:key_appLanguage];
+                [[NSUserDefaults standardUserDefaults] synchronize];
+                NSString* str=[self.languageBundle localizedStringForKey:@"was selected" value:@"" table:nil];
+                NSLog(@"%@ %@",[appLanguage valueForKey:langID], str);
+                break;
+            }
+            else
+            {
+                [[NSUserDefaults standardUserDefaults] setObject:value_appLanguage_EN forKey:key_appLanguage];
+                [[NSUserDefaults standardUserDefaults] synchronize];
+                NSString* str=[self.languageBundle localizedStringForKey:@"was selected" value:@"" table:nil];
+                NSLog(@"English %@",str);
+            }
         }
-        else if([[self checkLanguage] isEqualToString:@"de"])
-        {
-            [[NSUserDefaults standardUserDefaults] setObject:value_appLanguage_DE forKey:key_appLanguage];
-            [[NSUserDefaults standardUserDefaults] synchronize];
-            NSString* str=[self.languageBundle localizedStringForKey:@"was selected" value:@"" table:nil];
-            NSLog(@"German %@",str);
-        }
-        else if([[self checkLanguage] isEqualToString:@"id"])
-        {
-            [[NSUserDefaults standardUserDefaults] setObject:value_appLanguage_ID forKey:key_appLanguage];
-            [[NSUserDefaults standardUserDefaults] synchronize];
-            NSString* str=[self.languageBundle localizedStringForKey:@"was selected" value:@"" table:nil];
-            NSLog(@"Indonesia %@",str);
-        }
-        else
-        {
-            [[NSUserDefaults standardUserDefaults] setObject:value_appLanguage_EN forKey:key_appLanguage];
-            [[NSUserDefaults standardUserDefaults] synchronize];
-            NSString* str=[self.languageBundle localizedStringForKey:@"was selected" value:@"" table:nil];
-            NSLog(@"English %@",str);
-        }
+        
         //[self.view localizeAllViews];
     }
     
