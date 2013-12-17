@@ -11,9 +11,8 @@
 
 //demo version FLAG
 #define ENABLE_DEMO true
-
-#define USE_STAGING true
-#define USE_MAINHOST false
+#define USE_STAGING false
+#define USE_MAINHOST true
 #define USE_STAGING_MB false
 #define USE_STAGING_IOS false
 
@@ -93,7 +92,7 @@
                                 @"Tiếng Việt", value_appLanguage_VI,\
                                 @"English", value_appLanguage_EN,\
                                 @"Deutsch", value_appLanguage_DE,\
-                                @"Bahasa", value_appLanguage_ID,\
+                                @"Bahasa Indonesia", value_appLanguage_ID,\
                                 @"ภาษาไทย", value_appLanguage_TH,\
                                 @"Türkce", value_appLanguage_TR,\
                                 nil])
@@ -102,7 +101,7 @@
                                 @"Tiếng Việt", value_appLanguage_VI,\
                                 @"English", value_appLanguage_EN,\
                                 @"Deutsch", value_appLanguage_DE,\
-                                @"Bahasa", value_appLanguage_ID,\
+                                @"Bahasa Indonesia", value_appLanguage_ID,\
                                 nil])
 #endif
 

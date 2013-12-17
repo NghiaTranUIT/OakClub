@@ -885,7 +885,8 @@ int cellCountinSection=0;
     Profile *friend = [appDel.friendChatList objectForKey:sender];
     if (!friend)
     {
-        
+        if(friend.status == MatchUnViewed)
+            appDel.myProfile.new_mutual_attractions --;
     }
     friend.status = ChatUnviewed;
     [appDel.friendChatList setObject:friend forKey:sender];

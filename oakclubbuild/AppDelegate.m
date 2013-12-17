@@ -389,6 +389,9 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
         if(!focus && selfCopy.rootVC.state != PKRevealControllerFocusesFrontViewController){
             [selfCopy.rootVC.frontViewController.view setUserInteractionEnabled:NO];
         }
+        else{
+            [selfCopy.rootVC.frontViewController.view setUserInteractionEnabled:YES];
+        }
     }];
 }
 -(void)showSimpleSnapshot{
