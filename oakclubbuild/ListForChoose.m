@@ -156,6 +156,10 @@ NSIndexPath* oldIndex;
             settingValue = [delegate setDefaultSettingValue:self];
     }
     [self.navigationController setNavigationBarHidden:NO];
+    
+    //move from viewDidLoad to viewWillApear
+    //fix bug 1546: Sometimes the settings menue is stuck cause the back button disappears
+    [self customBackButtonBarItem];
 
 }
 
@@ -163,7 +167,7 @@ NSIndexPath* oldIndex;
 {
     [super viewDidLoad];
 //    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"bg.png"]];
-    [self customBackButtonBarItem];
+//    [self customBackButtonBarItem];
     // Do any additional setup after loading the view from its nib.
     NSString* titleText;
     switch (type) {
