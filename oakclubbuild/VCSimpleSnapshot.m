@@ -385,7 +385,8 @@ CGFloat pageHeight;
     [self showNotifications];
     
     if(!appDel.reloadSnapshot){
-        if([profileList count]==0){
+        if([profileList count]==0 && isLoading){
+            NSLog(@"Loading");
             [self showWarning:YES];
         }
             
