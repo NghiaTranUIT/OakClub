@@ -309,12 +309,14 @@ CGFloat pageHeight;
             if(handler != nil)
                 handler();
             
-            [self stopLoadingAnim];
+//            [self stopLoadingAnim];
+            appDel.reloadSnapshot = FALSE;
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Get snapshot Error Code: %i - %@",[error code], error);
         is_loadingProfileList = FALSE;
         [self showWarning:focus];
+        appDel.reloadSnapshot = false;
     }];
     [operation start];
 }
