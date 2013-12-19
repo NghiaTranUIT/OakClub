@@ -369,7 +369,7 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
     {
         if(selfCopy.reloadSnapshot){
             [VCSSnapshot refreshSnapshotFocus:focus];
-            selfCopy.reloadSnapshot = FALSE;
+//            selfCopy.reloadSnapshot = FALSE;
         }
         return;
     }
@@ -380,19 +380,36 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
         return;
     }
     
-    [self.rootVC setFrontViewController:self.simpleSnapShot focusAfterChange:focus completion:^(BOOL finished) {
-        //load profile list if needed
-        if(selfCopy.reloadSnapshot){
-            [VCSSnapshot refreshSnapshotFocus:focus];
-            selfCopy.reloadSnapshot = FALSE;
-        }
-        if(!focus && selfCopy.rootVC.state != PKRevealControllerFocusesFrontViewController){
-            [selfCopy.rootVC.frontViewController.view setUserInteractionEnabled:NO];
-        }
-        else{
-            [selfCopy.rootVC.frontViewController.view setUserInteractionEnabled:YES];
-        }
-    }];
+    if (VCSSnapshot.is_loadingProfileList) {
+        [self showSnapshotLoadingThenFocus:focus and:^void {
+            //load profile list if needed
+//            if(selfCopy.reloadSnapshot){
+//                [VCSSnapshot refreshSnapshotFocus:focus];
+//                selfCopy.reloadSnapshot = FALSE;
+//            }
+//            if(!focus && selfCopy.rootVC.state != PKRevealControllerFocusesFrontViewController){
+//                [selfCopy.rootVC.frontViewController.view setUserInteractionEnabled:NO];
+//            }
+//            else{
+//                [selfCopy.rootVC.frontViewController.view setUserInteractionEnabled:YES];
+//            }
+        }];
+    } else {
+        [self.rootVC setFrontViewController:self.simpleSnapShot focusAfterChange:focus completion:^(BOOL finished) {
+            //load profile list if needed
+            if(selfCopy.reloadSnapshot){
+                [VCSSnapshot refreshSnapshotFocus:focus];
+                selfCopy.reloadSnapshot = FALSE;
+            }
+            if(!focus && selfCopy.rootVC.state != PKRevealControllerFocusesFrontViewController){
+                [selfCopy.rootVC.frontViewController.view setUserInteractionEnabled:NO];
+            }
+            else{
+                [selfCopy.rootVC.frontViewController.view setUserInteractionEnabled:YES];
+            }
+        }];
+    }
+    
 }
 -(void)showSimpleSnapshot{
     AppDelegate *selfCopy = self;   // copy for retain cycle

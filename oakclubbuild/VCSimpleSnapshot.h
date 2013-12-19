@@ -53,5 +53,6 @@
 @property (weak, nonatomic) IBOutlet UIImageView *imgLoading;
 @property (weak, nonatomic) IBOutlet UIButton *buttonNO;
 @property BOOL isLoading;
+@property BOOL is_loadingProfileList;
 -(void)onBackFromPopup;
 @end

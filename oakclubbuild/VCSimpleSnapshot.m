@@ -25,7 +25,6 @@
     UILabel *lblHeaderFreeNum;
     AppDelegate *appDel;
     NSMutableDictionary* photos;
-    BOOL is_loadingProfileList;
     BOOL reloadProfileList;
     LocationUpdate *locUpdate;
     
@@ -58,6 +57,8 @@ CGFloat pageWidth;
 CGFloat pageHeight;
 @synthesize sv_photos,lbl_indexPhoto, lbl_mutualFriends, lbl_mutualLikes, buttonNO, buttonProfile, buttonYES, imgMutualFriend, imgMutualLike, buttonMAYBE ,lblName, lblAge ,lblPhotoCount, viewProfile,matchView, matchViewController, lblMatchAlert, imgMatcher, imgMyAvatar, imgMainProfile, imgNextProfile, imgLoading, popupFirstTimeView,imgAvatarFrame,isLoading, btnSayHi, btnKeepSwiping;
 
+@synthesize is_loadingProfileList = is_loadingProfileList;
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
 //    NSString* keyLanguage =[[NSUserDefaults standardUserDefaults] objectForKey:key_appLanguage];
@@ -75,6 +76,7 @@ CGFloat pageHeight;
         currentProfile = [[Profile alloc]init];
         matchedProfile =[[Profile alloc]init];
         appDel = (AppDelegate *) [UIApplication sharedApplication].delegate;
+        NSLog(@"[CHECK LOADING] initWithNibName: %d", is_loadingProfileList);
         is_loadingProfileList = FALSE;
 //        NSURL *fileURL = [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"Snapshot_gps_loading.gif" ofType:nil]];
 //        loadingAnim = 	[AnimatedGif getAnimationForGifAtUrl: fileURL];
@@ -89,6 +91,7 @@ CGFloat pageHeight;
 {
     [super viewDidLoad];
     // load profile List
+    NSLog(@"[CHECK LOADING] viewDidLoad: %d", is_loadingProfileList);
     is_loadingProfileList = FALSE;
     [self refreshSnapshotFocus:NO];
     
@@ -149,6 +152,7 @@ CGFloat pageHeight;
 //    [[self navBarOakClub] addToHeader:logoView];
 }
 -(void) refreshSnapshotFocus:(BOOL)focus{
+    NSLog(@"[CHECK LOADING] refreshSnapshotFocus: %d", is_loadingProfileList);
     if(is_loadingProfileList)
         return;
     currentIndex = 0; //Vanancy cheat
@@ -204,6 +208,7 @@ CGFloat pageHeight;
 #endif
 
 -(void) CheckAllOperationsFinishedWithHandler:(void(^)(void))handler andFocus:(BOOL)focus{
+    NSLog(@"[CHECK LOADING] CheckAllOperationsFinishedWithHandler: %d", is_loadingProfileList);
     if(setLikedQueue.operationCount == 0 && !is_loadingProfileList){
         //do load profile list.
 //        [self requestProfileListWithHandler:nil andFocus:NO];
@@ -219,6 +224,7 @@ CGFloat pageHeight;
     // copy for retain cycle
     VCSimpleSnapshot *self_alias = self;
     AppDelegate *_appDel = appDel;
+    NSLog(@"[CHECK LOADING] requestProfileListWithHandler: %d", is_loadingProfileList);
     is_loadingProfileList = TRUE;
     [locUpdate updateWithCompletion:^(double longitude, double latitude, NSError *e) {
         if (!e)
@@ -243,6 +249,7 @@ CGFloat pageHeight;
     }];
 }
 -(void)loadProfileListUseHandler:(void(^)(void))handler withFocus:(BOOL)focus{
+    NSLog(@"[CHECK LOADING] loadProfileListUseHandler: %d", is_loadingProfileList);
     if(is_loadingProfileList)
         return;
 //    [self startLoadingAnimFocus:focus and:^void(){
@@ -260,21 +267,24 @@ CGFloat pageHeight;
     
 }
 
+int counter = 0;
 -(void)loadSnapshotProfilesWithHandler:(void(^)(void))handler andFocus:(BOOL)focus
 {
+    ++counter;
     request = [[AFHTTPClient alloc] initWithOakClubAPI:DOMAIN];
     NSDictionary *params = [[NSDictionary alloc]initWithObjectsAndKeys:@"0",@"start",@"35",@"limit",
                             appDel.snapshotSettingsObj.snapshotParams, @"search_preference", nil];
     NSMutableURLRequest *urlReq = [request requestWithMethod:@"GET" path:URL_getSnapShot parameters:params];
     
     NSString *paramsDesc = [[[NSString stringWithFormat:@"%@", params] stringByReplacingOccurrencesOfString:@"=" withString:@":"] stringByReplacingOccurrencesOfString:@";" withString:@","];
+    int c = counter;
     NSLog(@"Get snapshot params: %@", paramsDesc);
     
+    NSLog(@"Begin get snapshot count: %d", c);
     AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:urlReq];
     
     [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id JSON) {
-        NSLog(@"Get snapshot-DONE");
-        is_loadingProfileList = FALSE;
+        NSLog(@"Get snapshot-DONE--%d", c);
         NSError *e=nil;
         NSMutableDictionary *dict = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONReadingMutableContainers error:&e];
         
@@ -283,6 +293,7 @@ CGFloat pageHeight;
         if (status == 0 || [profiles count] < 1)
         {
             [self showWarning:focus];
+            is_loadingProfileList = FALSE;
         }
         else
         {
@@ -311,12 +322,15 @@ CGFloat pageHeight;
             
 //            [self stopLoadingAnim];
             appDel.reloadSnapshot = FALSE;
+            NSLog(@"[CHECK LOADING] loadSnapshotProfilesWithHandler -- Load snapshot OK: %d", is_loadingProfileList);
+            is_loadingProfileList = FALSE;
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Get snapshot Error Code: %i - %@",[error code], error);
-        is_loadingProfileList = FALSE;
         [self showWarning:focus];
         appDel.reloadSnapshot = false;
+        NSLog(@"[CHECK LOADING] loadSnapshotProfilesWithHandler -- Load snapshot FAIL: %d", is_loadingProfileList);
+        is_loadingProfileList = FALSE;
     }];
     [operation start];
 }
@@ -785,7 +799,7 @@ CGFloat pageHeight;
         [self startDisabledGPS:YES];
     }
     else{
-        [appDel showSnapshotLoadingThenFocus:focus and:^void(){}];
+        [appDel showSnapshotLoadingThenFocus:NO and:^void(){}];
         VCSimpleSnapshotLoading* vc = [appDel.activeVC.viewControllers objectAtIndex:0];
         [vc setTypeOfAlert:1 /*andAnim:loadingAnim*/];
     }

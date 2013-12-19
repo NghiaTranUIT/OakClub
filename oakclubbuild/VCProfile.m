@@ -390,7 +390,7 @@ static CGFloat padding_left = 5.0;
     
     
     
-    self.lblAboutMe.text = [currentProfile s_aboutMe];
+    self.lblAboutMe.text = [[currentProfile s_aboutMe] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     if (lblAboutMe.text.length > 0)
     {
         self.aboutView.hidden = NO;
@@ -834,27 +834,27 @@ static CGFloat padding_left = 5.0;
 //    [self loadPhotoForScrollview];
     
     // fill data to table source
-    if (currentProfile.s_location.name && currentProfile.s_location.name.length > 0)
+    if (currentProfile.s_location.name && [currentProfile.s_location.name stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]].length > 0)
     {
         [self addToTableSourceWithKey:@"viewprofile_location_icon" andValue:currentProfile.s_location.name];
     }
-    if (currentProfile.hometown && currentProfile.hometown.length > 0)
+    if (currentProfile.hometown && [currentProfile.hometown stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]].length > 0)
     {
         [self addToTableSourceWithKey:@"viewprofile_hometown_icon" andValue:currentProfile.hometown];
     }
-    if (currentProfile.s_birthdayDate && currentProfile.s_birthdayDate.length > 0)
+    if (currentProfile.s_birthdayDate && [currentProfile.s_birthdayDate stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]].length > 0)
     {
         [self addToTableSourceWithKey:@"viewprofile_birthdate_icon" andValue:currentProfile.s_birthdayDate];
     }
     if (currentProfile.s_school && currentProfile.s_school.length > 0)
     {
-        [self addToTableSourceWithKey:@"viewprofile_school_icon" andValue:currentProfile.s_school];
+        [self addToTableSourceWithKey:@"viewprofile_school_icon" andValue:[currentProfile.s_school stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]]];
     }
-    if (currentProfile.i_work.cate_name && currentProfile.i_work.cate_name.length > 0)
+    if (currentProfile.i_work.cate_name && [currentProfile.i_work.cate_name stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]].length > 0)
     {
         [self addToTableSourceWithKey:@"viewprofile_work_icon" andValue:currentProfile.i_work.cate_name];
     }
-    if (currentProfile.s_interested.text && currentProfile.s_interested.text.length > 0)
+    if (currentProfile.s_interested.text && [currentProfile.s_interested.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]].length > 0)
     {
         [self addToTableSourceWithKey:@"viewprofile_interested_in_icon" andValue:currentProfile.s_interested.text];
     }
