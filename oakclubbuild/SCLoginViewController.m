@@ -13,8 +13,9 @@
 #import "UIView+Localize.h"
 #import "VCPrivacy.h"
 #import "TutorialViewController.h"
+#import "UITableView+Custom.h"
 
-@interface SCLoginViewController (){
+@interface SCLoginViewController () <UITableViewDataSource, UITableViewDelegate> {
     AppDelegate* appDelegate;
     NSDictionary *appLanguages;
     NSArray *descText;
@@ -263,9 +264,9 @@
         [pickingView setFrame: CGRectMake(0, 0, pickingView.frame.size.width, pickingView.frame.size.height)];
         pickingView.tag = 7;
         [self.view addSubview:pickingView];
-        [pickerView setHidden: NO];
-        [pickerView reloadAllComponents];
-        [pickerView selectRow:0 inComponent:0 animated:YES];
+        //[pickerView setHidden: NO];
+        //[pickerView reloadAllComponents];
+        //[pickerView selectRow:0 inComponent:0 animated:YES];
         [self disableAll: YES];
         
 //         UIAlertView *alert = [[UIAlertView alloc]
@@ -381,12 +382,69 @@
 }
 - (IBAction)onTouchDown:(id)sender
 {
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    [appDelegate updateLanguageBundle];
+//    for (UIView *subview in [self.view subviews]) {
+//        if (subview.tag == 7) {
+//            [subview removeFromSuperview];
+//        }
+//    }
+    [pickingView removeFromSuperview];
     [self.view localizeAllViews];
-    for (UIView *subview in [self.view subviews]) {
-        if (subview.tag == 7) {
-            [subview removeFromSuperview];
-        }
-    }
     [self disableAll: NO];
 }
+
+#pragma language tableview dataSource/delegate
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return appLanguages.count;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    static NSString *languageCellID = @"LanguageCell";
+    
+    UITableViewCell *languageCell = [tableView dequeueReusableCellWithIdentifier:languageCellID];
+    if (!languageCell)
+    {
+        languageCell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:languageCellID];
+        languageCell.selectionStyle = UITableViewCellSelectionStyleNone;
+        
+        languageCell.textLabel.textColor = [UIColor colorWithRed:(117/255.0) green:(0/255.0) blue:(81/255.0) alpha:1];
+        languageCell.textLabel.backgroundColor = [UIColor clearColor];
+        [languageCell.textLabel setFont: FONT_HELVETICANEUE_LIGHT(17.0)];
+    }
+    
+    NSString *langID = [appLanguages allKeys][indexPath.row];
+    NSString *currentLang = [[NSUserDefaults standardUserDefaults] valueForKey:key_appLanguage];
+    languageCell.textLabel.text = appLanguages[langID];
+    if ([langID isEqualToString:currentLang])
+    {
+        UIImageView * bg = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"SnapshotSetting_check"]];
+        languageCell.accessoryView = bg;
+        
+        UIView* backgroundView = [[UIView alloc] initWithFrame:languageCell.frame];
+        backgroundView.backgroundColor = [UIColor colorWithRed:(217/255.0) green:(217/255.0) blue:(217/255.0) alpha:1];
+        languageCell.backgroundView = backgroundView;
+    }
+    else
+    {
+        languageCell.accessoryView = nil;
+        
+        UIView* backgroundView = [[UIView alloc] initWithFrame:languageCell.frame];
+        backgroundView.backgroundColor = [UIColor colorWithRed:(235/255.0) green:(235/255.0) blue:(235/255.0) alpha:1];
+        languageCell.backgroundView = backgroundView;
+    }
+	   
+    return languageCell;
+}
+
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{    NSString *langID = [appLanguages allKeys][indexPath.row];
+    [[NSUserDefaults standardUserDefaults] setObject:langID forKey:key_appLanguage];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    
+    [tableView reloadData];
+}
+
 @end
