@@ -527,9 +527,10 @@ UITapGestureRecognizer *tap;
         if (buttonIndex == 0 && selectedPhoto >= 0 && uploadImage != nil)
         {
             NSData *uploadData = UIImagePNGRepresentation(uploadImage);
+            NSLog(@"[uploadData length]: %d", [uploadData length]);
             if ([uploadData length] >= MAX_UPLOAD_SIZE)
             {
-                UIAlertView *maxSizeAlert = [[UIAlertView alloc] initWithTitle:@"Warning" message:@"The maximum size of photo is 3MB" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+                UIAlertView *maxSizeAlert = [[UIAlertView alloc] initWithTitle:[@"Warning" localize] message:[@"The maximum size of photo is 3MB" localize] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
                 
                 uploadImage = nil;
                 selectedPhoto = -1;

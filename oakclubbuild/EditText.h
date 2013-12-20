@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 @protocol EditTextViewDelegate;
-@interface EditText : UIViewController{
+@interface EditText : UIViewController <UITextViewDelegate>{
     NSString *text;
     int editStyle;
     id<EditTextViewDelegate>   _delegate;
@@ -18,6 +18,8 @@
 @property (strong, nonatomic) IBOutlet UITextView *textviewEdit;
 @property (strong, nonatomic) IBOutlet UIButton *btnThemesTextField;
 @property (strong, nonatomic) IBOutlet UIButton *btnTextViewThemes;
+@property (weak, nonatomic) IBOutlet UILabel *lblDefaultText;
+
 -(void)initForEditting:(NSString*)stext andStyle:(int)style;
 -(NSString*)getText;
 -(int)getStyle;

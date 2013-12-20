@@ -90,6 +90,8 @@ CGFloat pageHeight;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    self.view.clipsToBounds = YES;
     // load profile List
     NSLog(@"[CHECK LOADING] viewDidLoad: %d", is_loadingProfileList);
     is_loadingProfileList = FALSE;
@@ -267,24 +269,24 @@ CGFloat pageHeight;
     
 }
 
-int counter = 0;
+//int counter = 0;
 -(void)loadSnapshotProfilesWithHandler:(void(^)(void))handler andFocus:(BOOL)focus
 {
-    ++counter;
+//    ++counter;
     request = [[AFHTTPClient alloc] initWithOakClubAPI:DOMAIN];
     NSDictionary *params = [[NSDictionary alloc]initWithObjectsAndKeys:@"0",@"start",@"35",@"limit",
                             appDel.snapshotSettingsObj.snapshotParams, @"search_preference", nil];
     NSMutableURLRequest *urlReq = [request requestWithMethod:@"GET" path:URL_getSnapShot parameters:params];
     
     NSString *paramsDesc = [[[NSString stringWithFormat:@"%@", params] stringByReplacingOccurrencesOfString:@"=" withString:@":"] stringByReplacingOccurrencesOfString:@";" withString:@","];
-    int c = counter;
+//    int c = counter;
     NSLog(@"Get snapshot params: %@", paramsDesc);
     
-    NSLog(@"Begin get snapshot count: %d", c);
+//    NSLog(@"Begin get snapshot count: %d", c);
     AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:urlReq];
     
     [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id JSON) {
-        NSLog(@"Get snapshot-DONE--%d", c);
+//        ®NSLog(@"Get snapshot-DONE--%d", c);
         NSError *e=nil;
         NSMutableDictionary *dict = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONReadingMutableContainers error:&e];
         
@@ -400,7 +402,7 @@ int counter = 0;
 //    self.navigationController.navigationBarHidden = NO;
     [self showNotifications];
     
-    if(!appDel.reloadSnapshot){
+    if(!appDel.reloadSnapshot && !is_loadingProfileList){
         if([profileList count]==0 && isLoading){
             NSLog(@"Loading");
             [self showWarning:YES];
@@ -477,14 +479,25 @@ int counter = 0;
                      }];
     [self.view addSubview:imgMainProfile];
     [self.moveMeView setUserInteractionEnabled:NO];
-    [imgMainProfile setFrame:CGRectMake(50, 30, 228, 228)];
-    [UIView animateWithDuration: 0.4
+    
+    //this is position of imgMainProfile when move from placardView to self.view
+    if (IS_HEIGHT_GTE_568) {
+        [imgMainProfile setFrame:CGRectMake(40, 56, 244, 244)];
+    } else {
+        [imgMainProfile setFrame:CGRectMake(40, 33, 244, 244)];
+    }
+    [UIView animateWithDuration:0.4
                           delay: 0
                         options: (UIViewAnimationOptionCurveLinear)
                      animations:^{
                          [imgAvatarFrame setAlpha:0.0f];
                          [self.navigationController setNavigationBarHidden:YES animated:YES];
-                         imgMainProfile.frame = CGRectMake(0, -20, 320, 320);
+                         if(IS_OS_7_OR_LATER){
+                             imgMainProfile.frame = CGRectMake(0, 20, 320, 320);
+                         }
+                         else{
+                             imgMainProfile.frame = CGRectMake(0, 0, 320, 320);
+                         }
                      }
                      completion:^(BOOL finished) {
                          [imgMainProfile setHidden:YES];
@@ -507,38 +520,63 @@ int counter = 0;
         [imgMainProfile setFrame:viewProfile.svPhotos.frame];
     }
     [imgMainProfile setHidden:NO];
-    [UIView animateWithDuration:0.4
+    [UIView animateWithDuration:0.6
                      animations:^{
                          [viewProfile.view removeFromSuperview];
                          viewProfile.view.frame = CGRectMake(0, [[UIScreen mainScreen]applicationFrame].size.height, 320, [[UIScreen mainScreen]applicationFrame].size.height);// its final location
                      }];
     
-    [UIView animateWithDuration: 0.4
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
+    
+    [self.view addSubview:self.moveMeView.placardView];
+    
+    int padding = 30;
+    [UIView animateWithDuration:0.2
                           delay: 0
-                        options: (UIViewAnimationOptionCurveLinear | UIViewAnimationOptionAllowUserInteraction)
+                        options: (UIViewAnimationOptionCurveLinear)
                      animations:^{
-                         
-                         [self.navigationController setNavigationBarHidden:NO animated:YES];
-                         [self.imgMainProfile setFrame:CGRectMake(32, 24, 255, 255)];
+                         if (IS_HEIGHT_GTE_568) {
+                             [imgMainProfile setFrame:CGRectMake(40 - padding/2, 56 - padding/2, 244 + padding, 244 + padding)];
+                         } else {
+                             [imgMainProfile setFrame:CGRectMake(40 - padding/2, 33 - padding/2, 244 + padding, 244 + padding)];
+                         }
                      }
                      completion:^(BOOL finished) {
-                         [self.moveMeView addSubViewToCardView:imgMainProfile andAtFront:NO andTag:0];
-                         [imgAvatarFrame setAlpha:1.0f];
-                         [self.imgMainProfile setFrame:CGRectMake(5, 3, 255, 255)];
+                         imgAvatarFrame.transform = CGAffineTransformMakeScale(1.2, 1.2);
+                         
+                         [UIView animateWithDuration:0.2
+                                               delay: 0.0
+                                             options: (UIViewAnimationOptionCurveLinear)
+                                          animations:^{
+                                              if (IS_HEIGHT_GTE_568) {
+                                                  [imgMainProfile setFrame:CGRectMake(40, 56, 244, 244)];
+                                              } else {
+                                                  [imgMainProfile setFrame:CGRectMake(40, 33, 244, 244)];
+                                              }
+                                              
+                                              imgAvatarFrame.transform = CGAffineTransformMakeScale(1, 1);
+                                              [imgAvatarFrame setAlpha:1.0f];
+                                          }
+                                          completion:^(BOOL finished) {
+                                              //this is imageMainProfile's position in placardView
+                                              [self.imgMainProfile setFrame:CGRectMake(12, 10, 244, 244)];
+                                              [self.moveMeView addSubViewToCardView:imgMainProfile andAtFront:NO andTag:0];
+                                              [self.moveMeView addSubview:self.moveMeView.placardView];
+                                              [self.moveMeView insertSubview:self.moveMeView.placardView aboveSubview:self.backgroundAvatarView];
+                                          }
+                          ];
                      }
      ];
-    [self.view addSubview:self.moveMeView];
-    [self.view sendSubviewToBack:self.moveMeView];
-    [UIView animateWithDuration:0.4
+
+
+    [UIView animateWithDuration:0.6
                      animations:^{
                          if(IS_OS_7_OR_LATER)
-                             self.controlView.frame = CGRectMake(0, -40, 320, 50);// its final location
+                             self.controlView.frame = CGRectMake(0, -60, 320, 50);// its final location
                          else
-                             self.controlView.frame = CGRectMake(0, -46, 320, 50);// its final location
+                             self.controlView.frame = CGRectMake(0, -60, 320, 50);// its final location
                      } completion:^(BOOL finished){
                          
-                         [self.view bringSubviewToFront:self.moveMeView];
-                         self.moveMeView.frame = CGRectMake(0, 0, 320, 548);
                          if(answer != -1)
                              [self doAnswer:answer];
                      }];
@@ -799,7 +837,7 @@ int counter = 0;
         [self startDisabledGPS:YES];
     }
     else{
-        [appDel showSnapshotLoadingThenFocus:NO and:^void(){}];
+        [appDel showSnapshotLoadingThenFocus:focus and:^void(){}];
         VCSimpleSnapshotLoading* vc = [appDel.activeVC.viewControllers objectAtIndex:0];
         [vc setTypeOfAlert:1 /*andAnim:loadingAnim*/];
     }

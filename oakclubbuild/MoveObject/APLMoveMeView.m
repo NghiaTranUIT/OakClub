@@ -57,7 +57,6 @@
 #import "AFHTTPClient+OakClub.h"
 #import "AppDelegate.h"
 @interface APLMoveMeView ()
-@property (nonatomic, strong) IBOutlet APLPlacardView *placardView;
 @property (nonatomic, weak) IBOutlet UIScrollView *avatarView;
 @property (nonatomic) NSUInteger nextDisplayStringIndex;
 @property (nonatomic) Profile* userProfile;

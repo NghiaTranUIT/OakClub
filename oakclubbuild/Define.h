@@ -11,8 +11,8 @@
 
 //demo version FLAG
 #define ENABLE_DEMO true
-#define USE_STAGING true
-#define USE_MAINHOST false
+#define USE_STAGING false
+#define USE_MAINHOST true
 #define USE_STAGING_MB false
 #define USE_STAGING_IOS false
 
@@ -364,7 +364,7 @@
 #define MIN_HEIGHT 100 //cm
 #define MAX_HEIGHT 300 //cm
 
-#define MIN_AGE 16
+#define MIN_AGE 17
 #define MAX_AGE 80
 
 

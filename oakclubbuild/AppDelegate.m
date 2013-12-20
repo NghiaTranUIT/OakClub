@@ -380,20 +380,18 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
         return;
     }
     
+    NSLog(@"VCSSnapshot.is_loadingProfileList: %d focus: %d", VCSSnapshot.is_loadingProfileList, focus);
+    
     if (VCSSnapshot.is_loadingProfileList) {
         [self showSnapshotLoadingThenFocus:focus and:^void {
-            //load profile list if needed
-//            if(selfCopy.reloadSnapshot){
-//                [VCSSnapshot refreshSnapshotFocus:focus];
-//                selfCopy.reloadSnapshot = FALSE;
-//            }
-//            if(!focus && selfCopy.rootVC.state != PKRevealControllerFocusesFrontViewController){
-//                [selfCopy.rootVC.frontViewController.view setUserInteractionEnabled:NO];
-//            }
-//            else{
-//                [selfCopy.rootVC.frontViewController.view setUserInteractionEnabled:YES];
-//            }
         }];
+    } if (selfCopy.reloadSnapshot) {
+        [self showSnapshotLoadingThenFocus:focus and:^void {
+            
+        }];
+        [VCSSnapshot refreshSnapshotFocus:focus];
+        selfCopy.reloadSnapshot = FALSE;
+        
     } else {
         [self.rootVC setFrontViewController:self.simpleSnapShot focusAfterChange:focus completion:^(BOOL finished) {
             //load profile list if needed

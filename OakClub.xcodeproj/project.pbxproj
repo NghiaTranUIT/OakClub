@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3429091B1862F0C700A35209 /* NSString+Random.m in Sources */ = {isa = PBXBuildFile; fileRef = 342909181862F0C700A35209 /* NSString+Random.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		3429091C1862F0C700A35209 /* NSStringRandom.m in Sources */ = {isa = PBXBuildFile; fileRef = 3429091A1862F0C700A35209 /* NSStringRandom.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		3715B369170AC9DC003ACE95 /* VCChat.m in Sources */ = {isa = PBXBuildFile; fileRef = 3715B35E170AC9DC003ACE95 /* VCChat.m */; };
 		3715B36A170AC9DC003ACE95 /* VCChat.m in Sources */ = {isa = PBXBuildFile; fileRef = 3715B35E170AC9DC003ACE95 /* VCChat.m */; };
 		4507A45D18570C0500C76A6B /* Animation.m in Sources */ = {isa = PBXBuildFile; fileRef = 4507A45C18570C0500C76A6B /* Animation.m */; };
@@ -43,6 +45,8 @@
 		45A02597184CA77400DB9E2D /* bullet@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 45A02596184CA77400DB9E2D /* bullet@2x.png */; };
 		45EDE123184D823A002F10D7 /* intropage_snap-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 45EDE122184D823A002F10D7 /* intropage_snap-568h@2x.png */; };
 		45EDE125184D8251002F10D7 /* Info_background-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 45EDE124184D8251002F10D7 /* Info_background-568h@2x.png */; };
+		45FF09E31864309E0017FA8C /* Navbar_btn_back_press@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 45FF09E11864309E0017FA8C /* Navbar_btn_back_press@2x.png */; };
+		45FF09E41864309E0017FA8C /* Navbar_btn_back_press.png in Resources */ = {isa = PBXBuildFile; fileRef = 45FF09E21864309E0017FA8C /* Navbar_btn_back_press.png */; };
 		970924B5182E5BBF007BD6B1 /* myprofile_editVideo.png in Resources */ = {isa = PBXBuildFile; fileRef = 970924B3182E5BBF007BD6B1 /* myprofile_editVideo.png */; };
 		970924B6182E5BBF007BD6B1 /* myprofile_editVideo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 970924B4182E5BBF007BD6B1 /* myprofile_editVideo@2x.png */; };
 		970924BC182E5EFE007BD6B1 /* VideoPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 970924BB182E5EFE007BD6B1 /* VideoPicker.m */; };
@@ -684,6 +688,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		342909171862F0C700A35209 /* NSString+Random.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Random.h"; sourceTree = "<group>"; };
+		342909181862F0C700A35209 /* NSString+Random.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Random.m"; sourceTree = "<group>"; };
+		342909191862F0C700A35209 /* NSStringRandom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSStringRandom.h; sourceTree = "<group>"; };
+		3429091A1862F0C700A35209 /* NSStringRandom.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSStringRandom.m; sourceTree = "<group>"; };
 		3715B35D170AC9DC003ACE95 /* VCChat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VCChat.h; sourceTree = "<group>"; };
 		3715B35E170AC9DC003ACE95 /* VCChat.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VCChat.m; sourceTree = "<group>"; };
 		4507A45B18570C0500C76A6B /* Animation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Animation.h; sourceTree = "<group>"; };
@@ -730,6 +738,8 @@
 		45FB158C1845E18900F8B57B /* id */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = id; path = id.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		45FB158D1845E18900F8B57B /* id */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = id; path = id.lproj/Localizable.strings; sourceTree = "<group>"; };
 		45FB158E1845E18900F8B57B /* id */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = id; path = id.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		45FF09E11864309E0017FA8C /* Navbar_btn_back_press@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Navbar_btn_back_press@2x.png"; sourceTree = "<group>"; };
+		45FF09E21864309E0017FA8C /* Navbar_btn_back_press.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Navbar_btn_back_press.png; sourceTree = "<group>"; };
 		970924B3182E5BBF007BD6B1 /* myprofile_editVideo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = myprofile_editVideo.png; sourceTree = "<group>"; };
 		970924B4182E5BBF007BD6B1 /* myprofile_editVideo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "myprofile_editVideo@2x.png"; sourceTree = "<group>"; };
 		970924BA182E5EFE007BD6B1 /* VideoPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoPicker.h; sourceTree = "<group>"; };
@@ -1667,6 +1677,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		342909161862F0C700A35209 /* NSStringRandom */ = {
+			isa = PBXGroup;
+			children = (
+				342909171862F0C700A35209 /* NSString+Random.h */,
+				342909181862F0C700A35209 /* NSString+Random.m */,
+				342909191862F0C700A35209 /* NSStringRandom.h */,
+				3429091A1862F0C700A35209 /* NSStringRandom.m */,
+			);
+			path = NSStringRandom;
+			sourceTree = "<group>";
+		};
 		9758AED8184C6C7100B9D4AF /* PSTCollectionView */ = {
 			isa = PBXGroup;
 			children = (
@@ -2148,6 +2169,7 @@
 		CD12C1AE170AEC4C006B13B8 /* References */ = {
 			isa = PBXGroup;
 			children = (
+				342909161862F0C700A35209 /* NSStringRandom */,
 				9758AED8184C6C7100B9D4AF /* PSTCollectionView */,
 				CD13D4251816254F00F63F65 /* AnimatedGif */,
 				9775A76D1813D5DE00BCF28D /* UAModalPanel */,
@@ -2429,6 +2451,8 @@
 		CD50E3B0181FE62C0036A23B /* NavigationBar */ = {
 			isa = PBXGroup;
 			children = (
+				45FF09E11864309E0017FA8C /* Navbar_btn_back_press@2x.png */,
+				45FF09E21864309E0017FA8C /* Navbar_btn_back_press.png */,
 				CDAB59981850880C00724956 /* Navbar_BG.png */,
 				CDAB59991850880C00724956 /* Navbar_BG@2x.png */,
 				CDAB599A1850880C00724956 /* Navbar_btn_back.png */,
@@ -3695,6 +3719,7 @@
 				CDC492B31702CEAB00E83DE3 /* Default-568h@2x.png in Resources */,
 				977853F2182228A900CBB5DB /* myprofile_deleteButton.png in Resources */,
 				979B95FC184852A000AF5A78 /* devil.png in Resources */,
+				45FF09E31864309E0017FA8C /* Navbar_btn_back_press@2x.png in Resources */,
 				CD50E36B181FBF3C0036A23B /* Snapshot_separators.png in Resources */,
 				97A55D661823C3E700675025 /* viewprofile_avatarBorder@2x.png in Resources */,
 				CD1301681821FD9700D29E0B /* SnapshotLoading_btn_tellyourfriend_inactive@2x.png in Resources */,
@@ -3720,6 +3745,7 @@
 				CD1AB07A1821804200B0FA10 /* Report_midleItem_inactive@2x.png in Resources */,
 				979B960C184852A000AF5A78 /* sad.png in Resources */,
 				CD1AB06E1821804200B0FA10 /* Report_BG@2x.png in Resources */,
+				45FF09E41864309E0017FA8C /* Navbar_btn_back_press.png in Resources */,
 				CD877CEA182114560067D478 /* HistoryChat_separator@2x.png in Resources */,
 				CD2DE69E1827B2A30043AA91 /* AppIcon40x40@2x.png in Resources */,
 				977853F4182228A900CBB5DB /* myprofile_doneButton.png in Resources */,
@@ -4310,6 +4336,7 @@
 				CDEC0215172A706E00C3E615 /* HistoryMessage.m in Sources */,
 				CDECD30A1733C3D900A6B17F /* ChatHistoryViewCell.m in Sources */,
 				CDFED5E31738DA4000158756 /* GroupButtons.m in Sources */,
+				3429091C1862F0C700A35209 /* NSStringRandom.m in Sources */,
 				CDFED5E71738DAC000158756 /* VCMyProfile.m in Sources */,
 				9775A7691813D3DD00BCF28D /* UAModelPanelEx.m in Sources */,
 				9758AEF6184C6C7100B9D4AF /* PSTCollectionView.m in Sources */,
@@ -4325,6 +4352,7 @@
 				9775A76C1813D5B600BCF28D /* AppDelegate.m in Sources */,
 				CD1A7E95173D123C00EC8537 /* ImageScrollView.m in Sources */,
 				CD1A7E97173D123C00EC8537 /* TilingView.m in Sources */,
+				3429091B1862F0C700A35209 /* NSString+Random.m in Sources */,
 				970B7487181533560091471F /* PickPhotoFromGarelly.m in Sources */,
 				CD038E6F180BDB2700A9E177 /* HistoryMessage+init.m in Sources */,
 				CD038E71180BDB2700A9E177 /* MessageStorage.m in Sources */,
@@ -4517,8 +4545,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_WARN__ARC_BRIDGE_CAST_NONARC = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: STEVE REID (Y8V6LRC76N)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: STEVE REID (Y8V6LRC76N)";
 				COPY_PHASE_STRIP = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -4539,8 +4567,8 @@
 					"-ObjC",
 				);
 				PRODUCT_NAME = OakClub;
-				PROVISIONING_PROFILE = "023742AC-1369-4A69-B3B8-1DE476B7504F";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "023742AC-1369-4A69-B3B8-1DE476B7504F";
+				PROVISIONING_PROFILE = "1121477B-CE30-4D91-90CE-E316F8E171F9";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "1121477B-CE30-4D91-90CE-E316F8E171F9";
 				TARGETED_DEVICE_FAMILY = 1;
 				VALIDATE_PRODUCT = YES;
 				WRAPPER_EXTENSION = app;
@@ -4551,8 +4579,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_WARN__ARC_BRIDGE_CAST_NONARC = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: STEVE REID (Y8V6LRC76N)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: STEVE REID (Y8V6LRC76N)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/oakclubbuild\"",
@@ -4572,8 +4600,8 @@
 					"-ObjC",
 				);
 				PRODUCT_NAME = OakClub;
-				PROVISIONING_PROFILE = "023742AC-1369-4A69-B3B8-1DE476B7504F";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "023742AC-1369-4A69-B3B8-1DE476B7504F";
+				PROVISIONING_PROFILE = "1121477B-CE30-4D91-90CE-E316F8E171F9";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "1121477B-CE30-4D91-90CE-E316F8E171F9";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};

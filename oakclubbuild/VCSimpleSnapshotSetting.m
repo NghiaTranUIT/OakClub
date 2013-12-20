@@ -1034,6 +1034,15 @@ UITapGestureRecognizer *tap;
     int fromAge, toAge;
     fromAge = MIN_AGE + (sender.min * (MAX_AGE - MIN_AGE));
     toAge = MIN_AGE + (sender.max * (MAX_AGE - MIN_AGE));
+    
+    
+    if (toAge == 17) {
+        toAge++;
+    }
+    if (fromAge == toAge) {
+        fromAge = toAge - 1;
+    }
+    
     if (fromAge != snapshotObj.age_from || toAge != snapshotObj.age_to)
     {
         snapshotObj.age_from = fromAge;
