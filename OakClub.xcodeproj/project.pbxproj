@@ -45,6 +45,8 @@
 		45A02597184CA77400DB9E2D /* bullet@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 45A02596184CA77400DB9E2D /* bullet@2x.png */; };
 		45EDE123184D823A002F10D7 /* intropage_snap-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 45EDE122184D823A002F10D7 /* intropage_snap-568h@2x.png */; };
 		45EDE125184D8251002F10D7 /* Info_background-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 45EDE124184D8251002F10D7 /* Info_background-568h@2x.png */; };
+		45FF09E31864309E0017FA8C /* Navbar_btn_back_press@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 45FF09E11864309E0017FA8C /* Navbar_btn_back_press@2x.png */; };
+		45FF09E41864309E0017FA8C /* Navbar_btn_back_press.png in Resources */ = {isa = PBXBuildFile; fileRef = 45FF09E21864309E0017FA8C /* Navbar_btn_back_press.png */; };
 		970924B5182E5BBF007BD6B1 /* myprofile_editVideo.png in Resources */ = {isa = PBXBuildFile; fileRef = 970924B3182E5BBF007BD6B1 /* myprofile_editVideo.png */; };
 		970924B6182E5BBF007BD6B1 /* myprofile_editVideo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 970924B4182E5BBF007BD6B1 /* myprofile_editVideo@2x.png */; };
 		970924BC182E5EFE007BD6B1 /* VideoPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 970924BB182E5EFE007BD6B1 /* VideoPicker.m */; };
@@ -736,6 +738,8 @@
 		45FB158C1845E18900F8B57B /* id */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = id; path = id.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		45FB158D1845E18900F8B57B /* id */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = id; path = id.lproj/Localizable.strings; sourceTree = "<group>"; };
 		45FB158E1845E18900F8B57B /* id */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = id; path = id.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		45FF09E11864309E0017FA8C /* Navbar_btn_back_press@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Navbar_btn_back_press@2x.png"; sourceTree = "<group>"; };
+		45FF09E21864309E0017FA8C /* Navbar_btn_back_press.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Navbar_btn_back_press.png; sourceTree = "<group>"; };
 		970924B3182E5BBF007BD6B1 /* myprofile_editVideo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = myprofile_editVideo.png; sourceTree = "<group>"; };
 		970924B4182E5BBF007BD6B1 /* myprofile_editVideo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "myprofile_editVideo@2x.png"; sourceTree = "<group>"; };
 		970924BA182E5EFE007BD6B1 /* VideoPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoPicker.h; sourceTree = "<group>"; };
@@ -2447,6 +2451,8 @@
 		CD50E3B0181FE62C0036A23B /* NavigationBar */ = {
 			isa = PBXGroup;
 			children = (
+				45FF09E11864309E0017FA8C /* Navbar_btn_back_press@2x.png */,
+				45FF09E21864309E0017FA8C /* Navbar_btn_back_press.png */,
 				CDAB59981850880C00724956 /* Navbar_BG.png */,
 				CDAB59991850880C00724956 /* Navbar_BG@2x.png */,
 				CDAB599A1850880C00724956 /* Navbar_btn_back.png */,
@@ -3713,6 +3719,7 @@
 				CDC492B31702CEAB00E83DE3 /* Default-568h@2x.png in Resources */,
 				977853F2182228A900CBB5DB /* myprofile_deleteButton.png in Resources */,
 				979B95FC184852A000AF5A78 /* devil.png in Resources */,
+				45FF09E31864309E0017FA8C /* Navbar_btn_back_press@2x.png in Resources */,
 				CD50E36B181FBF3C0036A23B /* Snapshot_separators.png in Resources */,
 				97A55D661823C3E700675025 /* viewprofile_avatarBorder@2x.png in Resources */,
 				CD1301681821FD9700D29E0B /* SnapshotLoading_btn_tellyourfriend_inactive@2x.png in Resources */,
@@ -3738,6 +3745,7 @@
 				CD1AB07A1821804200B0FA10 /* Report_midleItem_inactive@2x.png in Resources */,
 				979B960C184852A000AF5A78 /* sad.png in Resources */,
 				CD1AB06E1821804200B0FA10 /* Report_BG@2x.png in Resources */,
+				45FF09E41864309E0017FA8C /* Navbar_btn_back_press.png in Resources */,
 				CD877CEA182114560067D478 /* HistoryChat_separator@2x.png in Resources */,
 				CD2DE69E1827B2A30043AA91 /* AppIcon40x40@2x.png in Resources */,
 				977853F4182228A900CBB5DB /* myprofile_doneButton.png in Resources */,
