@@ -67,7 +67,20 @@
     [texfieldEdit addTarget:self
                        action:@selector(textFieldFinished:)
              forControlEvents:UIControlEventEditingDidEndOnExit];
+    
     [self.view setBackgroundColor:[UIColor whiteColor]];
+    
+}
+
+-(void) viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    self.lblDefaultText.text = [self.lblDefaultText.text localize];
+    if ([self.textviewEdit.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]].length > 0) {
+        self.lblDefaultText.hidden = YES;
+    } else {
+        self.lblDefaultText.hidden = NO;
+    }
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -85,6 +98,22 @@
 //    label.textColor = [UIColor blackColor]; // change this color
     [label sizeToFit];
     self.navigationItem.titleView = label;
+    
+    
+}
+
+- (void)textViewDidBeginEditing:(UITextView *)textView
+{
+    self.lblDefaultText.hidden = YES;
+}
+
+- (void)textViewDidEndEditing:(UITextView *)textView
+{
+    if ([self.textviewEdit.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]].length > 0) {
+        self.lblDefaultText.hidden = YES;
+    } else {
+        self.lblDefaultText.hidden = NO;
+    }
 }
 
 - (IBAction)textFieldFinished:(id)sender
