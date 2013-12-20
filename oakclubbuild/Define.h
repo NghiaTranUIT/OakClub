@@ -364,7 +364,7 @@
 #define MIN_HEIGHT 100 //cm
 #define MAX_HEIGHT 300 //cm
 
-#define MIN_AGE 16
+#define MIN_AGE 17
 #define MAX_AGE 80
 
 
