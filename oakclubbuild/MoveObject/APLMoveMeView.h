@@ -56,6 +56,7 @@
     id<APLMoveMeViewDelegate>   _movemedelegate;
 }
 @property (nonatomic, strong) NSArray *displayStrings;
+@property (nonatomic, strong) IBOutlet APLPlacardView *placardView;
 
 @property id<APLMoveMeViewDelegate> movemedelegate;
 
