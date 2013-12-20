@@ -1132,9 +1132,16 @@
 "atau"="veya";
 "หรือ"="veya";
 "veya"="veya";
-"Enter your message"="Enter your message_TU";
-"Enter your message_VN"="Enter your message_TU";
-"Enter your message_GE"="Enter your message_TU";
-"Enter your message_ID"="Enter your message_TU";
-"Enter your message_TH"="Enter your message_TU";
-"Enter your message_TU"="Enter your message_TU";
+"Enter text here"="Metni buraya girin";
+"Viết thêm vào"="Metni buraya girin";
+"Eingeben hier"="Metni buraya girin";
+"Memasukkan teks"="Metni buraya girin";
+"ใส่ข้อความ"="Metni buraya girin";
+"Metni buraya girin"="Metni buraya girin";
+"Matched on"="Tarihinde eşleştiniz";
+"Thành cặp vào"="Tarihinde eşleştiniz";
+"Verbunden am"="Tarihinde eşleştiniz";
+"Dijodohkan pada tanggal"="Tarihinde eşleştiniz";
+"จับคู่กับ"="Tarihinde eşleştiniz";
+"Tarihinde eşleştiniz"="Tarihinde eşleştiniz";
+

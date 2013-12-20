@@ -22,7 +22,7 @@
     NSString *title;
 }
 
-@synthesize texfieldEdit,textviewEdit, buttonBack, delegate, btnTextViewThemes, btnThemesTextField;
+@synthesize texfieldEdit,textviewEdit, buttonBack, delegate, btnTextViewThemes, btnThemesTextField, lblDefaultText;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -47,22 +47,23 @@
     [super viewDidLoad];
      [self addTopLeftButtonWithAction:@selector(enterEditing)];
     // Do any additional setup after loading the view from its nib.
-    switch (editStyle) {
-        case 2:
-            textviewEdit.text= text;
-            textviewEdit.hidden = NO;
-            btnTextViewThemes.hidden = NO;
-            texfieldEdit.hidden = YES;
-            btnThemesTextField.hidden = YES;
-            break;
-        default:
-            [texfieldEdit setText:text];
-            texfieldEdit.hidden = NO;
-            btnThemesTextField.hidden = NO;
-            textviewEdit.hidden = YES;
-            btnTextViewThemes.hidden = YES;
-            break;
-    }
+//    switch (editStyle) {
+//        case 2:
+//            textviewEdit.text= text;
+//            textviewEdit.hidden = NO;
+//            btnTextViewThemes.hidden = NO;
+//            texfieldEdit.hidden = YES;
+//            btnThemesTextField.hidden = YES;
+//            break;
+//        default:
+//            [texfieldEdit setText:text];
+//            texfieldEdit.hidden = NO;
+//            btnThemesTextField.hidden = NO;
+//            textviewEdit.hidden = YES;
+//            btnTextViewThemes.hidden = YES;
+//            lblDefaultText.hidden = YES;
+//            break;
+//    }
     
     [texfieldEdit addTarget:self
                        action:@selector(textFieldFinished:)
@@ -75,11 +76,28 @@
 -(void) viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    self.lblDefaultText.text = [self.lblDefaultText.text localize];
-    if ([self.textviewEdit.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]].length > 0) {
-        self.lblDefaultText.hidden = YES;
-    } else {
-        self.lblDefaultText.hidden = NO;
+    switch (editStyle) {
+        case 2:
+            textviewEdit.text= text;
+            textviewEdit.hidden = NO;
+            btnTextViewThemes.hidden = NO;
+            texfieldEdit.hidden = YES;
+            btnThemesTextField.hidden = YES;
+            self.lblDefaultText.text = [self.lblDefaultText.text localize];
+            if ([self.textviewEdit.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]].length > 0) {
+                self.lblDefaultText.hidden = YES;
+            } else {
+                self.lblDefaultText.hidden = NO;
+            }
+            break;
+        default:
+            [texfieldEdit setText:text];
+            texfieldEdit.hidden = NO;
+            btnThemesTextField.hidden = NO;
+            textviewEdit.hidden = YES;
+            btnTextViewThemes.hidden = YES;
+            lblDefaultText.hidden = YES;
+            break;
     }
 }
 
@@ -101,7 +119,6 @@
     
     
 }
-
 - (void)textViewDidBeginEditing:(UITextView *)textView
 {
     self.lblDefaultText.hidden = YES;
@@ -144,6 +161,7 @@
 {
     if (delegate) {
         if ([delegate respondsToSelector:@selector(saveChangedEditting:)]) {
+            self.textviewEdit.text = [self.textviewEdit.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
             [delegate saveChangedEditting:self];
         }
         [self.navigationController popViewControllerAnimated:YES];
