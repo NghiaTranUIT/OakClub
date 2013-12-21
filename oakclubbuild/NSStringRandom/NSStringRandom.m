@@ -20,7 +20,7 @@
  * THE SOFTWARE.
  */
 
-#import "NSString+Random.h"
+#import "NSStringRandom.h"
 #include <stdlib.h>
 
 #define DEFAULT_LENGTH  8
@@ -34,39 +34,15 @@
 
 + (id)randomizedString
 {
-    return [self randomizedStringWithAlphabet:[self defaultAlphabet]];
-}
-
-+ (id)randomizedStringWithAlphabet:(NSString *)alphabet
-{
-    return [self randomizedStringWithAlphabet:alphabet length:DEFAULT_LENGTH];
-}
-
-+ (id)randomizedStringWithAlphabet:(NSString *)alphabet length:(NSUInteger)len
-{
-    return [[[self alloc] initWithAlphabet:alphabet length:len] autorelease];
-}
-
-- (id)initWithDefaultAlphabet
-{
-    return [self initWithAlphabet:[NSString defaultAlphabet]];
-}
-
-- (id)initWithAlphabet:(NSString *)alphabet
-{
-    return [self initWithAlphabet:alphabet length:DEFAULT_LENGTH];
-}
-
-- (id)initWithAlphabet:(NSString *)alphabet length:(NSUInteger)len
-{
-    [self release];
-    NSMutableString *s = [NSMutableString stringWithCapacity:len];
-    for (NSUInteger i = 0U; i < len; i++) {
-        u_int32_t r = arc4random() % [alphabet length];
-        unichar c = [alphabet characterAtIndex:r];
-        [s appendFormat:@"%C", c];
+    NSMutableString *randomString = [NSMutableString stringWithCapacity: DEFAULT_LENGTH];
+    
+    for (int i=0; i<DEFAULT_LENGTH; i++) {
+        [randomString appendFormat: @"%C", [[self defaultAlphabet] characterAtIndex: arc4random() % [[self defaultAlphabet] length]]];
     }
-    return [s copy];
+    
+    return randomString;
 }
+
+
 
 @end

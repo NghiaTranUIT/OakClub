@@ -23,11 +23,6 @@
 #import <Foundation/Foundation.h>
 
 @interface NSString (Randomized)
-+ (NSString *)defaultAlphabet;
 + (id)randomizedString;
-+ (id)randomizedStringWithAlphabet:(NSString *)alphabet;
-+ (id)randomizedStringWithAlphabet:(NSString *)alphabet length:(NSUInteger)len;
-- (id)initWithDefaultAlphabet;
-- (id)initWithAlphabet:(NSString *)alphabet;
-- (id)initWithAlphabet:(NSString *)alphabet length:(NSUInteger)len;
+
 @end

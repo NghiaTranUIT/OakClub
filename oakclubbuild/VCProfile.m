@@ -20,6 +20,7 @@
 #import "ImageInfo.h"
 #import <MediaPlayer/MediaPlayer.h>
 #import "ProfileInfoCell.h"
+#import "VCSimpleSnapshot.h"
 
 @interface VCProfile (){
 //    BOOL popoverShowing;
@@ -1278,7 +1279,8 @@ BOOL allowFullScreen = FALSE;
     }
     else
     {
-        
+        VCSimpleSnapshot *VCSSnapshot = appDel.simpleSnapShot.viewControllers[0];
+        [VCSSnapshot backToSnapshotViewWithAnswer:-1];
     }
 }
 

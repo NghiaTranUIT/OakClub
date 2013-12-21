@@ -7,8 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3429091B1862F0C700A35209 /* NSString+Random.m in Sources */ = {isa = PBXBuildFile; fileRef = 342909181862F0C700A35209 /* NSString+Random.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		3429091C1862F0C700A35209 /* NSStringRandom.m in Sources */ = {isa = PBXBuildFile; fileRef = 3429091A1862F0C700A35209 /* NSStringRandom.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		3429091C1862F0C700A35209 /* NSStringRandom.m in Sources */ = {isa = PBXBuildFile; fileRef = 3429091A1862F0C700A35209 /* NSStringRandom.m */; };
 		3715B369170AC9DC003ACE95 /* VCChat.m in Sources */ = {isa = PBXBuildFile; fileRef = 3715B35E170AC9DC003ACE95 /* VCChat.m */; };
 		3715B36A170AC9DC003ACE95 /* VCChat.m in Sources */ = {isa = PBXBuildFile; fileRef = 3715B35E170AC9DC003ACE95 /* VCChat.m */; };
 		4507A45D18570C0500C76A6B /* Animation.m in Sources */ = {isa = PBXBuildFile; fileRef = 4507A45C18570C0500C76A6B /* Animation.m */; };
@@ -688,8 +687,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		342909171862F0C700A35209 /* NSString+Random.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Random.h"; sourceTree = "<group>"; };
-		342909181862F0C700A35209 /* NSString+Random.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Random.m"; sourceTree = "<group>"; };
 		342909191862F0C700A35209 /* NSStringRandom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSStringRandom.h; sourceTree = "<group>"; };
 		3429091A1862F0C700A35209 /* NSStringRandom.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSStringRandom.m; sourceTree = "<group>"; };
 		3715B35D170AC9DC003ACE95 /* VCChat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VCChat.h; sourceTree = "<group>"; };
@@ -1680,8 +1677,6 @@
 		342909161862F0C700A35209 /* NSStringRandom */ = {
 			isa = PBXGroup;
 			children = (
-				342909171862F0C700A35209 /* NSString+Random.h */,
-				342909181862F0C700A35209 /* NSString+Random.m */,
 				342909191862F0C700A35209 /* NSStringRandom.h */,
 				3429091A1862F0C700A35209 /* NSStringRandom.m */,
 			);
@@ -4352,7 +4347,6 @@
 				9775A76C1813D5B600BCF28D /* AppDelegate.m in Sources */,
 				CD1A7E95173D123C00EC8537 /* ImageScrollView.m in Sources */,
 				CD1A7E97173D123C00EC8537 /* TilingView.m in Sources */,
-				3429091B1862F0C700A35209 /* NSString+Random.m in Sources */,
 				970B7487181533560091471F /* PickPhotoFromGarelly.m in Sources */,
 				CD038E6F180BDB2700A9E177 /* HistoryMessage+init.m in Sources */,
 				CD038E71180BDB2700A9E177 /* MessageStorage.m in Sources */,

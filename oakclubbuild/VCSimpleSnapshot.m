@@ -18,6 +18,7 @@
 #import "LocationUpdate.h"
 #import "AppLifeCycleDelegate.h"
 #import "VCProfile.h"
+#import "NSStringRandom.h"
 
 @interface VCSimpleSnapshot () <AppLifeCycleDelegate,APLMoveMeViewDelegate> {
     UIView *headerView;
@@ -273,9 +274,12 @@ CGFloat pageHeight;
 -(void)loadSnapshotProfilesWithHandler:(void(^)(void))handler andFocus:(BOOL)focus
 {
 //    ++counter;
+    
+    NSString *randomStr = [NSString randomizedString];
+    
     request = [[AFHTTPClient alloc] initWithOakClubAPI:DOMAIN];
     NSDictionary *params = [[NSDictionary alloc]initWithObjectsAndKeys:@"0",@"start",@"35",@"limit",
-                            appDel.snapshotSettingsObj.snapshotParams, @"search_preference", nil];
+                            appDel.snapshotSettingsObj.snapshotParams, @"search_preference", randomStr, @"randomStr", nil];
     NSMutableURLRequest *urlReq = [request requestWithMethod:@"GET" path:URL_getSnapShot parameters:params];
     
     NSString *paramsDesc = [[[NSString stringWithFormat:@"%@", params] stringByReplacingOccurrencesOfString:@"=" withString:@":"] stringByReplacingOccurrencesOfString:@";" withString:@","];
@@ -337,6 +341,7 @@ CGFloat pageHeight;
     [operation start];
 }
 
+
 -(void)loadNextProfileByCurrentIndex{
     [self.imgNextProfile setImage:[UIImage imageNamed:@"Default Avatar"]];
     if(currentIndex >= [profileList count])
@@ -377,6 +382,7 @@ CGFloat pageHeight;
     [lblPhotoCount setText:[NSString stringWithFormat:@"%i",[currentProfile.arr_photos count]]];
     [self.imgMainProfile setImage:[UIImage imageNamed:@"Default Avatar"]];
     
+    NSLog(@"currentProfile.s_Avatar: %@", currentProfile.s_Avatar);
     [snapshotImagePool getImageAtURL:currentProfile.s_Avatar withSize:PHOTO_SIZE_LARGE asycn:^(UIImage *image, NSError *error, bool isFirstLoad) {
         if(image){
             [self.imgMainProfile setImage:image];
@@ -474,7 +480,6 @@ CGFloat pageHeight;
                              viewProfile.view.frame = CGRectMake(0, 0, 320, [[UIScreen mainScreen]applicationFrame].size.height);
                          }
                      }completion:^(BOOL finished) {
-                         [viewProfile.svPhotos setHidden:NO];
                          [viewProfile.view setUserInteractionEnabled:YES];
                      }];
     [self.view addSubview:imgMainProfile];
@@ -500,6 +505,7 @@ CGFloat pageHeight;
                          }
                      }
                      completion:^(BOOL finished) {
+                         [viewProfile.svPhotos setHidden:NO];
                          [imgMainProfile setHidden:YES];
                          [self.moveMeView setUserInteractionEnabled:YES];
                      }
