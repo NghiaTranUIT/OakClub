@@ -171,6 +171,11 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
 		}
 	}
     
+//    NSString *path = [[NSBundle mainBundle] pathForResource:@"IMG_0293" ofType:@"MOV"];
+//    UISaveVideoAtPathToSavedPhotosAlbum(path, self, @selector(video:didFinishSavingWithError:contextInfo:), nil);
+//    path = [[NSBundle mainBundle] pathForResource:@"IMG_0293" ofType:@"mov"];
+//    UISaveVideoAtPathToSavedPhotosAlbum(path, self, @selector(video:didFinishSavingWithError:contextInfo:), nil);
+    
     return YES;
 }
 

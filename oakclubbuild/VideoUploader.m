@@ -57,7 +57,7 @@
     //AVAssetExportPresetLowQuality;
     exportSession.outputFileType = AVFileTypeQuickTimeMovie;
     
-    NSString *videoName = @"demo.m4a";
+    NSString *videoName = @"compressedVideo.mov";
     NSString *exportPath = [NSTemporaryDirectory() stringByAppendingPathComponent:videoName];
     NSURL *exportUrl = [NSURL fileURLWithPath:exportPath];
     if ([[NSFileManager defaultManager] fileExistsAtPath:exportPath])

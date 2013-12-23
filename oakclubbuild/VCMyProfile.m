@@ -35,6 +35,7 @@
     NSMutableArray *photos;
     int selectedPhoto;
     UIImage *uploadImage;
+    BOOL isVideoUploading;
     LocationUpdate *locUpdate;
     VideoPicker *videoPicker;
     LoadingIndicator *indicator,*photo_Indicator;
@@ -64,6 +65,7 @@ UITapGestureRecognizer *tap;
         // Custom initialization
         appDelegate =(AppDelegate *)[[UIApplication sharedApplication] delegate];
         profileItemList = [[NSMutableArray alloc] initWithArray:MyProfileItemList];
+        isVideoUploading = false;
     }
     return self;
 }
@@ -528,7 +530,7 @@ UITapGestureRecognizer *tap;
         {
             NSData *uploadData = UIImagePNGRepresentation(uploadImage);
             NSLog(@"[uploadData length]: %d", [uploadData length]);
-            if ([uploadData length] >= MAX_UPLOAD_SIZE)
+            if ([uploadData length] >= MAX_UPLOAD_PHOTO_SIZE)
             {
                 UIAlertView *maxSizeAlert = [[UIAlertView alloc] initWithTitle:[@"Warning" localize] message:[@"The maximum size of photo is 3MB" localize] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
                 
@@ -1045,7 +1047,11 @@ UITapGestureRecognizer *tap;
 
 - (IBAction)uploadVideoTouched:(id)sender
 {
-    if (profileObj.s_video && ![@"" isEqualToString:profileObj.s_video])
+    if (isVideoUploading)
+    {
+        [self showWarning:@"You are uploading another video." withTag:3];
+    }
+    else if (profileObj.s_video && ![@"" isEqualToString:profileObj.s_video])
     {
         [self showOKCancelWarning:@"Do you want to upload new videos" withTag:4];
     }
@@ -1070,31 +1076,60 @@ UITapGestureRecognizer *tap;
 }
 
 -(void)receiveVideo:(NSURL *)videoURL{
-    if(videoURL){
-        [indicator lockViewAndDisplayIndicator];
-        [VideoUploader compressVideoAtURL:videoURL withQuality:AVAssetExportPresetLowQuality useCompletion:^(NSData *data)
+    if(videoURL)
+    {
+//        AVURLAsset *asset = [AVURLAsset assetWithURL:videoURL];
+//        Float64 duration = asset.duration.value / asset.duration.timescale;
+//        NSLog(@"Selected video duration: %.2lf", duration);
+        
+        isVideoUploading = true;
+        [VideoUploader compressVideoAtURL:videoURL withQuality:AVAssetExportPresetMediumQuality useCompletion:^(NSData *data)
          {
              if (data)
              {
-                 [VideoUploader uploadVideoWithData:data useCompletion:^(NSString *link)
-                  {
-                      NSLog(@"Video upload completed with link %@", link);
-                      [indicator unlockViewAndStopIndicator];
-                      
-                      profileObj.s_video = link;
-                      appDelegate.myProfile.s_video = link;
-                      
-                      UIImage *thumb;
-                      if ((thumb = self.videoThumb))
+                 if ([data length] > MAX_UPLOAD_VIDEO_SIZE)
+                 {
+                     UIAlertView *maxSizeAlert = [[UIAlertView alloc] initWithTitle:[@"Warning" localize] message:[@"The maximum size of video is 3MB" localize] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+                     
+                     [maxSizeAlert localizeAllViews];
+                     [maxSizeAlert show];
+                     isVideoUploading = false;
+                 }
+                 else
+                 {
+                     [VideoUploader uploadVideoWithData:data useCompletion:^(NSString *link)
                       {
-                          [self.btnUploadVideo setBackgroundImage:thumb forState:UIControlStateNormal];
-                          self.btnUploadVideo.contentMode = UIViewContentModeScaleAspectFit;
-                      }
-                  }];
+                          NSLog(@"Video upload completed with link %@", link);
+                          
+                          UILabel *videoCompletedNotif = [[UILabel alloc] initWithFrame:CGRectMake(100, 80, 200, 40)];
+                          [videoCompletedNotif setFont:FONT_HELVETICANEUE_LIGHT(12)];
+                          videoCompletedNotif.text = [@"Video upload completed" localize];
+                          [videoCompletedNotif setTextAlignment:NSTextAlignmentRight];
+                          [videoCompletedNotif setBackgroundColor:[UIColor whiteColor]];
+                          [appDelegate.rootVC.focusedController.view addSubview:videoCompletedNotif];
+                          [UIView animateWithDuration:1 delay:0.5 options:0 animations:^{
+                              [videoCompletedNotif setAlpha:0];
+                          } completion:^(BOOL finished) {
+                              [videoCompletedNotif removeFromSuperview];
+                          }];
+                          
+                          profileObj.s_video = link;
+                          appDelegate.myProfile.s_video = link;
+                          
+                          UIImage *thumb;
+                          if ((thumb = self.videoThumb))
+                          {
+                              [self.btnUploadVideo setBackgroundImage:thumb forState:UIControlStateNormal];
+                              self.btnUploadVideo.contentMode = UIViewContentModeScaleAspectFit;
+                          }
+                          
+                          isVideoUploading = false;
+                      }];
+                 }
              }
              else
              {
-                 [indicator lockViewAndDisplayIndicator];
+                 isVideoUploading = false;
              }
          }];
     }
