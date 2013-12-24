@@ -4550,7 +4550,7 @@
 				GCC_PREFIX_HEADER = "oakclubbuild/OakClub-Prefix.pch";
 				HEADER_SEARCH_PATHS = "${SDK_DIR}/usr/include/libxml2";
 				INFOPLIST_FILE = "oakclubbuild/OakClub-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/oakclubbuild/XMPP-Chat\"",
@@ -4583,7 +4583,7 @@
 				GCC_PREFIX_HEADER = "oakclubbuild/OakClub-Prefix.pch";
 				HEADER_SEARCH_PATHS = "${SDK_DIR}/usr/include/libxml2";
 				INFOPLIST_FILE = "oakclubbuild/OakClub-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/oakclubbuild/XMPP-Chat\"",
