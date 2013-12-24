@@ -29,6 +29,7 @@
     ImagePool *userImagePool;
 }
 @property (weak, nonatomic) IBOutlet UIView *aboutView;
+@property (weak, nonatomic) IBOutlet UIView *nLikeViewsView;
 @property (weak, nonatomic) IBOutlet UIView *mutualFriendsView;
 @property (weak, nonatomic) IBOutlet UIView *interestsView;
 @property (weak, nonatomic) IBOutlet UIView *profileView;
@@ -348,7 +349,7 @@ static CGFloat padding_left = 5.0;
 //    [[self aboutView] setFrame:CGRectMake(self.aboutView.frame.origin.x,
 //                                         self.profileView.frame.origin.y + self.profileView.frame.size.height, self.aboutView.frame.size.width
 //                                          , self.aboutView.frame.size.height)];
-    CGPoint startPosition = CGPointMake(0, self.lblnLikes.frame.origin.y + self.lblnLikes.frame.size.height + VIEW_PADDING);
+    CGPoint startPosition = CGPointMake(0, self.lblActiveTitle.frame.origin.y + self.lblActiveTitle.frame.size.height + VIEW_PADDING);
     if( currentProfile.arr_MutualInterests && [currentProfile.arr_MutualInterests count] > 0)
     {
         NSLog(@"Before Interest Content size: %f - %f", scrollview.contentSize.width, scrollview.contentSize.height);
@@ -367,6 +368,7 @@ static CGFloat padding_left = 5.0;
         self.interestsView.hidden = YES;
 //        self.mutualFriendsView.frame = [self moveToFrame:self.interestsView.frame from:self.mutualFriendsView.frame];
     }
+    
     
     if(currentProfile.arr_MutualFriends && [currentProfile.arr_MutualFriends count] > 0)
     {
@@ -388,7 +390,6 @@ static CGFloat padding_left = 5.0;
 //        self.profileView.frame = [self moveToFrame:self.mutualFriendsView.frame from:self.profileView.frame];
 //        self.mutualFriendsView.frame = [self moveToFrame:self.interestsView.frame from:self.mutualFriendsView.frame];
     }
-    
     
     
     self.lblAboutMe.text = [[currentProfile s_aboutMe] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
@@ -413,6 +414,7 @@ static CGFloat padding_left = 5.0;
     {
         self.aboutView.hidden = YES;
     }
+    
     
 //    if ([lblAboutMe.text length] <= 0) {
 //        self.aboutView.hidden = YES;
@@ -441,6 +443,14 @@ static CGFloat padding_left = 5.0;
     [self.profileView setFrame:profileViewFrame];
     [scrollview setContentSize:CGSizeMake(scrollview.contentSize.width, scrollview.contentSize.height + self.profileView.frame.size.height)];
     startPosition.y += self.profileView.frame.size.height;
+    
+    
+    // UPDATE FRAME FOR NUMBER OF LIKES & VIEWS
+//    CGRect nLikesViewsFrame = self.nLikeViewsView.frame;
+//    nLikesViewsFrame.origin = startPosition;
+//    [self.nLikeViewsView setFrame:nLikesViewsFrame];
+//    [scrollview setContentSize:CGSizeMake(scrollview.contentSize.width, scrollview.contentSize.height + self.nLikeViewsView.frame.size.height)];
+//    startPosition.y += self.nLikeViewsView.frame.size.height;
     
     [self  disableControllerButtons:NO];
     
@@ -860,7 +870,9 @@ static CGFloat padding_left = 5.0;
         [self addToTableSourceWithKey:@"viewprofile_interested_in_icon" andValue:currentProfile.s_interested.text];
     }
     
+    [self addToTableSourceWithKey:@"viewprofile_viewicon" andValue:[NSString stringWithFormat:@"%d", currentProfile.num_Viewed]];
     
+    [self addToTableSourceWithKey:@"viewprofile_likeicon" andValue:[NSString stringWithFormat:@"%d", currentProfile.num_Liked]];
 //    [self addToTableSourceWithKey:@"viewprofile_birthdate_icon" andValue:currentProfile.s_birthdayDate];
 //    [self addToTableSourceWithKey:@"viewprofile_school_icon" andValue:currentProfile.s_school];
 //    [self addToTableSourceWithKey:@"viewprofile_work_icon" andValue:currentProfile.i_work.cate_name];
