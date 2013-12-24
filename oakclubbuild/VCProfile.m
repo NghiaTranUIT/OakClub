@@ -277,6 +277,12 @@ static CGFloat padding_left = 5.0;
             [label setFont:FONT_HELVETICANEUE_LIGHT(label.font.pointSize)];
         }
     }
+    for (UIView *subview in self.aboutView.subviews) {
+        if ([subview isKindOfClass:[UILabel class]]) {
+            UILabel* label = (UILabel*)subview;
+            [label setFont:FONT_HELVETICANEUE_LIGHT(label.font.pointSize)];
+        }
+    }
     for (UIView *subview in self.mutualFriendsView.subviews) {
         if ([subview isKindOfClass:[UILabel class]]) {
             UILabel* label = (UILabel*)subview;
