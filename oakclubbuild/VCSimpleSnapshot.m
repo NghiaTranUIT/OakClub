@@ -56,7 +56,7 @@
 @implementation VCSimpleSnapshot
 CGFloat pageWidth;
 CGFloat pageHeight;
-@synthesize sv_photos,lbl_indexPhoto, lbl_mutualFriends, lbl_mutualLikes, buttonNO, buttonProfile, buttonYES, imgMutualFriend, imgMutualLike, buttonMAYBE ,lblName, lblAge ,lblPhotoCount, viewProfile,matchView, matchViewController, lblMatchAlert, imgMatcher, imgMyAvatar, imgMainProfile, imgNextProfile, imgLoading, popupFirstTimeView,imgAvatarFrame,isLoading, btnSayHi, btnKeepSwiping;
+@synthesize sv_photos,lbl_indexPhoto, lbl_mutualFriends, lbl_mutualFriendsNextProfile, lbl_mutualLikes, lbl_mutualLikesNextProfile, buttonNO, buttonProfile, buttonYES, imgMutualFriend, imgMutualLike, buttonMAYBE ,lblName, lblNameNextProfile, lblAge ,lblPhotoCount, lblPhotoCountNextProfile, viewProfile,matchView, matchViewController, lblMatchAlert, imgMatcher, imgMyAvatar, imgMainProfile, imgNextProfile, imgLoading, popupFirstTimeView,imgAvatarFrame,isLoading, btnSayHi, btnKeepSwiping;
 
 @synthesize is_loadingProfileList = is_loadingProfileList;
 
@@ -351,6 +351,13 @@ CGFloat pageHeight;
     Profile * temp  =  [[Profile alloc]init];
     temp = [profileList objectAtIndex:currentIndex];
     
+    NSString *txtAge= [NSString stringWithFormat:@"%@",temp.s_age];
+    [lblNameNextProfile setText:[self formatTextWithName:temp.s_Name andAge:txtAge]];
+    [lbl_mutualFriendsNextProfile setText:[NSString stringWithFormat:@"%i",[temp.arr_MutualFriends count]]];
+    lbl_mutualLikesNextProfile.text = [[NSString alloc]initWithFormat:@"%i",[temp.arr_MutualInterests count]];
+    
+    [lblPhotoCountNextProfile setText:[NSString stringWithFormat:@"%i",[temp.arr_photos count]]];
+
     [snapshotImagePool getImageAtURL:temp.s_Avatar withSize:PHOTO_SIZE_LARGE
                                asycn:^(UIImage *image, NSError *err, bool isFirstLoad)
      {
@@ -491,6 +498,9 @@ CGFloat pageHeight;
     } else {
         [imgMainProfile setFrame:CGRectMake(40, 33, 244, 244)];
     }
+    
+    //show below info
+    [self displayBelowInfo:NO];
     [UIView animateWithDuration:0.4
                           delay: 0
                         options: (UIViewAnimationOptionCurveLinear)
@@ -501,13 +511,14 @@ CGFloat pageHeight;
                              imgMainProfile.frame = CGRectMake(0, 20, 320, 320);
                          }
                          else{
-                             imgMainProfile.frame = CGRectMake(0, 0, 320, 320);
+                             imgMainProfile.frame = CGRectMake(0, -20, 320, 320);
                          }
                      }
                      completion:^(BOOL finished) {
                          [viewProfile.svPhotos setHidden:NO];
                          [imgMainProfile setHidden:YES];
                          [self.moveMeView setUserInteractionEnabled:YES];
+                         [self displayBelowInfo:YES];
                      }
      ];
     [UIView animateWithDuration:0.4
@@ -521,7 +532,18 @@ CGFloat pageHeight;
     
 }
 
+- (void)displayBelowInfo:(BOOL)isShow
+{
+    lblNameNextProfile.hidden = !isShow;
+    lbl_mutualFriendsNextProfile.hidden = !isShow;
+    lbl_mutualLikesNextProfile.hidden = !isShow;
+    lblPhotoCountNextProfile.hidden = !isShow;
+}
+
 -(void)backToSnapshotViewWithAnswer:(int)answer{
+    //hide below info
+    [self displayBelowInfo:NO];
+    
     if(viewProfile.svPhotos.frame.size.height >= self.viewProfile.view.frame.size.height){
         [imgMainProfile setFrame:viewProfile.svPhotos.frame];
     }
@@ -569,6 +591,9 @@ CGFloat pageHeight;
                                               [self.moveMeView addSubViewToCardView:imgMainProfile andAtFront:NO andTag:0];
                                               [self.moveMeView addSubview:self.moveMeView.placardView];
                                               [self.moveMeView insertSubview:self.moveMeView.placardView aboveSubview:self.backgroundAvatarView];
+                                              
+                                              //show below info
+                                              [self displayBelowInfo:YES];
                                           }
                           ];
                      }

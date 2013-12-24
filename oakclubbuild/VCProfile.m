@@ -574,14 +574,6 @@ static CGFloat padding_left = 5.0;
 #pragma mark view delegate
 - (void)viewDidLoad
 {
-    UIImageView *imageView = [[UIImageView alloc]initWithImage:img_avatar];
-    CGRect frame = self.svPhotos.frame;
-    frame.origin.x = 0;
-    frame.origin.y = 0;
-    imageView.frame = frame;
-    [imageView setContentMode:UIViewContentModeScaleAspectFit];
-    [self.svPhotos addSubview:imageView];
-    
     [self changeFontStyle];
     loadingAvatar.hidden = NO;
     [loadingAvatar startAnimating];
@@ -598,6 +590,7 @@ static CGFloat padding_left = 5.0;
     [self loadInfoView];
     
     [self refreshScrollView];
+    [self useSnapshotAvatar];
     [self loadPhotoForScrollview];
 }
 -(void)viewDidAppear:(BOOL)animated
@@ -901,6 +894,17 @@ static CGFloat padding_left = 5.0;
     [self.scrollview setContentOffset:CGPointMake(0, 0) animated:YES];
     self.svPhotos.frame = CGRectMake(0, 0, 320, 320/*294*/);
 }
+
+- (void)useSnapshotAvatar {
+    UIImageView *imageView = [[UIImageView alloc]initWithImage:img_avatar];
+    CGRect frame = self.svPhotos.frame;
+    frame.origin.x = 0;
+    frame.origin.y = 0;
+    imageView.frame = frame;
+    [imageView setContentMode:UIViewContentModeScaleAspectFit];
+    [self.svPhotos addSubview:imageView];
+}
+
 -(void)loadPhotoForScrollview{
     if(currentProfile.arr_photos != nil && [currentProfile.arr_photos count]>0)
     {

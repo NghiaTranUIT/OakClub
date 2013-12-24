@@ -31,8 +31,10 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *lbl_indexPhoto;
 @property (weak, nonatomic) IBOutlet UILabel *lbl_mutualFriends;
+@property (weak, nonatomic) IBOutlet UILabel *lbl_mutualFriendsNextProfile;
 @property (weak, nonatomic) IBOutlet UIButton *buttonProfile;
 @property (weak, nonatomic) IBOutlet UILabel *lbl_mutualLikes;
+@property (weak, nonatomic) IBOutlet UILabel *lbl_mutualLikesNextProfile;
 @property (weak, nonatomic) IBOutlet UIImageView *imgNextProfile;
 @property (weak, nonatomic) IBOutlet UIImageView *imgMainProfile;
 @property (strong, nonatomic) IBOutlet UIScrollView *sv_photos;
@@ -50,8 +52,10 @@
 @property (weak, nonatomic) IBOutlet UIButton *buttonMAYBE;
 @property (weak, nonatomic) IBOutlet UIButton *buttonYES;
 @property (weak, nonatomic) IBOutlet UILabel *lblName;
+@property (weak, nonatomic) IBOutlet UILabel *lblNameNextProfile;
 @property (weak, nonatomic) IBOutlet UILabel *lblAge;
 @property (weak, nonatomic) IBOutlet UILabel *lblPhotoCount;
+@property (weak, nonatomic) IBOutlet UILabel *lblPhotoCountNextProfile;
 @property (weak, nonatomic) IBOutlet UIImageView *imgLoading;
 @property (weak, nonatomic) IBOutlet UIButton *buttonNO;
 @property BOOL isLoading;
