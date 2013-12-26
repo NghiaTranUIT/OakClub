@@ -396,6 +396,7 @@ CGFloat pageHeight;
         }
         [self stopLoadingAnim];
     }];
+    
     currentIndex++;
 }
 
@@ -723,13 +724,14 @@ CGFloat pageHeight;
     
 }
 
--(void)setLikedSnapshot:(NSString*)answerChoice{
+
+-(BOOL)checkFirstTime:(NSString*)answerChoice{
     int isFirstTime = [[[NSUserDefaults standardUserDefaults] objectForKey:key_isFirstSnapshot] integerValue];
     if(isFirstTime==0 || (isFirstTime < 4 &&
-        ( (isFirstTime == interestedStatusNO && [answerChoice integerValue] == interestedStatusYES)
-           || (isFirstTime == interestedStatusYES && [answerChoice integerValue]== interestedStatusNO)
-        )
-       ))
+                          ( (isFirstTime == interestedStatusNO && [answerChoice integerValue] == interestedStatusYES)
+                           || (isFirstTime == interestedStatusYES && [answerChoice integerValue]== interestedStatusNO)
+                           )
+                          ))
     {
         [[self navBarOakClub] disableAllControl: YES];
         appDel.rootVC.recognizesPanningOnFrontView = NO;
@@ -737,8 +739,18 @@ CGFloat pageHeight;
         [self.moveMeView setAnswer:-1];
         isFirstTime+=[answerChoice integerValue];
         [[NSUserDefaults standardUserDefaults] setInteger:isFirstTime forKey:key_isFirstSnapshot];
+        return YES;
+    }
+    
+    return NO;
+}
+
+-(void)setLikedSnapshot:(NSString*)answerChoice{
+    BOOL isFirstTime = [self checkFirstTime:answerChoice];
+    if (isFirstTime) {
         return;
     }
+    
     [self.moveMeView setAnswer:[answerChoice integerValue]];
     request = [[AFHTTPClient alloc]initWithOakClubAPI:DOMAIN];
     
@@ -945,6 +957,8 @@ CGFloat pageHeight;
     NSLog(@"animationDidStop ------");
     [self disableAllControl:NO];
     [self.moveMeView removeSubviewFromCardViewWithTag:101];
+    
+    NSLog(@"answerType: %d, %d", answerType, self.isContinueLoad);
     if(answerType != -1 && self.isContinueLoad){
         [self loadCurrentProfile];
         [self loadNextProfileByCurrentIndex];
