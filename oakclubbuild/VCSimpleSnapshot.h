@@ -11,6 +11,7 @@
 
 @interface VCSimpleSnapshot : UIViewController<UIScrollViewDelegate>{
     Profile * currentProfile;
+    Profile * nextProfile;
     int currentIndex;
     AFHTTPClient *request;
     NSMutableArray* profileList;

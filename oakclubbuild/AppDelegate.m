@@ -585,10 +585,10 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
             [vcChat loadFriendsInfo];
         }
     }];
-    [self.imagePool getImageAtURL:self.myProfile.s_Avatar withSize:PHOTO_SIZE_LARGE asycn:^(UIImage *img, NSError *error, bool isFirstLoad) {
+    [self.imagePool getImageAtURL:self.myProfile.s_Avatar withSize:PHOTO_SIZE_LARGE asycn:^(UIImage *img, NSError *error, bool isFirstLoad, NSString *urlWithSize) {
         
     }];
-    [self.imagePool getImageAtURL:self.myProfile.s_Avatar withSize:PHOTO_SIZE_SMALL asycn:^(UIImage *img, NSError *error, bool isFirstLoad) {
+    [self.imagePool getImageAtURL:self.myProfile.s_Avatar withSize:PHOTO_SIZE_SMALL asycn:^(UIImage *img, NSError *error, bool isFirstLoad, NSString *urlWithSize) {
         
     }];
     [self setFieldValue:[NSString stringWithFormat:DOMAIN_AT_FMT,self.myProfile.s_usenameXMPP] forKey:kXMPPmyJID];
@@ -951,7 +951,7 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
             NSLog(@"%d.2 Set nick name: %s for user_id: %s", i, friend.s_Name.UTF8String, xmpp_id.UTF8String);
             
             // cache avatar
-            [imagePool getImageAtURL:friend.s_Avatar withSize:PHOTO_SIZE_SMALL asycn:^(UIImage *img, NSError *error, bool isFirstLoad) {
+            [imagePool getImageAtURL:friend.s_Avatar withSize:PHOTO_SIZE_SMALL asycn:^(UIImage *img, NSError *error, bool isFirstLoad, NSString *urlWithSize) {
                 
             }];
         }
@@ -1409,7 +1409,7 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
             [self.myProfile.dic_Roster setValue:newFriend forKey:newFriend.s_ID];
             [friendChatList setObject:newFriend forKey:jid];
             // cache avatar
-            [imagePool getImageAtURL:newFriend.s_Avatar withSize:PHOTO_SIZE_SMALL asycn:^(UIImage *img, NSError *error, bool isFirstLoad) {
+            [imagePool getImageAtURL:newFriend.s_Avatar withSize:PHOTO_SIZE_SMALL asycn:^(UIImage *img, NSError *error, bool isFirstLoad, NSString *urlWithSize) {
                 [self postReceiveMessage:message];
             }];
         }];

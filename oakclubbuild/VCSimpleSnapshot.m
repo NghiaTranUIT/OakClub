@@ -127,7 +127,7 @@ CGFloat pageHeight;
     }
      */
     
-    [appDel.imagePool getImageAtURL:appDel.myProfile.s_Avatar withSize:PHOTO_SIZE_SMALL asycn:^(UIImage *img, NSError *error, bool isFirstLoad) {
+    [appDel.imagePool getImageAtURL:appDel.myProfile.s_Avatar withSize:PHOTO_SIZE_SMALL asycn:^(UIImage *img, NSError *error, bool isFirstLoad, NSString *urlWithSize) {
         [imgMyAvatar setImage:img];
     }];
 }
@@ -315,7 +315,7 @@ CGFloat pageHeight;
                 [profile parseGetSnapshotToProfile:profileJSON];
 #endif
                 //cache profile avatar
-                [snapshotImagePool getImageAtURL:profile.s_Avatar withSize:PHOTO_SIZE_LARGE asycn:^(UIImage *img, NSError *error, bool isFirstLoad) {
+                [snapshotImagePool getImageAtURL:profile.s_Avatar withSize:PHOTO_SIZE_LARGE asycn:^(UIImage *img, NSError *error, bool isFirstLoad, NSString *urlWithSize) {
                     if (!self.spinner.hidden) {
                         [self.spinner stopAnimating];
                     }
@@ -348,25 +348,31 @@ CGFloat pageHeight;
     {
         return;
     }
-    Profile * temp  =  [[Profile alloc]init];
-    temp = [profileList objectAtIndex:currentIndex];
+    nextProfile  =  [[Profile alloc]init];
+    nextProfile = [profileList objectAtIndex:currentIndex];
     
-    NSString *txtAge= [NSString stringWithFormat:@"%@",temp.s_age];
-    [lblNameNextProfile setText:[self formatTextWithName:temp.s_Name andAge:txtAge]];
-    [lbl_mutualFriendsNextProfile setText:[NSString stringWithFormat:@"%i",[temp.arr_MutualFriends count]]];
-    lbl_mutualLikesNextProfile.text = [[NSString alloc]initWithFormat:@"%i",[temp.arr_MutualInterests count]];
+    NSString *txtAge= [NSString stringWithFormat:@"%@",nextProfile.s_age];
+    [lblNameNextProfile setText:[self formatTextWithName:nextProfile.s_Name andAge:txtAge]];
+    [lbl_mutualFriendsNextProfile setText:[NSString stringWithFormat:@"%i",[nextProfile.arr_MutualFriends count]]];
+    lbl_mutualLikesNextProfile.text = [[NSString alloc]initWithFormat:@"%i",[nextProfile.arr_MutualInterests count]];
     
-    [lblPhotoCountNextProfile setText:[NSString stringWithFormat:@"%i",[temp.arr_photos count]]];
+    [lblPhotoCountNextProfile setText:[NSString stringWithFormat:@"%i",[nextProfile.arr_photos count]]];
 
-    [snapshotImagePool getImageAtURL:temp.s_Avatar withSize:PHOTO_SIZE_LARGE
-                               asycn:^(UIImage *image, NSError *err, bool isFirstLoad)
+    NSLog(@"Name of Next Profile : %@",nextProfile.s_Name);
+    NSLog(@"next profile temp.s_Avatar: %@", nextProfile.s_Avatar);
+    
+    [snapshotImagePool getImageAtURL:nextProfile.s_Avatar withSize:PHOTO_SIZE_LARGE
+                               asycn:^(UIImage *image, NSError *err, bool isFirstLoad, NSString *urlWithSize)
      {
-         if(image)
+         NSString *currentAvatarUrl = nextProfile.s_Avatar;
+         if(image && ([urlWithSize rangeOfString:currentAvatarUrl].location != NSNotFound)){
+             NSLog(@"setNextProfile urlWithSize: %@, currentAvatarUrl: %@", urlWithSize, currentAvatarUrl);
              [self.imgNextProfile setImage:image];
+         }
      }];
     
-    NSLog(@"Name of Next Profile : %@",temp.s_Name);
 }
+
 -(void)loadCurrentProfile{
     NSLog(@"Current focus : %@", self.navigationController.viewControllers);
     [self.imgMainProfile setImage:[UIImage imageNamed:@"Default Avatar"]];
@@ -390,10 +396,13 @@ CGFloat pageHeight;
     [self.imgMainProfile setImage:[UIImage imageNamed:@"Default Avatar"]];
     
     NSLog(@"currentProfile.s_Avatar: %@", currentProfile.s_Avatar);
-    [snapshotImagePool getImageAtURL:currentProfile.s_Avatar withSize:PHOTO_SIZE_LARGE asycn:^(UIImage *image, NSError *error, bool isFirstLoad) {
-        if(image){
+    [snapshotImagePool getImageAtURL:currentProfile.s_Avatar withSize:PHOTO_SIZE_LARGE asycn:^(UIImage *image, NSError *error, bool isFirstLoad, NSString *urlWithSize) {
+        NSString *currentAvatarUrl = currentProfile.s_Avatar;
+        if(image && ([urlWithSize rangeOfString:currentAvatarUrl].location != NSNotFound)){
+            NSLog(@"setCurrentProfile urlWithSize: %@, currentAvatarUrl: %@", urlWithSize, currentAvatarUrl);
             [self.imgMainProfile setImage:image];
         }
+        
         [self stopLoadingAnim];
     }];
     
@@ -465,7 +474,7 @@ CGFloat pageHeight;
     NSLog(@"current id = %@",currentProfile.s_ID);
     viewProfile = [[VCProfile alloc] initWithNibName:@"VCProfile" bundle:nil];
     
-    [snapshotImagePool getImageAtURL:currentProfile.s_Avatar withSize:PHOTO_SIZE_LARGE asycn:^(UIImage *img, NSError *error, bool isFirstLoad) {
+    [snapshotImagePool getImageAtURL:currentProfile.s_Avatar withSize:PHOTO_SIZE_LARGE asycn:^(UIImage *img, NSError *error, bool isFirstLoad, NSString *urlWithSize) {
         [viewProfile loadProfile:currentProfile andImage:img];
         [self.view addSubview:viewProfile.view];
     }];
@@ -622,7 +631,7 @@ CGFloat pageHeight;
 //    btnKeepSwiping.titleLabel.text = [@"Keep Swiping!" localize];
     [matchViewController.view setFrame:CGRectMake(0, 0, matchViewController.view.frame.size.width, matchViewController.view.frame.size.height)];
     [lblMatchAlert setText:[NSString stringWithFormat:[@"You and %@ have liked each other!" localize],currentProfile.firstName]];
-    [snapshotImagePool getImageAtURL:currentProfile.s_Avatar withSize:PHOTO_SIZE_LARGE asycn:^(UIImage *img, NSError *error, bool isFirstLoad) {
+    [snapshotImagePool getImageAtURL:currentProfile.s_Avatar withSize:PHOTO_SIZE_LARGE asycn:^(UIImage *img, NSError *error, bool isFirstLoad, NSString *urlWithSize) {
         [imgMatcher setImage:img];
 
     }];
@@ -667,7 +676,7 @@ CGFloat pageHeight;
     
     NSMutableArray* array = [[NSMutableArray alloc]init];
     
-    [snapshotImagePool getImageAtURL:matchedProfile.s_Avatar withSize:PHOTO_SIZE_LARGE asycn:^(UIImage *img, NSError *error, bool isFirstLoad) {
+    [snapshotImagePool getImageAtURL:matchedProfile.s_Avatar withSize:PHOTO_SIZE_LARGE asycn:^(UIImage *img, NSError *error, bool isFirstLoad, NSString *urlWithSize) {
         SMChatViewController *chatController =
         [[SMChatViewController alloc] initWithUser:[NSString stringWithFormat:@"%@@oakclub.com", matchedProfile.s_ID]
                                        withProfile:matchedProfile

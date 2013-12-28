@@ -485,7 +485,7 @@ static CGFloat padding_left = 5.0;
         
         UIImageView *favIcon = [[UIImageView alloc] initWithFrame:imageView.frame];
         [favIcon setImage:[UIImage imageNamed:@"Default Avatar"]];
-        [userImagePool getImageAtURL:fav.avatar withSize:PHOTO_SIZE_SMALL asycn:^(UIImage *img, NSError *error, bool isFirstLoad) {
+        [userImagePool getImageAtURL:fav.avatar withSize:PHOTO_SIZE_SMALL asycn:^(UIImage *img, NSError *error, bool isFirstLoad, NSString *urlWithSize) {
             [favIcon setImage:img];
         }];
         
@@ -928,7 +928,7 @@ static CGFloat padding_left = 5.0;
                 NSString* link = [currentProfile.arr_photos objectAtIndex:i][key_photoLink];
                 if(![link isEqualToString:@""] )
                 {
-                    [userImagePool getImageAtURL:link withSize:PHOTO_SIZE_LARGE asycn:^(UIImage *image, NSError *error, bool isFirstLoad) {
+                    [userImagePool getImageAtURL:link withSize:PHOTO_SIZE_LARGE asycn:^(UIImage *image, NSError *error, bool isFirstLoad, NSString *urlWithSize) {
                         if(image){
                             UIImageView *imageView = [[UIImageView alloc]initWithImage:image];
                             CGRect frame = self.svPhotos.frame;

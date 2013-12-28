@@ -98,7 +98,7 @@ enum UpdateProfileItems {
 
 -(void)updateData
 {
-    [appDelegate.imagePool getImageAtURL:copyProfile.s_Avatar withSize:PHOTO_SIZE_SMALL asycn:^(UIImage *img, NSError *error, bool isFirstLoad) {
+    [appDelegate.imagePool getImageAtURL:copyProfile.s_Avatar withSize:PHOTO_SIZE_SMALL asycn:^(UIImage *img, NSError *error, bool isFirstLoad, NSString *urlWithSize) {
         if (img)
         {
             [self.avatarView setImage:img];

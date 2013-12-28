@@ -3672,7 +3672,7 @@
 				ORGANIZATIONNAME = VanLuu;
 				TargetAttributes = {
 					CDC492981702CEAB00E83DE3 = {
-						DevelopmentTeam = 84L2Y967F7;
+						DevelopmentTeam = CS47TCJ8X9;
 					};
 				};
 			};
@@ -4539,8 +4539,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_WARN__ARC_BRIDGE_CAST_NONARC = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: STEVE REID (Y8V6LRC76N)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: STEVE REID (Y8V6LRC76N)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: OAKCLUB LLC (CS47TCJ8X9)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: OAKCLUB LLC (CS47TCJ8X9)";
 				COPY_PHASE_STRIP = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -4561,8 +4561,8 @@
 					"-ObjC",
 				);
 				PRODUCT_NAME = OakClub;
-				PROVISIONING_PROFILE = "1121477B-CE30-4D91-90CE-E316F8E171F9";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "1121477B-CE30-4D91-90CE-E316F8E171F9";
+				PROVISIONING_PROFILE = "B7705BD7-C21A-42FD-AC34-5363BC0C44B6";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "B7705BD7-C21A-42FD-AC34-5363BC0C44B6";
 				TARGETED_DEVICE_FAMILY = 1;
 				VALIDATE_PRODUCT = YES;
 				WRAPPER_EXTENSION = app;
@@ -4573,8 +4573,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_WARN__ARC_BRIDGE_CAST_NONARC = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: STEVE REID (Y8V6LRC76N)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: STEVE REID (Y8V6LRC76N)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: OAKCLUB LLC (CS47TCJ8X9)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: OAKCLUB LLC (CS47TCJ8X9)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/oakclubbuild\"",
@@ -4594,8 +4594,8 @@
 					"-ObjC",
 				);
 				PRODUCT_NAME = OakClub;
-				PROVISIONING_PROFILE = "1121477B-CE30-4D91-90CE-E316F8E171F9";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "1121477B-CE30-4D91-90CE-E316F8E171F9";
+				PROVISIONING_PROFILE = "B7705BD7-C21A-42FD-AC34-5363BC0C44B6";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "B7705BD7-C21A-42FD-AC34-5363BC0C44B6";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
