@@ -37,7 +37,7 @@
                             <rect key="frame" x="0.0" y="510" width="320" height="58"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                             <subviews>
-                                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="NaP-sG-Q2X">
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="NaP-sG-Q2X">
                                     <rect key="frame" x="10" y="13" width="46" height="32"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
@@ -50,7 +50,7 @@
                                     </connections>
                                 </button>
                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Enter new message" minimumFontSize="17" clearButtonMode="always" id="5">
-                                    <rect key="frame" x="10" y="11" width="298" height="32"/>
+                                    <rect key="frame" x="64" y="11" width="244" height="32"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                     <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="16"/>
                                     <textInputTraits key="textInputTraits" returnKeyType="done"/>
