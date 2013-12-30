@@ -29,81 +29,7 @@
     return _images;
 }
 
--(void)getImagesAtURL:(NSString *)imgURL asycn:(void (^)(UIImage *img, NSError *error))completion
-{
-    id img = [_images objectForKey:imgURL];
-    if (img)
-    {
-        if ([img isKindOfClass:[NSMutableArray class]])
-        {
-            NSMutableArray *imgRequesters = (NSMutableArray *) img;
-            [imgRequesters addObject:completion];
-        }
-        else if ([img isKindOfClass:[UIImage class]])
-        {
-            completion(img, nil);
-        }
-    }
-    else
-    {
-        NSMutableArray *imgRequesters = [[NSMutableArray alloc] init];
-        [imgRequesters addObject:completion];
-        [_images setObject:imgRequesters forKey:imgURL];
-        
-        AFHTTPClient *httpClient;
-        NSString *url = imgURL;
-        
-        if(!([url hasPrefix:@"http://"] || [url hasPrefix:@"https://"]))
-        {       // check if this is a valid link
-            httpClient = [[AFHTTPClient alloc]initWithBaseURL:[NSURL URLWithString:DOMAIN_DATA]];
-        }
-        else{
-            httpClient = [[AFHTTPClient alloc]initWithBaseURL:[NSURL URLWithString:@""]];
-        }
-        
-        NSMutableURLRequest *request = [httpClient requestWithMethod:@"GET"
-                                                                path:url
-                                                          parameters:nil];
-        
-        AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
-        [httpClient registerHTTPOperationClass:[AFHTTPRequestOperation class]];
-        
-        [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject)
-         {
-             UIImage *image = [UIImage imageWithData:responseObject];
-             NSMutableArray *reqs = (NSMutableArray *) [_images objectForKey:imgURL];
-             if (image)
-             {
-                 [_images setObject:image forKey:imgURL];
-             }
-             else
-             {
-                 [_images removeObjectForKey:imgURL];
-             }
-             
-             for (int i = 0; i < reqs.count; ++i)
-             {
-                 void (^handler)(UIImage *img, NSError *error) = [reqs objectAtIndex:i];
-                 handler(image, nil);
-             }
-             
-         } failure:^(AFHTTPRequestOperation *operation, NSError *error)
-         {
-             NSMutableArray *reqs = (NSMutableArray *) [_images objectForKey:imgURL];
-             [_images removeObjectForKey:imgURL];
-             
-             for (int i = 0; i < reqs.count; ++i)
-             {
-                 void (^handler)(UIImage *img, NSError *error) = [reqs objectAtIndex:i];
-                 handler(nil, error);
-             }
-         }];
-        
-        [operation start];
-    }
-}
-
--(void)getImageAtURL:(NSString *)imgID withSize:(CGSize)size asycn:(void (^)(UIImage *img, NSError *error, bool isFirstLoad))completion
+-(void)getImageAtURL:(NSString *)imgID withSize:(CGSize)size asycn:(void (^)(UIImage *img, NSError *error, bool isFirstLoad, NSString *urlWithSize))completion
 {
     NSString *url = [NSString stringWithFormat: @"%@?width=%d&height=%d", imgID, (int)size.width, (int)size.height];
     id img = [_images objectForKey:url];
@@ -117,7 +43,7 @@
         }
         else if ([img isKindOfClass:[UIImage class]])
         {
-            completion(img, nil, NO);
+            completion(img, nil, NO, url);
         }
     }
     else
@@ -169,8 +95,8 @@
              
              for (int i = 0; i < reqs.count; ++i)
              {
-                 void (^handler)(UIImage *img, NSError *error, bool isFirstLoad) = [reqs objectAtIndex:i];
-                 handler(image, nil, YES);
+                 void (^handler)(UIImage *img, NSError *error, bool isFirstLoad, NSString *urlWithSize) = [reqs objectAtIndex:i];
+                 handler(image, nil, YES, url);
              }
              
          } failure:^(AFHTTPRequestOperation *operation, NSError *error)
@@ -180,26 +106,13 @@
              
              for (int i = 0; i < reqs.count; ++i)
              {
-                 void (^handler)(UIImage *img, NSError *error, bool isFirstLoad) = [reqs objectAtIndex:i];
-                 handler(nil, error, YES);
+                 void (^handler)(UIImage *img, NSError *error, bool isFirstLoad, NSString *urlWithSize) = [reqs objectAtIndex:i];
+                 handler(nil, error, YES, url);
              }
          }];
         
         [operation start];
     }
-}
-
--(UIImage *)getImageSycnAtURL:(NSString *)imgID withSize:(CGSize)size
-{
-    NSString *url = [NSString stringWithFormat: @"%@?width=%d&height=%d", imgID, (int)size.width, (int)size.height];
-    id img = [_images objectForKey:url];
-    
-    if (img && [img isKindOfClass:[UIImage class]])
-    {
-        return img;
-    }
-    
-    return nil;
 }
 
 -(void)setImage:(UIImage *)img forURL:(NSString *)imgID andSize:(CGSize)size
@@ -210,4 +123,5 @@
         [_images setValue:img forKey:url];
     }
 }
+
 @end

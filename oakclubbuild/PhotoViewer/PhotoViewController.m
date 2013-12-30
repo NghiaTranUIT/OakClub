@@ -76,7 +76,7 @@
                      
                      if( ![link isEqualToString:@""] )
                      {
-                         [appDel.imagePool getImageAtURL:link withSize:PHOTO_SIZE_SMALL asycn:^(UIImage *image, NSError *error, bool isFirstLoad) {
+                         [appDel.imagePool getImageAtURL:link withSize:PHOTO_SIZE_SMALL asycn:^(UIImage *image, NSError *error, bool isFirstLoad, NSString *urlWithSize) {
                               [photos setObject:image forKey:link];
                               
                               if( i == 0)

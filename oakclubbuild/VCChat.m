@@ -677,7 +677,7 @@ int cellCountinSection=0;
 //            [cell.avatar setImage:avatar];
         //        }
         [cell.avatar setImage:[UIImage imageNamed:@"Default Avatar"]];
-        [appDel.imagePool getImageAtURL:profile.s_Avatar withSize:PHOTO_SIZE_SMALL asycn:^(UIImage *img, NSError *error, bool isFirstLoad)
+        [appDel.imagePool getImageAtURL:profile.s_Avatar withSize:PHOTO_SIZE_SMALL asycn:^(UIImage *img, NSError *error, bool isFirstLoad, NSString *urlWithSize)
          {
              if (img && isFirstLoad)
              {
@@ -747,7 +747,7 @@ int cellCountinSection=0;
     [self.searchBar resignFirstResponder];
     [tableView deselectRowAtIndexPath:[tableView indexPathForSelectedRow] animated:NO];
     //SMChatViewController *chatController = [[SMChatViewController alloc] initWithUser:userName];
-    [appDel.imagePool getImageAtURL:profile.s_Avatar withSize:PHOTO_SIZE_SMALL asycn:^(UIImage *img, NSError *error, bool isFirstLoad) {
+    [appDel.imagePool getImageAtURL:profile.s_Avatar withSize:PHOTO_SIZE_SMALL asycn:^(UIImage *img, NSError *error, bool isFirstLoad, NSString *urlWithSize) {
         NSMutableArray* array = [a_messages valueForKey:profile.s_ID];
         if (!array)
         {

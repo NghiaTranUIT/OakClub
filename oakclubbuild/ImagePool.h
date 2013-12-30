@@ -11,7 +11,8 @@
 @interface ImagePool : NSObject
 @property (readonly, strong, nonatomic) NSDictionary *images;
 
-//-(void)getImagesAtURL:(NSString *)imgURL asycn:(void(^)(UIImage *img, NSError *error))completion;
--(void)getImageAtURL:(NSString *)imgURL withSize:(CGSize)size asycn:(void (^)(UIImage *img, NSError *error, bool isFirstLoad))completion;
+-(void)getImageAtURL:(NSString *)imgID withSize:(CGSize)size asycn:(void (^)(UIImage *img, NSError *error, bool isFirstLoad, NSString *urlWithSize))completion;
+
 -(void)setImage:(UIImage *)img forURL:(NSString *)imgURL andSize:(CGSize)size;
+
 @end

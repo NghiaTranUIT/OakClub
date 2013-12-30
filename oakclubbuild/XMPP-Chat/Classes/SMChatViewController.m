@@ -137,7 +137,7 @@
         
         Profile* myProfile = [self getProfilebyID:nil];
         //Vanancy - change load avatar
-        [appDel.imagePool getImageAtURL:myProfile.s_Avatar withSize:PHOTO_SIZE_SMALL asycn:^(UIImage *img, NSError *error, bool isFirstLoad) {
+        [appDel.imagePool getImageAtURL:myProfile.s_Avatar withSize:PHOTO_SIZE_SMALL asycn:^(UIImage *img, NSError *error, bool isFirstLoad, NSString *urlWithSize) {
             avatar_me = img;
         }];
 //        avatar_me = [UIImage imageNamed:@"Default Avatar.png"];
@@ -185,7 +185,7 @@
         NSString* link = _profile.s_Avatar;//[self getAvatarUrl:chatWithUser];
         if(![link isEqualToString:@""])
         {
-            [appDel.imagePool getImageAtURL:link withSize:PHOTO_SIZE_SMALL asycn:^(UIImage *avatar, NSError *error, bool isFirstLoad) {
+            [appDel.imagePool getImageAtURL:link withSize:PHOTO_SIZE_SMALL asycn:^(UIImage *avatar, NSError *error, bool isFirstLoad, NSString *urlWithSize) {
                 if(avatar)
                     avatar_friend = avatar;
             }];
@@ -199,7 +199,7 @@
         
         if( ![link isEqualToString:@""] )
         {
-            [appDel.imagePool getImageAtURL:link withSize:PHOTO_SIZE_SMALL asycn:^(UIImage *avatar, NSError *error, bool isFirstLoad) {
+            [appDel.imagePool getImageAtURL:link withSize:PHOTO_SIZE_SMALL asycn:^(UIImage *avatar, NSError *error, bool isFirstLoad, NSString *urlWithSize) {
                 if(avatar)
                     avatar_friend = avatar;
             }];
