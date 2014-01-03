@@ -22,7 +22,7 @@
 //disable hereTo and show me in Snapshot Settings
 #define DISABLE_HERETO_SHOWME
 //disable policty
-#define DISABLE_POCLICY TRUE
+#define DISABLE_POCLICY false
 // enable Select location manually
 //#define ENABLE_LOCATION_MANUALLY
 //view other's profile with full data

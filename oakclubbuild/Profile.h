@@ -110,7 +110,7 @@
 @property (strong, nonatomic) NSString *s_video;
 //@property (strong, nonatomic) NSNumber *num_unreadMessage;
 
-@property (strong, nonatomic) NSDictionary *dic_Roster;
+@property (strong, nonatomic) NSMutableDictionary *dic_Roster;
 @property (strong, nonatomic) NSArray* a_favorites;
 @property (strong, nonatomic) NSString* s_user_id;
 @property (strong, nonatomic) NSMutableArray *arr_MutualInterests;

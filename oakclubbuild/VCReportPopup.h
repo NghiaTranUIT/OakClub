@@ -11,7 +11,7 @@
 #import "SMChatViewController.h"
 
 @interface VCReportPopup : UIViewController
--(id)initWithProfileID:(Profile *)_profile andChat:(SMChatViewController *)chatVC;
+-(id)initWithProfileID:(Profile *)_profile andChat:(UIViewController *)chatVC;
 @end
 
 @interface VCReportMore : UIViewController

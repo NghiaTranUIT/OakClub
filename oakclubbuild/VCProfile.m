@@ -21,6 +21,7 @@
 #import <MediaPlayer/MediaPlayer.h>
 #import "ProfileInfoCell.h"
 #import "VCSimpleSnapshot.h"
+#import "VCReportPopup.h"
 
 @interface VCProfile (){
 //    BOOL popoverShowing;
@@ -1317,4 +1318,14 @@ BOOL allowFullScreen = FALSE;
     [backgroundWindow addSubview:theMoviPlayer.view];
     [theMoviPlayer play];
 }
+
+- (IBAction)onTouchMoreOption:(id)sender {
+    VCSimpleSnapshot *VCSSnapshot = appDel.simpleSnapShot.viewControllers[0];
+    
+    VCReportPopup* reportPopup= [[VCReportPopup alloc] initWithProfileID:currentProfile andChat:VCSSnapshot];
+    [reportPopup.view setFrame:CGRectMake(0, 0, reportPopup.view.frame.size.width, reportPopup.view.frame.size.height)];
+    
+    [VCSSnapshot.navigationController pushViewController:reportPopup animated:YES];
+}
+
 @end
