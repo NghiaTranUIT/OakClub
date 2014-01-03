@@ -238,6 +238,7 @@
     
     [self customNavigationHeader];
 }
+
 -(void)viewWillDisappear:(BOOL)animated{
     appDel._messageDelegate =nil;
     [self clearCustomNavigationHeader];
@@ -398,8 +399,6 @@
     }
 }
 - (IBAction)onTouchMoreOption:(id)sender {
-    
-    NSArray *chunks = [chatWithUser componentsSeparatedByString: @"@"];
     VCReportPopup* reportPopup= [[VCReportPopup alloc]initWithProfileID:userProfile andChat:self];
     [self dismissKeyboard:sender];
     [reportPopup.view setFrame:CGRectMake(0, 0, reportPopup.view.frame.size.width, reportPopup.view.frame.size.height)];

@@ -19,6 +19,8 @@
 #import "AppLifeCycleDelegate.h"
 #import "VCProfile.h"
 #import "NSStringRandom.h"
+#import "VCReportPopup.h"
+#import "ChatNavigationView.h"
 
 @interface VCSimpleSnapshot () <AppLifeCycleDelegate,APLMoveMeViewDelegate> {
     UIView *headerView;
@@ -998,4 +1000,5 @@ CGFloat pageHeight;
     [[self navBarOakClub] disableAllControl: NO];
     appDel.rootVC.recognizesPanningOnFrontView = YES;
 }
+
 @end
