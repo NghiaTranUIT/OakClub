@@ -432,11 +432,6 @@
 		CD877D151821374C0067D478 /* ChatView_btn_viewprofile@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CD877D0B1821374C0067D478 /* ChatView_btn_viewprofile@2x.png */; };
 		CD877D161821374C0067D478 /* ChatView_navbar_logo.png in Resources */ = {isa = PBXBuildFile; fileRef = CD877D0C1821374C0067D478 /* ChatView_navbar_logo.png */; };
 		CD877D171821374C0067D478 /* ChatView_navbar_logo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CD877D0D1821374C0067D478 /* ChatView_navbar_logo@2x.png */; };
-		CD8AA1E8170C109700A97C47 /* Cell.m in Sources */ = {isa = PBXBuildFile; fileRef = CD8AA1E0170C109700A97C47 /* Cell.m */; };
-		CD8AA1E9170C109700A97C47 /* UIGridView.m in Sources */ = {isa = PBXBuildFile; fileRef = CD8AA1E2170C109700A97C47 /* UIGridView.m */; };
-		CD8AA1EA170C109700A97C47 /* UIGridViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CD8AA1E4170C109700A97C47 /* UIGridViewCell.m */; };
-		CD8AA1EB170C109700A97C47 /* UIGridViewRow.m in Sources */ = {isa = PBXBuildFile; fileRef = CD8AA1E7170C109700A97C47 /* UIGridViewRow.m */; };
-		CD8AA1ED170C11A700A97C47 /* Cell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CD8AA1EC170C11A700A97C47 /* Cell.xib */; };
 		CD8AA1F4170C1B2800A97C47 /* NavBarOakClub.m in Sources */ = {isa = PBXBuildFile; fileRef = CD8AA1EF170C1B2600A97C47 /* NavBarOakClub.m */; };
 		CD8AA1F6170C1B2800A97C47 /* NavConOakClub.m in Sources */ = {isa = PBXBuildFile; fileRef = CD8AA1F2170C1B2800A97C47 /* NavConOakClub.m */; };
 		CD8AA1F7170C1B2800A97C47 /* NavConOakClub.xib in Resources */ = {isa = PBXBuildFile; fileRef = CD8AA1F3170C1B2800A97C47 /* NavConOakClub.xib */; };
@@ -513,11 +508,6 @@
 		CDE4DAA817129D3200DC5A2C /* UIViewController+PKRevealController.m in Sources */ = {isa = PBXBuildFile; fileRef = CDE4DAA517129D3200DC5A2C /* UIViewController+PKRevealController.m */; };
 		CDE5DB361807B46A00A96D78 /* VCSimpleSnapshotSetting.m in Sources */ = {isa = PBXBuildFile; fileRef = CDE5DB341807B46A00A96D78 /* VCSimpleSnapshotSetting.m */; };
 		CDE5DB371807B46A00A96D78 /* VCSimpleSnapshotSetting.xib in Resources */ = {isa = PBXBuildFile; fileRef = CDE5DB351807B46A00A96D78 /* VCSimpleSnapshotSetting.xib */; };
-		CDEAC5411716AF82007857AE /* ViewCellMyLink.m in Sources */ = {isa = PBXBuildFile; fileRef = CDEAC53F1716AF82007857AE /* ViewCellMyLink.m */; };
-		CDEAC5421716AF82007857AE /* ViewCellMyLink.xib in Resources */ = {isa = PBXBuildFile; fileRef = CDEAC5401716AF82007857AE /* ViewCellMyLink.xib */; };
-		CDEAC5541716B10B007857AE /* UIGridViewCellMultipleSection.m in Sources */ = {isa = PBXBuildFile; fileRef = CDEAC54E1716B10B007857AE /* UIGridViewCellMultipleSection.m */; };
-		CDEAC5551716B10B007857AE /* UIGridViewMultipleSection.m in Sources */ = {isa = PBXBuildFile; fileRef = CDEAC5511716B10B007857AE /* UIGridViewMultipleSection.m */; };
-		CDEAC5561716B10B007857AE /* UIGridViewRowMultipleSection.m in Sources */ = {isa = PBXBuildFile; fileRef = CDEAC5531716B10B007857AE /* UIGridViewRowMultipleSection.m */; };
 		CDEC0215172A706E00C3E615 /* HistoryMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = CDEC0214172A706E00C3E615 /* HistoryMessage.m */; };
 		CDECD30A1733C3D900A6B17F /* ChatHistoryViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CDECD3081733C3D800A6B17F /* ChatHistoryViewCell.m */; };
 		CDECD30B1733C3D900A6B17F /* ChatHistoryViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CDECD3091733C3D900A6B17F /* ChatHistoryViewCell.xib */; };
@@ -1213,16 +1203,6 @@
 		CD877D0B1821374C0067D478 /* ChatView_btn_viewprofile@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ChatView_btn_viewprofile@2x.png"; sourceTree = "<group>"; };
 		CD877D0C1821374C0067D478 /* ChatView_navbar_logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ChatView_navbar_logo.png; sourceTree = "<group>"; };
 		CD877D0D1821374C0067D478 /* ChatView_navbar_logo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ChatView_navbar_logo@2x.png"; sourceTree = "<group>"; };
-		CD8AA1DF170C109700A97C47 /* Cell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Cell.h; sourceTree = "<group>"; };
-		CD8AA1E0170C109700A97C47 /* Cell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Cell.m; sourceTree = "<group>"; };
-		CD8AA1E1170C109700A97C47 /* UIGridView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIGridView.h; sourceTree = "<group>"; };
-		CD8AA1E2170C109700A97C47 /* UIGridView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIGridView.m; sourceTree = "<group>"; };
-		CD8AA1E3170C109700A97C47 /* UIGridViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIGridViewCell.h; sourceTree = "<group>"; };
-		CD8AA1E4170C109700A97C47 /* UIGridViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIGridViewCell.m; sourceTree = "<group>"; };
-		CD8AA1E5170C109700A97C47 /* UIGridViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIGridViewDelegate.h; sourceTree = "<group>"; };
-		CD8AA1E6170C109700A97C47 /* UIGridViewRow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIGridViewRow.h; sourceTree = "<group>"; };
-		CD8AA1E7170C109700A97C47 /* UIGridViewRow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIGridViewRow.m; sourceTree = "<group>"; };
-		CD8AA1EC170C11A700A97C47 /* Cell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Cell.xib; sourceTree = "<group>"; };
 		CD8AA1EE170C1B2600A97C47 /* NavBarOakClub.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavBarOakClub.h; sourceTree = "<group>"; };
 		CD8AA1EF170C1B2600A97C47 /* NavBarOakClub.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavBarOakClub.m; sourceTree = "<group>"; };
 		CD8AA1F1170C1B2700A97C47 /* NavConOakClub.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavConOakClub.h; sourceTree = "<group>"; };
@@ -1327,16 +1307,6 @@
 		CDE5DB331807B46A00A96D78 /* VCSimpleSnapshotSetting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VCSimpleSnapshotSetting.h; sourceTree = "<group>"; };
 		CDE5DB341807B46A00A96D78 /* VCSimpleSnapshotSetting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VCSimpleSnapshotSetting.m; sourceTree = "<group>"; };
 		CDE5DB351807B46A00A96D78 /* VCSimpleSnapshotSetting.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VCSimpleSnapshotSetting.xib; sourceTree = "<group>"; };
-		CDEAC53E1716AF82007857AE /* ViewCellMyLink.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ViewCellMyLink.h; path = oakclubbuild/ViewCellMyLink.h; sourceTree = SOURCE_ROOT; };
-		CDEAC53F1716AF82007857AE /* ViewCellMyLink.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ViewCellMyLink.m; path = oakclubbuild/ViewCellMyLink.m; sourceTree = SOURCE_ROOT; };
-		CDEAC5401716AF82007857AE /* ViewCellMyLink.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ViewCellMyLink.xib; path = oakclubbuild/ViewCellMyLink.xib; sourceTree = SOURCE_ROOT; };
-		CDEAC54D1716B10B007857AE /* UIGridViewCellMultipleSection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIGridViewCellMultipleSection.h; sourceTree = SOURCE_ROOT; };
-		CDEAC54E1716B10B007857AE /* UIGridViewCellMultipleSection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIGridViewCellMultipleSection.m; sourceTree = SOURCE_ROOT; };
-		CDEAC54F1716B10B007857AE /* UIGridViewDelegateMultipleSection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIGridViewDelegateMultipleSection.h; sourceTree = SOURCE_ROOT; };
-		CDEAC5501716B10B007857AE /* UIGridViewMultipleSection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIGridViewMultipleSection.h; sourceTree = SOURCE_ROOT; };
-		CDEAC5511716B10B007857AE /* UIGridViewMultipleSection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIGridViewMultipleSection.m; sourceTree = SOURCE_ROOT; };
-		CDEAC5521716B10B007857AE /* UIGridViewRowMultipleSection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIGridViewRowMultipleSection.h; sourceTree = SOURCE_ROOT; };
-		CDEAC5531716B10B007857AE /* UIGridViewRowMultipleSection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIGridViewRowMultipleSection.m; sourceTree = SOURCE_ROOT; };
 		CDEC0213172A706E00C3E615 /* HistoryMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HistoryMessage.h; sourceTree = "<group>"; };
 		CDEC0214172A706E00C3E615 /* HistoryMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HistoryMessage.m; sourceTree = "<group>"; };
 		CDECD3071733C3D800A6B17F /* ChatHistoryViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatHistoryViewCell.h; sourceTree = "<group>"; };
@@ -2177,7 +2147,6 @@
 				CDDFFAB61719D25E00BBA321 /* AFNetworking */,
 				CDF99AA11713D629008D8BAC /* XMPP-Chat */,
 				CDEEFAF2170D6CC9001F9C36 /* ScrollViewImage */,
-				CD8AA1DE170C109700A97C47 /* UIGridView */,
 				CD12C167170A908B006B13B8 /* Menu */,
 			);
 			name = References;
@@ -2662,33 +2631,6 @@
 				CD23A6D3183CA44500042421 /* Login_bottomBG@2x.png */,
 			);
 			path = Login;
-			sourceTree = "<group>";
-		};
-		CD8AA1DE170C109700A97C47 /* UIGridView */ = {
-			isa = PBXGroup;
-			children = (
-				CDEAC54D1716B10B007857AE /* UIGridViewCellMultipleSection.h */,
-				CDEAC54E1716B10B007857AE /* UIGridViewCellMultipleSection.m */,
-				CDEAC54F1716B10B007857AE /* UIGridViewDelegateMultipleSection.h */,
-				CDEAC5501716B10B007857AE /* UIGridViewMultipleSection.h */,
-				CDEAC5511716B10B007857AE /* UIGridViewMultipleSection.m */,
-				CDEAC5521716B10B007857AE /* UIGridViewRowMultipleSection.h */,
-				CDEAC5531716B10B007857AE /* UIGridViewRowMultipleSection.m */,
-				CDEAC53E1716AF82007857AE /* ViewCellMyLink.h */,
-				CDEAC53F1716AF82007857AE /* ViewCellMyLink.m */,
-				CDEAC5401716AF82007857AE /* ViewCellMyLink.xib */,
-				CD8AA1EC170C11A700A97C47 /* Cell.xib */,
-				CD8AA1DF170C109700A97C47 /* Cell.h */,
-				CD8AA1E0170C109700A97C47 /* Cell.m */,
-				CD8AA1E1170C109700A97C47 /* UIGridView.h */,
-				CD8AA1E2170C109700A97C47 /* UIGridView.m */,
-				CD8AA1E3170C109700A97C47 /* UIGridViewCell.h */,
-				CD8AA1E4170C109700A97C47 /* UIGridViewCell.m */,
-				CD8AA1E5170C109700A97C47 /* UIGridViewDelegate.h */,
-				CD8AA1E6170C109700A97C47 /* UIGridViewRow.h */,
-				CD8AA1E7170C109700A97C47 /* UIGridViewRow.m */,
-			);
-			path = UIGridView;
 			sourceTree = "<group>";
 		};
 		CD8AA1FD170C1E2C00A97C47 /* Hangout */ = {
@@ -3724,7 +3666,6 @@
 				979B95F4184852A000AF5A78 /* angel.png in Resources */,
 				CD50E34F181FBF3C0036A23B /* Snapshot_bg_profiles.png in Resources */,
 				CD1AB07B1821804200B0FA10 /* Report_separators.png in Resources */,
-				CD8AA1ED170C11A700A97C47 /* Cell.xib in Resources */,
 				CD8AA1F7170C1B2800A97C47 /* NavConOakClub.xib in Resources */,
 				459284B5184F3F65004FA3A6 /* Menu_icon_tellyourfriends_pressed.png in Resources */,
 				CD50E35A181FBF3C0036A23B /* Snapshot_logo@2x.png in Resources */,
@@ -3802,7 +3743,6 @@
 				979A9D6C1851A550003387DA /* Snapshot_avatar_match_bound.png in Resources */,
 				CD23A6DC183CA80D00042421 /* viewprofile_Bar_BG.png in Resources */,
 				459284A0184F3F65004FA3A6 /* Menu_btn_Facebook@2x.png in Resources */,
-				CDEAC5421716AF82007857AE /* ViewCellMyLink.xib in Resources */,
 				97A55D651823C3E700675025 /* viewprofile_avatarBorder.png in Resources */,
 				CD2DE68F18279A9D0043AA91 /* SnapshotSetting_btn_save_inactive@2x.png in Resources */,
 				459284AA184F3F65004FA3A6 /* Menu_icon_mymatch@2x.png in Resources */,
@@ -4151,11 +4091,7 @@
 				9775A7851813D5DE00BCF28D /* UIView+JMNoise.m in Sources */,
 				CD12C16A170A908B006B13B8 /* DDMenuController.m in Sources */,
 				3715B369170AC9DC003ACE95 /* VCChat.m in Sources */,
-				CD8AA1E8170C109700A97C47 /* Cell.m in Sources */,
 				9758AF01184C6C7100B9D4AF /* PSTGridLayoutSection.m in Sources */,
-				CD8AA1E9170C109700A97C47 /* UIGridView.m in Sources */,
-				CD8AA1EA170C109700A97C47 /* UIGridViewCell.m in Sources */,
-				CD8AA1EB170C109700A97C47 /* UIGridViewRow.m in Sources */,
 				CD8AA1F4170C1B2800A97C47 /* NavBarOakClub.m in Sources */,
 				CD8AA1F6170C1B2800A97C47 /* NavConOakClub.m in Sources */,
 				CD0AB827182900CB00385CB9 /* RangeSlider.m in Sources */,
@@ -4303,12 +4239,8 @@
 				9758AEFA184C6C7100B9D4AF /* PSTCollectionViewFlowLayout.m in Sources */,
 				CDF99C3F1713D6CF008D8BAC /* XMPPXFacebookPlatformAuthentication.m in Sources */,
 				CD6D52EA1715EA850068BA01 /* NSString+Base64.m in Sources */,
-				CDEAC5411716AF82007857AE /* ViewCellMyLink.m in Sources */,
 				CD1AB0851821834700B0FA10 /* VCReportPopup.m in Sources */,
 				97C57690181FDDF200D8510D /* TutorialViewController.m in Sources */,
-				CDEAC5541716B10B007857AE /* UIGridViewCellMultipleSection.m in Sources */,
-				CDEAC5551716B10B007857AE /* UIGridViewMultipleSection.m in Sources */,
-				CDEAC5561716B10B007857AE /* UIGridViewRowMultipleSection.m in Sources */,
 				CD15E86B182F677200557BA5 /* UIImage+H568.m in Sources */,
 				CDDFFACA1719D25E00BBA321 /* AFHTTPClient.m in Sources */,
 				CDDFFACB1719D25E00BBA321 /* AFHTTPRequestOperation.m in Sources */,
@@ -4561,8 +4493,8 @@
 					"-ObjC",
 				);
 				PRODUCT_NAME = OakClub;
-				PROVISIONING_PROFILE = "B7705BD7-C21A-42FD-AC34-5363BC0C44B6";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "B7705BD7-C21A-42FD-AC34-5363BC0C44B6";
+				PROVISIONING_PROFILE = "AE133DE3-9B83-43B6-A9DF-FD3C03292B61";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "AE133DE3-9B83-43B6-A9DF-FD3C03292B61";
 				TARGETED_DEVICE_FAMILY = 1;
 				VALIDATE_PRODUCT = YES;
 				WRAPPER_EXTENSION = app;
@@ -4594,8 +4526,8 @@
 					"-ObjC",
 				);
 				PRODUCT_NAME = OakClub;
-				PROVISIONING_PROFILE = "B7705BD7-C21A-42FD-AC34-5363BC0C44B6";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "B7705BD7-C21A-42FD-AC34-5363BC0C44B6";
+				PROVISIONING_PROFILE = "AE133DE3-9B83-43B6-A9DF-FD3C03292B61";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "AE133DE3-9B83-43B6-A9DF-FD3C03292B61";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};

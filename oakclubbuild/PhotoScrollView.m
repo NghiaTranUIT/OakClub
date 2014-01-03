@@ -70,7 +70,9 @@
         if (i == [self.photoDelegate numberOfPhoto] - 1)
         {
             UILabel *label = [[UILabel alloc] init];
-            [label setText: [@"Add photo" localize]];
+            label.languageKey = @"Add photo";
+            label.text = @"Add photo";
+            [label localizeText];
             [label setFont: FONT_HELVETICANEUE_LIGHT(18)];
             [label setBackgroundColor: [UIColor clearColor]];
             [label setTextColor: COLOR_PURPLE /*[UIColor colorWithRed:116/255.0 green:1/255.0 blue:5/255.0 alpha:1.0]*/];

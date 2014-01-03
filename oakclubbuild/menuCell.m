@@ -8,6 +8,7 @@
 
 #import "menuCell.h"
 #import "Define.h"
+#import "UIView+Localize.h"
 
 @interface menuCell ()
 @property (weak, nonatomic) IBOutlet UIImageView *notificationView;
@@ -45,7 +46,9 @@ static CGFloat padding_left = 4.0;
     NSString* formatImageName=[[imageName stringByReplacingOccurrencesOfString:@" " withString:@""] lowercaseString];
     formatImageName=[formatImageName stringByReplacingOccurrencesOfString:@"!" withString:@""];
     iconMenu.image = [UIImage imageNamed:[NSString stringWithFormat:@"Menu_icon_%@.png",formatImageName]];
+    _labelMenu.languageKey = label;
     _labelMenu.text = label;
+    [_labelMenu localizeText];
     iconMenu.highlightedImage = [UIImage imageNamed:[NSString stringWithFormat:@"Menu_icon_%@_pressed.png",formatImageName]];
     _labelMenu.highlightedTextColor = COLOR_PURPLE;
 //    {

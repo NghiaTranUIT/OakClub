@@ -8,6 +8,7 @@
 
 #import "NavBarOakClub.h"
 #import "AppDelegate.h"
+#import "UIView+Localize.h"
 
 @implementation NavBarOakClub
 {
@@ -110,7 +111,9 @@
 
 - (void) setHeaderName:(NSString *)name{
     self.header = (UILabel *) [self.customView viewWithTag:4];
+    self.header.languageKey = name;
     self.header.text = name;
+    [self.header localizeText];
 }
 
 -(void) setRightViewController:(UIViewController *)view{

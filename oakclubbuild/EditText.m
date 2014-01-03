@@ -83,7 +83,7 @@
             btnTextViewThemes.hidden = NO;
             texfieldEdit.hidden = YES;
             btnThemesTextField.hidden = YES;
-            self.lblDefaultText.text = [self.lblDefaultText.text localize];
+            [self.lblDefaultText localizeText];
             if ([self.textviewEdit.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]].length > 0) {
                 self.lblDefaultText.hidden = YES;
             } else {
@@ -112,7 +112,9 @@
     label.font = FONT_HELVETICANEUE_LIGHT(18.0);//[UIFont boldSystemFontOfSize:20.0];
 //    label.shadowColor = [UIColor colorWithWhite:0.0 alpha:0.5];
     label.textAlignment = NSTextAlignmentCenter;
-    [label setText:title];
+    label.languageKey = title;
+    label.text = title;
+    [label localizeText];
 //    label.textColor = [UIColor blackColor]; // change this color
     [label sizeToFit];
     self.navigationItem.titleView = label;
@@ -179,10 +181,5 @@
     
     self.navigationItem.leftBarButtonItem = buttonItem;
 }
--(void)setTitle:(NSString *)newTitle
-{
-    [super setTitle:newTitle];
-    
-    title = [newTitle localize];
-}
+
 @end

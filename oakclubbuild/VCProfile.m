@@ -325,7 +325,7 @@ static CGFloat padding_left = 5.0;
     lblActive.frame = CGRectMake(lblActiveTitle.frame.origin.x + lblActiveTitle.frame.size.width + 5, lblActiveTitle.frame.origin.y
                                    , lblActive.frame.size.width, lblActiveTitle.frame.size.height);
     if(currentProfile.active == -1){
-        [lblActive setText:[@"Online" localize]];
+        [lblActive setText:[@"Just now" localize]];
         return;
     }
     if(currentProfile.active==0){

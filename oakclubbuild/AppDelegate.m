@@ -230,13 +230,13 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
 -(void)loadAllViewControllers{
     self.chat = [self createNavigationByClass:@"VCChat" AndHeaderName:@"Chat History" andRightButton:nil andIsStoryBoard:NO];
 
-    self.simpleSnapShot = [self createNavigationByClass:@"VCSimpleSnapshot" AndHeaderName:nil/*[NSString localizeString:@"Snapshot"]*/ andRightButton:@"VCChat" andIsStoryBoard:NO];
+    self.simpleSnapShot = [self createNavigationByClass:@"VCSimpleSnapshot" AndHeaderName:nil andRightButton:@"VCChat" andIsStoryBoard:NO];
     //     self.snapShotSettings = [self.storyboard instantiateViewControllerWithIdentifier:@"SnapshotSettings"];
-    self.snapShotSettings = [self createNavigationByClass:@"VCSimpleSnapshotSetting" AndHeaderName:[NSString localizeString:@"Settings"] andRightButton:@"VCChat" andIsStoryBoard:NO];
+    self.snapShotSettings = [self createNavigationByClass:@"VCSimpleSnapshotSetting" AndHeaderName:@"Settings" andRightButton:@"VCChat" andIsStoryBoard:NO];
     self.snapshotLoading = [self createNavigationByClass:@"VCSimpleSnapshotLoading" AndHeaderName:nil andRightButton:@"VCChat" andIsStoryBoard:NO];
-    self.myProfileVC = [self createNavigationByClass:@"VCMyProfile" AndHeaderName:[NSString localizeString:@"Edit Profile"] andRightButton:@"VCChat" andIsStoryBoard:NO];
+    self.myProfileVC = [self createNavigationByClass:@"VCMyProfile" AndHeaderName:@"Edit Profile" andRightButton:@"VCChat" andIsStoryBoard:NO];
 //    self.getPoints = [self createNavigationByClass:@"VCGetPoints" AndHeaderName:@"Get Coins" andRightButton:nil andIsStoryBoard:NO];
-    self.confirmVC = [self createNavigationByClass:@"UpdateProfileViewController" AndHeaderName:[@"Update Profile" localize] andRightButton:nil andIsStoryBoard:NO];
+    self.confirmVC = [self createNavigationByClass:@"UpdateProfileViewController" AndHeaderName:@"Update Profile" andRightButton:nil andIsStoryBoard:NO];
     // PKRevealController
     
 #if ENABLE_DEMO

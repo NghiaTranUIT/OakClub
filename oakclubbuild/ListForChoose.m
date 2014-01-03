@@ -223,11 +223,14 @@ NSIndexPath* oldIndex;
     label.backgroundColor = [UIColor clearColor];
     label.font = FONT_HELVETICANEUE_LIGHT(18.0);//[UIFont boldSystemFontOfSize:20.0];
     label.textAlignment = NSTextAlignmentCenter;
-    [label setText:[titleText localize]];
+    label.languageKey = titleText;
+    label.text = titleText;
+    [label localizeText];
     label.textColor = [UIColor blackColor]; // change this color
     [label sizeToFit];
     self.navigationItem.titleView = label;
 }
+
 -(void)viewWillDisappear:(BOOL)animated{
     for(UIView* subview in [self.navigationController.navigationBar subviews]){
         if([subview isKindOfClass:[UIButton class]])
@@ -352,7 +355,11 @@ NSIndexPath* oldIndex;
     
     cell.textLabel.highlightedTextColor = [UIColor blackColor];
     [cell.textLabel setFont: FONT_HELVETICANEUE_LIGHT(17.0)];
-    [cell localizeAllViews];
+    
+    if (type != LISTTYPE_WORK) {
+        [cell localizeAllViews];
+    }
+        
     return cell;
 }
 

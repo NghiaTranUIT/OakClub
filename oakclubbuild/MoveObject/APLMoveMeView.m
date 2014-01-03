@@ -145,11 +145,15 @@ BOOL isDragging = FALSE;
             [self.placardView setAlphaLIKEView:dx/100];
         }
 
-        CGPoint newCenter = CGPointMake(self.placardView.center.x + (location.x-startCardPoint.x), self.placardView.center.y/* + (location.y-startCardPoint.y)*/);
+        CGPoint newCenter = CGPointMake(self.placardView.center.x + (location.x-startCardPoint.x), self.placardView.center.y + (location.y-startCardPoint.y));
 		self.placardView.center = newCenter;
         
         // make a curve when draging
-        CGAffineTransform transforms = CGAffineTransformConcat(self.placardView.transform,CGAffineTransformMakeRotation(M_PI/900*((location.x-startCardPoint.x)>0?-1:1)));
+        CGFloat angle = (touchLocation.x-startLocation.x) * (touchLocation.y-startLocation.y) * M_PI/180000;
+        NSLog(@"(touchLocation.x-startLocation.x): %f", (touchLocation.x-startLocation.x));
+        NSLog(@"(touchLocation.y-startLocation.y): %f", (touchLocation.y-startLocation.y));
+        NSLog(@"angle: %f", angle);
+        CGAffineTransform transforms = CGAffineTransformMakeRotation(angle);
         self.placardView.transform = transforms;
         
 		return;
