@@ -158,8 +158,10 @@ CGFloat pageHeight;
 }
 -(void) refreshSnapshotFocus:(BOOL)focus{
     NSLog(@"[CHECK LOADING] refreshSnapshotFocus: %d", is_loadingProfileList);
+    
     if(is_loadingProfileList)
         return;
+    
     currentIndex = 0; //Vanancy cheat
     profileList = [[NSMutableArray alloc] init];
     [self startLoadingAnimFocus:focus and:^void(){}];
@@ -168,10 +170,6 @@ CGFloat pageHeight;
                                                      selector:@selector(CheckAllOperationsFinishedWithHandler:andFocus:)
                                                      userInfo:nil
                                                       repeats:YES];
-//    [self loadProfileListUseHandler:^(void){
-//        [self loadCurrentProfile];
-//        [self loadNextProfileByCurrentIndex];
-//    } withFocus:focus];
 }
 -(void)disableAllControl:(BOOL)value{
     [buttonYES setEnabled:!value];
@@ -216,7 +214,6 @@ CGFloat pageHeight;
     NSLog(@"[CHECK LOADING] CheckAllOperationsFinishedWithHandler: %d", is_loadingProfileList);
     if(setLikedQueue.operationCount == 0 && !is_loadingProfileList){
         //do load profile list.
-//        [self requestProfileListWithHandler:nil andFocus:NO];
         [self requestProfileListWithHandler:^(void){
             [self loadCurrentProfile];
             [self loadNextProfileByCurrentIndex];
