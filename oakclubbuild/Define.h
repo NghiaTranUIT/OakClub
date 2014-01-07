@@ -54,6 +54,7 @@
 #define HOSTNAME @"staging.oakclub.com"
 #define DOMAIN @"http://staging.oakclub.com"
 #define DOMAIN_DATA @"http://data1.oakclub.com/"
+#define DOMAIN_VIDEO @"http://staging.oakclub.com/oakclub_upload/"
 #define MAX_UPLOAD_PHOTO_SIZE 8192000 //~8MB
 #define MAX_UPLOAD_VIDEO_SIZE 81920000 //~8MB
 #define URL_PHOTO @"http://staging.oakclub.com/load_photo.php"
@@ -62,6 +63,7 @@
 #define HOSTNAME @"xmpp.oakclub.com"
 #define DOMAIN @"https://oakclub.com"
 #define DOMAIN_DATA @"http://data2.oakclub.com/" //data2
+#define DOMAIN_VIDEO @"http://oakclub.com/oakclub_upload/"
 #define MAX_UPLOAD_PHOTO_SIZE 3072000 //~3MB
 #define MAX_UPLOAD_VIDEO_SIZE 3072000 //~3MB
 #define URL_PHOTO @"http://oakclub.com/load_photo.php"
@@ -70,6 +72,7 @@
 #define HOSTNAME @"staging.oakclub.com"
 #define DOMAIN @"http://staging-mb.oakclub.com"
 #define DOMAIN_DATA @"http://data1.oakclub.com/"
+#define DOMAIN_VIDEO @"http://staging-mb.oakclub.com/oakclub_upload/"
 #define MAX_UPLOAD_PHOTO_SIZE 8192000 //~8MB
 #define MAX_UPLOAD_VIDEO_SIZE 81920000 //~8MB
 #define URL_PHOTO @"http://staging.oakclub.com/load_photo.php"
