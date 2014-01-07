@@ -538,7 +538,7 @@ int cellCountinSection=0;
         }
         
         NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-        [dateFormatter setDateFormat:DATE_FORMAT];
+        [dateFormatter setDateFormat:DATETIME_FORMAT];
         [friendChatIDs sortUsingComparator:^NSComparisonResult(id obj1, id obj2) {
             Profile *p1, *p2;
             p1 = [appDel.myProfile.dic_Roster objectForKey:obj1];
@@ -730,15 +730,6 @@ int cellCountinSection=0;
     selectedProfile = profile;
     // Vanancy - reset count of Notification of new chat unread
     [self loadChatView:profile animated:YES];
-    
-    if(profile.status <= MatchViewed){
-        if(profile.status == MatchUnViewed)
-            [appDel.myProfile setViewedMatchMutualWithFriend:profile];
-    }
-    else{
-        [appDel.myProfile resetUnreadMessageWithFriend:profile];
-        profile.status = ChatViewed;
-    }
     //isChatLoaded = TRUE;
 }
 

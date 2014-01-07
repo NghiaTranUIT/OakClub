@@ -67,6 +67,7 @@
     int status;// status is chat list: 0 - NewMatch, 1-MatchViewed, 2-NewChat, 3-ChatViewed
     int unread_message;
     NSString *s_status_time;
+    NSString *match_time;
     
     int num_Liked;
     int num_Viewed;
@@ -98,6 +99,7 @@
 @property (strong, nonatomic) NSString *s_popularity;
 @property (strong, nonatomic) NSString *s_interestedStatus;
 @property (strong, nonatomic) NSString *s_status_time;
+@property (strong, nonatomic) NSString *match_time;
 @property (strong, nonatomic) NSString *s_snapshotID;
 @property (strong, nonatomic) NSString *s_passwordXMPP;
 @property (strong, nonatomic) NSString *s_usenameXMPP; 
@@ -110,7 +112,7 @@
 @property (strong, nonatomic) NSString *s_video;
 //@property (strong, nonatomic) NSNumber *num_unreadMessage;
 
-@property (strong, nonatomic) NSDictionary *dic_Roster;
+@property (strong, nonatomic) NSMutableDictionary *dic_Roster;
 @property (strong, nonatomic) NSArray* a_favorites;
 @property (strong, nonatomic) NSString* s_user_id;
 @property (strong, nonatomic) NSMutableArray *arr_MutualInterests;

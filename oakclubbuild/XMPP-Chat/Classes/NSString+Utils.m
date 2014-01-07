@@ -101,27 +101,27 @@ NSString *dateToStringInterval(NSDate *pastDate)
     NSString *intervalString;
     if ([breakdownInfo month]) {
         if (-[breakdownInfo month] > 1)
-            intervalString = [NSString stringWithFormat:@"%d months ago", -[breakdownInfo month]];
+            intervalString = [NSString stringWithFormat:@"%d %@", -[breakdownInfo month], [NSString localizeString:@"months ago"]];
         else
-            intervalString = @"1 month ago";
+            intervalString = [NSString stringWithFormat:@"1 %@", [NSString localizeString:@"month ago"]];
     }
     else if ([breakdownInfo day]) {
         if (-[breakdownInfo day] > 1)
-            intervalString = [NSString stringWithFormat:@"%d days ago", -[breakdownInfo day]];
+            intervalString = [NSString stringWithFormat:@"%d %@", -[breakdownInfo day], [NSString localizeString:@"days ago"]];
         else
-            intervalString = @"1 day ago";
+            intervalString = [NSString stringWithFormat:@"1 %@", [NSString localizeString:@"day ago"]];
     }
     else if ([breakdownInfo hour]) {
         if (-[breakdownInfo hour] > 1)
-            intervalString = [NSString stringWithFormat:@"%d hours ago", -[breakdownInfo hour]];
+            intervalString = [NSString stringWithFormat:@"%d %@", -[breakdownInfo hour], [NSString localizeString:@"hours ago"]];
         else
-            intervalString = @"1 hour ago";
+            intervalString = [NSString stringWithFormat:@"1 %@", [NSString localizeString:@"hour ago"]];
     }
     else {
         if (-[breakdownInfo minute] > 1)
-            intervalString = [NSString stringWithFormat:@"%d min ago", -[breakdownInfo minute]];
+            intervalString = [NSString stringWithFormat:@"%d %@", -[breakdownInfo minute], [NSString localizeString:@"minutes ago"]];
         else
-            intervalString = @"1 min ago";
+            intervalString = [NSString stringWithFormat:@"1 %@", [NSString localizeString:@"minute ago"]];
     }
     
     return intervalString;

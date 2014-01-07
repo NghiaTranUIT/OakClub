@@ -118,7 +118,7 @@
         
         [cell.friendAvatar setImage:[UIImage imageNamed:@"Default Avatar"]];
         [cell.friendName setText:friend.firstName];
-        [appDel.imagePool getImageAtURL:friend.s_Avatar withSize:PHOTO_SIZE_SMALL asycn:^(UIImage *img, NSError *error, bool isFirstLoad) {
+        [appDel.imagePool getImageAtURL:friend.s_Avatar withSize:PHOTO_SIZE_SMALL asycn:^(UIImage *img, NSError *error, bool isFirstLoad, NSString *url) {
             if (isFirstLoad)
             {
                 [collectionView reloadData];

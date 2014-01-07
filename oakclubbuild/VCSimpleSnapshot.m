@@ -640,28 +640,22 @@ CGFloat pageHeight;
 //    [[self view] localizeAllViews];
 }
 
--(void)addNewChatUser:(Profile*)newChat isMatchViewed:(BOOL)viewed{
+-(void)addNewChatUser:(Profile*)newChat
+{
     NSDate *currentDate = [[NSDate alloc] init];
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:DATE_FORMAT];
+    [dateFormatter setDateFormat:DATETIME_FORMAT];
     newChat.s_status_time =[dateFormatter stringFromDate:currentDate];
     NSString* s_jid = [NSString stringWithFormat:@"%@%@", newChat.s_ID, DOMAIN_AT];
     XMPPJID* xmpp_jid = [XMPPJID jidWithString:s_jid];
-    if (viewed)
-    {
-        newChat.status = MatchViewed;
-    }
-    else
-    {
-        newChat.status = MatchUnViewed;
-    }
+    newChat.status = MatchUnViewed;
     newChat.is_match = true;
     [appDel.xmppRoster addUser:xmpp_jid withNickname:newChat.s_Name];
     [appDel.myProfile.dic_Roster setValue:newChat forKey:newChat.s_ID];
     [appDel.friendChatList setObject:newChat forKey:s_jid];
 }
 - (IBAction)dismissMatchView:(id)sender {
-    [self addNewChatUser:matchedProfile isMatchViewed:NO];
+    [self addNewChatUser:matchedProfile];
     matchedProfile = nil;
     [matchViewController.view removeFromSuperview];
     [lblMatchAlert setText:@""];
@@ -672,7 +666,7 @@ CGFloat pageHeight;
     [self showNotifications];
 }
 - (IBAction)onClickSendMessageToMatcher:(id)sender {
-    [self addNewChatUser:matchedProfile isMatchViewed:YES];
+    [self addNewChatUser:matchedProfile];
     
     NSMutableArray* array = [[NSMutableArray alloc]init];
     
@@ -685,7 +679,8 @@ CGFloat pageHeight;
         [self.navigationController pushViewController:chatController animated:NO];
         [matchViewController.view removeFromSuperview];
         [lblMatchAlert setText:@""];
-        matchedProfile = nil;    }];
+        matchedProfile = nil;
+    }];
     [[self navBarOakClub] disableAllControl: NO];
     appDel.rootVC.recognizesPanningOnFrontView = YES;
 }

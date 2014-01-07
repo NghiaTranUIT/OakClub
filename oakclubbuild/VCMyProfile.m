@@ -51,12 +51,43 @@
 @property (strong, nonatomic) IBOutlet UIView *pickingView;
 @property (strong, nonatomic) IBOutlet UIViewController *pickingViewController;
 @property (weak, nonatomic) IBOutlet UILabel *lblPickingValue;
+@property (weak, nonatomic) IBOutlet UIImageView *imgViewVideoThumb;
+@property (weak, nonatomic) IBOutlet UIImageView *imgViewVideoBorder;
+@property (weak, nonatomic) IBOutlet UIButton *btnEditVideo;
+@property (nonatomic)  int videoStatus;
 @end
 
 @implementation VCMyProfile
 UITapGestureRecognizer *tap;
 
 @synthesize rbnFemale, rbnMale, btnLocation, btnRelationShip, btnEthnicity, btnLanguage, btnWork, scrollview,labelAge, labelName, labelPurposeSearch, textFieldName,textFieldHeight,textfieldSchool,textFieldWeight, btnBirthdate, pickerView, textviewAbout, tbEditProfile, pickerWeight, pickerHeight, imgAvatar;
+@synthesize videoStatus = _videoStatus;
+
+-(void)setVideoStatus:(int)videoStatus
+{
+    _videoStatus = videoStatus;
+    switch (_videoStatus) {
+        case 0:
+            [self.imgViewVideoThumb setHidden:YES];
+            [self.imgViewVideoBorder setHidden:YES];
+            [self.btnEditVideo setHidden:YES];
+            [self.btnUploadVideo setHidden:NO];
+            break;
+        case 1:
+            [self.imgViewVideoThumb setHidden:NO];
+            [self.imgViewVideoBorder setHidden:NO];
+            [self.btnEditVideo setHidden:NO];
+            [self.btnUploadVideo setHidden:YES];
+            NSString *videoThumbLink = [profileObj.s_video stringByReplacingOccurrencesOfString:@".mov" withString:@".jpg"];
+            [appDelegate.imagePool getImageAtURL:videoThumbLink withSize:PHOTO_SIZE_LARGE asycn:^(UIImage *img, NSError *error, bool isFirstLoad, NSString *urlWithSize) {
+                    if (img)
+                    {
+                        [self.imgViewVideoThumb setImage:img];
+                    }
+            }];
+            break;
+    }
+}
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -101,6 +132,10 @@ UITapGestureRecognizer *tap;
     indicator = [[LoadingIndicator alloc] initWithMainView:self.view andDelegate:self];
     photo_Indicator = [[LoadingIndicator alloc] initWithMainView:self.photoSuperView andDelegate:self];
     
+    [self.imgViewVideoThumb setUserInteractionEnabled:YES];
+    [self.imgViewVideoThumb addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(playVideo:)]];
+    self.videoStatus = 0;
+    
     photos = appDelegate.myProfile.arr_photos;
     [self reloadPhotos];
 }
@@ -121,11 +156,9 @@ UITapGestureRecognizer *tap;
         [self.imgAvatar setFrame:self.avatarLayout.frame];
     }];
     
-    UIImage *thumb;
-    if ((thumb = self.videoThumb))
+    if (profileObj.s_video && ![@"" isEqualToString:profileObj.s_video])
     {
-        [self.btnUploadVideo setBackgroundImage:thumb forState:UIControlStateNormal];
-        self.btnUploadVideo.contentMode = UIViewContentModeScaleAspectFit;
+        [self setVideoStatus:1];
     }
     
     [self.view localizeAllViews];
@@ -586,10 +619,6 @@ UITapGestureRecognizer *tap;
         if (buttonIndex == 0)
         {
             [videoPicker showPicker];
-        }
-        else
-        {
-            [self playVideo];
         }
     }
 }
@@ -1099,8 +1128,6 @@ UITapGestureRecognizer *tap;
                  {
                      [VideoUploader uploadVideoWithData:data useCompletion:^(NSString *link)
                       {
-                          NSLog(@"Video upload completed with link %@", link);
-                          
                           UILabel *videoCompletedNotif = [[UILabel alloc] initWithFrame:CGRectMake(100, 80, 200, 40)];
                           [videoCompletedNotif setFont:FONT_HELVETICANEUE_LIGHT(12)];
                           videoCompletedNotif.text = [@"Video upload completed" localize];
@@ -1113,15 +1140,10 @@ UITapGestureRecognizer *tap;
                               [videoCompletedNotif removeFromSuperview];
                           }];
                           
-                          profileObj.s_video = link;
-                          appDelegate.myProfile.s_video = link;
+                          profileObj.s_video = [NSString stringWithFormat:@"%@.mov", link];
+                          appDelegate.myProfile.s_video = [NSString stringWithFormat:@"%@.mov", link];
                           
-                          UIImage *thumb;
-                          if ((thumb = self.videoThumb))
-                          {
-                              [self.btnUploadVideo setBackgroundImage:thumb forState:UIControlStateNormal];
-                              self.btnUploadVideo.contentMode = UIViewContentModeScaleAspectFit;
-                          }
+                          self.videoStatus = 1;
                           
                           isVideoUploading = false;
                       }];
@@ -1316,9 +1338,9 @@ UITapGestureRecognizer *tap;
     }
 }
 
--(void)playVideo
+-(void)playVideo:(id)sender
 {
-    NSURL *videoURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@", DOMAIN_DATA, profileObj.s_video]];
+    NSURL *videoURL = [NSURL URLWithString:profileObj.s_video];
     MPMoviePlayerViewController *moviePlayer = [[MPMoviePlayerViewController alloc] initWithContentURL:videoURL];
     [self presentMoviePlayerViewControllerAnimated:moviePlayer];
     

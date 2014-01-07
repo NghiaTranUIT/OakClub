@@ -14,6 +14,7 @@
 #import "Profile.h"
 #import "MessageStorage.h"
 #import "PSTCollectionView.h"
+#import "ImagePool.h"
 
 @interface SMChatViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, SMMessageDelegate, UITextFieldDelegate, PSTCollectionViewDataSource, PSTCollectionViewDelegateFlowLayout> {
 
@@ -49,3 +50,15 @@
 - (IBAction) closeChat;
 
 @end
+
+
+@interface SMChat_FirstViewMatchView : UIView
+@property (weak, nonatomic) IBOutlet UILabel *lblMatchedWith;
+@property (weak, nonatomic) IBOutlet UILabel *lblMatchedTime;
+
+@property (weak, nonatomic) IBOutlet UIImageView *imgAvatar;
+
+-(void)setMatchedProfile:(Profile *)profile andImagepool:(ImagePool *)imgPool;
+-(void)animateWithCompletion:(void(^)(void))completion;
+@end
+

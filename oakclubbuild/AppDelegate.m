@@ -1797,7 +1797,7 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
         AFHTTPClient *request = [[AFHTTPClient alloc] initWithOakClubAPI:DOMAIN];
         
         [request getPath:URL_ping parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-            NSLog(@"Ping to server completed with respond %@", [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding]);
+            NSLog(@"Ping to server completed");
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             NSLog(@"Cannot ping to server with error %@", [error localizedDescription]);
         }];

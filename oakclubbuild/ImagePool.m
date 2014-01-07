@@ -58,10 +58,13 @@
         if ([imgID hasPrefix:@"http"])
         {
             photoRequestURL = imgID;
-            params = [NSDictionary dictionaryWithObjectsAndKeys:
-                      [NSNumber numberWithInteger:(int) size.width], @"width",
-                      [NSNumber numberWithInteger:(int) size.height], @"height",
-                      nil];
+            if (![imgID hasSuffix:@".jpg"])
+            {
+                params = [NSDictionary dictionaryWithObjectsAndKeys:
+                          [NSNumber numberWithInteger:(int) size.width], @"width",
+                          [NSNumber numberWithInteger:(int) size.height], @"height",
+                          nil];
+            }
         }
         else
         {
@@ -73,10 +76,10 @@
         }
         
         AFHTTPClient *httpClient;
-        httpClient = [[AFHTTPClient alloc]initWithBaseURL:[NSURL URLWithString:photoRequestURL]];
+        httpClient = [[AFHTTPClient alloc]initWithBaseURL:[NSURL URLWithString:@""]];
         
         NSMutableURLRequest *request = [httpClient requestWithMethod:@"GET"
-                                                                path:@""
+                                                                path:photoRequestURL
                                                           parameters:params];
         
         AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];

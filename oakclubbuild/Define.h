@@ -11,8 +11,8 @@
 
 //demo version FLAG
 #define ENABLE_DEMO true
-#define USE_STAGING false
-#define USE_MAINHOST true
+#define USE_STAGING true
+#define USE_MAINHOST false
 #define USE_STAGING_MB false
 #define USE_STAGING_IOS false
 
@@ -32,7 +32,7 @@
 #define VIEWPROFILE_FULLDATA true
 
 //show matchmaker in leftmenu
-#define ENABLE_MATCHMAKER false
+#define ENABLE_MATCHMAKER true
 
 //Hangout
 #define sOnline @"Online"
@@ -206,8 +206,10 @@
 #define key_location @"location"
 //#define key_locationID @"id"
 #define key_isLike @"is_like"
+#define key_likeTime @"like_time"
 #define key_isVip @"is_vip"
 #define key_statusTime @"time"
+#define key_matchTime @"match_time"
 #define key_locationName @"name"
 #define key_locationCountry @"country"
 #define key_locationCountryCode @"country_code"
