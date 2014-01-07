@@ -319,12 +319,9 @@ static CGFloat padding_left = 5.0;
         [lblDistance setText:[@"Less than a km away" localize]];
         return;
     }
-    if(currentProfile.distance < 40){
-        NSString *formatString = [@"%i km away" localize];
-        [lblDistance setText:[NSString stringWithFormat:formatString, currentProfile.distance]];
-        return;
-    }
-    [lblDistance setText:[@"More than 40 km away" localize]];
+    
+    NSString *formatString = [@"%i km away" localize];
+    [lblDistance setText:[NSString stringWithFormat:formatString, currentProfile.distance]];
 }
 
 -(void)LoadActiveText{
