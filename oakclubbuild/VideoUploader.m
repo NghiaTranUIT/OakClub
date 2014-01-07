@@ -70,7 +70,9 @@
         if (exportSession.status == AVAssetExportSessionStatusCompleted)
         {
             NSData *videoData = [NSData dataWithContentsOfURL:exportUrl];
-            completion(videoData);
+            dispatch_async(dispatch_get_main_queue(), ^{
+                completion(videoData);
+            });
         }
     }];
 }

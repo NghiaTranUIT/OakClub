@@ -68,25 +68,38 @@ UITapGestureRecognizer *tap;
     _videoStatus = videoStatus;
     switch (_videoStatus) {
         case 0:
+        {
             [self.imgViewVideoThumb setHidden:YES];
             [self.imgViewVideoBorder setHidden:YES];
             [self.btnEditVideo setHidden:YES];
             [self.btnUploadVideo setHidden:NO];
+        }
             break;
         case 1:
+        {
             [self.imgViewVideoThumb setHidden:NO];
             [self.imgViewVideoBorder setHidden:NO];
             [self.btnEditVideo setHidden:NO];
             [self.btnUploadVideo setHidden:YES];
-            NSString *videoThumbLink = [profileObj.s_video stringByReplacingOccurrencesOfString:@".mov" withString:@".jpg"];
-            [appDelegate.imagePool getImageAtURL:videoThumbLink withSize:PHOTO_SIZE_LARGE asycn:^(UIImage *img, NSError *error, bool isFirstLoad, NSString *urlWithSize) {
-                    if (img)
-                    {
-                        [self.imgViewVideoThumb setImage:img];
-                    }
-            }];
+            
+            //the image is not avaialbe inmediately after upload successfully
+            [self performSelector:@selector(refreshThumbImage) withObject:nil afterDelay:3];
+        }
+            
             break;
     }
+}
+
+- (void)refreshThumbImage
+{
+    NSString *videoThumbLink = [profileObj.s_video stringByReplacingOccurrencesOfString:@".mov" withString:@".jpg"];
+    [appDelegate.imagePool getImageAtURL:videoThumbLink withSize:PHOTO_SIZE_LARGE asycn:^(UIImage *img, NSError *error, bool isFirstLoad, NSString *urlWithSize) {
+        if (img)
+        {
+            [self.imgViewVideoThumb setImage:img];
+        }
+    }];
+
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -157,6 +170,12 @@ UITapGestureRecognizer *tap;
     
     if (profileObj.s_video && ![@"" isEqualToString:profileObj.s_video])
     {
+        if ([profileObj.s_video rangeOfString:@"http://"].location == NSNotFound) {
+            NSString *link = profileObj.s_video;
+            profileObj.s_video = [NSString stringWithFormat:@"%@%@.mov", DOMAIN_VIDEO, link];
+            appDelegate.myProfile.s_video = [NSString stringWithFormat:@"%@%@.mov", DOMAIN_VIDEO, link];
+        }
+
         [self setVideoStatus:1];
     }
     
@@ -1134,8 +1153,11 @@ UITapGestureRecognizer *tap;
                  }
                  else
                  {
+                     self.imgViewVideoThumb.image = nil;
                      [VideoUploader uploadVideoWithData:data useCompletion:^(NSString *link)
                       {
+                          //use indicator instead
+                          /*
                           UILabel *videoCompletedNotif = [[UILabel alloc] initWithFrame:CGRectMake(100, 80, 200, 40)];
                           [videoCompletedNotif setFont:FONT_HELVETICANEUE_LIGHT(12)];
                           videoCompletedNotif.text = [@"Video upload completed" localize];
@@ -1147,9 +1169,11 @@ UITapGestureRecognizer *tap;
                           } completion:^(BOOL finished) {
                               [videoCompletedNotif removeFromSuperview];
                           }];
+                          */
                           
                           profileObj.s_video = [NSString stringWithFormat:@"%@.mov", link];
                           appDelegate.myProfile.s_video = [NSString stringWithFormat:@"%@.mov", link];
+                          NSLog(@"Link video %@",link);
                           
                           self.videoStatus = 1;
                           
