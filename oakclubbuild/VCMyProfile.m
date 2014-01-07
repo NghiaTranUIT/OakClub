@@ -148,7 +148,6 @@ UITapGestureRecognizer *tap;
     
     self.nameLabel.text = profileObj.firstName;
     self.age_workLabel.text = [NSString stringWithFormat:@"%d", profileObj.age];
-    self.locationLabel.text = [NSString stringWithFormat:@"%@, %@", profileObj.i_work.cate_name, appDelegate.myProfile.s_location.name];
     
     [appDelegate.imagePool getImageAtURL:appDelegate.myProfile.s_Avatar withSize:PHOTO_SIZE_LARGE asycn:^(UIImage *img, NSError *error, bool isFirstLoad, NSString *urlWithSize) {
         [self.imgAvatar setImage:img];
@@ -162,6 +161,9 @@ UITapGestureRecognizer *tap;
     }
     
     [self.view localizeAllViews];
+    
+    //don't localize this text
+    self.locationLabel.text = [NSString stringWithFormat:@"%@, %@", profileObj.i_work.cate_name, appDelegate.myProfile.s_location.name];
 }
 
 -(NavBarOakClub*)navBarOakClub
@@ -186,7 +188,7 @@ UITapGestureRecognizer *tap;
     [tbEditProfile reloadData];
     //    [self loadProfile];
     [self showNotifications];
-    [[self navBarOakClub] setHeaderName:[NSString localizeString:@"Edit Profile"]];
+    [[self navBarOakClub] setHeaderName:@"Edit Profile"];
 }
 
 -(void)setDefaultEditProfile:(Profile*)profile{
@@ -224,10 +226,9 @@ UITapGestureRecognizer *tap;
         [self updateProfileItemListAtIndex:@"" andIndex:RELATIONSHIP];
     }
     
-    profileObj.s_gender.text = [NSString localizeString:profileObj.s_gender.text];
+    profileObj.s_gender.text = profileObj.s_gender.text;
     for (int i =0 ; i < [profileObj.a_language count]; i++) {
         [[profileObj.a_language objectAtIndex:i] localizeNameOfLanguage];
-        //        [profileObj.a_language replaceObjectAtIndex:i withObject:[NSString localizeString:profileObj.a_language[i]]];
     }
     [self updateProfileItemListAtIndex:profileObj.languagesDescription andIndex:LANGUAGE];
     
@@ -487,8 +488,8 @@ UITapGestureRecognizer *tap;
                           initWithTitle:[@"Message" localize]
                           message:warningText
                           delegate:self
-                          cancelButtonTitle:@"OK"
-                          otherButtonTitles:@"Cancel", nil];
+                          cancelButtonTitle:[@"OK" localize]
+                          otherButtonTitles:[@"Cancel" localize], nil];
     alert.tag = tag;
     
     [alert localizeAllViews];
@@ -500,7 +501,7 @@ UITapGestureRecognizer *tap;
                           initWithTitle:[@"Message" localize]
                           message:warningText
                           delegate:self
-                          cancelButtonTitle:@"OK"
+                          cancelButtonTitle:[@"OK" localize]
                           otherButtonTitles:nil];
     alert.tag = tag;
     
@@ -841,7 +842,10 @@ UITapGestureRecognizer *tap;
     
     // Configure the cell...
     NSString *textLabel =[[profileItemList objectAtIndex:indexPath.row] valueForKey:@"key"];
-    cell.textLabel.text = [NSString localizeString:textLabel];
+    cell.languageKey = textLabel;
+    cell.textLabel.text = textLabel;
+    [cell.textLabel localizeText];
+    
     switch (indexPath.row) {
         case WEIGHT:
             cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ kg",[[profileItemList objectAtIndex:indexPath.row] valueForKey:@"value"]] ;
@@ -857,7 +861,8 @@ UITapGestureRecognizer *tap;
             if (autoLocationCell == nil)
             {
                 autoLocationCell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:AutoLocationID];
-                autoLocationCell.textLabel.text = [NSString localizeString:@"Auto location"] ;
+                autoLocationCell.textLabel.text = @"Auto location";
+                [autoLocationCell.textLabel localizeText];
                 [autoLocationCell.textLabel setFont:FONT_HELVETICANEUE_LIGHT(17)];
                 autoLocationCell.selectionStyle = UITableViewCellSelectionStyleNone;
                 UISwitch *autoSwitch = [[UISwitch alloc] init];
@@ -869,8 +874,6 @@ UITapGestureRecognizer *tap;
             }
             else
             {
-//                autoLocationCell.textLabel.text = [NSString localizeString:@"Auto location"] ;
-                
                 UISwitch *autoSwitch = (id) [autoLocationCell viewWithTag:100];
                 autoSwitch.on = [[[profileItemList objectAtIndex:indexPath.row] valueForKey:@"value"] isEqualToString:@"YES"];
                 if (autoSwitch.on)
@@ -897,7 +900,12 @@ UITapGestureRecognizer *tap;
 #endif
             break;
         default:
-            cell.detailTextLabel.text = [[profileItemList objectAtIndex:indexPath.row] valueForKey:@"value"];
+        {
+            NSString *value = [[profileItemList objectAtIndex:indexPath.row] valueForKey:@"value"];
+            cell.detailTextLabel.languageKey = value;
+            cell.detailTextLabel.text = value;
+            [cell.detailTextLabel localizeText];
+        }
             break;
     }
     

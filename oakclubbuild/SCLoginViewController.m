@@ -380,6 +380,7 @@
         [view localizeText];
     }
 }
+
 - (IBAction)onTouchDown:(id)sender
 {
     [[NSUserDefaults standardUserDefaults] synchronize];

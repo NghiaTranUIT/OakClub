@@ -113,7 +113,11 @@
             [self.avatar setImage:img];
         }
     }];
-    [btnLogout setTitle: [@"Logout" localize] forState:UIControlStateNormal];
+    
+    btnLogout.titleLabel.languageKey = @"Logout";
+    [btnLogout setTitle: @"Logout" forState:UIControlStateNormal];
+    [btnLogout localizeAllViews];
+    
     [tableView reloadData];
     
     [self.view localizeAllViews];
@@ -204,7 +208,7 @@
     cell.selectedBackgroundView = bgColorSelected;
 //    [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
 //        UIImage *thumbImage = [UIImage imageNamed:[NSString stringWithFormat:@"%menu_@.png", name]];
-        [cell setItemMenu:icon AndlabelName:[NSString localizeString:label]];
+        [cell setItemMenu:icon AndlabelName:label];
 //    if(indexPath.row == 3){
 //        UIImage* tellFriend_BG = [UIImage imageNamed:@"Menu_btn_Facebook.png"];
 //        [cell setItemBackground:tellFriend_BG andHighlight:tellFriend_BG];

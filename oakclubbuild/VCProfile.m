@@ -21,6 +21,7 @@
 #import <MediaPlayer/MediaPlayer.h>
 #import "ProfileInfoCell.h"
 #import "VCSimpleSnapshot.h"
+#import "VCReportPopup.h"
 
 @interface VCProfile (){
 //    BOOL popoverShowing;
@@ -28,6 +29,7 @@
     AppDelegate *appDel;
     ImagePool *userImagePool;
 }
+
 @property (weak, nonatomic) IBOutlet UIView *aboutView;
 @property (weak, nonatomic) IBOutlet UIView *nLikeViewsView;
 @property (weak, nonatomic) IBOutlet UIView *mutualFriendsView;
@@ -44,6 +46,10 @@
 @property (weak, nonatomic) IBOutlet UILabel *lblDistanceTitle;
 @property (weak, nonatomic) IBOutlet UILabel *lblActiveTitle;
 @property BOOL showNavigationBar;
+
+@property (strong, nonatomic) NSMutableArray *indicatorArray;
+@property (strong, nonatomic) NSMutableArray *errorLabelArray;
+
 @end
 
 @implementation VCProfile
@@ -64,7 +70,9 @@
         request= [[AFHTTPClient alloc] initWithOakClubAPI:DOMAIN];
         tableSource = [[NSMutableArray alloc] init];
         appDel = (id) [UIApplication sharedApplication].delegate;
-//        self.svPhotos = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, 320, 275)];
+        
+        self.indicatorArray = [NSMutableArray array];
+        self.errorLabelArray = [NSMutableArray array];
     }
     return self;
 }
@@ -325,7 +333,7 @@ static CGFloat padding_left = 5.0;
     lblActive.frame = CGRectMake(lblActiveTitle.frame.origin.x + lblActiveTitle.frame.size.width + 5, lblActiveTitle.frame.origin.y
                                    , lblActive.frame.size.width, lblActiveTitle.frame.size.height);
     if(currentProfile.active == -1){
-        [lblActive setText:[@"Online" localize]];
+        [lblActive setText:[@"Just now" localize]];
         return;
     }
     if(currentProfile.active==0){
@@ -895,10 +903,18 @@ static CGFloat padding_left = 5.0;
     for (UIImageView * view in self.svPhotos.subviews) {
         [view removeFromSuperview];
     }
-//    self.svPhotos= [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, 320, 320)];
-//    [scrollview scrollsToTop];
+    
     [self.scrollview setContentOffset:CGPointMake(0, 0) animated:YES];
-    self.svPhotos.frame = CGRectMake(0, 0, 320, 320/*294*/);
+    self.svPhotos.frame = CGRectMake(0, 0, 320, 320);
+    
+    self.svPhotos.contentSize = CGSizeMake(CGRectGetWidth(self.svPhotos.frame) * currentProfile.arr_photos.count, CGRectGetHeight(self.svPhotos.frame));
+    for(int i = 0; i < [currentProfile.arr_photos count]; i++)
+    {
+        [self addIndicatorAtIndex:i];
+        [self hideIndicatorAtIndex:i];
+        [self addErrorLabelAtIndex:i];
+        [self hideErrorLabelAtIndex:i];
+    }
 }
 
 - (void)useSnapshotAvatar {
@@ -925,26 +941,83 @@ static CGFloat padding_left = 5.0;
         {
             for(int i = 0; i < [currentProfile.arr_photos count]; i++)
             {
+                [self showIndicatorAtIndex:i];
                 NSString* link = [currentProfile.arr_photos objectAtIndex:i][key_photoLink];
                 if(![link isEqualToString:@""] )
                 {
                     [userImagePool getImageAtURL:link withSize:PHOTO_SIZE_LARGE asycn:^(UIImage *image, NSError *error, bool isFirstLoad, NSString *urlWithSize) {
-                        if(image){
+                        if (error) {
+                            [self hideIndicatorAtIndex:i];
+                            [self showErrorLabelAtIndex:i];
+                        } else if (image){
                             UIImageView *imageView = [[UIImageView alloc]initWithImage:image];
-                            CGRect frame = self.svPhotos.frame;
+                            CGRect frame = CGRectMake(0, 0, 320, 320);
                             frame.origin.x = CGRectGetWidth(frame) * i ;
                             frame.origin.y = 0;
                             imageView.frame = frame;
                             [imageView setContentMode:UIViewContentModeScaleAspectFit];
                             [self.svPhotos addSubview:imageView];
-                            self.svPhotos.contentSize =
-                            CGSizeMake(CGRectGetWidth(self.svPhotos.frame) * (i+1), CGRectGetHeight(self.svPhotos.frame));
                         }
                     }];
                 }
             }
         }
         
+    }
+}
+
+- (void)addErrorLabelAtIndex:(int)i
+{
+    CGRect frame = CGRectMake(0, 0, 320, 320);
+    UILabel *errorLabel = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetWidth(frame) * i + CGRectGetWidth(frame)/2 - 50/2, CGRectGetHeight(frame)/2,200,20)];
+    errorLabel.text = [NSString stringWithFormat:@"%@!", [@"Error" localize]];
+    errorLabel.textColor = [UIColor whiteColor];
+    
+    //bug: insert
+    [self.errorLabelArray addObject:errorLabel];
+    [self.svPhotos addSubview:errorLabel];
+}
+
+- (void)showErrorLabelAtIndex:(int)i
+{
+    UILabel *label = [self.errorLabelArray objectAtIndex:i];
+    if (label) {
+        label.hidden = NO;
+    }
+}
+
+- (void)hideErrorLabelAtIndex:(int)i
+{
+    UILabel *label = [self.errorLabelArray objectAtIndex:i];
+    if (label) {
+        label.hidden = YES;
+    }
+}
+
+- (void)addIndicatorAtIndex:(int)i
+{
+    CGRect frame = CGRectMake(0, 0, 320, 320);
+    UIActivityIndicatorView *indicator = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(CGRectGetWidth(frame) * i + CGRectGetWidth(frame)/2 - 50/2, CGRectGetHeight(frame)/2,50,50)];
+    [indicator startAnimating];
+    
+    //bug: insert
+    [self.indicatorArray addObject:indicator];
+    [self.svPhotos addSubview:indicator];
+}
+
+- (void)showIndicatorAtIndex:(int)i
+{
+    UIActivityIndicatorView *indicator = [self.indicatorArray objectAtIndex:i];
+    if (indicator) {
+        indicator.hidden = NO;
+    }
+}
+
+- (void)hideIndicatorAtIndex:(int)i
+{
+    UIActivityIndicatorView *indicator = [self.indicatorArray objectAtIndex:i];
+    if (indicator) {
+        indicator.hidden = YES;
     }
 }
 
@@ -1317,4 +1390,14 @@ BOOL allowFullScreen = FALSE;
     [backgroundWindow addSubview:theMoviPlayer.view];
     [theMoviPlayer play];
 }
+
+- (IBAction)onTouchMoreOption:(id)sender {
+    VCSimpleSnapshot *VCSSnapshot = appDel.simpleSnapShot.viewControllers[0];
+    
+    VCReportPopup* reportPopup= [[VCReportPopup alloc] initWithProfileID:currentProfile andChat:VCSSnapshot];
+    [reportPopup.view setFrame:CGRectMake(0, 0, reportPopup.view.frame.size.width, reportPopup.view.frame.size.height)];
+    
+    [VCSSnapshot.navigationController pushViewController:reportPopup animated:YES];
+}
+
 @end

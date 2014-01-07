@@ -97,18 +97,18 @@
     NSString *pref;
     switch (type) {
         case interestedStatusNO:
-            pref = [@"Dragging a picture to the left indicates you are not interested" localize];
-            [lblNopeTurotial setText: pref];//[NSString stringWithFormat:[pref stringByAppendingString:@" %@."],name]];
-            [btnPass.titleLabel setText: @"Pass"];
-            [btnCancelPass.titleLabel setText: @"Cancel"];
+            pref = @"Dragging a picture to the left indicates you are not interested";
+            lblNopeTurotial.text = [pref localize];
+            [btnPass.titleLabel setText: [@"Pass" localize]];
+            [btnCancelPass.titleLabel setText: [@"Cancel" localize]];
             [likePopupView setHidden:YES];
             [notInterestedPopupView setHidden:NO];
             break;
         case interestedStatusYES:
-            pref = [@"Dragging a picture to the right indicates you liked" localize];
-            [lblLikeTurotial setText: pref];//[NSString stringWithFormat:[pref stringByAppendingString:@" %@."],name]];
-            [btnLike.titleLabel setText: @"Like"];
-            [btnCancelLike.titleLabel setText: @"Cancel"];
+            pref = @"Dragging a picture to the right indicates you liked";
+            lblLikeTurotial.text = [pref localize];
+            [btnLike.titleLabel setText: [@"Like" localize]];
+            [btnCancelLike.titleLabel setText: [@"Cancel" localize]];
             [likePopupView setHidden:NO];
             [notInterestedPopupView setHidden:YES];
             break;

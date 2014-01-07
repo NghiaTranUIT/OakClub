@@ -126,14 +126,19 @@
 //            [self.view addSubview:imgiDisable];
 //            [self.view sendSubviewToBack:imgAvatar];
             [btnContentAlert setHidden:YES];
-            [lblContentAlert setText:[@"Finding nearby people ..." localize]];
+            lblContentAlert.languageKey = @"Finding nearby people ...";
+            lblContentAlert.text = @"Finding nearby people ...";
+            [lblContentAlert localizeText];
             break;
         }
         case 1:
         {
             [btnContentAlert.titleLabel setAdjustsFontSizeToFitWidth:YES];
             [btnContentAlert setHidden:NO];
-            [lblContentAlert setText:[@"You've seen all the recommendations near you." localize]];
+            lblContentAlert.languageKey = @"You've seen all the recommendations near you.";
+            lblContentAlert.text = @"You've seen all the recommendations near you.";
+            [lblContentAlert localizeText];
+            
 //            [imgLoading setImage:[UIImage imageNamed:@"SnapshotLoading_map_loaded.png"]];
 //            [self.view addSubview:imgLoading];
             break;

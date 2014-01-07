@@ -47,7 +47,9 @@
     label.backgroundColor = [UIColor clearColor];
     label.font = FONT_HELVETICANEUE_LIGHT(18.0);//[UIFont boldSystemFontOfSize:20.0];
     label.textAlignment = NSTextAlignmentCenter;
-    [label setText:[@"Language" localize]];
+    label.languageKey = @"Language";
+    label.text = @"Language";
+    [label localizeText];
     label.textColor = [UIColor blackColor]; // change this color
     //[label setAdjustsFontSizeToFitWidth: YES];
     [label sizeToFit];

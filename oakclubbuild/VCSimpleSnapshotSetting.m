@@ -253,8 +253,6 @@ UITapGestureRecognizer *tap;
             break;
 #endif
         case AgeGroup:
-//            cell.detailTextLabel.text = [NSString stringWithFormat:@"%d-%d %@",snapshotObj.age_from,snapshotObj.age_to,[NSString localizeString:@"year old"]];
-//            cell.textLabel.text = @"Age around";
         {
             static NSString *rangeAgeCellID = @"RangeAgeCell";
             UITableViewCell *rangeAgeCell = [tableView dequeueReusableCellWithIdentifier:rangeAgeCellID];
@@ -275,7 +273,8 @@ UITapGestureRecognizer *tap;
                 rangeAgeCell.accessoryView = newCellView;
             }
             [lblRangeOfAge setText: [NSString stringWithFormat: @"%d %@ %d %@",snapshotObj.age_from,[@"to" localize],snapshotObj.age_to,[@"years old" localize]]];
-            [rangeAgeCell localizeAllViews];
+//            NSLog(@"lblRangeOfAge: %@", lblRangeOfAge);
+//            [rangeAgeCell localizeAllViews];
             return rangeAgeCell;
             break;
         }
@@ -302,8 +301,7 @@ UITapGestureRecognizer *tap;
                     UISwitch *autoSwitch = (id) [filterGuysCell viewWithTag:100];
                     autoSwitch.on = snapshotObj.hasMale;
                     
-                    filterGuysCell.textLabel.text = [NSString localizeString:@"Male"];
-                    [filterGuysCell localizeAllViews];
+                    filterGuysCell.textLabel.text = [@"Male" localize];
                     return filterGuysCell;
                 }
                     break;
@@ -328,8 +326,7 @@ UITapGestureRecognizer *tap;
                     UISwitch *autoSwitch = (id) [filterGirlsCell viewWithTag:101];
                     autoSwitch.on = snapshotObj.hasFemale;
                     
-                    filterGirlsCell.textLabel.text = [NSString localizeString:@"Female"];
-                    [filterGirlsCell localizeAllViews];
+                    filterGirlsCell.textLabel.text = [@"Female" localize];
                     return filterGirlsCell;
                 }
                     break;
@@ -356,7 +353,7 @@ UITapGestureRecognizer *tap;
                 rangeCell.accessoryView = newCellView;
             }
             lblRange.text = [self getRangeValue:snapshotObj.range];
-            [rangeCell localizeAllViews];
+//            [rangeCell localizeAllViews];
             return rangeCell;
             break;
         }
@@ -374,7 +371,7 @@ UITapGestureRecognizer *tap;
             NSString* selectedLanguage =[[NSUserDefaults standardUserDefaults] stringForKey:key_appLanguage];
             languageCell.textLabel.text = [appLangs objectForKey:selectedLanguage];
             
-            [languageCell localizeAllViews];
+//            [languageCell localizeAllViews];
             return languageCell;
             break;
         }
@@ -403,7 +400,8 @@ UITapGestureRecognizer *tap;
                 [btnContactUs setBackgroundImage:[UIImage imageNamed:@"SnapshotSetting_btn_contactus_inactive"] forState:UIControlStateNormal];
                 [btnContactUs setBackgroundImage:[UIImage imageNamed:@"SnapshotSetting_btn_contactus_active"] forState:UIControlStateHighlighted];
                 [btnContactUs setBackgroundImage:[UIImage imageNamed:@"SnapshotSetting_btn_contactus_active"] forState:UIControlStateSelected];
-                [btnContactUs setTitle:[@"Contact us" localize] forState:UIControlStateNormal];
+                btnContactUs.titleLabel.languageKey = @"Contact us";
+                [btnContactUs setTitle:@"Contact us" forState:UIControlStateNormal];
                 [btnContactUs setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
                 [btnContactUs setTitleColor:COLOR_PURPLE forState:UIControlStateHighlighted];
                 [btnContactUs setTitleEdgeInsets: UIEdgeInsetsMake(0, 45, 0, 0)];
@@ -417,6 +415,7 @@ UITapGestureRecognizer *tap;
                 [btnLogout setBackgroundImage:[UIImage imageNamed:@"SnapshotSetting_btn_logout_active"] forState:UIControlStateNormal];
                 [btnLogout setBackgroundImage:[UIImage imageNamed:@"SnapshotSetting_btn_logout_inactive"] forState:UIControlStateHighlighted];
                 [btnLogout setBackgroundImage:[UIImage imageNamed:@"SnapshotSetting_btn_logout_inactive"] forState:UIControlStateSelected];
+                btnLogout.titleLabel.languageKey = @"Logout";
                 [btnLogout setTitle:@"Logout" forState:UIControlStateNormal];
                 [btnLogout setTitleEdgeInsets:UIEdgeInsetsMake(0, 32, 0, 0)];
                 [btnLogout setTitleColor:COLOR_PURPLE forState:UIControlStateNormal];
@@ -450,7 +449,7 @@ UITapGestureRecognizer *tap;
             break;
         }
     }
-    cell.textLabel.text = [NSString localizeString:cell.textLabel.text];
+    
     [cell.detailTextLabel setFont: FONT_HELVETICANEUE_LIGHT(15.0)];
     cell.detailTextLabel.textColor = COLOR_PURPLE;
     [cell.textLabel setFont: FONT_HELVETICANEUE_LIGHT(15.0)];
@@ -480,7 +479,7 @@ UITapGestureRecognizer *tap;
             headerLbl.text = @"SHOW ME";
             break;
 #endif
-        case GenderSearchGroup:
+        case GenderSearchGroup: 
             headerLbl.text = @"I WOULD LIKE TO BE MATCHED WITH";
             break;
         case DistanceGroup:
@@ -516,18 +515,6 @@ UITapGestureRecognizer *tap;
     {
         case LanguageGroup:
         {
-//            if(row == 0){
-//                [[NSUserDefaults standardUserDefaults] setObject:value_appLanguage_VI forKey:key_appLanguage];
-//                [[NSUserDefaults standardUserDefaults] synchronize];
-//            }
-//            if(row == 1){
-//                [[NSUserDefaults standardUserDefaults] setObject:value_appLanguage_EN forKey:key_appLanguage];
-//                [[NSUserDefaults standardUserDefaults] synchronize];
-//            }
-//            [appDel updateLanguageBundle];
-//            [[self navBarOakClub] setHeaderName:[NSString localizeString:@"Settings"]];
-////            [appDel loadDataForList];
-//            [self.view localizeAllViews];
             
             VCAppLanguageChoose *appLangChoose = [[VCAppLanguageChoose alloc]initWithNibName:@"VCAppLanguageChoose" bundle:nil];
             [self.navigationController pushViewController:appLangChoose animated:YES];

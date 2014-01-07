@@ -239,6 +239,7 @@
     
     [self customNavigationHeader];
 }
+
 -(void)viewWillDisappear:(BOOL)animated{
     appDel._messageDelegate =nil;
     [self clearCustomNavigationHeader];
