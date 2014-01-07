@@ -21,12 +21,18 @@
 //===============FLAG FOR ENABLE/DISABLE FEATURES============
 //disable hereTo and show me in Snapshot Settings
 #define DISABLE_HERETO_SHOWME
+
 //disable policty
-#define DISABLE_POCLICY false
+#define DISABLE_POCLICY TRUE
+
 // enable Select location manually
 //#define ENABLE_LOCATION_MANUALLY
+
 //view other's profile with full data
 #define VIEWPROFILE_FULLDATA true
+
+//show matchmaker in leftmenu
+#define ENABLE_MATCHMAKER true
 
 //Hangout
 #define sOnline @"Online"
@@ -159,6 +165,8 @@
 #define URL_uploadVideo @"service/uploadVideo"
 #define URL_updateProfileFirstTime @"service/updateProfileFirstTime"
 #define URL_ping @"service/pingActivities"
+#define URL_getMatchmakerFriendList @"service/matchMarkerInit"
+#define URL_sendMatchmaker @"service/makeMatching"
 //================ service API keys ================
 //root
 #define key_status @"status"
@@ -198,8 +206,10 @@
 #define key_location @"location"
 //#define key_locationID @"id"
 #define key_isLike @"is_like"
+#define key_likeTime @"like_time"
 #define key_isVip @"is_vip"
 #define key_statusTime @"time"
+#define key_matchTime @"match_time"
 #define key_locationName @"name"
 #define key_locationCountry @"country"
 #define key_locationCountryCode @"country_code"

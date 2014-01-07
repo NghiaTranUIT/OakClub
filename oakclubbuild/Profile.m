@@ -22,7 +22,7 @@
 
 @synthesize s_Name, i_Points, s_ProfileStatus, s_FB_id, s_ID, dic_Roster,num_Photos, s_gender, num_points,/* num_unreadMessage,*/ s_passwordXMPP, s_usenameXMPP, arr_photos, s_aboutMe, s_birthdayDate, s_interested,a_language, hometown, s_location,s_relationShip, c_ethnicity, s_age, s_meetType, s_popularity, s_interestedStatus, s_snapshotID, a_favorites, s_user_id,s_school,i_work, i_height,i_weight, num_MutualFriends, num_Liked,num_Viewed, s_Email, distance, active, s_video;
 
-@synthesize s_status_time, arr_MutualFriends, arr_MutualInterests, new_mutual_attractions;
+@synthesize s_status_time, match_time, arr_MutualFriends, arr_MutualInterests, new_mutual_attractions;
 
 
 @synthesize is_deleted;
@@ -507,6 +507,7 @@
                 profile.is_match = [[objectData valueForKey:key_match] boolValue];
                 profile.is_vip = [[objectData valueForKey:key_isVip] boolValue];
                 profile.s_status_time = [objectData valueForKey:key_statusTime];
+                profile.match_time = [objectData valueForKey:key_matchTime];
                 profile.s_Name =[objectData valueForKey:key_name];
                 profile.s_Avatar = [objectData valueForKey:key_avatar];
                 [rosterDict setObject:profile forKey:profile.s_ID];
@@ -579,6 +580,7 @@
     self.num_Liked =[[data valueForKey:key_liked] integerValue];
     self.distance = [[data valueForKey:key_distance] integerValue];
     self.active = [[data valueForKey:key_active] integerValue];
+    self.match_time = [data valueForKey:key_matchTime];
 }
 
 -(void)parseGetSnapshotToProfileFullData:(NSData *)jsonData
@@ -593,7 +595,7 @@
     }
     
     self.s_Name = [data valueForKey:key_name];
-    self.s_Name = [self getFirstNameWithName:self.s_Name];
+//    self.s_Name = [self getFirstNameWithName:self.s_Name];
     self.s_ID = [data valueForKey:key_profileID];
     self.s_age = [data valueForKey:key_age];
     self.s_snapshotID =[data valueForKey:key_snapshotID];
@@ -667,6 +669,7 @@
     }
     
     self.is_like = [[data valueForKey:key_isLike] boolValue];
+    self.match_time = [data valueForKey:key_likeTime];
 }
 
 -(Gender*) parseGender:(NSNumber *)genderCode{
@@ -875,6 +878,7 @@
     accountCopy.s_snapshotID = [s_snapshotID copyWithZone:zone];
     accountCopy.s_interestedStatus = [s_interestedStatus copyWithZone:zone];
     accountCopy.s_status_time = [s_status_time copyWithZone:zone];
+    accountCopy.match_time = [match_time copyWithZone:zone];
     accountCopy.s_passwordXMPP = [s_passwordXMPP copyWithZone:zone];
     accountCopy.s_usenameXMPP = [s_usenameXMPP copyWithZone:zone];
     accountCopy.dic_Roster = [dic_Roster copyWithZone:zone];

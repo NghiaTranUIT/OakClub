@@ -22,11 +22,13 @@
 #import "VCReportPopup.h"
 #import "ChatNavigationView.h"
 #import "SmileyChooseCell.h"
+#import "UIView+Localize.h"
 
 @interface SMChatViewController()
 @property UIImageView* headerLogo;
 @property (strong, nonatomic) PSUICollectionView *smileyCollection;
 @property (weak, nonatomic) IBOutlet UIView *textInputView;
+@property (strong, nonatomic) IBOutlet SMChat_FirstViewMatchView *firstViewMatchView;
 @end
 
 @implementation SMChatViewController
@@ -142,7 +144,6 @@
         }];
 //        avatar_me = [UIImage imageNamed:@"Default Avatar.png"];
 //        [myProfile tryGetImageAsync:self];
-        
 	}
 	
 	return self;
@@ -304,10 +305,28 @@
     
 	appDel = [self appDelegate];
 	appDel._messageDelegate = self;
-	[self.messageField becomeFirstResponder];
     
     [label_header setText:userName];
     
+    if (userProfile.status == MatchUnViewed)
+    {
+        userProfile.status = MatchViewed;
+        [appDel.myProfile setViewedMatchMutualWithFriend:userProfile];
+        
+        [self.tView removeFromSuperview];
+        [[self firstViewMatchView] setMatchedProfile:userProfile andImagepool:appDel.imagePool];
+        [self.scrollView addSubview:self.firstViewMatchView];
+        
+        [self.view setUserInteractionEnabled:NO];
+        [self.firstViewMatchView animateWithCompletion:^{
+            [self.view setUserInteractionEnabled:YES];
+        }];
+    }
+    else if (userProfile.status == ChatUnviewed)
+    {
+        userProfile.status = ChatViewed;
+        [appDel.myProfile resetUnreadMessageWithFriend:userProfile];
+    }
 }
 
 -(void)dismissKeyboard:(id)sender {
@@ -388,7 +407,7 @@
         [self addMessage:messageStr atTime:time fromUser:[self appDelegate].myProfile.s_ID toUser:hangout_id];
         userProfile.status = ChatViewed;
         NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
-        [dateFormat setDateFormat:DATE_FORMAT];
+        [dateFormat setDateFormat:DATETIME_FORMAT];
         userProfile.s_status_time = [dateFormat stringFromDate:[[NSDate alloc] init]];
         
 		[self.tView reloadData];
@@ -713,6 +732,18 @@ static float cellWidth = 320;
 
 - (void)keyboardWillShown:(NSNotification*)aNotification {
     [self dismissSmileyCollection:nil];
+    
+    if (![self.scrollView.subviews containsObject:self.tView])
+    {
+        [self.scrollView addSubview:self.tView];
+        [self.tView setAlpha:0];
+        [UIView animateWithDuration:0.5 animations:^{
+            [self.firstViewMatchView setAlpha:0];
+            [self.tView setAlpha:1];
+        } completion:^(BOOL finished) {
+            [self.firstViewMatchView removeFromSuperview];
+        }];
+    }
 }
 
 - (void)keyboardWasShown:(NSNotification*)aNotification {
@@ -929,5 +960,121 @@ static float cellWidth = 320;
     
     self.messageField.text = [self.messageField.text stringByAppendingString:smileyText];
     
+}
+@end
+
+
+
+@implementation SMChat_FirstViewMatchView
+{
+    Profile *matchedProfile;
+    AppDelegate *appDel;
+}
+- (id)initWithFrame:(CGRect)frame
+{
+    self = [super initWithFrame:frame];
+    if (self) {
+        // Initialization code
+        
+        appDel = (id) [UIApplication sharedApplication].delegate;
+    }
+    return self;
+}
+
+/*
+ // Only override drawRect: if you perform custom drawing.
+ // An empty implementation adversely affects performance during animation.
+ - (void)drawRect:(CGRect)rect
+ {
+ // Drawing code
+ }
+ */
+
+-(void)setMatchedProfile:(Profile *)profile andImagepool:(ImagePool *)imgPool
+{
+    matchedProfile = profile;
+    
+    [self updateLabels];
+    
+    [self circlizeAvatar];
+    [imgPool getImageAtURL:profile.s_Avatar withSize:PHOTO_SIZE_LARGE asycn:^(UIImage *img, NSError *error, bool isFirstLoad, NSString *urlWithSize) {
+        [self.imgAvatar setImage:img];
+    }];
+}
+
+-(void)updateLabels
+{
+    self.lblMatchedWith.text = [NSString stringWithFormat:@"%@ %@", [@"You matched with " localize], matchedProfile.firstName];
+    
+    NSString *matchTime = matchedProfile.match_time;
+//    NSString *matchTime = @"12/30/2013 00:00:00";
+    NSDate* date = [NSString getDateWithString:matchTime];
+    NSString *timeInterval = dateToStringInterval(date);
+    self.lblMatchedTime.text = timeInterval;
+}
+
+-(void)circlizeAvatar
+{
+    [self.imgAvatar.layer setCornerRadius:(self.imgAvatar.layer.frame.size.width / 2)];
+    [self.imgAvatar.layer setMasksToBounds:YES];
+}
+
+-(void)localizeAllViews
+{
+    [super localizeAllViews];
+    
+    [self updateLabels];
+}
+
+-(void)animateWithCompletion:(void(^)(void))completion
+{
+    CGAffineTransform idTransform = self.transform;
+    CGAffineTransform transform1 = CGAffineTransformScale(idTransform, 0.1, 0.1);
+    CGAffineTransform transform2 = CGAffineTransformScale(idTransform, 1.1, 1.1);
+    CGAffineTransform transform3 = CGAffineTransformScale(idTransform, 0.9, 0.9);
+    
+    self.transform = transform1;
+    
+//    [UIView animateWithDuration:0.4 animations:^{
+//        self.transform = transform2;
+//    } completion:^(BOOL finished) {
+//        [UIView animateWithDuration:0.1 animations:^{
+//            self.transform = transform3;
+//        } completion:^(BOOL finished) {
+//            [UIView animateWithDuration:0.05 animations:^{
+//                self.transform = idTransform;
+//            } completion:^(BOOL finished) {
+//                
+//                if (completion)
+//                {
+//                    completion();
+//                }
+//            }];
+//        }];
+//    }];
+    
+    [UIView animateWithDuration:0.4 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+        self.transform = transform2;
+    } completion:^(BOOL finished) {
+        [UIView animateWithDuration:0.2 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+            self.transform = transform3;
+        } completion:^(BOOL finished) {
+            [UIView animateWithDuration:0.15 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+                self.transform = idTransform;
+            } completion:^(BOOL finished) {
+                if (completion)
+                {
+                    completion();
+                }
+            }];
+        }];
+    }];
+    
+    self.alpha = 0;
+    [UIView animateWithDuration:0.6 animations:^{
+        self.alpha = 1;
+    } completion:^(BOOL finished) {
+        
+    }];
 }
 @end

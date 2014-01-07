@@ -166,7 +166,11 @@
 
 #pragma mark tableview Delegate
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+#if ENABLE_MATCHMAKER
     return [imageNames count];
+#else
+    return [imageNames count] - 1;
+#endif
 }
 -(float)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     return 64;//80;
@@ -259,6 +263,9 @@
             [self activityAction];
             //            [appDel  logOut];
             break;
+        case 4:
+            // show matchmaker
+            [appDel showMatchmaker];
         default:
             break;
     }
@@ -328,7 +335,8 @@
 
 - (NSArray *)getListMenuItems{
 #if ENABLE_DEMO
-    NSString *path = [[NSBundle mainBundle] pathForResource:@"menu_simple" ofType:@"plist"];
+    NSString *menuFile = @"menu_simple";
+    NSString *path = [[NSBundle mainBundle] pathForResource:menuFile ofType:@"plist"];
     NSData *plistData = [NSData dataWithContentsOfFile:path];
     NSString *error; NSPropertyListFormat format;
     NSArray *imgNames = [NSPropertyListSerialization propertyListFromData:plistData

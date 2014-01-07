@@ -76,6 +76,7 @@ NSString *const kXMPPmyPassword = @"kXMPPmyPassword";
 #if ENABLE_DEMO
 @synthesize simpleSnapShot = _simpleSnapShot;
 @synthesize snapShotSettings = _snapShotSettings;
+@synthesize matchMaker = _matchMaker;
 @synthesize snapshotLoading = _snapshotLoading;
 // multi language
 @synthesize languageBundle = _languageBundle;
@@ -233,6 +234,7 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
     self.simpleSnapShot = [self createNavigationByClass:@"VCSimpleSnapshot" AndHeaderName:nil andRightButton:@"VCChat" andIsStoryBoard:NO];
     //     self.snapShotSettings = [self.storyboard instantiateViewControllerWithIdentifier:@"SnapshotSettings"];
     self.snapShotSettings = [self createNavigationByClass:@"VCSimpleSnapshotSetting" AndHeaderName:@"Settings" andRightButton:@"VCChat" andIsStoryBoard:NO];
+    self.matchMaker = [self createNavigationByClass:@"MatchMaker" AndHeaderName:@"Matchmaker" andRightButton:@"VCChat" andIsStoryBoard:NO];
     self.snapshotLoading = [self createNavigationByClass:@"VCSimpleSnapshotLoading" AndHeaderName:nil andRightButton:@"VCChat" andIsStoryBoard:NO];
     self.myProfileVC = [self createNavigationByClass:@"VCMyProfile" AndHeaderName:@"Edit Profile" andRightButton:@"VCChat" andIsStoryBoard:NO];
 //    self.getPoints = [self createNavigationByClass:@"VCGetPoints" AndHeaderName:@"Get Coins" andRightButton:nil andIsStoryBoard:NO];
@@ -361,6 +363,15 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
     activeVC = _snapShotSettings;
     AppDelegate *appDel = self;
     [self.rootVC setFrontViewController:self.snapShotSettings focusAfterChange:YES completion:^(BOOL finished) {
+        [appDel.rootVC setRightViewController:appDel.chat];
+    }];
+}
+-(void)showMatchmaker {
+    //    [self.rootVC setRootController:self.snapShoot animated:YES];
+    //    [self.rootVC setContentViewController:self.snapShoot snapToContentViewController:YES animated:YES];
+    activeVC = _matchMaker;
+    AppDelegate *appDel = self;
+    [self.rootVC setFrontViewController:self.matchMaker focusAfterChange:YES completion:^(BOOL finished) {
         [appDel.rootVC setRightViewController:appDel.chat];
     }];
 }
@@ -1786,7 +1797,7 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
         AFHTTPClient *request = [[AFHTTPClient alloc] initWithOakClubAPI:DOMAIN];
         
         [request getPath:URL_ping parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-            NSLog(@"Ping to server completed with respond %@", [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding]);
+            NSLog(@"Ping to server completed");
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             NSLog(@"Cannot ping to server with error %@", [error localizedDescription]);
         }];

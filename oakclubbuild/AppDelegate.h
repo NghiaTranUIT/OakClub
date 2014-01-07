@@ -100,6 +100,7 @@ extern NSString *const SCSessionStateChangedNotification;
 @property (strong, nonatomic) UINavigationController *chat;
 #if ENABLE_DEMO
 @property (strong, nonatomic) UINavigationController *snapShotSettings;
+@property (strong, nonatomic) UINavigationController *matchMaker;
 @property (strong, nonatomic) UINavigationController *simpleSnapShot;
 @property (strong, nonatomic) UINavigationController *snapshotLoading;
 //multi Language
@@ -145,6 +146,7 @@ extern NSString *const SCSessionStateChangedNotification;
 -(void)gotoVCAtCompleteLogin;
 #if ENABLE_DEMO
 -(void)showSnapshotSettings;
+-(void)showMatchmaker;
 -(void)showSimpleSnapshot;
 -(void)showSimpleSnapshotThenFocus:(BOOL)focus;
 //-(void)showSnapshotLoadingThenFocus:(BOOL)focus;
