@@ -83,7 +83,9 @@ UITapGestureRecognizer *tap;
             [self.btnUploadVideo setHidden:YES];
             
             //the image is not avaialbe inmediately after upload successfully
-            [self performSelector:@selector(refreshThumbImage) withObject:nil afterDelay:3];
+            self.imgViewVideoThumb.userInteractionEnabled = NO;
+            
+            [self performSelector:@selector(refreshThumbImage) withObject:nil afterDelay:8];
         }
             
             break;
@@ -92,6 +94,8 @@ UITapGestureRecognizer *tap;
 
 - (void)refreshThumbImage
 {
+    self.imgViewVideoThumb.userInteractionEnabled = YES;
+    
     NSString *videoThumbLink = [profileObj.s_video stringByReplacingOccurrencesOfString:@".mov" withString:@".jpg"];
     [appDelegate.imagePool getImageAtURL:videoThumbLink withSize:PHOTO_SIZE_LARGE asycn:^(UIImage *img, NSError *error, bool isFirstLoad, NSString *urlWithSize) {
         if (img)
@@ -174,6 +178,7 @@ UITapGestureRecognizer *tap;
             NSString *link = profileObj.s_video;
             profileObj.s_video = [NSString stringWithFormat:@"%@%@.mov", DOMAIN_VIDEO, link];
             appDelegate.myProfile.s_video = [NSString stringWithFormat:@"%@%@.mov", DOMAIN_VIDEO, link];
+            NSLog(@"Link %@",profileObj.s_video);
         }
 
         [self setVideoStatus:1];
@@ -1105,11 +1110,11 @@ UITapGestureRecognizer *tap;
 {
     if (isVideoUploading)
     {
-        [self showWarning:@"You are uploading another video." withTag:3];
+        [self showWarning:@"You are uploading another video" withTag:3];
     }
     else if (profileObj.s_video && ![@"" isEqualToString:profileObj.s_video])
     {
-        [self showOKCancelWarning:@"Do you want to upload new videos" withTag:4];
+        [self showOKCancelWarning:@"Do you want to upload new video" withTag:4];
     }
     else
     {
