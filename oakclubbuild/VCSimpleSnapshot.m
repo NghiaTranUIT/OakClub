@@ -320,6 +320,7 @@ CGFloat pageHeight;
                     }
                     
                 }];
+                
                 [profileList addObject:profile];
             }
             if(handler != nil)
@@ -962,7 +963,9 @@ CGFloat pageHeight;
     [self.moveMeView removeSubviewFromCardViewWithTag:101];
     
     NSLog(@"answerType: %d, %d", answerType, self.isContinueLoad);
-    if(answerType != -1 && self.isContinueLoad){
+    if (answerType == -1) {
+        
+    } else if(answerType != -1 && self.isContinueLoad){
         [self loadCurrentProfile];
         [self loadNextProfileByCurrentIndex];
     }
