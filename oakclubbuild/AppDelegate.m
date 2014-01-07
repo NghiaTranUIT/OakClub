@@ -233,8 +233,8 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
 
     self.simpleSnapShot = [self createNavigationByClass:@"VCSimpleSnapshot" AndHeaderName:nil/*[NSString localizeString:@"Snapshot"]*/ andRightButton:@"VCChat" andIsStoryBoard:NO];
     //     self.snapShotSettings = [self.storyboard instantiateViewControllerWithIdentifier:@"SnapshotSettings"];
-    self.snapShotSettings = [self createNavigationByClass:@"VCSimpleSnapshotSetting" AndHeaderName:[NSString localizeString:@"Settings"] andRightButton:@"VCChat" andIsStoryBoard:NO];
-    self.matchMaker = [self createNavigationByClass:@"MatchMaker" AndHeaderName:[NSString localizeString:@"Matchmaker"] andRightButton:@"VCChat" andIsStoryBoard:NO];
+    self.snapShotSettings = [self createNavigationByClass:@"VCSimpleSnapshotSetting" AndHeaderName:@"Settings" andRightButton:@"VCChat" andIsStoryBoard:NO];
+    self.matchMaker = [self createNavigationByClass:@"MatchMaker" AndHeaderName:@"Matchmaker" andRightButton:@"VCChat" andIsStoryBoard:NO];
     self.snapshotLoading = [self createNavigationByClass:@"VCSimpleSnapshotLoading" AndHeaderName:nil andRightButton:@"VCChat" andIsStoryBoard:NO];
     self.myProfileVC = [self createNavigationByClass:@"VCMyProfile" AndHeaderName:[NSString localizeString:@"Edit Profile"] andRightButton:@"VCChat" andIsStoryBoard:NO];
 //    self.getPoints = [self createNavigationByClass:@"VCGetPoints" AndHeaderName:@"Get Coins" andRightButton:nil andIsStoryBoard:NO];
