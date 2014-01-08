@@ -268,14 +268,7 @@
         //[pickerView reloadAllComponents];
         //[pickerView selectRow:0 inComponent:0 animated:YES];
         [self disableAll: YES];
-        
-//         UIAlertView *alert = [[UIAlertView alloc]
-//                                    initWithTitle:[@"Choose your language" localize]
-//                                    message:@""
-//                                    delegate:self
-//                                    cancelButtonTitle:nil
-//                                    otherButtonTitles:@"Tiếng Việt", @"English", @"Deutsch", @"Indonesia", nil];
-//        [alert show];
+
 
     }
     else
@@ -296,12 +289,12 @@
 }
 
 - (NSString *)pickerView:(UIPickerView *)pkView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
-    NSString *langID = [[appLanguages allKeys] objectAtIndex:row];
+    NSString *langID = [AppLanguageKeyList objectAtIndex:row];
     return [appLanguages valueForKey:langID];
     
 }
 - (void)pickerView:(UIPickerView *)pkView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
-    NSString *langID = [[appLanguages allKeys] objectAtIndex:row];
+    NSString *langID = [AppLanguageKeyList objectAtIndex:row];
     NSLog(@"abc: %@", langID);
     [[NSUserDefaults standardUserDefaults] setObject: langID forKey:key_appLanguage];
     [[NSUserDefaults standardUserDefaults] synchronize];
@@ -309,62 +302,6 @@
     NSString* str=[appDelegate.languageBundle localizedStringForKey:@"was selected" value:@"" table:nil];
     NSLog(@"%@ %@",langID, str);
     //[self.view localizeAllViews];
-}
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-    NSString *title = [alertView buttonTitleAtIndex:buttonIndex];
-    if([title isEqualToString:@"Tiếng Việt"])
-    {
-        [[NSUserDefaults standardUserDefaults] setObject:value_appLanguage_VI forKey:key_appLanguage];
-        [[NSUserDefaults standardUserDefaults] synchronize];
-//        NSString* selectedLanguage =[[NSUserDefaults standardUserDefaults] stringForKey:key_appLanguage];
-        [appDelegate updateLanguageBundle];
-        NSString* str=[appDelegate.languageBundle localizedStringForKey:@"was selected" value:@"" table:nil];
-        NSLog(@"Vietnamese %@",str);
-    }
-    else if([title isEqualToString:@"English"])
-    {
-        [[NSUserDefaults standardUserDefaults] setObject:value_appLanguage_EN forKey:key_appLanguage];
-        [[NSUserDefaults standardUserDefaults] synchronize];
-        [appDelegate updateLanguageBundle];
-        NSString* str=[appDelegate.languageBundle localizedStringForKey:@"was selected" value:@"" table:nil];
-        NSLog(@"English %@",str);
-    }
-    else if([title isEqualToString:@"Deutsch"])
-    {
-        [[NSUserDefaults standardUserDefaults] setObject:value_appLanguage_DE forKey:key_appLanguage];
-        [[NSUserDefaults standardUserDefaults] synchronize];
-        [appDelegate updateLanguageBundle];
-        NSString* str=[appDelegate.languageBundle localizedStringForKey:@"was selected" value:@"" table:nil];
-        NSLog(@"German %@",str);
-    }
-    else if([title isEqualToString:@"Indonesia"])
-    {
-        [[NSUserDefaults standardUserDefaults] setObject:value_appLanguage_ID forKey:key_appLanguage];
-        [[NSUserDefaults standardUserDefaults] synchronize];
-        [appDelegate updateLanguageBundle];
-        NSString* str=[appDelegate.languageBundle localizedStringForKey:@"was selected" value:@"" table:nil];
-        NSLog(@"Indonesia %@",str);
-    }
-    else if([title isEqualToString:@"ภาษาไทย"])
-    {
-        [[NSUserDefaults standardUserDefaults] setObject:value_appLanguage_TH forKey:key_appLanguage];
-        [[NSUserDefaults standardUserDefaults] synchronize];
-        [appDelegate updateLanguageBundle];
-        NSString* str=[appDelegate.languageBundle localizedStringForKey:@"was selected" value:@"" table:nil];
-        NSLog(@"ภาษาไทย %@",str);
-    }
-    else if([title isEqualToString:@"Türk"])
-    {
-        [[NSUserDefaults standardUserDefaults] setObject:value_appLanguage_TR forKey:key_appLanguage];
-        [[NSUserDefaults standardUserDefaults] synchronize];
-        [appDelegate updateLanguageBundle];
-        NSString* str=[appDelegate.languageBundle localizedStringForKey:@"was selected" value:@"" table:nil];
-        NSLog(@"Türk %@",str);
-    }
-    
-    [self.view localizeAllViews];
-    //[appDelegate loadAllViewControllers];
 }
 
 -(void) disableAll: (BOOL) value
@@ -415,7 +352,7 @@
         [languageCell.textLabel setFont: FONT_HELVETICANEUE_LIGHT(17.0)];
     }
     
-    NSString *langID = [appLanguages allKeys][indexPath.row];
+    NSString *langID = AppLanguageKeyList[indexPath.row];
     NSString *currentLang = [[NSUserDefaults standardUserDefaults] valueForKey:key_appLanguage];
     languageCell.textLabel.text = appLanguages[langID];
     if ([langID isEqualToString:currentLang])
@@ -441,7 +378,7 @@
 
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{    NSString *langID = [appLanguages allKeys][indexPath.row];
+{    NSString *langID = AppLanguageKeyList[indexPath.row];
     [[NSUserDefaults standardUserDefaults] setObject:langID forKey:key_appLanguage];
     [[NSUserDefaults standardUserDefaults] synchronize];
     

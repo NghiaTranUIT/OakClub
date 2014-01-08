@@ -1,5 +1,11 @@
 "Asia Leading Facebook Dating App"="Asia Leading Facebook Dating App";
 "Choose your language"="Choose your language";
+"English"="English";
+"Vietnamese"="Vietnamese";
+"Germany"="Germany";
+"Bahasa"="Bahasa";
+"Thai"="Thai";
+"Turkish"="Turkish";
 "Cancel"="Cancel";
 "Anonymouly \"like\" or \"pass\" on people OakClub suggests"="Anonymouly \"like\" or \"pass\" on people OakClub suggests";
 "Sign in with Facebook"="Sign in with Facebook";
@@ -11,8 +17,9 @@
 "Keep Swiping!"="Keep Swiping!";
 "Chat with your matches inside the app"="Chat with your matches inside the app";
 "Finding nearby people ..."="Finding nearby people ...";
-"\"Oakclub\" would like to use your current location"="\"Oakclub\" would like to use your current location";
+"\"\"\"Oakclub\"\" would like to use your current location\""="\"\"\"Oakclub\"\" would like to use your current location\"";
 "Recommendations will be presented based on your location"="Recommendations will be presented based on your location";
+"OK"="OK";
 "Ok"="Ok";
 "Other user will never know if you've liked them unless they like you back"="Other user will never know if you've liked them unless they like you back";
 "Other user can't contact you unless you've already been matched"="Other user can't contact you unless you've already been matched";
@@ -181,3 +188,5 @@
 "All"="All";
 "Update profile"="Update profile";
 "or"="or";
+"Do you want to upload new video" = "Do you want to upload new video";
+"You are uploading another video" = "You are uploading another video";

@@ -1851,7 +1851,7 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
     NSUserDefaults* defs = [NSUserDefaults standardUserDefaults];
     NSArray* languages = [defs objectForKey:@"AppleLanguages"];
     NSString* preferredLang = [languages objectAtIndex:0];
-    NSLog(@"Language: %@", preferredLang);
+    NSLog(@"Language machine: %@", preferredLang);
     return preferredLang;
 }
 

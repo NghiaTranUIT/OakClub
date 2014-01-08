@@ -1,5 +1,11 @@
 "Asia Leading Facebook Dating App"="Die aufregendste Facebook Dating App";
 "Choose your language"="Wähle Deine Sprache";
+"English"="Englisch";
+"Vietnamese"="Vietnamesisch";
+"Germany"="Deutsch";
+"Bahasa"="Indonesisch";
+"Thai"="Thailändisch";
+"Turkish"="Türkisch";
 "Cancel"="Abbrechen";
 "Anonymouly \"like\" or \"pass\" on people OakClub suggests"="Vorgeschlagene Personen anonym \"mögen\" oder \"ablehnen\"";
 "Sign in with Facebook"="Melde Dich mit Facebook an";
@@ -11,8 +17,9 @@
 "Keep Swiping!"="Swipe Weiter!";
 "Chat with your matches inside the app"="Chatte mit Deinen Verbindungen innerhalb der App";
 "Finding nearby people ..."="Leute in Deiner Umgebung finden ...";
-"\"Oakclub\" would like to use your current location"="\"OakClub\" würde gerne Deine Ortsangaben nutzen";
+"\"\"\"Oakclub\"\" would like to use your current location\""="\"\"\"OakClub\"\" würde gerne Deine Ortsangaben nutzen\"";
 "Recommendations will be presented based on your location"="Unsere Vorschläge sind ortsbezogen";
+"OK"="Ok";
 "Ok"="Ok";
 "Other user will never know if you've liked them unless they like you back"="Andere Leute werden niemals erfahren ob Du Sie geliked hast, es sei denn sie liken Dich zurück";
 "Other user can't contact you unless you've already been matched"="Andere Leute können Dich nicht kontaktieren, es sei denn, Ihr seid als \"Volltreffer\" bereits miteinander verbunden";
@@ -181,3 +188,5 @@
 "All"="Alle";
 "Update profile"="Profil aktualisieren";
 "or"="oder";
+"Do you want to upload new video" = "Bạn có muốn tải lên video mới";
+"You are uploading another video" = "Bạn đang tải lên một video khác";

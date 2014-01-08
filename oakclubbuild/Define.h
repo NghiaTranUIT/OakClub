@@ -91,25 +91,80 @@
 //============== application value =============
 #define flagLanguage true
 
-
-#define value_appLanguage_VI @"vi" //Vietnamese
 #define value_appLanguage_EN @"en" //English
+#define value_appLanguage_VI @"vi" //Vietnamese
 #define value_appLanguage_DE @"de" //Germany
 #define value_appLanguage_ID @"id" //Indonesia
 #define value_appLanguage_TH @"th" //Thai
+#define value_appLanguage_RU @"ru" //Russian
+#define value_appLanguage_ES @"es" //Spanish
+#define value_appLanguage_FR @"fr" //French
 #define value_appLanguage_TR @"tr" //Turkish
-#define value_appLanguage_FR @"fr" //France
-#define value_appLanguage_ES @"es" //Espano
+#define value_appLanguage_DA @"da" //Danish
+#define value_appLanguage_NB @"nb" //Norwegian
+#define value_appLanguage_SV @"sv" //Swedish
+#define value_appLanguage_RO @"ro" //Romanian
+#define value_appLanguage_PL @"pl" //Polish
+#define value_appLanguage_BG @"bg" //Bulgarian
+#define value_appLanguage_HU @"hu" //Hungarian
+#define value_appLanguage_HR @"hr" //Croatian
+#define value_appLanguage_EL @"el" //Greek
+
+//#define value_appLanguage_ES @"es" //Espano
+
+
 #if flagLanguage
+
+#define AppLanguageKeyList ([NSArray arrayWithObjects:\
+    value_appLanguage_EN,\
+    value_appLanguage_VI,\
+    value_appLanguage_DE,\
+    value_appLanguage_ID,\
+    value_appLanguage_TH,\
+    value_appLanguage_RU,\
+    value_appLanguage_ES,\
+    value_appLanguage_FR,\
+    value_appLanguage_TR,\
+    value_appLanguage_DA,\
+    value_appLanguage_NB,\
+    value_appLanguage_SV,\
+    value_appLanguage_RO,\
+    value_appLanguage_PL,\
+    value_appLanguage_BG,\
+    value_appLanguage_HU,\
+    value_appLanguage_HR,\
+    value_appLanguage_EL,\
+    nil])
+
 #define AppLanguageList ([NSDictionary dictionaryWithObjectsAndKeys:\
-                                @"Tiếng Việt", value_appLanguage_VI,\
                                 @"English", value_appLanguage_EN,\
+                                @"Tiếng Việt", value_appLanguage_VI,\
                                 @"Deutsch", value_appLanguage_DE,\
                                 @"Bahasa Indonesia", value_appLanguage_ID,\
                                 @"ภาษาไทย", value_appLanguage_TH,\
+                                @"Russian", value_appLanguage_RU,\
+                                @"Español", value_appLanguage_ES,\
+                                @"Français", value_appLanguage_FR,\
                                 @"Türkce", value_appLanguage_TR,\
+                                @"Dansk", value_appLanguage_DA,\
+                                @"Norwegian", value_appLanguage_NB,\
+                                @"Swedish", value_appLanguage_SV,\
+                                @"Romanian", value_appLanguage_RO,\
+                                @"Polish", value_appLanguage_PL,\
+                                @"Bulgarian", value_appLanguage_BG,\
+                                @"Hungarian", value_appLanguage_HU,\
+                                @"Croatian", value_appLanguage_HR,\
+                                @"Greek", value_appLanguage_EL,\
                                 nil])
 #else
+
+#define AppLanguageKeyList ([NSArray arrayWithObjects:\
+    value_appLanguage_VI,\
+    value_appLanguage_EN,\
+    value_appLanguage_DE,\
+    value_appLanguage_ID,\
+    nil])
+
 #define AppLanguageList ([NSDictionary dictionaryWithObjectsAndKeys:\
                                 @"Tiếng Việt", value_appLanguage_VI,\
                                 @"English", value_appLanguage_EN,\

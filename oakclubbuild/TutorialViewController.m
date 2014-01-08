@@ -134,9 +134,9 @@
             [content1Label setText: @""];
             [content2Label setText: @""];
             [content3Label setText: @""];
-            NSString *content1String = [@"Swipe photo Right to LIKE a profile" localize];
-            NSString *content2String = [@"Swipe photo Left to PASS a profile" localize];
-            NSString *content3String = [@"Or just use PASS / LIKE button below" localize];
+            NSString *content1String = [@"Swipe photo Right\nto LIKE a profile" localize];
+            NSString *content2String = [@"Swipe photo Left\nto PASS a profile" localize];
+            NSString *content3String = [@"Or just use PASS / LIKE\nbutton below" localize];
             
             
             [content1Label setLineBreakMode: NSLineBreakByWordWrapping];
@@ -200,7 +200,7 @@
             UILabel *content1Label = [[UILabel alloc] init];
             [content1Label setText: @""];
             
-            NSString *content1String = [@"If you match with someone you can chat with them privately" localize];
+            NSString *content1String = [@"If you match with someone\nyou can chat with them privately" localize];
             [content1Label setLineBreakMode: NSLineBreakByWordWrapping];
             [content1Label setNumberOfLines: 0];
             [content1Label setText: content1String];
@@ -226,8 +226,8 @@
             [content1Label setText: @""];
             [content2Label setText: @""];
             
-            NSString *content1String = [@"You can edit your profile here" localize];
-            NSString *content2String = [@"You can choose who to see here" localize];
+            NSString *content1String = [@"You can edit your\nprofile here" localize];
+            NSString *content2String = [@"You can choose\nwho to see here" localize];
             
             [content1Label setLineBreakMode: NSLineBreakByWordWrapping];
             [content1Label setNumberOfLines: 0];

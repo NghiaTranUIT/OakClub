@@ -1178,7 +1178,7 @@ UITapGestureRecognizer *tap;
                           
                           profileObj.s_video = [NSString stringWithFormat:@"%@.mov", link];
                           appDelegate.myProfile.s_video = [NSString stringWithFormat:@"%@.mov", link];
-                          NSLog(@"Link video %@",link);
+                     
                           
                           self.videoStatus = 1;
                           

@@ -1,7 +1,13 @@
 "Asia Leading Facebook Dating App"="Ứng dụng hẹn hò từ Facebook hàng đầu Châu Á";
 "Choose your language"="Chọn ngôn ngữ";
+"English"="Tiếng Anh";
+"Vietnamese"="Tiếng Việt";
+"Germany"="Tiếng Đức";
+"Bahasa"="Tiếng Indonesia";
+"Thai"="Tiếng Thái";
+"Turkish"="Tiếng Thổ Nhĩ Kì";
 "Cancel"="Hủy";
-"Anonymouly \"like\" or \"pass\" on people OakClub suggests"="\"Thích\" hoặc \"Bỏ qua\" người mà OakClub bí mật giới thiệu";
+"Anonymouly \"like\" or \"pass\" on people OakClub suggests"="\"\"\"Thích\"\" hoặc \"\"Bỏ qua\"\" người mà OakClub bí mật giới thiệu\"";
 "Sign in with Facebook"="Đăng nhập bằng Facebook";
 "We'll never post on your Facebook"="Không bao giờ tự động đăng tin lên Facebook";
 "if someone you've liked happen to like you as well ..."="nếu người ta cũng thích bạn thì sao nhỉ ...";
@@ -11,8 +17,9 @@
 "Keep Swiping!"="Để sau vậy!";
 "Chat with your matches inside the app"="Chuyện trò ngay lập tức";
 "Finding nearby people ..."="Đang tìm những người gần bạn ...";
-"\"Oakclub\" would like to use your current location"="\"OakClub\" muốn biết bạn đang ở đâu";
+"\"\"\"Oakclub\"\" would like to use your current location\""="\"\"\"OakClub\"\" muốn biết bạn đang ở đâu\"";
 "Recommendations will be presented based on your location"="Để giới thiệu những người phù hợp đang ở gần chỗ của bạn";
+"OK"="Cho phép";
 "Ok"="Cho phép";
 "Other user will never know if you've liked them unless they like you back"="Người ta sẽ không bao giờ biết khi bạn để ý họ, trừ khi họ cũng phải thích bạn lại";
 "Other user can't contact you unless you've already been matched"="Nếu hai người không hợp với nhau, người ta sẽ không bao giờ được gửi tin nhắn cho bạn";
@@ -181,3 +188,5 @@
 "All"="Tất cả";
 "Update profile"="Cập nhật hồ sơ";
 "or"="hay";
+"Do you want to upload new video" = "Bạn có muốn tải lên video mới";
+"You are uploading another video" = "Bạn đang tải lên một video khác";

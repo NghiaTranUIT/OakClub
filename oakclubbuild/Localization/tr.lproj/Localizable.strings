@@ -1,5 +1,11 @@
 "Asia Leading Facebook Dating App"="Asya'nın Önde Gelen Facebook Tanışma Appi";
 "Choose your language"="Dil seçin";
+"English"="İngilizce";
+"Vietnamese"="Vietnamca";
+"Germany"="Almanca";
+"Bahasa"="Endonezyaca";
+"Thai"="Taylandlı";
+"Turkish"="Türkce";
 "Cancel"="İptal";
 "Anonymouly \"like\" or \"pass\" on people OakClub suggests"="OakClub'ın önerdiği insanları anonim \"beğen\" ya da \"pas geç\"";
 "Sign in with Facebook"="Facebook ile bağlanın";
@@ -11,8 +17,9 @@
 "Keep Swiping!"="Devam edin!";
 "Chat with your matches inside the app"="Uygulamadaki eşlerinizle sohbet edin";
 "Finding nearby people ..."="Yakınınızda insan bulunuyor ...";
-"\"Oakclub\" would like to use your current location"="\"Oakclub\" konumunuzu kullanmak istiyor";
+"\"\"\"Oakclub\"\" would like to use your current location\""="\"\"\"Oakclub\"\" konumunuzu kullanmak istiyor\"";
 "Recommendations will be presented based on your location"="Sunulan tavsiyeler konumunuza bağlı olacaktır";
+"OK"="OK";
 "Ok"="OK";
 "Other user will never know if you've liked them unless they like you back"="Diğer kullanıcılar sizi beğenmedikleri takdirde sizin onları beğendiğinizi asla bilmeyecekler";
 "Other user can't contact you unless you've already been matched"="Eşleşmediğiniz takdirde diğer kullanıcılar sizinle iletişim kuramazlar";
@@ -181,3 +188,5 @@
 "All"="Hepsi";
 "Update profile"="Profilimi güncelle";
 "or"="veya";
+"Do you want to upload new video" = "Bạn có muốn tải lên video mới";
+"You are uploading another video" = "Bạn đang tải lên một video khác";
