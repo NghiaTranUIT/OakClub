@@ -148,6 +148,7 @@ CGFloat pageHeight;
     imgMyAvatar.layer.borderWidth = 1.5;
     imgMyAvatar.layer.borderColor = [[UIColor whiteColor] CGColor];
 }
+
 -(void)loadHeaderLogo{
     UIImage* logo = [UIImage imageNamed:@"Snapshot_logo.png"];
     UIImageView *logoView = [[UIImageView alloc]initWithFrame:CGRectMake(98, 10, 125, 26)];
@@ -156,6 +157,7 @@ CGFloat pageHeight;
     [self.navigationController.navigationBar  addSubview:logoView];
 //    [[self navBarOakClub] addToHeader:logoView];
 }
+
 -(void) refreshSnapshotFocus:(BOOL)focus{
     NSLog(@"[CHECK LOADING] refreshSnapshotFocus: %d", is_loadingProfileList);
     
@@ -165,12 +167,16 @@ CGFloat pageHeight;
     currentIndex = 0; //Vanancy cheat
     profileList = [[NSMutableArray alloc] init];
     [self startLoadingAnimFocus:focus and:^void(){}];
+    
+    [checkQueueTimer invalidate];
+    checkQueueTimer = nil;
     checkQueueTimer = [NSTimer scheduledTimerWithTimeInterval:1.0f
                                                        target:self
                                                      selector:@selector(CheckAllOperationsFinishedWithHandler:andFocus:)
                                                      userInfo:nil
                                                       repeats:YES];
 }
+
 -(void)disableAllControl:(BOOL)value{
     [buttonYES setEnabled:!value];
     [buttonProfile setEnabled:!value];
@@ -249,24 +255,6 @@ CGFloat pageHeight;
             [self startDisabledGPS:focus];
         }
     }];
-}
--(void)loadProfileListUseHandler:(void(^)(void))handler withFocus:(BOOL)focus{
-    NSLog(@"[CHECK LOADING] loadProfileListUseHandler: %d", is_loadingProfileList);
-    if(is_loadingProfileList)
-        return;
-//    [self startLoadingAnimFocus:focus and:^void(){
-//        
-//    }];
-//    currentIndex = 0; //Vanancy cheat
-//    profileList = [[NSMutableArray alloc] init];
-    
-    checkQueueTimer = [NSTimer scheduledTimerWithTimeInterval:1.0f
-                                                       target:self
-                                                     selector:@selector(CheckAllOperationsFinishedWithHandler:andFocus:)
-                                                     userInfo:nil
-                                                      repeats:YES];
-//    [setLikedQueue waitUntilAllOperationsAreFinished];
-    
 }
 
 //int counter = 0;
