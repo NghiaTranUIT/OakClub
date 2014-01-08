@@ -60,7 +60,7 @@
 @implementation VCMyProfile
 UITapGestureRecognizer *tap;
 
-@synthesize rbnFemale, rbnMale, btnLocation, btnRelationShip, btnEthnicity, btnLanguage, btnWork, scrollview,labelAge, labelName, labelPurposeSearch, textFieldName,textFieldHeight,textfieldSchool,textFieldWeight, btnBirthdate, pickerView, textviewAbout, tbEditProfile, pickerWeight, pickerHeight, imgAvatar;
+@synthesize rbnFemale, rbnMale, btnLocation, btnRelationShip, btnEthnicity, btnLanguage, btnWork, scrollview,labelAge, labelName, labelPurposeSearch, textFieldName,textFieldHeight,textfieldSchool,textFieldWeight, btnBirthdate, pickerView, textviewAbout, tbEditProfile, pickerWeight, pickerHeight, imgAvatar,activityIndicator;
 @synthesize videoStatus = _videoStatus;
 
 -(void)setVideoStatus:(int)videoStatus
@@ -69,6 +69,7 @@ UITapGestureRecognizer *tap;
     switch (_videoStatus) {
         case 0:
         {
+            [self.activityIndicator setHidden:YES];
             [self.imgViewVideoThumb setHidden:YES];
             [self.imgViewVideoBorder setHidden:YES];
             [self.btnEditVideo setHidden:YES];
@@ -77,6 +78,7 @@ UITapGestureRecognizer *tap;
             break;
         case 1:
         {
+            [self.activityIndicator setHidden:NO];
             [self.imgViewVideoThumb setHidden:NO];
             [self.imgViewVideoBorder setHidden:NO];
             [self.btnEditVideo setHidden:NO];

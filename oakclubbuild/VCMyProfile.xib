@@ -7,6 +7,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="VCMyProfile">
             <connections>
+                <outlet property="activityIndicator" destination="DxQ-Hb-nV9" id="fb6-y4-L0w"/>
                 <outlet property="age_workLabel" destination="0cX-39-zAI" id="fLR-jT-B2F"/>
                 <outlet property="avatarLayout" destination="nEL-w0-U9C" id="v8j-td-kdZ"/>
                 <outlet property="btnEditVideo" destination="OI1-wh-ZHN" id="b6V-7G-aVl"/>
