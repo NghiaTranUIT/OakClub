@@ -462,10 +462,11 @@ CGFloat pageHeight;
     NSLog(@"current id = %@",currentProfile.s_ID);
     viewProfile = [[VCProfile alloc] initWithNibName:@"VCProfile" bundle:nil];
     
+    [viewProfile loadProfile:currentProfile andImage:[UIImage imageNamed:@"Default Avatar"]];
     [snapshotImagePool getImageAtURL:currentProfile.s_Avatar withSize:PHOTO_SIZE_LARGE asycn:^(UIImage *img, NSError *error, bool isFirstLoad, NSString *urlWithSize) {
-        [viewProfile loadProfile:currentProfile andImage:img];
-        [self.view addSubview:viewProfile.view];
+        [viewProfile useImage:img];
     }];
+    [self.view addSubview:viewProfile.view];
 
     if(IS_OS_7_OR_LATER){
         viewProfile.view.frame = CGRectMake(0, [[UIScreen mainScreen]applicationFrame].size.height, 320, [[UIScreen mainScreen]applicationFrame].size.height);

@@ -836,10 +836,11 @@ static CGFloat padding_left = 5.0;
 
 
 #pragma mark loadProfile functions
-//-(void) loadProfile:(Profile*) _profile andImage:(UIImage*)_avatar{
-//    img_avatar = _avatar;
-//    currentProfile = _profile;
-//}
+-(void) useImage:(UIImage*)_avatar{
+    img_avatar = _avatar;
+    [self useSnapshotAvatar];
+}
+
 -(void) loadProfile:(Profile*) _profile andImage:(UIImage*)_avatar{
     currentProfile = _profile;
     img_avatar = _avatar;
