@@ -319,12 +319,9 @@ static CGFloat padding_left = 5.0;
         [lblDistance setText:[@"Less than a km away" localize]];
         return;
     }
-    if(currentProfile.distance < 40){
-        NSString *formatString = [@"%i km away" localize];
-        [lblDistance setText:[NSString stringWithFormat:formatString, currentProfile.distance]];
-        return;
-    }
-    [lblDistance setText:[@"More than 40 km away" localize]];
+    
+    NSString *formatString = [@"%i km away" localize];
+    [lblDistance setText:[NSString stringWithFormat:formatString, currentProfile.distance]];
 }
 
 -(void)LoadActiveText{
@@ -839,10 +836,11 @@ static CGFloat padding_left = 5.0;
 
 
 #pragma mark loadProfile functions
-//-(void) loadProfile:(Profile*) _profile andImage:(UIImage*)_avatar{
-//    img_avatar = _avatar;
-//    currentProfile = _profile;
-//}
+-(void) useImage:(UIImage*)_avatar{
+    img_avatar = _avatar;
+    [self useSnapshotAvatar];
+}
+
 -(void) loadProfile:(Profile*) _profile andImage:(UIImage*)_avatar{
     currentProfile = _profile;
     img_avatar = _avatar;

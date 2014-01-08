@@ -148,6 +148,7 @@ CGFloat pageHeight;
     imgMyAvatar.layer.borderWidth = 1.5;
     imgMyAvatar.layer.borderColor = [[UIColor whiteColor] CGColor];
 }
+
 -(void)loadHeaderLogo{
     UIImage* logo = [UIImage imageNamed:@"Snapshot_logo.png"];
     UIImageView *logoView = [[UIImageView alloc]initWithFrame:CGRectMake(98, 10, 125, 26)];
@@ -156,6 +157,7 @@ CGFloat pageHeight;
     [self.navigationController.navigationBar  addSubview:logoView];
 //    [[self navBarOakClub] addToHeader:logoView];
 }
+
 -(void) refreshSnapshotFocus:(BOOL)focus{
     NSLog(@"[CHECK LOADING] refreshSnapshotFocus: %d", is_loadingProfileList);
     
@@ -165,12 +167,16 @@ CGFloat pageHeight;
     currentIndex = 0; //Vanancy cheat
     profileList = [[NSMutableArray alloc] init];
     [self startLoadingAnimFocus:focus and:^void(){}];
+    
+    [checkQueueTimer invalidate];
+    checkQueueTimer = nil;
     checkQueueTimer = [NSTimer scheduledTimerWithTimeInterval:1.0f
                                                        target:self
                                                      selector:@selector(CheckAllOperationsFinishedWithHandler:andFocus:)
                                                      userInfo:nil
                                                       repeats:YES];
 }
+
 -(void)disableAllControl:(BOOL)value{
     [buttonYES setEnabled:!value];
     [buttonProfile setEnabled:!value];
@@ -250,24 +256,6 @@ CGFloat pageHeight;
         }
     }];
 }
--(void)loadProfileListUseHandler:(void(^)(void))handler withFocus:(BOOL)focus{
-    NSLog(@"[CHECK LOADING] loadProfileListUseHandler: %d", is_loadingProfileList);
-    if(is_loadingProfileList)
-        return;
-//    [self startLoadingAnimFocus:focus and:^void(){
-//        
-//    }];
-//    currentIndex = 0; //Vanancy cheat
-//    profileList = [[NSMutableArray alloc] init];
-    
-    checkQueueTimer = [NSTimer scheduledTimerWithTimeInterval:1.0f
-                                                       target:self
-                                                     selector:@selector(CheckAllOperationsFinishedWithHandler:andFocus:)
-                                                     userInfo:nil
-                                                      repeats:YES];
-//    [setLikedQueue waitUntilAllOperationsAreFinished];
-    
-}
 
 //int counter = 0;
 -(void)loadSnapshotProfilesWithHandler:(void(^)(void))handler andFocus:(BOOL)focus
@@ -320,6 +308,7 @@ CGFloat pageHeight;
                     }
                     
                 }];
+                
                 [profileList addObject:profile];
             }
             if(handler != nil)
@@ -473,10 +462,11 @@ CGFloat pageHeight;
     NSLog(@"current id = %@",currentProfile.s_ID);
     viewProfile = [[VCProfile alloc] initWithNibName:@"VCProfile" bundle:nil];
     
+    [viewProfile loadProfile:currentProfile andImage:[UIImage imageNamed:@"Default Avatar"]];
     [snapshotImagePool getImageAtURL:currentProfile.s_Avatar withSize:PHOTO_SIZE_LARGE asycn:^(UIImage *img, NSError *error, bool isFirstLoad, NSString *urlWithSize) {
-        [viewProfile loadProfile:currentProfile andImage:img];
-        [self.view addSubview:viewProfile.view];
+        [viewProfile useImage:img];
     }];
+    [self.view addSubview:viewProfile.view];
 
     if(IS_OS_7_OR_LATER){
         viewProfile.view.frame = CGRectMake(0, [[UIScreen mainScreen]applicationFrame].size.height, 320, [[UIScreen mainScreen]applicationFrame].size.height);
@@ -962,7 +952,9 @@ CGFloat pageHeight;
     [self.moveMeView removeSubviewFromCardViewWithTag:101];
     
     NSLog(@"answerType: %d, %d", answerType, self.isContinueLoad);
-    if(answerType != -1 && self.isContinueLoad){
+    if (answerType == -1) {
+        
+    } else if(answerType != -1 && self.isContinueLoad){
         [self loadCurrentProfile];
         [self loadNextProfileByCurrentIndex];
     }

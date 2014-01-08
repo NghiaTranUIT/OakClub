@@ -23,7 +23,6 @@
 -(void)loadCurrentProfile;
 -(void)loadNextProfileByCurrentIndex;
 -(void) gotoPROFILE;
--(void)loadProfileListUseHandler:(void(^)(void))handler withFocus:(BOOL)focus;
 -(void)showMatchView;
 -(BOOL)checkFirstTime:(NSString*)answerChoice;
 -(void)setLikedSnapshot:(NSString*)answerChoice;

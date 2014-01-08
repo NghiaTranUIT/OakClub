@@ -58,6 +58,7 @@
 @property (weak, nonatomic) IBOutlet UIPageControl *photoPageControl;
 @property (strong, nonatomic) IBOutlet UILabel *photoCount;
 
+-(void) useImage:(UIImage*)_avatar;
 -(void) loadProfile:(Profile*) _profile andImage:(UIImage*)avatar;
 -(void) loadProfile:(Profile*) _profile;
 -(void) addDoneItemController;
