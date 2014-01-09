@@ -84,6 +84,11 @@
 	
 }
 
+- (BOOL)isTrackingMaxSlider
+{
+    return (trackingSlider == maxSlider);
+}
+
 - (void)setTrackImage:(UIImage *)image {
 	trackImageView.frame = CGRectMake(5, MAX((self.frame.size.height-image.size.height)/2.0,0), self.frame.size.width-10, MIN(self.frame.size.height,image.size.height));
 	trackImageView.image = image;

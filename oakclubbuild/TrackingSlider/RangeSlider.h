@@ -23,4 +23,5 @@
 - (void)setMaxThumbImage:(UIImage *)image;
 - (void)setTrackImage:(UIImage *)image;
 - (void)setInRangeTrackImage:(UIImage *)image;
+- (BOOL)isTrackingMaxSlider;
 @end

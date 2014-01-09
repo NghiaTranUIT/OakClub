@@ -1030,6 +1030,17 @@ UITapGestureRecognizer *tap;
         fromAge = toAge - 1;
     }
     
+    if ((toAge - fromAge) > 16) {
+        if ([sender isTrackingMaxSlider]) {
+            fromAge = toAge - 16;
+        } else {
+            toAge = fromAge + 16;
+        }
+        
+        self.ageSlider.max = (CGFloat) (toAge - MIN_AGE)/(MAX_AGE-MIN_AGE);
+        self.ageSlider.min = (CGFloat) (fromAge - MIN_AGE)/(MAX_AGE-MIN_AGE);
+    }
+    
     if (fromAge != snapshotObj.age_from || toAge != snapshotObj.age_to)
     {
         snapshotObj.age_from = fromAge;
