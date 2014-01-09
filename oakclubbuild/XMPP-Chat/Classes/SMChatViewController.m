@@ -997,7 +997,7 @@ static float cellWidth = 320;
     [self updateLabels];
     
     [self circlizeAvatar];
-    [imgPool getImageAtURL:profile.s_Avatar withSize:PHOTO_SIZE_LARGE asycn:^(UIImage *img, NSError *error, bool isFirstLoad, NSString *urlWithSize) {
+    [imgPool getImageAtURL:profile.s_Avatar withSize:PHOTO_SIZE_SMALL asycn:^(UIImage *img, NSError *error, bool isFirstLoad, NSString *urlWithSize) {
         [self.imgAvatar setImage:img];
     }];
 }
