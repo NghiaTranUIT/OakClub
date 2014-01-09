@@ -32,7 +32,7 @@
 #define VIEWPROFILE_FULLDATA true
 
 //show matchmaker in leftmenu
-#define ENABLE_MATCHMAKER true
+#define ENABLE_MATCHMAKER false
 
 //Hangout
 #define sOnline @"Online"

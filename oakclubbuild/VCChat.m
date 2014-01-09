@@ -544,6 +544,13 @@ int cellCountinSection=0;
             p1 = [appDel.myProfile.dic_Roster objectForKey:obj1];
             p2 = [appDel.myProfile.dic_Roster objectForKey:obj2];
             
+            //            MatchUnViewed,
+            //            MatchViewed,
+            //            ChatUnviewed,
+            //            ChatViewed,
+            NSLog(@"p1.s_Name: %@, p1.status: %d", p1.s_Name, p1.status);
+            NSLog(@"p2.s_Name: %@, p2.status: %d", p2.s_Name, p2.status);
+            
             if (p1.status != p2.status)
             {
                 switch (p1.status) {
@@ -554,6 +561,7 @@ int cellCountinSection=0;
                             case 3:
                                 return NSOrderedAscending;
                             default:
+                                return [self compareDateWithProfile1:p1 andProfile2:p2];
                                 break;
                         }
                         break;
@@ -564,18 +572,16 @@ int cellCountinSection=0;
                             case 2:
                                 return NSOrderedDescending;
                             default:
+                                return [self compareDateWithProfile1:p1 andProfile2:p2];
                                 break;
                         }
                     default:
+                        return [self compareDateWithProfile1:p1 andProfile2:p2];
                         break;
                 }
             }
             
-            NSDate *d1, *d2;
-            d1 = [dateFormatter dateFromString:[p1 s_status_time]];
-            d2 = [dateFormatter dateFromString:[p2 s_status_time]];
-            
-            return ([d2 compare:d1]);
+            return [self compareDateWithProfile1:p1 andProfile2:p2];
         }];
     }
     
@@ -583,6 +589,40 @@ int cellCountinSection=0;
     //friendChatIDs = [NSMutableArray arrayWithArray:[[friendChatIDs reverseObjectEnumerator] allObjects]];
     
     return friendChatIDs.count;
+}
+
+- (NSComparisonResult)compareDateWithProfile1:(Profile *)profile1 andProfile2:(Profile *)profile2
+{
+    NSDate *d1, *d2;
+    d1 = [self getLastTimeMessageFromProfile:profile1];
+    d2 = [self getLastTimeMessageFromProfile:profile2];
+    
+    return ([d2 compare:d1]);
+}
+
+- (NSDate *)getLastTimeMessageFromProfile:(Profile *)profile
+{
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:DATETIME_FORMAT];
+    
+    if(profile.status > MatchViewed){
+        NSMutableArray* messages = [a_messages objectForKey:profile.s_ID];
+        
+        if(messages != nil)
+        {
+            HistoryMessage* m = (HistoryMessage*)[messages lastObject];
+            
+            if(m != nil && m.timeStr)
+            {
+                return [dateFormatter dateFromString:m.timeStr];
+            }
+        }
+    }
+    else{
+        return [dateFormatter dateFromString:[profile match_time]];
+    }
+    
+    return nil;
 }
 
 - (BOOL) isValidFriendWithMatch:(Profile *)friend
@@ -711,7 +751,7 @@ int cellCountinSection=0;
         }
         else{
             //profile.s_status_time = [profile.s_status_time stringByReplacingOccurrencesOfString:@"/" withString:@"-"];
-            cell.lblMatched.text = [NSString stringWithFormat:@"%@ %@", [@"Matched on" localize],profile.s_status_time];
+            cell.lblMatched.text = [NSString stringWithFormat:@"%@ %@", [@"Matched on" localize],profile.match_time];
         }
         
     }
