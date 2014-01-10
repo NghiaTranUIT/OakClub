@@ -59,7 +59,12 @@
 @property (weak, nonatomic) IBOutlet UILabel *lblPhotoCountNextProfile;
 @property (weak, nonatomic) IBOutlet UIImageView *imgLoading;
 @property (weak, nonatomic) IBOutlet UIButton *buttonNO;
+@property (weak, nonatomic) IBOutlet UIButton *btnPlayVideo;
+@property (weak, nonatomic) IBOutlet UIButton *btnPlayVideoNextProfile;
 @property BOOL isLoading;
 @property BOOL is_loadingProfileList;
+
 -(void)onBackFromPopup;
+- (IBAction)playVideoTouched:(id)sender;
+
 @end

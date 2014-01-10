@@ -21,6 +21,9 @@
 #import "NSStringRandom.h"
 #import "VCReportPopup.h"
 #import "ChatNavigationView.h"
+#import <MediaPlayer/MediaPlayer.h>
+#import <AVFoundation/AVFoundation.h>
+
 
 @interface VCSimpleSnapshot () <AppLifeCycleDelegate,APLMoveMeViewDelegate> {
     UIView *headerView;
@@ -349,6 +352,18 @@ CGFloat pageHeight;
     NSLog(@"Name of Next Profile : %@",nextProfile.s_Name);
     NSLog(@"next profile temp.s_Avatar: %@", nextProfile.s_Avatar);
     
+    if (nextProfile.s_video && ![@"" isEqualToString:nextProfile.s_video])
+    {
+        if ([nextProfile.s_video rangeOfString:@"http://"].location == NSNotFound) {
+            NSString *link = nextProfile.s_video;
+            nextProfile.s_video = [NSString stringWithFormat:@"%@%@.mov", DOMAIN_VIDEO, link];
+        }
+        
+        self.btnPlayVideoNextProfile.hidden = NO;
+    } else {
+        self.btnPlayVideoNextProfile.hidden = YES;
+    }
+    
     [snapshotImagePool getImageAtURL:nextProfile.s_Avatar withSize:PHOTO_SIZE_LARGE
                                asycn:^(UIImage *image, NSError *err, bool isFirstLoad, NSString *urlWithSize)
      {
@@ -382,6 +397,20 @@ CGFloat pageHeight;
     [lblPhotoCount setText:@"0"];
     [lblPhotoCount setText:[NSString stringWithFormat:@"%i",[currentProfile.arr_photos count]]];
     [self.imgMainProfile setImage:[UIImage imageNamed:@"Default Avatar"]];
+    
+//    currentProfile.s_video = @"videos/origin/02.2014/100000039685047_52cf7a9170e15";
+    if (currentProfile.s_video && ![@"" isEqualToString:currentProfile.s_video])
+    {
+        if ([currentProfile.s_video rangeOfString:@"http://"].location == NSNotFound) {
+            NSString *link = currentProfile.s_video;
+            currentProfile.s_video = [NSString stringWithFormat:@"%@%@.mov", DOMAIN_VIDEO, link];
+        }
+        
+        self.btnPlayVideo.hidden = NO;
+    } else {
+        self.btnPlayVideo.hidden = YES;
+    }
+
     
     NSLog(@"currentProfile.s_Avatar: %@", currentProfile.s_Avatar);
     [snapshotImagePool getImageAtURL:currentProfile.s_Avatar withSize:PHOTO_SIZE_LARGE asycn:^(UIImage *image, NSError *error, bool isFirstLoad, NSString *urlWithSize) {
@@ -977,6 +1006,14 @@ CGFloat pageHeight;
 	if ([touch view] == self.backgroundAvatarView) {
         NSLog(@"touchesEnded ------ backgroundAvatarView");
     }
+}
+
+- (IBAction)playVideoTouched:(id)sender {
+    NSURL *videoURL = [NSURL URLWithString:currentProfile.s_video];
+    MPMoviePlayerViewController *moviePlayer = [[MPMoviePlayerViewController alloc] initWithContentURL:videoURL];
+    [self presentMoviePlayerViewControllerAnimated:moviePlayer];
+    
+    [moviePlayer.moviePlayer play];
 }
 
 -(void)onBackFromPopup
