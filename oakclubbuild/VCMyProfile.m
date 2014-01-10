@@ -87,7 +87,7 @@ UITapGestureRecognizer *tap;
             //the image is not avaialbe inmediately after upload successfully
             self.imgViewVideoThumb.userInteractionEnabled = NO;
             
-            [self performSelector:@selector(refreshThumbImage) withObject:nil afterDelay:8];
+            [self performSelector:@selector(refreshThumbImage) withObject:nil afterDelay:4];
         }
             
             break;

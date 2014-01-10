@@ -294,6 +294,7 @@
 {
     if (match1 && match2)
     {
+        
         [self sendMatchNotificationToServerWithFristUserID:match1.s_FB_id andSecond:match2.s_FB_id withDesc:self.descTextView.text];
     }
 }
@@ -342,16 +343,17 @@
         if (dict && !e)
         {
             NSDictionary *data = dict[key_data];
-            NSArray *friendDatas = data[@"friendData"];
+            NSDictionary *friendDatas = data[@"friendData"];
             NSArray *friendIDs = data[@"friendIds"];
             
             NSMutableArray *friendlist = [[NSMutableArray alloc] init];
             for (int i = 0; i < friendIDs.count; ++i)
             {
                 Profile *friend = [[Profile alloc] init];
-                friend.s_FB_id = friendIDs[i];
+                NSString *userId = friendIDs[i];
+                friend.s_FB_id = userId;
                 friend.s_Avatar = [NSString stringWithFormat:@"http://graph.facebook.com/%@/picture", friend.s_FB_id];
-                friend.s_Name = friendDatas[i][key_name];
+                friend.s_Name = friendDatas[userId][key_name];
                 
                 [friendlist addObject:friend];
             }
