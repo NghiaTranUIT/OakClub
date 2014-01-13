@@ -44,7 +44,6 @@
 }
 @property (nonatomic, strong) IBOutlet APLMoveMeView *moveMeView;
 @property (nonatomic, weak) IBOutlet UIView *profileView;
-@property (nonatomic, weak) IBOutlet UIView *controlView;
 @property (weak, nonatomic) IBOutlet UIImageView *imgAvatarFrame;
 @property (nonatomic, weak) IBOutlet UIViewController *matchView;
 @property (strong, nonatomic) IBOutlet VCSimpleSnapshotPopup *popupFirstTimeView;
