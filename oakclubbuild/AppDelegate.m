@@ -401,7 +401,7 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
     if (VCSSnapshot.is_loadingProfileList) {
         [self showSnapshotLoadingThenFocus:focus and:^void {
         }];
-    } if (selfCopy.reloadSnapshot) {
+    } else if (selfCopy.reloadSnapshot) {
         [self showSnapshotLoadingThenFocus:focus and:^void {
             
         }];
