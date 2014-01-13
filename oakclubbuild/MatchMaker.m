@@ -11,6 +11,7 @@
 #import "AppDelegate.h"
 #import "UIView+Localize.h"
 #import "LoadingIndicator.h"
+#import "FacebookSDK/FacebookSDK.h"
 
 @interface MatchMaker () <PSTCollectionViewDataSource, PSTCollectionViewDelegate, PSTCollectionViewDelegateFlowLayout>
 {
@@ -71,7 +72,6 @@
     
     UITapGestureRecognizer *dismissKeyboardTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissKeyboard:)];
     [self.dismissKeyboardView addGestureRecognizer:dismissKeyboardTap];
-    
 }
 
 - (void)didReceiveMemoryWarning
@@ -294,9 +294,59 @@
 {
     if (match1 && match2)
     {
+        //pop up Facebook Request dialog
+        NSString *title = [NSString stringWithFormat:[@"%@ has matched you with %@ on OakClub" localize], match1.s_Name, match2.s_Name];
+        NSString *message = [NSString stringWithFormat:[@"Hey %@, %@. You have been matched each other on www.oakclub.com. You will make a great couple. Love is in the air! Check out your match now!" localize], match1.s_Name, match2.s_Name];
+        NSMutableDictionary *params = [NSMutableDictionary dictionaryWithObjectsAndKeys:
+                                       [NSString stringWithFormat:@"%@,%@", match1.s_FB_id, match2.s_FB_id], @"to",
+                                       nil];
+        
+        [FBWebDialogs presentRequestsDialogModallyWithSession:nil message:message title:title parameters:params handler:^(FBWebDialogResult result, NSURL *resultURL, NSError *error) {
+            if (error) {
+                // Error launching the dialog or sending the request.
+                [self showMatchError];
+            } else {
+                if (result == FBWebDialogResultDialogNotCompleted) {
+                    // User clicked the "x" icon
+                } else {
+                    // Handle the send request callback
+                    NSDictionary *urlParams = [self parseURLParams:[resultURL query]];
+                    if (![urlParams valueForKey:@"request"]) {
+                        // User clicked the Cancel button
+                    } else {
+                        // User clicked the Send button
+                        NSString *requestID = [urlParams valueForKey:@"request"];
+                        NSLog(@"Request ID: %@", requestID);
+                    }
+                }
+            }
+        }];
+
         
         [self sendMatchNotificationToServerWithFristUserID:match1.s_FB_id andSecond:match2.s_FB_id withDesc:self.descTextView.text];
     }
+}
+
+- (NSDictionary*)parseURLParams:(NSString *)query {
+    NSArray *pairs = [query componentsSeparatedByString:@"&"];
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    for (NSString *pair in pairs) {
+        NSArray *kv = [pair componentsSeparatedByString:@"="];
+        NSString *val =
+        [kv[1] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        params[kv[0]] = val;
+    }
+    return params;
+}
+
+- (void)showMatchError
+{
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:[@"Error" localize]
+                                                        message:[@"Error in process matching" localize]
+                                                       delegate:nil
+                                              cancelButtonTitle:[@"Ok" localize]
+                                              otherButtonTitles:nil];
+    [alertView show];
 }
 
 -(void)sendMatchNotificationToServerWithFristUserID:(NSString *)fb_id1 andSecond:(NSString *)fb_id2 withDesc:(NSString *)desc

@@ -10,6 +10,8 @@
 		3429091C1862F0C700A35209 /* NSStringRandom.m in Sources */ = {isa = PBXBuildFile; fileRef = 3429091A1862F0C700A35209 /* NSStringRandom.m */; };
 		344565CB187FCD5D00C090A4 /* Snapshot_video_btn.png in Resources */ = {isa = PBXBuildFile; fileRef = 344565C9187FCD5D00C090A4 /* Snapshot_video_btn.png */; };
 		344565CC187FCD5D00C090A4 /* Snapshot_video_btn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 344565CA187FCD5D00C090A4 /* Snapshot_video_btn@2x.png */; };
+		344565CF187FF40400C090A4 /* viewprofile_play_icon_onimage.png in Resources */ = {isa = PBXBuildFile; fileRef = 344565CD187FF40400C090A4 /* viewprofile_play_icon_onimage.png */; };
+		344565D0187FF40400C090A4 /* viewprofile_play_icon_onimage@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 344565CE187FF40400C090A4 /* viewprofile_play_icon_onimage@2x.png */; };
 		34641DC118754D7800BCA79F /* btn_report_normal.png in Resources */ = {isa = PBXBuildFile; fileRef = 34641DBD18754D7800BCA79F /* btn_report_normal.png */; };
 		34641DC218754D7800BCA79F /* btn_report_normal@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 34641DBE18754D7800BCA79F /* btn_report_normal@2x.png */; };
 		34641DC318754D7800BCA79F /* btn_report_pressed.png in Resources */ = {isa = PBXBuildFile; fileRef = 34641DBF18754D7800BCA79F /* btn_report_pressed.png */; };
@@ -694,6 +696,8 @@
 		3429091A1862F0C700A35209 /* NSStringRandom.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSStringRandom.m; sourceTree = "<group>"; };
 		344565C9187FCD5D00C090A4 /* Snapshot_video_btn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Snapshot_video_btn.png; sourceTree = "<group>"; };
 		344565CA187FCD5D00C090A4 /* Snapshot_video_btn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Snapshot_video_btn@2x.png"; sourceTree = "<group>"; };
+		344565CD187FF40400C090A4 /* viewprofile_play_icon_onimage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = viewprofile_play_icon_onimage.png; sourceTree = "<group>"; };
+		344565CE187FF40400C090A4 /* viewprofile_play_icon_onimage@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "viewprofile_play_icon_onimage@2x.png"; sourceTree = "<group>"; };
 		34641DBD18754D7800BCA79F /* btn_report_normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btn_report_normal.png; sourceTree = "<group>"; };
 		34641DBE18754D7800BCA79F /* btn_report_normal@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn_report_normal@2x.png"; sourceTree = "<group>"; };
 		34641DBF18754D7800BCA79F /* btn_report_pressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btn_report_pressed.png; sourceTree = "<group>"; };
@@ -1966,6 +1970,8 @@
 				97EC5884185F114A00B15ACA /* viewprofile_work_icon.png */,
 				97EC5885185F114A00B15ACA /* viewprofile_work_icon@2x.png */,
 				97EC5886185F114A00B15ACA /* viewprofile_location_icon.png */,
+				344565CD187FF40400C090A4 /* viewprofile_play_icon_onimage.png */,
+				344565CE187FF40400C090A4 /* viewprofile_play_icon_onimage@2x.png */,
 			);
 			path = ViewProfile;
 			sourceTree = "<group>";
@@ -3899,6 +3905,7 @@
 				459284A2184F3F65004FA3A6 /* Menu_btn_logout@2x.png in Resources */,
 				CD877CC718210B9D0067D478 /* tutorial_btn_cancel@2x.png in Resources */,
 				97A55D601823C3E700675025 /* viewprofile_photobar@2x.png in Resources */,
+				344565CF187FF40400C090A4 /* viewprofile_play_icon_onimage.png in Resources */,
 				CD877CDD182114560067D478 /* HistoryChat_icon_off.png in Resources */,
 				CDFED5E81738DAC000158756 /* VCMyProfile.xib in Resources */,
 				97EC588B185F114A00B15ACA /* viewprofile_school_icon@2x.png in Resources */,
@@ -4021,6 +4028,7 @@
 				CD877D0F1821374C0067D478 /* ChatView_btn_moreOptions_pressed@2x.png in Resources */,
 				CD877C501820AD490067D478 /* Snapshot_btn_yes_pressed.png in Resources */,
 				CDAB59B01850880C00724956 /* Navbar_btn_chat.png in Resources */,
+				344565D0187FF40400C090A4 /* viewprofile_play_icon_onimage@2x.png in Resources */,
 				CD1AB0791821804200B0FA10 /* Report_midleItem_inactive.png in Resources */,
 				97EC5888185F114A00B15ACA /* viewprofile_birthdate_icon.png in Resources */,
 				97A8FCB918361C3700B9ACEC /* viewprofile_videoicon.png in Resources */,
@@ -4637,8 +4645,8 @@
 					"-ObjC",
 				);
 				PRODUCT_NAME = OakClub;
-				PROVISIONING_PROFILE = "AE133DE3-9B83-43B6-A9DF-FD3C03292B61";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "AE133DE3-9B83-43B6-A9DF-FD3C03292B61";
+				PROVISIONING_PROFILE = "3DA1D62B-13A4-4DCF-B1C0-940BE8477179";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "3DA1D62B-13A4-4DCF-B1C0-940BE8477179";
 				TARGETED_DEVICE_FAMILY = 1;
 				VALIDATE_PRODUCT = YES;
 				WRAPPER_EXTENSION = app;
