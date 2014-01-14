@@ -22,6 +22,8 @@
 #import "ProfileInfoCell.h"
 #import "VCSimpleSnapshot.h"
 #import "VCReportPopup.h"
+#import <MediaPlayer/MediaPlayer.h>
+#import <AVFoundation/AVFoundation.h>
 
 @interface VCProfile (){
 //    BOOL popoverShowing;
@@ -49,6 +51,7 @@
 
 @property (strong, nonatomic) NSMutableArray *indicatorArray;
 @property (strong, nonatomic) NSMutableArray *errorLabelArray;
+@property (assign, nonatomic) int numOfPhotoAndVideo;
 
 @end
 
@@ -603,6 +606,12 @@ static CGFloat padding_left = 5.0;
     [self refreshScrollView];
     [self useSnapshotAvatar];
     [self loadPhotoForScrollview];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(finishPlayVideoClick:)
+                                                 name:MPMoviePlayerPlaybackDidFinishNotification
+                                               object:nil];
+
 }
 -(void)viewDidAppear:(BOOL)animated
 {
@@ -625,6 +634,7 @@ static CGFloat padding_left = 5.0;
 }
 
 -(void) viewWillDisappear:(BOOL)animated{
+    
     [self.navigationController setNavigationBarHidden:NO];
 }
 
@@ -905,8 +915,18 @@ static CGFloat padding_left = 5.0;
     [self.scrollview setContentOffset:CGPointMake(0, 0) animated:YES];
     self.svPhotos.frame = CGRectMake(0, 0, 320, 320);
     
-    self.svPhotos.contentSize = CGSizeMake(CGRectGetWidth(self.svPhotos.frame) * currentProfile.arr_photos.count, CGRectGetHeight(self.svPhotos.frame));
-    for(int i = 0; i < [currentProfile.arr_photos count]; i++)
+    
+    self.numOfPhotoAndVideo = [currentProfile.arr_photos count];
+    
+    //error on navigation bar when play video finish
+    if (currentProfile.s_video && ![@"" isEqualToString:currentProfile.s_video])
+    {
+        self.numOfPhotoAndVideo += 1;
+    }
+    
+    self.svPhotos.contentSize = CGSizeMake(CGRectGetWidth(self.svPhotos.frame) * self.numOfPhotoAndVideo, CGRectGetHeight(self.svPhotos.frame));
+
+    for(int i = 0; i < self.numOfPhotoAndVideo; i++)
     {
         [self addIndicatorAtIndex:i];
         [self hideIndicatorAtIndex:i];
@@ -930,6 +950,15 @@ static CGFloat padding_left = 5.0;
     {
         [photoCount setText:[NSString stringWithFormat:@"%i/%i",1,[currentProfile.arr_photos count]]];
         
+        if (currentProfile.s_video && ![@"" isEqualToString:currentProfile.s_video])
+        {
+            [self.videoCount setText:@"1"];
+            self.btnPlayVideo.hidden = NO;
+        } else {
+            [self.videoCount setText:@"0"];
+            self.btnPlayVideo.hidden = YES;
+        }
+        
         if([currentProfile.arr_photos count] == 0)
         {
             [loadingAvatar stopAnimating];
@@ -937,10 +966,17 @@ static CGFloat padding_left = 5.0;
         }
         else
         {
-            for(int i = 0; i < [currentProfile.arr_photos count]; i++)
+            for(int i = 0; i < self.numOfPhotoAndVideo; i++)
             {
                 [self showIndicatorAtIndex:i];
-                NSString* link = [currentProfile.arr_photos objectAtIndex:i][key_photoLink];
+                
+                NSString* link = @"";
+                if (currentProfile.s_video && ![@"" isEqualToString:currentProfile.s_video] && i == (self.numOfPhotoAndVideo - 1)){
+                    link = [currentProfile.s_video stringByReplacingOccurrencesOfString:@".mov" withString:@".jpg"];
+                } else {
+                    link = [currentProfile.arr_photos objectAtIndex:i][key_photoLink];
+                }
+                
                 if(![link isEqualToString:@""] )
                 {
                     [userImagePool getImageAtURL:link withSize:PHOTO_SIZE_LARGE asycn:^(UIImage *image, NSError *error, bool isFirstLoad, NSString *urlWithSize) {
@@ -955,6 +991,13 @@ static CGFloat padding_left = 5.0;
                             imageView.frame = frame;
                             [imageView setContentMode:UIViewContentModeScaleAspectFit];
                             [self.svPhotos addSubview:imageView];
+                            
+                            if (i == (self.numOfPhotoAndVideo - 1)) {
+                                if (currentProfile.s_video && ![@"" isEqualToString:currentProfile.s_video]){
+                                    [self addVideoButtonAtIndex:self.numOfPhotoAndVideo - 1];
+                                }
+                            }
+                            
                         }
                     }];
                 }
@@ -1017,6 +1060,13 @@ static CGFloat padding_left = 5.0;
     if (indicator) {
         indicator.hidden = YES;
     }
+}
+
+- (void)addVideoButtonAtIndex:(int)i
+{
+    CGRect frame = CGRectMake(0, 0, 320, 320);
+    self.btnPlayVideo.frame = CGRectMake(CGRectGetWidth(frame) * i + CGRectGetWidth(frame)/2 - 68/2, CGRectGetHeight(frame)/2,68,76);
+    [self.svPhotos addSubview:self.btnPlayVideo];
 }
 
 -(IBAction)onTouchAddToFavorite:(id)sender{
@@ -1180,6 +1230,7 @@ static CGFloat padding_left = 5.0;
         scrollview.frame = CGRectMake(0, scrollview.frame.origin.y+20, scrollview.frame.size.width, scrollview.frame.size.height);
     }
 }
+
 -(void)backToPreviousView
 {
 //    if([vc isKindOfClass:[VCSnapshoot class]] )
@@ -1218,7 +1269,9 @@ BOOL allowFullScreen = FALSE;
     if(scrollView.tag ==2)
     {
         int index =scrollView.contentOffset.x/scrollView.frame.size.width;
-        [photoCount setText:[NSString stringWithFormat:@"%i/%i",index + 1,[currentProfile.arr_photos count]]];
+        if (index + 1 <= [currentProfile.arr_photos count]) {
+            [photoCount setText:[NSString stringWithFormat:@"%i/%i",index + 1,[currentProfile.arr_photos count]]];
+        }
     }
     
     if(scrollView.tag == 1 && allowFullScreen)
@@ -1235,7 +1288,7 @@ BOOL allowFullScreen = FALSE;
             if(self.svPhotos.frame.size.height >= screenHeight - 80){
                 [self.svPhotos setFrame:CGRectMake(0, 0, self.view.frame.size.width, screenHeight)];
                 self.svPhotos.contentSize =
-                CGSizeMake(CGRectGetWidth(self.svPhotos.frame) * [currentProfile.arr_photos count], CGRectGetHeight(self.svPhotos.frame));
+                CGSizeMake(CGRectGetWidth(self.svPhotos.frame) * self.numOfPhotoAndVideo, CGRectGetHeight(self.svPhotos.frame));
                 [self.infoView setFrame:CGRectMake(0, screenHeight, self.infoView.frame.size.width, self.infoView.frame.size.height)];
 //                [self.lblsPhoto setFrame:CGRectMake(0, self.svPhotos.frame.origin.y + self.svPhotos.frame.size.height -self.lblsPhoto.frame.size.height, self.lblsPhoto.frame.size.width,  self.lblsPhoto.frame.size.height)];
                 [self snapPhotoBarToBottomOfView];
@@ -1246,7 +1299,7 @@ BOOL allowFullScreen = FALSE;
             {
                 [self.svPhotos setFrame:CGRectMake(0, 0, 320, self.svPhotos.frame.size.height + fabsf(scrollOffset))];
                 self.svPhotos.contentSize =
-                CGSizeMake(CGRectGetWidth(self.svPhotos.frame) * [currentProfile.arr_photos count], CGRectGetHeight(self.svPhotos.frame));
+                CGSizeMake(CGRectGetWidth(self.svPhotos.frame) * self.numOfPhotoAndVideo, CGRectGetHeight(self.svPhotos.frame));
                 [self.infoView setFrame:CGRectMake(0, self.infoView.frame.origin.y +fabsf(scrollOffset), self.infoView.frame.size.width, self.infoView.frame.size.height)];
                 [scrollView setContentOffset:CGPointMake(0, 0)];
                 [self snapPhotoBarToBottomOfView];
@@ -1261,7 +1314,7 @@ BOOL allowFullScreen = FALSE;
             if(self.svPhotos.frame.size.height > 320 && scrollOffset > 0){
                 [self.svPhotos setFrame:CGRectMake(0, 0, 320, self.svPhotos.frame.size.height -  fabsf(scrollOffset))];
                 self.svPhotos.contentSize =
-                CGSizeMake(CGRectGetWidth(self.svPhotos.frame) * [currentProfile.arr_photos count], CGRectGetHeight(self.svPhotos.frame));
+                CGSizeMake(CGRectGetWidth(self.svPhotos.frame) * self.numOfPhotoAndVideo, CGRectGetHeight(self.svPhotos.frame));
                 [self.infoView setFrame:CGRectMake(0, self.infoView.frame.origin.y - fabsf(scrollOffset), self.infoView.frame.size.width, self.infoView.frame.size.height)];
                 [self snapPhotoBarToBottomOfView];
 //                [self.lblsPhoto setFrame:CGRectMake(0, self.svPhotos.frame.origin.y + self.svPhotos.frame.size.height - self.lblsPhoto.frame.size.height, self.lblsPhoto.frame.size.width, self.lblsPhoto.frame.size.height)];
@@ -1291,7 +1344,7 @@ BOOL allowFullScreen = FALSE;
         
         [self.svPhotos setFrame:CGRectMake(0, 0, self.view.frame.size.width, 320/*294*/)];
         self.svPhotos.contentSize =
-        CGSizeMake(CGRectGetWidth(self.svPhotos.frame) * [currentProfile.arr_photos count], CGRectGetHeight(self.svPhotos.frame));
+        CGSizeMake(CGRectGetWidth(self.svPhotos.frame) * self.numOfPhotoAndVideo, CGRectGetHeight(self.svPhotos.frame));
         [self.infoView setFrame:CGRectMake(0, self.svPhotos.frame.size.height, self.infoView.frame.size.width, self.infoView.frame.size.height)];
 //        [self.lblsPhoto setFrame:CGRectMake(0, self.svPhotos.frame.origin.y + self.svPhotos.frame.size.height - self.lblsPhoto.frame.size.height, self.lblsPhoto.frame.size.width, self.lblsPhoto.frame.size.height)];
         [self updateSubviewsToCenterScrollView];
@@ -1353,7 +1406,7 @@ BOOL allowFullScreen = FALSE;
                          animations:^{
                              [self.svPhotos setFrame:CGRectMake(0, 0, self.view.frame.size.width, screenHeight)];
                              self.svPhotos.contentSize =
-                             CGSizeMake(CGRectGetWidth(self.svPhotos.frame) * [currentProfile.arr_photos count], screenHeight);
+                             CGSizeMake(CGRectGetWidth(self.svPhotos.frame) * self.numOfPhotoAndVideo, screenHeight);
                              [self.infoView setFrame:CGRectMake(0, screenHeight, self.infoView.frame.size.width, self.infoView.frame.size.height)];
                              [self updateSubviewsToCenterScrollView];
                          }
@@ -1374,6 +1427,24 @@ BOOL allowFullScreen = FALSE;
     {
         VCSimpleSnapshot *VCSSnapshot = appDel.simpleSnapShot.viewControllers[0];
         [VCSSnapshot backToSnapshotViewWithAnswer:-1];
+    }
+}
+
+- (IBAction)playVideoTouched:(id)sender {
+    VCSimpleSnapshot *VCSSnapshot = appDel.simpleSnapShot.viewControllers[0];
+    VCSSnapshot.controlView.hidden = YES;
+    
+    NSURL *videoURL = [NSURL URLWithString:currentProfile.s_video];
+    MPMoviePlayerViewController *moviePlayer = [[MPMoviePlayerViewController alloc] initWithContentURL:videoURL];
+    [self presentMoviePlayerViewControllerAnimated:moviePlayer];
+    
+    [moviePlayer.moviePlayer play];
+}
+
+- (void)finishPlayVideoClick:(NSNotification*)aNotification{
+    VCSimpleSnapshot *VCSSnapshot = appDel.simpleSnapShot.viewControllers[0];
+    if (VCSSnapshot && [VCSSnapshot isKindOfClass:[VCSimpleSnapshot class]]) {
+        VCSSnapshot.controlView.hidden = NO;
     }
 }
 

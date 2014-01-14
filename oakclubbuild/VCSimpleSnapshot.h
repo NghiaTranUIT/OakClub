@@ -17,6 +17,7 @@
     NSMutableArray* profileList;
 }
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *spinner;
+@property (nonatomic, weak) IBOutlet UIView *controlView;
 - (IBAction)btnYES:(id)sender;
 - (IBAction)btnShowProfile:(id)sender;
 - (IBAction)btnNOPE:(id)sender;

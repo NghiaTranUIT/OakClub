@@ -99,6 +99,7 @@ UITapGestureRecognizer *tap;
     self.imgViewVideoThumb.userInteractionEnabled = YES;
     
     NSString *videoThumbLink = [profileObj.s_video stringByReplacingOccurrencesOfString:@".mov" withString:@".jpg"];
+    NSLog(@"videoThumbLink:%@", videoThumbLink);
     [appDelegate.imagePool getImageAtURL:videoThumbLink withSize:PHOTO_SIZE_LARGE asycn:^(UIImage *img, NSError *error, bool isFirstLoad, NSString *urlWithSize) {
         if (img)
         {
@@ -1178,6 +1179,7 @@ UITapGestureRecognizer *tap;
                           }];
                           */
                           
+                          NSLog(@"video link:%@", link);
                           profileObj.s_video = [NSString stringWithFormat:@"%@.mov", link];
                           appDelegate.myProfile.s_video = [NSString stringWithFormat:@"%@.mov", link];
                      

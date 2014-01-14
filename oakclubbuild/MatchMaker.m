@@ -127,7 +127,6 @@ www.oakclub.com"
     
     UITapGestureRecognizer *dismissKeyboardTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissKeyboard:)];
     [self.dismissKeyboardView addGestureRecognizer:dismissKeyboardTap];
-    
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -371,6 +370,28 @@ www.oakclub.com"
     {
         [self sendMatchNotificationToServerWithFristUserID:match1.s_FB_id andSecond:match2.s_FB_id withDesc:self.descTextView.text];
     }
+}
+
+- (NSDictionary*)parseURLParams:(NSString *)query {
+    NSArray *pairs = [query componentsSeparatedByString:@"&"];
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    for (NSString *pair in pairs) {
+        NSArray *kv = [pair componentsSeparatedByString:@"="];
+        NSString *val =
+        [kv[1] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        params[kv[0]] = val;
+    }
+    return params;
+}
+
+- (void)showMatchError
+{
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:[@"Error" localize]
+                                                        message:[@"Error in process matching" localize]
+                                                       delegate:nil
+                                              cancelButtonTitle:[@"Ok" localize]
+                                              otherButtonTitles:nil];
+    [alertView show];
 }
 
 -(void)sendMatchNotificationToServerWithFristUserID:(NSString *)fb_id1 andSecond:(NSString *)fb_id2 withDesc:(NSString *)desc

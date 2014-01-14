@@ -175,4 +175,8 @@ extern NSString *const SCSessionStateChangedNotification;
 -(void)updateNavigationWithNotification;
 
 - (void)tryLoginWithSuccess:(void(^)(int status))success failure:(void(^)(void))failure;
+- (void)showErrorSlowConnection:(NSString *)problem;
+- (void)showErrorData;
+- (void)reportIOSProblemToOakClub:(NSString *)problem;
+
 @end

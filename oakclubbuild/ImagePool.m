@@ -9,6 +9,12 @@
 #import "ImagePool.h"
 #import "AppDelegate.h"
 
+@interface ImagePool ()
+
+@property (assign, nonatomic) int requestTimeoutToMakeAlertCount;
+
+@end
+
 @implementation ImagePool
 {
     NSMutableDictionary *_images;
@@ -19,6 +25,8 @@
     if (self = [super init])
     {
         _images = [[NSMutableDictionary alloc] init];
+        _maxRequestTimeoutToMakeAlert = 100;
+        _requestTimeoutToMakeAlertCount = 0;
     }
     
     return self;
@@ -32,6 +40,8 @@
 -(void)getImageAtURL:(NSString *)imgID withSize:(CGSize)size asycn:(void (^)(UIImage *img, NSError *error, bool isFirstLoad, NSString *urlWithSize))completion
 {
     NSString *url = [NSString stringWithFormat: @"%@?width=%d&height=%d", imgID, (int)size.width, (int)size.height];
+    NSLog(@"REQUEST POOL url %@", url);
+    
     id img = [_images objectForKey:url];
     
     if (img)
@@ -43,6 +53,7 @@
         }
         else if ([img isKindOfClass:[UIImage class]])
         {
+            NSLog(@"IMAGE POOL success immediate %@", img);
             completion(img, nil, NO, url);
         }
     }
@@ -81,6 +92,9 @@
         NSMutableURLRequest *request = [httpClient requestWithMethod:@"GET"
                                                                 path:photoRequestURL
                                                           parameters:params];
+        [request setTimeoutInterval:13];
+        
+        NSLog(@"PHOTO REQUEST POOL photoRequestURL %@", request.URL.absoluteString);
         
         AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
         [httpClient registerHTTPOperationClass:[AFHTTPRequestOperation class]];
@@ -96,6 +110,8 @@
                  [_images setObject:image forKey:url];
              }
              
+             NSLog(@"IMAGE POOL success %@", image);
+             
              for (int i = 0; i < reqs.count; ++i)
              {
                  void (^handler)(UIImage *img, NSError *error, bool isFirstLoad, NSString *urlWithSize) = [reqs objectAtIndex:i];
@@ -104,6 +120,22 @@
              
          } failure:^(AFHTTPRequestOperation *operation, NSError *error)
          {
+             NSLog(@"IMAGE POOL error %@", error);
+             
+             //process to detect many timeout
+             if (error.code == kCFURLErrorTimedOut) {
+                 self.requestTimeoutToMakeAlertCount++;
+                 
+                 if (self.requestTimeoutToMakeAlertCount >= self.maxRequestTimeoutToMakeAlert) {
+                     self.requestTimeoutToMakeAlertCount = 0; //reset
+                     
+                     //alert timeout too many
+                     NSLog(@"IMAGE POOL too many timeout");
+                     AppDelegate *appDel = (id) [UIApplication sharedApplication].delegate;
+                     [appDel showErrorSlowConnection:@"IMAGE POOL too many timeout"];
+                 }
+             }
+
              NSMutableArray *reqs = (NSMutableArray *) [_images objectForKey:url];
              [_images removeObjectForKey:url];
              

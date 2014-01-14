@@ -57,9 +57,12 @@
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *loadingAvatar;
 @property (weak, nonatomic) IBOutlet UIPageControl *photoPageControl;
 @property (strong, nonatomic) IBOutlet UILabel *photoCount;
+@property (weak, nonatomic) IBOutlet UILabel *videoCount;
+@property (weak, nonatomic) IBOutlet UIButton *btnPlayVideo;
 
 -(void) useImage:(UIImage*)_avatar;
 -(void) loadProfile:(Profile*) _profile andImage:(UIImage*)avatar;
 -(void) loadProfile:(Profile*) _profile;
 -(void) addDoneItemController;
+- (IBAction)playVideoTouched:(id)sender;
 @end
