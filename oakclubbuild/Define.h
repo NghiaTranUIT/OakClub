@@ -323,6 +323,10 @@
 //
 #define value_TRUE @"true"
 #define value_FALSE @"false"
+
+//================ Notification keys =============
+#define ApplicationDidBecomeActive @"ApplicationDidBecomeActive"
+
 //================ Hangout View ==================
 #define ZOOM_VIEW_TAG 100
 #define ZOOM_STEP 1.5

@@ -11,4 +11,6 @@
 
 @interface MatchMaker : UIViewController <UITextViewDelegate>
 @property PSTCollectionView *CVFriendsList;
+
+-(void)loadFriendsData;
 @end

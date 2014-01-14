@@ -33,6 +33,7 @@
 #import "AppLifeCycleDelegate.h"
 #import "VCSimpleSnapshot.h"
 #import "VCSimpleSnapshotLoading.h"
+#import "MatchMaker.h"
 NSString *const SCSessionStateChangedNotification =
 @"com.facebook.Scrumptious:SCSessionStateChangedNotification";
 @interface AppDelegate()
@@ -64,7 +65,6 @@ NSString *const kXMPPmyPassword = @"kXMPPmyPassword";
 @synthesize window;
 @synthesize navigationController;
 @synthesize settingsViewController;
-@synthesize loginButton;
 // end Chatting
 @synthesize myFBProfile = _myFBProfile;
 @synthesize myProfile = _myProfile;
@@ -91,7 +91,6 @@ NSString *const kXMPPmyPassword = @"kXMPPmyPassword";
 
 @synthesize session = _session;
 
-@synthesize appLCObservers;
 @synthesize imagePool;
 @synthesize snapshotSettingsObj;
 // Log levels: off, error, warn, info, verbose
@@ -136,7 +135,6 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    self.appLCObservers = [[NSMutableArray alloc] init];
     self.imagePool = [[ImagePool alloc] init];
     self.snapshotSettingsObj = [[SettingObject alloc] init];
     _messageDelegate = nil;
@@ -320,10 +318,7 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
     
     [FBSession.activeSession handleDidBecomeActive];
     
-    for (id<AppLifeCycleDelegate> appLCDel in self.appLCObservers)
-    {
-        [appLCDel applicationDidBecomeActive:application];
-    }
+    [self.notificationCenter postNotificationName:ApplicationDidBecomeActive object:nil];
 }
 
 
@@ -611,6 +606,10 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
     [self connect];
     
     [self loadAllViewControllers];
+    
+    // async load data
+    MatchMaker *matchMakerVC = (MatchMaker *) self.matchMaker.viewControllers[0];
+    [matchMakerVC loadFriendsData];
 }
 /*
  // Vanancy - unused

@@ -14,5 +14,4 @@
 -(void)getImageAtURL:(NSString *)imgID withSize:(CGSize)size asycn:(void (^)(UIImage *img, NSError *error, bool isFirstLoad, NSString *urlWithSize))completion;
 
 -(void)setImage:(UIImage *)img forURL:(NSString *)imgURL andSize:(CGSize)size;
-
 @end

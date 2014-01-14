@@ -78,7 +78,6 @@
 //@property (nonatomic, strong) IBOutlet UIWindow *window;
 @property (nonatomic, strong) IBOutlet UINavigationController *navigationController;
 @property (nonatomic, strong) IBOutlet SettingsViewController *settingsViewController;
-@property (nonatomic, strong) IBOutlet UIBarButtonItem *loginButton;
 
 - (NSManagedObjectContext *)managedObjectContext_roster;
 - (NSManagedObjectContext *)managedObjectContext_capabilities;
@@ -126,7 +125,7 @@ extern NSString *const SCSessionStateChangedNotification;
 
 @property BOOL reloadSnapshot;
 
-@property (strong, nonatomic) NSMutableArray *appLCObservers;
+@property (strong, nonatomic) NSNotificationCenter *notificationCenter;
 
 @property (strong, nonatomic) ImagePool *imagePool;
 @property (strong, nonatomic) SettingObject *snapshotSettingsObj;

@@ -13,13 +13,76 @@
                 <outlet property="friend1Avatar" destination="5pz-FY-q1E" id="zNo-KL-ODu"/>
                 <outlet property="friend2Avatar" destination="MQB-ue-dco" id="nrK-EL-phM"/>
                 <outlet property="friendListView" destination="IKP-sE-dfb" id="bTC-c5-csB"/>
-                <outlet property="matchBorder" destination="mAL-UA-ga0" id="MgT-Hw-NfI"/>
+                <outlet property="indWait" destination="h0L-Cz-E6l" id="zvp-0o-b8m"/>
+                <outlet property="loadFriendFailedView" destination="kKm-QM-6gv" id="Z0l-LD-LbJ"/>
                 <outlet property="matchButton" destination="TR4-ij-CEv" id="yNC-mS-Msv"/>
-                <outlet property="view" destination="1" id="yig-dz-Tws"/>
+                <outlet property="matchButtonDescLabel" destination="L1E-U6-PJd" id="p1m-NF-qok"/>
+                <outlet property="matchButtonView" destination="bDX-BU-2pg" id="2Z7-DP-VPo"/>
+                <outlet property="matchYourFriendsTabButton" destination="ytQ-eh-gFR" id="Mz3-Wb-kjQ"/>
+                <outlet property="matchYourFriendsView" destination="1" id="SZ3-2n-weU"/>
+                <outlet property="sendMatchesTabButton" destination="n08-On-7mw" id="qRu-KS-cjF"/>
+                <outlet property="sendMatchesView" destination="GSz-0b-P4L" id="EFB-4D-b1n"/>
+                <outlet property="tabDisplayView" destination="ILm-z0-9Tu" id="XC2-u9-Ieo"/>
+                <outlet property="tbViewMatchMakerRequests" destination="H8p-Z7-ymj" id="33L-Nc-Lsh"/>
+                <outlet property="view" destination="YU4-EM-nP4" id="oMH-hC-uzh"/>
+                <outlet property="viewSuccess" destination="ykl-mg-WQg" id="Fka-AK-Yax"/>
+                <outlet property="viewWarning" destination="pTE-O4-fV6" id="QVz-dB-DcE"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <view contentMode="scaleToFill" id="1">
+        <view contentMode="scaleToFill" id="YU4-EM-nP4">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" id="oJy-Sk-aA2">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="30"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <subviews>
+                        <button autoresizesSubviews="NO" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="ytQ-eh-gFR" userLabel="Button - match your friends">
+                            <rect key="frame" x="0.0" y="0.0" width="160" height="30"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" red="0.34509803921568627" green="0.0039215686274509803" blue="0.34509803921568627" alpha="1" colorSpace="calibratedRGB"/>
+                            <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
+                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <state key="normal" title="Match Your Friends" image="matchmaker_icon_normal.png">
+                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <state key="disabled" image="matchmaker_icon_normal.png"/>
+                            <state key="selected" image="matchmaker_icon_normal.png"/>
+                            <state key="highlighted" image="matchmaker_icon_normal.png"/>
+                            <connections>
+                                <action selector="tabButtonMatchYourFriendsTouched:" destination="-1" eventType="touchUpInside" id="Wer-aN-Bg9"/>
+                            </connections>
+                        </button>
+                        <button autoresizesSubviews="NO" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="n08-On-7mw" userLabel="Button - send matches">
+                            <rect key="frame" x="160" y="0.0" width="160" height="30"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" red="0.47450980392156861" green="0.0039215686274509803" blue="0.34509803921568627" alpha="1" colorSpace="calibratedRGB"/>
+                            <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
+                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <state key="normal" title="Send Matches" image="matchmaker_send_icon_pressed.png">
+                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <state key="disabled" image="matchmaker_send_icon_pressed.png"/>
+                            <connections>
+                                <action selector="tabButtonSendMatchesTouched:" destination="-1" eventType="touchUpInside" id="3yC-rs-itr"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                </view>
+                <view contentMode="scaleToFill" id="ILm-z0-9Tu" userLabel="View - display View">
+                    <rect key="frame" x="0.0" y="30" width="320" height="449"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                </view>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
+        </view>
+        <view contentMode="scaleToFill" id="1" userLabel="View - match your friends">
             <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
@@ -30,70 +93,210 @@
                     <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
                 </view>
+                <view contentMode="scaleToFill" id="kzm-qT-eHd" userLabel="View - middle view">
+                    <rect key="frame" x="80" y="9" width="160" height="113"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <subviews>
+                        <view hidden="YES" contentMode="scaleToFill" id="ykl-mg-WQg" userLabel="View - success">
+                            <rect key="frame" x="40" y="2" width="80" height="109"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <subviews>
+                                <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="matchmaker_check_mark_icon.png" id="Dbk-Rs-UVq">
+                                    <rect key="frame" x="0.0" y="0.0" width="80" height="65"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                </imageView>
+                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Success!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="dKB-8x-m22">
+                                    <rect key="frame" x="0.0" y="60" width="80" height="46"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                    <color key="textColor" red="0.47450980390000003" green="0.0039215686269999999" blue="0.34509803919999998" alpha="1" colorSpace="calibratedRGB"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                            </subviews>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        </view>
+                        <view contentMode="scaleToFill" id="pTE-O4-fV6" userLabel="View - warning">
+                            <rect key="frame" x="40" y="2" width="80" height="109"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <subviews>
+                                <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="matchmaker_failed-icon.png" id="z5G-nw-h5d">
+                                    <rect key="frame" x="0.0" y="0.0" width="80" height="65"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                </imageView>
+                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Already matched!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="2Pe-Cu-Ziq">
+                                    <rect key="frame" x="0.0" y="60" width="80" height="46"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                    <color key="textColor" red="0.47450980390000003" green="0.0039215686269999999" blue="0.34509803919999998" alpha="1" colorSpace="calibratedRGB"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                            </subviews>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        </view>
+                        <view contentMode="scaleToFill" id="bDX-BU-2pg" userLabel="View - match button">
+                            <rect key="frame" x="40" y="2" width="80" height="109"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <subviews>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="TR4-ij-CEv">
+                                    <rect key="frame" x="-4" y="11" width="88" height="88"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <state key="normal" image="matchmaker_btn_plus_inactivated.png">
+                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                    </state>
+                                    <state key="disabled" image="matchmaker_btn_plus_deactivated.png"/>
+                                    <state key="selected" image="matchmaker_btn_plus_activated.png"/>
+                                    <state key="highlighted" image="matchmaker_btn_plus_activated.png"/>
+                                    <connections>
+                                        <action selector="matchButtonTouched:" destination="-1" eventType="touchUpInside" id="e1s-4d-HxH"/>
+                                    </connections>
+                                </button>
+                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tap on the button above to match your friends" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="L1E-U6-PJd">
+                                    <rect key="frame" x="0.0" y="72" width="80" height="37"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="6"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                            </subviews>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        </view>
+                        <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="whiteLarge" id="h0L-Cz-E6l">
+                            <rect key="frame" x="62" y="38" width="37" height="37"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="color" red="0.47450980390000003" green="0.0039215686269999999" blue="0.34509803919999998" alpha="1" colorSpace="calibratedRGB"/>
+                        </activityIndicatorView>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                </view>
                 <view contentMode="scaleToFill" id="Rs0-mT-bbd" userLabel="View - friend 1">
                     <rect key="frame" x="0.0" y="0.0" width="130" height="130"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <subviews>
-                        <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="5pz-FY-q1E" userLabel="Image View - friend 1 avatar">
+                        <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="matchmaker_inactivated_avatar_base.png" id="uxv-rY-hcW" userLabel="Image View - inactive">
                             <rect key="frame" x="10" y="10" width="110" height="110"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        </imageView>
+                        <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="5pz-FY-q1E" userLabel="Image View - friend 1 avatar">
+                            <rect key="frame" x="15" y="15" width="100" height="100"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         </imageView>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                 </view>
                 <view contentMode="scaleToFill" id="cI4-kz-6T2" userLabel="View - friend 2">
-                    <rect key="frame" x="180" y="0.0" width="130" height="130"/>
+                    <rect key="frame" x="190" y="0.0" width="130" height="130"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
                     <subviews>
-                        <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="MQB-ue-dco" userLabel="Image View - friend 2 avatar">
+                        <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="matchmaker_inactivated_avatar_base.png" id="qmp-wn-nst" userLabel="Image View - inactive">
                             <rect key="frame" x="10" y="10" width="110" height="110"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        </imageView>
+                        <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="MQB-ue-dco" userLabel="Image View - friend 2 avatar">
+                            <rect key="frame" x="15" y="15" width="100" height="100"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         </imageView>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                 </view>
-                <imageView hidden="YES" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="mAL-UA-ga0" userLabel="Image View - matched border">
-                    <rect key="frame" x="0.0" y="0.0" width="320" height="130"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                </imageView>
                 <view contentMode="scaleToFill" id="IKP-sE-dfb" userLabel="View - friends list view">
                     <rect key="frame" x="0.0" y="138" width="320" height="342"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinY="YES" heightSizable="YES"/>
+                    <subviews>
+                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your Friends" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="mtC-ve-9yb">
+                            <rect key="frame" x="0.0" y="0.0" width="320" height="30"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" red="0.92156862750000001" green="0.92156862750000001" blue="0.92156862750000001" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="tintColor" red="0.92156862750000001" green="0.92156862750000001" blue="0.92156862750000001" alpha="1" colorSpace="calibratedRGB"/>
+                            <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="17"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <view hidden="YES" contentMode="scaleToFill" id="kKm-QM-6gv" userLabel="View - failed view">
+                            <rect key="frame" x="0.0" y="0.0" width="320" height="342"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxY="YES"/>
+                            <subviews>
+                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="fKe-w2-SJ8">
+                                    <rect key="frame" x="20" y="125" width="280" height="81"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <string key="text">Cannot load your facebook friends
+Press 'Reload' to try again</string>
+                                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="WS4-kP-5H8">
+                                    <rect key="frame" x="123" y="199" width="75" height="30"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <color key="backgroundColor" red="0.47450980390000003" green="0.0039215686269999999" blue="0.34509803919999998" alpha="1" colorSpace="calibratedRGB"/>
+                                    <size key="titleShadowOffset" width="1" height="0.0"/>
+                                    <state key="normal" title="Reload">
+                                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                    </state>
+                                    <connections>
+                                        <action selector="reloadFriendListTouched:" destination="-1" eventType="touchUpInside" id="AQW-fv-6TI"/>
+                                    </connections>
+                                </button>
+                            </subviews>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        </view>
+                    </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                 </view>
                 <view hidden="YES" contentMode="scaleToFill" id="wtk-lT-aDP" userLabel="View - desc text">
                     <rect key="frame" x="0.0" y="130" width="320" height="120"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <subviews>
-                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="cdg-cT-Jry">
-                            <rect key="frame" x="10" y="15" width="300" height="100"/>
+                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="center" id="cdg-cT-Jry">
+                            <rect key="frame" x="10" y="15" width="300" height="76"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" heightSizable="YES"/>
-                            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                            <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
-                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <string key="text">I want you to meet someone. I introduced you on OakClub
+www.oakclub.com</string>
+                            <color key="textColor" red="0.47450980390000003" green="0.0039215686269999999" blue="0.4638172901" alpha="1" colorSpace="calibratedRGB"/>
+                            <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="14"/>
                             <textInputTraits key="textInputTraits" autocapitalizationType="sentences" returnKeyType="done"/>
                             <connections>
                                 <outlet property="delegate" destination="-1" id="QkY-Bh-uZs"/>
                             </connections>
                         </textView>
+                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Facebook notification will be sent to both of your friends from you." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="MBv-2W-J2j">
+                            <rect key="frame" x="10" y="99" width="300" height="21"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="9"/>
+                            <nil key="highlightedColor"/>
+                        </label>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
                 </view>
-                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="TR4-ij-CEv">
-                    <rect key="frame" x="130" y="35" width="60" height="60"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <state key="normal" title="Match">
-                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                    </state>
-                    <connections>
-                        <action selector="matchButtonTouched:" destination="-1" eventType="touchUpInside" id="e1s-4d-HxH"/>
-                    </connections>
-                </button>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
             <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
         </view>
+        <view contentMode="scaleToFill" id="GSz-0b-P4L" userLabel="View - send matches">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <subviews>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="H8p-Z7-ymj">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <connections>
+                        <outlet property="dataSource" destination="-1" id="f65-LH-tWT"/>
+                        <outlet property="delegate" destination="-1" id="S6O-2S-3Hp"/>
+                    </connections>
+                </tableView>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
+        </view>
     </objects>
+    <resources>
+        <image name="matchmaker_btn_plus_activated.png" width="88" height="88"/>
+        <image name="matchmaker_btn_plus_deactivated.png" width="88" height="88"/>
+        <image name="matchmaker_btn_plus_inactivated.png" width="88" height="88"/>
+        <image name="matchmaker_check_mark_icon.png" width="27" height="27"/>
+        <image name="matchmaker_failed-icon.png" width="10" height="43"/>
+        <image name="matchmaker_icon_normal.png" width="18" height="18"/>
+        <image name="matchmaker_inactivated_avatar_base.png" width="109" height="109"/>
+        <image name="matchmaker_send_icon_pressed.png" width="19" height="12"/>
+    </resources>
 </document>

@@ -11,24 +11,67 @@
 #import "AppDelegate.h"
 #import "UIView+Localize.h"
 #import "LoadingIndicator.h"
+#import "SendMatchViewCell.h"
+#import "MatchMakerItem.h"
 
-@interface MatchMaker () <PSTCollectionViewDataSource, PSTCollectionViewDelegate, PSTCollectionViewDelegateFlowLayout>
+enum MATCHMAKER_CHOOSE_STATE{
+    MATCHMAKER_CHOOSE_NONE = 0,
+    MATCHMAKER_CHOOSE_CHOOSING,
+    MATCHMAKER_CHOOSE_WAITING,
+    MATCHMAKER_CHOOSE_SUCCESS,
+    MATCHMAKER_CHOOSE_FAIL
+    };
+
+enum MATCHMAKER_LOADFRIEND_STATE {
+    MATCHMAKER_LOADFRIEND_NONE = 0,
+    MATCHMAKER_LOADFRIEND_LOADING,
+    MATCHMAKER_LOADFRIEND_SUCCESS,
+    MATCHMAKER_LOADFRIEND_FAILED
+    };
+
+enum MATCHMAKER_TABPAGE
+{
+    MATCHMAKER_TABPAGE_MATCHFRIENDS = 0,
+    MATCHMAKER_TABPAGE_SENDMATCHES
+};
+
+@interface MatchMaker () <PSTCollectionViewDataSource, PSTCollectionViewDelegate, PSTCollectionViewDelegateFlowLayout, UITableViewDataSource, UITableViewDelegate>
 {
     int nCols, nRows;
     NSArray *friends;
+    NSMutableArray *matchMakerRequests;
     AppDelegate *appDel;
+    enum MATCHMAKER_CHOOSE_STATE _chooseStatus;
+    enum MATCHMAKER_LOADFRIEND_STATE _loadFriendStatus;
+    enum MATCHMAKER_TABPAGE _tabPage;
     
     Profile *match1, *match2;
+    ImagePool *imagePool;
     LoadingIndicator *loadingIndicator;
 }
+@property (strong, nonatomic) IBOutlet UIView *matchYourFriendsView;
+@property (strong, nonatomic) IBOutlet UIView *sendMatchesView;
+@property (weak, nonatomic) IBOutlet UIView *tabDisplayView;
+@property (weak, nonatomic) IBOutlet UITableView *tbViewMatchMakerRequests;
 @property (weak, nonatomic) IBOutlet UIImageView *friend1Avatar;
 @property (weak, nonatomic) IBOutlet UIImageView *friend2Avatar;
-@property (weak, nonatomic) IBOutlet UIImageView *matchBorder;
 @property (weak, nonatomic) IBOutlet UIView *friendListView;
 @property (weak, nonatomic) IBOutlet UIView *descView;
 @property (weak, nonatomic) IBOutlet UITextView *descTextView;
+@property (weak, nonatomic) IBOutlet UIView *viewSuccess;
+@property (weak, nonatomic) IBOutlet UIView *viewWarning;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *indWait;
+@property (weak, nonatomic) IBOutlet UIView *matchButtonView;
+@property (weak, nonatomic) IBOutlet UILabel *matchButtonDescLabel;
 @property (weak, nonatomic) IBOutlet UIButton *matchButton;
 @property (weak, nonatomic) IBOutlet UIView *dismissKeyboardView;
+@property (weak, nonatomic) IBOutlet UIView *loadFriendFailedView;
+@property (weak, nonatomic) IBOutlet UIButton *matchYourFriendsTabButton;
+@property (weak, nonatomic) IBOutlet UIButton *sendMatchesTabButton;
+
+@property enum MATCHMAKER_CHOOSE_STATE ChooseStatus;
+@property enum MATCHMAKER_LOADFRIEND_STATE LoadFriendStatus;
+@property enum MATCHMAKER_TABPAGE TabPage;
 @end
 
 @implementation MatchMaker
@@ -36,11 +79,12 @@
 
 #define MOVE_ANIMATE_DURATION 0.3
 #define ZOOM_ANIMATE_DURATION 0.3
-#define ZOOM_RATIO 110.0/80
+#define ZOOM_RATIO 100.0/80
 
 #define ANIMATE_DURATION 0.3
 
-#define DEFAULT_DESC @"The two are match"
+#define DEFAULT_DESC @"I want you to meet someone. I introduced you on OakClub\n\
+www.oakclub.com"
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -48,6 +92,7 @@
     if (self) {
         // Custom initialization
         appDel = (id) [UIApplication sharedApplication].delegate;
+        imagePool = [[ImagePool alloc] init];
     }
     return self;
 }
@@ -58,7 +103,18 @@
 	// Do any additional setup after loading the view.
     
     loadingIndicator = [[LoadingIndicator alloc] initWithMainView:self.friendListView andDelegate:nil];
-    [self loadFriendsData];
+    [self initFriendsListCollection];
+    
+    [self updateViewByLoadFriendStatus];
+    
+    self.TabPage = MATCHMAKER_TABPAGE_MATCHFRIENDS;
+    
+    matchMakerRequests = [[NSMutableArray alloc] init];
+    self.matchButton.enabled = NO;
+    [self.matchButtonDescLabel setHidden:YES];
+    self.ChooseStatus = MATCHMAKER_CHOOSE_CHOOSING;
+    
+    [self.tabDisplayView addSubview:self.matchYourFriendsView];
     
     UITapGestureRecognizer *friend1Tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(friend1AvatarTouched:)];
     [self.friend1Avatar addGestureRecognizer:friend1Tap];
@@ -74,6 +130,14 @@
     
 }
 
+-(void)viewWillAppear:(BOOL)animated
+{
+    if (self.LoadFriendStatus == MATCHMAKER_LOADFRIEND_FAILED)
+    {
+        [self loadFriendsData];
+    }
+}
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -87,7 +151,7 @@
     
     PSUICollectionViewFlowLayout *layout = [PSUICollectionViewFlowLayout new];
     layout.scrollDirection = PSTCollectionViewScrollDirectionVertical;
-    self.CVFriendsList = [[PSUICollectionView alloc] initWithFrame:CGRectMake(10, 10, self.friendListView.frame.size.width - 20, self.friendListView.frame.size.height - 20) collectionViewLayout:layout];
+    self.CVFriendsList = [[PSUICollectionView alloc] initWithFrame:CGRectMake(10, 30, self.friendListView.frame.size.width - 20, self.friendListView.frame.size.height - 40) collectionViewLayout:layout];
     self.CVFriendsList.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     self.CVFriendsList.backgroundColor = [UIColor clearColor];
     [self.CVFriendsList registerClass:[MatchMakerFriendCell class] forCellWithReuseIdentifier:matchmakerFriendCellID];
@@ -95,9 +159,18 @@
     self.CVFriendsList.delegate = self;
     
     [self.friendListView addSubview:self.CVFriendsList];
-    
-    nCols = self.CVFriendsList.frame.size.width / 80;
-    nRows = 1 + friends.count / nCols;
+    [self updateFriendList];
+}
+
+-(void)updateFriendList
+{
+    if (self.CVFriendsList)
+    {
+        nCols = self.CVFriendsList.frame.size.width / 80;
+        nRows = 1 + friends.count / nCols;
+        
+        [self.CVFriendsList reloadData];
+    }
 }
 
 -(int)indexPathToIndex:(NSIndexPath *)indexPath
@@ -118,7 +191,7 @@
         
         [cell.friendAvatar setImage:[UIImage imageNamed:@"Default Avatar"]];
         [cell.friendName setText:friend.firstName];
-        [appDel.imagePool getImageAtURL:friend.s_Avatar withSize:PHOTO_SIZE_SMALL asycn:^(UIImage *img, NSError *error, bool isFirstLoad, NSString *url) {
+        [imagePool getImageAtURL:friend.s_Avatar withSize:PHOTO_SIZE_SMALL asycn:^(UIImage *img, NSError *error, bool isFirstLoad, NSString *url) {
             if (isFirstLoad)
             {
                 [collectionView reloadData];
@@ -230,6 +303,7 @@
     [self dismissKeyboard:nil];
     if (self.friend1Avatar.image)
     {
+        self.ChooseStatus = MATCHMAKER_CHOOSE_CHOOSING;
         [self.friend1Avatar setUserInteractionEnabled:NO];
         
         if (!self.friend2Avatar.image)
@@ -275,6 +349,7 @@
     [self dismissKeyboard:nil];
     if (self.friend2Avatar.image)
     {
+        self.ChooseStatus = MATCHMAKER_CHOOSE_CHOOSING;
         [self.friend2Avatar setUserInteractionEnabled:NO];
         [UIView animateWithDuration:ANIMATE_DURATION animations:^{
             [self.friend2Avatar setAlpha:0];
@@ -294,13 +369,14 @@
 {
     if (match1 && match2)
     {
-        
         [self sendMatchNotificationToServerWithFristUserID:match1.s_FB_id andSecond:match2.s_FB_id withDesc:self.descTextView.text];
     }
 }
 
 -(void)sendMatchNotificationToServerWithFristUserID:(NSString *)fb_id1 andSecond:(NSString *)fb_id2 withDesc:(NSString *)desc
 {
+    self.ChooseStatus = MATCHMAKER_CHOOSE_WAITING;
+    [self.view setUserInteractionEnabled:NO];
     AFHTTPClient *httpClient = [[AFHTTPClient alloc]initWithOakClubAPI:DOMAIN];
     [httpClient setParameterEncoding:AFFormURLParameterEncoding];
     [httpClient registerHTTPOperationClass:[AFHTTPRequestOperation class]];
@@ -317,11 +393,18 @@
         NSError *e=nil;
         NSMutableDictionary *dict = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONReadingMutableContainers error:&e];
         NSLog(@"send matchmaker success with respond: %@", dict);
+        NSDateFormatter *dateFormater = [[NSDateFormatter alloc] init];
+        [dateFormater setDateFormat:DATE_FORMAT];
+        NSDate *now = [[NSDate alloc] init];
         
-        UIAlertView *completedAlert = [[UIAlertView alloc] initWithTitle:[@"Match made" localize] message:nil delegate:nil cancelButtonTitle:[@"OK" localize] otherButtonTitles:nil];
-        [completedAlert show];
+        [matchMakerRequests addObject:[[MatchMakerItem alloc] initWithFriend1:match1 friend2:match2 matchTime:[dateFormater stringFromDate:now] requestStatus:YES andSendStatus:NO]];
+        
+        self.ChooseStatus = MATCHMAKER_CHOOSE_SUCCESS;
+        [self.view setUserInteractionEnabled:YES];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Cannot send matchmaker, error %@", error.localizedDescription);
+        self.ChooseStatus = MATCHMAKER_CHOOSE_FAIL;
+        [self.view setUserInteractionEnabled:YES];
     }];
     [operation start];
 }
@@ -329,8 +412,7 @@
 #pragma mark utils
 -(void)loadFriendsData
 {
-    [loadingIndicator lockViewAndDisplayIndicator];
-    
+    self.LoadFriendStatus = MATCHMAKER_LOADFRIEND_LOADING;
     AFHTTPClient *request = [[AFHTTPClient alloc] initWithOakClubAPI:DOMAIN];
     NSMutableURLRequest *urlReq = [request requestWithMethod:@"GET" path:URL_getMatchmakerFriendList parameters:nil];
     
@@ -343,7 +425,7 @@
         if (dict && !e)
         {
             NSDictionary *data = dict[key_data];
-            NSDictionary *friendDatas = data[@"friendData"];
+            NSArray *friendDatas = data[@"friendData"];
             NSArray *friendIDs = data[@"friendIds"];
             
             NSMutableArray *friendlist = [[NSMutableArray alloc] init];
@@ -353,21 +435,23 @@
                 NSString *userId = friendIDs[i];
                 friend.s_FB_id = userId;
                 friend.s_Avatar = [NSString stringWithFormat:@"http://graph.facebook.com/%@/picture", friend.s_FB_id];
-                friend.s_Name = friendDatas[userId][key_name];
+                friend.s_Name = friendDatas[i][key_name];
                 
                 [friendlist addObject:friend];
             }
             
             friends = friendlist;
+            
+            self.LoadFriendStatus = MATCHMAKER_LOADFRIEND_SUCCESS;
         }
-        
-        [self initFriendsListCollection];
-        
-        [loadingIndicator unlockViewAndStopIndicator];
+        else
+        {
+            self.LoadFriendStatus = MATCHMAKER_LOADFRIEND_FAILED;
+        }
     }
     failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Get match friends list Error Code: %i - %@", [error code], error);
-        [loadingIndicator unlockViewAndStopIndicator];
+        self.LoadFriendStatus = MATCHMAKER_LOADFRIEND_FAILED;
     }];
     [operation start];
 }
@@ -386,7 +470,8 @@
 {
     [self.view setUserInteractionEnabled:NO];
     
-    [self.matchButton setHidden:NO];
+    [self.matchButton setEnabled:YES];
+    [self.matchButtonDescLabel setHidden:NO];
     [self.descView setHidden:NO];
     [self.descView setAlpha:0];
     [self.descTextView setText:DEFAULT_DESC];
@@ -407,7 +492,7 @@
 {
     [self.view setUserInteractionEnabled:NO];
     
-    [self.matchButton setHidden:YES];
+    [self.matchButton setEnabled:NO];
     [self.descView setHidden:NO];
     
     CGRect descViewFrame = self.descView.frame;
@@ -428,6 +513,49 @@
     [self.descTextView resignFirstResponder];
 }
 
+#pragma mark tableView dataSource / delegate
+-(int)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return matchMakerRequests.count;
+}
+
+-(float)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 115;
+}
+
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    static NSString *mmRequestID = @"MatchMakerRequest";
+    
+    SendMatchViewCell *cell = [tableView dequeueReusableCellWithIdentifier:mmRequestID];
+    if (!cell)
+    {
+        cell = [[SendMatchViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:mmRequestID];
+    }
+    
+    MatchMakerItem *mmItem = [matchMakerRequests objectAtIndex:indexPath.row];
+    [imagePool getImageAtURL:mmItem.friend1.s_Avatar withSize:PHOTO_SIZE_SMALL asycn:^(UIImage *img, NSError *error, bool isFirstLoad, NSString *urlWithSize) {
+        cell.friend1Avatar.image = img;
+    }];
+    
+    
+    [imagePool getImageAtURL:mmItem.friend2.s_Avatar withSize:PHOTO_SIZE_SMALL asycn:^(UIImage *img, NSError *error, bool isFirstLoad, NSString *urlWithSize) {
+        cell.friend2Avatar.image = img;
+    }];
+    
+    cell.lblName.text = [NSString stringWithFormat:@"%@ & %@", mmItem.friend1.firstName, mmItem.friend2.firstName];
+    
+    cell.lblTime_Status.text = [NSString stringWithFormat:@"%@ %@ | %@: %@", [@"Matched on" localize], mmItem.matchTime, [@"Status" localize], mmItem.s_Status];
+    
+    cell.lblSendStatus.text = mmItem.isSent?([@"Send them a message" localize]):([@"Message sent" localize]);
+    
+    cell.btnSendMessage.enabled = !mmItem.isSent;
+    cell.linkImage.highlighted = mmItem.status;
+    
+    return cell;
+}
+
 #pragma mark text view delegate
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
 {
@@ -441,5 +569,132 @@
     }
     // For any other character return TRUE so that the text gets added to the view
     return TRUE;
+}
+
+#pragma mark matchmaker status
+-(enum MATCHMAKER_CHOOSE_STATE)ChooseStatus
+{
+    return _chooseStatus;
+}
+
+-(void)setChooseStatus:(enum MATCHMAKER_CHOOSE_STATE)status
+{
+    
+    switch (status) {
+        case MATCHMAKER_CHOOSE_CHOOSING:
+            [self.matchButtonView setHidden:NO];
+            [self.viewSuccess setHidden:YES];
+            [self.viewWarning setHidden:YES];
+            [self.indWait stopAnimating];
+            break;
+        case MATCHMAKER_CHOOSE_WAITING:
+            [self.matchButtonView setHidden:YES];
+            [self.viewSuccess setHidden:YES];
+            [self.viewWarning setHidden:YES];
+            [self.indWait startAnimating];
+            break;
+        case MATCHMAKER_CHOOSE_SUCCESS:
+            [self.matchButtonView setHidden:YES];
+            [self.viewSuccess setHidden:NO];
+            [self.viewWarning setHidden:YES];
+            [self.indWait stopAnimating];
+            break;
+        case MATCHMAKER_CHOOSE_FAIL:
+            [self.matchButtonView setHidden:YES];
+            [self.viewSuccess setHidden:NO];
+            [self.viewWarning setHidden:YES];
+            [self.indWait stopAnimating];
+            break;
+        default:
+            break;
+    }
+    
+    status = _chooseStatus;
+}
+
+-(enum MATCHMAKER_LOADFRIEND_STATE)LoadFriendStatus
+{
+    return _loadFriendStatus;
+}
+
+-(void)setLoadFriendStatus:(enum MATCHMAKER_LOADFRIEND_STATE)LoadFriendStatus
+{
+    if (_loadFriendStatus != LoadFriendStatus)
+    {
+        _loadFriendStatus = LoadFriendStatus;
+        [self updateViewByLoadFriendStatus];
+    }
+}
+
+-(void)updateViewByLoadFriendStatus
+{
+    switch (_loadFriendStatus) {
+        case MATCHMAKER_LOADFRIEND_LOADING:
+            [loadingIndicator lockViewAndDisplayIndicator];
+            [self.CVFriendsList setHidden:YES];
+            [self.loadFriendFailedView setHidden:YES];
+            break;
+        case MATCHMAKER_LOADFRIEND_SUCCESS:
+            [loadingIndicator unlockViewAndStopIndicator];
+            [self.CVFriendsList setHidden:NO];
+            [self updateFriendList];
+            [self.loadFriendFailedView setHidden:YES];
+            break;
+        case MATCHMAKER_LOADFRIEND_FAILED:
+            [loadingIndicator unlockViewAndStopIndicator];
+            [self.CVFriendsList setHidden:YES];
+            [self.loadFriendFailedView setHidden:NO];
+            break;
+        default:
+            break;
+    }
+}
+- (IBAction)reloadFriendListTouched:(id)sender {
+    [self loadFriendsData];
+}
+
+#pragma mark tab page state
+-(enum MATCHMAKER_TABPAGE)TabPage
+{
+    return _tabPage;
+}
+
+-(void)setTabPage:(enum MATCHMAKER_TABPAGE)TabPage
+{
+    if (_tabPage != TabPage)
+    {
+        _tabPage = TabPage;
+        
+        [self updateViewByTabPage];
+    }
+}
+
+#define DEFAULT_COLOR [UIColor colorWithRed:121.0/255 green:1.0/255 blue:88.0/255 alpha:1]
+#define HIGHLIGHT_COLOR [UIColor colorWithRed:88.0/255 green:1.0/255 blue:88.0/255 alpha:1]
+-(void)updateViewByTabPage
+{
+    switch (self.TabPage) {
+        case MATCHMAKER_TABPAGE_MATCHFRIENDS:
+            [self.sendMatchesView removeFromSuperview];
+            [self.sendMatchesTabButton setBackgroundColor:DEFAULT_COLOR];
+            [self.tabDisplayView addSubview:self.matchYourFriendsView];
+            [self.matchYourFriendsTabButton setBackgroundColor:HIGHLIGHT_COLOR];
+            break;
+        case MATCHMAKER_TABPAGE_SENDMATCHES:
+            [self.matchYourFriendsView removeFromSuperview];
+            [self.matchYourFriendsTabButton setBackgroundColor:DEFAULT_COLOR];
+            [self.tabDisplayView addSubview:self.sendMatchesView];
+            [self.sendMatchesTabButton setBackgroundColor:HIGHLIGHT_COLOR];
+            [self.tbViewMatchMakerRequests reloadData];
+            break;
+        default:
+            break;
+    }
+}
+- (IBAction)tabButtonMatchYourFriendsTouched:(id)sender {
+    self.TabPage = MATCHMAKER_TABPAGE_MATCHFRIENDS;
+}
+- (IBAction)tabButtonSendMatchesTouched:(id)sender {
+    self.TabPage = MATCHMAKER_TABPAGE_SENDMATCHES;
 }
 @end

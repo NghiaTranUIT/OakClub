@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="4510" systemVersion="12F45" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
+    <dependencies>
+        <deployment defaultVersion="1280" identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3742"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SendMatchViewCell">
+            <connections>
+                <outlet property="btnSendMessage" destination="K4d-mZ-Rc6" id="PMY-Qi-oDa"/>
+                <outlet property="friend1Avatar" destination="jLy-xx-2nl" id="WMQ-JO-FoD"/>
+                <outlet property="friend2Avatar" destination="Pwa-TD-XOu" id="ENh-pP-yc0"/>
+                <outlet property="lblName" destination="GCf-qc-5bK" id="QoJ-Db-yQn"/>
+                <outlet property="lblSendStatus" destination="LCh-Dh-d0H" id="RdT-vF-cqC"/>
+                <outlet property="lblTime_Status" destination="4Fj-VP-ROi" id="x2k-Ow-L93"/>
+                <outlet property="linkImage" destination="wYo-Rb-vNy" id="sNB-gB-w3r"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="8DS-i4-87k">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="115"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="jLy-xx-2nl">
+                    <rect key="frame" x="9" y="25" width="70" height="70"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
+                </imageView>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="Pwa-TD-XOu">
+                    <rect key="frame" x="119" y="25" width="70" height="70"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
+                </imageView>
+                <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="matchmaker_link_icon_inactive.png" highlightedImage="matchmaker_link_icon_active.png" id="wYo-Rb-vNy">
+                    <rect key="frame" x="67" y="42" width="64" height="35"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
+                </imageView>
+                <view contentMode="scaleToFill" id="TTP-gE-wV7">
+                    <rect key="frame" x="200" y="0.0" width="120" height="120"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES"/>
+                    <subviews>
+                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hile &amp; Heli" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="GCf-qc-5bK">
+                            <rect key="frame" x="0.0" y="11" width="114" height="21"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="17"/>
+                            <color key="textColor" red="0.47450980390000003" green="0.0039215686269999999" blue="0.34509803919999998" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Matched on 20/10 | Status: Active" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="4Fj-VP-ROi">
+                            <rect key="frame" x="0.0" y="29" width="120" height="21"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES"/>
+                            <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="8"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Send them a message ?" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="LCh-Dh-d0H">
+                            <rect key="frame" x="0.0" y="50" width="120" height="21"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES"/>
+                            <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="9"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="K4d-mZ-Rc6">
+                            <rect key="frame" x="-35" y="68" width="190" height="32"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="11"/>
+                            <state key="normal" title="Tap here to send" image="matchmaker_send_icon_normal.png">
+                                <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <state key="disabled" image="matchmaker_send_icon_pressed.png"/>
+                            <state key="selected" image="matchmaker_send_icon_pressed.png"/>
+                            <state key="highlighted" image="matchmaker_send_icon_pressed.png"/>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                </view>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="matchmaker_link_icon_active.png" width="29" height="18"/>
+        <image name="matchmaker_link_icon_inactive.png" width="29" height="18"/>
+        <image name="matchmaker_send_icon_normal.png" width="19" height="12"/>
+        <image name="matchmaker_send_icon_pressed.png" width="19" height="12"/>
+    </resources>
+</document>
