@@ -1719,6 +1719,7 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
                                        {
                                            [self parseProfileWithData:data];
                                            [self popSnapshotQueue];
+                                           
                                            if (success)
                                            {
                                                success(status);
@@ -1746,7 +1747,7 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
                    } failure:^(AFHTTPRequestOperation *operation, NSError *error)
                    {
                        if (error.code == kCFURLErrorTimedOut) {
-                           [self showErrorSlowConnection];
+                           [self showErrorSlowConnection:@"sendRegister timeout"];
                        }
                        
                        NSLog(@"Send reg error Code: %i - %@",[error code], [error localizedDescription]);
@@ -1868,7 +1869,7 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
     return preferredLang;
 }
 
-- (void)showErrorSlowConnection
+- (void)showErrorSlowConnection:(NSString *)problem
 {
     UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:[@"Error" localize]
                                                         message:@"OakClub detects slow connection to server. Please try again later"
@@ -1876,6 +1877,8 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
                                               cancelButtonTitle:[@"Ok" localize]
                                               otherButtonTitles:nil];
     [alertView show];
+    
+    [self reportIOSProblemToOakClub:problem];
 }
 
 - (void)showErrorData
@@ -1886,6 +1889,36 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
                                               cancelButtonTitle:[@"Ok" localize]
                                               otherButtonTitles:nil];
     [alertView show];
+}
+
+- (void)reportIOSProblemToOakClub:(NSString *)problem
+{
+    
+    NSDictionary *params;
+    
+    if (self.myFBProfile && [self.myFBProfile objectForKey:@"id"] && [self.myFBProfile objectForKey:@"name"]) {
+        params = [[NSDictionary alloc] initWithObjectsAndKeys:
+                    problem, @"problem",
+                    [self.myFBProfile objectForKey:@"id"], @"fb_id",
+                    [self.myFBProfile objectForKey:@"name"], @"name",
+                    [NSDate date], @"date",
+                    [UIDevice currentDevice].name, @"device_name",
+                    [UIDevice currentDevice].model, @"device_model",
+                    [UIDevice currentDevice].systemVersion, @"device_version",
+                    nil];
+    }
+    
+    NSLog(@"reportProblemToOakClub %@",params);
+    
+    AFHTTPClient *request = [[AFHTTPClient alloc] initWithOakClubAPI:DOMAIN];
+    [request setParameterEncoding:AFFormURLParameterEncoding];
+    
+    [request postPath:URL_reportIOSProblemToOakClub parameters:params success:^(__unused AFHTTPRequestOperation *operation, id JSON) {
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        
+    }];
+
 }
 
 @end

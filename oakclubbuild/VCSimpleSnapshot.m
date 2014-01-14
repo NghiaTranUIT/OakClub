@@ -87,6 +87,7 @@ CGFloat pageHeight;
 //        loadingAnim = 	[AnimatedGif getAnimationForGifAtUrl: fileURL];
         locUpdate = [[LocationUpdate alloc] init];
         snapshotImagePool = [[ImagePool alloc] init];
+        snapshotImagePool.maxRequestTimeoutToMakeAlert = 20;
 //        [loadingAnim setHidden:YES];
     }
     return self;
@@ -223,6 +224,7 @@ CGFloat pageHeight;
     if(setLikedQueue.operationCount == 0 && !is_loadingProfileList){
         //do load profile list.
         [self requestProfileListWithHandler:^(void){
+            NSLog(@"requestProfileListWithHandler finish");
             [self loadCurrentProfile];
             [self loadNextProfileByCurrentIndex];
         } andFocus:NO];
@@ -271,7 +273,7 @@ CGFloat pageHeight;
     NSDictionary *params = [[NSDictionary alloc]initWithObjectsAndKeys:@"0",@"start",@"35",@"limit",
                             appDel.snapshotSettingsObj.snapshotParams, @"search_preference", randomStr, @"randomStr", nil];
     NSMutableURLRequest *urlReq = [request requestWithMethod:@"GET" path:URL_getSnapShot parameters:params];
-    [urlReq setTimeoutInterval:10];//timeout 10s
+    [urlReq setTimeoutInterval:13];//timeout 10s
     
     NSString *paramsDesc = [[[NSString stringWithFormat:@"%@", params] stringByReplacingOccurrencesOfString:@"=" withString:@":"] stringByReplacingOccurrencesOfString:@";" withString:@","];
 //    int c = counter;
@@ -295,6 +297,8 @@ CGFloat pageHeight;
         else
         {
             snapshotImagePool = [[ImagePool alloc] init];
+            snapshotImagePool.maxRequestTimeoutToMakeAlert = 20;
+            
             /*
             [self.spinner setHidden:NO];
             [self.spinner startAnimating];
@@ -320,6 +324,7 @@ CGFloat pageHeight;
                 
                 [profileList addObject:profile];
                 //}
+                
             }
             if(handler != nil)
                 handler();
@@ -332,7 +337,7 @@ CGFloat pageHeight;
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Get snapshot Error Code: %i - %@",[error code], error);
         if (error.code == kCFURLErrorTimedOut) {
-            [appDel showErrorSlowConnection];
+            [appDel showErrorSlowConnection:@"getSnapshot timeout"];
         }
         
         [self showWarning:focus];

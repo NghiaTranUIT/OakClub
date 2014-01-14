@@ -226,6 +226,7 @@
 #define URL_ping @"service/pingActivities"
 #define URL_getMatchmakerFriendList @"service/matchMarkerInit"
 #define URL_sendMatchmaker @"service/makeMatching"
+#define URL_reportIOSProblemToOakClub @"service/reportIOSProblemToOakClub"
 //================ service API keys ================
 //root
 #define key_status @"status"

@@ -9,6 +9,8 @@
 #import <Foundation/Foundation.h>
 
 @interface ImagePool : NSObject
+
+@property (assign, nonatomic) int maxRequestTimeoutToMakeAlert;
 @property (readonly, strong, nonatomic) NSDictionary *images;
 
 -(void)getImageAtURL:(NSString *)imgID withSize:(CGSize)size asycn:(void (^)(UIImage *img, NSError *error, bool isFirstLoad, NSString *urlWithSize))completion;
