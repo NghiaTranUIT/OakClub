@@ -1736,6 +1736,10 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
                        }
                    } failure:^(AFHTTPRequestOperation *operation, NSError *error)
                    {
+                       if (error.code == kCFURLErrorTimedOut) {
+                           [self showErrorSlowConnection];
+                       }
+                       
                        NSLog(@"Send reg error Code: %i - %@",[error code], [error localizedDescription]);
                        if (failure)
                        {
@@ -1855,5 +1859,14 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
     return preferredLang;
 }
 
+- (void)showErrorSlowConnection
+{
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:[@"Error" localize]
+                                                        message:@"OakClub detects slow connection to server. Please try again later"
+                                                       delegate:nil
+                                              cancelButtonTitle:[@"Ok" localize]
+                                              otherButtonTitles:nil];
+    [alertView show];
+}
 
 @end

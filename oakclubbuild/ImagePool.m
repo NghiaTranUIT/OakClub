@@ -32,6 +32,8 @@
 -(void)getImageAtURL:(NSString *)imgID withSize:(CGSize)size asycn:(void (^)(UIImage *img, NSError *error, bool isFirstLoad, NSString *urlWithSize))completion
 {
     NSString *url = [NSString stringWithFormat: @"%@?width=%d&height=%d", imgID, (int)size.width, (int)size.height];
+    NSLog(@"REQUEST POOL url %@", url);
+    
     id img = [_images objectForKey:url];
     
     if (img)
@@ -43,6 +45,7 @@
         }
         else if ([img isKindOfClass:[UIImage class]])
         {
+            NSLog(@"IMAGE POOL success immediate %@", img);
             completion(img, nil, NO, url);
         }
     }
@@ -81,6 +84,7 @@
         NSMutableURLRequest *request = [httpClient requestWithMethod:@"GET"
                                                                 path:photoRequestURL
                                                           parameters:params];
+        NSLog(@"PHOTO REQUEST POOL photoRequestURL %@", request.URL.absoluteString);
         
         AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
         [httpClient registerHTTPOperationClass:[AFHTTPRequestOperation class]];
@@ -96,6 +100,8 @@
                  [_images setObject:image forKey:url];
              }
              
+             NSLog(@"IMAGE POOL success %@", image);
+             
              for (int i = 0; i < reqs.count; ++i)
              {
                  void (^handler)(UIImage *img, NSError *error, bool isFirstLoad, NSString *urlWithSize) = [reqs objectAtIndex:i];
@@ -104,6 +110,7 @@
              
          } failure:^(AFHTTPRequestOperation *operation, NSError *error)
          {
+             NSLog(@"IMAGE POOL error %@", error);
              NSMutableArray *reqs = (NSMutableArray *) [_images objectForKey:url];
              [_images removeObjectForKey:url];
              

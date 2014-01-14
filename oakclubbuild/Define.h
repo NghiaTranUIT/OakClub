@@ -46,7 +46,8 @@
 //================ service API link ================
 //#define DOMAIN @"http://staging.oakclub.com/app_dev.php"
 
-#define PHOTO_SIZE_LARGE CGSizeMake(0, 0)
+#define PHOTO_SIZE_LARGE CGSizeMake(320, 320)
+#define PHOTO_SIZE_320 CGSizeMake(320, 320)
 #define PHOTO_SIZE_SMALL CGSizeMake(100, 100)
 
 #undef DOMAIN
