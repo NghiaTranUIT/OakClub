@@ -177,5 +177,6 @@ extern NSString *const SCSessionStateChangedNotification;
 
 - (void)tryLoginWithSuccess:(void(^)(int status))success failure:(void(^)(void))failure;
 - (void)showErrorSlowConnection;
+- (void)showErrorData;
 
 @end

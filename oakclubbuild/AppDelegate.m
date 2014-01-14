@@ -588,7 +588,16 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
 -(void)parseProfileWithData:(NSDictionary *)data
 {
     self.myProfile = [[Profile alloc] init];
-    [self.myProfile parseProfileWithData:data withFullName:YES];
+    
+    @try {
+        [self.myProfile parseProfileWithData:data withFullName:YES];
+    }
+    @catch (NSException *exception) {
+        [self showErrorData];
+    }
+    @finally {
+    }
+    
     [self.myProfile getRosterListIDSync:^{
         if (self.chat)
         {
@@ -1863,6 +1872,16 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
 {
     UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:[@"Error" localize]
                                                         message:@"OakClub detects slow connection to server. Please try again later"
+                                                       delegate:nil
+                                              cancelButtonTitle:[@"Ok" localize]
+                                              otherButtonTitles:nil];
+    [alertView show];
+}
+
+- (void)showErrorData
+{
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:[@"Error" localize]
+                                                        message:[NSString stringWithFormat:@"%@%@", [@"Error" localize], @"Please try again later"]
                                                        delegate:nil
                                               cancelButtonTitle:[@"Ok" localize]
                                               otherButtonTitles:nil];
