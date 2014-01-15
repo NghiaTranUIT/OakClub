@@ -35,7 +35,7 @@
 #import "VCSimpleSnapshotLoading.h"
 NSString *const SCSessionStateChangedNotification =
 @"com.facebook.Scrumptious:SCSessionStateChangedNotification";
-@interface AppDelegate()
+@interface AppDelegate() <UIAlertViewDelegate>
 
 - (void)setupStream;
 - (void)teardownStream;
@@ -1705,10 +1705,23 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
                        
                        NSLog(@"Login parsed data: %@", dict);
                        NSLog(@"Login string data: %@", [[NSString alloc] initWithData:JSON encoding:NSUTF8StringEncoding]);
+                       
+                       
                        if (!e && dict)
                        {
                            int status = [[dict valueForKey:key_errorStatus] integerValue];
                            NSDictionary *data = [dict objectForKey:key_data];
+                           
+                        #if ENABLE_CHECK_APP_VERSION
+                           
+                           NSString *requiredIOSAppVersion = [data objectForKey:@"required_iOS_app_version"];
+                           if (![self checkAppVersion:requiredIOSAppVersion]) {
+                               failure();
+                               return;
+                           }
+                           
+                        #endif
+                           
                            switch (status) {
                                case 0:
                                case 2:
@@ -1768,6 +1781,30 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
          }
      }];
 }
+
+- (BOOL)checkAppVersion:(NSString *)requiredVersion
+{
+    NSString *version = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"];
+    if(![requiredVersion isEqualToString:version]){
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:[@"Update" localize]
+                                                            message:@"OakClub detects new version in AppStore! Please update OakClub app"
+                                                           delegate:nil
+                                                  cancelButtonTitle:[@"Cancel" localize]
+                                                  otherButtonTitles:[@"Update" localize], nil];
+        alertView.delegate = self;
+        [alertView show];
+        return NO;
+    }
+
+    return YES;
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if (buttonIndex == 1) {// go to appstore
+        [[UIApplication sharedApplication] openURL: [NSURL URLWithString:APPSTORE_LINK]];
+    }
+}
+
 
 #pragma mark POP-Snapshot QUEUE
 -(void)popSnapshotQueue{

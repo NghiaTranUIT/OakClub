@@ -34,6 +34,10 @@
 //show matchmaker in leftmenu
 #define ENABLE_MATCHMAKER false
 
+//check lastest version of the app
+#define ENABLE_CHECK_APP_VERSION false
+#define APPSTORE_LINK @"https://itunes.apple.com/app/id788399950?mt=8"
+
 //Hangout
 #define sOnline @"Online"
 #define LOG_HTTP false
