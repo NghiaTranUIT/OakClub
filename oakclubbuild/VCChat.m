@@ -64,6 +64,8 @@ int cellCountinSection=0;
 
 -(void)loadFriendsInfo{
     NSLog(@"***** loadFriendsInfo begin!");
+    double current = CFAbsoluteTimeGetCurrent();
+    NSLog(@"Start %lf", current);
     
 //    NSMutableArray* a_profile_id = [[NSMutableArray alloc] init];
 //    NSOperationQueue *queue = [[NSOperationQueue alloc] init];
@@ -75,20 +77,16 @@ int cellCountinSection=0;
         [self.view bringSubviewToFront:loadingFriendList];
         loadingFriendList.hidden = NO;
         __block int i = [appDel.friendChatList count];
+        
+        NSOperationQueue *getHistoryQueue = [[NSOperationQueue alloc] init];
         for(NSString* key in [appDel.friendChatList allKeys])
         {
             Profile* profile = [appDel.friendChatList objectForKey:key];
-            [[self tableView] reloadData];
             NSLog(@"Loading information for %@", profile.s_Name);
             
-            //        [a_profi le_id addObject:profile.s_ID];
-            
-            //        AFHTTPRequestOperation *operation =
-            //        [HistoryMessage getHistoryMessagesSync:profile.s_ID
-            //                                      callback:^(NSMutableArray * array)
             if(profile.status > MatchViewed && ![a_messages valueForKey:profile.s_ID])
             {
-                [HistoryMessage getHistoryMessages:profile.s_ID callback:^(NSMutableArray* array)
+                NSOperation *op = [HistoryMessage getHistoryMessages:profile.s_ID callback:^(NSMutableArray* array)
                  {
                      if (array)
                      {
@@ -108,6 +106,8 @@ int cellCountinSection=0;
 //                         [indicator unlockViewAndStopIndicator];
                      }
                  }];
+                
+                [getHistoryQueue addOperation:op];
             }
             else
             {
@@ -120,6 +120,9 @@ int cellCountinSection=0;
         }
     }
     
+    double end = CFAbsoluteTimeGetCurrent();
+    NSLog(@"End %lf", end);
+    NSLog(@"Delta %lf", end - current);
     NSLog(@"***** loadFriendsInfo end!");
 }
 
@@ -205,6 +208,8 @@ int cellCountinSection=0;
 
 - (void)viewWillAppear:(BOOL)animated
 {
+    double current = CFAbsoluteTimeGetCurrent();
+    NSLog(@"viewWillAppear Start %lf", current);
     fetchedResultsController = nil;
     [self.navigationController setNavigationBarHidden:YES];
     NSString* title_1 = [NSString localizeString:@"Matches"];
@@ -253,7 +258,11 @@ int cellCountinSection=0;
 #endif
     
     [self.tableView reloadData];
-//	[super viewWillAppear:animated];
+    //	[super viewWillAppear:animated];
+    
+    double end = CFAbsoluteTimeGetCurrent();
+    NSLog(@"viewWillAppear End %lf", end);
+    NSLog(@"viewWillAppear Delta %lf", end - current);
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -276,6 +285,7 @@ int cellCountinSection=0;
 //        [self loadFriendsInfo:nil];
 //        [self.searchDisplayController.searchResultsTableView reloadData];
 //    }];
+    
     appDel._messageDelegate = self;
 }
 - (void)viewDidUnload {
@@ -288,15 +298,17 @@ int cellCountinSection=0;
 }
 - (void)viewDidLoad
 {
+    double current = CFAbsoluteTimeGetCurrent();
+    NSLog(@"viewDidLoad Start %lf", current);
     [super viewDidLoad];
 //    appDel._messageDelegate = self;
     // Do any additional setup after loading the view from its nib.
     //    [self.view addSubview:tbVC_ChatList.view];
 //    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"bg-edit.png"]];
     
-    indicator = [[LoadingIndicator alloc] initWithMainView:self.view andDelegate:self];
-    
     [self loadFriendsInfo];
+    
+    indicator = [[LoadingIndicator alloc] initWithMainView:self.view andDelegate:self];
     
     [self.searchDisplayController.searchResultsTableView removeFromSuperview];
     
@@ -308,6 +320,10 @@ int cellCountinSection=0;
                                                           action:@selector(dismissKeyboard)];
     
     [self.dismissSearchView addGestureRecognizer:tap];
+    
+    double end = CFAbsoluteTimeGetCurrent();
+    NSLog(@"viewDidLoad End %lf", end);
+    NSLog(@"viewDidLoad Delta %lf", end - current);
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 #pragma mark NSFetchedResultsController
@@ -365,6 +381,8 @@ int cellCountinSection=0;
 		{
 			DDLogError(@"Error performing fetch: %@", error);
 		}
+        
+        [self reloadFriendChatIDs];
     }
 
 	return fetchedResultsController;
@@ -499,6 +517,16 @@ int cellCountinSection=0;
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)sectionIndex
 {
+    if (!fetchedResultsController)
+    {
+        [self reloadFriendChatIDs];
+    }
+    
+    return friendChatIDs.count;
+}
+
+-(void)reloadFriendChatIDs
+{
     friendChatIDs = [[NSMutableArray alloc] init];
     
     NSArray *sections = [[self fetchedResultsController] sections];
@@ -507,15 +535,15 @@ int cellCountinSection=0;
 		id <NSFetchedResultsSectionInfo> sectionInfo = [sections objectAtIndex:i];
         
         NSLog(@"Number of objects: %d in section %d", sectionInfo.numberOfObjects, i);
-            
+        
         for (int j = 0; j < sectionInfo.numberOfObjects; j++)
         {
-//            NSLog(@"sectioninfo object ai index : %i",j);
+            //            NSLog(@"sectioninfo object ai index : %i",j);
             XMPPUserCoreDataStorageObject *user = [[self fetchedResultsController] objectAtIndexPath:[NSIndexPath indexPathForRow:j inSection:i]];
             XMPPJID* xmpp_jid = [user jid];
             NSString* jid = [xmpp_jid user];//[NSString stringWithFormat:@"%@@%@", [xmpp_jid user], [xmpp_jid domain]];
             //NSLog(@"User %d: %@", j + 1, user);
-//            NSLog(@"XMPPUserCoreDataStorageObject - jid :%i , %@",j,jid);
+            //            NSLog(@"XMPPUserCoreDataStorageObject - jid :%i , %@",j,jid);
             Profile* profile =[appDel.myProfile.dic_Roster valueForKey:jid];
             if(profile == nil)
                 continue;
@@ -536,59 +564,55 @@ int cellCountinSection=0;
                 }
             }
         }
-        
-        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-        [dateFormatter setDateFormat:DATETIME_FORMAT];
-        [friendChatIDs sortUsingComparator:^NSComparisonResult(id obj1, id obj2) {
-            Profile *p1, *p2;
-            p1 = [appDel.myProfile.dic_Roster objectForKey:obj1];
-            p2 = [appDel.myProfile.dic_Roster objectForKey:obj2];
-            
-            //            MatchUnViewed,
-            //            MatchViewed,
-            //            ChatUnviewed,
-            //            ChatViewed,
-            NSLog(@"p1.s_Name: %@, p1.status: %d", p1.s_Name, p1.status);
-            NSLog(@"p2.s_Name: %@, p2.status: %d", p2.s_Name, p2.status);
-            
-            if (p1.status != p2.status)
-            {
-                switch (p1.status) {
-                    case 0:
-                    case 2:
-                        switch (p2.status) {
-                            case 1:
-                            case 3:
-                                return NSOrderedAscending;
-                            default:
-                                return [self compareDateWithProfile1:p1 andProfile2:p2];
-                                break;
-                        }
-                        break;
-                    case 1:
-                    case 3:
-                        switch (p2.status) {
-                            case 0:
-                            case 2:
-                                return NSOrderedDescending;
-                            default:
-                                return [self compareDateWithProfile1:p1 andProfile2:p2];
-                                break;
-                        }
-                    default:
-                        return [self compareDateWithProfile1:p1 andProfile2:p2];
-                        break;
-                }
-            }
-            
-            return [self compareDateWithProfile1:p1 andProfile2:p2];
-        }];
     }
     
-    //revert
-    //friendChatIDs = [NSMutableArray arrayWithArray:[[friendChatIDs reverseObjectEnumerator] allObjects]];
-    
-    return friendChatIDs.count;
+    NSLog(@"Number of friends %i", friendChatIDs.count);
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:DATETIME_FORMAT];
+    [friendChatIDs sortUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+        Profile *p1, *p2;
+        p1 = [appDel.myProfile.dic_Roster objectForKey:obj1];
+        p2 = [appDel.myProfile.dic_Roster objectForKey:obj2];
+        
+        //            MatchUnViewed,
+        //            MatchViewed,
+        //            ChatUnviewed,
+        //            ChatViewed,
+        //            NSLog(@"p1.s_Name: %@, p1.status: %d", p1.s_Name, p1.status);
+        //            NSLog(@"p2.s_Name: %@, p2.status: %d", p2.s_Name, p2.status);
+        
+        if (p1.status != p2.status)
+        {
+            switch (p1.status) {
+                case 0:
+                case 2:
+                    switch (p2.status) {
+                        case 1:
+                        case 3:
+                            return NSOrderedAscending;
+                        default:
+                            return [self compareDateWithProfile1:p1 andProfile2:p2];
+                            break;
+                    }
+                    break;
+                case 1:
+                case 3:
+                    switch (p2.status) {
+                        case 0:
+                        case 2:
+                            return NSOrderedDescending;
+                        default:
+                            return [self compareDateWithProfile1:p1 andProfile2:p2];
+                            break;
+                    }
+                default:
+                    return [self compareDateWithProfile1:p1 andProfile2:p2];
+                    break;
+            }
+        }
+        
+        return [self compareDateWithProfile1:p1 andProfile2:p2];
+    }];
 }
 
 - (NSComparisonResult)compareDateWithProfile1:(Profile *)profile1 andProfile2:(Profile *)profile2
@@ -721,7 +745,7 @@ int cellCountinSection=0;
          {
              if (img && isFirstLoad)
              {
-                 [self.tableView reloadData];
+                 [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationNone];
              }
              else if (img)
              {

@@ -62,37 +62,40 @@
     return array;
 }
 
-+(void)getHistoryMessages:(NSString*)hangout_id callback:(void(^)(NSMutableArray*))handler
++(NSOperation*) getHistoryMessages:(NSString*)hangout_id callback:(void(^)(NSMutableArray*))handler
 {
-    AFHTTPClient *request = [[AFHTTPClient alloc]initWithOakClubAPI:DOMAIN];
+    AFHTTPClient *client = [[AFHTTPClient alloc]initWithOakClubAPI:DOMAIN];
     
     NSDictionary *params = [[NSDictionary alloc]initWithObjectsAndKeys:hangout_id,key_profileID,
                                                                         @"0",key_index, nil];
     
-    [request getPath:URL_getHistoryMessages parameters:params success:^(__unused AFHTTPRequestOperation *operation, id JSON)
-     {
-         NSMutableArray* array = [HistoryMessage parseJSONtoHistoryMessages:JSON];
-
-         [array sortUsingComparator:^NSComparisonResult(id obj1, id obj2)
-          {
-              HistoryMessage *p1 = (HistoryMessage*)obj1;
-              HistoryMessage *p2 = (HistoryMessage*)obj2;
-              
-              NSDate* date1 = [NSString getDateWithString:[p1 timeStr]];
-              NSDate* date2 = [NSString getDateWithString:[p2 timeStr]];
-              
-              
-              return [date1 compare:date2];
-          }];
-         
-         if(handler != nil)
-             handler(array);
-         
-     } failure:^(AFHTTPRequestOperation *operation, NSError *error)
-     {
-         NSLog(@"Get History Msg Error Code: %i - %@",[error code], [error localizedDescription]);
-         handler(nil);
-     }];
+    NSURLRequest *request = [client requestWithMethod:@"GET" path:URL_getHistoryMessages parameters:params];
+    AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
+    
+    [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id JSON) {
+        NSMutableArray* array = [HistoryMessage parseJSONtoHistoryMessages:JSON];
+        
+        [array sortUsingComparator:^NSComparisonResult(id obj1, id obj2)
+         {
+             HistoryMessage *p1 = (HistoryMessage*)obj1;
+             HistoryMessage *p2 = (HistoryMessage*)obj2;
+             
+             NSDate* date1 = [NSString getDateWithString:[p1 timeStr]];
+             NSDate* date2 = [NSString getDateWithString:[p2 timeStr]];
+             
+             
+             return [date1 compare:date2];
+         }];
+        
+        if(handler != nil)
+            handler(array);
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"Get History Msg Error Code: %i - %@",[error code], [error localizedDescription]);
+        handler(nil);
+    }];
+    
+    return operation;
 }
 
 +(AFHTTPRequestOperation*)getHistoryMessagesSync:(NSString*) hangout_id callback:(void(^)(NSMutableArray*))handler

@@ -110,7 +110,7 @@ BOOL isDragging = FALSE;
     
 	if ([touch view] == self.placardView) {
         // Animate the first touch.
-        CGPoint touchPoint = [touch locationInView:self];
+//        CGPoint touchPoint = [touch locationInView:self];
         startLocation = [touch locationInView:self];
         startCardPoint =[touch locationInView:self.placardView];
     }

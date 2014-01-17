@@ -23,6 +23,13 @@
 #import <MediaPlayer/MediaPlayer.h>
 #import <AVFoundation/AVFoundation.h>
 
+enum VIDEO_STATE {
+    VIDEO_STATE_ADDNEW = 0,
+    VIDEO_STATE_OK,
+    VIDEO_STATE_BROKEN,
+    VIDEO_STATE_LOADING
+    };
+
 @interface VCMyProfile () <PickPhotoFromGarellyDelegate, VideoPickerDelegate, UIAlertViewDelegate, PhotoScrollViewDelegate, LoadingIndicatorDelegate>
 {
     GroupButtons* genderGroup;
@@ -35,10 +42,9 @@
     NSMutableArray *photos;
     int selectedPhoto;
     UIImage *uploadImage;
-    BOOL isVideoUploading;
     LocationUpdate *locUpdate;
     VideoPicker *videoPicker;
-    LoadingIndicator *indicator,*photo_Indicator;
+    LoadingIndicator *indicator,*photo_Indicator, *video_Indicator;
 }
 @property (weak, nonatomic) IBOutlet UIView *photoSuperView;
 @property (weak, nonatomic) IBOutlet PhotoScrollView *photoScrollView;
@@ -54,56 +60,92 @@
 @property (weak, nonatomic) IBOutlet UIImageView *imgViewVideoThumb;
 @property (weak, nonatomic) IBOutlet UIImageView *imgViewVideoBorder;
 @property (weak, nonatomic) IBOutlet UIButton *btnEditVideo;
-@property (nonatomic)  int videoStatus;
+@property (nonatomic) enum VIDEO_STATE videoStatus;
 @end
 
 @implementation VCMyProfile
 UITapGestureRecognizer *tap;
 
-@synthesize rbnFemale, rbnMale, btnLocation, btnRelationShip, btnEthnicity, btnLanguage, btnWork, scrollview,labelAge, labelName, labelPurposeSearch, textFieldName,textFieldHeight,textfieldSchool,textFieldWeight, btnBirthdate, pickerView, textviewAbout, tbEditProfile, pickerWeight, pickerHeight, imgAvatar,activityIndicator;
+@synthesize rbnFemale, rbnMale, btnLocation, btnRelationShip, btnEthnicity, btnLanguage, btnWork, scrollview,labelAge, labelName, labelPurposeSearch, textFieldName,textFieldHeight,textfieldSchool,textFieldWeight, btnBirthdate, pickerView, textviewAbout, tbEditProfile, pickerWeight, pickerHeight, imgAvatar;
 @synthesize videoStatus = _videoStatus;
 
--(void)setVideoStatus:(int)videoStatus
+-(void)setVideoStatus:(enum VIDEO_STATE)videoStatus
 {
-    _videoStatus = videoStatus;
+    if (_videoStatus != videoStatus)
+    {
+        _videoStatus = videoStatus;
+        
+        [self updateVideoStatus];
+    }
+}
+
+-(void)updateVideoStatus
+{
     switch (_videoStatus) {
-        case 0:
+        case VIDEO_STATE_ADDNEW:
+        case VIDEO_STATE_BROKEN:
         {
-            [self.activityIndicator setHidden:YES];
+            [video_Indicator unlockViewAndStopIndicator];
             [self.imgViewVideoThumb setHidden:YES];
             [self.imgViewVideoBorder setHidden:YES];
             [self.btnEditVideo setHidden:YES];
             [self.btnUploadVideo setHidden:NO];
         }
             break;
-        case 1:
+        case VIDEO_STATE_LOADING:
         {
-            [self.activityIndicator setHidden:NO];
+            [self.imgViewVideoThumb setHidden:NO];
+            [self.imgViewVideoBorder setHidden:NO];
+            [self.btnEditVideo setHidden:YES];
+            [self.btnUploadVideo setHidden:YES];
+            [video_Indicator lockViewAndDisplayIndicator];
+        }
+            break;
+        case VIDEO_STATE_OK:
+        {
+            [video_Indicator unlockViewAndStopIndicator];
             [self.imgViewVideoThumb setHidden:NO];
             [self.imgViewVideoBorder setHidden:NO];
             [self.btnEditVideo setHidden:NO];
             [self.btnUploadVideo setHidden:YES];
-            
-            //the image is not avaialbe inmediately after upload successfully
-            self.imgViewVideoThumb.userInteractionEnabled = NO;
-            
-            [self performSelector:@selector(refreshThumbImage) withObject:nil afterDelay:4];
         }
-            
             break;
+    }
+}
+
+-(void)checkVideoStateAfterDelay:(double)delay
+{
+    if (!profileObj.s_video && ![@"" isEqualToString:profileObj.s_video])
+    {
+        //        if ([profileObj.s_video rangeOfString:@"http://"].location == NSNotFound) {
+        //            NSString *link = profileObj.s_video;
+        //            profileObj.s_video = [NSString stringWithFormat:@"%@%@.mov", DOMAIN_VIDEO, link];
+        //            appDelegate.myProfile.s_video = [NSString stringWithFormat:@"%@%@.mov", DOMAIN_VIDEO, link];
+        //            NSLog(@"Link %@",profileObj.s_video);
+        //        }
+        
+        self.videoStatus = VIDEO_STATE_ADDNEW;
+    }
+    else
+    {
+        [self performSelector:@selector(refreshThumbImage) withObject:nil afterDelay:delay];
     }
 }
 
 - (void)refreshThumbImage
 {
-    self.imgViewVideoThumb.userInteractionEnabled = YES;
-    
     NSString *videoThumbLink = [profileObj.s_video stringByReplacingOccurrencesOfString:@".mov" withString:@".jpg"];
     NSLog(@"videoThumbLink:%@", videoThumbLink);
     [appDelegate.imagePool getImageAtURL:videoThumbLink withSize:PHOTO_SIZE_LARGE asycn:^(UIImage *img, NSError *error, bool isFirstLoad, NSString *urlWithSize) {
+        [video_Indicator unlockViewAndStopIndicator];
         if (img)
         {
             [self.imgViewVideoThumb setImage:img];
+            self.videoStatus = VIDEO_STATE_OK;
+        }
+        else
+        {
+            self.videoStatus = VIDEO_STATE_BROKEN;
         }
     }];
 
@@ -116,7 +158,6 @@ UITapGestureRecognizer *tap;
         // Custom initialization
         appDelegate =(AppDelegate *)[[UIApplication sharedApplication] delegate];
         profileItemList = [[NSMutableArray alloc] initWithArray:MyProfileItemList];
-        isVideoUploading = false;
     }
     return self;
 }
@@ -151,10 +192,12 @@ UITapGestureRecognizer *tap;
     
     indicator = [[LoadingIndicator alloc] initWithMainView:self.view andDelegate:self];
     photo_Indicator = [[LoadingIndicator alloc] initWithMainView:self.photoSuperView andDelegate:self];
+    video_Indicator = [[LoadingIndicator alloc] initWithMainView:self.imgViewVideoThumb andDelegate:self];
     
     [self.imgViewVideoThumb setUserInteractionEnabled:YES];
     [self.imgViewVideoThumb addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(playVideo:)]];
-    self.videoStatus = 0;
+    self.videoStatus = VIDEO_STATE_LOADING;
+    [self checkVideoStateAfterDelay:0.0];
     
     photos = appDelegate.myProfile.arr_photos;
     [self reloadPhotos];
@@ -174,18 +217,6 @@ UITapGestureRecognizer *tap;
         self.imgAvatar.contentMode = UIViewContentModeScaleAspectFit;
         [self.imgAvatar setFrame:self.avatarLayout.frame];
     }];
-    
-    if (profileObj.s_video && ![@"" isEqualToString:profileObj.s_video])
-    {
-        if ([profileObj.s_video rangeOfString:@"http://"].location == NSNotFound) {
-            NSString *link = profileObj.s_video;
-            profileObj.s_video = [NSString stringWithFormat:@"%@%@.mov", DOMAIN_VIDEO, link];
-            appDelegate.myProfile.s_video = [NSString stringWithFormat:@"%@%@.mov", DOMAIN_VIDEO, link];
-            NSLog(@"Link %@",profileObj.s_video);
-        }
-
-        [self setVideoStatus:1];
-    }
     
     [self.view localizeAllViews];
     
@@ -1118,11 +1149,11 @@ UITapGestureRecognizer *tap;
 
 - (IBAction)uploadVideoTouched:(id)sender
 {
-    if (isVideoUploading)
+    if (self.videoStatus == VIDEO_STATE_LOADING)
     {
         [self showWarning:@"You are uploading another video" withTag:3];
     }
-    else if (profileObj.s_video && ![@"" isEqualToString:profileObj.s_video])
+    else if (self.videoStatus != VIDEO_STATE_ADDNEW)
     {
         [self showOKCancelWarning:@"Do you want to upload new video" withTag:4];
     }
@@ -1131,6 +1162,8 @@ UITapGestureRecognizer *tap;
         [videoPicker showPicker];
     }
 }
+
+#pragma mark IMAGE PICKER DELEGATE
 
 -(void)receiveImage:(UIImage *)_image
 {
@@ -1146,6 +1179,8 @@ UITapGestureRecognizer *tap;
     }
 }
 
+#pragma mark VIDEO PICKER DELEGATE
+
 -(void)receiveVideo:(NSURL *)videoURL{
     if(videoURL)
     {
@@ -1153,7 +1188,7 @@ UITapGestureRecognizer *tap;
 //        Float64 duration = asset.duration.value / asset.duration.timescale;
 //        NSLog(@"Selected video duration: %.2lf", duration);
         
-        isVideoUploading = true;
+        self.videoStatus = VIDEO_STATE_LOADING;
         [VideoUploader compressVideoAtURL:videoURL withQuality:AVAssetExportPresetMediumQuality useCompletion:^(NSData *data)
          {
              if (data)
@@ -1164,11 +1199,13 @@ UITapGestureRecognizer *tap;
                      
                      [maxSizeAlert localizeAllViews];
                      [maxSizeAlert show];
-                     isVideoUploading = false;
+                     
+                     [self checkVideoStateAfterDelay:0.0];
                  }
                  else
                  {
                      self.imgViewVideoThumb.image = nil;
+                     double delay = data.length / 256000.0;
                      [VideoUploader uploadVideoWithData:data useCompletion:^(NSString *link)
                       {
                           //use indicator instead
@@ -1190,20 +1227,21 @@ UITapGestureRecognizer *tap;
                           profileObj.s_video = [NSString stringWithFormat:@"%@.mov", link];
                           appDelegate.myProfile.s_video = [NSString stringWithFormat:@"%@.mov", link];
                      
-                          
-                          self.videoStatus = 1;
-                          
-                          isVideoUploading = false;
+                          [self checkVideoStateAfterDelay:delay];
                       }];
                  }
              }
              else
              {
-                 isVideoUploading = false;
+                 // display warning cannot read video
+                 
+                 [self checkVideoStateAfterDelay:0.0];
              }
          }];
     }
 }
+
+#pragma PHOTO SCROLLVIEW
 
 #define H_PADDING 30
 #define V_PADDING 2
@@ -1216,64 +1254,10 @@ UITapGestureRecognizer *tap;
 
 - (void)loadProfilePhotos
 {
-    //    AFHTTPClient *request = [[AFHTTPClient alloc] initWithOakClubAPI:DOMAIN];
-    //    NSDictionary *params  = [[NSDictionary alloc]initWithObjectsAndKeys:profileObj.s_ID, key_profileID, nil];
-    //    [photo_Indicator lockViewAndDisplayIndicator];
-    //    [request getPath:URL_getListPhotos parameters:params
-    //             success:^(__unused AFHTTPRequestOperation *operation, id JSON)
-    //     {
-    //         NSMutableDictionary* dictPhotos = [Profile parseListPhotosIncludeID:JSON];
-    //         if(dictPhotos != nil)
-    //         {
-    //             NSArray *keys = [dictPhotos allKeys];
-    //             __block int i = [keys count];
-    //             for (NSString *key in keys)
-    //             {
-    //                 if ([key isKindOfClass:[NSNull class]])
-    //                 {
-    //                     --i;
-    //                     if (!i)
-    //                     {
-    //                         [photo_Indicator unlockViewAndStopIndicator];
-    //                     }
-    //                     continue;
-    //                 }
-    //
-    //                 NSString *link = [dictPhotos valueForKey:key];
-    //
-    //                 if((![photosID containsObject:key]) && ![link isEqualToString:@""] )
-    //                 {
-    //                     [appDelegate.imagePool getImageAtURL:link withSize:PHOTO_SIZE_SMALL asycn:^(UIImage *image, NSError *error) {
-    //                          if (image)
-    //                          {
-    //                              [photos addObject:image];
-    //                              [photosID addObject:key];
-    //                              [self reloadPhotos];
-    //                          }
-    //
-    //                          --i;
-    //                          if (!i)
-    //                          {
-    //                              [photo_Indicator unlockViewAndStopIndicator];
-    //                          }
-    //                      }];
-    //                 }
-    //                 else
-    //                 {
-    //                     --i;
-    //                 }
-    //             }
-    //             if (!i)
-    //             {
-    //                 [photo_Indicator unlockViewAndStopIndicator];
-    //             }
-    //         }
-    //     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-    //         NSLog(@"Get list photo Error Code: %i - %@",[error code], [error localizedDescription]);
-    //     }];
-    
     [self reloadPhotos];
 }
+
+#pragma mark PHOTO SCROLL VIEW DELEGATE
 
 -(void)photoButtonTouchedAtIndex:(int)index
 {
@@ -1349,6 +1333,7 @@ UITapGestureRecognizer *tap;
     return CGSizeMake(15, 15);
 }
 
+#pragma mark LOADING INDICATOR DELEGATE
 -(void)lockViewForIndicator:(LoadingIndicator *)_indicator
 {
     if (_indicator == indicator)
@@ -1379,13 +1364,14 @@ UITapGestureRecognizer *tap;
                                         240,
                                         _indicator.frame.size.width, _indicator.frame.size.height)];
     }
-    else if (loadingIndicator == photo_Indicator)
+    else if (loadingIndicator == photo_Indicator || loadingIndicator == video_Indicator)
     {
         [_indicator setActivityIndicatorViewStyle:UIActivityIndicatorViewStyleWhite];
         _indicator.color = [UIColor colorWithRed:(121.f / 255.f) green:(1.f / 255.f) blue:(88.f / 255.f) alpha:1];
     }
 }
 
+#pragma mark PLAY VIDEO
 -(void)playVideo:(id)sender
 {
     NSURL *videoURL = [NSURL URLWithString:profileObj.s_video];
@@ -1393,16 +1379,6 @@ UITapGestureRecognizer *tap;
     [self presentMoviePlayerViewControllerAnimated:moviePlayer];
     
     [moviePlayer.moviePlayer play];
-}
-
--(UIImage *)videoThumb
-{
-    return nil;
-    NSURL *videoURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@", DOMAIN_DATA, profileObj.s_video]];
-    MPMoviePlayerController *player = [[MPMoviePlayerController alloc] initWithContentURL:videoURL];
-    UIImage  *thumbnail = [player thumbnailImageAtTime:1.0 timeOption:MPMovieTimeOptionNearestKeyFrame];
-    
-    return thumbnail;
 }
 @end
 

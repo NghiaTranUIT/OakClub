@@ -37,7 +37,6 @@
 @property (strong, nonatomic) IBOutlet UIImageView *imgAvatar;
 @property (strong, nonatomic) UIImageView *avatar;
 @property (weak, nonatomic) IBOutlet UITableView *tbEditProfile;
-@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
 
 -(void)saveSettingWithWarning:(BOOL)warning;
 -(void)setDefaultEditProfile:(Profile*)profile;

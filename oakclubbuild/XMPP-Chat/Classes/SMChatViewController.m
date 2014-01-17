@@ -149,11 +149,6 @@
 	return self;
 }
 
--(void)setImage:(UIImage *)img
-{
-    avatar_me = img;
-}
-
 - (id) initWithUser:(NSString *) _userName withProfile:(Profile*)_profile 
 {
 

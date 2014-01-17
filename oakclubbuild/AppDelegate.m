@@ -137,6 +137,7 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
 {
     self.imagePool = [[ImagePool alloc] init];
     self.snapshotSettingsObj = [[SettingObject alloc] init];
+    self.notificationCenter = [[NSNotificationCenter alloc] init];
     _messageDelegate = nil;
    
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
@@ -1501,12 +1502,12 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
     
 	if ([message isChatMessageWithBody])
 	{
-		XMPPUserCoreDataStorageObject *user = [xmppRosterStorage userForJID:[message from]
-		                                                         xmppStream:xmppStream
-		                                               managedObjectContext:[self managedObjectContext_roster]];
+//		XMPPUserCoreDataStorageObject *user = [xmppRosterStorage userForJID:[message from]
+//		                                                         xmppStream:xmppStream
+//		                                               managedObjectContext:[self managedObjectContext_roster]];
 		
-		NSString *body = [[message elementForName:@"body"] stringValue];
-		NSString *displayName = [user displayName];
+//		NSString *body = [[message elementForName:@"body"] stringValue];
+//		NSString *displayName = [user displayName];
         [self showLocalNotification];
         /*
 		if ([[UIApplication sharedApplication] applicationState] == UIApplicationStateActive)

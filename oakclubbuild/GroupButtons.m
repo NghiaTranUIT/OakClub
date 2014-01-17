@@ -9,15 +9,18 @@
 #import "GroupButtons.h"
 
 @implementation GroupButtons
+{
+    int _selectedIndex;
+}
 
-@synthesize buttons, selectedIndex = _selectedIndex, multipleChoice;
+@synthesize buttons, multipleChoice;
 
 -(id)init
 {
     self = [super init];
     
     buttons = [[NSMutableArray alloc] init];
-    selectedIndex = 0;
+    _selectedIndex = 0;
     multipleChoice = FALSE;
     return self;
 }
@@ -27,7 +30,7 @@
     self = [super init];
     
     buttons = [[NSMutableArray alloc] init];
-    selectedIndex = 0;
+    _selectedIndex = 0;
     multipleChoice = choice;
     return self;
 }
@@ -39,9 +42,9 @@
     [button addTarget:self action:@selector(handleButtonTap:) forControlEvents:UIControlEventTouchUpInside];
 }
 
--(NSInteger)getSelectedIndex
+-(int)getSelectedIndex
 {
-    return selectedIndex;
+    return _selectedIndex;
 }
 
 -(void)setSelectedIndex:(int)index
@@ -111,7 +114,7 @@
             if( [button isEqual:selectedButton] )
             {
                 [button setSelected:TRUE];
-                selectedIndex = button.tag;
+                _selectedIndex = button.tag;
             }
             else
             {

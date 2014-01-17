@@ -194,7 +194,7 @@ www.oakclub.com"
         [imagePool getImageAtURL:friend.s_Avatar withSize:PHOTO_SIZE_SMALL asycn:^(UIImage *img, NSError *error, bool isFirstLoad, NSString *url) {
             if (isFirstLoad)
             {
-                [collectionView reloadData];
+                [collectionView reloadItemsAtIndexPaths:[NSArray arrayWithObject:indexPath]];
             }
             else
             {

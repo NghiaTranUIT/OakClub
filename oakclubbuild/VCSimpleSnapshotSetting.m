@@ -167,7 +167,11 @@ UITapGestureRecognizer *tap;
             rowCount = 1;
             break;
         case GenderSearchGroup:
+#if ENABLE_INCLUDE_FACEBOOKFRIEND
+            rowCount = 3;
+#else
             rowCount = 2;
+#endif
             break;
 #ifndef DISABLE_HERETO_SHOWME
         case HereToGroup:
@@ -328,6 +332,30 @@ UITapGestureRecognizer *tap;
                     
                     filterGirlsCell.textLabel.text = [@"Female" localize];
                     return filterGirlsCell;
+                }
+                case 2:
+                {
+                    static NSString *includeFBFriendID = @"IncludeFBFriendsID";
+                    UITableViewCell *includeFBFriendsCell = [tableView dequeueReusableCellWithIdentifier:includeFBFriendID];
+                    if (includeFBFriendsCell == nil)
+                    {
+                        includeFBFriendsCell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:includeFBFriendID];
+                        includeFBFriendsCell.selectionStyle = UITableViewCellSelectionStyleNone;
+                        UISwitch *autoSwitch = [[UISwitch alloc] init];
+                        [autoSwitch addTarget:self action:@selector(onSwitchChangedValue:) forControlEvents:UIControlEventValueChanged];
+                        autoSwitch.frame = CGRectMake(cell.frame.size.width - autoSwitch.frame.size.width - 30, (cell.frame.size.height - autoSwitch.frame.size.height) / 2, autoSwitch.frame.size.width, autoSwitch.frame.size.height);
+                        [autoSwitch setOnTintColor:COLOR_PURPLE];
+                        autoSwitch.tag = 102;
+                        [includeFBFriendsCell.contentView addSubview:autoSwitch];
+                        [includeFBFriendsCell.textLabel setFont: FONT_HELVETICANEUE_LIGHT(15.0)];
+                        includeFBFriendsCell.textLabel.highlightedTextColor = [UIColor whiteColor];
+                    }
+                    
+                    UISwitch *autoSwitch = (id) [includeFBFriendsCell viewWithTag:102];
+                    autoSwitch.on = snapshotObj.include_facebook_friend;
+                    
+                    includeFBFriendsCell.textLabel.text = [@"Include facebook friend" localize];
+                    return includeFBFriendsCell;
                 }
                     break;
                 default:
@@ -510,7 +538,6 @@ UITapGestureRecognizer *tap;
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSUInteger section = [indexPath section];
-    NSUInteger row = [indexPath row];
     switch (section)
     {
         case LanguageGroup:
@@ -979,6 +1006,14 @@ UITapGestureRecognizer *tap;
                 appDel.reloadSnapshot = YES;
             }
             break;
+        }
+        case 102:
+        {
+            if ([sender isOn] != snapshotObj.include_facebook_friend)
+            {
+                snapshotObj.include_facebook_friend = [sender isOn];
+                appDel.reloadSnapshot = YES;
+            }
         }
         default:
             break;

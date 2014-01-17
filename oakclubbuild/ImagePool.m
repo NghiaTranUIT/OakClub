@@ -18,6 +18,7 @@
 @implementation ImagePool
 {
     NSMutableDictionary *_images;
+    NSOperationQueue *operationQueue;
 }
 
 #define NUMBER_OF_IMAGE_REMOVED 3
@@ -28,6 +29,7 @@
     if (self = [super init])
     {
         _images = [[NSMutableDictionary alloc] init];
+        operationQueue = [[NSOperationQueue alloc] init];
         _maxRequestTimeoutToMakeAlert = 100;
         _requestTimeoutToMakeAlertCount = 0;
         maxImageCache = NSIntegerMax;
@@ -44,7 +46,7 @@
 -(void)getImageAtURL:(NSString *)imgID withSize:(CGSize)size asycn:(void (^)(UIImage *img, NSError *error, bool isFirstLoad, NSString *urlWithSize))completion
 {
     NSString *url = [NSString stringWithFormat: @"%@?width=%d&height=%d", imgID, (int)size.width, (int)size.height];
-    NSLog(@"REQUEST POOL url %@", url);
+//    NSLog(@"REQUEST POOL url %@", url);
     
     id img = [_images objectForKey:url];
     
@@ -57,7 +59,7 @@
         }
         else if ([img isKindOfClass:[UIImage class]])
         {
-            NSLog(@"IMAGE POOL success immediate %@", img);
+//            NSLog(@"IMAGE POOL success immediate %@", img);
             completion(img, nil, NO, url);
         }
     }
@@ -98,7 +100,7 @@
                                                           parameters:params];
         [request setTimeoutInterval:13];
         
-        NSLog(@"PHOTO REQUEST POOL photoRequestURL %@", request.URL.absoluteString);
+//        NSLog(@"PHOTO REQUEST POOL photoRequestURL %@", request.URL.absoluteString);
         
         AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
         [httpClient registerHTTPOperationClass:[AFHTTPRequestOperation class]];
@@ -115,7 +117,7 @@
                  [self checkMaxCache];
              }
              
-             NSLog(@"IMAGE POOL success %@", image);
+//             NSLog(@"IMAGE POOL success %@", image);
              
              for (int i = 0; i < reqs.count; ++i)
              {
@@ -151,7 +153,7 @@
              }
          }];
         
-        [operation start];
+        [operationQueue addOperation:operation];
     }
 }
 

@@ -60,7 +60,7 @@
 @implementation VCSimpleSnapshot
 CGFloat pageWidth;
 CGFloat pageHeight;
-@synthesize sv_photos,lbl_indexPhoto, lbl_mutualFriends, lbl_mutualFriendsNextProfile, lbl_mutualLikes, lbl_mutualLikesNextProfile, buttonNO, buttonProfile, buttonYES, imgMutualFriend, imgMutualLike, buttonMAYBE ,lblName, lblNameNextProfile, lblAge ,lblPhotoCount, lblPhotoCountNextProfile, viewProfile,matchView, matchViewController, lblMatchAlert, imgMatcher, imgMyAvatar, imgMainProfile, imgNextProfile, imgLoading, popupFirstTimeView,imgAvatarFrame,isLoading, btnSayHi, btnKeepSwiping;
+@synthesize sv_photos,lbl_indexPhoto, lbl_mutualFriends, lbl_mutualFriendsNextProfile, lbl_mutualLikes, lbl_mutualLikesNextProfile, buttonNO, buttonProfile, buttonYES, imgMutualFriend, imgMutualLike, buttonMAYBE ,lblName, lblNameNextProfile, lblAge ,lblPhotoCount, lblPhotoCountNextProfile, viewProfile,matchView, matchViewController, lblMatchAlert, imgMatcher, imgMyAvatar, imgMainProfile, imgNextProfile, imgLoading, popupFirstTimeView,imgAvatarFrame,isLoading, btnSayHi, btnKeepSwiping, viewSharedFriendPopup, lblSharedFriend;
 
 @synthesize is_loadingProfileList = is_loadingProfileList;
 
@@ -410,6 +410,16 @@ CGFloat pageHeight;
     
     [lblPhotoCount setText:@"0"];
     [lblPhotoCount setText:[NSString stringWithFormat:@"%i",[currentProfile.arr_photos count]]];
+    if (currentProfile.arr_MutualFriends.count > 0)
+    {
+        [self.viewSharedFriendPopup setHidden:NO];
+        [self.viewSharedFriendPopup setAlpha:0.7f];
+        self.lblSharedFriend.text = [NSString stringWithFormat:@"%i %@", currentProfile.arr_MutualFriends.count, [@"Shared Friend!" localize]];
+    }
+    else
+    {
+        [self.viewSharedFriendPopup setHidden:YES];
+    }
     [self.imgMainProfile setImage:[UIImage imageNamed:@"Default Avatar"]];
     
 //    currentProfile.s_video = @"videos/origin/02.2014/100000039685047_52cf7a9170e15";

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="4514" systemVersion="12F45" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="4510" systemVersion="12F45" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
     <dependencies>
         <deployment defaultVersion="1280" identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3746"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3742"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="VCSimpleSnapshot">
@@ -29,6 +29,7 @@
                 <outlet property="lblNameNextProfile" destination="M9K-zt-TcY" id="BUj-Rb-Ge4"/>
                 <outlet property="lblPhotoCount" destination="37" id="60"/>
                 <outlet property="lblPhotoCountNextProfile" destination="7e2-M5-QjY" id="Z28-1F-dHo"/>
+                <outlet property="lblSharedFriend" destination="tr5-7v-s78" id="4Fm-jZ-b9j"/>
                 <outlet property="lbl_mutualFriends" destination="39" id="51"/>
                 <outlet property="lbl_mutualFriendsNextProfile" destination="bEV-jr-4FV" id="knu-a5-sDm"/>
                 <outlet property="lbl_mutualLikes" destination="40" id="52"/>
@@ -40,6 +41,7 @@
                 <outlet property="spinner" destination="133" id="134"/>
                 <outlet property="sv_photos" destination="61" id="62"/>
                 <outlet property="view" destination="99" id="ZLP-Fb-O0A"/>
+                <outlet property="viewSharedFriendPopup" destination="TyT-aC-cnS" id="Jm8-Be-IaI"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -253,6 +255,27 @@
                             <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                             <nil key="highlightedColor"/>
                         </label>
+                        <view contentMode="scaleToFill" id="TyT-aC-cnS" userLabel="View - shared friends popup">
+                            <rect key="frame" x="117" y="206" width="100" height="50"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <subviews>
+                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Snapshot_bublble.png" id="4g2-hH-grG">
+                                    <rect key="frame" x="0.0" y="0.0" width="100" height="45"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                </imageView>
+                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1 Shared Friend!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="tr5-7v-s78">
+                                    <rect key="frame" x="0.0" y="0.0" width="100" height="30"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                    <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="11"/>
+                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                            </subviews>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        </view>
                         <imageView userInteractionEnabled="NO" alpha="0.0" contentMode="scaleToFill" image="Snapshot_no_stamp.png" id="44">
                             <rect key="frame" x="65" y="46" width="141" height="141"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -606,6 +629,7 @@
         <image name="Snapshot_btn_no_preesed.png" width="81" height="83"/>
         <image name="Snapshot_btn_yes.png" width="81" height="83"/>
         <image name="Snapshot_btn_yes_pressed.PNG" width="80" height="82"/>
+        <image name="Snapshot_bublble.png" width="82" height="26"/>
         <image name="Snapshot_camera_icon.png" width="25" height="25"/>
         <image name="Snapshot_like_stamp.png" width="143" height="148"/>
         <image name="Snapshot_mutualfriends_icon.png" width="25" height="25"/>

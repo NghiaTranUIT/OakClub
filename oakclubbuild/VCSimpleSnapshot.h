@@ -57,7 +57,9 @@
 @property (weak, nonatomic) IBOutlet UILabel *lblNameNextProfile;
 @property (weak, nonatomic) IBOutlet UILabel *lblAge;
 @property (weak, nonatomic) IBOutlet UILabel *lblPhotoCount;
+@property (weak, nonatomic) IBOutlet UIView *viewSharedFriendPopup;
 @property (weak, nonatomic) IBOutlet UILabel *lblPhotoCountNextProfile;
+@property (weak, nonatomic) IBOutlet UILabel *lblSharedFriend;
 @property (weak, nonatomic) IBOutlet UIImageView *imgLoading;
 @property (weak, nonatomic) IBOutlet UIButton *buttonNO;
 @property (weak, nonatomic) IBOutlet UIButton *btnPlayVideo;

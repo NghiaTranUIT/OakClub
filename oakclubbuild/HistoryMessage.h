@@ -27,7 +27,7 @@
 @property (strong, nonatomic) NSString* to;
 
 +(NSMutableArray*)parseJSONtoHistoryMessages:(NSData *)jsonData;
-+(void)getHistoryMessages:(NSString*) hangout_id callback:(void(^)(NSMutableArray*))handler;
++(NSOperation *)getHistoryMessages:(NSString*) hangout_id callback:(void(^)(NSMutableArray*))handler;
 +(AFHTTPRequestOperation*)getHistoryMessagesSync:(NSString*) hangout_id callback:(void(^)(NSMutableArray*))handler;
 
 +(void)postMessage:(NSString*)reciever_id messageContent:(NSString*)message;

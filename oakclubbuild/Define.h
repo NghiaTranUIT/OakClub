@@ -35,6 +35,9 @@
 //show matchmaker in leftmenu
 #define ENABLE_MATCHMAKER false
 
+//add include facebook friends in snapshot settings
+#define ENABLE_INCLUDE_FACEBOOKFRIEND true
+
 //check lastest version of the app
 #define ENABLE_CHECK_APP_VERSION false
 #define APPSTORE_LINK @"https://itunes.apple.com/app/id788399950?mt=8"
@@ -78,7 +81,7 @@
 #define HOSTNAME @"xmpp.oakclub.com"
 #define DOMAIN @"https://oakclub.com"
 #define DOMAIN_DATA @"http://data2.oakclub.com/" //data2
-#define DOMAIN_VIDEO @"http://oakclub.com/oakclub_upload/"
+#define DOMAIN_VIDEO @"http://oakclub.com/datanew/"
 #define MAX_UPLOAD_PHOTO_SIZE 3072000 //~3MB
 #define MAX_UPLOAD_VIDEO_SIZE 3072000 //~3MB
 #define URL_PHOTO @"http://oakclub.com/load_photo.php"
@@ -307,6 +310,7 @@
 #define key_new_people_status @"status_interested_in.new_people"
 #define key_FOF_status @"status_interested_in.fof"
 #define key_locationID @"id"
+#define key_includeFBFriend @"include_friend"
 #define key_BlockList @"block_list"
 #define key_PriorityList @"priority_list"
 #define key_StrProfileID @"str_profile_id"

@@ -11,7 +11,6 @@
 @interface GroupButtons : NSObject
 {
     NSMutableArray* buttons;
-    NSInteger selectedIndex;
     BOOL multipleChoice;
 }
 

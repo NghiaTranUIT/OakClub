@@ -34,6 +34,8 @@
             NSMutableDictionary *location = [data valueForKey:key_location];
             self.location = [[Location alloc] initWithNSDictionary:location];
             
+            self.include_facebook_friend = [[data valueForKey:key_includeFBFriend] boolValue];
+            
             if (completion)
             {
                 completion(nil);
@@ -63,6 +65,7 @@
             (self.interested_friends)?@"true":@"", @"friends",
             (self.interested_friend_of_friends)?@"true":@"", @"fof",
             self.purpose_of_search, @"purpose_of_search",
+            [NSNumber numberWithBool:self.include_facebook_friend], key_includeFBFriend,
             [NSNumber numberWithInteger:self.range], @"range",
             nil];
 }

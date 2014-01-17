@@ -278,6 +278,7 @@
 
 -(NSMutableArray*) parseMutualList:(NSMutableArray *)jsonData
 {
+    NSLog(@"JSON DATA: %@", jsonData);
     NSMutableArray* friends = [[NSMutableArray alloc] init];
     
     for(int i = 0 ; i < [jsonData count]; i++)
@@ -411,7 +412,7 @@
     self.s_gender = [Gender alloc];
     self.s_gender = [self parseGender:[data valueForKey:key_gender]];
     self.s_aboutMe = [data valueForKey:key_aboutMe];
-    self.s_video = [data valueForKey:key_video];
+    self.s_video = [self makeFullVideoLink:[data valueForKey:key_video]];
     if([self.s_aboutMe isKindOfClass:[NSNull class]]){
         self.s_aboutMe = @"";
     }
@@ -604,7 +605,7 @@
     self.num_Photos = [arr_photos count];
     for (int i = 0; i < self.num_Photos; i++) {
         NSMutableDictionary *photoItem = [arr_photos objectAtIndex:i];
-        if ([[photoItem valueForKey:key_isProfilePicture] integerValue]) {
+        if ([[photoItem valueForKey:key_isProfilePicture] boolValue]) {
             self.s_Avatar =[photoItem valueForKey:key_photoLink];
         }
     }
@@ -625,7 +626,7 @@
     self.active = [[data valueForKey:key_active] integerValue];
     
     // new
-    self.s_video = [data valueForKey:key_video];
+    self.s_video = [self makeFullVideoLink:[data valueForKey:key_video]];
     self.s_gender = [self parseGender:[data valueForKey:key_gender]];
     self.s_birthdayDate =[data valueForKey:key_birthday];
     self.i_weight =MAX([[data valueForKey:key_weight] integerValue], 0);
@@ -1005,5 +1006,10 @@
 -(NSString*)firstName
 {
     return [self getFirstNameWithName:self.s_Name];
+}
+
+-(NSString *)makeFullVideoLink:(NSString *)localVideoLink
+{
+    return [NSString stringWithFormat:@"%@%@.mov", DOMAIN_VIDEO, localVideoLink];
 }
 @end

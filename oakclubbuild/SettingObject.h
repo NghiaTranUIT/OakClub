@@ -23,6 +23,8 @@
     bool _interested_friends;
     bool _interested_friend_of_friends;
     
+    bool _include_facebook_friend;
+    
     Location* _location;
 }
 @property (strong, nonatomic) NSString* fb_id;
@@ -38,6 +40,8 @@
 @property bool interested_new_people;
 @property bool interested_friends;
 @property bool interested_friend_of_friends;
+
+@property bool include_facebook_friend;
 
 //@property NSString* location_id;
 //@property NSString* location_name;

@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="4514" systemVersion="12F45" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="4510" systemVersion="12F45" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
     <dependencies>
         <deployment defaultVersion="1280" identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3746"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3742"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="VCMyProfile">
             <connections>
-                <outlet property="activityIndicator" destination="DxQ-Hb-nV9" id="fb6-y4-L0w"/>
                 <outlet property="age_workLabel" destination="0cX-39-zAI" id="fLR-jT-B2F"/>
                 <outlet property="avatarLayout" destination="nEL-w0-U9C" id="v8j-td-kdZ"/>
                 <outlet property="btnEditVideo" destination="OI1-wh-ZHN" id="b6V-7G-aVl"/>
@@ -123,10 +122,6 @@
                                         <action selector="uploadVideoTouched:" destination="-1" eventType="touchUpInside" id="fJC-32-Te9"/>
                                     </connections>
                                 </button>
-                                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="gray" id="DxQ-Hb-nV9">
-                                    <rect key="frame" x="52" y="53" width="20" height="20"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                </activityIndicatorView>
                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="DfU-up-e7O" userLabel="Image View - video Thumb.png">
                                     <rect key="frame" x="0.0" y="0.0" width="125" height="125"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
