@@ -1871,7 +1871,7 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
 - (void)showErrorSlowConnection:(NSString *)problem
 {
     UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:[@"Error" localize]
-                                                        message:@"OakClub detects slow connection to server. Please try again later"
+                                                        message:[@"OakClub detects slow connection to server. Please try again later" localize]
                                                        delegate:nil
                                               cancelButtonTitle:[@"Ok" localize]
                                               otherButtonTitles:nil];

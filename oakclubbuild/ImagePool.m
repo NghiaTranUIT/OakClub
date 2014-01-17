@@ -20,6 +20,9 @@
     NSMutableDictionary *_images;
 }
 
+#define NUMBER_OF_IMAGE_REMOVED 3
+@synthesize maxImageCache;
+
 -(id)init
 {
     if (self = [super init])
@@ -27,6 +30,7 @@
         _images = [[NSMutableDictionary alloc] init];
         _maxRequestTimeoutToMakeAlert = 100;
         _requestTimeoutToMakeAlertCount = 0;
+        maxImageCache = NSIntegerMax;
     }
     
     return self;
@@ -108,6 +112,7 @@
              if(image)
              {
                  [_images setObject:image forKey:url];
+                 [self checkMaxCache];
              }
              
              NSLog(@"IMAGE POOL success %@", image);
@@ -155,8 +160,31 @@
     NSString *url = [NSString stringWithFormat: @"%@?width=%d&height=%d", imgID, (int)size.width, (int)size.height];
     if (img)
     {
-        [_images setValue:img forKey:url];
+        [_images setObject:img forKey:url];
+        [self checkMaxCache];
     }
 }
 
+-(int)checkMaxCache
+{
+    if (_images.count > maxImageCache)
+    {
+        int nRemoved = MIN(NUMBER_OF_IMAGE_REMOVED, _images.count);
+        
+        NSMutableArray *removeKeys = [[NSMutableArray alloc] initWithCapacity:nRemoved];
+        NSArray *imgKeys = [_images allKeys];
+        for (int i = 0; i < nRemoved; ++i)
+        {
+            [removeKeys addObject:imgKeys[i]];
+        }
+        
+        for (NSString *imgKey in  imgKeys) {
+            [_images removeObjectForKey:imgKey];
+        }
+        
+        return nRemoved;
+    }
+    
+    return 0;
+}
 @end

@@ -265,8 +265,6 @@ CGFloat pageHeight;
 //int counter = 0;
 -(void)loadSnapshotProfilesWithHandler:(void(^)(void))handler andFocus:(BOOL)focus
 {
-//    ++counter;
-    
     NSString *randomStr = [NSString randomizedString];
     
     request = [[AFHTTPClient alloc] initWithOakClubAPI:DOMAIN];

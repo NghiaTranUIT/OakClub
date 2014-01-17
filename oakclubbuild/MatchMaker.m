@@ -13,6 +13,7 @@
 #import "LoadingIndicator.h"
 #import "SendMatchViewCell.h"
 #import "MatchMakerItem.h"
+#import "FacebookSDK/FacebookSDK.h"
 
 enum MATCHMAKER_CHOOSE_STATE{
     MATCHMAKER_CHOOSE_NONE = 0,
@@ -368,6 +369,35 @@ www.oakclub.com"
 {
     if (match1 && match2)
     {
+        //pop up Facebook Request dialog
+        NSString *title = [NSString stringWithFormat:[@"%@ has matched you with %@ on OakClub" localize], match1.s_Name, match2.s_Name];
+        NSString *message = [NSString stringWithFormat:[@"Hey %@, %@. You have been matched each other on www.oakclub.com. You will make a great couple. Love is in the air! Check out your match now!" localize], match1.s_Name, match2.s_Name];
+        NSMutableDictionary *params = [NSMutableDictionary dictionaryWithObjectsAndKeys:
+                                       [NSString stringWithFormat:@"%@,%@", match1.s_FB_id, match2.s_FB_id], @"to",
+                                       nil];
+        
+        [FBWebDialogs presentRequestsDialogModallyWithSession:nil message:message title:title parameters:params handler:^(FBWebDialogResult result, NSURL *resultURL, NSError *error) {
+            if (error) {
+                // Error launching the dialog or sending the request.
+                [self showMatchError];
+            } else {
+                if (result == FBWebDialogResultDialogNotCompleted) {
+                    // User clicked the "x" icon
+                } else {
+                    // Handle the send request callback
+                    NSDictionary *urlParams = [self parseURLParams:[resultURL query]];
+                    if (![urlParams valueForKey:@"request"]) {
+                        // User clicked the Cancel button
+                    } else {
+                        // User clicked the Send button
+                        NSString *requestID = [urlParams valueForKey:@"request"];
+                        NSLog(@"Request ID: %@", requestID);
+                    }
+                }
+            }
+        }];
+
+        
         [self sendMatchNotificationToServerWithFristUserID:match1.s_FB_id andSecond:match2.s_FB_id withDesc:self.descTextView.text];
     }
 }

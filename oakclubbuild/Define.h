@@ -12,6 +12,7 @@
 //demo version FLAG
 #define ENABLE_DEMO true
 #define USE_STAGING false
+#define USE_LOCALTEST false
 #define USE_MAINHOST true
 #define USE_STAGING_MB false
 #define USE_STAGING_IOS false
@@ -51,6 +52,15 @@
 #define PHOTO_SIZE_SMALL CGSizeMake(100, 100)
 
 #undef DOMAIN
+#if USE_LOCALTEST
+#define HOSTNAME @"local.oakclub.com"
+#define DOMAIN @"http://local.oakclub.com"
+#define DOMAIN_DATA @"http://data1.oakclub.com/"
+#define DOMAIN_VIDEO @"http://local.oakclub.com/oakclub_upload/"
+#define MAX_UPLOAD_PHOTO_SIZE 8192000 //~8MB
+#define MAX_UPLOAD_VIDEO_SIZE 81920000 //~8MB
+#define URL_PHOTO @"http://staging.oakclub.com/load_photo.php"
+#endif
 #if USE_STAGING
 #define HOSTNAME @"staging.oakclub.com"
 #define DOMAIN @"http://staging.oakclub.com"

@@ -823,7 +823,6 @@
 		970924BB182E5EFE007BD6B1 /* VideoPicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoPicker.m; sourceTree = "<group>"; };
 		970B7485181533560091471F /* PickPhotoFromGarelly.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PickPhotoFromGarelly.h; sourceTree = "<group>"; };
 		970B7486181533560091471F /* PickPhotoFromGarelly.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PickPhotoFromGarelly.m; sourceTree = "<group>"; };
-		971CC5A2188518C2001648EB /* DataState.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DataState.h; sourceTree = "<group>"; };
 		972B11911883C3D700EB90D3 /* SendMatchViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SendMatchViewCell.h; sourceTree = "<group>"; };
 		972B11921883C3D700EB90D3 /* SendMatchViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SendMatchViewCell.m; sourceTree = "<group>"; };
 		972B11941883C3E700EB90D3 /* SendMatchViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SendMatchViewCell.xib; sourceTree = "<group>"; };
@@ -2293,7 +2292,6 @@
 				97939393184DBFDF00BEC19D /* ImagePool.m */,
 				97D7B485185705D3008F9946 /* CGRect+Utils.h */,
 				97D7B486185705D3008F9946 /* CGRect+Utils.m */,
-				971CC5A2188518C2001648EB /* DataState.h */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
