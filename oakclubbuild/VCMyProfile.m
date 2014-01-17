@@ -628,6 +628,13 @@ UITapGestureRecognizer *tap;
                          [appDelegate.imagePool setImage:uploadImage forURL:imgLink andSize:PHOTO_SIZE_LARGE];
                          
                          [self reloadPhotos];
+                     } else {
+                         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:[@"Error" localize]
+                                                                             message:[@"Error" localize]
+                                                                            delegate:nil
+                                                                   cancelButtonTitle:[@"Ok" localize]
+                                                                   otherButtonTitles:nil];
+                         [alertView show];
                      }
                      
                      uploadImage = nil;

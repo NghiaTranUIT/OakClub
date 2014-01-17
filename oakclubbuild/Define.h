@@ -24,7 +24,7 @@
 #define DISABLE_HERETO_SHOWME
 
 //disable policty
-#define DISABLE_POCLICY TRUE
+#define DISABLE_POCLICY false
 
 // enable Select location manually
 //#define ENABLE_LOCATION_MANUALLY
@@ -34,6 +34,10 @@
 
 //show matchmaker in leftmenu
 #define ENABLE_MATCHMAKER false
+
+//check lastest version of the app
+#define ENABLE_CHECK_APP_VERSION false
+#define APPSTORE_LINK @"https://itunes.apple.com/app/id788399950?mt=8"
 
 //Hangout
 #define sOnline @"Online"
