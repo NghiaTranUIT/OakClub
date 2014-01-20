@@ -166,6 +166,7 @@
             <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <connections>
                 <outlet property="imgAvatar" destination="nET-0h-iix" id="nt5-jV-brU"/>
+                <outlet property="lblMatchText" destination="NK5-oO-LYW" id="5TB-9t-GFT"/>
                 <outlet property="lblMatchedTime" destination="ozh-7y-1A2" id="cYW-Fx-SSI"/>
                 <outlet property="lblMatchedWith" destination="GTN-QS-qOr" id="HFI-jU-ayh"/>
             </connections>

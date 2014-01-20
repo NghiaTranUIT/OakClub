@@ -410,7 +410,8 @@ CGFloat pageHeight;
     
     [lblPhotoCount setText:@"0"];
     [lblPhotoCount setText:[NSString stringWithFormat:@"%i",[currentProfile.arr_photos count]]];
-    if (currentProfile.arr_MutualFriends.count > 0)
+    int nMutualFriends = currentProfile.arr_MutualFriends.count;
+    if (nMutualFriends > 0)
     {
         [self.viewSharedFriendPopup setHidden:NO];
         [self.viewSharedFriendPopup setAlpha:0.7f];

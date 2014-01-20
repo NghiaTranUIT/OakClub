@@ -353,8 +353,8 @@ UITapGestureRecognizer *tap;
                     
                     UISwitch *autoSwitch = (id) [includeFBFriendsCell viewWithTag:102];
                     autoSwitch.on = snapshotObj.include_facebook_friend;
-                    
-                    includeFBFriendsCell.textLabel.text = [@"Include facebook friend" localize];
+                                        
+                    includeFBFriendsCell.textLabel.text = [@"Include Facebook Friends" localize];
                     return includeFBFriendsCell;
                 }
                     break;

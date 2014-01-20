@@ -55,6 +55,7 @@
 @interface SMChat_FirstViewMatchView : UIView
 @property (weak, nonatomic) IBOutlet UILabel *lblMatchedWith;
 @property (weak, nonatomic) IBOutlet UILabel *lblMatchedTime;
+@property (weak, nonatomic) IBOutlet UILabel *lblMatchText;
 
 @property (weak, nonatomic) IBOutlet UIImageView *imgAvatar;
 

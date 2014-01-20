@@ -965,6 +965,29 @@ static float cellWidth = 320;
     Profile *matchedProfile;
     AppDelegate *appDel;
 }
+
+#define FIRSTMATCH_TEXTS [NSArray arrayWithObjects:@"Cupid shot both of you!",\
+@"This must be fate!",\
+@"You are mean to be together.",\
+@"What a lovely couple!",\
+@"You have found way to love.",\
+@"Love is in the air now.",\
+@"Seems like %@ likes you too!",\
+@"Let's make a romantic story now!",\
+@"%@ also has a crushed on you!",\
+@"Find out more about %@ now!",\
+@"Don't hesitate to chat with %@ now!",\
+@"Don't be shy! Say \"Hi\" to %@ now!",\
+@"Did you see any couple start without a chat?",\
+@"Show your confidence! %@ will love it.",\
+@"Your kids would be beautiful!",\
+@"%@ is still shy. Chat with %@ now",\
+@"Why not inviting %@ to a drink?",\
+@"Miracle cannot start without a chat",\
+@"Say something sweet!",\
+@"Show %@ how awesome you are!", nil];
+
+NSArray *randomTexts;
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
@@ -987,25 +1010,41 @@ static float cellWidth = 320;
 
 -(void)setMatchedProfile:(Profile *)profile andImagepool:(ImagePool *)imgPool
 {
+    if (!randomTexts)
+    {
+        randomTexts = FIRSTMATCH_TEXTS;
+    }
+    
     matchedProfile = profile;
     
     [self updateLabels];
     
     [self circlizeAvatar];
-    [imgPool getImageAtURL:profile.s_Avatar withSize:PHOTO_SIZE_SMALL asycn:^(UIImage *img, NSError *error, bool isFirstLoad, NSString *urlWithSize) {
-        [self.imgAvatar setImage:img];
+    [imgPool getImageAtURL:profile.s_Avatar asycn:^(UIImage *img, NSError *error, bool isFirstLoad, NSString *urlWithSize) {
+        if (!self.imgAvatar.image)
+        {
+            [self.imgAvatar setImage:img];
+        }
     }];
 }
 
 -(void)updateLabels
 {
-    self.lblMatchedWith.text = [NSString stringWithFormat:@"%@ %@", [@"You matched with " localize], matchedProfile.firstName];
+    NSString *matchedName = matchedProfile.firstName;
+    self.lblMatchedWith.text = [NSString stringWithFormat:@"%@ %@", [@"You matched with " localize], matchedName];
     
     NSString *matchTime = matchedProfile.match_time;
-//    NSString *matchTime = @"12/30/2013 00:00:00";
     NSDate* date = [NSString getDateWithString:matchTime];
     NSString *timeInterval = dateToStringInterval(date);
     self.lblMatchedTime.text = timeInterval;
+    
+    int randomTextIndex = random() % (randomTexts.count);
+    NSString *randomedText = randomTexts[randomTextIndex];
+    randomedText = [randomedText localize];
+    if (randomedText)
+    {
+        self.lblMatchText.text = [NSString stringWithFormat:randomedText, matchedName, matchedName];
+    }
 }
 
 -(void)circlizeAvatar
@@ -1029,24 +1068,6 @@ static float cellWidth = 320;
     CGAffineTransform transform3 = CGAffineTransformScale(idTransform, 0.9, 0.9);
     
     self.transform = transform1;
-    
-//    [UIView animateWithDuration:0.4 animations:^{
-//        self.transform = transform2;
-//    } completion:^(BOOL finished) {
-//        [UIView animateWithDuration:0.1 animations:^{
-//            self.transform = transform3;
-//        } completion:^(BOOL finished) {
-//            [UIView animateWithDuration:0.05 animations:^{
-//                self.transform = idTransform;
-//            } completion:^(BOOL finished) {
-//                
-//                if (completion)
-//                {
-//                    completion();
-//                }
-//            }];
-//        }];
-//    }];
     
     [UIView animateWithDuration:0.4 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
         self.transform = transform2;
