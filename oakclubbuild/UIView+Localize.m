@@ -45,16 +45,19 @@ NSString * const kLanguageKey = @"kLanguageKey";
     if([self isKindOfClass:[UILabel class]]){
         UILabel* result = (UILabel*)self;
         NSString* text =[appDelegate.languageBundle localizedStringForKey:result.languageKey value:result.text table:nil];
-        //NSLog(@"%@-text:-%@", result,text);
-        [result setText:text];
+        if (text && ![@"" isEqualToString:text])
+        {
+            [result setText:text];
+        }
         return result;
     }
     else if([self isKindOfClass:[UIButton class]]){
         UIButton* result = (UIButton*)self;
         NSString* text =[appDelegate.languageBundle localizedStringForKey:result.languageKey value:result.titleLabel.text table:nil];
-        
-        //NSLog(@"%@-text:-%@", result,text);
-        [result setTitle:text forState:UIControlStateNormal];
+        if (text && ![@"" isEqualToString:text])
+        {
+            [result setTitle:text forState:UIControlStateNormal];
+        }
         return result;
     }
     else
@@ -97,7 +100,13 @@ NSString * const kLanguageKey = @"kLanguageKey";
 {
     AppDelegate *appDelegate = (AppDelegate *) [UIApplication sharedApplication].delegate;
     
-    return [appDelegate.languageBundle localizedStringForKey:self value:@"" table:nil];
+    NSString *localizedText = [appDelegate.languageBundle localizedStringForKey:self value:@"" table:nil];
+    if (localizedText && ![@"" isEqualToString:localizedText])
+    {
+        return localizedText;
+    }
+    
+    return self;
 }
 
 @end

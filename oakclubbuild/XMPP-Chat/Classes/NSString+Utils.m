@@ -76,7 +76,9 @@
 
 +(NSString* )localizeString:(NSString*)text{
     AppDelegate *appDelegate = (AppDelegate *) [UIApplication sharedApplication].delegate;
-    text =[appDelegate.languageBundle localizedStringForKey:text value:@"" table:nil];
+    NSString *localizedText = [appDelegate.languageBundle localizedStringForKey:text value:@"" table:nil];
+    if (localizedText && ![@"" isEqualToString:localizedText])
+        return localizedText;
     return text;
 }
 @end

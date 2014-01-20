@@ -1010,6 +1010,9 @@
 
 -(NSString *)makeFullVideoLink:(NSString *)localVideoLink
 {
-    return [NSString stringWithFormat:@"%@%@.mov", DOMAIN_VIDEO, localVideoLink];
+    if (localVideoLink && ![localVideoLink isKindOfClass:[NSNull class]] && ![@"" isEqualToString:localVideoLink])
+        return [NSString stringWithFormat:@"%@%@.mov", DOMAIN_VIDEO, localVideoLink];
+    
+    return nil;
 }
 @end
