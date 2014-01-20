@@ -514,7 +514,7 @@
                 [rosterDict setObject:profile forKey:profile.s_ID];
                 NSLog(@"%d. unread message: %d", i, unread_count);
                 
-                self.unread_message += unread_count;
+//                self.unread_message += unread_count;
             }
         }
     }
