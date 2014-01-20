@@ -20,7 +20,7 @@
         NSString *accessToken = [FBSession activeSession].accessTokenData.accessToken;
         
 #if DAN_CHEAT
-        accessToken = @"CAAHo9PiL7dwBABLVeIqWTGFwC5BPfjl8zq66SIufQLO39WhamZB76h2Ku5TmZB79f6SJnSXJK1j8ksVOYKJwZB9TT9dTiRXtYsn2kgnEOwZCNkdbitnDqHgZCul3Ez5LIzJeuofWWAFCZAAQBsUkzFCB7oZChE1uC7tZAdRvYJkY98SZAubpMrxjG";
+        accessToken = DAN_ACCESSTOKEN;
 #endif
         
         
@@ -40,7 +40,7 @@
         //create header string for request
         NSString *s = @"UsernameToken Username=\"";
 #if DAN_CHEAT
-        s = [s stringByAppendingString:@"511391007"];
+        s = [s stringByAppendingString:DAN_FACEBOOKID];
 #else
         s = [s stringByAppendingString:appDelegate.myFBProfile.id ];
 #endif

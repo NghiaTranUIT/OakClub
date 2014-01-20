@@ -1189,13 +1189,17 @@ UITapGestureRecognizer *tap;
 //        NSLog(@"Selected video duration: %.2lf", duration);
         
         self.videoStatus = VIDEO_STATE_LOADING;
+        UIAlertView *maxSizeAlert = [[UIAlertView alloc] initWithTitle:[@"Message" localize] message:[@"Your video is being processed" localize] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        
+        [maxSizeAlert localizeAllViews];
+        [maxSizeAlert show];
         [VideoUploader compressVideoAtURL:videoURL withQuality:AVAssetExportPresetMediumQuality useCompletion:^(NSData *data)
          {
              if (data)
              {
                  if ([data length] > MAX_UPLOAD_VIDEO_SIZE)
                  {
-                     UIAlertView *maxSizeAlert = [[UIAlertView alloc] initWithTitle:[@"Warning" localize] message:[@"The maximum size of video is 3MB" localize] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+                     UIAlertView *maxSizeAlert = [[UIAlertView alloc] initWithTitle:[@"Warning" localize] message:[@"Failed to upload video. The maximum size of video is 3MB" localize] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
                      
                      [maxSizeAlert localizeAllViews];
                      [maxSizeAlert show];

@@ -895,6 +895,7 @@ static float cellWidth = 320;
     NSString *smileyText = [[[ChatEmoticon instance] allKeys] objectAtIndex:(indexPath.section * smCollNCols + indexPath.row)];
     
     self.messageField.text = [self.messageField.text stringByAppendingString:smileyText];
+    [self dismissSmileyCollection:self];
 }
 
 #pragma mark - PSTCollectionViewDelegateFlowLayout
@@ -954,7 +955,7 @@ static float cellWidth = 320;
     NSString *smileyText = [[[ChatEmoticon instance] allKeys] objectAtIndex:sender.tag];
     
     self.messageField.text = [self.messageField.text stringByAppendingString:smileyText];
-    
+    [self dismissSmileyCollection:self];
 }
 @end
 

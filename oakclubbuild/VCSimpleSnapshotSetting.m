@@ -424,7 +424,7 @@ UITapGestureRecognizer *tap;
 //                [btnSave addTarget:self action:@selector(onTouchSaveSetting) forControlEvents:UIControlEventTouchUpInside];
 //                [newCellView addSubview:btnSave];
                 
-                UIButton* btnContactUs = [[UIButton alloc]initWithFrame:CGRectMake(25, 26, 143, 45)];
+                UIButton* btnContactUs = [[UIButton alloc]initWithFrame:CGRectMake(25, 26, 125, 45)];
                 [btnContactUs setBackgroundImage:[UIImage imageNamed:@"SnapshotSetting_btn_contactus_inactive"] forState:UIControlStateNormal];
                 [btnContactUs setBackgroundImage:[UIImage imageNamed:@"SnapshotSetting_btn_contactus_active"] forState:UIControlStateHighlighted];
                 [btnContactUs setBackgroundImage:[UIImage imageNamed:@"SnapshotSetting_btn_contactus_active"] forState:UIControlStateSelected];
@@ -439,7 +439,7 @@ UITapGestureRecognizer *tap;
                 [btnContactUs addTarget:self action:@selector(onTouchContactUs) forControlEvents:UIControlEventTouchUpInside];
                 [newCellView addSubview:btnContactUs];
                 
-                UIButton* btnLogout = [[UIButton alloc]initWithFrame:CGRectMake(172, 26, 143, 45)];
+                UIButton* btnLogout = [[UIButton alloc]initWithFrame:CGRectMake(170, 26, 125, 45)];
                 [btnLogout setBackgroundImage:[UIImage imageNamed:@"SnapshotSetting_btn_logout_active"] forState:UIControlStateNormal];
                 [btnLogout setBackgroundImage:[UIImage imageNamed:@"SnapshotSetting_btn_logout_inactive"] forState:UIControlStateHighlighted];
                 [btnLogout setBackgroundImage:[UIImage imageNamed:@"SnapshotSetting_btn_logout_inactive"] forState:UIControlStateSelected];
@@ -468,7 +468,7 @@ UITapGestureRecognizer *tap;
                 
                 [newCellView localizeAllViews];
                 [moreCell setSelectionStyle:UITableViewCellSelectionStyleNone];
-                moreCell.accessoryView = newCellView;
+                [moreCell.contentView addSubview:newCellView];
             }
             
             [moreCell localizeAllViews];

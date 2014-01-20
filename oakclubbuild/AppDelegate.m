@@ -759,10 +759,13 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
     //self.myProfile = [[Profile alloc] init];
     NSDictionary* params = [NSDictionary dictionaryWithObject:@"id,name,gender,relationship_status,about,location,interested_in,birthday,email,picture" forKey:@"fields"];
     [FBRequestConnection startWithGraphPath:@"me" parameters:params HTTPMethod:@"GET" completionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
-        NSLog(@"USER INFO _ error : %@",error);
-        if(result == NULL)
+        if (error || !result)
+        {
+            UIAlertView *cantConnectToFacebookAlert = [[UIAlertView alloc] initWithTitle:[@"Error" localize] message:@"Can't connect to facebook! Check your internet connection and try again!" delegate:nil cancelButtonTitle:nil otherButtonTitles:nil];
+            [cantConnectToFacebookAlert show];
             return;
-        NSLog(@"USER INFO _ %@",result);
+        }
+        
         self.myFBProfile = result;
         
         if(resultHandler != nil)
@@ -1682,9 +1685,7 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
                   [self parseFBInfoToProfile:self.myFBProfile];
                   
 #if DAN_CHEAT
-                  NSMutableDictionary *params = [[NSMutableDictionary alloc]initWithObjectsAndKeys: @"CAAHo9PiL7dwBABLVeIqWTGFwC5BPfjl8zq66SIufQLO39WhamZB76h2Ku5TmZB79f6SJnSXJK1j8ksVOYKJwZB9TT9dTiRXtYsn2kgnEOwZCNkdbitnDqHgZCul3Ez5LIzJeuofWWAFCZAAQBsUkzFCB7oZChE1uC7tZAdRvYJkY98SZAubpMrxjG", @"access_token",
-                                                 @"511391007", @"user_id",
-                                                 nil];
+                  NSMutableDictionary *params = [[NSMutableDictionary alloc]initWithObjectsAndKeys: DAN_ACCESSTOKEN, @"access_token", DAN_FACEBOOKID, @"user_id", nil];
 #else
                   NSMutableDictionary *params = [[NSMutableDictionary alloc]initWithObjectsAndKeys:
                                                  [FBSession activeSession].accessTokenData.accessToken, @"access_token",

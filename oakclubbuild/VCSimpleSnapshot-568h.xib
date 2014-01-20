@@ -30,6 +30,7 @@
                 <outlet property="lblNameNextProfile" destination="8Bg-5u-bff" id="Mvl-dP-oSw"/>
                 <outlet property="lblPhotoCount" destination="37" id="60"/>
                 <outlet property="lblPhotoCountNextProfile" destination="pLu-E0-P1J" id="VWA-UE-LFA"/>
+                <outlet property="lblSharedFriend" destination="fr3-xa-Ydr" id="W79-iX-c2r"/>
                 <outlet property="lbl_mutualFriends" destination="39" id="51"/>
                 <outlet property="lbl_mutualFriendsNextProfile" destination="U6v-H8-k28" id="7cq-Uf-l35"/>
                 <outlet property="lbl_mutualLikes" destination="40" id="52"/>
@@ -41,6 +42,7 @@
                 <outlet property="spinner" destination="133" id="134"/>
                 <outlet property="sv_photos" destination="61" id="62"/>
                 <outlet property="view" destination="99" id="100"/>
+                <outlet property="viewSharedFriendPopup" destination="DrC-tK-6lc" id="2TI-hU-vfS"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
