@@ -37,7 +37,7 @@
 #define VIEWPROFILE_FULLDATA true
 
 //show matchmaker in leftmenu
-#define ENABLE_MATCHMAKER true
+#define ENABLE_MATCHMAKER false
 
 //add include facebook friends in snapshot settings
 #define ENABLE_INCLUDE_FACEBOOKFRIEND true
