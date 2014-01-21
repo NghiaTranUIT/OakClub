@@ -15,7 +15,7 @@
 + (NSString *) getTime:(NSDate*)date;
 + (NSDate*) getDateWithString:(NSString*) timeStr;
 + (NSString *) getCurrentTime;
-- (NSString *) substituteEmoticons;
+- (NSString *) formatForChatMessage;
 +(NSString*)formatStringWithName:(NSString*)name andAge:(NSString*)age andNameLength:(int)maxLength;
 +(NSString* )localizeString:(NSString*)text;
 @end

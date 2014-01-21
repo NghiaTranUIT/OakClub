@@ -567,10 +567,13 @@ CGFloat pageHeight;
                          else{
                              imgMainProfile.frame = CGRectMake(0, -20, 320, 320);
                          }
+                         
+                         [self.viewSharedFriendPopup setAlpha:0.0];
                      }
                      completion:^(BOOL finished) {
                          [viewProfile.svPhotos setHidden:NO];
                          [imgMainProfile setHidden:YES];
+                         [self.viewSharedFriendPopup setHidden:YES];
                          [self.moveMeView setUserInteractionEnabled:YES];
                          [self displayBelowInfo:YES];
                      }

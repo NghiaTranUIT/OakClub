@@ -104,6 +104,8 @@ int cellCountinSection=0;
                      if (!i)
                      {
 //                         [indicator unlockViewAndStopIndicator];
+                         fetchedResultsController = nil;
+                         [self reloadFriendChatIDs];
                      }
                  }];
                 
@@ -115,6 +117,8 @@ int cellCountinSection=0;
                 if (!i)
                 {
 //                    [indicator unlockViewAndStopIndicator];
+                    fetchedResultsController = nil;
+                    [self reloadFriendChatIDs];
                 }
             }
         }
@@ -210,7 +214,7 @@ int cellCountinSection=0;
 {
     double current = CFAbsoluteTimeGetCurrent();
     NSLog(@"viewWillAppear Start %lf", current);
-    fetchedResultsController = nil;
+//    fetchedResultsController = nil;
     [self.navigationController setNavigationBarHidden:YES];
     NSString* title_1 = [NSString localizeString:@"Matches"];
     NSString* title_2 = [NSString localizeString:@"VIPs"];
@@ -305,8 +309,6 @@ int cellCountinSection=0;
     // Do any additional setup after loading the view from its nib.
     //    [self.view addSubview:tbVC_ChatList.view];
 //    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"bg-edit.png"]];
-    
-    [self loadFriendsInfo];
     
     indicator = [[LoadingIndicator alloc] initWithMainView:self.view andDelegate:self];
     
@@ -613,6 +615,8 @@ int cellCountinSection=0;
         
         return [self compareDateWithProfile1:p1 andProfile2:p2];
     }];
+    
+    [tableView reloadData];
 }
 
 - (NSComparisonResult)compareDateWithProfile1:(Profile *)profile1 andProfile2:(Profile *)profile2
@@ -665,7 +669,7 @@ int cellCountinSection=0;
 
 -(BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
     // Return YES or NO
-    return YES;
+    return NO;
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {

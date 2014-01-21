@@ -54,7 +54,7 @@
     
     [messages addObject:m];
     
-    UIFont *font =FONT_HELVETICANEUE_LIGHT(14.0);// [UIFont systemFontOfSize:14.0];
+    UIFont *font =FONT_HELVETICANEUE_LIGHT(14.0);
     
     NSArray *lines = [[[WordWarpParse alloc] init] parseText:item.body byMeasure:[[FontAndEmoticonsStringMeasure alloc] initWithFont:font andEmoticonData:[ChatEmoticon instance]] withMaxWidth:150 andEmoticonData:[[ChatEmoticon instance] allKeys]];
     UIView *view = [[[LineBuilderImpl alloc] init] buildLineWithComponent:lines useFont:font andEmoticonData:[ChatEmoticon instance] toView:[[UIView alloc] init]];

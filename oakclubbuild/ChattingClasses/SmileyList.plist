@@ -2,13 +2,69 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>:p</key>
-	<string>tongue.png</string>
-	<key>:D</key>
-	<string>grin.png</string>
-	<key>:(</key>
-	<string>sad.png</string>
 	<key>:)</key>
 	<string>smile.png</string>
+	<key>;)</key>
+	<string>wink.png</string>
+	<key>:(</key>
+	<string>sad</string>
+	<key>:P</key>
+	<string>tongue.png</string>
+	<key>:-/</key>
+	<string>confused.png</string>
+	<key>x(</key>
+	<string>angry.png</string>
+	<key>:D</key>
+	<string>grin.png</string>
+	<key>:-o</key>
+	<string>amazed.png</string>
+	<key>:((</key>
+	<string>cry.png</string>
+	<key>:&quot;&gt;</key>
+	<string>shy.png</string>
+	<key>B-)</key>
+	<string>cool.png</string>
+	<key>:))</key>
+	<string>laugh.png</string>
+	<key>(bandit)</key>
+	<string>ninja.png</string>
+	<key>:-&amp;</key>
+	<string>sick.png</string>
+	<key>/:)</key>
+	<string>doubtful.png</string>
+	<key>&gt;:)</key>
+	<string>devil.png</string>
+	<key>O:-)</key>
+	<string>angel.png</string>
+	<key>(:|</key>
+	<string>nerd.png</string>
+	<key>=P~</key>
+	<string>love.png</string>
+	<key>&lt;:-P</key>
+	<string>party.png</string>
+	<key>:x</key>
+	<string>speechless.png</string>
+	<key>:O)</key>
+	<string>clown.png</string>
+	<key>:-&lt;</key>
+	<string>bored.png</string>
+	<key>;PX</key>
+	<string>pirate.png</string>
+	<key>(santa)</key>
+	<string>santa.png</string>
+	<key>(fight)</key>
+	<string>karate.png</string>
+	<key>(emo)</key>
+	<string>emo.png</string>
+	<key>(tribal)</key>
+	<string>indian.png</string>
+	<key>qB]</key>
+	<string>punk.png</string>
+	<key>p^^</key>
+	<string>beaten.png</string>
+	<key>&quot;vvv&quot;</key>
+	<string>wacky.png</string>
+	<key>]:-&gt;</key>
+	<string>vampire.png</string>
 </dict>
 </plist>

@@ -43,24 +43,16 @@
     NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
     [dateFormat setDateFormat:DATETIME_FORMAT];
     
-	
-    
     return [dateFormat stringFromDate:nowUTC];
 	
 }
 
-- (NSString *) substituteEmoticons {
-	/*
-	//See http://www.easyapns.com/iphone-emoji-alerts for a list of emoticons available
-	
-	NSString *res = [self stringByReplacingOccurrencesOfString:@":)" withString:@"\ue415"];	
-	res = [res stringByReplacingOccurrencesOfString:@":(" withString:@"\ue403"];
-	res = [res stringByReplacingOccurrencesOfString:@";-)" withString:@"\ue405"];
-	res = [res stringByReplacingOccurrencesOfString:@":-x" withString:@"\ue418"];
-    res = [res stringByReplacingOccurrencesOfString:@":))" withString:@"\ue057"];
-    res = [res stringByReplacingOccurrencesOfString:@"(y)" withString:@"\ue00e"];
-    res = [res stringByReplacingOccurrencesOfString:@"<3" withString:@"\ue022"];
-    res = [res stringByReplacingOccurrencesOfString:@":@" withString:@"\ue416"];*/
+- (NSString *) formatForChatMessage {
+    
+	NSString *res = [self stringByReplacingOccurrencesOfString:@"&quot" withString:@"\""];
+	res = [res stringByReplacingOccurrencesOfString:@"&lt" withString:@"<"];
+	res = [res stringByReplacingOccurrencesOfString:@"&gt" withString:@">"];
+	res = [res stringByReplacingOccurrencesOfString:@"&amp" withString:@"&"];
 	
 	return self;
 	
