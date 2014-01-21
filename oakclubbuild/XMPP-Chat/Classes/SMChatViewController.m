@@ -972,11 +972,11 @@ static float cellWidth = 320;
 @"This must be fate!",\
 @"You are mean to be together.",\
 @"What a lovely couple!",\
-@"You have found way to love.",\
+@" You have found the way to love.",\
 @"Love is in the air now.",\
 @"Seems like %@ likes you too!",\
 @"Let's make a romantic story now!",\
-@"%@ also has a crushed on you!",\
+@"%@ also has a crush on you!",\
 @"Find out more about %@ now!",\
 @"Don't hesitate to chat with %@ now!",\
 @"Don't be shy! Say \"Hi\" to %@ now!",\
