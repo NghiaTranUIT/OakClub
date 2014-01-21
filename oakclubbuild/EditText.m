@@ -182,4 +182,10 @@
     self.navigationItem.leftBarButtonItem = buttonItem;
 }
 
+-(void)setTitle:(NSString *)newTitle
+{
+    [super setTitle:newTitle];
+    
+    title = [newTitle localize];
+}
 @end

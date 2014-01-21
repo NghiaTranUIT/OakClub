@@ -380,15 +380,23 @@ www.oakclub.com"
             if (error) {
                 // Error launching the dialog or sending the request.
                 [self showMatchError];
-            } else {
-                if (result == FBWebDialogResultDialogNotCompleted) {
+            }
+            else
+            {
+                if (result == FBWebDialogResultDialogNotCompleted)
+                {
                     // User clicked the "x" icon
-                } else {
+                }
+                else
+                {
                     // Handle the send request callback
                     NSDictionary *urlParams = [self parseURLParams:[resultURL query]];
-                    if (![urlParams valueForKey:@"request"]) {
+                    if (![urlParams valueForKey:@"request"])
+                    {
                         // User clicked the Cancel button
-                    } else {
+                    }
+                    else
+                    {
                         // User clicked the Send button
                         NSString *requestID = [urlParams valueForKey:@"request"];
                         NSLog(@"Request ID: %@", requestID);

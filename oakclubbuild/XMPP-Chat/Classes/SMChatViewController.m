@@ -392,7 +392,7 @@
 		self.messageField.text = @"";
         
 		NSMutableDictionary *m = [[NSMutableDictionary alloc] init];
-		[m setObject:[messageStr substituteEmoticons] forKey:@"msg"];
+		[m setObject:[messageStr formatForChatMessage] forKey:@"msg"];
 		[m setObject:@"you" forKey:@"sender"];
         
         NSString* time = [NSString getCurrentTime];
@@ -496,7 +496,8 @@ static float cellWidth = 320;
     
     [[cell.messageContentView subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
     cell.messageContentView.frame = [[messages.frames objectAtIndex:indexPath.row] CGRectValue];
-    for (UIView *subView in [messages.messageContentViews objectAtIndex:indexPath.row])
+    NSArray *messageSubViews = messages.messageContentViews[indexPath.row];
+    for (UIView *subView in messageSubViews)
     {
         [cell.messageContentView addSubview:subView];
     }
@@ -813,7 +814,7 @@ static float cellWidth = 320;
     
     PSUICollectionViewFlowLayout *layout = [PSUICollectionViewFlowLayout new];
     layout.scrollDirection = PSTCollectionViewScrollDirectionVertical;
-    self.smileyCollection = [[PSUICollectionView alloc] initWithFrame:CGRectMake(0, 568, 320, 150) collectionViewLayout:layout];
+    self.smileyCollection = [[PSUICollectionView alloc] initWithFrame:CGRectMake(20, 568, 280, 150) collectionViewLayout:layout];
     self.smileyCollection.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     self.smileyCollection.backgroundColor = [UIColor clearColor];
     

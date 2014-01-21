@@ -1078,7 +1078,7 @@
 		CD038E68180BDB2700A9E177 /* Line.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Line.m; sourceTree = "<group>"; };
 		CD038E69180BDB2700A9E177 /* MessageStorage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageStorage.h; sourceTree = "<group>"; };
 		CD038E6A180BDB2700A9E177 /* MessageStorage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageStorage.m; sourceTree = "<group>"; };
-		CD038E6B180BDB2700A9E177 /* SmileyList.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = SmileyList.plist; sourceTree = "<group>"; };
+		CD038E6B180BDB2700A9E177 /* SmileyList.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = SmileyList.plist; path = ../../ChattingClasses/SmileyList.plist; sourceTree = "<group>"; };
 		CD038E6C180BDB2700A9E177 /* WordWarpParse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WordWarpParse.h; sourceTree = "<group>"; };
 		CD038E6D180BDB2700A9E177 /* WordWarpParse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WordWarpParse.m; sourceTree = "<group>"; };
 		CD0457301857227800AF9FC2 /* Snapshot_gps_loading.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = Snapshot_gps_loading.gif; path = Loading/Snapshot_gps_loading.gif; sourceTree = "<group>"; };
@@ -2123,7 +2123,6 @@
 				CD038E68180BDB2700A9E177 /* Line.m */,
 				CD038E69180BDB2700A9E177 /* MessageStorage.h */,
 				CD038E6A180BDB2700A9E177 /* MessageStorage.m */,
-				CD038E6B180BDB2700A9E177 /* SmileyList.plist */,
 				CD038E6C180BDB2700A9E177 /* WordWarpParse.h */,
 				CD038E6D180BDB2700A9E177 /* WordWarpParse.m */,
 			);
@@ -2681,6 +2680,7 @@
 			isa = PBXGroup;
 			children = (
 				CD877C801820B5080067D478 /* menu_simple.plist */,
+				CD038E6B180BDB2700A9E177 /* SmileyList.plist */,
 			);
 			path = plist;
 			sourceTree = "<group>";

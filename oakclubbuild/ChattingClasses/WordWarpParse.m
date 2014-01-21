@@ -14,14 +14,21 @@
 
 @implementation WordWarpParse
 
-- (NSArray*) parseText:(NSString *)text byMeasure:(id<StringMeasurer>)measure withMaxWidth:(float)maxWidth andEmoticonData:(NSArray *)emotData
+- (NSArray*) parseText:(NSString *)text byMeasure:(id<StringMeasurer>)measure withMaxWidth:(float)maxWidth andEmoticonData:(NSArray *)_emotData
 {
+    NSArray *sortedEmotData = [_emotData sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+        NSString *s1 = obj1;
+        NSString *s2 = obj2;
+        
+        return s1.length <= s2.length;
+    }];
+    
     NSString *terminal = @" ";
-    NSArray *textComponents = [self parseEmoticonsForText:text withEmoticonData:emotData];
+    NSArray *textComponents = [self parseEmoticonsForText:text withEmoticonData:sortedEmotData];
     NSMutableArray *words = [[NSMutableArray alloc] init];
     for (NSString *component in textComponents)
     {
-        if (![emotData containsObject:component])
+        if (![sortedEmotData containsObject:component])
         {
             [words addObjectsFromArray:[component componentsSeparatedByString:terminal]];
         }
@@ -36,7 +43,7 @@
     
     for (NSString *word in words)
     {
-        [self parseWord:word byMeasure:measure andEmoticonData:emotData withMaxWidth:maxWidth toParagraph:lines];
+        [self parseWord:word byMeasure:measure andEmoticonData:sortedEmotData withMaxWidth:maxWidth toParagraph:lines];
     }
     
     return lines;
