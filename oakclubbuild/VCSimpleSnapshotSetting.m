@@ -913,7 +913,7 @@ UITapGestureRecognizer *tap;
 //    NSString* body = @"";
 //    UIActivityViewController *activityViewController = [[UIActivityViewController alloc]initWithActivityItems:[NSArray arrayWithObjects:body,nil] applicationActivities:nil];
 //    
-//    [activityViewController setValue:[@"Requests and Suggestions to Oakclub" localize] forKey:@"subject"];
+//    [activityViewController setValue:[@"Requests and Suggestions to OakClub" localize] forKey:@"subject"];
 //    [activityViewController setValue:@"sfkjdhfkj" forKey:@"torecipients"];
 //    activityViewController.excludedActivityTypes = @[UIActivityTypePostToWeibo, UIActivityTypeAssignToContact,UIActivityTypePrint,UIActivityTypeCopyToPasteboard,UIActivityTypeSaveToCameraRoll,UIActivityTypePostToTwitter,UIActivityTypePostToFacebook,UIActivityTypeMessage];
 //    [self presentViewController:activityViewController animated:YES completion:nil];
@@ -923,8 +923,8 @@ UITapGestureRecognizer *tap;
         MFMailComposeViewController *mailCont = [[MFMailComposeViewController alloc] init];
         mailCont.mailComposeDelegate = self;        // Required to invoke mailComposeController when send
         
-        [mailCont setSubject:[@"Requests and Suggestions to Oakclub" localize]];
-        [mailCont setToRecipients:[NSArray arrayWithObjects:[@"help@oakclub.com" localize],nil]];
+        [mailCont setSubject:[@"Requests and Suggestions to OakClub" localize]];
+        [mailCont setToRecipients:[NSArray arrayWithObjects:[@"help@OakClub.com" localize],nil]];
         [mailCont setMessageBody:@"" isHTML:NO];
         
         [self presentViewController:mailCont animated:YES completion:nil];

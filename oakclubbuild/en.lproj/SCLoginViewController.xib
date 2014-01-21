@@ -160,6 +160,7 @@
     <resources>
         <image name="Login_bottomBG.png" width="320" height="95"/>
         <image name="Login_btnFB_active.png" width="253" height="40"/>
+        <image name="Login_btnFB_active.png" width="253" height="40"/>
         <image name="Login_btnFB_inactive.png" width="253" height="40"/>
         <image name="Login_info.png" width="44" height="44"/>
         <image name="myprofile_doneButton.png" width="290" height="45"/>
