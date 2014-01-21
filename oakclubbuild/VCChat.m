@@ -261,7 +261,6 @@ int cellCountinSection=0;
     [self showNotifications];
 #endif
     
-    [self.tableView reloadData];
     //	[super viewWillAppear:animated];
     
     double end = CFAbsoluteTimeGetCurrent();
@@ -282,6 +281,15 @@ int cellCountinSection=0;
 
 -(void)viewDidAppear:(BOOL)animated
 {
+    double current = CFAbsoluteTimeGetCurrent();
+    NSLog(@"viewDidAppear Start %lf", current);
+    
+    [self.tableView reloadData];
+    
+    double end = CFAbsoluteTimeGetCurrent();
+    NSLog(@"viewDidAppear End %lf", end);
+    NSLog(@"viewDidAppear Delta %lf", end - current);
+    
     [super viewDidAppear:animated];
 //    [self addTopRightButtonWithAction:@selector(enterEditing)];
 //    fetchedResultsController = nil;
