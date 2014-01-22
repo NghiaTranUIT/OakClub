@@ -208,11 +208,14 @@
 "Miracle cannot start without a chat"="Wunder können nicht ohne eine Unterhaltung beginnen.";
 "Say something sweet!"="Sagen sie etwas Liebes!";
 "Show %@ how awesome you are!"="Zeigen sie %@ wie toll sie sind!";
-"Meet likeminded people with common friends"="Treffen sie gleichgesinnte Freunde mit gemeinsamen Freunden";
-"Dating site"="Dating-Website";
+"Meet likeminded people with common friends"="Treffen Sie gleichgesinnte Menschen mit gemeinsamen Freunden.";
+"Dating site"="Dating-Seite";
+"The maximum size of photo is 3MB"="Die maximale Größe des Fotos darf 3MB nicht überschreiten.";
+"Do you want to upload new video?"="Wollen Sie neue Videos hochladen ?";
+"You are uploading another video"="Sie sind dabei ein weiteres Video hochzuladen";
 "- Video uploading feature"="- Video Upload-Funktion";
 "Improve snapshots animation to increase the speed and fun of your experience"="- Verbesserte Schnappschuss-Animation um die Geschwindigkeit und den Spaß ihrer Erfahrung zu erhöhen";
-"- Support 18 languages in total"="- Unterstützt insgesamt 18 Sprachen";
+"- Support 20 languages in total"="- Unterstützt insgesamt 20 Sprachen";
 "- Loading indicator in Snapshots"="Ladezeit Anzeige bei den Schnappschüssen";
 "- Add animations for mutual match screen"="Fügen sie weitere Animationen hinzu wenn sie sich gegenseitig mögen";
 "- Fix bugs"="- Fehler behoben";

@@ -208,11 +208,14 @@
 "Miracle cannot start without a chat"="Ingen mirakler uden en chat";
 "Say something sweet!"="Sig noget sødt!";
 "Show %@ how awesome you are!"="Vis %@ hvor fantastisk du er!";
-"Meet likeminded people with common friends"="Mød ligesindede mennesker med fælles venner";
+"Meet likeminded people with common friends"="Mød ligesindede personer med fælles venner";
 "Dating site"="Dating site";
+"The maximum size of photo is 3MB"="Max størrelse for et billede er 3MB";
+"Do you want to upload new video?"="Vil du uploade en ny video?";
+"You are uploading another video"="Du uploader nu en ny video";
 "- Video uploading feature"="Video upload-funktion";
 "Improve snapshots animation to increase the speed and fun of your experience"="Forbedr Snapshop animation for at øge hastigheden og få en bedre oplevelse.";
-"- Support 18 languages in total"="Kan håndtere ialt 18 sprog";
+"- Support 20 languages in total"="Kan håndtere ialt 20 sprog";
 "- Loading indicator in Snapshots"="Loading indikator i Snapshots";
 "- Add animations for mutual match screen"="Tilføj animationer til gensidig match skærm";
 "- Fix bugs"="Fix bugs";

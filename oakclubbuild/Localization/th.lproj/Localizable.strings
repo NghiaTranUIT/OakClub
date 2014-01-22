@@ -210,9 +210,12 @@
 "Show %@ how awesome you are!"="แสดงให้ %@ เห็นว่าคุณช่างน่าประทับใจ!";
 "Meet likeminded people with common friends"="พบกับผู้คนมากมายที่มีเพื่อนร่วมกัน";
 "Dating site"="เว็บไซต์หาคู่";
+"The maximum size of photo is 3MB"="ขนาดภาพสูงสุดคือ 3MB";
+"Do you want to upload new video?"="คุณต้องการอัปโหลดวิดีโอใหม่หรือไม่?";
+"You are uploading another video"="คุณกำลังอัปโหลดวิดีโออื่น";
 "- Video uploading feature"="- คุณสมบัติการอัปโหลดวิดีโอ";
 "Improve snapshots animation to increase the speed and fun of your experience"="- ปรับปรุงภาพเคลื่อนไหวในส่วนสแน็ปชอตเพื่อเพิ่มความเร็วและความสนุกสนานของคุณ";
-"- Support 18 languages in total"="- รองรับทั้งหมด 18 ภาษา";
+"- Support 20 languages in total"="- รองรับทั้งหมด 20 ภาษา";
 "- Loading indicator in Snapshots"="- ตัวบ่งชี้การโหลดในสแน็ปชอต";
 "- Add animations for mutual match screen"="- เพิ่มภาพเคลื่อนไหวสำหรับหน้าจอการจับคู่ร่วมกัน";
 "- Fix bugs"="- แก้ไขข้อผิดพลาด";

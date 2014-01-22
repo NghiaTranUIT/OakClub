@@ -208,11 +208,14 @@
 "Miracle cannot start without a chat"="Čuda se ne događaju bez čavrljanja";
 "Say something sweet!"="Reci nešto lijepo!";
 "Show %@ how awesome you are!"="Pokaži %@ kako ste super!";
-"Meet likeminded people with common friends"="Upoznaj istomislilace sa zajedničkim prijateljima";
-"Dating site"="Portal za veze";
+"Meet likeminded people with common friends"="Upoznaj istomišljenike sa zajedničkim prijateljima";
+"Dating site"="Mjesto za veze";
+"The maximum size of photo is 3MB"="Najveća dopuštena veličina slike je 3MB";
+"Do you want to upload new video?"="Želiš li učitati novi video?";
+"You are uploading another video"="Učitavaš još jedan video";
 "- Video uploading feature"="Mogućnost dodavanja videa";
 "Improve snapshots animation to increase the speed and fun of your experience"="Poboljšana animacija bliceva kako bi se priuštio brži i zabavniji doživljaj korištenja";
-"- Support 18 languages in total"="Podrška za ukupno 18 jezika";
+"- Support 20 languages in total"="Podrška za ukupno 20 jezika";
 "- Loading indicator in Snapshots"="Dodan pokazivač za učitavanje u Blicevima";
 "- Add animations for mutual match screen"="Dodane animacije za pogled zajednički parovi";
 "- Fix bugs"="Ispravak bugova";

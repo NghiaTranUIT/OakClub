@@ -210,9 +210,12 @@
 "Show %@ how awesome you are!"="Montrez à %@ à quel point vous êtes formidable !";
 "Meet likeminded people with common friends"="Rencontrez des personnes qui partagent les mêmes idées que vous et qui ont des amis en commun";
 "Dating site"="Site de Rencontre";
+"The maximum size of photo is 3MB"="La taille maximale d'une photo est 3 MB";
+"Do you want to upload new video?"="Voulez-vous télécharger une nouvelle vidéo ?";
+"You are uploading another video"="Vous téléchargez une autre vidéo";
 "- Video uploading feature"="Fonction téléchargement de vidéo";
 "Improve snapshots animation to increase the speed and fun of your experience"="Meilleure vitesse d'animation des Snapshots pour augmenter le côté fun de l'experience";
-"- Support 18 languages in total"="Supporte 18 langues au total";
+"- Support 20 languages in total"="Supporte 20 langues au total";
 "- Loading indicator in Snapshots"="Indicateur de chargement dans les Snapshots";
 "- Add animations for mutual match screen"="Ajout d'animations sur l'écran des correspondances mutuelles";
 "- Fix bugs"="Bugs résolus";

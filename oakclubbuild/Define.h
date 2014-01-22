@@ -11,9 +11,9 @@
 
 //demo version FLAG
 #define ENABLE_DEMO true
-#define USE_STAGING false
+#define USE_STAGING true
 #define USE_LOCALTEST false
-#define USE_MAINHOST true
+#define USE_MAINHOST false
 #define USE_STAGING_MB false
 #define USE_STAGING_IOS false
 
@@ -132,11 +132,8 @@
 #define value_appLanguage_HU @"hu" //Hungarian
 #define value_appLanguage_HR @"hr" //Croatian
 #define value_appLanguage_EL @"el" //Greek
-
-//#define value_appLanguage_ES @"es" //Espano
-
-
-#if flagLanguage
+#define value_appLanguage_NL @"nl" //Neitherlands
+#define value_appLanguage_AR @"ar" //Arabic
 
 #define AppLanguageKeyList ([NSArray arrayWithObjects:\
     value_appLanguage_EN,\
@@ -157,6 +154,8 @@
     value_appLanguage_HU,\
     value_appLanguage_HR,\
     value_appLanguage_EL,\
+    value_appLanguage_NL,\
+    value_appLanguage_AR,\
     nil])
 
 #define AppLanguageList ([NSDictionary dictionaryWithObjectsAndKeys:\
@@ -178,23 +177,9 @@
                                 @"Hungarian", value_appLanguage_HU,\
                                 @"Croatian", value_appLanguage_HR,\
                                 @"Greek", value_appLanguage_EL,\
+                                @"Dutch", value_appLanguage_NL,\
+                                @"Arabic", value_appLanguage_AR,\
                                 nil])
-#else
-
-#define AppLanguageKeyList ([NSArray arrayWithObjects:\
-    value_appLanguage_VI,\
-    value_appLanguage_EN,\
-    value_appLanguage_DE,\
-    value_appLanguage_ID,\
-    nil])
-
-#define AppLanguageList ([NSDictionary dictionaryWithObjectsAndKeys:\
-                                @"Tiếng Việt", value_appLanguage_VI,\
-                                @"English", value_appLanguage_EN,\
-                                @"Deutsch", value_appLanguage_DE,\
-                                @"Bahasa Indonesia", value_appLanguage_ID,\
-                                nil])
-#endif
 
 //============== APIs =============
 #define DOMAIN_AT @"@oakclub.com"

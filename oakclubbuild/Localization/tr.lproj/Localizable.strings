@@ -210,9 +210,12 @@
 "Show %@ how awesome you are!"="Ne kadar harika olduğunu %@ görsün!";
 "Meet likeminded people with common friends"="Ortak arkadaşlarınızın olduğu kafa dengi insanlarla tanış";
 "Dating site"="Arkadaşlık sitesi";
+"The maximum size of photo is 3MB"="";
+"Do you want to upload new video?"="";
+"You are uploading another video"="";
 "- Video uploading feature"="-Video yükleme özelliği";
 "Improve snapshots animation to increase the speed and fun of your experience"="-Deneyiminizin hızını ve eğlencesini arttırmak için geliştirilmiş anlık öneri animasyonları";
-"- Support 18 languages in total"="-Toplamda 18 dil desteği";
+"- Support 20 languages in total"="-Toplamda 20 dil desteği";
 "- Loading indicator in Snapshots"="-Anlık Öneriler'de yükleniyor göstergesi";
 "- Add animations for mutual match screen"="-Karşılıklı uyum ekranında animasyon ekleme";
 "- Fix bugs"="-Giderilmiş hatalar";

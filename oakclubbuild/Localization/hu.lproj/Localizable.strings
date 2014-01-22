@@ -210,9 +210,12 @@
 "Show %@ how awesome you are!"="Mutasd meg %@-nak/nek mennyire csodás vagy!";
 "Meet likeminded people with common friends"="Ismerkedj hozzád hasonló emberekkel.";
 "Dating site"="Társkereső oldal";
+"The maximum size of photo is 3MB"="";
+"Do you want to upload new video?"="";
+"You are uploading another video"="";
 "- Video uploading feature"="Video feltöltési funkció";
 "Improve snapshots animation to increase the speed and fun of your experience"="A pillanatkép-animáció tökéletesítése a gyorsabb és szórakoztatóbb élmény érdekében";
-"- Support 18 languages in total"="Összesen 18 nyelvet támogat";
+"- Support 20 languages in total"="Összesen 20 nyelvet támogat";
 "- Loading indicator in Snapshots"="Betöltés jelző a PillanatKépekben";
 "- Add animations for mutual match screen"="Animáció hozzáadása egymásra találás esetén";
 "- Fix bugs"="Hibák javítása";

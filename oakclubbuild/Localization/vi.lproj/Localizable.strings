@@ -210,9 +210,12 @@
 "Show %@ how awesome you are!"="Hãy cho %@ biết bạn tuyệt vời thế nào!";
 "Meet likeminded people with common friends"="Nơi gặp gỡ của những tâm hồn đồng điệu";
 "Dating site"="Trang hẹn hò";
+"The maximum size of photo is 3MB"="Hình ảnh có dung lượng tối đa là 3MB";
+"Do you want to upload new video?"="Bạn có muốn đăng video mới này không?";
+"You are uploading another video"="Bạn đang đăng 1 video khác";
 "- Video uploading feature"="Tính năng đăng tải video";
 "Improve snapshots animation to increase the speed and fun of your experience"="Chức năng \"Tình cờ\" với hình động mượt, nhanh hơn và thú vị hơn";
-"- Support 18 languages in total"="Hỗ trợ 18 ngôn ngữ khác nhau";
+"- Support 20 languages in total"="Hỗ trợ 20 ngôn ngữ khác nhau";
 "- Loading indicator in Snapshots"="Cập nhật chế độ chờ trong \"Tình cờ\"";
 "- Add animations for mutual match screen"="Thêm hình động khi cả hai cùng thích nhau";
 "- Fix bugs"="Đã chỉnh một số lỗi khác";
