@@ -429,6 +429,7 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
             [selfCopy.rootVC.frontViewController.view setUserInteractionEnabled:NO];
     }];
 }
+
 -(void)showSnapshotLoadingThenFocus:(BOOL)focus and:(void(^)(void))handler{
     AppDelegate *selfCopy = self;   // copy for retain cycle
     //    [self.rootVC setRootController:self.myLink animated:YES];
@@ -595,11 +596,6 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
     }
     
     [self.myProfile getRosterListIDSync:^{
-        if (self.chat)
-        {
-            VCChat *vcChat = self.chat.viewControllers[0];
-            [vcChat loadFriendsInfo];
-        }
     }];
     [self.imagePool getImageAtURL:self.myProfile.s_Avatar withSize:PHOTO_SIZE_LARGE asycn:^(UIImage *img, NSError *error, bool isFirstLoad, NSString *urlWithSize) {
         
@@ -1030,6 +1026,12 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
 */
         
     }
+    
+    if (self.chat)
+    {
+        VCChat *vcChat = self.chat.viewControllers[0];
+        [vcChat loadFriendsInfo];
+    }
 }
 
 //==============================================================//
@@ -1361,7 +1363,7 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
 	
     NSLog(@"xmppStreamDidAuthenticate");
 
-    [self loadFriendsList ];
+    [self loadFriendsList];
 	[self goOnline];
 }
 
@@ -1686,18 +1688,33 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
                   
                   [self parseFBInfoToProfile:self.myFBProfile];
                   
+                  NSString *access_token = [FBSession activeSession].accessTokenData.accessToken;
+                  NSString *user_id = self.myProfile.s_FB_id;
+                  NSString *osVersion = [UIDevice currentDevice].systemVersion;
+                  NSString *deviceName = [UIDevice currentDevice].model;
+                  NSString *deviceToken = self.s_DeviceToken;
+                  NSString *platform = IOS_PLATFORM;
 #if DAN_CHEAT
-                  NSMutableDictionary *params = [[NSMutableDictionary alloc]initWithObjectsAndKeys: DAN_ACCESSTOKEN, @"access_token", DAN_FACEBOOKID, @"user_id", nil];
+                  NSMutableDictionary *params = [[NSMutableDictionary alloc]initWithObjectsAndKeys: DAN_ACCESSTOKEN, @"access_token", DAN_FACEBOOKID, @"user_id", platform, key_platform nil];
 #else
                   NSMutableDictionary *params = [[NSMutableDictionary alloc]initWithObjectsAndKeys:
-                                                 [FBSession activeSession].accessTokenData.accessToken, @"access_token",
-                                                 self.myProfile.s_FB_id, @"user_id",
+                                                 access_token, @"access_token",
+                                                 user_id, @"user_id",
+                                                 platform, key_platform,
                                                  nil];
 #endif
                   
-                  if (self.s_DeviceToken && ![@"" isEqualToString:self.s_DeviceToken])
+                  if (deviceName && ![@"" isEqualToString:deviceName])
                   {
-                      [params setObject:self.s_DeviceToken forKey:@"device_token"];
+                      [params setObject:deviceName forKey:key_DeviceName];
+                  }
+                  if (osVersion && ![@"" isEqualToString:osVersion])
+                  {
+                      [params setObject:osVersion forKey:key_OSVersion];
+                  }
+                  if (deviceToken && ![@"" isEqualToString:deviceToken])
+                  {
+                      [params setObject:deviceToken forKey:key_DeviceToken];
                   }
                   
                   NSLog(@"sendRegister-params: %@", params);

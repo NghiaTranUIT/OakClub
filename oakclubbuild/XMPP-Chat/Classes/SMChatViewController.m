@@ -486,8 +486,6 @@ static float cellWidth = 320;
 	NSString *sender = [s objectForKey:@"sender"];
 //	NSString *message = [s objectForKey:@"msg"];
 	NSString *time = [s objectForKey:@"time"];
-    
-    NSLog(@"sender:%@; row:%d; content:%@", sender, indexPath.row, [s valueForKey:@"msg"]);
 	
 	cell.accessoryType = UITableViewCellAccessoryNone;
 	cell.selectionStyle = UITableViewCellSelectionStyleNone;

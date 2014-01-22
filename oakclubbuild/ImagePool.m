@@ -30,7 +30,7 @@
     {
         _images = [[NSMutableDictionary alloc] init];
         operationQueue = [[NSOperationQueue alloc] init];
-        _maxRequestTimeoutToMakeAlert = 100;
+        _maxRequestTimeoutToMakeAlert = 1;
         _requestTimeoutToMakeAlertCount = 0;
         maxImageCache = NSIntegerMax;
     }
