@@ -35,13 +35,13 @@
         {
             [[NSBundle mainBundle] loadNibNamed:@"PrivacyView" owner:self options:nil];
         }
-        if ([value_appLanguage_EN isEqualToString:[[NSUserDefaults standardUserDefaults] objectForKey:key_appLanguage]])
-        {
-            [self initPrivacyText:engView];
-        }
-        else //if ([value_appLanguage_VI isEqualToString:[[NSUserDefaults standardUserDefaults] objectForKey:key_appLanguage]])
+        if ([value_appLanguage_VI isEqualToString:[[NSUserDefaults standardUserDefaults] objectForKey:key_appLanguage]])
         {
             [self initPrivacyText:vietView];
+        }
+        else
+        {
+            [self initPrivacyText:engView];
         }
         
         [[NSBundle mainBundle] loadNibNamed:@"PrivacyView" owner:self options:nil];
