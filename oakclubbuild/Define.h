@@ -45,6 +45,7 @@
 //check lastest version of the app
 #define ENABLE_CHECK_APP_VERSION false
 #define APPSTORE_LINK @"https://itunes.apple.com/app/id788399950?mt=8"
+#define PLATFORM 2
 
 //Hangout
 #define sOnline @"Online"
@@ -325,6 +326,11 @@
 // list chat of profile
 #define key_rosters @"rosters"
 #define key_match @"matches"
+
+#define key_platform @"platform"
+#define key_OSVersion @"os_version"
+#define key_DeviceName @"device_name"
+#define key_DeviceToken @"device_token"
 
 #define key_reportContent @"content"
 #define key_index @"index"

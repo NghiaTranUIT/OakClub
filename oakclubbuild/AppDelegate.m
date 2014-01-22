@@ -1688,18 +1688,31 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
                   
                   [self parseFBInfoToProfile:self.myFBProfile];
                   
+                  NSString *access_token = [FBSession activeSession].accessTokenData.accessToken;
+                  NSString *user_id = self.myProfile.s_FB_id;
+                  NSString *osVersion = [UIDevice currentDevice].systemVersion;
+                  NSString *deviceName = [UIDevice currentDevice].model;
+                  NSString *deviceToken = self.s_DeviceToken;
 #if DAN_CHEAT
                   NSMutableDictionary *params = [[NSMutableDictionary alloc]initWithObjectsAndKeys: DAN_ACCESSTOKEN, @"access_token", DAN_FACEBOOKID, @"user_id", nil];
 #else
                   NSMutableDictionary *params = [[NSMutableDictionary alloc]initWithObjectsAndKeys:
-                                                 [FBSession activeSession].accessTokenData.accessToken, @"access_token",
-                                                 self.myProfile.s_FB_id, @"user_id",
+                                                 access_token, @"access_token",
+                                                 user_id, @"user_id",
                                                  nil];
 #endif
                   
-                  if (self.s_DeviceToken && ![@"" isEqualToString:self.s_DeviceToken])
+                  if (deviceName && ![@"" isEqualToString:deviceName])
                   {
-                      [params setObject:self.s_DeviceToken forKey:@"device_token"];
+                      [params setObject:deviceName forKey:key_DeviceName];
+                  }
+                  if (osVersion && ![@"" isEqualToString:osVersion])
+                  {
+                      [params setObject:osVersion forKey:key_OSVersion];
+                  }
+                  if (deviceToken && ![@"" isEqualToString:deviceToken])
+                  {
+                      [params setObject:deviceToken forKey:key_DeviceToken];
                   }
                   
                   NSLog(@"sendRegister-params: %@", params);
