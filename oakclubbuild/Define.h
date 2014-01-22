@@ -177,10 +177,9 @@
                                 @"Hungarian", value_appLanguage_HU,\
                                 @"Croatian", value_appLanguage_HR,\
                                 @"Greek", value_appLanguage_EL,\
-                                @"Dutch", value_appLanguage_NL,\
-                                @"Arabic", value_appLanguage_AR,\
+                                @"Nederlands", value_appLanguage_NL,\
+                                                        @"العربية", value_appLanguage_AR,\
                                 nil])
-
 //============== APIs =============
 #define DOMAIN_AT @"@oakclub.com"
 #define DOMAIN_AT_FMT @"%@@oakclub.com"
