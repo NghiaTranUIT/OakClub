@@ -45,7 +45,7 @@
 //check lastest version of the app
 #define ENABLE_CHECK_APP_VERSION false
 #define APPSTORE_LINK @"https://itunes.apple.com/app/id788399950?mt=8"
-#define PLATFORM 2
+#define IOS_PLATFORM @"2"
 
 //Hangout
 #define sOnline @"Online"

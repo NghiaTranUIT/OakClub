@@ -1693,12 +1693,14 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
                   NSString *osVersion = [UIDevice currentDevice].systemVersion;
                   NSString *deviceName = [UIDevice currentDevice].model;
                   NSString *deviceToken = self.s_DeviceToken;
+                  NSString *platform = IOS_PLATFORM;
 #if DAN_CHEAT
-                  NSMutableDictionary *params = [[NSMutableDictionary alloc]initWithObjectsAndKeys: DAN_ACCESSTOKEN, @"access_token", DAN_FACEBOOKID, @"user_id", nil];
+                  NSMutableDictionary *params = [[NSMutableDictionary alloc]initWithObjectsAndKeys: DAN_ACCESSTOKEN, @"access_token", DAN_FACEBOOKID, @"user_id", platform, key_platform nil];
 #else
                   NSMutableDictionary *params = [[NSMutableDictionary alloc]initWithObjectsAndKeys:
                                                  access_token, @"access_token",
                                                  user_id, @"user_id",
+                                                 platform, key_platform,
                                                  nil];
 #endif
                   
