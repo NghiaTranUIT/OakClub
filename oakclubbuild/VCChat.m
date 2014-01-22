@@ -284,6 +284,7 @@ int cellCountinSection=0;
     double current = CFAbsoluteTimeGetCurrent();
     NSLog(@"viewDidAppear Start %lf", current);
     
+    fetchedResultsController = nil;
     [self.tableView reloadData];
     
     double end = CFAbsoluteTimeGetCurrent();

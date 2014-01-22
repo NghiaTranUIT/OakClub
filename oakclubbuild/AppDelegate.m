@@ -429,6 +429,7 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
             [selfCopy.rootVC.frontViewController.view setUserInteractionEnabled:NO];
     }];
 }
+
 -(void)showSnapshotLoadingThenFocus:(BOOL)focus and:(void(^)(void))handler{
     AppDelegate *selfCopy = self;   // copy for retain cycle
     //    [self.rootVC setRootController:self.myLink animated:YES];
@@ -595,11 +596,6 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
     }
     
     [self.myProfile getRosterListIDSync:^{
-        if (self.chat)
-        {
-            VCChat *vcChat = self.chat.viewControllers[0];
-            [vcChat loadFriendsInfo];
-        }
     }];
     [self.imagePool getImageAtURL:self.myProfile.s_Avatar withSize:PHOTO_SIZE_LARGE asycn:^(UIImage *img, NSError *error, bool isFirstLoad, NSString *urlWithSize) {
         
@@ -1030,6 +1026,12 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
 */
         
     }
+    
+    if (self.chat)
+    {
+        VCChat *vcChat = self.chat.viewControllers[0];
+        [vcChat loadFriendsInfo];
+    }
 }
 
 //==============================================================//
@@ -1361,7 +1363,7 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
 	
     NSLog(@"xmppStreamDidAuthenticate");
 
-    [self loadFriendsList ];
+    [self loadFriendsList];
 	[self goOnline];
 }
 
