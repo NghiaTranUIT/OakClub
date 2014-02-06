@@ -44,7 +44,7 @@
     [picker dismissModalViewControllerAnimated:YES];
     if (delegate)
     {
-        [delegate receiveImage:nil];
+        [delegate receiveImageData:nil];
     }
 }
 
@@ -54,26 +54,13 @@
     picker = nil;
     if (delegate)
     {
-        UIImage *img = [info objectForKey:UIImagePickerControllerEditedImage];
-        if (!img)
-        {
-            img = [info objectForKey:UIImagePickerControllerOriginalImage];
-        }
-        
-        if (!img)
-        {
-            [PickPhotoFromGarelly loadImageFromAssertByUrl:[info objectForKey:UIImagePickerControllerReferenceURL] completion:^(UIImage *_img) {
-                [delegate receiveImage:_img];
-            }];
-        }
-        else
-        {
-            [delegate receiveImage:img];
-        }
+        [PickPhotoFromGarelly loadImageFromAssertByUrl:[info objectForKey:UIImagePickerControllerReferenceURL] completion:^(NSData *rawData) {
+            [delegate receiveImageData:rawData];
+        }];
     }
 }
 
-+(void) loadImageFromAssertByUrl:(NSURL *)url completion:(void (^)(UIImage*)) completion
++(void) loadImageFromAssertByUrl:(NSURL *)url completion:(void (^)(NSData *))completion
 {
     ALAssetsLibrary *assetLibrary=[[ALAssetsLibrary alloc] init];
     [assetLibrary assetForURL:url resultBlock:^(ALAsset *asset) {
@@ -81,8 +68,7 @@
         Byte *buffer = (Byte*)malloc(rep.size);
         NSUInteger buffered = [rep getBytes:buffer fromOffset:0.0 length:rep.size error:nil];
         NSData *data = [NSData dataWithBytesNoCopy:buffer length:buffered freeWhenDone:YES];
-        UIImage* img = [UIImage imageWithData:data];
-        completion(img);
+        completion(data);
     } failureBlock:^(NSError *err) {
         NSLog(@"Error: %@",[err localizedDescription]);
     }];

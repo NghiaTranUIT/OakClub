@@ -41,7 +41,7 @@ enum VIDEO_STATE {
     PickPhotoFromGarelly *avatarPicker;
     NSMutableArray *photos;
     int selectedPhoto;
-    UIImage *uploadImage;
+    NSData *uploadImageData;
     LocationUpdate *locUpdate;
     VideoPicker *videoPicker;
     LoadingIndicator *indicator,*photo_Indicator, *video_Indicator;
@@ -328,7 +328,7 @@ UITapGestureRecognizer *tap;
     [self.tbEditProfile reloadData];
     
     selectedPhoto = -1;
-    uploadImage = nil;
+    uploadImageData = nil;
     [self loadProfilePhotos];
 }
 //-(void) initGenderGroup{
@@ -428,11 +428,12 @@ UITapGestureRecognizer *tap;
 }
 
 - (void)gotoNameEditText{
-    EditText *nameEditView = [[EditText alloc]initWithNibName:@"EditText" bundle:nil];
-    [nameEditView initForEditting:profileObj.s_Name andStyle:0];
-    [nameEditView setTitle:@"Name"];
-    nameEditView.delegate = self;
-    [self.navigationController pushViewController:nameEditView animated:YES];
+//    EditText *nameEditView = [[EditText alloc]initWithNibName:@"EditText" bundle:nil];
+//    [nameEditView initForEditting:profileObj.s_Name andStyle:0];
+//    [nameEditView setTitle:@"Name"];
+//    nameEditView.delegate = self;
+//    [self.navigationController pushViewController:nameEditView animated:YES];
+    [self.tbEditProfile deselectRowAtIndexPath:[NSIndexPath indexPathForRow:NAME inSection:0] animated:YES];
 }
 
 - (void)gotoEmail{
@@ -618,15 +619,15 @@ UITapGestureRecognizer *tap;
     }
     else if (alertView.tag == 2) // upload photo
     {
-        if (buttonIndex == 0 && selectedPhoto >= 0 && uploadImage != nil)
+        if (buttonIndex == 0 && selectedPhoto >= 0 && uploadImageData)
         {
-            NSData *uploadData = UIImagePNGRepresentation(uploadImage);
+            NSData *uploadData = uploadImageData;//UIImagePNGRepresentation(uploadImage);
             NSLog(@"[uploadData length]: %d", [uploadData length]);
             if ([uploadData length] >= MAX_UPLOAD_PHOTO_SIZE)
             {
                 UIAlertView *maxSizeAlert = [[UIAlertView alloc] initWithTitle:[@"Warning" localize] message:[@"The maximum size of photo is 3MB" localize] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
                 
-                uploadImage = nil;
+                uploadImageData = nil;
                 selectedPhoto = -1;
                 
                 [maxSizeAlert localizeAllViews];
@@ -642,6 +643,7 @@ UITapGestureRecognizer *tap;
                  {
                      if (imgID)
                      {
+                         UIImage *uploadImage = [UIImage imageWithData:uploadImageData];
                          if (_isAvatar)
                          {
                              [self.imgAvatar setImage:uploadImage];
@@ -668,7 +670,7 @@ UITapGestureRecognizer *tap;
                          [alertView show];
                      }
                      
-                     uploadImage = nil;
+                     uploadImageData = nil;
                      selectedPhoto = -1;
                      [indicator unlockViewAndStopIndicator];
                  }];
@@ -676,7 +678,7 @@ UITapGestureRecognizer *tap;
         }
         else
         {
-            uploadImage = nil;
+            uploadImageData = nil;
             selectedPhoto = -1;
         }
     }
@@ -1140,7 +1142,7 @@ UITapGestureRecognizer *tap;
 #endif
 - (IBAction)avatarTouched:(id)sender
 {
-    if (selectedPhoto < 0 && uploadImage == nil)
+    if (selectedPhoto < 0 && uploadImageData == nil)
     {
         selectedPhoto = photos.count + 2;
         [avatarPicker showPicker];
@@ -1165,17 +1167,17 @@ UITapGestureRecognizer *tap;
 
 #pragma mark IMAGE PICKER DELEGATE
 
--(void)receiveImage:(UIImage *)_image
+-(void)receiveImageData:(NSData *)data
 {
-    if (_image)
+    if (data)
     {
-        uploadImage = _image;
+        uploadImageData = data;
         [self showOKCancelWarning:@"Do you want to upload this photo ?" withTag:2];
     }
     else
     {
         selectedPhoto = -1;
-        uploadImage = nil;
+        uploadImageData = nil;
     }
 }
 
@@ -1274,7 +1276,7 @@ UITapGestureRecognizer *tap;
 
 -(void)addPhotoButtonTouched
 {
-    if (selectedPhoto < 0 && uploadImage == nil)
+    if (selectedPhoto < 0 && uploadImageData == nil)
     {
         selectedPhoto = photos.count + 1;
         [avatarPicker showPicker];

@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @protocol PickPhotoFromGarellyDelegate
--(void)receiveImage:(UIImage *)image;
+-(void)receiveImageData:(NSData*)data;
 @end
 
 @interface PickPhotoFromGarelly : NSObject
