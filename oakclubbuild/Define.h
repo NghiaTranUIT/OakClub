@@ -28,7 +28,7 @@
 #define DISABLE_HERETO_SHOWME
 
 //disable policty
-#define DISABLE_POCLICY false
+#define DISABLE_POCLICY true
 
 // enable Select location manually
 //#define ENABLE_LOCATION_MANUALLY
