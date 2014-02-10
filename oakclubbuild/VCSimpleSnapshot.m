@@ -677,7 +677,7 @@ CGFloat pageHeight;
     //    btnSayHi.titleLabel.text = [@"Say Hi!" localize];
 //    btnKeepSwiping.titleLabel.text = [@"Keep Swiping!" localize];
     [matchViewController.view setFrame:CGRectMake(0, 0, matchViewController.view.frame.size.width, matchViewController.view.frame.size.height)];
-    [lblMatchAlert setText:[NSString stringWithFormat:[@"You and %@ have liked each other!" localize],currentProfile.firstName]];
+    [lblMatchAlert setText:[NSString stringWithFormat:[@"You and %@ have liked each other" localize],currentProfile.firstName]];
     [snapshotImagePool getImageAtURL:currentProfile.s_Avatar withSize:PHOTO_SIZE_LARGE asycn:^(UIImage *img, NSError *error, bool isFirstLoad, NSString *urlWithSize) {
         [imgMatcher setImage:img];
 
