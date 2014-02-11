@@ -151,7 +151,7 @@
 //            [imgLoading setImage:[UIImage imageNamed:@"SnapshotLoading_graymap_loaded.png"]];
 //            [self.view addSubview:imgLoading];
             [btnContentAlert setHidden:YES];
-            [lblContentAlert setText:[NSString stringWithFormat:@"GPS : %@",[@"OFF" localize]] ];
+            [lblContentAlert setText:[NSString stringWithFormat:@"GPS : %@. %@",[@"OFF" localize], [@"Please go to device's Settings -> Privacy -> Location Services -> OakClub to turn on GPS" localize]] ];
         }
         default:
             break;

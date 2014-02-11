@@ -750,7 +750,7 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
     [FBRequestConnection startWithGraphPath:@"me" parameters:params HTTPMethod:@"GET" completionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
         if (error || !result)
         {
-            UIAlertView *cantConnectToFacebookAlert = [[UIAlertView alloc] initWithTitle:[@"Error" localize] message:@"Can't connect to facebook! Check your internet connection and try again!" delegate:nil cancelButtonTitle:[@"Ok" localize] otherButtonTitles:nil];
+            UIAlertView *cantConnectToFacebookAlert = [[UIAlertView alloc] initWithTitle:[@"Error" localize] message:[@"Can't connect to facebook! Check your internet connection and try again!" localize] delegate:nil cancelButtonTitle:[@"Ok" localize] otherButtonTitles:nil];
             [cantConnectToFacebookAlert show];
             return;
         }
