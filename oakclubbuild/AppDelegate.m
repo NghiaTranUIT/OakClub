@@ -699,27 +699,20 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
     }];
 }
 */
-- (void)openSession
+- (void)openSessionWithhandler:(void(^)(FBSessionState))resultHandler
 {
-    NSArray *permission = [[NSArray alloc] initWithObjects:@"email",@"user_birthday",@"user_location",nil];
+    NSArray *permission = [[NSArray alloc] initWithObjects:@"email, user_about_me, user_birthday, user_interests, user_location, user_relationship_details",nil];
     [FBSession openActiveSessionWithReadPermissions:permission
                                        allowLoginUI:YES
                                   completionHandler:
      ^(FBSession *session,
        FBSessionState state, NSError *error) {
          [self sessionStateChanged:session state:state error:error];
+         if(resultHandler != nil){
+             resultHandler(state);
+         }
      }];
     
-//    NSArray *permissions =[NSArray arrayWithObjects:@"email",@"user_birthday",@"user_location",@"user_photos", @"friends_photos", nil];
-//    
-//    [[FBSession activeSession] reauthorizeWithReadPermissions:permissions
-//                                            completionHandler:^(FBSession *session, NSError *error) {
-//                                                /* handle success + failure in block */
-//                                                NSDictionary* params = [NSDictionary dictionaryWithObject:@"id,name,gender,relationship_status,about,location,interested_in,birthday,email" forKey:@"fields"];
-//                                                [FBRequestConnection startWithGraphPath:@"me" parameters:params HTTPMethod:@"GET" completionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
-//                                                    NSLog(@"USER INFO _ %@",result);
-//                                                }];
-//                                            }];
 }
 -(void) openSessionWithWebDialogWithhandler:(void(^)(FBSessionState))resultHandler
 {
@@ -757,7 +750,7 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
     [FBRequestConnection startWithGraphPath:@"me" parameters:params HTTPMethod:@"GET" completionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
         if (error || !result)
         {
-            UIAlertView *cantConnectToFacebookAlert = [[UIAlertView alloc] initWithTitle:[@"Error" localize] message:@"Can't connect to facebook! Check your internet connection and try again!" delegate:nil cancelButtonTitle:[@"YES" localize] otherButtonTitles:nil];
+            UIAlertView *cantConnectToFacebookAlert = [[UIAlertView alloc] initWithTitle:[@"Error" localize] message:@"Can't connect to facebook! Check your internet connection and try again!" delegate:nil cancelButtonTitle:[@"Ok" localize] otherButtonTitles:nil];
             [cantConnectToFacebookAlert show];
             return;
         }
@@ -1671,7 +1664,7 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
 #pragma mark LOGIN
 - (void)tryLoginWithSuccess:(void(^)(int status))success failure:(void(^)(void))failure
 {
-    [self openSessionWithWebDialogWithhandler:^(FBSessionState status)
+    [self openSessionWithhandler:^(FBSessionState status)
      {
          if(status == FBSessionStateOpen)
          {
