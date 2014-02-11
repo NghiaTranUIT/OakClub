@@ -965,6 +965,7 @@ int cellCountinSection=0;
 
 -(void)lockViewForIndicator:(LoadingIndicator *)indicator
 {
+    NSLog(@"setUserInteractionEnabled:NO VCChat lockViewForIndicator");
     [appDel.rootVC.view setUserInteractionEnabled:NO];
     [self.navigationController.navigationBar setUserInteractionEnabled:NO];
 }

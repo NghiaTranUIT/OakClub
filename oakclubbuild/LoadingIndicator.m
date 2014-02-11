@@ -55,6 +55,7 @@
             [delegate customizeIndicator:indicator ofLoadingIndicator:self];
         }
         
+        NSLog(@"setUserInteractionEnabled:NO lockViewAndDisplayIndicator");
         [mainView setUserInteractionEnabled:NO];
         if (delegate && [delegate respondsToSelector:@selector(lockViewForIndicator:)])
         {

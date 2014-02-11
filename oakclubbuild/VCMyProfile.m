@@ -1346,6 +1346,7 @@ UITapGestureRecognizer *tap;
 {
     if (_indicator == indicator)
     {
+        NSLog(@"setUserInteractionEnabled:NO VCMyProfile lockViewForIndicator");
         [appDelegate.rootVC.view setUserInteractionEnabled:NO];
         [self.navigationController.navigationBar setUserInteractionEnabled:NO];
     }

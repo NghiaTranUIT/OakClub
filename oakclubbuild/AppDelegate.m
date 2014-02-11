@@ -412,6 +412,7 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
                 selfCopy.reloadSnapshot = FALSE;
             }
             if(!focus && selfCopy.rootVC.state != PKRevealControllerFocusesFrontViewController){
+                NSLog(@"setUserInteractionEnabled:NO showSimpleSnapshotThenFocus");
                 [selfCopy.rootVC.frontViewController.view setUserInteractionEnabled:NO];
             }
             else{
@@ -425,7 +426,7 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
     AppDelegate *selfCopy = self;   // copy for retain cycle
     activeVC = _simpleSnapShot;
     [self.rootVC setFrontViewController:self.simpleSnapShot focusAfterChange:NO completion:^(BOOL finished) {
-        
+        NSLog(@"setUserInteractionEnabled:NO showSimpleSnapshot");
             [selfCopy.rootVC.frontViewController.view setUserInteractionEnabled:NO];
     }];
 }

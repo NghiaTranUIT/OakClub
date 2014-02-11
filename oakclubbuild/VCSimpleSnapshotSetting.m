@@ -1091,6 +1091,7 @@ UITapGestureRecognizer *tap;
 #pragma mark LOADING INDICATOR DELEGATE
 -(void)lockViewForIndicator:(LoadingIndicator *)indicator
 {
+    NSLog(@"setUserInteractionEnabled:NO VCSetting lockViewForIndicator");
     [appDel.rootVC.view setUserInteractionEnabled:NO];
     [self.navigationController.navigationBar setUserInteractionEnabled:NO];
 }
