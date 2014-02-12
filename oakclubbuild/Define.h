@@ -134,7 +134,7 @@
 #define value_appLanguage_EL @"el" //Greek
 #define value_appLanguage_NL @"nl" //Neitherlands
 #define value_appLanguage_AR @"ar" //Arabic
-#define value_appLanguage_KI @"ko" //Korean
+#define value_appLanguage_KO @"ko" //Korean
 
 #define AppLanguageKeyList ([NSArray arrayWithObjects:\
     value_appLanguage_EN,\
