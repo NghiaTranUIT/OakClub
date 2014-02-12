@@ -1473,4 +1473,8 @@ BOOL allowFullScreen = FALSE;
     [VCSSnapshot.navigationController pushViewController:reportPopup animated:YES];
 }
 
+- (IBAction)onTouchVipChat:(id)sender {
+    VCSimpleSnapshot *VCSSnapshot = appDel.simpleSnapShot.viewControllers[0];
+    [VCSSnapshot openVipChat];
+}
 @end
