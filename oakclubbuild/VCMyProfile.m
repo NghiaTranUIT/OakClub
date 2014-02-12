@@ -622,7 +622,9 @@ UITapGestureRecognizer *tap;
         if (buttonIndex == 0 && selectedPhoto >= 0 && uploadImageData)
         {
             NSData *uploadData = uploadImageData;//UIImagePNGRepresentation(uploadImage);
+            
             NSLog(@"[uploadData length]: %d", [uploadData length]);
+            
             if ([uploadData length] >= MAX_UPLOAD_PHOTO_SIZE)
             {
                 UIAlertView *maxSizeAlert = [[UIAlertView alloc] initWithTitle:[@"Warning" localize] message:[@"The maximum size of photo is 3MB" localize] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
@@ -1344,6 +1346,7 @@ UITapGestureRecognizer *tap;
 {
     if (_indicator == indicator)
     {
+        NSLog(@"setUserInteractionEnabled:NO VCMyProfile lockViewForIndicator");
         [appDelegate.rootVC.view setUserInteractionEnabled:NO];
         [self.navigationController.navigationBar setUserInteractionEnabled:NO];
     }
