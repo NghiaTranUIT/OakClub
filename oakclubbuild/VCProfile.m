@@ -47,6 +47,7 @@
 @property (strong, nonatomic) IBOutlet UILabel *lblTabBarName;
 @property (weak, nonatomic) IBOutlet UILabel *lblDistanceTitle;
 @property (weak, nonatomic) IBOutlet UILabel *lblActiveTitle;
+@property (weak, nonatomic) IBOutlet UIButton *btnVIPChat;
 @property BOOL showNavigationBar;
 
 @property (strong, nonatomic) NSMutableArray *indicatorArray;
@@ -352,6 +353,8 @@ static CGFloat padding_left = 5.0;
 -(void)loadInfoView{
     lbl_name.text = currentProfile.s_Name;
     lblAge.text = [NSString stringWithFormat:@"%@",currentProfile.s_age];
+    [self.btnVIPChat setHidden:!appDel.myProfile.is_vip];
+    
     self.lblnViews.text = [NSString stringWithFormat:@"%i", currentProfile.num_Viewed];
     self.lblnLikes.text = [NSString stringWithFormat:@"%i", currentProfile.num_Liked];
     [self LoadDistanceText];
@@ -630,6 +633,7 @@ static CGFloat padding_left = 5.0;
 -(void) viewWillAppear:(BOOL)animated{
 //    [appDel.activeVC.navigationController setNavigationBarHidden:YES];
     [self.navigationController setNavigationBarHidden:YES];
+    
 //    [self.navigationItem setHidesBackButton:YES];
 }
 

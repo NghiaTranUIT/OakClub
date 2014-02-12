@@ -458,6 +458,11 @@ CGFloat pageHeight;
     
     //load data
     [self loadLikeMeList];
+    
+    //check if profile view is show, if true then hide the nav bar
+    if (viewProfile.view.superview) {
+        [self.navigationController setNavigationBarHidden:YES animated:NO];
+    }
 }
 
 -(void)viewDidAppear:(BOOL)animated
@@ -695,12 +700,39 @@ CGFloat pageHeight;
     newChat.s_status_time =[dateFormatter stringFromDate:currentDate];
     NSString* s_jid = [NSString stringWithFormat:@"%@%@", newChat.s_ID, DOMAIN_AT];
     XMPPJID* xmpp_jid = [XMPPJID jidWithString:s_jid];
-    newChat.status = MatchUnViewed;
-    newChat.is_match = true;
     [appDel.xmppRoster addUser:xmpp_jid withNickname:newChat.s_Name];
     [appDel.myProfile.dic_Roster setValue:newChat forKey:newChat.s_ID];
     [appDel.friendChatList setObject:newChat forKey:s_jid];
+    if (![appDel.myProfile.a_messages objectForKey:newChat.s_ID])
+    {
+        NSMutableArray *messages = [[NSMutableArray alloc] init];
+        [appDel.myProfile.a_messages setObject:messages forKey:newChat.s_ID];
+    }
+    
+    newChat.status = MatchUnViewed;
+    newChat.is_match = true;
 }
+
+-(void)addNewChatUserForVIP:(Profile*)newChat
+{
+    NSDate *currentDate = [[NSDate alloc] init];
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:DATETIME_FORMAT];
+    newChat.s_lastMessage_time =[dateFormatter stringFromDate:currentDate];
+    NSString* s_jid = [NSString stringWithFormat:@"%@%@", newChat.s_ID, DOMAIN_AT];
+    XMPPJID* xmpp_jid = [XMPPJID jidWithString:s_jid];
+    [appDel.xmppRoster addUser:xmpp_jid withNickname:newChat.s_Name];
+    [appDel.myProfile.dic_Roster setValue:newChat forKey:newChat.s_ID];
+    [appDel.friendChatList setObject:newChat forKey:s_jid];
+    if (![appDel.myProfile.a_messages objectForKey:newChat.s_ID])
+    {
+        NSMutableArray *messages = [[NSMutableArray alloc] init];
+        [appDel.myProfile.a_messages setObject:messages forKey:newChat.s_ID];
+    }
+    
+    newChat.status = ChatViewed;    //VipChat status is same as ChatViewed
+}
+
 - (IBAction)dismissMatchView:(id)sender {
     [self addNewChatUser:matchedProfile];
     matchedProfile = nil;
@@ -715,7 +747,7 @@ CGFloat pageHeight;
 - (IBAction)onClickSendMessageToMatcher:(id)sender {
     [self addNewChatUser:matchedProfile];
     
-    NSMutableArray* array = [[NSMutableArray alloc]init];
+    NSMutableArray* array = [appDel.myProfile.a_messages objectForKey:matchedProfile.s_ID];
     
     [snapshotImagePool getImageAtURL:matchedProfile.s_Avatar withSize:PHOTO_SIZE_LARGE asycn:^(UIImage *img, NSError *error, bool isFirstLoad, NSString *urlWithSize) {
         SMChatViewController *chatController =
@@ -730,6 +762,21 @@ CGFloat pageHeight;
     }];
     [[self navBarOakClub] disableAllControl: NO];
     appDel.rootVC.recognizesPanningOnFrontView = YES;
+}
+
+-(void)openVipChat
+{
+    [self addNewChatUserForVIP:currentProfile];
+    
+    NSMutableArray* array = [appDel.myProfile.a_messages objectForKey:currentProfile.s_ID];
+    [snapshotImagePool getImageAtURL:currentProfile.s_Avatar withSize:PHOTO_SIZE_LARGE asycn:^(UIImage *img, NSError *error, bool isFirstLoad, NSString *urlWithSize) {
+        SMChatViewController *chatController =
+        [[SMChatViewController alloc] initWithUser:[NSString stringWithFormat:@"%@@oakclub.com", currentProfile.s_ID]
+                                       withProfile:currentProfile
+                                        withAvatar:img
+                                      withMessages:array];
+        [self.navigationController pushViewController:chatController animated:NO];
+    }];
 }
 -(IBAction)onNOPEClick:(id)sender{
 //    [self doAnswer:interestedStatusNO];

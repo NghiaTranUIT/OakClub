@@ -276,6 +276,8 @@
 #define key_isVip @"is_vip"
 #define key_statusTime @"time"
 #define key_matchTime @"match_time"
+#define key_lastMessage @"last_message"
+#define key_lastMessageTime @"last_message_time"
 #define key_locationName @"name"
 #define key_locationCountry @"country"
 #define key_locationCountryCode @"country_code"

@@ -70,4 +70,5 @@
 -(void)onBackFromPopup;
 - (IBAction)playVideoTouched:(id)sender;
 
+-(void)openVipChat;
 @end

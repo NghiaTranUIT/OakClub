@@ -24,6 +24,7 @@
 
 @synthesize s_status_time, match_time, arr_MutualFriends, arr_MutualInterests, new_mutual_attractions;
 
+@synthesize s_lastMessage, s_lastMessage_time, a_messages;
 
 @synthesize is_deleted;
 @synthesize is_blocked;
@@ -35,8 +36,9 @@
 @synthesize s_Avatar;
 -(id)init {
     self = [super init];
-    self.i_weight=0;
-    self.i_height=0;
+    self.i_weight = 0;
+    self.i_height = 0;
+    self.status = -1;
     appDel = (id) [UIApplication sharedApplication].delegate;
     return self;
 }
@@ -458,6 +460,9 @@
     self.num_Liked =[[data valueForKey:key_liked] integerValue];
     self.distance = [[data valueForKey:key_distance] integerValue];
     self.active = [[data valueForKey:key_active] integerValue];
+    self.a_messages = [[NSMutableDictionary alloc] init];
+    
+    self.is_vip = [[data valueForKey:key_isVip] boolValue];
     
 }
 -(void) parseForGetProfileInfo:(NSData *)jsonData{
@@ -511,6 +516,10 @@
                 profile.match_time = [objectData valueForKey:key_matchTime];
                 profile.s_Name =[objectData valueForKey:key_name];
                 profile.s_Avatar = [objectData valueForKey:key_avatar];
+                // parse last message
+                profile.s_lastMessage = [objectData valueForKey:key_lastMessage];
+                profile.s_lastMessage_time = [objectData valueForKey:key_lastMessageTime];
+                [rosterDict setObject:profile forKey:profile.s_ID];
                 [rosterDict setObject:profile forKey:profile.s_ID];
                 NSLog(@"%d. unread message: %d", i, unread_count);
                 
@@ -898,6 +907,9 @@
     accountCopy.unread_message = unread_message;
     accountCopy.distance = distance;
     accountCopy.active = active;
+    accountCopy.s_lastMessage = [s_lastMessage copyWithZone:zone];
+    accountCopy.s_lastMessage_time = [s_lastMessage_time copyWithZone:zone];
+    accountCopy.a_messages = [a_messages copyWithZone:zone];
     
     return accountCopy;
 }
