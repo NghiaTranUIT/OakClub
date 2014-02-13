@@ -35,6 +35,7 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
     NSIndexPath* selectedIndex;
     NSMutableArray *friendChatIDs;
     LoadingIndicator *indicator;
+    NSMutableDictionary* a_messages;
 }
 
 @property UIButton* buttonEditNormal;
@@ -57,7 +58,8 @@ int cellCountinSection=0;
     if (self) {
         // Custom initialization
         appDel = (AppDelegate *) [UIApplication sharedApplication].delegate;
-        a_messages = [[NSMutableDictionary alloc] init];
+        a_messages = appDel.myProfile.a_messages;
+        appDel._messageDelegate = self;
     }
     return self;
 }
@@ -654,6 +656,8 @@ int cellCountinSection=0;
                 return [dateFormatter dateFromString:m.timeStr];
             }
         }
+        
+        return [dateFormatter dateFromString:profile.s_lastMessage_time];
     }
     else{
         return [dateFormatter dateFromString:[profile match_time]];
@@ -784,6 +788,12 @@ int cellCountinSection=0;
                     cell.date_history.text = m.timeStr;
                     cell.lblMatched.text = [NSString stringWithFormat:@"%@ %@", [@"Last messages on" localize],m.timeStr];
                 }
+            }
+            else
+            {
+                cell.last_message.text = @"";
+                cell.date_history.text = profile.s_lastMessage_time;
+                cell.lblMatched.text = [NSString stringWithFormat:@"%@ %@", [@"Last messages on" localize], profile.s_lastMessage_time];
             }
         }
         else{

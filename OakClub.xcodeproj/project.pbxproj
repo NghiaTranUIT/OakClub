@@ -1068,6 +1068,9 @@
 		97C57688181FCED000D8510D /* VCPrivacy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VCPrivacy.m; sourceTree = "<group>"; };
 		97C5768E181FDDF200D8510D /* TutorialViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TutorialViewController.h; sourceTree = "<group>"; };
 		97C5768F181FDDF200D8510D /* TutorialViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TutorialViewController.m; sourceTree = "<group>"; };
+		97D64C7D18AB2CB100C0FA28 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		97D64C7E18AB2CB100C0FA28 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/Localizable.strings; sourceTree = "<group>"; };
+		97D64C7F18AB2CB100C0FA28 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		97D7B485185705D3008F9946 /* CGRect+Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CGRect+Utils.h"; sourceTree = "<group>"; };
 		97D7B486185705D3008F9946 /* CGRect+Utils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CGRect+Utils.m"; sourceTree = "<group>"; };
 		97D7B48818570C04008F9946 /* splashscreen_logo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "splashscreen_logo@2x.png"; sourceTree = "<group>"; };
@@ -3901,6 +3904,7 @@
 				"nl-NL",
 				nl,
 				ar,
+				ko,
 			);
 			mainGroup = CDC492901702CEAB00E83DE3;
 			productRefGroup = CDC4929A1702CEAB00E83DE3 /* Products */;
@@ -4699,6 +4703,7 @@
 				3495C3E9187D553000D40B9F /* el */,
 				9702AA9D188FB09700E9F787 /* nl */,
 				9702AAA0188FB09F00E9F787 /* ar */,
+				97D64C7E18AB2CB100C0FA28 /* ko */,
 			);
 			name = Localizable.strings;
 			path = Localization;
@@ -4743,6 +4748,7 @@
 				3495C3E8187D553000D40B9F /* el */,
 				9702AA9C188FB09700E9F787 /* nl */,
 				9702AA9F188FB09F00E9F787 /* ar */,
+				97D64C7D18AB2CB100C0FA28 /* ko */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -4769,6 +4775,7 @@
 				3495C3EA187D553000D40B9F /* el */,
 				9702AA9E188FB09700E9F787 /* nl */,
 				9702AAA1188FB09F00E9F787 /* ar */,
+				97D64C7F18AB2CB100C0FA28 /* ko */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -4865,8 +4872,8 @@
 					"-ObjC",
 				);
 				PRODUCT_NAME = OakClub;
-				PROVISIONING_PROFILE = "EC077BBA-85AF-47DE-A253-A70C86096988";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "EC077BBA-85AF-47DE-A253-A70C86096988";
+				PROVISIONING_PROFILE = "4E9EB301-49AA-4E6F-A107-007907B402E5";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "4E9EB301-49AA-4E6F-A107-007907B402E5";
 				TARGETED_DEVICE_FAMILY = 1;
 				VALIDATE_PRODUCT = YES;
 				WRAPPER_EXTENSION = app;
@@ -4898,8 +4905,8 @@
 					"-ObjC",
 				);
 				PRODUCT_NAME = OakClub;
-				PROVISIONING_PROFILE = "EC077BBA-85AF-47DE-A253-A70C86096988";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "EC077BBA-85AF-47DE-A253-A70C86096988";
+				PROVISIONING_PROFILE = "4E9EB301-49AA-4E6F-A107-007907B402E5";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "4E9EB301-49AA-4E6F-A107-007907B402E5";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};

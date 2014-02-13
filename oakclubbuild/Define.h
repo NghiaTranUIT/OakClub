@@ -137,6 +137,7 @@
 #define value_appLanguage_EL @"el" //Greek
 #define value_appLanguage_NL @"nl" //Neitherlands
 #define value_appLanguage_AR @"ar" //Arabic
+#define value_appLanguage_KO @"ko" //Korean
 
 #define AppLanguageKeyList ([NSArray arrayWithObjects:\
     value_appLanguage_EN,\
@@ -159,6 +160,7 @@
     value_appLanguage_EL,\
     value_appLanguage_NL,\
     value_appLanguage_AR,\
+    value_appLanguage_KO,\
     nil])
 
 #define AppLanguageList ([NSDictionary dictionaryWithObjectsAndKeys:\
@@ -182,6 +184,7 @@
                                 @"Greek", value_appLanguage_EL,\
                                 @"Nederlands", value_appLanguage_NL,\
                                                         @"العربية", value_appLanguage_AR,\
+                                @"한국어", value_appLanguage_KO,\
                                 nil])
 //============== APIs =============
 #define DOMAIN_AT @"@oakclub.com"
@@ -280,6 +283,8 @@
 #define key_isVip @"is_vip"
 #define key_statusTime @"time"
 #define key_matchTime @"match_time"
+#define key_lastMessage @"last_message"
+#define key_lastMessageTime @"last_message_time"
 #define key_locationName @"name"
 #define key_locationCountry @"country"
 #define key_locationCountryCode @"country_code"

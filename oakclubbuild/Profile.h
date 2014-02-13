@@ -74,6 +74,11 @@
     int distance;
     int active;
     int new_mutual_attractions;
+    
+    NSString *s_lastMessage;
+    NSString *s_lastMessage_time;
+    
+    NSMutableDictionary* a_messages;
 }
 
 @property (strong, nonatomic) NSString *s_Name;
@@ -131,6 +136,9 @@
 @property int distance;
 @property int active;
 @property int new_mutual_attractions;
+@property (strong, nonatomic) NSString *s_lastMessage;
+@property (strong, nonatomic) NSString *s_lastMessage_time;
+@property (strong, nonatomic) NSMutableDictionary* a_messages;
 
 +(NSMutableArray*) parseProfileToArray:(NSString *)responeString;
 +(NSMutableArray*) parseProfileToArrayByJSON:(NSData *)jsonData;

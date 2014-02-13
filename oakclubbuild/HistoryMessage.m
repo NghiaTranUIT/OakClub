@@ -141,8 +141,6 @@
 
 +(void)postMessage:(NSString*)reciever_id messageContent:(NSString*)message
 {
-  
-    
     AFHTTPClient *httpClient = [[AFHTTPClient alloc]initWithOakClubAPI:DOMAIN];
     
     [httpClient setParameterEncoding:AFFormURLParameterEncoding];
@@ -156,9 +154,7 @@
                                                           parameters:params];
     
     NSLog(@"request {%@} {%@} {%@}", [jsonRequest HTTPMethod], [jsonRequest description], [NSString stringWithUTF8String:[[jsonRequest HTTPBody] bytes]]);
-    
-    
-
+    NSLog(@"Chat post request %@", jsonRequest);
     
     AFJSONRequestOperation *operation =
     [AFJSONRequestOperation JSONRequestOperationWithRequest:jsonRequest
@@ -172,15 +168,12 @@
                                                             NSString *msg= [dict valueForKey:@"msg"];
                                                             NSLog(@"! Post message %@", msg);
                                                         }
-                                                        
                                                     }
                                                     failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
-                                                        NSLog(@"%@", [error userInfo]);
+                                                        NSLog(@"%@", error);
                                                     }];
     
     [operation start];
-    
-  
 }
 
 +(void)deleteChatHistory:(NSString*)hangout_id
