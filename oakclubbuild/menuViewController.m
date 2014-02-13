@@ -166,7 +166,7 @@
 
 #pragma mark tableview Delegate
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-#if ENABLE_MATCHMAKER
+#if ENABLE_VIPROOM
     return [imageNames count];
 #else
     return [imageNames count] - 1;
@@ -248,13 +248,12 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     NSLog(@"selected id %i",indexPath.row);
-#if ENABLE_DEMO
     switch (indexPath.row) {
-        case 1:
-            [appDel  showSimpleSnapshotThenFocus:YES];
-            break;
         case 0:
             [appDel  showMyProfile];
+            break;
+        case 1:
+            [appDel  showSimpleSnapshotThenFocus:YES];
             break;
         case 2:
             [appDel  showSnapshotSettings];
@@ -264,41 +263,16 @@
             //            [appDel  logOut];
             break;
         case 4:
-            // show matchmaker
-            [appDel showMatchmaker];
-        default:
-            break;
-    }
-#else
-    switch (indexPath.row) {
-        case 0:
-            [appDel  showHangOut];
-            break;
-        case 1:
-            [appDel  showSnapshoot];
-            break;
-        case 2:
-            [appDel  showChat];
-            break;
-        case 3:
-            [appDel  showMylink];
-            break;
-        case 4:
-            [appDel  showVisitor];
+            // show viproom
+            [appDel showVIPRoom];
             break;
         case 5:
-            [appDel  showInvite];
-            break;
-        case 6:
-            [appDel showGetPoints];
-            break;
-        case 7:
-            [appDel  logOut];
+            // show matchmaker
+            [appDel showMatchmaker];
             break;
         default:
             break;
     }
-#endif
     
 }
 

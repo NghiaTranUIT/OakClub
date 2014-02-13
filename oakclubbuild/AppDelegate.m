@@ -34,6 +34,9 @@
 #import "VCSimpleSnapshot.h"
 #import "VCSimpleSnapshotLoading.h"
 #import "MatchMaker.h"
+#import "VIPRoom.h"
+#import "OakClubIAPHelper.h"
+
 NSString *const SCSessionStateChangedNotification =
 @"com.facebook.Scrumptious:SCSessionStateChangedNotification";
 @interface AppDelegate() <UIAlertViewDelegate>
@@ -77,6 +80,7 @@ NSString *const kXMPPmyPassword = @"kXMPPmyPassword";
 @synthesize simpleSnapShot = _simpleSnapShot;
 @synthesize snapShotSettings = _snapShotSettings;
 @synthesize matchMaker = _matchMaker;
+@synthesize vipRoom = _vipRoom;
 @synthesize snapshotLoading = _snapshotLoading;
 // multi language
 @synthesize languageBundle = _languageBundle;
@@ -176,6 +180,8 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
 //    path = [[NSBundle mainBundle] pathForResource:@"IMG_0293" ofType:@"mov"];
 //    UISaveVideoAtPathToSavedPhotosAlbum(path, self, @selector(video:didFinishSavingWithError:contextInfo:), nil);
     
+    [OakClubIAPHelper sharedInstance];
+    
     return YES;
 }
 
@@ -234,6 +240,7 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
     //     self.snapShotSettings = [self.storyboard instantiateViewControllerWithIdentifier:@"SnapshotSettings"];
     self.snapShotSettings = [self createNavigationByClass:@"VCSimpleSnapshotSetting" AndHeaderName:@"Settings" andRightButton:@"VCChat" andIsStoryBoard:NO];
     self.matchMaker = [self createNavigationByClass:@"MatchMaker" AndHeaderName:@"Matchmaker" andRightButton:@"VCChat" andIsStoryBoard:NO];
+    self.vipRoom = [self createNavigationByClass:@"VIPRoom" AndHeaderName:@"VIP Room" andRightButton:@"VCChat" andIsStoryBoard:NO];
     self.snapshotLoading = [self createNavigationByClass:@"VCSimpleSnapshotLoading" AndHeaderName:nil andRightButton:@"VCChat" andIsStoryBoard:NO];
     self.myProfileVC = [self createNavigationByClass:@"VCMyProfile" AndHeaderName:@"Edit Profile" andRightButton:@"VCChat" andIsStoryBoard:NO];
 //    self.getPoints = [self createNavigationByClass:@"VCGetPoints" AndHeaderName:@"Get Coins" andRightButton:nil andIsStoryBoard:NO];
@@ -319,7 +326,10 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
     
     [FBSession.activeSession handleDidBecomeActive];
     
-    [self.notificationCenter postNotificationName:ApplicationDidBecomeActive object:nil];
+    BOOL isPaymentProcessing = (activeVC == self.vipRoom);
+    if (!isPaymentProcessing) {
+        [self.notificationCenter postNotificationName:ApplicationDidBecomeActive object:nil];
+    }
 }
 
 
@@ -371,6 +381,15 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
         [appDel.rootVC setRightViewController:appDel.chat];
     }];
 }
+-(void)showVIPRoom {
+    activeVC = _vipRoom;
+    
+    AppDelegate *appDel = self;
+    [self.rootVC setFrontViewController:self.vipRoom focusAfterChange:YES completion:^(BOOL finished) {
+        [appDel.rootVC setRightViewController:appDel.chat];
+    }];
+}
+
 -(void)showSimpleSnapshotThenFocus:(BOOL)focus{
     
     AppDelegate *selfCopy = self;   // copy for retain cycle

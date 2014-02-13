@@ -39,6 +39,9 @@
 //show matchmaker in leftmenu
 #define ENABLE_MATCHMAKER false
 
+//show viproom in leftmenu
+#define ENABLE_VIPROOM true
+
 //add include facebook friends in snapshot settings
 #define ENABLE_INCLUDE_FACEBOOKFRIEND true
 
@@ -233,6 +236,7 @@
 #define URL_getMatchmakerFriendList @"service/matchMarkerInit"
 #define URL_sendMatchmaker @"service/makeMatching"
 #define URL_reportIOSProblemToOakClub @"service/reportIOSProblemToOakClub"
+#define URL_verifyReceipt @"service/verifyReceipt"
 //================ service API keys ================
 //root
 #define key_status @"status"
@@ -320,6 +324,8 @@
 #define key_index @"index"
 
 #define key_snapshotQueue @"snapshotQueueByProfileID"
+
+#define key_receipt @"receipt"
 
 #define DATE_FORMAT @"MM/dd/yyyy"
 #define DATETIME_FORMAT @"MM/dd/yyyy HH:mm:ss"

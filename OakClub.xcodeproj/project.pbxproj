@@ -16,6 +16,17 @@
 		34641DC218754D7800BCA79F /* btn_report_normal@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 34641DBE18754D7800BCA79F /* btn_report_normal@2x.png */; };
 		34641DC318754D7800BCA79F /* btn_report_pressed.png in Resources */ = {isa = PBXBuildFile; fileRef = 34641DBF18754D7800BCA79F /* btn_report_pressed.png */; };
 		34641DC418754D7800BCA79F /* btn_report_pressed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 34641DC018754D7800BCA79F /* btn_report_pressed@2x.png */; };
+		34EBECCC18AB4C9700237B41 /* Menu_icon_viproom_pressed.png in Resources */ = {isa = PBXBuildFile; fileRef = 34EBECC818AB4C9700237B41 /* Menu_icon_viproom_pressed.png */; };
+		34EBECCD18AB4C9700237B41 /* Menu_icon_viproom_pressed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 34EBECC918AB4C9700237B41 /* Menu_icon_viproom_pressed@2x.png */; };
+		34EBECCE18AB4C9700237B41 /* Menu_icon_viproom.png in Resources */ = {isa = PBXBuildFile; fileRef = 34EBECCA18AB4C9700237B41 /* Menu_icon_viproom.png */; };
+		34EBECCF18AB4C9700237B41 /* Menu_icon_viproom@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 34EBECCB18AB4C9700237B41 /* Menu_icon_viproom@2x.png */; };
+		34EBECD418AB514B00237B41 /* VIPRoom.m in Sources */ = {isa = PBXBuildFile; fileRef = 34EBECD218AB514B00237B41 /* VIPRoom.m */; };
+		34EBECD518AB514B00237B41 /* VIPRoom.xib in Resources */ = {isa = PBXBuildFile; fileRef = 34EBECD318AB514B00237B41 /* VIPRoom.xib */; };
+		34EBECD718AB5C4300237B41 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34EBECD618AB5C4300237B41 /* StoreKit.framework */; };
+		34EBECDC18AB5CBE00237B41 /* IAPHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 34EBECD918AB5CBE00237B41 /* IAPHelper.m */; };
+		34EBECDD18AB5CBE00237B41 /* OakClubIAPHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 34EBECDB18AB5CBE00237B41 /* OakClubIAPHelper.m */; };
+		34EBECE318AB756200237B41 /* VIPRoomCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 34EBECE218AB756200237B41 /* VIPRoomCell.m */; };
+		34EBECE518AB79B400237B41 /* VIPRoomCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 34EBECE418AB79B400237B41 /* VIPRoomCell.xib */; };
 		3715B369170AC9DC003ACE95 /* VCChat.m in Sources */ = {isa = PBXBuildFile; fileRef = 3715B35E170AC9DC003ACE95 /* VCChat.m */; };
 		3715B36A170AC9DC003ACE95 /* VCChat.m in Sources */ = {isa = PBXBuildFile; fileRef = 3715B35E170AC9DC003ACE95 /* VCChat.m */; };
 		4507A45D18570C0500C76A6B /* Animation.m in Sources */ = {isa = PBXBuildFile; fileRef = 4507A45C18570C0500C76A6B /* Animation.m */; };
@@ -771,6 +782,21 @@
 		3495C3E8187D553000D40B9F /* el */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = el; path = el.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		3495C3E9187D553000D40B9F /* el */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = el; path = el.lproj/Localizable.strings; sourceTree = "<group>"; };
 		3495C3EA187D553000D40B9F /* el */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = el; path = el.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		34EBECC818AB4C9700237B41 /* Menu_icon_viproom_pressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Menu_icon_viproom_pressed.png; sourceTree = "<group>"; };
+		34EBECC918AB4C9700237B41 /* Menu_icon_viproom_pressed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Menu_icon_viproom_pressed@2x.png"; sourceTree = "<group>"; };
+		34EBECCA18AB4C9700237B41 /* Menu_icon_viproom.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Menu_icon_viproom.png; sourceTree = "<group>"; };
+		34EBECCB18AB4C9700237B41 /* Menu_icon_viproom@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Menu_icon_viproom@2x.png"; sourceTree = "<group>"; };
+		34EBECD118AB514B00237B41 /* VIPRoom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VIPRoom.h; sourceTree = "<group>"; };
+		34EBECD218AB514B00237B41 /* VIPRoom.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VIPRoom.m; sourceTree = "<group>"; };
+		34EBECD318AB514B00237B41 /* VIPRoom.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VIPRoom.xib; sourceTree = "<group>"; };
+		34EBECD618AB5C4300237B41 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		34EBECD818AB5CBE00237B41 /* IAPHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IAPHelper.h; sourceTree = "<group>"; };
+		34EBECD918AB5CBE00237B41 /* IAPHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IAPHelper.m; sourceTree = "<group>"; };
+		34EBECDA18AB5CBE00237B41 /* OakClubIAPHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OakClubIAPHelper.h; sourceTree = "<group>"; };
+		34EBECDB18AB5CBE00237B41 /* OakClubIAPHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OakClubIAPHelper.m; sourceTree = "<group>"; };
+		34EBECE118AB756200237B41 /* VIPRoomCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VIPRoomCell.h; sourceTree = "<group>"; };
+		34EBECE218AB756200237B41 /* VIPRoomCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VIPRoomCell.m; sourceTree = "<group>"; };
+		34EBECE418AB79B400237B41 /* VIPRoomCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VIPRoomCell.xib; sourceTree = "<group>"; };
 		3715B35D170AC9DC003ACE95 /* VCChat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VCChat.h; sourceTree = "<group>"; };
 		3715B35E170AC9DC003ACE95 /* VCChat.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VCChat.m; sourceTree = "<group>"; };
 		4507A45B18570C0500C76A6B /* Animation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Animation.h; sourceTree = "<group>"; };
@@ -1743,6 +1769,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				34EBECD718AB5C4300237B41 /* StoreKit.framework in Frameworks */,
 				9758AF03184CA15A00B9D4AF /* AVFoundation.framework in Frameworks */,
 				97A8FCBC18361E6D00B9ACEC /* MediaPlayer.framework in Frameworks */,
 				CDF4D496170404F7005E7B71 /* MobileCoreServices.framework in Frameworks */,
@@ -1791,6 +1818,19 @@
 				3429091A1862F0C700A35209 /* NSStringRandom.m */,
 			);
 			path = NSStringRandom;
+			sourceTree = "<group>";
+		};
+		34EBECD018AB513800237B41 /* VIPRoom */ = {
+			isa = PBXGroup;
+			children = (
+				34EBECD118AB514B00237B41 /* VIPRoom.h */,
+				34EBECD218AB514B00237B41 /* VIPRoom.m */,
+				34EBECD318AB514B00237B41 /* VIPRoom.xib */,
+				34EBECE118AB756200237B41 /* VIPRoomCell.h */,
+				34EBECE218AB756200237B41 /* VIPRoomCell.m */,
+				34EBECE418AB79B400237B41 /* VIPRoomCell.xib */,
+			);
+			name = VIPRoom;
 			sourceTree = "<group>";
 		};
 		972B11991883E5F300EB90D3 /* Matchmaker */ = {
@@ -2185,6 +2225,7 @@
 		CD12C1A4170AEAD1006B13B8 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
+				34EBECD018AB513800237B41 /* VIPRoom */,
 				978936F7186A918F006646A1 /* MatchMaker */,
 				97A55D4B1823ADE500675025 /* PhotoScrollView */,
 				CD1AB0811821832800B0FA10 /* Report Popup */,
@@ -2301,6 +2342,10 @@
 				97939393184DBFDF00BEC19D /* ImagePool.m */,
 				97D7B485185705D3008F9946 /* CGRect+Utils.h */,
 				97D7B486185705D3008F9946 /* CGRect+Utils.m */,
+				34EBECD818AB5CBE00237B41 /* IAPHelper.h */,
+				34EBECD918AB5CBE00237B41 /* IAPHelper.m */,
+				34EBECDA18AB5CBE00237B41 /* OakClubIAPHelper.h */,
+				34EBECDB18AB5CBE00237B41 /* OakClubIAPHelper.m */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -2678,6 +2723,10 @@
 				978936FB186A93A7006646A1 /* Menu_icon_matchmaker_pressed@2x.png */,
 				978936FC186A93A7006646A1 /* Menu_icon_matchmaker.png */,
 				978936FD186A93A7006646A1 /* Menu_icon_matchmaker@2x.png */,
+				34EBECC818AB4C9700237B41 /* Menu_icon_viproom_pressed.png */,
+				34EBECC918AB4C9700237B41 /* Menu_icon_viproom_pressed@2x.png */,
+				34EBECCA18AB4C9700237B41 /* Menu_icon_viproom.png */,
+				34EBECCB18AB4C9700237B41 /* Menu_icon_viproom@2x.png */,
 			);
 			path = Menu;
 			sourceTree = "<group>";
@@ -2901,6 +2950,7 @@
 		CDC4929B1702CEAB00E83DE3 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				34EBECD618AB5C4300237B41 /* StoreKit.framework */,
 				9758AF02184CA15A00B9D4AF /* AVFoundation.framework */,
 				97A8FCBB18361E6D00B9ACEC /* MediaPlayer.framework */,
 				CD2DE686182758610043AA91 /* MessageUI.framework */,
@@ -3945,6 +3995,7 @@
 				CD1AB0731821804200B0FA10 /* Report_btn_block_active.png in Resources */,
 				979B9604184852A000AF5A78 /* laugh.png in Resources */,
 				CD23A6D7183CA73E00042421 /* trans-bg-568h@2x.png in Resources */,
+				34EBECE518AB79B400237B41 /* VIPRoomCell.xib in Resources */,
 				CDF99C4F1713FA6C008D8BAC /* defaultPerson.png in Resources */,
 				979A9D751851A769003387DA /* Snapshot_btn_KeepPlaying_pressed@2x.png in Resources */,
 				CDB88CAD182E47A100E3ABDF /* Snapshot_camera_icon.png in Resources */,
@@ -4012,12 +4063,14 @@
 				CDAB59AF1850880C00724956 /* Navbar_btn_chat_pressed@2x.png in Resources */,
 				CDB88CA8182E456900E3ABDF /* Snapshot_mutualfriends_icon@2x.png in Resources */,
 				CD2DE68C18279A9D0043AA91 /* SnapshotSetting_btn_save_active.png in Resources */,
+				34EBECD518AB514B00237B41 /* VIPRoom.xib in Resources */,
 				CD877CA31820EF260067D478 /* Logout_btn_cancel_active.png in Resources */,
 				459284A1184F3F65004FA3A6 /* Menu_btn_logout.png in Resources */,
 				CD877CDB182114560067D478 /* HisrotyChat_searchbar.png in Resources */,
 				97A55D701824DFAB00675025 /* viewprofile_done@2x.png in Resources */,
 				CD877CDF182114560067D478 /* HistoryChat_icon_on.png in Resources */,
 				979A9D6D1851A550003387DA /* Snapshot_avatar_match_bound@2x.png in Resources */,
+				34EBECCF18AB4C9700237B41 /* Menu_icon_viproom@2x.png in Resources */,
 				459284B4184F3F65004FA3A6 /* Menu_icon_snapshots@2x.png in Resources */,
 				979B9613184852A000AF5A78 /* tongue.png in Resources */,
 				979A9D801851DC95003387DA /* viewprofile_icon_mutualfriends@2x.png in Resources */,
@@ -4105,6 +4158,7 @@
 				979B9616184852A000AF5A78 /* wink.png in Resources */,
 				97EC588E185F114A00B15ACA /* viewprofile_interested_in_icon.png in Resources */,
 				979B9612184852A000AF5A78 /* sweating.png in Resources */,
+				34EBECCC18AB4C9700237B41 /* Menu_icon_viproom_pressed.png in Resources */,
 				CD025DB81829F760007CBEDA /* SnapshotSetting_thumb_slider@2x.png in Resources */,
 				972B11B71883E5F300EB90D3 /* matchmaker_icon_pressed@2x.png in Resources */,
 				978936F9186A91AE006646A1 /* MatchMaker.xib in Resources */,
@@ -4127,6 +4181,7 @@
 				CD877CA71820EF260067D478 /* Logout_btn_inactive.png in Resources */,
 				CD50E358181FBF3C0036A23B /* Snapshot_like_stamp@2x.png in Resources */,
 				979A9D701851A6E2003387DA /* Snapshot_btnSendMessage_pressed.png in Resources */,
+				34EBECCD18AB4C9700237B41 /* Menu_icon_viproom_pressed@2x.png in Resources */,
 				CD877D131821374C0067D478 /* ChatView_btn_viewprofile_pressed@2x.png in Resources */,
 				979B95FF184852A000AF5A78 /* frozen.png in Resources */,
 				CDB88CA9182E456900E3ABDF /* Snapshot_shareInterest_icon.png in Resources */,
@@ -4194,6 +4249,7 @@
 				CD1301701821FD9700D29E0B /* SnapshotLoading_pin@2x.png in Resources */,
 				978D9ADF185B18CA0068D8AC /* Report_btn_cancel_inactive.png in Resources */,
 				97927BA2183E13B6005F49FC /* updateProfile_avatarBorder.png in Resources */,
+				34EBECCE18AB4C9700237B41 /* Menu_icon_viproom.png in Resources */,
 				CD13015F1821FD9700D29E0B /* Snapshot_graypin.png in Resources */,
 				CD877CA01820EF260067D478 /* Logout_BG@2x.png in Resources */,
 				459284A8184F3F65004FA3A6 /* Menu_element_inactive@2x.png in Resources */,
@@ -4403,12 +4459,14 @@
 				CDF99BAA1713D629008D8BAC /* XMPPRosterCoreDataStorage.m in Sources */,
 				CDF99BAB1713D629008D8BAC /* XMPPUserCoreDataStorageObject.m in Sources */,
 				CDF99BAC1713D629008D8BAC /* XMPPResourceMemoryStorageObject.m in Sources */,
+				34EBECE318AB756200237B41 /* VIPRoomCell.m in Sources */,
 				CDF99BAD1713D629008D8BAC /* XMPPRosterMemoryStorage.m in Sources */,
 				CD1301431821FBD100D29E0B /* VCSimpleSnapshotLoading.m in Sources */,
 				CDF99BAE1713D629008D8BAC /* XMPPUserMemoryStorageObject.m in Sources */,
 				CDF99BAF1713D629008D8BAC /* XMPPRoster.m in Sources */,
 				CDF99BB01713D629008D8BAC /* XMPPIQ+JabberRPC.m in Sources */,
 				CD877C921820EDAD0067D478 /* VCLogout.m in Sources */,
+				34EBECD418AB514B00237B41 /* VIPRoom.m in Sources */,
 				CDF99BB11713D629008D8BAC /* XMPPIQ+JabberRPCResonse.m in Sources */,
 				CDF99BB21713D629008D8BAC /* XMPPJabberRPCModule.m in Sources */,
 				CDF99BB31713D629008D8BAC /* XMPPPrivacy.m in Sources */,
@@ -4434,6 +4492,7 @@
 				CDF99BC41713D629008D8BAC /* XMPPvCardCoreDataStorage.m in Sources */,
 				CD038E6E180BDB2700A9E177 /* ChatEmoticon.m in Sources */,
 				CDF99BC51713D629008D8BAC /* XMPPvCardCoreDataStorageObject.m in Sources */,
+				34EBECDD18AB5CBE00237B41 /* OakClubIAPHelper.m in Sources */,
 				CDF99BC61713D629008D8BAC /* XMPPvCardTempCoreDataStorageObject.m in Sources */,
 				CDF99BC71713D629008D8BAC /* XMPPvCardTemp.m in Sources */,
 				CDF99BC81713D629008D8BAC /* XMPPvCardTempAdr.m in Sources */,
@@ -4445,6 +4504,7 @@
 				CDF99BCD1713D629008D8BAC /* XMPPvCardTempModule.m in Sources */,
 				CDF99BCE1713D629008D8BAC /* XMPPvCardTempTel.m in Sources */,
 				CDF99BCF1713D629008D8BAC /* XMPPPubSub.m in Sources */,
+				34EBECDC18AB5CBE00237B41 /* IAPHelper.m in Sources */,
 				CD038E70180BDB2700A9E177 /* Line.m in Sources */,
 				CDF99BD01713D629008D8BAC /* TURNSocket.m in Sources */,
 				CDF99BD11713D629008D8BAC /* NSDate+XMPPDateTimeProfiles.m in Sources */,
