@@ -92,6 +92,7 @@
 @property (strong, nonatomic) FBSession *session;
 @property (strong, nonatomic) Profile *myProfile;
 @property (strong, nonatomic) NSString* s_DeviceToken;
+@property (strong, nonatomic) NSArray *vipPurchaseList;
 
 extern NSString *const SCSessionStateChangedNotification;
 
@@ -100,6 +101,7 @@ extern NSString *const SCSessionStateChangedNotification;
 #if ENABLE_DEMO
 @property (strong, nonatomic) UINavigationController *snapShotSettings;
 @property (strong, nonatomic) UINavigationController *matchMaker;
+@property (strong, nonatomic) UINavigationController *vipRoom;
 @property (strong, nonatomic) UINavigationController *simpleSnapShot;
 @property (strong, nonatomic) UINavigationController *snapshotLoading;
 //multi Language
@@ -130,7 +132,6 @@ extern NSString *const SCSessionStateChangedNotification;
 @property (strong, nonatomic) ImagePool *imagePool;
 @property (strong, nonatomic) SettingObject *snapshotSettingsObj;
 
--(void)openSession;
 -(void)openSessionWithWebDialogWithhandler:(void(^)(FBSessionState))resultHandler;
 -(void)loadFBUserInfo:(void(^)(id))resultHandler;
 -(void)parseFBInfoToProfile:(id)fbProfile;
@@ -146,6 +147,7 @@ extern NSString *const SCSessionStateChangedNotification;
 #if ENABLE_DEMO
 -(void)showSnapshotSettings;
 -(void)showMatchmaker;
+-(void)showVIPRoom;
 -(void)showSimpleSnapshot;
 -(void)showSimpleSnapshotThenFocus:(BOOL)focus;
 //-(void)showSnapshotLoadingThenFocus:(BOOL)focus;

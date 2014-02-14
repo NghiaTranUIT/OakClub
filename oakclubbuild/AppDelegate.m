@@ -34,6 +34,10 @@
 #import "VCSimpleSnapshot.h"
 #import "VCSimpleSnapshotLoading.h"
 #import "MatchMaker.h"
+#import "VIPRoom.h"
+#import "OakClubIAPHelper.h"
+#import "NEVersionCompare.h"
+
 NSString *const SCSessionStateChangedNotification =
 @"com.facebook.Scrumptious:SCSessionStateChangedNotification";
 @interface AppDelegate() <UIAlertViewDelegate>
@@ -77,6 +81,7 @@ NSString *const kXMPPmyPassword = @"kXMPPmyPassword";
 @synthesize simpleSnapShot = _simpleSnapShot;
 @synthesize snapShotSettings = _snapShotSettings;
 @synthesize matchMaker = _matchMaker;
+@synthesize vipRoom = _vipRoom;
 @synthesize snapshotLoading = _snapshotLoading;
 // multi language
 @synthesize languageBundle = _languageBundle;
@@ -176,6 +181,8 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
 //    path = [[NSBundle mainBundle] pathForResource:@"IMG_0293" ofType:@"mov"];
 //    UISaveVideoAtPathToSavedPhotosAlbum(path, self, @selector(video:didFinishSavingWithError:contextInfo:), nil);
     
+    [OakClubIAPHelper sharedInstance];
+    
     return YES;
 }
 
@@ -234,6 +241,7 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
     //     self.snapShotSettings = [self.storyboard instantiateViewControllerWithIdentifier:@"SnapshotSettings"];
     self.snapShotSettings = [self createNavigationByClass:@"VCSimpleSnapshotSetting" AndHeaderName:@"Settings" andRightButton:@"VCChat" andIsStoryBoard:NO];
     self.matchMaker = [self createNavigationByClass:@"MatchMaker" AndHeaderName:@"Matchmaker" andRightButton:@"VCChat" andIsStoryBoard:NO];
+    self.vipRoom = [self createNavigationByClass:@"VIPRoom" AndHeaderName:@"VIP Room" andRightButton:@"VCChat" andIsStoryBoard:NO];
     self.snapshotLoading = [self createNavigationByClass:@"VCSimpleSnapshotLoading" AndHeaderName:nil andRightButton:@"VCChat" andIsStoryBoard:NO];
     self.myProfileVC = [self createNavigationByClass:@"VCMyProfile" AndHeaderName:@"Edit Profile" andRightButton:@"VCChat" andIsStoryBoard:NO];
 //    self.getPoints = [self createNavigationByClass:@"VCGetPoints" AndHeaderName:@"Get Coins" andRightButton:nil andIsStoryBoard:NO];
@@ -319,7 +327,10 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
     
     [FBSession.activeSession handleDidBecomeActive];
     
-    [self.notificationCenter postNotificationName:ApplicationDidBecomeActive object:nil];
+    BOOL isPaymentProcessing = (activeVC == self.vipRoom);
+    if (!isPaymentProcessing) {
+        [self.notificationCenter postNotificationName:ApplicationDidBecomeActive object:nil];
+    }
 }
 
 
@@ -371,6 +382,15 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
         [appDel.rootVC setRightViewController:appDel.chat];
     }];
 }
+-(void)showVIPRoom {
+    activeVC = _vipRoom;
+    
+    AppDelegate *appDel = self;
+    [self.rootVC setFrontViewController:self.vipRoom focusAfterChange:YES completion:^(BOOL finished) {
+        [appDel.rootVC setRightViewController:appDel.chat];
+    }];
+}
+
 -(void)showSimpleSnapshotThenFocus:(BOOL)focus{
     
     AppDelegate *selfCopy = self;   // copy for retain cycle
@@ -1711,6 +1731,12 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
                       [params setObject:deviceToken forKey:key_DeviceToken];
                   }
                   
+                  NSString *appVersion = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
+                  if (appVersion && ![@"" isEqualToString:appVersion])
+                  {
+                      [params setObject:appVersion forKey:key_appVersion];
+                  }
+                  
                   NSLog(@"sendRegister-params: %@", params);
                   [request getPath:URL_sendRegister parameters:params success:^(__unused AFHTTPRequestOperation *operation, id JSON)
                    {
@@ -1798,8 +1824,17 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
 
 - (BOOL)checkAppVersion:(NSString *)requiredVersion
 {
-    NSString *version = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"];
-    if(![requiredVersion isEqualToString:version]){
+    if (requiredVersion == nil) {
+        return YES;
+    }
+    
+    NSString *version = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
+    
+    NEVersionCompare *requiredVersionCompare = [[NEVersionCompare alloc] initWithFullTextVersion:requiredVersion];
+    NEVersionCompare *currentVersionCompare = [[NEVersionCompare alloc] initWithFullTextVersion:version];
+    
+    BOOL isUpdate = !([currentVersionCompare compareWith:requiredVersionCompare] == NEVersionGreaterThan || [currentVersionCompare compareWith:requiredVersionCompare] == NEVersionEquivalent);
+    if(isUpdate){
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:[@"Update" localize]
                                                             message:@"OakClub detects new version in AppStore! Please update OakClub app"
                                                            delegate:nil
