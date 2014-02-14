@@ -1731,6 +1731,12 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
                       [params setObject:deviceToken forKey:key_DeviceToken];
                   }
                   
+                  NSString *appVersion = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
+                  if (appVersion && ![@"" isEqualToString:appVersion])
+                  {
+                      [params setObject:appVersion forKey:key_appVersion];
+                  }
+                  
                   NSLog(@"sendRegister-params: %@", params);
                   [request getPath:URL_sendRegister parameters:params success:^(__unused AFHTTPRequestOperation *operation, id JSON)
                    {

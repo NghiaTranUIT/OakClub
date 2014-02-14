@@ -324,6 +324,7 @@
 #define key_OSVersion @"os_version"
 #define key_DeviceName @"device_name"
 #define key_DeviceToken @"device_token"
+#define key_appVersion @"app_version"
 
 #define key_reportContent @"content"
 #define key_index @"index"

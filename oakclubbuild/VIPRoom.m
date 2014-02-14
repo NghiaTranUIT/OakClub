@@ -72,6 +72,8 @@
 }
 
 - (void)productPurchased:(NSNotification *)notification {
+    self.loadingIndicator.hidden = YES;
+    
     appDel.myProfile.is_vip = TRUE;
     
     self.tableView.hidden = YES;
@@ -126,6 +128,8 @@
 {
     SKProduct *product = appDel.vipPurchaseList[indexPath.row];
     
+    //show loading
+    self.loadingIndicator.hidden = NO;
     [[OakClubIAPHelper sharedInstance] buyProduct:product];
 }
 
