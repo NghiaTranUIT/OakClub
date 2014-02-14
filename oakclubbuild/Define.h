@@ -46,7 +46,7 @@
 #define ENABLE_INCLUDE_FACEBOOKFRIEND true
 
 //check lastest version of the app
-#define ENABLE_CHECK_APP_VERSION false
+#define ENABLE_CHECK_APP_VERSION true
 #define APPSTORE_LINK @"https://itunes.apple.com/app/id788399950?mt=8"
 #define IOS_PLATFORM @"2"
 

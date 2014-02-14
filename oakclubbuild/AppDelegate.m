@@ -36,6 +36,7 @@
 #import "MatchMaker.h"
 #import "VIPRoom.h"
 #import "OakClubIAPHelper.h"
+#import "NEVersionCompare.h"
 
 NSString *const SCSessionStateChangedNotification =
 @"com.facebook.Scrumptious:SCSessionStateChangedNotification";
@@ -1817,8 +1818,17 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
 
 - (BOOL)checkAppVersion:(NSString *)requiredVersion
 {
-    NSString *version = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"];
-    if(![requiredVersion isEqualToString:version]){
+    if (requiredVersion == nil) {
+        return YES;
+    }
+    
+    NSString *version = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
+    
+    NEVersionCompare *requiredVersionCompare = [[NEVersionCompare alloc] initWithFullTextVersion:requiredVersion];
+    NEVersionCompare *currentVersionCompare = [[NEVersionCompare alloc] initWithFullTextVersion:version];
+    
+    BOOL isUpdate = !([currentVersionCompare compareWith:requiredVersionCompare] == NEVersionGreaterThan || [currentVersionCompare compareWith:requiredVersionCompare] == NEVersionEquivalent);
+    if(isUpdate){
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:[@"Update" localize]
                                                             message:@"OakClub detects new version in AppStore! Please update OakClub app"
                                                            delegate:nil

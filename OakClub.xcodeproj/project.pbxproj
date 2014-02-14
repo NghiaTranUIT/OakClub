@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3426D6A218ADCE5300D2CB77 /* NEVersionCompare.m in Sources */ = {isa = PBXBuildFile; fileRef = 3426D6A118ADCE5300D2CB77 /* NEVersionCompare.m */; };
 		3429091C1862F0C700A35209 /* NSStringRandom.m in Sources */ = {isa = PBXBuildFile; fileRef = 3429091A1862F0C700A35209 /* NSStringRandom.m */; };
 		344565CB187FCD5D00C090A4 /* Snapshot_video_btn.png in Resources */ = {isa = PBXBuildFile; fileRef = 344565C9187FCD5D00C090A4 /* Snapshot_video_btn.png */; };
 		344565CC187FCD5D00C090A4 /* Snapshot_video_btn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 344565CA187FCD5D00C090A4 /* Snapshot_video_btn@2x.png */; };
@@ -736,6 +737,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3426D6A018ADCE5300D2CB77 /* NEVersionCompare.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NEVersionCompare.h; sourceTree = "<group>"; };
+		3426D6A118ADCE5300D2CB77 /* NEVersionCompare.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NEVersionCompare.m; sourceTree = "<group>"; };
 		342909191862F0C700A35209 /* NSStringRandom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSStringRandom.h; sourceTree = "<group>"; };
 		3429091A1862F0C700A35209 /* NSStringRandom.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSStringRandom.m; sourceTree = "<group>"; };
 		344565C9187FCD5D00C090A4 /* Snapshot_video_btn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Snapshot_video_btn.png; sourceTree = "<group>"; };
@@ -2349,6 +2352,8 @@
 				34EBECD918AB5CBE00237B41 /* IAPHelper.m */,
 				34EBECDA18AB5CBE00237B41 /* OakClubIAPHelper.h */,
 				34EBECDB18AB5CBE00237B41 /* OakClubIAPHelper.m */,
+				3426D6A018ADCE5300D2CB77 /* NEVersionCompare.h */,
+				3426D6A118ADCE5300D2CB77 /* NEVersionCompare.m */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -4430,6 +4435,7 @@
 				CDE4DAA617129D3200DC5A2C /* PKRevealController.m in Sources */,
 				97C57689181FCED000D8510D /* VCPrivacy.m in Sources */,
 				CDE4DAA717129D3200DC5A2C /* PKRevealControllerContainerView.m in Sources */,
+				3426D6A218ADCE5300D2CB77 /* NEVersionCompare.m in Sources */,
 				CDE4DAA817129D3200DC5A2C /* UIViewController+PKRevealController.m in Sources */,
 				CDF99B8F1713D629008D8BAC /* NSData+XMPP.m in Sources */,
 				CDF99B901713D629008D8BAC /* NSNumber+XMPP.m in Sources */,
@@ -4872,8 +4878,8 @@
 					"-ObjC",
 				);
 				PRODUCT_NAME = OakClub;
-				PROVISIONING_PROFILE = "4E9EB301-49AA-4E6F-A107-007907B402E5";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "4E9EB301-49AA-4E6F-A107-007907B402E5";
+				PROVISIONING_PROFILE = "EC077BBA-85AF-47DE-A253-A70C86096988";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "EC077BBA-85AF-47DE-A253-A70C86096988";
 				TARGETED_DEVICE_FAMILY = 1;
 				VALIDATE_PRODUCT = YES;
 				WRAPPER_EXTENSION = app;
