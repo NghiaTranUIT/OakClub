@@ -11,9 +11,9 @@
 
 //demo version FLAG
 #define ENABLE_DEMO true
-#define USE_STAGING false
+#define USE_STAGING true
 #define USE_LOCALTEST false
-#define USE_MAINHOST true
+#define USE_MAINHOST false
 #define USE_STAGING_MB false
 #define USE_STAGING_IOS false
 
@@ -239,7 +239,7 @@
 #define URL_getMatchmakerFriendList @"service/matchMarkerInit"
 #define URL_sendMatchmaker @"service/makeMatching"
 #define URL_reportIOSProblemToOakClub @"service/reportIOSProblemToOakClub"
-#define URL_verifyReceipt @"service/verifyReceipt"
+#define URL_verifyReceipt @"service/verifyAppleReceipt"
 //================ service API keys ================
 //root
 #define key_status @"status"
