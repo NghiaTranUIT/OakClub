@@ -1385,9 +1385,21 @@ UITapGestureRecognizer *tap;
 {
     NSURL *videoURL = [NSURL URLWithString:profileObj.s_video];
     MPMoviePlayerViewController *moviePlayer = [[MPMoviePlayerViewController alloc] initWithContentURL:videoURL];
+    moviePlayer.moviePlayer.movieSourceType = MPMovieSourceTypeFile;
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(moviePlayBackDidFinish:)
+                                                 name:MPMoviePlayerPlaybackDidFinishNotification
+                                               object:moviePlayer.moviePlayer];
+    
     [self presentMoviePlayerViewControllerAnimated:moviePlayer];
     
+    [moviePlayer.moviePlayer prepareToPlay];
     [moviePlayer.moviePlayer play];
+}
+
+-(void)moviePlayBackDidFinish:(id)sender
+{
+    NSLog(@"Video finish %@", sender);
 }
 @end
 
