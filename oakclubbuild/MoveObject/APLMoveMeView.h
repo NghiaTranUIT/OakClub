@@ -61,7 +61,6 @@
 @property id<APLMoveMeViewDelegate> movemedelegate;
 
 - (void)setupNextDisplayString;
--(APLPlacardView*) getCardView;
 -(void) addSubViewToCardView:(UIView*)subview andAtFront:(BOOL)toFront andTag:(int)numTag;
 -(void)removeSubviewFromCardViewWithTag:(int)numTag;
 -(int) getAnswer;

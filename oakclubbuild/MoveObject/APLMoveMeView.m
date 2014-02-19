@@ -92,9 +92,6 @@ BOOL isDragging = FALSE;
         }
     }
 }
--(APLPlacardView*) getCardView{
-    return self.placardView;
-}
 - (BOOL)pointInside:(CGPoint)point withEvent:(UIEvent *)event
 {
     AppDelegate *appDel = (AppDelegate *) [UIApplication sharedApplication].delegate;
