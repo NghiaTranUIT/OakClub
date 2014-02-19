@@ -11,17 +11,17 @@
 
 //demo version FLAG
 #define ENABLE_DEMO true
-#define USE_STAGING false
+#define USE_STAGING true
 #define USE_LOCALTEST false
-#define USE_MAINHOST true
+#define USE_MAINHOST false
 #define USE_STAGING_MB false
 #define USE_STAGING_IOS false
 
 #define DAN_CHEAT false
-#define DAN_ACCESSTOKEN @"537613816294876|a7c00e11b3c816d4b6d9edad86fc16c6"
-//#define DAN_ACCESSTOKEN @"CAAHo9PiL7dwBABLVeIqWTGFwC5BPfjl8zq66SIufQLO39WhamZB76h2Ku5TmZB79f6SJnSXJK1j8ksVOYKJwZB9TT9dTiRXtYsn2kgnEOwZCNkdbitnDqHgZCul3Ez5LIzJeuofWWAFCZAAQBsUkzFCB7oZChE1uC7tZAdRvYJkY98SZAubpMrxjG"
-#define DAN_FACEBOOKID @"1640117326"
-//#define DAN_FACEBOOKID @"511391007"
+//#define DAN_ACCESSTOKEN @"537613816294876|a7c00e11b3c816d4b6d9edad86fc16c6"
+#define DAN_ACCESSTOKEN @"CAAHo9PiL7dwBABLVeIqWTGFwC5BPfjl8zq66SIufQLO39WhamZB76h2Ku5TmZB79f6SJnSXJK1j8ksVOYKJwZB9TT9dTiRXtYsn2kgnEOwZCNkdbitnDqHgZCul3Ez5LIzJeuofWWAFCZAAQBsUkzFCB7oZChE1uC7tZAdRvYJkY98SZAubpMrxjG"
+//#define DAN_FACEBOOKID @"1640117326"
+#define DAN_FACEBOOKID @"511391007"
 
 //===============FLAG FOR ENABLE/DISABLE FEATURES============
 //disable hereTo and show me in Snapshot Settings
@@ -351,7 +351,8 @@
 #define value_FALSE @"false"
 
 //================ Notification keys =============
-#define ApplicationDidBecomeActive @"ApplicationDidBecomeActive"
+#define Notification_ApplicationDidBecomeActive @"ApplicationDidBecomeActive"
+#define Notification_ChatFriendChanged_Format @"ChatFriendChanged:%@"
 
 //================ Hangout View ==================
 #define ZOOM_VIEW_TAG 100

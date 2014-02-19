@@ -104,7 +104,7 @@ CGFloat pageHeight;
     [self refreshSnapshotFocus:NO];
     
     isBlockedByGPS = NO;
-    [appDel.notificationCenter addObserver:self selector:@selector(applicationDidBecomeActive:) name:ApplicationDidBecomeActive object:nil];
+    [appDel.notificationCenter addObserver:self selector:@selector(applicationDidBecomeActive:) name:Notification_ApplicationDidBecomeActive object:nil];
     
     [self loadHeaderLogo];
     [self formatAvatarToCircleView];
@@ -488,7 +488,7 @@ CGFloat pageHeight;
     [self setLblAge:nil];
     [self setLblPhotoCount:nil];
     snapshotImagePool = nil;
-    [appDel.notificationCenter removeObserver:self name:ApplicationDidBecomeActive object:nil];
+    [appDel.notificationCenter removeObserver:self name:Notification_ApplicationDidBecomeActive object:nil];
     [super viewDidUnload];
 }
 #pragma mark Button Event Handle

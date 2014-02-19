@@ -22,7 +22,7 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="75"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" image="action-people.png" id="3">
+                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" image="Default Avatar.png" id="3">
                     <rect key="frame" x="57" y="11" width="56" height="56"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <color key="tintColor" red="0.47450980390000003" green="0.0039215686269999999" blue="0.34509803919999998" alpha="1" colorSpace="calibratedRGB"/>
@@ -87,11 +87,11 @@
     </objects>
     <resources>
         <image name="Default Avatar.png" width="255" height="255"/>
+        <image name="Default Avatar.png" width="255" height="255"/>
         <image name="HistoryChat_icon_off.png" width="28" height="20"/>
         <image name="HistoryChat_icon_on.png" width="28" height="20"/>
         <image name="HistoryChat_matchup_off.png" width="24" height="24"/>
         <image name="HistoryChat_matchup_on.png" width="24" height="24"/>
         <image name="HistoryChat_separator.png" width="270" height="1"/>
-        <image name="action-people.png" width="289" height="314"/>
     </resources>
 </document>

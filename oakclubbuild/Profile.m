@@ -509,7 +509,7 @@
                 profile.unread_message = unread_count;
                 profile.is_deleted = deleted;
                 profile.is_blocked = blocked;
-                profile.status =[[objectData valueForKey:key_status] intValue];
+//                profile.status =[[objectData valueForKey:key_status] intValue];
                 profile.is_match = [[objectData valueForKey:key_match] boolValue];
                 profile.is_vip = [[objectData valueForKey:key_isVip] boolValue];
                 profile.s_status_time = [objectData valueForKey:key_statusTime];
@@ -522,6 +522,14 @@
                 [rosterDict setObject:profile forKey:profile.s_ID];
                 [rosterDict setObject:profile forKey:profile.s_ID];
                 NSLog(@"%d. unread message: %d", i, unread_count);
+                
+                // prepare for new version status get from has_notchat_match, lastmessagetime && unread_num
+                bool isUnViewChat = [[objectData valueForKey:@"has_notchat_match"] boolValue] ;  //match unviewed
+                profile.status = (0 == isUnViewChat) ? MatchViewed : MatchUnViewed;
+                if(profile.s_lastMessage_time && ![@"" isEqualToString:profile.s_lastMessage_time])
+                {
+                    profile.status = (unread_count == 0) ? ChatViewed : ChatUnviewed;
+                }
                 
                 self.unread_message += unread_count;
             }
