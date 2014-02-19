@@ -32,7 +32,7 @@
 
 - (void)validateReceiptForTransaction:(SKPaymentTransaction *)transaction {
     NSString* receiptString = [self createEncodedString:transaction.transactionReceipt];
-    NSLog(@"receiptString:%@", receiptString);
+//    NSLog(@"receiptString:%@", receiptString);
     
     AFHTTPClient *client= [[AFHTTPClient alloc] initWithOakClubAPI:DOMAIN];
     [client setParameterEncoding:AFFormURLParameterEncoding];
@@ -46,6 +46,7 @@
      {
          NSError *e;
          NSMutableDictionary *dict = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONReadingMutableContainers error:&e];
+//         NSLog(@"dict: %@", dict);
          BOOL error = [[dict objectForKey:key_errorCode] boolValue];
          if (!error)
          {
