@@ -50,7 +50,7 @@
 }
 
 
-@synthesize messageField, chatWithUser, tView, scrollView,lblTyping, avatar_me, avatar_friend, label_header, label_Age,btnMoreOption, btnShowProfile, btnBackToPrevious;
+@synthesize messageField, chatWithUser, tView, scrollView, lblTyping, label_header, label_Age,btnMoreOption, btnShowProfile, btnBackToPrevious;
 
 
 - (AppDelegate *)appDelegate {
@@ -96,7 +96,7 @@
     }
 }
 
-- (id) initWithUser:(NSString *)_userName withProfile:(Profile*)_profile withAvatar:(UIImage*)avatar withMessages:(NSMutableArray*) array
+- (id) initWithUser:(NSString *)_userName withProfile:(Profile*)_profile withMessages:(NSMutableArray*) array
 {
     if (self = [super init])
     {
@@ -108,14 +108,6 @@
         [self registerForKeyboardNotifications];
         
         a_messages = array;
-        
-        avatar_friend = avatar;
-        
-        Profile* myProfile = [self getProfilebyID:nil];
-        //Vanancy - change load avatar
-        [appDel.imagePool getImageAtURL:myProfile.s_Avatar withSize:PHOTO_SIZE_SMALL asycn:^(UIImage *img, NSError *error, bool isFirstLoad, NSString *urlWithSize) {
-            avatar_me = img;
-        }];
         
         //register for chat friend changed notification
         userChangedNotificationName = [NSString stringWithFormat:Notification_ChatFriendChanged_Format, _userName];
@@ -150,33 +142,6 @@
              [tView reloadData];
              [self scrollToLastAnimated:NO];
          }];
-        
-        NSString* link = _profile.s_Avatar;
-        if(link && ![@"" isEqualToString:link])
-        {
-            [appDel.imagePool getImageAtURL:link withSize:PHOTO_SIZE_SMALL asycn:^(UIImage *avatar, NSError *error, bool isFirstLoad, NSString *urlWithSize) {
-                if(avatar)
-                    avatar_friend = avatar;
-            }];
-        }
-        else
-        {
-            avatar_friend = [UIImage imageNamed:@"Default Avatar.png"];
-        }
-        
-        link = [self getProfilebyID:nil].s_Avatar;
-        
-        if( ![link isEqualToString:@""] )
-        {
-            [appDel.imagePool getImageAtURL:link withSize:PHOTO_SIZE_SMALL asycn:^(UIImage *avatar, NSError *error, bool isFirstLoad, NSString *urlWithSize) {
-                if(avatar)
-                    avatar_friend = avatar;
-            }];
-        }
-        else
-        {
-            avatar_me = [UIImage imageNamed:@"Default Avatar.png"];
-        }
 	}
 	
 	return self;
@@ -338,7 +303,6 @@
 	
 	NSLog(@"TURN Connection failed!");
 	[turnSockets removeObject:sender];
-	
 }
 
 
@@ -349,8 +313,7 @@
 - (IBAction) closeChat {
     UINavigationController* activeVC = [appDel activeViewController];
     [self.navigationController popViewControllerAnimated:YES];
-    [appDel.rootVC setFrontViewController:activeVC focusAfterChange:NO completion:^(BOOL finished) {
-    }];
+    [appDel.rootVC setFrontViewController:activeVC];
     [appDel.rootVC showViewController:appDel.chat];
 }
 
@@ -415,17 +378,6 @@
 }
 
 - (IBAction)onTapViewProfile:(id)sender {
-//    UINavigationController* activeVC = [appDel activeViewController];
-//    UIViewController* vc = [activeVC.viewControllers objectAtIndex:0];
-//    if([vc isKindOfClass:[VCSimpleSnapshot class]])
-//    {
-//        VCProfile *viewProfile = [[VCProfile alloc] initWithNibName:@"VCProfile" bundle:nil];
-//        [viewProfile loadProfile:userProfile andImage:avatar_friend];
-//        
-//        [vc.navigationController pushViewController:viewProfile animated:YES];
-//    }
-//    else
-//        [vc.navigationController popViewControllerAnimated:YES];
     
     [self.navigationController.navigationBar setUserInteractionEnabled:NO];
     [userProfile getProfileInfo:^(void){
@@ -434,7 +386,7 @@
                 [subview removeFromSuperview];
         }
         VCProfile *viewProfile = [[VCProfile alloc] initWithNibName:@"VCProfile" bundle:nil];
-        [viewProfile loadProfile:userProfile andImage:avatar_friend];
+        [viewProfile loadProfile:userProfile];
         [viewProfile addDoneItemController];
         [self.navigationController.navigationBar setUserInteractionEnabled:YES];
         [self.navigationController setNavigationBarHidden:NO];
@@ -506,7 +458,18 @@ static float cellWidth = 320;
         
         [cell.avatarImageView setHidden:NO];
         [cell.avatarImageView setFrame:CGRectMake(padding_left, padding_top + cell.bgImageView.frame.size.height - defaultAvatarHeight, defaultAvatarWidth, defaultAvatarHeight)];
-        [cell.avatarImageView setBackgroundImage:avatar_friend forState:UIControlStateNormal];
+        [cell.avatarImageView setBackgroundImage:[UIImage imageNamed:@"Default Avatar"] forState:UIControlStateNormal];
+        [appDel.imagePool getImageAtURL:userProfile.s_Avatar asycn:^(UIImage *img, NSError *error, bool isFirstLoad, NSString *urlWithSize)
+         {
+             if (img && isFirstLoad)
+             {
+                 [self.tView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationNone];
+             }
+             else if (img)
+             {
+                 [cell.avatarImageView setBackgroundImage:img forState:UIControlStateNormal];
+             }
+         }];
         //[UIImage imageNamed:@"action-people.png"];
         [cell.senderAndTimeLabel setFrame:CGRectMake(cell.bgImageView.frame.origin.x + cell.bgImageView.frame.size.width + padding_left,
                                                      cell.bgImageView.frame.origin.y + cell.bgImageView.frame.size.height - cell.senderAndTimeLabel.frame.size.height,
@@ -952,20 +915,7 @@ static float cellWidth = 320;
     Profile *newProfile = [sender object];
     userProfile = newProfile;
     
-    
-    NSString* avatarLink = userProfile.s_Avatar;
-    if(avatarLink && ![@"" isEqualToString:avatarLink])
-    {
-        [appDel.imagePool getImageAtURL:avatarLink withSize:PHOTO_SIZE_SMALL asycn:^(UIImage *avatar, NSError *error, bool isFirstLoad, NSString *urlWithSize) {
-            if(avatar)
-            {
-                avatar_friend = avatar;
-            }
-            
-            [self.tView reloadData];
-        }];
-    }
-    
+    [self.tView reloadData];
 }
 @end
 

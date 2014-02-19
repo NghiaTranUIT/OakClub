@@ -765,6 +765,8 @@ int cellCountinSection=0;
     [tableView deselectRowAtIndexPath:[tableView indexPathForSelectedRow] animated:NO];
     //SMChatViewController *chatController = [[SMChatViewController alloc] initWithUser:userName];
     [appDel.imagePool getImageAtURL:profile.s_Avatar withSize:PHOTO_SIZE_SMALL asycn:^(UIImage *img, NSError *error, bool isFirstLoad, NSString *urlWithSize) {
+        
+        NSLog(@"START OPEN SMCHAT -- FOCUS: %d", appDel.rootVC.state);
         NSMutableArray* array = [a_messages valueForKey:profile.s_ID];
         if (!array)
         {
@@ -777,11 +779,10 @@ int cellCountinSection=0;
             SMChatViewController *chatController =
             [[SMChatViewController alloc] initWithUser:[NSString stringWithFormat:DOMAIN_AT_FMT, profile.s_ID]
                                            withProfile:profile
-                                            withAvatar:img
                                           withMessages:array];
 #if ENABLE_DEMO
             [appDel.rootVC setFrontViewController:appDel.chat focusAfterChange:YES completion:^(BOOL finished) {
-                
+                NSLog(@"SET CHAT TO FRONT VIEW -- FOCUS: %d, FINISH: %d", appDel.rootVC.state, finished);
             }];
 #endif
             //        if(IS_OS_7_OR_LATER){
@@ -792,6 +793,8 @@ int cellCountinSection=0;
             [appDel.chat pushViewController:chatController animated:animated];
             //        }
         }
+        
+        NSLog(@"OPEN SMCHAT -- FOCUS: %d", appDel.rootVC.state);
     }];
 }
 

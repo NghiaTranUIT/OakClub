@@ -855,9 +855,8 @@ static CGFloat padding_left = 5.0;
     [self useSnapshotAvatar];
 }
 
--(void) loadProfile:(Profile*) _profile andImage:(UIImage*)_avatar{
+-(void) loadProfile:(Profile*) _profile{
     currentProfile = _profile;
-    img_avatar = _avatar;
     
     NSLog(@"Set VCProfile profile avatar: %@", currentProfile.s_Avatar);
 //    [self refreshScrollView];
@@ -903,12 +902,6 @@ static CGFloat padding_left = 5.0;
     NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:key, @"key", value, @"value", nil];
     
     [tableSource addObject:dict];
-}
-
--(void) loadProfile:(Profile*) _profile{
-    currentProfile = _profile;
-//    [self refreshScrollView];
-//    [self loadPhotoForScrollview];
 }
 
 -(void)refreshScrollView{
@@ -987,7 +980,9 @@ static CGFloat padding_left = 5.0;
                         if (error) {
                             [self hideIndicatorAtIndex:i];
                             [self showErrorLabelAtIndex:i];
-                        } else if (image){
+                        }
+                        else if (image)
+                        {
                             UIImageView *imageView = [[UIImageView alloc]initWithImage:image];
                             CGRect frame = CGRectMake(0, 0, 320, 320);
                             frame.origin.x = CGRectGetWidth(frame) * i ;
@@ -1001,7 +996,6 @@ static CGFloat padding_left = 5.0;
                                     [self addVideoButtonAtIndex:self.numOfPhotoAndVideo - 1];
                                 }
                             }
-                            
                         }
                     }];
                 }
