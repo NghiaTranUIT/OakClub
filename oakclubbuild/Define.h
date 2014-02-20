@@ -230,6 +230,7 @@
 #define URL_sendRegister @"service/sendRegister"
 #define URL_uploadPhoto @"service/uploadPhoto"
 #define URL_deletePhoto @"service/deletePhoto"
+#define URL_deleteVideo @"service/deleteVideo"
 #define URL_setReadMessages @"service/setReadMessages"
 #define URL_setViewedMutualMatch @"service/setViewedMutualMatch"
 #define URL_reportInvalid @"service/reportUser"
