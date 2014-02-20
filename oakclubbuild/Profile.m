@@ -510,7 +510,7 @@
                 profile.unread_message = unread_count;
                 profile.is_deleted = deleted;
                 profile.is_blocked = blocked;
-                profile.status =[[objectData valueForKey:key_status] intValue];
+//                profile.status =[[objectData valueForKey:key_status] intValue];
                 profile.is_match = [[objectData valueForKey:key_match] boolValue];
                 profile.is_vip = [[objectData valueForKey:key_isVip] boolValue];
                 profile.s_status_time = [objectData valueForKey:key_statusTime];
@@ -523,6 +523,14 @@
                 [rosterDict setObject:profile forKey:profile.s_ID];
                 [rosterDict setObject:profile forKey:profile.s_ID];
                 NSLog(@"%d. unread message: %d", i, unread_count);
+                
+                // prepare for new version status get from has_notchat_match, lastmessagetime && unread_num
+                bool isUnViewChat = [[objectData valueForKey:@"has_notchat_match"] boolValue] ;  //match unviewed
+                profile.status = (0 == isUnViewChat) ? MatchViewed : MatchUnViewed;
+                if(profile.s_lastMessage_time && ![@"" isEqualToString:profile.s_lastMessage_time])
+                {
+                    profile.status = (unread_count == 0) ? ChatViewed : ChatUnviewed;
+                }
                 
                 self.unread_message += unread_count;
             }
@@ -636,7 +644,9 @@
     self.active = [[data valueForKey:key_active] integerValue];
     
     // new
+    NSString *cheatVideoLink = @"../load_video.php?file=dmlkZW9zL29yaWdpbi8wNy4yMDE0L29ha18xMDAwMDMwNjc5MDg5NjBfNTJmZDk4NjM3M2RiYw==&ext=";
     self.s_video = [self makeFullVideoLink:[data valueForKey:key_video]];
+//    self.s_video = [self makeFullVideoLink:cheatVideoLink];
     self.s_gender = [self parseGender:[data valueForKey:key_gender]];
     self.s_birthdayDate =[data valueForKey:key_birthday];
     self.i_weight =MAX([[data valueForKey:key_weight] integerValue], 0);
@@ -653,15 +663,6 @@
     int ethnicityIndex =[[data valueForKey:key_ethnicity] integerValue];
     self.c_ethnicity= [[Ethnicity alloc]initWithID:ethnicityIndex];
     
-//    NSMutableDictionary *dict_Location = [data valueForKey:key_location];
-//    if (dict_Location != nil && ![dict_Location isKindOfClass:[NSNull class]])
-//    {
-//        self.s_location = [[Location alloc] initWithNSDictionary:dict_Location];
-//    }
-//    else
-//    {
-//        self.s_location = nil;
-//    }
     NSString *location_Name = [data valueForKey:@"location_name"];
     if (location_Name)
     {

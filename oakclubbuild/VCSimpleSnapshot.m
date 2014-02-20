@@ -104,7 +104,7 @@ CGFloat pageHeight;
     [self refreshSnapshotFocus:NO];
     
     isBlockedByGPS = NO;
-    [appDel.notificationCenter addObserver:self selector:@selector(applicationDidBecomeActive:) name:ApplicationDidBecomeActive object:nil];
+    [appDel.notificationCenter addObserver:self selector:@selector(applicationDidBecomeActive:) name:Notification_ApplicationDidBecomeActive object:nil];
     
     [self loadHeaderLogo];
     [self formatAvatarToCircleView];
@@ -488,7 +488,7 @@ CGFloat pageHeight;
     [self setLblAge:nil];
     [self setLblPhotoCount:nil];
     snapshotImagePool = nil;
-    [appDel.notificationCenter removeObserver:self name:ApplicationDidBecomeActive object:nil];
+    [appDel.notificationCenter removeObserver:self name:Notification_ApplicationDidBecomeActive object:nil];
     [super viewDidUnload];
 }
 #pragma mark Button Event Handle
@@ -522,7 +522,7 @@ CGFloat pageHeight;
     NSLog(@"current id = %@",currentProfile.s_ID);
     viewProfile = [[VCProfile alloc] initWithNibName:@"VCProfile" bundle:nil];
     
-    [viewProfile loadProfile:currentProfile andImage:[UIImage imageNamed:@"Default Avatar"]];
+    [viewProfile loadProfile:currentProfile];
     [snapshotImagePool getImageAtURL:currentProfile.s_Avatar withSize:PHOTO_SIZE_LARGE asycn:^(UIImage *img, NSError *error, bool isFirstLoad, NSString *urlWithSize) {
         [viewProfile useImage:img];
     }];
@@ -753,7 +753,6 @@ CGFloat pageHeight;
         SMChatViewController *chatController =
         [[SMChatViewController alloc] initWithUser:[NSString stringWithFormat:@"%@@oakclub.com", matchedProfile.s_ID]
                                        withProfile:matchedProfile
-                                        withAvatar:img
                                       withMessages:array];
         [self.navigationController pushViewController:chatController animated:NO];
         [matchViewController.view removeFromSuperview];
@@ -773,7 +772,6 @@ CGFloat pageHeight;
         SMChatViewController *chatController =
         [[SMChatViewController alloc] initWithUser:[NSString stringWithFormat:@"%@@oakclub.com", currentProfile.s_ID]
                                        withProfile:currentProfile
-                                        withAvatar:img
                                       withMessages:array];
         [self.navigationController pushViewController:chatController animated:NO];
     }];
@@ -1040,7 +1038,11 @@ CGFloat pageHeight;
         [self refreshSnapshotFocus:NO];
     }*/
     PKRevealControllerState state =  appDel.rootVC.state;
-    if(state == PKRevealControllerFocusesFrontViewController){
+    UIViewController *focusedVC = appDel.rootVC.focusedController;
+    
+    if(state == PKRevealControllerFocusesFrontViewController &&
+       focusedVC != appDel.chat)
+    {
         [self refreshSnapshotFocus:NO];
     }
 }

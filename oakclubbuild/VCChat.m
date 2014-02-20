@@ -69,61 +69,12 @@ int cellCountinSection=0;
     double current = CFAbsoluteTimeGetCurrent();
     NSLog(@"Start %lf", current);
     
-//    NSMutableArray* a_profile_id = [[NSMutableArray alloc] init];
-//    NSOperationQueue *queue = [[NSOperationQueue alloc] init];
     if (!(appDel.friendChatList == NULL || appDel.friendChatList.count <= 0))
     {
-//        [indicator lockViewAndDisplayIndicator];
-        
         [loadingFriendList startAnimating];
         [self.view bringSubviewToFront:loadingFriendList];
         loadingFriendList.hidden = NO;
-        __block int i = [appDel.friendChatList count];
-        
-        NSOperationQueue *getHistoryQueue = [[NSOperationQueue alloc] init];
-        for(NSString* key in [appDel.friendChatList allKeys])
-        {
-            Profile* profile = [appDel.friendChatList objectForKey:key];
-            NSLog(@"Loading information for %@", profile.s_Name);
-            
-            if(profile.status > MatchViewed && ![a_messages valueForKey:profile.s_ID])
-            {
-                NSOperation *op = [HistoryMessage getHistoryMessages:profile.s_ID callback:^(NSMutableArray* array)
-                 {
-                     if (array)
-                     {
-                         if([[appDel.friendChatList allKeys] lastObject]== key){
-                             [loadingFriendList stopAnimating];
-                             loadingFriendList.hidden = YES;
-                         }
-                         [a_messages setObject:array forKey:profile.s_ID];
-                         [self.searchDisplayController.searchResultsTableView reloadData];
-                         [[self tableView] reloadData];
-                         NSLog(@"Get History Msg of %@ completed",profile.s_ID);
-                     }
-                     
-                     --i;
-                     if (!i)
-                     {
-//                         [indicator unlockViewAndStopIndicator];
-                         fetchedResultsController = nil;
-                         [self reloadFriendChatIDs];
-                     }
-                 }];
-                
-                [getHistoryQueue addOperation:op];
-            }
-            else
-            {
-                --i;
-                if (!i)
-                {
-//                    [indicator unlockViewAndStopIndicator];
-                    fetchedResultsController = nil;
-                    [self reloadFriendChatIDs];
-                }
-            }
-        }
+        [self reloadFriendList];
     }
     
     double end = CFAbsoluteTimeGetCurrent();
@@ -286,20 +237,13 @@ int cellCountinSection=0;
     double current = CFAbsoluteTimeGetCurrent();
     NSLog(@"viewDidAppear Start %lf", current);
     
-    fetchedResultsController = nil;
-    [self.tableView reloadData];
+    [self reloadFriendList];
     
     double end = CFAbsoluteTimeGetCurrent();
     NSLog(@"viewDidAppear End %lf", end);
     NSLog(@"viewDidAppear Delta %lf", end - current);
     
     [super viewDidAppear:animated];
-//    [self addTopRightButtonWithAction:@selector(enterEditing)];
-//    fetchedResultsController = nil;
-//    [appDel.myProfile getRosterListIDSync:^(void){
-//        [self loadFriendsInfo:nil];
-//        [self.searchDisplayController.searchResultsTableView reloadData];
-//    }];
     
     appDel._messageDelegate = self;
 }
@@ -316,10 +260,6 @@ int cellCountinSection=0;
     double current = CFAbsoluteTimeGetCurrent();
     NSLog(@"viewDidLoad Start %lf", current);
     [super viewDidLoad];
-//    appDel._messageDelegate = self;
-    // Do any additional setup after loading the view from its nib.
-    //    [self.view addSubview:tbVC_ChatList.view];
-//    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"bg-edit.png"]];
     
     indicator = [[LoadingIndicator alloc] initWithMainView:self.view andDelegate:self];
     
@@ -343,8 +283,6 @@ int cellCountinSection=0;
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 - (NSFetchedResultsController *)fetchedResultsController
 {
-//    if ([[self appDelegate] connect])
-//    {
 	if (fetchedResultsController == nil)
 	{
 		NSManagedObjectContext *moc = [[self appDelegate] managedObjectContext_roster];
@@ -368,7 +306,6 @@ int cellCountinSection=0;
 		                                          inManagedObjectContext:moc];
 		
 		NSSortDescriptor *sd1 = [[NSSortDescriptor alloc] initWithKey:@"sectionNum" ascending:YES];
-		//NSSortDescriptor *sd2 = [[NSSortDescriptor alloc] initWithKey:@"displayName" ascending:YES];
 		
 		NSArray *sortDescriptors = [NSArray arrayWithObjects:sd1, nil];
 		
@@ -376,9 +313,7 @@ int cellCountinSection=0;
 		[fetchRequest setEntity:entity];
 		[fetchRequest setSortDescriptors:sortDescriptors];
 		[fetchRequest setFetchBatchSize:10];
-		
-        //searchResult is a NSString
-        //[fetchRequest setPredicate:[[NSPredicate alloc] init]];
+        
         if(self.searchResult != nil && [self.searchResult length] > 0){
             NSPredicate *predicate = [NSPredicate predicateWithFormat:@"displayName CONTAINS[cd] %@",self.searchResult];
             [fetchRequest setPredicate:predicate];
@@ -403,7 +338,6 @@ int cellCountinSection=0;
 
 - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller
 {
-    //[self.searchDisplayController.searchResultsTableView reloadData];
 	[[self tableView] reloadData];
 }
 
@@ -532,7 +466,7 @@ int cellCountinSection=0;
 {
     if (!fetchedResultsController)
     {
-        [self reloadFriendChatIDs];
+        [self fetchedResultsController];
     }
     
     return friendChatIDs.count;
@@ -604,7 +538,7 @@ int cellCountinSection=0;
                         case 3:
                             return NSOrderedAscending;
                         default:
-                            return [self compareDateWithProfile1:p1 andProfile2:p2];
+                            return [self compareDateWithProfile1:p1 andProfile2:p2 useFormat:dateFormatter];
                             break;
                     }
                     break;
@@ -615,35 +549,40 @@ int cellCountinSection=0;
                         case 2:
                             return NSOrderedDescending;
                         default:
-                            return [self compareDateWithProfile1:p1 andProfile2:p2];
+                            return [self compareDateWithProfile1:p1 andProfile2:p2 useFormat:dateFormatter];
                             break;
                     }
                 default:
-                    return [self compareDateWithProfile1:p1 andProfile2:p2];
+                    return [self compareDateWithProfile1:p1 andProfile2:p2 useFormat:dateFormatter];
                     break;
             }
         }
         
-        return [self compareDateWithProfile1:p1 andProfile2:p2];
+        return [self compareDateWithProfile1:p1 andProfile2:p2 useFormat:dateFormatter];
     }];
-    
-    [tableView reloadData];
 }
 
-- (NSComparisonResult)compareDateWithProfile1:(Profile *)profile1 andProfile2:(Profile *)profile2
+#define AD_DAY @"01/01/0001 00:00:00"
+- (NSComparisonResult)compareDateWithProfile1:(Profile *)profile1 andProfile2:(Profile *)profile2 useFormat:(NSDateFormatter *)dateFormatter
 {
     NSDate *d1, *d2;
-    d1 = [self getLastTimeMessageFromProfile:profile1];
-    d2 = [self getLastTimeMessageFromProfile:profile2];
+    d1 = [self getLastTimeMessageFromProfile:profile1 useFormat:dateFormatter];
+    d2 = [self getLastTimeMessageFromProfile:profile2 useFormat:dateFormatter];
+    
+    if (!d1)
+    {
+        d1 = [dateFormatter dateFromString:AD_DAY];
+    }
+    if (!d2)
+    {
+        d2 = [dateFormatter dateFromString:AD_DAY];
+    }
     
     return ([d2 compare:d1]);
 }
 
-- (NSDate *)getLastTimeMessageFromProfile:(Profile *)profile
+- (NSDate *)getLastTimeMessageFromProfile:(Profile *)profile useFormat:(NSDateFormatter *)dateFormatter
 {
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:DATETIME_FORMAT];
-    
     if(profile.status > MatchViewed){
         NSMutableArray* messages = [a_messages objectForKey:profile.s_ID];
         
@@ -791,14 +730,14 @@ int cellCountinSection=0;
             }
             else
             {
-                cell.last_message.text = @"";
+                cell.last_message.text = profile.s_lastMessage;
                 cell.date_history.text = profile.s_lastMessage_time;
                 cell.lblMatched.text = [NSString stringWithFormat:@"%@ %@", [@"Last messages on" localize], profile.s_lastMessage_time];
             }
         }
         else{
             //profile.s_status_time = [profile.s_status_time stringByReplacingOccurrencesOfString:@"/" withString:@"-"];
-            cell.lblMatched.text = [NSString stringWithFormat:@"%@ %@", [@"Matched on" localize],profile.match_time];
+            cell.lblMatched.text = [NSString stringWithFormat:@"%@ %@", [@"Matched on" localize], profile.match_time];
         }
         
     }
@@ -826,6 +765,8 @@ int cellCountinSection=0;
     [tableView deselectRowAtIndexPath:[tableView indexPathForSelectedRow] animated:NO];
     //SMChatViewController *chatController = [[SMChatViewController alloc] initWithUser:userName];
     [appDel.imagePool getImageAtURL:profile.s_Avatar withSize:PHOTO_SIZE_SMALL asycn:^(UIImage *img, NSError *error, bool isFirstLoad, NSString *urlWithSize) {
+        
+        NSLog(@"START OPEN SMCHAT -- FOCUS: %d", appDel.rootVC.state);
         NSMutableArray* array = [a_messages valueForKey:profile.s_ID];
         if (!array)
         {
@@ -838,11 +779,10 @@ int cellCountinSection=0;
             SMChatViewController *chatController =
             [[SMChatViewController alloc] initWithUser:[NSString stringWithFormat:DOMAIN_AT_FMT, profile.s_ID]
                                            withProfile:profile
-                                            withAvatar:img
                                           withMessages:array];
 #if ENABLE_DEMO
             [appDel.rootVC setFrontViewController:appDel.chat focusAfterChange:YES completion:^(BOOL finished) {
-                
+                NSLog(@"SET CHAT TO FRONT VIEW -- FOCUS: %d, FINISH: %d", appDel.rootVC.state, finished);
             }];
 #endif
             //        if(IS_OS_7_OR_LATER){
@@ -853,11 +793,14 @@ int cellCountinSection=0;
             [appDel.chat pushViewController:chatController animated:animated];
             //        }
         }
+        
+        NSLog(@"OPEN SMCHAT -- FOCUS: %d", appDel.rootVC.state);
     }];
 }
 
 -(void)reloadFriendList
 {
+    fetchedResultsController = nil;
     [self.tableView reloadData];
 }
 
@@ -904,16 +847,13 @@ int cellCountinSection=0;
 //        return;
 //   
     self.searchResult = searchText;
-    fetchedResultsController = nil;
-    //[self.searchDisplayController.searchResultsTableView reloadData];
-	[[self tableView] reloadData];
+    [self reloadFriendList];
 }
 -(void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
 {
-    fetchedResultsController = nil;
     [searchBar endEditing:YES];
     [self.searchDisplayController.searchResultsTableView reloadData];
-	[[self tableView] reloadData];
+    [self reloadFriendList];
 }
 
 -(void)searchBarCancelButtonClicked:(UISearchBar *)searchBar
@@ -923,10 +863,8 @@ int cellCountinSection=0;
 
 - (void)searchBar:(UISearchBar *)searchBar selectedScopeButtonIndexDidChange:(NSInteger)selectedScope
 {
-    //self.searchResult = nil;
-    fetchedResultsController = nil;
     [self.searchDisplayController.searchResultsTableView reloadData];
-	[[self tableView] reloadData];
+    [self reloadFriendList];
     self.scopeButtonPressedIndexNumber = [[NSNumber numberWithInt:selectedScope] boolValue];
 }
 
@@ -969,8 +907,7 @@ int cellCountinSection=0;
     friend.status = ChatUnviewed;
     [appDel.friendChatList setObject:friend forKey:sender];
     
-    fetchedResultsController = nil;
-    [self.tableView reloadData];
+    [self reloadFriendList];
 }
 
 -(void)lockViewForIndicator:(LoadingIndicator *)indicator

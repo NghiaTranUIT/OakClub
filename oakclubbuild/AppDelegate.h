@@ -133,6 +133,8 @@ extern NSString *const SCSessionStateChangedNotification;
 @property (strong, nonatomic) ImagePool *imagePool;
 @property (strong, nonatomic) SettingObject *snapshotSettingsObj;
 
+@property (strong, nonatomic) NSDictionary *pushNotificationInfo;
+
 -(void)openSessionWithWebDialogWithhandler:(void(^)(FBSessionState))resultHandler;
 -(void)loadFBUserInfo:(void(^)(id))resultHandler;
 -(void)parseFBInfoToProfile:(id)fbProfile;

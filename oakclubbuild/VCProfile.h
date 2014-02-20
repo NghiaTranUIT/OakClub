@@ -61,7 +61,6 @@
 @property (weak, nonatomic) IBOutlet UIButton *btnPlayVideo;
 
 -(void) useImage:(UIImage*)_avatar;
--(void) loadProfile:(Profile*) _profile andImage:(UIImage*)avatar;
 -(void) loadProfile:(Profile*) _profile;
 -(void) addDoneItemController;
 - (IBAction)playVideoTouched:(id)sender;

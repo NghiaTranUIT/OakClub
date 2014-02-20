@@ -100,6 +100,8 @@ NSString *const kXMPPmyPassword = @"kXMPPmyPassword";
 
 @synthesize imagePool;
 @synthesize snapshotSettingsObj;
+
+@synthesize pushNotificationInfo;
 // Log levels: off, error, warn, info, verbose
 #if DEBUG
 static const int ddLogLevel = LOG_LEVEL_VERBOSE;
@@ -142,6 +144,19 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+//    AFHTTPClient *httpClient = [[AFHTTPClient alloc]initWithOakClubAPI:DOMAIN];
+//    [httpClient getPath:URL_getListChat parameters:nil success:^(__unused AFHTTPRequestOperation *operation, id responseObject) {
+//        NSError *err;
+//        NSMutableDictionary *dict = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:&err];
+//        NSString *jsonString = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
+//        NSLog(@"%@", @"getRosterListIDSync");
+//        NSLog(@"Dan list chat: %@", jsonString);
+//    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+//        NSLog(@"get list chat Error: %@", error);
+//    }];
+    
+//    return false;
+    
     self.imagePool = [[ImagePool alloc] init];
     self.snapshotSettingsObj = [[SettingObject alloc] init];
     self.notificationCenter = [[NSNotificationCenter alloc] init];
@@ -170,12 +185,7 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
 	// push notification. If so, we add the new message to the data model.
 	if (launchOptions != nil)
 	{
-		NSDictionary* dictionary = [launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
-		if (dictionary != nil)
-		{
-			NSLog(@"Launched from push notification: %@", dictionary);
-			[self addMessageFromRemoteNotification:dictionary updateUI:NO];
-		}
+        self.pushNotificationInfo = [launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
 	}
     
 //    NSString *path = [[NSBundle mainBundle] pathForResource:@"IMG_0293" ofType:@"MOV"];
@@ -305,35 +315,96 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
 
 - (void)application:(UIApplication*)application didReceiveRemoteNotification:(NSDictionary*)userInfo
 {
-	// This method is invoked when the app is running and a push notification
-	// is received. If the app was suspended in the background, it is woken up
-	// and this method is invoked as well. We add the new message to the data
-	// model and add it to the ChatViewController's table view.
+    if (application.applicationState == UIApplicationStateInactive)
+    {
+        [self addMessageFromRemoteNotification:userInfo updateUI:YES];
+    }
     
 	NSLog(@"Received notification: %@", userInfo);
-    
-	[self addMessageFromRemoteNotification:userInfo updateUI:YES];
 }
 
 - (void)addMessageFromRemoteNotification:(NSDictionary*)userInfo updateUI:(BOOL)updateUI
 {
-	// Create a new Message object
+    self.pushNotificationInfo = userInfo;
     
-	// The JSON payload is already converted into an NSDictionary for us.
-	// We are interested in the contents of the alert message.
-    //NSDictionary *dict = [userInfo valueForKey:@"aps"] ;
-	//NSString* alertValue = [dict valueForKey:@"alert"];
-    //NSString* type = [dict valueForKey:@"type"];
+    NSDictionary *data = userInfo[key_data];
+    NSString *chatUserName = data[key_name];
+    NSString *chatUserID = data[key_profileID];
+    NSString *chatUserXMPPID = [NSString stringWithFormat:@"%@%@", chatUserID, DOMAIN_AT];
     
+    // check invalid chat friend
+    if (!chatUserID || [@"" isEqualToString:chatUserID] || [self.myProfile.s_ID isEqualToString:chatUserID])
+    {
+        return;
+    }
+    
+    Profile *chatPushNotificationProfile = [self.myProfile.dic_Roster objectForKey:chatUserID];
+    bool needToReloadChatFriend = false;    // flag for get friend profile info later
+    if (!chatPushNotificationProfile)  // already new friend
+    {
+        chatPushNotificationProfile = [[Profile alloc] init];
+        chatPushNotificationProfile.s_ID = chatUserID;
+        chatPushNotificationProfile.s_Name = chatUserName;
+        
+        // add friend to chat
+        XMPPJID* jid = [XMPPJID jidWithString:chatUserXMPPID];
+        
+        [friendChatList setObject:chatPushNotificationProfile forKey:chatUserXMPPID];
+        [xmppRoster addUser:jid withNickname:chatPushNotificationProfile.s_Name];
+        
+        needToReloadChatFriend = true;
+    }
+    
+    // check invalid friend data ???
     if (updateUI)
     {
-//        [self showChat];
+        UIViewController *focusedVC = [self.rootVC focusedController];
+        if (focusedVC == self.chat)
+        {
+            UIViewController *topVC = [self.chat topViewController];
+            if ([topVC isKindOfClass:[SMChatViewController class]])
+            {
+                [self.chat popViewControllerAnimated:NO];
+            }
+        }
+        else
+        {
+            //show chat
+            self.rootVC.recognizesPanningOnFrontView = YES;
+            [self.rootVC showViewController:self.chat];
+        }
+        
+        [self.rootVC setFrontViewController:self.chat];
+        
+        NSMutableArray *chatMessagesArray = [self.myProfile.a_messages objectForKey:chatUserID];
+        if (!chatMessagesArray)
+        {
+            chatMessagesArray = [[NSMutableArray alloc] init];
+            [self.myProfile.a_messages setObject:chatMessagesArray forKey:chatUserID];
+        }
+        
+        SMChatViewController *chatController =
+        [[SMChatViewController alloc] initWithUser:chatUserXMPPID
+                                       withProfile:chatPushNotificationProfile
+                                      withMessages:chatMessagesArray];
+        [self.chat pushViewController:chatController animated:NO];
+        
+        NSLog(@"OPEN SMCHAT -- FOCUS: %d", self.rootVC.state);
+    }
+    
+    if (needToReloadChatFriend) // reload chat friend last for make sure chat window has observed notification
+    {
+        [chatPushNotificationProfile getProfileInfo:^{
+            NSString *notificationName = [NSString stringWithFormat:Notification_ChatFriendChanged_Format, chatUserXMPPID];
+            [self.notificationCenter postNotificationName:notificationName object:chatPushNotificationProfile];
+        }];
     }
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
     //Vanancy - check for sure internet connection always work in app
+    
     [self checkInternetConnection];
     
     [FBSession.activeSession handleDidBecomeActive];
@@ -343,6 +414,23 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
     if (!isPaymentProcessing && !isPostProcessing) {
         [self.notificationCenter postNotificationName:ApplicationDidBecomeActive object:nil];
     }
+    
+    // CHEAT:
+//    if (!self.myProfile)
+//        return;
+//    NSDictionary *remoteNotifs = @{@"data" : @{@"profile_id" : @"1m01j76t9p", @"name" : @"An Nguyen"}};
+//    if (remoteNotifs)
+//    {
+//        NSLog(@"Launched from push notification: %@", remoteNotifs);
+//        
+//        //
+//        NSDictionary *data = remoteNotifs[key_data];
+//        chatPushNotificationProfile = [[Profile alloc] init];
+//        chatPushNotificationProfile.s_Name = data[key_name];
+//        chatPushNotificationProfile.s_ID = data[key_profileID];
+//        
+//        [self application:application didReceiveRemoteNotification:remoteNotifs];
+//    }
 }
 
 -(BOOL)application:(UIApplication *)application openURL:(NSURL *)url
@@ -362,8 +450,6 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
 }
 
 -(void)showChat {
-//    [self.rootVC setRootController:self.chat animated:YES];
-//    [self.rootVC setContentViewController:self.chat snapToContentViewController:YES animated:YES];
     activeVC = _chat;
 #if ENABLE_DEMO
     [self.rootVC showViewController:self.chat];
@@ -376,8 +462,6 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
 }
 #if ENABLE_DEMO
 -(void)showSnapshotSettings {
-    //    [self.rootVC setRootController:self.snapShoot animated:YES];
-    //    [self.rootVC setContentViewController:self.snapShoot snapToContentViewController:YES animated:YES];
     activeVC = _snapShotSettings;
     AppDelegate *appDel = self;
     [self.rootVC setFrontViewController:self.snapShotSettings focusAfterChange:YES completion:^(BOOL finished) {
@@ -385,8 +469,6 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
     }];
 }
 -(void)showMatchmaker {
-    //    [self.rootVC setRootController:self.snapShoot animated:YES];
-    //    [self.rootVC setContentViewController:self.snapShoot snapToContentViewController:YES animated:YES];
     activeVC = _matchMaker;
     AppDelegate *appDel = self;
     [self.rootVC setFrontViewController:self.matchMaker focusAfterChange:YES completion:^(BOOL finished) {
@@ -567,29 +649,6 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
     switch (state) {
         case FBSessionStateOpen: {
             NSLog(@"Logged in!");
-            
-//            [self.loginView dismissModalViewControllerAnimated:YES];
-//            self.loginView = nil;
-//            
-//            [FBRequestConnection startForMeWithCompletionHandler:
-//             ^(FBRequestConnection *connection, id result, NSError *error)
-//             {
-//                 self.myFBProfile = (id<FBGraphUser>)result;
-//                 NSLog(@"%@",[result objectForKey:@"gender"]);
-//                 NSLog(@"%@",[result objectForKey:@"gender"]);
-//                 NSLog(@"%@",[result objectForKey:@"relationship_status"]);
-//                 NSLog(@"%@",[result objectForKey:@"about"]);
-//#if ENABLE_DEMO
-//                 [self  getProfileInfo];
-//#else
-//                 UIStoryboard *registerStoryboard = [UIStoryboard
-//                                                     storyboardWithName:@"RegisterConfirmation"
-//                                                     bundle:nil];
-//                 UIViewController *registerViewConroller = [registerStoryboard
-//                                                            instantiateInitialViewController];
-//                 self.window.rootViewController = registerViewConroller;
-//#endif
-//             }];
         }
             break;
         case FBSessionStateClosed:
@@ -659,88 +718,7 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
     MatchMaker *matchMakerVC = (MatchMaker *) self.matchMaker.viewControllers[0];
     [matchMakerVC loadFriendsData];
 }
-/*
- // Vanancy - unused
-- (void)updateProfile
-{
-    AFHTTPClient *requestHangout = [[AFHTTPClient alloc] initWithOakClubAPI:DOMAIN];
     
-    [requestHangout getPath:URL_getProfileInfo parameters:nil success:^(__unused AFHTTPRequestOperation *operation, id JSON)
-     {
-         //self.myProfile = [[Profile alloc]init];
-         [self.myProfile parseForGetHangOutProfile:JSON];
-         [self setFieldValue:[NSString stringWithFormat:DOMAIN_AT_FMT,self.myProfile.s_usenameXMPP] forKey:kXMPPmyJID];
-         [self setFieldValue:self.myProfile.s_passwordXMPP forKey:kXMPPmyPassword];
-         // Configure logging framework
-         
-         [DDLog addLogger:[DDTTYLogger sharedInstance]];
-         
-         // Setup the XMPP stream
-         [self setupStream];
-         [self connect];
-
-         AFHTTPClient *requestPhoto = [[AFHTTPClient alloc] initWithOakClubAPI:DOMAIN];
-         NSDictionary *params  = [[NSDictionary alloc]initWithObjectsAndKeys:self.myProfile.s_ID, key_profileID, nil];
-         self.myProfile.arr_photos = [[NSMutableArray alloc] init];
-         [requestPhoto getPath:URL_getListPhotos parameters:params
-                       success:^(__unused AFHTTPRequestOperation *operation, id JSON)
-          {
-              self.myProfile.arr_photos = [Profile parseListPhotos:JSON];
-              
-          } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-              NSLog(@"Error Code: %i - %@",[error code], [error localizedDescription]);
-          }];
-     } failure:^(AFHTTPRequestOperation *operation, NSError *error)
-     {
-         NSLog(@"URL_getProfileInfo Error Code: %i - %@",[error code], [error localizedDescription]);
-     }];
-    
-}
-
-- (void) updateChatList{
-    NSMutableArray *_arrRoster = [[NSMutableArray alloc] init];
-    
-    AFHTTPClient *request = [[AFHTTPClient alloc] initWithOakClubAPI:DOMAIN];
-    [request getPath:URL_getListChat parameters:nil success:^(__unused AFHTTPRequestOperation *operation, id JSON) {
-        NSError *e=nil;
-        NSMutableDictionary *dict_ListChat = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONReadingMutableContainers error:&e];
-        //        NSMutableDictionary * data= [dict valueForKey:key_data];
-        
-        self.myProfile.unread_message = 0;
-        NSMutableArray* rosterList = [dict_ListChat valueForKey:key_data];
-        
-        for (int i = 0; rosterList!=nil && i < [rosterList count]; i++) {
-            NSMutableDictionary *objectData = [rosterList objectAtIndex:i];
-            
-            if(objectData != nil)
-            {
-                NSString* profile_id = [objectData valueForKey:key_profileID];
-                bool deleted = [[objectData valueForKey:@"is_deleted"] boolValue];
-                bool blocked = [[objectData valueForKey:@"is_blocked"] boolValue];
-                //bool deleted_by = [[objectData valueForKey:@"is_deleted_by_user"] boolValue];
-                bool blocked_by = [[objectData valueForKey:@"is_blocked_by_user"] boolValue];
-                // vanancyLuu : cheat for crash
-                if(!deleted && !blocked && !blocked_by )
-                {
-                    [_arrRoster addObject:profile_id];
-                    
-                    int unread_count = [[objectData valueForKey:@"unread_count"] intValue];
-                    
-                    NSLog(@"%d. unread message: %d", i, unread_count);
-                    
-                    self.myProfile.unread_message += unread_count;
-                }
-            }
-        }
-        
-        NSLog(@"unread message: %d", self.myProfile.unread_message);
-        
-        self.myProfile.a_RosterList = [NSArray arrayWithArray:_arrRoster];
-    }failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"Error Code: %i - %@", [error code], [error localizedDescription]);
-    }];
-}
-*/
 - (void)openSessionWithhandler:(void(^)(FBSessionState))resultHandler
 {
     NSArray *permission = [[NSArray alloc] initWithObjects:@"email, user_about_me, user_birthday, user_interests, user_location, user_relationship_details",nil];
@@ -996,70 +974,20 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
         if(friend.s_Name == nil || [friend.s_Name isEqualToString:@""] || [friend.s_ID isEqualToString:self.myProfile.s_ID])
         {
             [xmppRoster removeUser:jid];
-            ///NSLog(@"%d.1 Remove user: %s for user_id: %s", i, friend.s_Name.UTF8String, xmpp_id.UTF8String);
         }
         else
         {
             [xmppRoster addUser:jid withNickname:friend.s_Name];
-            //[xmppRoster setNickname:friend.s_Name forUser:jid];
             NSLog(@"%d.2 Set nick name: %s for user_id: %s", i, friend.s_Name.UTF8String, xmpp_id.UTF8String);
             
             // cache avatar
             [imagePool getImageAtURL:friend.s_Avatar withSize:PHOTO_SIZE_SMALL asycn:^(UIImage *img, NSError *error, bool isFirstLoad, NSString *urlWithSize) {
                 
             }];
+            
+            NSString *notificationName = [NSString stringWithFormat:Notification_ChatFriendChanged_Format, xmpp_id];
+            [self.notificationCenter postNotificationName:notificationName object:friend];
         }
-/*
-        NSDictionary *params = [[NSDictionary alloc]initWithObjectsAndKeys:profile.s_ID , key_profileID, nil];
-        
-        NSMutableURLRequest *request = [httpClient requestWithMethod:@"GET"
-                                                                path:URL_getProfileInfo
-                                                          parameters:params];
-        
-        AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
-        [httpClient registerHTTPOperationClass:[AFHTTPRequestOperation class]];
-        
-        [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
-            
-            NSError *e=nil;
-            NSMutableDictionary *dict = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:&e];
-            
-            NSMutableDictionary * data= [dict valueForKey:key_data];
-            
-            NSString* profile_id = [data valueForKey:key_profileID];
-            
-            NSString* xmpp_id = [NSString stringWithFormat:@"%@%@", profile_id, DOMAIN_AT];
-            
-            Profile* friend = [friendChatList objectForKey:xmpp_id];
-            
-            [friend parseProfileWithDictionary:data];
-            
-            
-            if(friend.s_Name == nil || [friend.s_Name isEqualToString:@""] || [friend.s_ID isEqualToString:self.myProfile.s_ID])
-            {
-                //[xmppRoster removeUser:jid];
-                ///NSLog(@"%d.1 Remove user: %s for user_id: %s", i, friend.s_Name.UTF8String, xmpp_id.UTF8String);
-                
-            }
-            else
-            {
-                [xmppRoster addUser:jid withNickname:friend.s_Name];
-                //[xmppRoster setNickname:friend.s_Name forUser:jid];
-                NSLog(@"%d.2 Set nick name: %s for user_id: %s", i, friend.s_Name.UTF8String, xmpp_id.UTF8String);
-                
-            }
-            
-            
-        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            NSLog(@"Get friend hangout profile error: %@", error);
-        }];
-        
-        
-        
-        //[operation start];
-        [queue addOperation:operation];
-*/
-        
     }
     
     if (self.chat)
@@ -1630,7 +1558,7 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
 
     }
 
-    [[self.chat.viewControllers objectAtIndex:0] reloadFriendList];
+//    [[self.chat.viewControllers objectAtIndex:0] reloadFriendList];
 
 }
 
@@ -1763,7 +1691,7 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
                   NSString *deviceToken = self.s_DeviceToken;
                   NSString *platform = IOS_PLATFORM;
 #if DAN_CHEAT
-                  NSMutableDictionary *params = [[NSMutableDictionary alloc]initWithObjectsAndKeys: DAN_ACCESSTOKEN, @"access_token", DAN_FACEBOOKID, @"user_id", platform, key_platform nil];
+                  NSMutableDictionary *params = [[NSMutableDictionary alloc]initWithObjectsAndKeys: DAN_ACCESSTOKEN, @"access_token", DAN_FACEBOOKID, @"user_id", platform, key_platform, nil];
 #else
                   NSMutableDictionary *params = [[NSMutableDictionary alloc]initWithObjectsAndKeys:
                                                  access_token, @"access_token",

@@ -30,6 +30,16 @@ enum VIDEO_STATE {
     VIDEO_STATE_LOADING
     };
 
+enum MYPROFILE_WARNING_TAG
+{
+    MYPROFILE_WARNING_TAG_SAVE_PROFILE = 0,
+    MYPROFILE_WARNING_TAG_DELETE_PHOTO,
+    MYPROFILE_WARNING_TAG_UPLOAD_PHOTO,
+    MYPROFILE_WARNING_TAG_MESSAGE,
+    MYPROFILE_WARNING_TAG_UPLOAD_NEW_VIDEO,
+    MYPROFILE_WARNING_TAG_DELETE_VIDEO
+};
+
 @interface VCMyProfile () <PickPhotoFromGarellyDelegate, VideoPickerDelegate, UIAlertViewDelegate, PhotoScrollViewDelegate, LoadingIndicatorDelegate>
 {
     GroupButtons* genderGroup;
@@ -59,6 +69,7 @@ enum VIDEO_STATE {
 @property (weak, nonatomic) IBOutlet UILabel *lblPickingValue;
 @property (weak, nonatomic) IBOutlet UIImageView *imgViewVideoThumb;
 @property (weak, nonatomic) IBOutlet UIImageView *imgViewVideoBorder;
+@property (weak, nonatomic) IBOutlet UIButton *btnDeleteVideo;
 @property (weak, nonatomic) IBOutlet UIButton *btnEditVideo;
 @property (nonatomic) enum VIDEO_STATE videoStatus;
 @end
@@ -88,6 +99,7 @@ UITapGestureRecognizer *tap;
             [video_Indicator unlockViewAndStopIndicator];
             [self.imgViewVideoThumb setHidden:YES];
             [self.imgViewVideoBorder setHidden:YES];
+            [self.btnDeleteVideo setHidden:YES];
             [self.btnEditVideo setHidden:YES];
             [self.btnUploadVideo setHidden:NO];
         }
@@ -96,6 +108,7 @@ UITapGestureRecognizer *tap;
         {
             [self.imgViewVideoThumb setHidden:NO];
             [self.imgViewVideoBorder setHidden:NO];
+            [self.btnDeleteVideo setHidden:NO];
             [self.btnEditVideo setHidden:YES];
             [self.btnUploadVideo setHidden:YES];
             [video_Indicator lockViewAndDisplayIndicator];
@@ -106,6 +119,7 @@ UITapGestureRecognizer *tap;
             [video_Indicator unlockViewAndStopIndicator];
             [self.imgViewVideoThumb setHidden:NO];
             [self.imgViewVideoBorder setHidden:NO];
+            [self.btnDeleteVideo setHidden:NO];
             [self.btnEditVideo setHidden:NO];
             [self.btnUploadVideo setHidden:YES];
         }
@@ -531,12 +545,12 @@ UITapGestureRecognizer *tap;
         {
             if (isSuccess)
             {
-                [self showWarning:@"Profile saved" withTag:0];
+                [self showWarning:@"Profile saved" withTag:MYPROFILE_WARNING_TAG_SAVE_PROFILE];
             }
             else
             {
                 // TRANSLATE
-                [self showWarning:@"Cannot save profile" withTag:0];
+                [self showWarning:@"Cannot save profile" withTag:MYPROFILE_WARNING_TAG_SAVE_PROFILE];
             }
         }
     }];
@@ -570,11 +584,11 @@ UITapGestureRecognizer *tap;
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-    if (alertView.tag == 0) // save profile
+    if (alertView.tag == MYPROFILE_WARNING_TAG_SAVE_PROFILE) // save profile
     {
         
     }
-    else if (alertView.tag == 1) // delete photo
+    else if (alertView.tag == MYPROFILE_WARNING_TAG_DELETE_PHOTO) // delete photo
     {
         if (buttonIndex == 0 && selectedPhoto >= 0)
         {
@@ -598,7 +612,7 @@ UITapGestureRecognizer *tap;
                  }
                  else
                  {
-                     [self showWarning:@"Cannot delete this photo." withTag:5];
+                     [self showWarning:@"Cannot delete this photo." withTag:MYPROFILE_WARNING_TAG_MESSAGE];
                  }
                  selectedPhoto = -1;
                  
@@ -617,7 +631,7 @@ UITapGestureRecognizer *tap;
             selectedPhoto = -1;
         }
     }
-    else if (alertView.tag == 2) // upload photo
+    else if (alertView.tag == MYPROFILE_WARNING_TAG_UPLOAD_PHOTO) // upload photo
     {
         if (buttonIndex == 0 && selectedPhoto >= 0 && uploadImageData)
         {
@@ -684,11 +698,18 @@ UITapGestureRecognizer *tap;
             selectedPhoto = -1;
         }
     }
-    else if (alertView.tag == 4)
+    else if (alertView.tag == MYPROFILE_WARNING_TAG_UPLOAD_NEW_VIDEO)
     {
         if (buttonIndex == 0)
         {
             [videoPicker showPicker];
+        }
+    }
+    else if (alertView.tag == MYPROFILE_WARNING_TAG_DELETE_VIDEO)
+    {
+        if (buttonIndex == 0)
+        {
+            [self deleteVideo];
         }
     }
 }
@@ -1081,7 +1102,7 @@ UITapGestureRecognizer *tap;
             }
             else
             {
-                [self showWarning:@"Name cannot be empty" withTag:3];
+                [self showWarning:@"Name cannot be empty" withTag:MYPROFILE_WARNING_TAG_MESSAGE];
             }
         }
             break;
@@ -1100,7 +1121,7 @@ UITapGestureRecognizer *tap;
             }
             else
             {
-                [self showWarning:@"Email is invalid" withTag:3];
+                [self showWarning:@"Email is invalid" withTag:MYPROFILE_WARNING_TAG_MESSAGE];
             }
         }
             break;
@@ -1155,11 +1176,11 @@ UITapGestureRecognizer *tap;
 {
     if (self.videoStatus == VIDEO_STATE_LOADING)
     {
-        [self showWarning:@"You are uploading another video" withTag:3];
+        [self showWarning:@"You are uploading another video" withTag:MYPROFILE_WARNING_TAG_MESSAGE];
     }
     else if (self.videoStatus != VIDEO_STATE_ADDNEW)
     {
-        [self showOKCancelWarning:@"Do you want to upload new video" withTag:4];
+        [self showOKCancelWarning:@"Do you want to upload new video" withTag:MYPROFILE_WARNING_TAG_UPLOAD_NEW_VIDEO];
     }
     else
     {
@@ -1174,7 +1195,7 @@ UITapGestureRecognizer *tap;
     if (data)
     {
         uploadImageData = data;
-        [self showOKCancelWarning:@"Do you want to upload this photo ?" withTag:2];
+        [self showOKCancelWarning:@"Do you want to upload this photo ?" withTag:MYPROFILE_WARNING_TAG_UPLOAD_PHOTO];
     }
     else
     {
@@ -1272,7 +1293,7 @@ UITapGestureRecognizer *tap;
     if (selectedPhoto < 0)
     {
         selectedPhoto = index;
-        [self showOKCancelWarning:@"Do you want to delete this photo ?" withTag:1];
+        [self showOKCancelWarning:@"Do you want to delete this photo ?" withTag:MYPROFILE_WARNING_TAG_DELETE_PHOTO];
     }
 }
 
@@ -1400,6 +1421,30 @@ UITapGestureRecognizer *tap;
 -(void)moviePlayBackDidFinish:(id)sender
 {
     NSLog(@"Video finish %@", sender);
+}
+
+- (IBAction)deleteVideoTouched:(id)sender {
+    if (self.videoStatus == VIDEO_STATE_OK || self.videoStatus == VIDEO_STATE_BROKEN)
+    {
+        [self showOKCancelWarning:@"Do you want to delete ?" withTag:MYPROFILE_WARNING_TAG_DELETE_VIDEO];
+    }
+}
+
+-(void)deleteVideo
+{
+    enum VIDEO_STATE oldState = self.videoStatus;
+    self.videoStatus = VIDEO_STATE_LOADING;
+    
+    AFHTTPClient *httpClient = [[AFHTTPClient alloc] initWithOakClubAPI:DOMAIN];
+    [httpClient getPath:URL_deleteVideo parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        profileObj.s_video = nil;
+        appDelegate.myProfile.s_video = nil;
+        self.videoStatus = VIDEO_STATE_ADDNEW;
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"Delete video fail %@", error);
+        [self showWarning:@"Sorry! We can't delete your video" withTag:MYPROFILE_WARNING_TAG_MESSAGE];
+        self.videoStatus = oldState;
+    }];
 }
 @end
 

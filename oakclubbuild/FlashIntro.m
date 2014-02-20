@@ -83,18 +83,18 @@
 {
     [appDelegate tryLoginWithSuccess:^(int _status)
      {
-        if (_status == 2 || _status == -1)
-        {
-            [self animatingGoToLogined];
-        }
-        else if (_status == 0)
-        {
-            [self animatingGoToUpdateProfile];
-        }
-        else
-        {
-            [self animatingGoToLogin];
-        }
+         if (_status == 2 || _status == -1)
+         {
+             [self animatingGoToLogined];
+         }
+         else if (_status == 0)
+         {
+             [self animatingGoToUpdateProfile];
+         }
+         else
+         {
+             [self animatingGoToLogin];
+         }
     } failure:^{
         [self animatingGoToLogin];
     }];

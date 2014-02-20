@@ -23,6 +23,7 @@
 #import "ChatNavigationView.h"
 #import "SmileyChooseCell.h"
 #import "UIView+Localize.h"
+#import "LoadingIndicator.h"
 
 @interface SMChatViewController()
 @property UIImageView* headerLogo;
@@ -44,10 +45,12 @@
     
     UITapGestureRecognizer *dismissKeyboardGesture;
     UITapGestureRecognizer *dismissSmileyCollectionGesture;
+    
+    NSString *userChangedNotificationName;
 }
 
 
-@synthesize messageField, chatWithUser, tView, scrollView,lblTyping, avatar_me, avatar_friend, label_header, label_Age,btnMoreOption, btnShowProfile, btnBackToPrevious;
+@synthesize messageField, chatWithUser, tView, scrollView, lblTyping, label_header, label_Age,btnMoreOption, btnShowProfile, btnBackToPrevious;
 
 
 - (AppDelegate *)appDelegate {
@@ -82,27 +85,6 @@
     return profile;
 }
 
-//-(void)getUserInfo:(NSString*)profile_id
-//{
-//    AppDelegate* appDel = [self appDelegate];
-//    
-//    Profile* profile;
-//    
-//    if(profile_id == nil)
-//    {
-//        profile = appDel.myProfile;
-//    }
-//    else
-//    {
-//        profile = [appDel.friendChatList objectForKey:profile_id];
-//    }
-//    
-//    userAge = [NSString stringWithFormat:@", %@", profile.s_age];
-//    userName = profile.s_Name;
-//    
-//    //return [NSString stringWithFormat:@"%@, %@", profile.s_Name, profile.s_age];
-//}
-
 -(void)initMessages:(NSString*)profile_id
 {
     messages = [[MessageStorage alloc] initWithProfileID:profile_id];
@@ -114,52 +96,36 @@
     }
 }
 
-- (id) initWithUser:(NSString *) _userName withProfile:(Profile*)_profile withAvatar:(UIImage*)avatar withMessages:(NSMutableArray*) array
+- (id) initWithUser:(NSString *)_userName withProfile:(Profile*)_profile withMessages:(NSMutableArray*) array
 {
     if (self = [super init])
     {
-        //[self getUserInfo:userName];
-        
         userProfile = _profile;
 		chatWithUser = _userName; // @ missing
 		turnSockets = [[NSMutableArray alloc] init];
         
-//        userAge = [NSString stringWithFormat:@", %@", _profile.s_age];
         userName = _profile.s_Name;
-//        userName = [NSString formatStringWithName:_profile.s_Name andAge:_profile.s_age andNameLength:18];
         [self registerForKeyboardNotifications];
         
-        NSArray *chunks = [chatWithUser componentsSeparatedByString: @"@"];
-        NSString* hangout_id = [chunks objectAtIndex:0];
-        
         a_messages = array;
-        [self initMessages:hangout_id];
         
-        avatar_friend = avatar;
-        
-        Profile* myProfile = [self getProfilebyID:nil];
-        //Vanancy - change load avatar
-        [appDel.imagePool getImageAtURL:myProfile.s_Avatar withSize:PHOTO_SIZE_SMALL asycn:^(UIImage *img, NSError *error, bool isFirstLoad, NSString *urlWithSize) {
-            avatar_me = img;
-        }];
-//        avatar_me = [UIImage imageNamed:@"Default Avatar.png"];
-//        [myProfile tryGetImageAsync:self];
+        //register for chat friend changed notification
+        userChangedNotificationName = [NSString stringWithFormat:Notification_ChatFriendChanged_Format, _userName];
+        [appDel.notificationCenter addObserver:self selector:@selector(onChatUserChanged:) name:userChangedNotificationName object:nil];
 	}
 	
 	return self;
 }
 
-- (id) initWithUser:(NSString *) _userName withProfile:(Profile*)_profile 
+- (id) initWithUser:(NSString *)_userName withProfile:(Profile*)_profile 
 {
 
 	if (self = [super init])
     {
         messages = [[MessageStorage alloc ] initWithProfileID:_profile.s_ID];
         
-        //[self getUserInfo:userName];
         userProfile = _profile;
         userAge = [NSString stringWithFormat:@", %@", _profile.s_age];
-//        userName = _profile.s_Name;
         userName = [NSString formatStringWithName:_profile.s_Name andAge:_profile.s_age andNameLength:18];
 		chatWithUser = _userName; // @ missing
 		turnSockets = [[NSMutableArray alloc] init];
@@ -176,37 +142,6 @@
              [tView reloadData];
              [self scrollToLastAnimated:NO];
          }];
-        
-        //NSOperationQueue *queue = [[NSOperationQueue alloc] init];
-        NSString* link = _profile.s_Avatar;//[self getAvatarUrl:chatWithUser];
-        if(![link isEqualToString:@""])
-        {
-            [appDel.imagePool getImageAtURL:link withSize:PHOTO_SIZE_SMALL asycn:^(UIImage *avatar, NSError *error, bool isFirstLoad, NSString *urlWithSize) {
-                if(avatar)
-                    avatar_friend = avatar;
-            }];
-        }
-        else
-        {
-            avatar_friend = [UIImage imageNamed:@"Default Avatar.png"];
-        }
-        
-        link = [self getProfilebyID:nil].s_Avatar;
-        
-        if( ![link isEqualToString:@""] )
-        {
-            [appDel.imagePool getImageAtURL:link withSize:PHOTO_SIZE_SMALL asycn:^(UIImage *avatar, NSError *error, bool isFirstLoad, NSString *urlWithSize) {
-                if(avatar)
-                    avatar_friend = avatar;
-            }];
-        }
-        else
-        {
-            avatar_me = [UIImage imageNamed:@"Default Avatar.png"];
-        }
-
-        //[queue waitUntilAllOperationsAreFinished];
-
 	}
 	
 	return self;
@@ -326,6 +261,30 @@
         userProfile.status = ChatViewed;
         [appDel.myProfile resetUnreadMessageWithFriend:userProfile];
     }
+    
+    if (!a_messages.count)  //didn't load history messages
+    {
+        LoadingIndicator *loadHistoryIndicator = [[LoadingIndicator alloc] initWithMainView:self.view andDelegate:nil];
+        [loadHistoryIndicator lockViewAndDisplayIndicator];
+        NSOperation *getHistoryOp = [HistoryMessage getHistoryMessages:userProfile.s_ID callback:^(NSMutableArray *hMsgs) {
+            [a_messages removeAllObjects];
+            [a_messages addObjectsFromArray:hMsgs];
+            
+            [self initMessages:userProfile.s_ID];
+            [loadHistoryIndicator unlockViewAndStopIndicator];
+            
+            [self.tView reloadData];
+            [self scrollToLastAnimated:NO];
+        }];
+        
+        [getHistoryOp start];
+    }
+    else
+    {
+        [self initMessages:userProfile.s_ID];
+        [self.tView reloadData];
+        [self scrollToLastAnimated:NO];
+    }
 }
 
 -(void)dismissKeyboard:(id)sender {
@@ -344,7 +303,6 @@
 	
 	NSLog(@"TURN Connection failed!");
 	[turnSockets removeObject:sender];
-	
 }
 
 
@@ -355,8 +313,7 @@
 - (IBAction) closeChat {
     UINavigationController* activeVC = [appDel activeViewController];
     [self.navigationController popViewControllerAnimated:YES];
-    [appDel.rootVC setFrontViewController:activeVC focusAfterChange:NO completion:^(BOOL finished) {
-    }];
+    [appDel.rootVC setFrontViewController:activeVC];
     [appDel.rootVC showViewController:appDel.chat];
 }
 
@@ -421,17 +378,6 @@
 }
 
 - (IBAction)onTapViewProfile:(id)sender {
-//    UINavigationController* activeVC = [appDel activeViewController];
-//    UIViewController* vc = [activeVC.viewControllers objectAtIndex:0];
-//    if([vc isKindOfClass:[VCSimpleSnapshot class]])
-//    {
-//        VCProfile *viewProfile = [[VCProfile alloc] initWithNibName:@"VCProfile" bundle:nil];
-//        [viewProfile loadProfile:userProfile andImage:avatar_friend];
-//        
-//        [vc.navigationController pushViewController:viewProfile animated:YES];
-//    }
-//    else
-//        [vc.navigationController popViewControllerAnimated:YES];
     
     [self.navigationController.navigationBar setUserInteractionEnabled:NO];
     [userProfile getProfileInfo:^(void){
@@ -440,7 +386,7 @@
                 [subview removeFromSuperview];
         }
         VCProfile *viewProfile = [[VCProfile alloc] initWithNibName:@"VCProfile" bundle:nil];
-        [viewProfile loadProfile:userProfile andImage:avatar_friend];
+        [viewProfile loadProfile:userProfile];
         [viewProfile addDoneItemController];
         [self.navigationController.navigationBar setUserInteractionEnabled:YES];
         [self.navigationController setNavigationBarHidden:NO];
@@ -479,7 +425,6 @@ static float cellWidth = 320;
 	}
 
 	NSString *sender = [s objectForKey:@"sender"];
-//	NSString *message = [s objectForKey:@"msg"];
 	NSString *time = [s objectForKey:@"time"];
 	
 	cell.accessoryType = UITableViewCellAccessoryNone;
@@ -513,7 +458,18 @@ static float cellWidth = 320;
         
         [cell.avatarImageView setHidden:NO];
         [cell.avatarImageView setFrame:CGRectMake(padding_left, padding_top + cell.bgImageView.frame.size.height - defaultAvatarHeight, defaultAvatarWidth, defaultAvatarHeight)];
-        [cell.avatarImageView setBackgroundImage:avatar_friend forState:UIControlStateNormal];
+        [cell.avatarImageView setBackgroundImage:[UIImage imageNamed:@"Default Avatar"] forState:UIControlStateNormal];
+        [appDel.imagePool getImageAtURL:userProfile.s_Avatar asycn:^(UIImage *img, NSError *error, bool isFirstLoad, NSString *urlWithSize)
+         {
+             if (img && isFirstLoad)
+             {
+                 [self.tView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationNone];
+             }
+             else if (img)
+             {
+                 [cell.avatarImageView setBackgroundImage:img forState:UIControlStateNormal];
+             }
+         }];
         //[UIImage imageNamed:@"action-people.png"];
         [cell.senderAndTimeLabel setFrame:CGRectMake(cell.bgImageView.frame.origin.x + cell.bgImageView.frame.size.width + padding_left,
                                                      cell.bgImageView.frame.origin.y + cell.bgImageView.frame.size.height - cell.senderAndTimeLabel.frame.size.height,
@@ -660,6 +616,7 @@ static float cellWidth = 320;
     [self setLblTyping:nil];
     [self setLabel_header:nil];
     [self setLabel_Age:nil];
+    [appDel.notificationCenter removeObserver:self forKeyPath:userChangedNotificationName];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -950,6 +907,15 @@ static float cellWidth = 320;
     
     self.messageField.text = [self.messageField.text stringByAppendingString:smileyText];
     [self dismissSmileyCollection:self];
+}
+
+#pragma mark NOTIFICATION
+-(void)onChatUserChanged:(id)sender
+{
+    Profile *newProfile = [sender object];
+    userProfile = newProfile;
+    
+    [self.tView reloadData];
 }
 @end
 

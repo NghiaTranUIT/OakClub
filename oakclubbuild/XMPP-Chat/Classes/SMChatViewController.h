@@ -35,8 +35,6 @@
 @property (strong, nonatomic) IBOutlet UIButton *btnShowProfile;
 @property (strong, nonatomic) IBOutlet UIButton *btnBackToPrevious;
 
-@property (nonatomic,strong) UIImage *avatar_me;
-@property (nonatomic,strong) UIImage *avatar_friend;
 @property (nonatomic,strong) IBOutlet UITextField *messageField;
 @property (nonatomic,strong) NSString *chatWithUser;
 @property (nonatomic,strong) IBOutlet UITableView *tView;
@@ -45,7 +43,7 @@
 
 -(void)showIsType:(BOOL)show;
 - (id) initWithUser:(NSString *) _userName withProfile:(Profile*)_profile;
-- (id) initWithUser:(NSString *) _userName withProfile:(Profile*)_profile withAvatar:(UIImage*)avatar withMessages:(NSMutableArray*) array;
+- (id) initWithUser:(NSString *) _userName withProfile:(Profile*)_profile withMessages:(NSMutableArray*) array;
 - (IBAction) sendMessage;
 - (IBAction) closeChat;
 
