@@ -50,6 +50,9 @@
 {
     [super viewWillAppear:animated];
     
+    self.successPopupView.hidden = YES;
+    self.failedPopupView.hidden = YES;
+
     [self loadWebView];
 }
 
@@ -129,9 +132,9 @@
                                                                self.failedPopupView.hidden = NO;
                                                            }
                                                            else
+                                                           {
                                                                self.successPopupView.hidden = NO;
                                                                self.failedPopupView.hidden = YES;
-                                                           {
                                                            }
                                                        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                                                            self.successPopupView.hidden = YES;
