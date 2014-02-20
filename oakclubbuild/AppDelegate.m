@@ -270,12 +270,13 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
     
     BOOL isVerify = !self.myProfile.isVerified;
     BOOL isForceVerify = self.myProfile.isForceVerify;
+    BOOL isMan = (self.myProfile.s_gender.ID == MALE);
     
 //    isVerify = true;
 //    isFirstLogin = true;
 //    isForceVerify = true;
     
-    if (isForceVerify || (isFirstLogin && isVerify)) {
+    if (isForceVerify || (isFirstLogin && isVerify && isMan)) {
         UserVerificationPage *userVerificationPage = [[UserVerificationPage alloc] init];
         userVerificationPage.isForceVerify = isForceVerify;
         userVerificationPage.isFirstLogin = isFirstLogin;

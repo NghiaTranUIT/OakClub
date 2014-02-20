@@ -325,7 +325,7 @@
     if (!ENABLE_MATCHMAKER) {
         [disabledMenuItems addObject:[menuArray objectAtIndex:5]];
     }
-    if (!ENABLE_VERIFICATION) {
+    if (!ENABLE_VERIFICATION || appDel.myProfile.isVerified) {
         [disabledMenuItems addObject:[menuArray objectAtIndex:6]];
     }
     [menuArray removeObjectsInArray:disabledMenuItems];
