@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="4510" systemVersion="12F45" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="4514" systemVersion="12F45" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
     <dependencies>
         <deployment defaultVersion="1280" identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3742"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3746"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="menuViewController">
@@ -24,11 +24,10 @@
                     <inset key="insetFor6xAndEarlier" minX="0.0" minY="25" maxX="0.0" maxY="-25"/>
                 </imageView>
                 <tableView clipsSubviews="YES" contentMode="center" alwaysBounceVertical="YES" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" style="plain" separatorStyle="none" sectionIndexMinimumDisplayRowCount="7" showsSelectionImmediatelyOnTouchBegin="NO" rowHeight="64" sectionHeaderHeight="22" sectionFooterHeight="22" id="24">
-                    <rect key="frame" x="0.0" y="85" width="320" height="320"/>
-                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                    <rect key="frame" x="0.0" y="50" width="320" height="430"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                    <inset key="insetFor6xAndEarlier" minX="0.0" minY="25" maxX="0.0" maxY="-25"/>
                     <color key="sectionIndexTrackingBackgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <connections>
                         <outlet property="dataSource" destination="-1" id="33"/>

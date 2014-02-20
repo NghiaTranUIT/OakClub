@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="4510" systemVersion="12F45" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="4514" systemVersion="12F45" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
     <dependencies>
         <deployment defaultVersion="1280" identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3742"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3746"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="menuCell">
@@ -10,6 +10,7 @@
                 <outlet property="iconMenu" destination="13" id="67"/>
                 <outlet property="labelMenu" destination="27" id="arM-W7-xOz"/>
                 <outlet property="notificationView" destination="76" id="77"/>
+                <outlet property="verifiedIconImage" destination="W0y-uZ-eNk" id="RUC-J0-4He"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -33,6 +34,10 @@
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <rect key="contentStretch" x="0.25" y="0.0" width="0.24999999999999967" height="1"/>
                 </imageView>
+                <imageView userInteractionEnabled="NO" tag="1" contentMode="scaleAspectFit" image="Verified_memebers_icon.png" id="W0y-uZ-eNk">
+                    <rect key="frame" x="218" y="24" width="15" height="15"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                </imageView>
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -40,6 +45,7 @@
         </view>
     </objects>
     <resources>
+        <image name="Verified_memebers_icon.png" width="15" height="15"/>
         <image name="pink.png" width="29" height="18"/>
     </resources>
 </document>

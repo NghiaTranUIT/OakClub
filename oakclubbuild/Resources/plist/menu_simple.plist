@@ -2,10 +2,47 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <array>
-	<string>Profile</string>
-	<string>Snapshots</string>
-	<string>Settings</string>
-	<string>Tell your friends!</string>
-	<string>VIP Room</string>
+	<dict>
+		<key>action</key>
+		<integer>0</integer>
+		<key>name</key>
+		<string>Profile</string>
+	</dict>
+	<dict>
+		<key>action</key>
+		<integer>1</integer>
+		<key>name</key>
+		<string>Snapshots</string>
+	</dict>
+	<dict>
+		<key>action</key>
+		<integer>2</integer>
+		<key>name</key>
+		<string>Settings</string>
+	</dict>
+	<dict>
+		<key>action</key>
+		<integer>3</integer>
+		<key>name</key>
+		<string>Tell your friends!</string>
+	</dict>
+	<dict>
+		<key>action</key>
+		<integer>4</integer>
+		<key>name</key>
+		<string>VIP Room</string>
+	</dict>
+	<dict>
+		<key>action</key>
+		<integer>5</integer>
+		<key>name</key>
+		<string>MatchMaker</string>
+	</dict>
+	<dict>
+		<key>action</key>
+		<integer>6</integer>
+		<key>name</key>
+		<string>Get Verified Now</string>
+	</dict>
 </array>
 </plist>

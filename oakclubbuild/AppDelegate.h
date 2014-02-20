@@ -102,6 +102,7 @@ extern NSString *const SCSessionStateChangedNotification;
 @property (strong, nonatomic) UINavigationController *snapShotSettings;
 @property (strong, nonatomic) UINavigationController *matchMaker;
 @property (strong, nonatomic) UINavigationController *vipRoom;
+@property (strong, nonatomic) UINavigationController *userVerificationPage;
 @property (strong, nonatomic) UINavigationController *simpleSnapShot;
 @property (strong, nonatomic) UINavigationController *snapshotLoading;
 //multi Language
@@ -150,11 +151,13 @@ extern NSString *const SCSessionStateChangedNotification;
 -(void)showSnapshotSettings;
 -(void)showMatchmaker;
 -(void)showVIPRoom;
+-(void)showUserVerificationPage;
 -(void)showSimpleSnapshot;
 -(void)showSimpleSnapshotThenFocus:(BOOL)focus;
 //-(void)showSnapshotLoadingThenFocus:(BOOL)focus;
 -(void)showSnapshotLoadingThenFocus:(BOOL)focus and:(void(^)(void))handler;
 -(void)updateLanguageBundle;
+-(void)updateLanguageToServer;
 -(void)updateLocalNotification:(int)num;
 #endif
 //-(void)showMylink;

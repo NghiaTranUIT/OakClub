@@ -54,8 +54,9 @@
     if (self) {
         // Custom initialization
         appDel = (AppDelegate *) [UIApplication sharedApplication].delegate;
-        imageNames = [self getListMenuItems];
-        // getAccountSetting
+        
+        //get imageNames and menuDict
+        [self getListMenuItems];
         
         NSMutableArray *m_index = [NSMutableArray array];
         numberNotifications = [NSMutableArray array];
@@ -90,7 +91,6 @@
     self.name.text = username;
     [self.avatar setImage:imageAvatar];
     [self.btnAvatar setBackgroundImage:imageAvatar forState:UIControlStateNormal];
-    self.tableView.center = CGPointMake(self.view.center.x, self.view.frame.size.height/2.5) ;
 }
 -(void)viewWillAppear:(BOOL)animated{
     if([[[NSUserDefaults standardUserDefaults] objectForKey:key_appLanguage] isEqualToString:value_appLanguage_VI])
@@ -166,12 +166,9 @@
 
 #pragma mark tableview Delegate
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-#if ENABLE_VIPROOM
-    return [imageNames count];
-#else
-    return [imageNames count] - 1;
-#endif
+    return [menuArray count];
 }
+
 -(float)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     return 64;//80;
 }
@@ -194,27 +191,17 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tbView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     static NSString *CellIdentifier = @"menuCell";
-//    for (NSString *name in imageNames) {
-        //        menuCell *cel= [[menuCell alloc]init];
-        menuCell *cell = nil;
-        cell = (menuCell*)[tbView dequeueReusableCellWithIdentifier:CellIdentifier];
-        NSString *icon = [imageNames objectAtIndex:indexPath.row];
-        NSString *label = [imageNames objectAtIndex:indexPath.row];
-        if (cell == nil) {
-            cell = [[menuCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-        }
+    menuCell *cell = nil;
+    cell = (menuCell*)[tbView dequeueReusableCellWithIdentifier:CellIdentifier];
+    NSString *icon = [imageNames objectAtIndex:indexPath.row];
+    NSString *label = [imageNames objectAtIndex:indexPath.row];
+    if (cell == nil) {
+        cell = [[menuCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+    }
     UIView *bgColorSelected = [[UIView alloc] init];
     [bgColorSelected setBackgroundColor:[UIColor clearColor]];
     cell.selectedBackgroundView = bgColorSelected;
-//    [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
-//        UIImage *thumbImage = [UIImage imageNamed:[NSString stringWithFormat:@"%menu_@.png", name]];
-        [cell setItemMenu:icon AndlabelName:label];
-//    if(indexPath.row == 3){
-//        UIImage* tellFriend_BG = [UIImage imageNamed:@"Menu_btn_Facebook.png"];
-//        [cell setItemBackground:tellFriend_BG andHighlight:tellFriend_BG];
-//        
-//        [cell.labelMenu setFont:[UIFont fontWithName:cell.labelMenu.font.fontName size:18]];
-//    }
+    [cell setItemMenu:icon AndlabelName:label];
     
     Animation *anim = [[Animation alloc] init];
     [anim setView:cell];
@@ -240,6 +227,12 @@
     [cell setNotification:[number unsignedIntValue]];
 //    }
     
+    if (indexPath.row == 0 && appDel.myProfile.isVerified) {
+        cell.verifiedIconImage.hidden = NO;
+    } else {
+        cell.verifiedIconImage.hidden = YES;
+    }
+    
     [cell localizeAllViews];
     
     return cell;
@@ -248,7 +241,9 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     NSLog(@"selected id %i",indexPath.row);
-    switch (indexPath.row) {
+    int action = [[[menuArray objectAtIndex:indexPath.row] objectForKey:@"action"] intValue];
+    
+    switch (action) {
         case 0:
             [appDel  showMyProfile];
             break;
@@ -260,7 +255,6 @@
             break;
         case 3:
             [self activityAction];
-            //            [appDel  logOut];
             break;
         case 4:
             // show viproom
@@ -269,6 +263,9 @@
         case 5:
             // show matchmaker
             [appDel showMatchmaker];
+            break;
+        case 6:
+            [appDel showUserVerificationPage];
             break;
         default:
             break;
@@ -307,30 +304,36 @@
 }
 
 
-- (NSArray *)getListMenuItems{
-#if ENABLE_DEMO
+- (void)getListMenuItems{
     NSString *menuFile = @"menu_simple";
     NSString *path = [[NSBundle mainBundle] pathForResource:menuFile ofType:@"plist"];
     NSData *plistData = [NSData dataWithContentsOfFile:path];
     NSString *error; NSPropertyListFormat format;
-    NSArray *imgNames = [NSPropertyListSerialization propertyListFromData:plistData
+    menuArray = [[NSPropertyListSerialization propertyListFromData:plistData
                                                            mutabilityOption:NSPropertyListImmutable
                                                                      format:&format
-                                                           errorDescription:&error];
-#else
-    NSString *path = [[NSBundle mainBundle] pathForResource:@"menu" ofType:@"plist"];
-    NSData *plistData = [NSData dataWithContentsOfFile:path];
-    NSString *error; NSPropertyListFormat format;
-    NSArray *imageNames = [NSPropertyListSerialization propertyListFromData:plistData
-                                                           mutabilityOption:NSPropertyListImmutable
-                                                                     format:&format
-                                                           errorDescription:&error];
-#endif
+                                                           errorDescription:&error] mutableCopy];
     
-    if (!imgNames) {
+    if (!menuArray) {
         NSLog(@"Failed to read image names. Error: %@", error);
     }
-    return imgNames;
+    
+    NSMutableArray *disabledMenuItems = [NSMutableArray array];
+    if (!ENABLE_VIPROOM) {
+        [disabledMenuItems addObject:[menuArray objectAtIndex:4]];
+    }
+    if (!ENABLE_MATCHMAKER) {
+        [disabledMenuItems addObject:[menuArray objectAtIndex:5]];
+    }
+    if (!ENABLE_VERIFICATION) {
+        [disabledMenuItems addObject:[menuArray objectAtIndex:6]];
+    }
+    [menuArray removeObjectsInArray:disabledMenuItems];
+    
+    imageNames = [NSMutableArray array];
+    for (NSDictionary *menuItem in menuArray) {
+        [imageNames addObject:[menuItem objectForKey:@"name"]];
+    }
 }
 
 

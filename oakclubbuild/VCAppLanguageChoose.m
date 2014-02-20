@@ -119,6 +119,7 @@
         [[NSUserDefaults standardUserDefaults] setObject:langID forKey:key_appLanguage];
         [[NSUserDefaults standardUserDefaults] synchronize];
         [appDel updateLanguageBundle];
+        [appDel updateLanguageToServer];
         [appDel loadDataForList:^(NSError *e) {
             if (!e)
             {
