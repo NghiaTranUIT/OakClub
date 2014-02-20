@@ -50,6 +50,8 @@
 {
     [super viewWillAppear:animated];
     
+    self.failedPopupView.hidden = YES;
+    self.successPopupView.hidden = YES;
     [self loadWebView];
 }
 
@@ -184,7 +186,6 @@
             self.successPopupView.hidden = YES;
             self.failedPopupView.hidden = YES;
         }
-        
         
         return NO;
     }
