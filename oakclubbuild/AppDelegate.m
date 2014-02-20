@@ -35,6 +35,7 @@
 #import "VCSimpleSnapshotLoading.h"
 #import "MatchMaker.h"
 #import "VIPRoom.h"
+#import "UserVerificationPage.h"
 #import "OakClubIAPHelper.h"
 #import "NEVersionCompare.h"
 
@@ -82,6 +83,7 @@ NSString *const kXMPPmyPassword = @"kXMPPmyPassword";
 @synthesize snapShotSettings = _snapShotSettings;
 @synthesize matchMaker = _matchMaker;
 @synthesize vipRoom = _vipRoom;
+@synthesize userVerificationPage = _userVerificationPage;
 @synthesize snapshotLoading = _snapshotLoading;
 // multi language
 @synthesize languageBundle = _languageBundle;
@@ -207,29 +209,38 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
 
 -(void)gotoVCAtCompleteLogin
 {
-    if ([[[NSUserDefaults standardUserDefaults] valueForKey:@"isFirstLogin"] boolValue])
-    {
-        
-//        //test
-//        [[NSUserDefaults standardUserDefaults] setValue:[NSNumber numberWithBool:YES] forKey:@"isFirstLogin"];
-//        TutorialViewController *tut = [[TutorialViewController alloc] init];
-//        self.window.rootViewController = tut;
-//        [self.window makeKeyAndVisible];
-        
-        
-        menuViewController *leftController = [[menuViewController alloc] init];
-        [leftController setUIInfo:self.myProfile];
-        [self.rootVC setRightViewController:self.chat];
-        [self.rootVC setLeftViewController:leftController];
-        self.window.rootViewController = self.rootVC;
-        
-    }
-    else
+    BOOL isFirstLogin = ![[[NSUserDefaults standardUserDefaults] valueForKey:@"isFirstLogin"] boolValue];
+    if (isFirstLogin)
     {
         [[NSUserDefaults standardUserDefaults] setValue:[NSNumber numberWithBool:YES] forKey:@"isFirstLogin"];
         
         TutorialViewController *tut = [[TutorialViewController alloc] init];
         self.window.rootViewController = tut;
+        [self.window makeKeyAndVisible];
+        
+        [self updateLanguageToServer];
+    }
+    else
+    {
+        menuViewController *leftController = [[menuViewController alloc] init];
+        [leftController setUIInfo:self.myProfile];
+        [self.rootVC setRightViewController:self.chat];
+        [self.rootVC setLeftViewController:leftController];
+        self.window.rootViewController = self.rootVC;
+    }
+    
+    BOOL isVerify = !self.myProfile.isVerified;
+    BOOL isForceVerify = self.myProfile.isForceVerify;
+    
+//    isVerify = true;
+//    isFirstLogin = true;
+//    isForceVerify = true;
+    
+    if (isForceVerify || (isFirstLogin && isVerify)) {
+        UserVerificationPage *userVerificationPage = [[UserVerificationPage alloc] init];
+        userVerificationPage.isForceVerify = isForceVerify;
+        userVerificationPage.isFirstLogin = isFirstLogin;
+        self.window.rootViewController = userVerificationPage;
         [self.window makeKeyAndVisible];
     }
 }
@@ -242,6 +253,7 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
     self.snapShotSettings = [self createNavigationByClass:@"VCSimpleSnapshotSetting" AndHeaderName:@"Settings" andRightButton:@"VCChat" andIsStoryBoard:NO];
     self.matchMaker = [self createNavigationByClass:@"MatchMaker" AndHeaderName:@"Matchmaker" andRightButton:@"VCChat" andIsStoryBoard:NO];
     self.vipRoom = [self createNavigationByClass:@"VIPRoom" AndHeaderName:@"VIP Room" andRightButton:@"VCChat" andIsStoryBoard:NO];
+    self.userVerificationPage = [self createNavigationByClass:@"UserVerificationPage" AndHeaderName:@"Verification" andRightButton:@"VCChat" andIsStoryBoard:NO];
     self.snapshotLoading = [self createNavigationByClass:@"VCSimpleSnapshotLoading" AndHeaderName:nil andRightButton:@"VCChat" andIsStoryBoard:NO];
     self.myProfileVC = [self createNavigationByClass:@"VCMyProfile" AndHeaderName:@"Edit Profile" andRightButton:@"VCChat" andIsStoryBoard:NO];
 //    self.getPoints = [self createNavigationByClass:@"VCGetPoints" AndHeaderName:@"Get Coins" andRightButton:nil andIsStoryBoard:NO];
@@ -319,7 +331,6 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
     }
 }
 
-
 - (void)applicationDidBecomeActive:(UIApplication *)application {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
     //Vanancy - check for sure internet connection always work in app
@@ -328,11 +339,11 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
     [FBSession.activeSession handleDidBecomeActive];
     
     BOOL isPaymentProcessing = (activeVC == self.vipRoom);
-    if (!isPaymentProcessing) {
+    BOOL isPostProcessing = (activeVC == self.userVerificationPage) || [self.window.rootViewController isKindOfClass:[UserVerificationPage class]];
+    if (!isPaymentProcessing && !isPostProcessing) {
         [self.notificationCenter postNotificationName:ApplicationDidBecomeActive object:nil];
     }
 }
-
 
 -(BOOL)application:(UIApplication *)application openURL:(NSURL *)url
                                       sourceApplication:(NSString *)sourceApplication
@@ -382,11 +393,21 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
         [appDel.rootVC setRightViewController:appDel.chat];
     }];
 }
+
 -(void)showVIPRoom {
     activeVC = _vipRoom;
     
     AppDelegate *appDel = self;
     [self.rootVC setFrontViewController:self.vipRoom focusAfterChange:YES completion:^(BOOL finished) {
+        [appDel.rootVC setRightViewController:appDel.chat];
+    }];
+}
+
+-(void)showUserVerificationPage {
+    activeVC = _userVerificationPage;
+    
+    AppDelegate *appDel = self;
+    [self.rootVC setFrontViewController:self.userVerificationPage focusAfterChange:YES completion:^(BOOL finished) {
         [appDel.rootVC setRightViewController:appDel.chat];
     }];
 }
@@ -1680,6 +1701,39 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
     NSString *path= [[NSBundle mainBundle] pathForResource:selectedLanguage ofType:@"lproj"];
     self.languageBundle = [NSBundle bundleWithPath:path];
 }
+
+-(void)updateLanguageToServer{
+    NSString* selectedLanguage =[[NSUserDefaults standardUserDefaults] stringForKey:key_appLanguage];
+    
+    NSLog(@"updateLanguageToServer");
+    //update to server
+    AFHTTPClient *client= [[AFHTTPClient alloc] initWithOakClubAPI:DOMAIN];
+    [client setParameterEncoding:AFFormURLParameterEncoding];
+    [client registerHTTPOperationClass:[AFHTTPRequestOperation class]];
+    
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] initWithObjectsAndKeys:selectedLanguage, key_appLanguage, nil];
+    NSMutableURLRequest *myRequest = [client requestWithMethod:@"POST" path:URL_updateIOSLanguage parameters:params];
+    
+    AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:myRequest];
+    [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *op, id JSON)
+     {
+         NSError *e;
+         NSMutableDictionary *dict = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONReadingMutableContainers error:&e];
+         //         NSLog(@"dict: %@", dict);
+         BOOL error = [[dict objectForKey:key_errorCode] boolValue];
+         if (!error)
+         {
+         }
+         else
+         {
+         }
+     }failure:^(AFHTTPRequestOperation *op, NSError *err)
+     {
+     }];
+    
+    [operation start];
+}
+
 #endif
 
 #pragma mark LOGIN

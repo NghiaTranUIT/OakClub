@@ -14,6 +14,8 @@
     UIView *view;
 }
 @property (weak, nonatomic) IBOutlet UILabel *labelMenu;
+@property (weak, nonatomic) IBOutlet UIImageView *verifiedIconImage;
+
 - (void) setItemMenu:(NSString *)imageName AndlabelName:(NSString*)label;
 - (void) setNotification:(int)nNotifications;
 - (void) setItemBackground:(UIImage*)image andHighlight:(UIImage*)highlightImage;

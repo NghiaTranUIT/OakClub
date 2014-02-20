@@ -40,7 +40,10 @@
 #define ENABLE_MATCHMAKER false
 
 //show viproom in leftmenu
-#define ENABLE_VIPROOM true
+#define ENABLE_VIPROOM false
+
+//show verification in leftmenu
+#define ENABLE_VERIFICATION true
 
 //add include facebook friends in snapshot settings
 #define ENABLE_INCLUDE_FACEBOOKFRIEND true
@@ -240,6 +243,8 @@
 #define URL_sendMatchmaker @"service/makeMatching"
 #define URL_reportIOSProblemToOakClub @"service/reportIOSProblemToOakClub"
 #define URL_verifyReceipt @"service/verifyAppleReceipt"
+#define URL_verifyUser @"service/verifyUser"
+#define URL_updateIOSLanguage @"service/updateIOSLanguage"
 //================ service API keys ================
 //root
 #define key_status @"status"
@@ -281,6 +286,8 @@
 #define key_isLike @"is_like"
 #define key_likeTime @"like_time"
 #define key_isVip @"is_vip"
+#define key_isForceVerify @"force_verify"
+#define key_isVerified @"is_verified"
 #define key_statusTime @"time"
 #define key_matchTime @"match_time"
 #define key_lastMessage @"last_message"

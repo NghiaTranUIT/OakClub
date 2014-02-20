@@ -128,6 +128,8 @@
 @property (assign, nonatomic) bool is_available;
 @property (assign, nonatomic) bool is_match;
 @property (assign, nonatomic) bool is_vip;
+@property (assign, nonatomic) bool isVerified;
+@property (assign, nonatomic) bool isForceVerify;
 @property (assign, nonatomic) bool is_like;
 @property int status;
 @property int unread_message;

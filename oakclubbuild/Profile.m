@@ -29,7 +29,7 @@
 @synthesize is_deleted;
 @synthesize is_blocked;
 @synthesize is_available;
-@synthesize is_match, is_vip, is_like;
+@synthesize is_match, is_vip, is_like, isForceVerify, isVerified;
 @synthesize unread_message;
 @synthesize status;
 
@@ -463,7 +463,8 @@
     self.a_messages = [[NSMutableDictionary alloc] init];
     
     self.is_vip = [[data valueForKey:key_isVip] boolValue];
-    
+    self.isForceVerify = [[data valueForKey:key_isForceVerify] boolValue];
+    self.isVerified = [[data valueForKey:key_isVerified] boolValue];
 }
 -(void) parseForGetProfileInfo:(NSData *)jsonData{
     NSError *e=nil;
@@ -902,6 +903,8 @@
     accountCopy.is_available = is_available ;
     accountCopy.is_match = is_match;
     accountCopy.is_vip = is_vip;
+    accountCopy.isForceVerify = isForceVerify;
+    accountCopy.isVerified = isVerified;
     accountCopy.is_like = is_like;
     accountCopy.status = status;
     accountCopy.unread_message = unread_message;

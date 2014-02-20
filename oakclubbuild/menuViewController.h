@@ -10,7 +10,8 @@
 #import "Profile.h"
 
 @interface menuViewController : UIViewController<UITableViewDelegate, UITableViewDataSource>{
-    NSArray *imageNames;
+    NSMutableArray *imageNames;
+    NSMutableArray *menuArray;
     NSString *username;
     NSString *numPoints;
     UIImage *imageAvatar;
