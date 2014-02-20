@@ -237,6 +237,35 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
         [self.rootVC setRightViewController:self.chat];
         [self.rootVC setLeftViewController:leftController];
         self.window.rootViewController = self.rootVC;
+        if (self.pushNotificationInfo)
+        {
+            NSDictionary *data = self.pushNotificationInfo[key_data];
+            Profile *chatPushNotificationProfile = [[Profile alloc] init];
+            chatPushNotificationProfile.s_Name = data[key_name];
+            chatPushNotificationProfile.s_ID = data[key_profileID];
+            
+            self.rootVC.recognizesPanningOnFrontView = YES;
+            [self.rootVC showViewController:self.chat];
+            
+            NSString *notifChatID = chatPushNotificationProfile.s_ID;
+            NSMutableArray *chatMessagesArray = [self.myProfile.a_messages objectForKey:notifChatID];
+            if (!chatMessagesArray)
+            {
+                chatMessagesArray = [[NSMutableArray alloc] init];
+                [self.myProfile.a_messages setObject:chatMessagesArray forKey:notifChatID];
+            }
+            
+            NSString *chatUserXMPPID = [NSString stringWithFormat:DOMAIN_AT_FMT, chatPushNotificationProfile.s_ID];
+            SMChatViewController *chatController =
+            [[SMChatViewController alloc] initWithUser:chatUserXMPPID
+                                           withProfile:chatPushNotificationProfile
+                                          withMessages:chatMessagesArray];
+            
+            [self.rootVC setFrontViewController:self.chat focusAfterChange:YES completion:^(BOOL finished) {
+                
+            }];
+            [self.chat pushViewController:chatController animated:NO];
+        }
     }
     
     BOOL isVerify = !self.myProfile.isVerified;
@@ -412,7 +441,7 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
     BOOL isPaymentProcessing = (activeVC == self.vipRoom);
     BOOL isPostProcessing = (activeVC == self.userVerificationPage) || [self.window.rootViewController isKindOfClass:[UserVerificationPage class]];
     if (!isPaymentProcessing && !isPostProcessing) {
-        [self.notificationCenter postNotificationName:ApplicationDidBecomeActive object:nil];
+        [self.notificationCenter postNotificationName:Notification_ApplicationDidBecomeActive object:nil];
     }
     
     // CHEAT:
