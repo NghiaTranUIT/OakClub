@@ -562,9 +562,7 @@ static float cellWidth = 320;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-	
 	return 1;
-	
 }
 
 
@@ -586,9 +584,6 @@ static float cellWidth = 320;
     
 	NSString *m = [messageContent objectForKey:@"msg"];
     
-    //NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
-    //[dateFormat setDateFormat:@"dd-MM-yyyfy HH:mm:ss"];
-    //NSDate *date = [dateFormat dateFromString:item.timeStr];
     NSString* time = [NSString getCurrentTime];
     
 	[messages addMessage:[[HistoryMessage alloc] initMessageFrom:[chunks objectAtIndex:0] atTime:time toHangout:appDel.myProfile.s_ID withContent:m]];
@@ -736,25 +731,7 @@ static float cellWidth = 320;
 }
 
 -(void)backToPreviousView{
-#if ENABLE_DEMO
-//    AppDelegate *appDel = (AppDelegate *) [UIApplication sharedApplication].delegate;
-//    UINavigationController* activeVC = [appDel activeViewController];
-//    UIViewController* vc = [activeVC.viewControllers objectAtIndex:0];
-//    if(![vc isKindOfClass:[VCSimpleSnapshot class]] )
-//    {
-        [self.navigationController popViewControllerAnimated:YES];
-//    }
-//    else
-//    {
-    
-//        [self.navigationController dismissModalViewControllerAnimated:YES];
-//        [appDel.rootVC setFrontViewController:activeVC focusAfterChange:NO completion:^(BOOL finished) {
-//        }];
-//        [appDel.rootVC showViewController:appDel.chat];
-//    }
-#else
     [self.navigationController popViewControllerAnimated:YES];
-#endif
 }
 
 #pragma mark smiley collection datasource / delegate
