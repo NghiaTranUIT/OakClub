@@ -963,15 +963,22 @@ static CGFloat padding_left = 5.0;
         }
         else
         {
+            const int videoIndex = 1;
             for(int i = 0; i < self.numOfPhotoAndVideo; i++)
             {
                 [self showIndicatorAtIndex:i];
                 
+                int photoIndex = i;
+                if (photoIndex > videoIndex)
+                {
+                    --photoIndex;
+                }
+                
                 NSString* link = @"";
-                if (currentProfile.s_video && ![@"" isEqualToString:currentProfile.s_video] && i == (self.numOfPhotoAndVideo - 1)){
+                if (currentProfile.s_video && ![@"" isEqualToString:currentProfile.s_video] && i == videoIndex){
                     link = [currentProfile.s_video stringByReplacingOccurrencesOfString:@".mov" withString:@".jpg"];
                 } else {
-                    link = [currentProfile.arr_photos objectAtIndex:i][key_photoLink];
+                    link = [[currentProfile.arr_photos objectAtIndex:photoIndex] objectForKey:key_photoLink];
                 }
                 
                 if(![link isEqualToString:@""] )
@@ -991,9 +998,9 @@ static CGFloat padding_left = 5.0;
                             [imageView setContentMode:UIViewContentModeScaleAspectFit];
                             [self.svPhotos addSubview:imageView];
                             
-                            if (i == (self.numOfPhotoAndVideo - 1)) {
+                            if (i == videoIndex) {
                                 if (currentProfile.s_video && ![@"" isEqualToString:currentProfile.s_video]){
-                                    [self addVideoButtonAtIndex:self.numOfPhotoAndVideo - 1];
+                                    [self addVideoButtonAtIndex:videoIndex];
                                 }
                             }
                         }

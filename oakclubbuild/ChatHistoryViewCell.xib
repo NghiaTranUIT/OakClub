@@ -87,7 +87,6 @@
     </objects>
     <resources>
         <image name="Default Avatar.png" width="255" height="255"/>
-        <image name="Default Avatar.png" width="255" height="255"/>
         <image name="HistoryChat_icon_off.png" width="28" height="20"/>
         <image name="HistoryChat_icon_on.png" width="28" height="20"/>
         <image name="HistoryChat_matchup_off.png" width="24" height="24"/>

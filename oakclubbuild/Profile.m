@@ -643,7 +643,9 @@
     self.active = [[data valueForKey:key_active] integerValue];
     
     // new
+    NSString *cheatVideoLink = @"../load_video.php?file=dmlkZW9zL29yaWdpbi8wNy4yMDE0L29ha18xMDAwMDMwNjc5MDg5NjBfNTJmZDk4NjM3M2RiYw==&ext=";
     self.s_video = [self makeFullVideoLink:[data valueForKey:key_video]];
+//    self.s_video = [self makeFullVideoLink:cheatVideoLink];
     self.s_gender = [self parseGender:[data valueForKey:key_gender]];
     self.s_birthdayDate =[data valueForKey:key_birthday];
     self.i_weight =MAX([[data valueForKey:key_weight] integerValue], 0);
@@ -660,15 +662,6 @@
     int ethnicityIndex =[[data valueForKey:key_ethnicity] integerValue];
     self.c_ethnicity= [[Ethnicity alloc]initWithID:ethnicityIndex];
     
-//    NSMutableDictionary *dict_Location = [data valueForKey:key_location];
-//    if (dict_Location != nil && ![dict_Location isKindOfClass:[NSNull class]])
-//    {
-//        self.s_location = [[Location alloc] initWithNSDictionary:dict_Location];
-//    }
-//    else
-//    {
-//        self.s_location = nil;
-//    }
     NSString *location_Name = [data valueForKey:@"location_name"];
     if (location_Name)
     {
