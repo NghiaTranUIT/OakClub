@@ -11,7 +11,7 @@
 @interface UserVerificationPage : UIViewController <UIWebViewDelegate>
 
 @property (nonatomic, assign) BOOL isForceVerify;
-@property (nonatomic, assign) BOOL isFirstLogin;
+@property (nonatomic, assign) BOOL isPopOver;
 
 @property (weak, nonatomic) IBOutlet UIView *normalVerifyView;
 @property (weak, nonatomic) IBOutlet UIWebView *normalVerifyWebView;

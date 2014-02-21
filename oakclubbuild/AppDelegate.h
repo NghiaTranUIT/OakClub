@@ -185,5 +185,6 @@ extern NSString *const SCSessionStateChangedNotification;
 - (void)showErrorSlowConnection:(NSString *)problem;
 - (void)showErrorData;
 - (void)reportIOSProblemToOakClub:(NSString *)problem;
+- (BOOL)checkVerification;
 
 @end

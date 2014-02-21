@@ -10,6 +10,7 @@
 #import "CycleScrollView.h"
 #import "AppDelegate.h"
 #import "UIView+Localize.h"
+#import "UserVerificationPage.h"
 
 @interface TutorialViewController () <CycleScrollViewDelegate>
 {
@@ -115,11 +116,15 @@
 -(void)closeButtonTouched:(id)sender
 {
     AppDelegate *appDelegate = (id) [UIApplication sharedApplication].delegate;
-    menuViewController *leftController = [[menuViewController alloc] init];
-    [leftController setUIInfo:appDelegate.myProfile];
-    [appDelegate.rootVC setRightViewController:appDelegate.chat];
-    [appDelegate.rootVC setLeftViewController:leftController];
-    appDelegate.window.rootViewController = appDelegate.rootVC;
+    
+    if (![appDelegate checkVerification]) {
+        menuViewController *leftController = [[menuViewController alloc] init];
+        [leftController setUIInfo:appDelegate.myProfile];
+        [appDelegate.rootVC setRightViewController:appDelegate.chat];
+        [appDelegate.rootVC setLeftViewController:leftController];
+        appDelegate.window.rootViewController = appDelegate.rootVC;
+    }
+    
 }
 
 -(void)transText:(int)index forImage:(TapDetectingImageView *)image {

@@ -135,6 +135,8 @@
                                                            {
                                                                self.successPopupView.hidden = NO;
                                                                self.failedPopupView.hidden = YES;
+                                                               
+                                                               appDel.myProfile.isVerified = YES;
                                                            }
                                                        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                                                            self.successPopupView.hidden = YES;
@@ -157,9 +159,14 @@
 
 
 - (void)skipVerification {
-    if (self.isFirstLogin || self.isForceVerify) {
-        TutorialViewController *tut = [[TutorialViewController alloc] init];
-        appDel.window.rootViewController = tut;
+    [[NSUserDefaults standardUserDefaults] setValue:[NSNumber numberWithBool:YES] forKey:@"isSkipButtonPressed"];
+
+    if (self.isPopOver) {
+        menuViewController *leftController = [[menuViewController alloc] init];
+        [leftController setUIInfo:appDel.myProfile];
+        [appDel.rootVC setRightViewController:appDel.chat];
+        [appDel.rootVC setLeftViewController:leftController];
+        appDel.window.rootViewController = appDel.rootVC;
     } else {
         [appDel  showSimpleSnapshotThenFocus:YES];
     }
@@ -187,7 +194,6 @@
             self.successPopupView.hidden = YES;
             self.failedPopupView.hidden = YES;
         }
-        
         
         return NO;
     }
