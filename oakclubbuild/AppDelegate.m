@@ -274,7 +274,7 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
 - (BOOL)checkVerification {
     BOOL isForceVerify = self.myProfile.isForceVerify;
     
-    BOOL isSkipButtonPressed = ![[[NSUserDefaults standardUserDefaults] valueForKey:@"isSkipButtonPressed"] boolValue];
+    BOOL isSkipButtonPressed = [[[NSUserDefaults standardUserDefaults] valueForKey:@"isSkipButtonPressed"] boolValue];
     BOOL isMan = (self.myProfile.s_gender.ID == MALE);
     BOOL isVerify = !self.myProfile.isVerified && isMan && !isSkipButtonPressed;
     
