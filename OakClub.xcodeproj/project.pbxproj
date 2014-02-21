@@ -214,6 +214,7 @@
 		972B27D9182CEC7C00D0ABC5 /* PrivacyView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 972B27D8182CEC7C00D0ABC5 /* PrivacyView.xib */; };
 		9743305718B5AD8E00E47029 /* myprofile_del_btn.png in Resources */ = {isa = PBXBuildFile; fileRef = 9743305518B5AD8E00E47029 /* myprofile_del_btn.png */; };
 		9743305818B5AD8E00E47029 /* myprofile_del_btn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9743305618B5AD8E00E47029 /* myprofile_del_btn@2x.png */; };
+		9743305C18B751F400E47029 /* NSDictionary+JSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 9743305B18B751F400E47029 /* NSDictionary+JSON.m */; };
 		9758AEF5184C6C7100B9D4AF /* NSIndexPath+PSTCollectionViewAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 9758AEDA184C6C7100B9D4AF /* NSIndexPath+PSTCollectionViewAdditions.m */; };
 		9758AEF6184C6C7100B9D4AF /* PSTCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9758AEDC184C6C7100B9D4AF /* PSTCollectionView.m */; };
 		9758AEF7184C6C7100B9D4AF /* PSTCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9758AEDE184C6C7100B9D4AF /* PSTCollectionViewCell.m */; };
@@ -1117,6 +1118,8 @@
 		972B27D8182CEC7C00D0ABC5 /* PrivacyView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PrivacyView.xib; sourceTree = "<group>"; };
 		9743305518B5AD8E00E47029 /* myprofile_del_btn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = myprofile_del_btn.png; sourceTree = "<group>"; };
 		9743305618B5AD8E00E47029 /* myprofile_del_btn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "myprofile_del_btn@2x.png"; sourceTree = "<group>"; };
+		9743305A18B751F400E47029 /* NSDictionary+JSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+JSON.h"; sourceTree = "<group>"; };
+		9743305B18B751F400E47029 /* NSDictionary+JSON.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+JSON.m"; sourceTree = "<group>"; };
 		9758AED9184C6C7100B9D4AF /* NSIndexPath+PSTCollectionViewAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSIndexPath+PSTCollectionViewAdditions.h"; sourceTree = "<group>"; };
 		9758AEDA184C6C7100B9D4AF /* NSIndexPath+PSTCollectionViewAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSIndexPath+PSTCollectionViewAdditions.m"; sourceTree = "<group>"; };
 		9758AEDB184C6C7100B9D4AF /* PSTCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSTCollectionView.h; sourceTree = "<group>"; };
@@ -2735,6 +2738,8 @@
 				34EBECDB18AB5CBE00237B41 /* OakClubIAPHelper.m */,
 				3426D6A018ADCE5300D2CB77 /* NEVersionCompare.h */,
 				3426D6A118ADCE5300D2CB77 /* NEVersionCompare.m */,
+				9743305A18B751F400E47029 /* NSDictionary+JSON.h */,
+				9743305B18B751F400E47029 /* NSDictionary+JSON.m */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -4955,6 +4960,7 @@
 				CDF99BA41713D629008D8BAC /* XMPPCoreDataStorage.m in Sources */,
 				CDF99BA51713D629008D8BAC /* XMPPProcessOne.m in Sources */,
 				97927B98183E1136005F49FC /* UpdateProfileViewController.m in Sources */,
+				9743305C18B751F400E47029 /* NSDictionary+JSON.m in Sources */,
 				CDF99BA61713D629008D8BAC /* XMPPReconnect.m in Sources */,
 				97AC53051835D31400A7B96D /* VideoUploader.m in Sources */,
 				CDF99BA71713D629008D8BAC /* XMPPGroupCoreDataStorageObject.m in Sources */,
@@ -5376,8 +5382,8 @@
 					"-ObjC",
 				);
 				PRODUCT_NAME = OakClub;
-				PROVISIONING_PROFILE = "DD94F950-E164-4CC8-BD14-B102710D1F60";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "DD94F950-E164-4CC8-BD14-B102710D1F60";
+				PROVISIONING_PROFILE = "3932864A-AB65-45D6-9BF6-1F4446F7077D";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "3932864A-AB65-45D6-9BF6-1F4446F7077D";
 				TARGETED_DEVICE_FAMILY = 1;
 				VALIDATE_PRODUCT = YES;
 				WRAPPER_EXTENSION = app;
@@ -5409,8 +5415,8 @@
 					"-ObjC",
 				);
 				PRODUCT_NAME = OakClub;
-				PROVISIONING_PROFILE = "DD94F950-E164-4CC8-BD14-B102710D1F60";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "DD94F950-E164-4CC8-BD14-B102710D1F60";
+				PROVISIONING_PROFILE = "3932864A-AB65-45D6-9BF6-1F4446F7077D";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "3932864A-AB65-45D6-9BF6-1F4446F7077D";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};

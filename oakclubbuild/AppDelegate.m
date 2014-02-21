@@ -1768,6 +1768,7 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
                            NSString *requiredIOSAppVersion = [data objectForKey:@"required_iOS_app_version"];
                            if (![self checkAppVersion:requiredIOSAppVersion]) {
                                failure();
+                               
                                return;
                            }
                            
