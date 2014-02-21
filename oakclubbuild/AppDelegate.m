@@ -266,23 +266,31 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
             }];
             [self.chat pushViewController:chatController animated:NO];
         }
+        
+        [self checkVerification];
     }
-    
-    BOOL isVerify = !self.myProfile.isVerified;
+}
+
+- (BOOL)checkVerification {
     BOOL isForceVerify = self.myProfile.isForceVerify;
+    
+    BOOL isSkipButtonPressed = ![[[NSUserDefaults standardUserDefaults] valueForKey:@"isSkipButtonPressed"] boolValue];
     BOOL isMan = (self.myProfile.s_gender.ID == MALE);
+    BOOL isVerify = !self.myProfile.isVerified && isMan && !isSkipButtonPressed;
     
 //    isVerify = true;
-//    isFirstLogin = true;
-//    isForceVerify = true;
+    //    isForceVerify = true;
     
-    if (isForceVerify || (isFirstLogin && isVerify && isMan)) {
+    if (isForceVerify || isVerify) {
         UserVerificationPage *userVerificationPage = [[UserVerificationPage alloc] init];
         userVerificationPage.isForceVerify = isForceVerify;
-        userVerificationPage.isFirstLogin = isFirstLogin;
+        userVerificationPage.isPopOver = YES;
         self.window.rootViewController = userVerificationPage;
         [self.window makeKeyAndVisible];
+        return YES;
     }
+    
+    return NO;
 }
 
 -(void)loadAllViewControllers{
