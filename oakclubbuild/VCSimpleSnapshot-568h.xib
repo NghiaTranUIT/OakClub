@@ -263,10 +263,10 @@
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         </imageView>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="L0b-7r-2sA">
-                            <rect key="frame" x="186" y="10" width="55" height="55"/>
+                            <rect key="frame" x="202" y="25" width="24" height="24"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                            <state key="normal" backgroundImage="Snapshot_video_btn.png">
+                            <state key="normal" image="Snapshot_video_btn.png">
                                 <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
@@ -638,7 +638,7 @@
         <image name="Snapshot_shareInterest_icon.png" width="26" height="26"/>
         <image name="Snapshot_top_polaroid.png" width="261" height="303"/>
         <image name="Snapshot_transBG.png" width="320" height="460"/>
-        <image name="Snapshot_video_btn.png" width="55" height="55"/>
+        <image name="Snapshot_video_btn.png" width="24" height="24"/>
         <image name="viewprofile_Bar_BG.png" width="320" height="25"/>
         <image name="viewprofile_done.png" width="58" height="34"/>
         <image name="viewprofile_like.png" width="52" height="34"/>

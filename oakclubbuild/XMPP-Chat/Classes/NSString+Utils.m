@@ -48,15 +48,21 @@
 }
 
 - (NSString *) formatForChatMessage {
-    
-	NSString *res = [self stringByReplacingOccurrencesOfString:@"&quot" withString:@"\""];
-	res = [res stringByReplacingOccurrencesOfString:@"&lt" withString:@"<"];
-	res = [res stringByReplacingOccurrencesOfString:@"&gt" withString:@">"];
-	res = [res stringByReplacingOccurrencesOfString:@"&amp" withString:@"&"];
+	NSString *res = [self stringByReplacingOccurrencesOfString:@"&quot;" withString:@"\""];
+	res = [res stringByReplacingOccurrencesOfString:@"&lt;" withString:@"<"];
+	res = [res stringByReplacingOccurrencesOfString:@"&gt;" withString:@">"];
+	res = [res stringByReplacingOccurrencesOfString:@"&amp;" withString:@"&"];
+    res = [res stringByReplacingOccurrencesOfString:@"" withString:@"\'"];
 	
 	return self;
 	
 }
+
+-(NSString *)formatForJSON
+{
+    return nil;
+}
+
 +(NSString*)formatStringWithName:(NSString*)name andAge:(NSString*)age andNameLength:(int)maxLength{
     NSString* result;
     if([name length] > maxLength){
