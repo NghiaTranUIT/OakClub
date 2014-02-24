@@ -120,7 +120,10 @@
 {
     [super viewDidAppear:animated];
     
-    //  [self.view localizeAllViews];
+    id<GAITracker> defaultTracker = [[GAI sharedInstance] defaultTracker];
+    [defaultTracker send:[[[GAIDictionaryBuilder createAppView]
+                           set:NSStringFromClass([self class])
+                           forKey:kGAIScreenName] build]];
 }
 
 - (NSUInteger)supportedInterfaceOrientations

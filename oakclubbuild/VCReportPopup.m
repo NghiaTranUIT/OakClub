@@ -71,7 +71,13 @@
     [lbMakeSureReport setFont: FONT_HELVETICANEUE_LIGHT(15)];
     [lbMakeSureReport setLineBreakMode: NSLineBreakByWordWrapping];
     
-     [self.navigationController.navigationBar setUserInteractionEnabled:NO];
+    [self.navigationController.navigationBar setUserInteractionEnabled:NO];
+    
+    
+    id<GAITracker> defaultTracker = [[GAI sharedInstance] defaultTracker];
+    [defaultTracker send:[[[GAIDictionaryBuilder createAppView]
+                           set:NSStringFromClass([self class])
+                           forKey:kGAIScreenName] build]];
 }
 
 - (void)didReceiveMemoryWarning

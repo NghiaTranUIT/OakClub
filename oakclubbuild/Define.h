@@ -62,6 +62,8 @@
 #define answerNO @"NO"
 #define answerMAYBE @"MAYBE"
 
+#define kGoolgeTrackingId @"UA-48309154-1"
+
 //================ service API link ================
 //#define DOMAIN @"http://staging.oakclub.com/app_dev.php"
 
@@ -245,7 +247,7 @@
 #define URL_reportIOSProblemToOakClub @"service/reportIOSProblemToOakClub"
 #define URL_verifyReceipt @"service/verifyAppleReceipt"
 #define URL_verifyUser @"service/verifyUser"
-#define URL_updateIOSLanguage @"service/updateIOSLanguage"
+#define URL_updateIOSLanguage @"service/updateLanguage"
 //================ service API keys ================
 //root
 #define key_status @"status"
