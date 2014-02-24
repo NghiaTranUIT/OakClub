@@ -435,7 +435,10 @@ static CGFloat padding_left = 5.0;
     [self.profileView localizeAllViews];
     [self.view localizeAllViews];
     
-//    [self customNavHeader];
+    id<GAITracker> defaultTracker = [[GAI sharedInstance] defaultTracker];
+    [defaultTracker send:[[[GAIDictionaryBuilder createAppView]
+                           set:NSStringFromClass([self class])
+                           forKey:kGAIScreenName] build]];
 }
 
 -(void) viewWillAppear:(BOOL)animated{

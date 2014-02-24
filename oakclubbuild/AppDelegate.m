@@ -38,6 +38,11 @@
 #import "UserVerificationPage.h"
 #import "OakClubIAPHelper.h"
 #import "NEVersionCompare.h"
+#import "GAI.h"
+#import "GAIFields.h"
+#import "GAITracker.h"
+#import "GAIDictionaryBuilder.h"
+
 
 NSString *const SCSessionStateChangedNotification =
 @"com.facebook.Scrumptious:SCSessionStateChangedNotification";
@@ -195,6 +200,18 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
     
     [OakClubIAPHelper sharedInstance];
     
+    [GAI sharedInstance].trackUncaughtExceptions = YES;
+    
+    // Optional: set Google Analytics dispatch interval to e.g. 20 seconds.
+    [GAI sharedInstance].dispatchInterval = 20;
+    
+    // Optional: set Logger to VERBOSE for debug information.
+    [[[GAI sharedInstance] logger] setLogLevel:kGAILogLevelVerbose];
+    
+    // Initialize tracker.
+    id<GAITracker> tracker = [[GAI sharedInstance] trackerWithTrackingId:kGoolgeTrackingId];
+    [tracker set:kGAIScreenName
+           value:@"Home Screen"];
     return YES;
 }
 

@@ -246,6 +246,11 @@ int cellCountinSection=0;
     [super viewDidAppear:animated];
     
     appDel._messageDelegate = self;
+    
+    id<GAITracker> defaultTracker = [[GAI sharedInstance] defaultTracker];
+    [defaultTracker send:[[[GAIDictionaryBuilder createAppView]
+                           set:NSStringFromClass([self class])
+                           forKey:kGAIScreenName] build]];
 }
 - (void)viewDidUnload {
     //    [self setTbVC_ChatList:nil];

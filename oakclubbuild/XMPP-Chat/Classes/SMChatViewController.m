@@ -170,6 +170,15 @@
     [self customNavigationHeader];
 }
 
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    
+    id<GAITracker> defaultTracker = [[GAI sharedInstance] defaultTracker];
+    [defaultTracker send:[[[GAIDictionaryBuilder createAppView]
+                           set:NSStringFromClass([self class])
+                           forKey:kGAIScreenName] build]];
+}
+
 -(void)viewWillDisappear:(BOOL)animated{
     VCChat *vcChat = (VCChat *) appDel.chat.viewControllers[0];
     if ([vcChat isKindOfClass:[VCChat class]])

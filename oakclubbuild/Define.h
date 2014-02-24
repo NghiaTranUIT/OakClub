@@ -62,6 +62,8 @@
 #define answerNO @"NO"
 #define answerMAYBE @"MAYBE"
 
+#define kGoolgeTrackingId @"UA-48309154-1"
+
 //================ service API link ================
 //#define DOMAIN @"http://staging.oakclub.com/app_dev.php"
 

@@ -479,7 +479,11 @@ CGFloat pageHeight;
         }
             
     }
-    
+
+    id<GAITracker> defaultTracker = [[GAI sharedInstance] defaultTracker];
+    [defaultTracker send:[[[GAIDictionaryBuilder createAppView]
+                           set:NSStringFromClass([self class])
+                           forKey:kGAIScreenName] build]];
 }
 
 - (void)viewDidUnload

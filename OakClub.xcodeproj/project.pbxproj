@@ -121,6 +121,8 @@
 		348FD61018B5F98800E31440 /* normalVerify_th.html in Resources */ = {isa = PBXBuildFile; fileRef = 348FD5FC18B5F98800E31440 /* normalVerify_th.html */; };
 		348FD61118B5F98800E31440 /* normalVerify_tr.html in Resources */ = {isa = PBXBuildFile; fileRef = 348FD5FD18B5F98800E31440 /* normalVerify_tr.html */; };
 		348FD61218B5F98800E31440 /* normalVerify_vi.html in Resources */ = {isa = PBXBuildFile; fileRef = 348FD5FE18B5F98800E31440 /* normalVerify_vi.html */; };
+		3495553018BB117100582C5D /* libidn.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CDF99C4B1713FA6C008D8BAC /* libidn.a */; };
+		3495553918BB118100582C5D /* libGoogleAnalyticsServices.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3495553818BB118100582C5D /* libGoogleAnalyticsServices.a */; };
 		34EBECCC18AB4C9700237B41 /* Menu_icon_viproom_pressed.png in Resources */ = {isa = PBXBuildFile; fileRef = 34EBECC818AB4C9700237B41 /* Menu_icon_viproom_pressed.png */; };
 		34EBECCD18AB4C9700237B41 /* Menu_icon_viproom_pressed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 34EBECC918AB4C9700237B41 /* Menu_icon_viproom_pressed@2x.png */; };
 		34EBECCE18AB4C9700237B41 /* Menu_icon_viproom.png in Resources */ = {isa = PBXBuildFile; fileRef = 34EBECCA18AB4C9700237B41 /* Menu_icon_viproom.png */; };
@@ -815,7 +817,6 @@
 		CDF99C471713D862008D8BAC /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CDF99C461713D862008D8BAC /* CoreLocation.framework */; };
 		CDF99C4E1713FA6C008D8BAC /* aqua.png in Resources */ = {isa = PBXBuildFile; fileRef = CDF99C491713FA6C008D8BAC /* aqua.png */; };
 		CDF99C4F1713FA6C008D8BAC /* defaultPerson.png in Resources */ = {isa = PBXBuildFile; fileRef = CDF99C4A1713FA6C008D8BAC /* defaultPerson.png */; };
-		CDF99C501713FA6C008D8BAC /* libidn.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CDF99C4B1713FA6C008D8BAC /* libidn.a */; };
 		CDF99C511713FA6C008D8BAC /* orange.png in Resources */ = {isa = PBXBuildFile; fileRef = CDF99C4C1713FA6C008D8BAC /* orange.png */; };
 		CDF99C541713FAFE008D8BAC /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = CDF99C531713FAFE008D8BAC /* MainWindow.xib */; };
 		CDFA306217795A280023CEBE /* AdvancedSetting.m in Sources */ = {isa = PBXBuildFile; fileRef = CDFA306117795A280023CEBE /* AdvancedSetting.m */; };
@@ -965,6 +966,13 @@
 		348FD5FC18B5F98800E31440 /* normalVerify_th.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = normalVerify_th.html; sourceTree = "<group>"; };
 		348FD5FD18B5F98800E31440 /* normalVerify_tr.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = normalVerify_tr.html; sourceTree = "<group>"; };
 		348FD5FE18B5F98800E31440 /* normalVerify_vi.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = normalVerify_vi.html; sourceTree = "<group>"; };
+		3495553218BB118100582C5D /* GAI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAI.h; sourceTree = "<group>"; };
+		3495553318BB118100582C5D /* GAIDictionaryBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAIDictionaryBuilder.h; sourceTree = "<group>"; };
+		3495553418BB118100582C5D /* GAIFields.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAIFields.h; sourceTree = "<group>"; };
+		3495553518BB118100582C5D /* GAILogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAILogger.h; sourceTree = "<group>"; };
+		3495553618BB118100582C5D /* GAITrackedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAITrackedViewController.h; sourceTree = "<group>"; };
+		3495553718BB118100582C5D /* GAITracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAITracker.h; sourceTree = "<group>"; };
+		3495553818BB118100582C5D /* libGoogleAnalyticsServices.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libGoogleAnalyticsServices.a; sourceTree = "<group>"; };
 		3495C3C7187D549C00D40B9F /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		3495C3C8187D549D00D40B9F /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
 		3495C3C9187D549D00D40B9F /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -1999,6 +2007,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3495553918BB118100582C5D /* libGoogleAnalyticsServices.a in Frameworks */,
+				3495553018BB117100582C5D /* libidn.a in Frameworks */,
 				34EBECD718AB5C4300237B41 /* StoreKit.framework in Frameworks */,
 				9758AF03184CA15A00B9D4AF /* AVFoundation.framework in Frameworks */,
 				97A8FCBC18361E6D00B9ACEC /* MediaPlayer.framework in Frameworks */,
@@ -2024,7 +2034,6 @@
 				CDC4929F1702CEAB00E83DE3 /* Foundation.framework in Frameworks */,
 				CDC492A11702CEAB00E83DE3 /* CoreGraphics.framework in Frameworks */,
 				CDC492EB1702CF7100E83DE3 /* FacebookSDK.framework in Frameworks */,
-				CDF99C501713FA6C008D8BAC /* libidn.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2058,6 +2067,20 @@
 				3429091A1862F0C700A35209 /* NSStringRandom.m */,
 			);
 			path = NSStringRandom;
+			sourceTree = "<group>";
+		};
+		3495553118BB118100582C5D /* GoogleAnalyticsServicesiOS_3.03 */ = {
+			isa = PBXGroup;
+			children = (
+				3495553218BB118100582C5D /* GAI.h */,
+				3495553318BB118100582C5D /* GAIDictionaryBuilder.h */,
+				3495553418BB118100582C5D /* GAIFields.h */,
+				3495553518BB118100582C5D /* GAILogger.h */,
+				3495553618BB118100582C5D /* GAITrackedViewController.h */,
+				3495553718BB118100582C5D /* GAITracker.h */,
+				3495553818BB118100582C5D /* libGoogleAnalyticsServices.a */,
+			);
+			path = GoogleAnalyticsServicesiOS_3.03;
 			sourceTree = "<group>";
 		};
 		34EBECD018AB513800237B41 /* VIPRoom */ = {
@@ -2771,6 +2794,7 @@
 		CD12C1AE170AEC4C006B13B8 /* References */ = {
 			isa = PBXGroup;
 			children = (
+				3495553118BB118100582C5D /* GoogleAnalyticsServicesiOS_3.03 */,
 				342909161862F0C700A35209 /* NSStringRandom */,
 				9758AED8184C6C7100B9D4AF /* PSTCollectionView */,
 				CD13D4251816254F00F63F65 /* AnimatedGif */,
@@ -5374,16 +5398,18 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/oakclubbuild/XMPP-Chat\"",
-					"\"$(SRCROOT)/oakclubbuild/XMPP-Chat/Resources\"",
+					"\\\"$(SRCROOT)/oakclubbuild/XMPP-Chat\\\"",
+					"\\\"$(SRCROOT)/oakclubbuild/XMPP-Chat/Resources\\\"",
+					"/Users/letiendung/Documents/Projects/iOS/OakClub/OakClub_source/OakClub/oakclubbuild/XMPP-Chat/Resources",
+					/Users/letiendung/Documents/Projects/iOS/OakClub/OakClub_source/OakClub/oakclubbuild/GoogleAnalyticsServicesiOS_3.03,
 				);
 				OTHER_LDFLAGS = (
 					"-lsqlite3.0",
 					"-ObjC",
 				);
 				PRODUCT_NAME = OakClub;
-				PROVISIONING_PROFILE = "D240D505-7765-43AA-9981-EAEA283294EE";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "D240D505-7765-43AA-9981-EAEA283294EE";
+				PROVISIONING_PROFILE = "3932864A-AB65-45D6-9BF6-1F4446F7077D";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "3932864A-AB65-45D6-9BF6-1F4446F7077D";
 				TARGETED_DEVICE_FAMILY = 1;
 				VALIDATE_PRODUCT = YES;
 				WRAPPER_EXTENSION = app;
@@ -5407,8 +5433,10 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/oakclubbuild/XMPP-Chat\"",
-					"\"$(SRCROOT)/oakclubbuild/XMPP-Chat/Resources\"",
+					"\\\"$(SRCROOT)/oakclubbuild/XMPP-Chat\\\"",
+					"\\\"$(SRCROOT)/oakclubbuild/XMPP-Chat/Resources\\\"",
+					"/Users/letiendung/Documents/Projects/iOS/OakClub/OakClub_source/OakClub/oakclubbuild/XMPP-Chat/Resources",
+					/Users/letiendung/Documents/Projects/iOS/OakClub/OakClub_source/OakClub/oakclubbuild/GoogleAnalyticsServicesiOS_3.03,
 				);
 				OTHER_LDFLAGS = (
 					"-lsqlite3.0",
