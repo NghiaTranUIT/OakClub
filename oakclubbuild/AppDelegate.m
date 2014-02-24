@@ -210,8 +210,7 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
     
     // Initialize tracker.
     id<GAITracker> tracker = [[GAI sharedInstance] trackerWithTrackingId:kGoolgeTrackingId];
-    [tracker set:kGAIScreenName
-           value:@"Home Screen"];
+    
     return YES;
 }
 
@@ -2044,4 +2043,5 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
     }];
 
 }
+
 @end
