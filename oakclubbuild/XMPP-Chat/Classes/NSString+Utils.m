@@ -52,7 +52,7 @@
 	res = [res stringByReplacingOccurrencesOfString:@"&lt;" withString:@"<"];
 	res = [res stringByReplacingOccurrencesOfString:@"&gt;" withString:@">"];
 	res = [res stringByReplacingOccurrencesOfString:@"&amp;" withString:@"&"];
-    res = [res stringByReplacingOccurrencesOfString:@"" withString:@"\'"];
+    res = [res stringByReplacingOccurrencesOfString:@"%apos;" withString:@"\'"];
 	
 	return self;
 	
