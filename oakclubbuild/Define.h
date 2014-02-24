@@ -11,9 +11,9 @@
 
 //demo version FLAG
 #define ENABLE_DEMO true
-#define USE_STAGING true
+#define USE_STAGING false
 #define USE_LOCALTEST false
-#define USE_MAINHOST false
+#define USE_MAINHOST true
 #define USE_STAGING_MB false
 #define USE_STAGING_IOS false
 
@@ -245,7 +245,7 @@
 #define URL_reportIOSProblemToOakClub @"service/reportIOSProblemToOakClub"
 #define URL_verifyReceipt @"service/verifyAppleReceipt"
 #define URL_verifyUser @"service/verifyUser"
-#define URL_updateIOSLanguage @"service/updateIOSLanguage"
+#define URL_updateIOSLanguage @"service/updateLanguage"
 //================ service API keys ================
 //root
 #define key_status @"status"

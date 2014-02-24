@@ -10,6 +10,8 @@
 #import "AppDelegate.h"
 #import "UIView+Localize.h"
 
+#define kOakClub_Name @"OakClub_Name"
+
 @interface UserVerificationPage ()
 {
     AppDelegate *appDel;
@@ -64,6 +66,7 @@
     [self.normalVerifyWebView loadHTMLString:html baseURL:[NSURL fileURLWithPath:[[NSBundle mainBundle] resourcePath]]];
     
     html = [NSString stringWithContentsOfURL:[NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:[NSString stringWithFormat:@"forceVerify_%@.html", selectedLanguage] ofType:nil]] encoding:NSUTF8StringEncoding error:nil];
+    html = [html stringByReplacingOccurrencesOfString:kOakClub_Name withString:appDel.myProfile.firstName];
     [self.forceVerifyWebView loadHTMLString:html baseURL:[NSURL fileURLWithPath:[[NSBundle mainBundle] resourcePath]]];
     
     html = [NSString stringWithContentsOfURL:[NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:[NSString stringWithFormat:@"failedpopup_%@.html", selectedLanguage] ofType:nil]] encoding:NSUTF8StringEncoding error:nil];
@@ -101,7 +104,7 @@
 {
     UIImage *image = [UIImage imageNamed:@"Default-image_share"];
     
-    NSString *message = [NSString stringWithFormat:@"%@", [@"I have just joined OakClub - a cool app to make new connections. Check it out!" localize]];
+    NSString *message = [NSString stringWithFormat:@"%@", [@"I have just joined OakClub – a great app to connect to cool people around you. Check it out!" localize]];
     
     NSString *shareURL = @"http://oakclub.com";
     
