@@ -139,10 +139,8 @@ extern NSString *const SCSessionStateChangedNotification;
 -(BOOL)isFacebookActivated;
 
 -(void)loadAllViewControllers;
-//-(void)loadDataForList;
 -(void)loadDataForList:(void(^)(NSError *e))completion;
 -(void)showChat;
-//-(void)showSnapshoot;
 -(void)gotoLogin;
 -(void)gotoVCAtCompleteLogin;
 #if ENABLE_DEMO
@@ -152,22 +150,16 @@ extern NSString *const SCSessionStateChangedNotification;
 -(void)showUserVerificationPage;
 -(void)showSimpleSnapshot;
 -(void)showSimpleSnapshotThenFocus:(BOOL)focus;
-//-(void)showSnapshotLoadingThenFocus:(BOOL)focus;
 -(void)showSnapshotLoadingThenFocus:(BOOL)focus and:(void(^)(void))handler;
 -(void)updateLanguageBundle;
 -(void)updateLanguageToServer;
 -(void)updateLocalNotification:(int)num;
 #endif
-//-(void)showMylink;
-//-(void)showVisitor;
 -(void)showLeftView;
 -(void)logOut;
-//-(void)showHangOut;
 -(void)showMyProfile;
 -(void)showConfirm;
 -(void)showInvite;
-//-(void)showGetPoints;
-//-(NavConOakClub *) createNavigationByClass:(NSString *)className;
 -(BOOL)checkInternetConnection;
 -(void)loadFriendsList;
 -(BOOL)isAuthenticated;
