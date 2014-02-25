@@ -165,13 +165,13 @@ enum UpdateProfileItems {
     switch (indexPath.row)
     {
         case UpdateProfile_Name:
-            cell.detailTextLabel.text = copyProfile.s_Name;
+            cell.detailTextLabel.text = [copyProfile.s_Name isKindOfClass:[NSNull class]] ? @"" : copyProfile.s_Name;
             break;
         case UpdateProfile_Birthday:
-            cell.detailTextLabel.text = copyProfile.s_birthdayDate;
+            cell.detailTextLabel.text = [copyProfile.s_birthdayDate isKindOfClass:[NSNull class]] ? @"" : copyProfile.s_birthdayDate;
             break;
         case UpdateProfile_Email:
-            cell.detailTextLabel.text = copyProfile.s_Email;
+            cell.detailTextLabel.text = [copyProfile.s_Email isKindOfClass:[NSNull class]] ? @"" : copyProfile.s_Email;
             break;
         case UpdateProfile_Gender:
             cell.detailTextLabel.text = copyProfile.s_gender.text;
