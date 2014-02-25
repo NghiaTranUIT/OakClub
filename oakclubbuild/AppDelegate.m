@@ -422,9 +422,15 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
         UIViewController *focusedVC = [self.rootVC focusedController];
         if (focusedVC == self.chat)
         {
-            UIViewController *topVC = [self.chat topViewController];
-            if ([topVC isKindOfClass:[SMChatViewController class]])
-            {
+            SMChatViewController *smChatViewController = nil;
+            for (UIViewController *viewController in self.chat.viewControllers) {
+                if ([viewController isKindOfClass:[SMChatViewController class]])
+                {
+                    smChatViewController = (SMChatViewController *)viewController;
+                }
+            }
+            if (smChatViewController) {
+                [self.chat popToViewController:smChatViewController animated:NO];
                 [self.chat popViewControllerAnimated:NO];
             }
         }
