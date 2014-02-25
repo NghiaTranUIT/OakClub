@@ -7,6 +7,7 @@
 //
 
 #import "NSString+Utils.h"
+#import "NSString+HTML.h"
 #import "ChatEmoticon.h"
 #import "WordWarpParse.h"
 #import "AppDelegate.h"
@@ -34,11 +35,6 @@
 + (NSString *) getCurrentTime {
 
 	NSDate *nowUTC = [NSDate date];
-//	NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-//	[dateFormatter setTimeZone:[NSTimeZone localTimeZone]];
-//	[dateFormatter setDateStyle:NSDateFormatterMediumStyle];
-//	[dateFormatter setTimeStyle:NSDateFormatterMediumStyle];
-    //return [dateFormatter stringFromDate:nowUTC];
     
     NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
     [dateFormat setDateFormat:DATETIME_FORMAT];
@@ -48,14 +44,7 @@
 }
 
 - (NSString *) formatForChatMessage {
-	NSString *res = [self stringByReplacingOccurrencesOfString:@"&quot;" withString:@"\""];
-	res = [res stringByReplacingOccurrencesOfString:@"&lt;" withString:@"<"];
-	res = [res stringByReplacingOccurrencesOfString:@"&gt;" withString:@">"];
-	res = [res stringByReplacingOccurrencesOfString:@"&amp;" withString:@"&"];
-    res = [res stringByReplacingOccurrencesOfString:@"" withString:@"\'"];
-	
-	return self;
-	
+    return [self kv_decodeHTMLCharacterEntities];
 }
 
 -(NSString *)formatForJSON

@@ -161,8 +161,6 @@
 
 -(void)viewWillAppear:(BOOL)animated
 {
-    appDel._messageDelegate = self;
-
     [tView reloadData];
 
     [self scrollToLastAnimated:NO];
@@ -180,11 +178,6 @@
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
-    VCChat *vcChat = (VCChat *) appDel.chat.viewControllers[0];
-    if ([vcChat isKindOfClass:[VCChat class]])
-    {
-        appDel._messageDelegate = vcChat;
-    }
     [self clearCustomNavigationHeader];
 }
 -(void)clearCustomNavigationHeader{
@@ -245,9 +238,8 @@
 	[self.tView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     [self.navigationController setNavigationBarHidden:NO];
     
-    
 	appDel = [self appDelegate];
-	appDel._messageDelegate = self;
+    [appDel.messageDelegates addObject:self];
     
     [label_header setText:userName];
     
@@ -400,13 +392,7 @@
         [self.navigationController.navigationBar setUserInteractionEnabled:YES];
         [self.navigationController setNavigationBarHidden:NO];
         [self.navigationController pushViewController:viewProfile animated:YES];
-//        if(!IS_OS_7_OR_LATER){
-//            //vanancy ; bug crash on iOS7
-//            [viewProfile.navigationController setNavigationBarHidden:YES];
-//        }
     }];
-    
-    
 }
 #pragma mark -
 #pragma mark Table view delegates
@@ -580,31 +566,25 @@ static float cellWidth = 320;
 
 
 - (void)newMessageReceived:(NSDictionary *)messageContent {
-    
     // Vanancy - reset count of Notification of new chat unread
     appDel.myProfile.unread_message = 0;
 	NSString* sender = [messageContent objectForKey:@"sender"];
-    
     if(![sender isEqualToString:chatWithUser])
         return;
     
     NSArray *chunks = [chatWithUser componentsSeparatedByString: @"@"];
     NSString* hangout_id = [chunks objectAtIndex:0];
-    
 	NSString *m = [messageContent objectForKey:@"msg"];
-    
     NSString* time = [NSString getCurrentTime];
+	[messages addMessage:[[HistoryMessage alloc] initMessageFrom:hangout_id atTime:time toHangout:appDel.myProfile.s_ID withContent:m]];
     
-	[messages addMessage:[[HistoryMessage alloc] initMessageFrom:[chunks objectAtIndex:0] atTime:time toHangout:appDel.myProfile.s_ID withContent:m]];
-    [self addMessage:m atTime:time fromUser:hangout_id toUser:appDel.myProfile.s_ID ];
 	[self.tView reloadData];
-
-	NSIndexPath *topIndexPath = [NSIndexPath indexPathForRow:messages.count-1 
-												   inSection:0];
-	
+	NSIndexPath *topIndexPath = [NSIndexPath indexPathForRow:messages.count-1 inSection:0];
 	[self.tView scrollToRowAtIndexPath:topIndexPath 
 					  atScrollPosition:UITableViewScrollPositionBottom
 							  animated:YES];
+    
+    userProfile.status = ChatViewed;
 }
 
 
@@ -621,9 +601,8 @@ static float cellWidth = 320;
     [self setLabel_header:nil];
     [self setLabel_Age:nil];
     [appDel.notificationCenter removeObserver:self forKeyPath:userChangedNotificationName];
+    [appDel.messageDelegates removeObject:self];
     [super viewDidUnload];
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField{

@@ -63,7 +63,7 @@ NSString *const SCSessionStateChangedNotification =
 NSString *const kXMPPmyJID = @"kXMPPmyJID";
 NSString *const kXMPPmyPassword = @"kXMPPmyPassword";
 // for Chatting
-@synthesize _messageDelegate;
+@synthesize messageDelegates;
 @synthesize xmppStream;
 @synthesize xmppReconnect;
 @synthesize xmppRoster;
@@ -165,7 +165,7 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
     self.imagePool = [[ImagePool alloc] init];
     self.snapshotSettingsObj = [[SettingObject alloc] init];
     self.notificationCenter = [[NSNotificationCenter alloc] init];
-    _messageDelegate = nil;
+    self.messageDelegates = [[NSMutableArray alloc] init];
    
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
@@ -256,9 +256,17 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
         if (self.pushNotificationInfo)
         {
             NSDictionary *data = self.pushNotificationInfo[key_data];
-            Profile *chatPushNotificationProfile = [[Profile alloc] init];
-            chatPushNotificationProfile.s_Name = data[key_name];
-            chatPushNotificationProfile.s_ID = data[key_profileID];
+            NSString *chatUserName = data[key_name];
+            NSString *chatUserID = data[key_profileID];
+            NSString *chatUserXMPPID = [NSString stringWithFormat:@"%@%@", chatUserID, DOMAIN_AT];
+            
+            Profile *chatPushNotificationProfile = [self.myProfile.dic_Roster objectForKey:chatUserID];
+            if (!chatPushNotificationProfile)
+            {
+                Profile *chatPushNotificationProfile = [[Profile alloc] init];
+                chatPushNotificationProfile.s_Name = chatUserName;
+                chatPushNotificationProfile.s_ID = chatUserID;
+            }
             
             self.rootVC.recognizesPanningOnFrontView = YES;
             [self.rootVC showViewController:self.chat];
@@ -271,7 +279,6 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
                 [self.myProfile.a_messages setObject:chatMessagesArray forKey:notifChatID];
             }
             
-            NSString *chatUserXMPPID = [NSString stringWithFormat:DOMAIN_AT_FMT, chatPushNotificationProfile.s_ID];
             SMChatViewController *chatController =
             [[SMChatViewController alloc] initWithUser:chatUserXMPPID
                                            withProfile:chatPushNotificationProfile
@@ -1483,7 +1490,7 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
             msg = [[message elementForName:@"paused"] stringValue];
     }
     NSLog(@"didReceiveMessage: msg=%@", msg);
-    
+    NSLog(@"didReceiveMessage: from=%@", jid);
     
     
     if(msg == nil || type == nil || [type isEqualToString:@"error"])
@@ -1507,49 +1514,14 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
 	[m setObject:msg forKey:@"msg"];
     [m setObject:jid forKey:@"sender"];
     
-	//vanancy update info of list chat in Chat history view
-    
-    
-    if(_messageDelegate != nil)
-        [_messageDelegate newMessageReceived:m];
-    //    else
-    //    {
-    //        XMPPUserCoreDataStorageObject *user = [xmppRosterStorage userForJID:[message from]
-    //		                                                         xmppStream:xmppStream
-    //		                                               managedObjectContext:[self managedObjectContext_roster]];
-    //
-    //		NSString *body = [[message elementForName:@"body"] stringValue];
-    //		NSString *displayName = [user displayName];
-    //
-    //        [self showLocalNotification:displayName and:body];
-    //    }
+    for (id<SMMessageDelegate> msgDelegate in self.messageDelegates)
+    {
+        [msgDelegate newMessageReceived:m];
+    }
     
 	if ([message isChatMessageWithBody])
 	{
-//		XMPPUserCoreDataStorageObject *user = [xmppRosterStorage userForJID:[message from]
-//		                                                         xmppStream:xmppStream
-//		                                               managedObjectContext:[self managedObjectContext_roster]];
-		
-//		NSString *body = [[message elementForName:@"body"] stringValue];
-//		NSString *displayName = [user displayName];
         [self showLocalNotification];
-        /*
-		if ([[UIApplication sharedApplication] applicationState] == UIApplicationStateActive)
-		{
-            
-            //             UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:displayName
-            //             message:body
-            //             delegate:nil
-            //             cancelButtonTitle:@"Ok"
-            //             otherButtonTitles:nil];
-            //             [alertView show];
-            
-		}
-		else
-		{
-			[self showLocalNotification:displayName and:body];
-		}
-        */
 	}
 }
 
@@ -1604,16 +1576,7 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
             
             profile.is_available = false;
         }
-//        else 
-//        {
-//            [user setSectionNum:[NSNumber numberWithInt:1]];
-//        }
-        
-
     }
-
-//    [[self.chat.viewControllers objectAtIndex:0] reloadFriendList];
-
 }
 
 - (void)xmppStream:(XMPPStream *)sender didReceiveError:(id)error

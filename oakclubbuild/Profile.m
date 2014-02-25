@@ -549,7 +549,7 @@
     [httpClient getPath:URL_getListChat parameters:nil success:^(__unused AFHTTPRequestOperation *operation, id responseObject) {
         NSError *err;
         NSMutableDictionary *dict = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:&err];
-        NSLog(@"%@", @"getRosterListIDSync");
+        NSLog(@"Get list chat %@", dict);
         [self parseRoster:[dict valueForKey:key_data]];
         if(handler != nil){
             handler();

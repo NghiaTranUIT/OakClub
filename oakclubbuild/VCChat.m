@@ -59,7 +59,7 @@ int cellCountinSection=0;
         // Custom initialization
         appDel = (AppDelegate *) [UIApplication sharedApplication].delegate;
         a_messages = appDel.myProfile.a_messages;
-        appDel._messageDelegate = self;
+        [appDel.messageDelegates addObject:self];
     }
     return self;
 }
@@ -244,21 +244,15 @@ int cellCountinSection=0;
     NSLog(@"viewDidAppear Delta %lf", end - current);
     
     [super viewDidAppear:animated];
-    
-    appDel._messageDelegate = self;
-    
-    id<GAITracker> defaultTracker = [[GAI sharedInstance] defaultTracker];
-    [defaultTracker send:[[[GAIDictionaryBuilder createAppView]
-                           set:NSStringFromClass([self class])
-                           forKey:kGAIScreenName] build]];
 }
 - (void)viewDidUnload {
     //    [self setTbVC_ChatList:nil];
     [self setLoadingFriendList:nil];
     [self setTableView:nil];
-    [super viewDidUnload];
-    
     a_messages = nil;
+    [appDel.messageDelegates removeObject:self];
+    
+    [super viewDidUnload];
 }
 - (void)viewDidLoad
 {

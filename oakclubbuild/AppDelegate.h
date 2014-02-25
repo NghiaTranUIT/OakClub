@@ -56,15 +56,13 @@
     SettingsViewController *loginViewController;
     UIBarButtonItem *loginButton;
     
-    __unsafe_unretained NSObject <SMMessageDelegate> *_messageDelegate;
-    
     //requests
     NSMutableDictionary *friendChatList;
     
     ProfileSetting* _accountSetting;
 }
 // methods for chatting
-@property (nonatomic, assign) id  _messageDelegate;
+@property (strong, nonatomic) NSMutableArray  *messageDelegates;
 @property(strong, nonatomic) NSMutableDictionary *friendChatList;
 @property (nonatomic, strong, readonly) XMPPStream *xmppStream;
 @property (nonatomic, strong, readonly) XMPPReconnect *xmppReconnect;
