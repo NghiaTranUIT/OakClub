@@ -290,7 +290,7 @@
 #define key_likeTime @"like_time"
 #define key_isVip @"is_vip"
 #define key_isForceVerify @"force_verify"
-#define key_isVerified @"is_verified"
+#define key_isVerified @"is_verify"
 #define key_statusTime @"time"
 #define key_matchTime @"match_time"
 #define key_lastMessage @"last_message"

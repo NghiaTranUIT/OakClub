@@ -118,55 +118,113 @@
     
     NSString *shareURL = @"http://oakclub.com";
     
-    [FBNativeDialogs presentShareDialogModallyFrom:self initialText:message image:image url:[NSURL URLWithString:shareURL]
-                                           handler:^(FBNativeDialogResult result, NSError *error) {
-                                               if (error) {
-                                                   self.successPopupView.hidden = YES;
-                                                   self.failedPopupView.hidden = NO;
-                                               } else {
-                                                   if (result == FBNativeDialogResultSucceeded) {
-                                                       
-                                                       self.successPopupView.hidden = NO;
-                                                       self.failedPopupView.hidden = YES;
-                                                       
-                                                       AFHTTPClient *request = [[AFHTTPClient alloc] initWithOakClubAPI:DOMAIN];
-                                                       NSMutableURLRequest *urlReq = [request requestWithMethod:@"GET" path:URL_verifyUser parameters:nil];
-                                                       
-                                                       AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:urlReq];
-                                                       
-                                                       [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id JSON) {
-                                                           NSError *e=nil;
-                                                           NSMutableDictionary *dict = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONReadingMutableContainers error:&e];
-                                                           BOOL error = [[dict objectForKey:key_errorCode] boolValue];
-                                                           
-                                                           if (error)
-                                                           {
-                                                               self.successPopupView.hidden = YES;
-                                                               self.failedPopupView.hidden = NO;
-                                                           }
-                                                           else
-                                                           {
-                                                               self.successPopupView.hidden = NO;
-                                                               self.failedPopupView.hidden = YES;
-                                                               
-                                                               appDel.myProfile.isVerified = YES;
-                                                           }
-                                                       } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                                                           self.successPopupView.hidden = YES;
-                                                           self.failedPopupView.hidden = NO;
-                                                       }];
-                                                       
-                                                       [operation start];
-                                                       
-                                                       
-                                                       
-                                                   } else {
+    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithObjectsAndKeys:
+                                   message, @"description",
+                                   shareURL, @"link",
+                                   @"http://oakclub.com/bundles/likevnblissdate/v3/images/logo.png", @"picture",
+                                   nil];
+    
+    if ([FBNativeDialogs canPresentShareDialogWithSession:nil]) {
+        [FBNativeDialogs presentShareDialogModallyFrom:self initialText:message image:image url:[NSURL URLWithString:shareURL]
+                                               handler:^(FBNativeDialogResult result, NSError *error) {
+                                                   if (error) {
                                                        self.successPopupView.hidden = YES;
                                                        self.failedPopupView.hidden = NO;
+                                                   } else {
+                                                       if (result == FBNativeDialogResultSucceeded) {
+                                                           
+                                                           self.successPopupView.hidden = NO;
+                                                           self.failedPopupView.hidden = YES;
+                                                           
+                                                           AFHTTPClient *request = [[AFHTTPClient alloc] initWithOakClubAPI:DOMAIN];
+                                                           NSMutableURLRequest *urlReq = [request requestWithMethod:@"GET" path:URL_verifyUser parameters:nil];
+                                                           
+                                                           AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:urlReq];
+                                                           
+                                                           [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id JSON) {
+                                                               NSError *e=nil;
+                                                               NSMutableDictionary *dict = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONReadingMutableContainers error:&e];
+                                                               BOOL error = [[dict objectForKey:key_errorCode] boolValue];
+                                                               
+                                                               if (error)
+                                                               {
+                                                                   self.successPopupView.hidden = YES;
+                                                                   self.failedPopupView.hidden = NO;
+                                                               }
+                                                               else
+                                                               {
+                                                                   self.successPopupView.hidden = NO;
+                                                                   self.failedPopupView.hidden = YES;
+                                                                   
+                                                                   appDel.myProfile.isVerified = YES;
+                                                               }
+                                                           } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                                                               self.successPopupView.hidden = YES;
+                                                               self.failedPopupView.hidden = NO;
+                                                           }];
+                                                           
+                                                           [operation start];
+                                                           
+                                                           
+                                                           
+                                                       } else {
+                                                           self.successPopupView.hidden = YES;
+                                                           self.failedPopupView.hidden = NO;
+                                                       }
                                                    }
-                                               }
-                                               
-                                           }];
+                                                   
+                                               }];
+    
+    } else {
+        
+        [FBWebDialogs presentFeedDialogModallyWithSession:nil
+                                               parameters:params
+                                                  handler:^(FBWebDialogResult result, NSURL *resultURL, NSError *error) {
+                                                      if (error) {
+                                                          self.successPopupView.hidden = YES;
+                                                          self.failedPopupView.hidden = NO;
+                                                      } else {
+                                                          if (result == FBWebDialogResultDialogNotCompleted) {
+                                                              self.successPopupView.hidden = YES;
+                                                              self.failedPopupView.hidden = NO;
+                                                          } else {
+                                                              self.successPopupView.hidden = NO;
+                                                              self.failedPopupView.hidden = YES;
+                                                              
+                                                              AFHTTPClient *request = [[AFHTTPClient alloc] initWithOakClubAPI:DOMAIN];
+                                                              NSMutableURLRequest *urlReq = [request requestWithMethod:@"GET" path:URL_verifyUser parameters:nil];
+                                                              
+                                                              AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:urlReq];
+                                                              
+                                                              [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id JSON) {
+                                                                  NSError *e=nil;
+                                                                  NSMutableDictionary *dict = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONReadingMutableContainers error:&e];
+                                                                  BOOL error = [[dict objectForKey:key_errorCode] boolValue];
+                                                                  
+                                                                  if (error)
+                                                                  {
+                                                                      self.successPopupView.hidden = YES;
+                                                                      self.failedPopupView.hidden = NO;
+                                                                  }
+                                                                  else
+                                                                  {
+                                                                      self.successPopupView.hidden = NO;
+                                                                      self.failedPopupView.hidden = YES;
+                                                                      
+                                                                      appDel.myProfile.isVerified = YES;
+                                                                  }
+                                                              } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                                                                  self.successPopupView.hidden = YES;
+                                                                  self.failedPopupView.hidden = NO;
+                                                              }];
+                                                              
+                                                              [operation start];
+                                                              
+                                                          }
+                                                      }
+                                                  }];
+        
+    }
     
 }
 
