@@ -1181,7 +1181,11 @@ BOOL allowFullScreen = FALSE;
     VCReportPopup* reportPopup= [[VCReportPopup alloc] initWithProfileID:currentProfile andChat:VCSSnapshot];
     [reportPopup.view setFrame:CGRectMake(0, 0, reportPopup.view.frame.size.width, reportPopup.view.frame.size.height)];
     
-    [VCSSnapshot.navigationController pushViewController:reportPopup animated:YES];
+    if (self.navigationController) {// if shown from chat
+        [self.navigationController pushViewController:reportPopup animated:YES];
+    } else {//if shown from snapshot
+        [VCSSnapshot.navigationController pushViewController:reportPopup animated:YES];
+    }
 }
 
 - (IBAction)onTouchVipChat:(id)sender {

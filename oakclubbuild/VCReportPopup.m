@@ -122,24 +122,29 @@
 
 -(void)backToChat
 {
+    [self.navigationController.navigationBar setUserInteractionEnabled:YES];
+    
     //if it's SimpleSnapshot
     if (![chatVC isKindOfClass:[SMChatViewController class]]) {
         [self.navigationController setNavigationBarHidden:YES animated:YES];
+        [self.navigationController popViewControllerAnimated:YES];
+    }else{
+        [self.navigationController popToViewController:chatVC animated:YES];
     }
     
-    [self.navigationController.navigationBar setUserInteractionEnabled:YES];
-    [self.navigationController popToViewController:chatVC animated:YES];
+    NSLog(@"self.navigationController.viewControllers: %@", self.navigationController.viewControllers);
 }
 
 -(void)backToRootChat
 {
+    [self.navigationController.navigationBar setUserInteractionEnabled:YES];
     //if it's SimpleSnapshot
     if (![chatVC isKindOfClass:[SMChatViewController class]]) {
         [self.navigationController setNavigationBarHidden:YES animated:YES];
+        [self.navigationController popViewControllerAnimated:YES];
+    }else{
+        [self.navigationController popToViewController:chatVC animated:YES];
     }
-    
-    [self.navigationController.navigationBar setUserInteractionEnabled:YES];
-    [self.navigationController popToViewController:chatVC animated:YES];
 }
 
 - (IBAction)touchSendExplainReport:(id)sender {
