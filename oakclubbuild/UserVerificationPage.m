@@ -56,6 +56,7 @@
     self.failedPopupView.hidden = YES;
 
     [self loadWebView];
+    [self.navigationController.view localizeAllViews];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
