@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="4510" systemVersion="12F45" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="4514" systemVersion="12F45" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
     <dependencies>
         <deployment defaultVersion="1280" identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3742"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3746"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="VCSimpleSnapshot">
@@ -24,6 +24,8 @@
                 <outlet property="imgMatcher" destination="5Tc-Vx-ANn" id="E9M-9N-jhC"/>
                 <outlet property="imgMyAvatar" destination="4M7-C4-0fu" id="I61-Wo-C9l"/>
                 <outlet property="imgNextProfile" destination="23" id="j2n-7D-Njs"/>
+                <outlet property="imgVerified" destination="ZrU-hl-PbK" id="6PM-kP-PT0"/>
+                <outlet property="imgVerifiedNextProfile" destination="t8g-Wb-GtX" id="E6p-2E-lv2"/>
                 <outlet property="lblAge" destination="58" id="59"/>
                 <outlet property="lblMatchAlert" destination="R1c-sV-U2o" id="8uv-p6-2Ec"/>
                 <outlet property="lblName" destination="38" id="57"/>
@@ -157,6 +159,10 @@
                             <nil key="highlightedColor"/>
                             <size key="shadowOffset" width="1" height="1"/>
                         </label>
+                        <imageView userInteractionEnabled="NO" tag="1" contentMode="scaleAspectFit" image="Verified_memebers_icon.png" id="t8g-Wb-GtX">
+                            <rect key="frame" x="130" y="286" width="15" height="15"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        </imageView>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="eST-0g-B9H">
                             <rect key="frame" x="198" y="16" width="55" height="55"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxY="YES"/>
@@ -231,6 +237,10 @@
                             <nil key="highlightedColor"/>
                             <size key="shadowOffset" width="1" height="1"/>
                         </label>
+                        <imageView userInteractionEnabled="NO" tag="1" contentMode="scaleAspectFit" image="Verified_memebers_icon.png" id="ZrU-hl-PbK">
+                            <rect key="frame" x="118" y="279" width="15" height="15"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        </imageView>
                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="58">
                             <rect key="frame" x="134" y="239" width="31" height="21"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -639,6 +649,7 @@
         <image name="Snapshot_top_polaroid.png" width="261" height="303"/>
         <image name="Snapshot_transBG.png" width="320" height="460"/>
         <image name="Snapshot_video_btn.png" width="24" height="24"/>
+        <image name="Verified_memebers_icon.png" width="15" height="15"/>
         <image name="viewprofile_Bar_BG.png" width="320" height="25"/>
         <image name="viewprofile_done.png" width="58" height="34"/>
         <image name="viewprofile_like.png" width="52" height="34"/>

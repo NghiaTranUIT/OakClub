@@ -378,6 +378,8 @@ CGFloat pageHeight;
         self.btnPlayVideoNextProfile.hidden = YES;
     }
     
+    [self.imgVerifiedNextProfile setHidden:!nextProfile.isVerified];
+    
     [snapshotImagePool getImageAtURL:nextProfile.s_Avatar withSize:PHOTO_SIZE_LARGE
                                asycn:^(UIImage *image, NSError *err, bool isFirstLoad, NSString *urlWithSize)
      {
@@ -435,7 +437,8 @@ CGFloat pageHeight;
     } else {
         self.btnPlayVideo.hidden = YES;
     }
-
+    
+    [self.imgVerified setHidden:!currentProfile.isVerified];
     
     NSLog(@"currentProfile.s_Avatar: %@", currentProfile.s_Avatar);
     [snapshotImagePool getImageAtURL:currentProfile.s_Avatar withSize:PHOTO_SIZE_LARGE asycn:^(UIImage *image, NSError *error, bool isFirstLoad, NSString *urlWithSize) {

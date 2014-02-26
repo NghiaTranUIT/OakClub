@@ -682,6 +682,8 @@
     
     self.is_like = [[data valueForKey:key_isLike] boolValue];
     self.match_time = [data valueForKey:key_likeTime];
+    
+    self.isVerified = [[data valueForKey:key_isVerified] boolValue];
 }
 
 -(Gender*) parseGender:(NSNumber *)genderCode{
