@@ -27,6 +27,7 @@
 
 -(void)setUsername:(NSString *)_name;
 -(void) setUIInfo:(Profile*)profile;
+- (void)refreshMenu;
 //- (IBAction)goToChat:(id)sender;
 //- (IBAction)goToMyLink:(id)sender;
 //- (IBAction)goToSnapshoot:(id)sender;

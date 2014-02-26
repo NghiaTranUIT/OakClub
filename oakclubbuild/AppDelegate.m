@@ -279,6 +279,10 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
                 if (!chatMessagesArray)
                 {
                     chatMessagesArray = [[NSMutableArray alloc] init];
+                    
+                    NSLog(@"notifChatID: %@", notifChatID);
+                    NSLog(@"self.myProfile.a_messages: %@", self.myProfile.a_messages);
+                    
                     [self.myProfile.a_messages setObject:chatMessagesArray forKey:notifChatID];
                 }
                 
@@ -301,12 +305,15 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
 
 - (BOOL)checkVerification {
     BOOL isForceVerify = self.myProfile.isForceVerify;
+    if (self.myProfile.isVerified) {
+        isForceVerify = NO;
+    }
     
     BOOL isSkipButtonPressed = [[[NSUserDefaults standardUserDefaults] valueForKey:@"isSkipButtonPressed"] boolValue];
     BOOL isMan = (self.myProfile.s_gender.ID == MALE);
     BOOL isVerify = !self.myProfile.isVerified && isMan && !isSkipButtonPressed;
     
-//    isVerify = true;
+    //    isVerify = true;
     //    isForceVerify = true;
     
     if (isForceVerify || isVerify) {
@@ -315,6 +322,7 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
         userVerificationPage.isPopOver = YES;
         self.window.rootViewController = userVerificationPage;
         [self.window makeKeyAndVisible];
+        
         return YES;
     }
     
