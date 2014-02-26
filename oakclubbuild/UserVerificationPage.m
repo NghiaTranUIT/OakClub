@@ -119,7 +119,10 @@
     
     NSString *shareURL = @"http://oakclub.com";
     
+    NSString *name = [@"I Got Verified!" localize];
+    
     NSMutableDictionary *params = [NSMutableDictionary dictionaryWithObjectsAndKeys:
+                                   name, @"name",
                                    message, @"description",
                                    shareURL, @"link",
                                    @"http://oakclub.com/bundles/likevnblissdate/v3/images/logo.png", @"picture",
