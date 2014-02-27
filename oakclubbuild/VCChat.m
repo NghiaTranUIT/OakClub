@@ -807,27 +807,15 @@ int cellCountinSection=0;
 
 -(void) customSearchBar{
     [self.searchBar setTintColor:COLOR_PURPLE];
-//    self.searchBar.scopeBar.segmentedControlStyle = UISegmentedControlStyleBar; //required for color change
     for (id subview in self.searchDisplayController.searchBar.subviews )
     {
         if([subview isMemberOfClass:[UISegmentedControl class]])
         {
             UISegmentedControl *scopeBar=(UISegmentedControl *) subview;
             scopeBar.tintColor =  COLOR_PURPLE;
-//            scopeBar.segmentedControlStyle = UISegmentedControlStyleBar;
         }
     }
 }
-//- (BOOL)searchBarShouldEndEditing:(UISearchBar *)searchBar
-//{
-//    self.searchBar.showsScopeBar = YES;
-//    [self.searchBar sizeToFit];
-////    self.tableView.tableHeaderView = self.searchBar;
-//    fetchedResultsController = nil;
-//    [self.searchDisplayController.searchResultsTableView reloadData];
-//    //∂[self reloadFriendList];
-//    return YES;
-//}
 
 -(void)searchBarTextDidEndEditing:(UISearchBar *)searchBar
 {
@@ -842,9 +830,6 @@ int cellCountinSection=0;
 }
 
 -(void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText{
-//    if(searchText.length == 0)
-//        return;
-//   
     self.searchResult = searchText;
     [self reloadFriendList];
 }
@@ -900,8 +885,7 @@ int cellCountinSection=0;
     Profile *friend = [appDel.friendChatList objectForKey:sender];
     if (!friend)
     {
-        if(friend.status == MatchUnViewed)
-            appDel.myProfile.new_mutual_attractions--;
+        [appDel updateNavigationWithNotification];
     }
     friend.status = ChatUnviewed;
     [appDel.friendChatList setObject:friend forKey:sender];

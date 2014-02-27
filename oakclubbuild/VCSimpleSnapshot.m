@@ -748,7 +748,6 @@ CGFloat pageHeight;
     [[self navBarOakClub] disableAllControl: NO];
     appDel.rootVC.recognizesPanningOnFrontView = YES;
     
-    ++appDel.myProfile.new_mutual_attractions;
     [self showNotifications];
 }
 - (IBAction)onClickSendMessageToMatcher:(id)sender {

@@ -22,7 +22,7 @@
 
 @synthesize s_Name, i_Points, s_ProfileStatus, s_FB_id, s_ID, dic_Roster,num_Photos, s_gender, num_points,/* num_unreadMessage,*/ s_passwordXMPP, s_usenameXMPP, arr_photos, s_aboutMe, s_birthdayDate, s_interested,a_language, hometown, s_location,s_relationShip, c_ethnicity, s_age, s_meetType, s_popularity, s_interestedStatus, s_snapshotID, a_favorites, s_user_id,s_school,i_work, i_height,i_weight, num_MutualFriends, num_Liked,num_Viewed, s_Email, distance, active, s_video;
 
-@synthesize s_status_time, match_time, arr_MutualFriends, arr_MutualInterests, new_mutual_attractions;
+@synthesize s_status_time, match_time, arr_MutualFriends, arr_MutualInterests;
 
 @synthesize s_lastMessage, s_lastMessage_time, a_messages;
 
@@ -483,7 +483,6 @@
     NSMutableDictionary *rosterDict = [[NSMutableDictionary alloc] init];
 
     self.unread_message = 0;
-    self.new_mutual_attractions = 0;
     for (int i = 0; rosterList!=nil && i < rosterList.count; i++) {
         NSMutableDictionary *objectData = [rosterList objectAtIndex:i];
         
@@ -499,10 +498,6 @@
             // vanancyLuu : cheat for crash
             if(!deleted && !blocked && !blocked_by )
             {
-                BOOL isViewMatch =[[objectData valueForKey:@"status"] intValue] == MatchUnViewed?YES:NO;
-                if(isViewMatch){
-                   self.new_mutual_attractions ++;
-                }
                 int unread_count = [[objectData valueForKey:@"unread_count"] intValue];
                 
                 Profile *profile = [[Profile alloc] init];
@@ -531,8 +526,6 @@
                 {
                     profile.status = (unread_count == 0) ? ChatViewed : ChatUnviewed;
                 }
-                
-                self.unread_message += unread_count;
             }
         }
     }
@@ -920,16 +913,6 @@
     return accountCopy;
 }
 
-
--(int) countTotalNotifications
-{
-#if ENABLE_DEMO
-    return self.new_mutual_attractions + self.unread_message;
-#else
-    return self.new_mutual_attractions + self.unread_message;
-#endif
-    
-}
 -(NSInteger)age
 {
     NSDate *now = [NSDate date];
@@ -967,7 +950,6 @@
         NSMutableDictionary *dict = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONReadingMutableContainers error:&e];
         BOOL resultStatus= [[dict valueForKey:key_status] boolValue];
         if(resultStatus){
-            self.unread_message -= friend.unread_message;
             friend.unread_message = 0;
             [appDel updateNavigationWithNotification];
             NSLog(@"POST READ-MESSAGES SUCCESS!!!");
@@ -990,7 +972,7 @@
         NSMutableDictionary *dict = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONReadingMutableContainers error:&e];
         if([[dict valueForKey:key_status] boolValue]){
             friend.status = MatchViewed;
-            self.new_mutual_attractions --;
+            [appDel updateNavigationWithNotification];
             NSLog(@"setViewedMatchMutualWithFriend SUCCESS!!!");
         }
         else

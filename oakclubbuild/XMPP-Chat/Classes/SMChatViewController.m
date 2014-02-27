@@ -151,11 +151,13 @@
 
 -(void)viewWillAppear:(BOOL)animated
 {
-    [tView reloadData];
-
-    [self scrollToLastAnimated:NO];
+    [appDel.messageDelegates addObject:self];
     
+    [tView reloadData];
+    [self scrollToLastAnimated:NO];
     [self customNavigationHeader];
+    
+    [super viewWillAppear:animated];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -168,7 +170,10 @@
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
+    [appDel.messageDelegates removeObject:self];
     [self clearCustomNavigationHeader];
+    
+    [super viewWillDisappear:animated];
 }
 
 -(void)clearCustomNavigationHeader{
@@ -228,7 +233,6 @@
     [self.navigationController setNavigationBarHidden:NO];
     
 	appDel = [self appDelegate];
-    [appDel.messageDelegates addObject:self];
     
     [label_header setText:userName];
     
@@ -275,6 +279,7 @@
         [self.tView reloadData];
         [self scrollToLastAnimated:NO];
     }
+    
 }
 
 -(void)dismissKeyboard:(id)sender {
@@ -576,7 +581,6 @@ static float cellWidth = 320;
     [self setLabel_header:nil];
     [self setLabel_Age:nil];
     [appDel.notificationCenter removeObserver:self forKeyPath:userChangedNotificationName];
-    [appDel.messageDelegates removeObject:self];
     [super viewDidUnload];
 }
 

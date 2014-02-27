@@ -1057,7 +1057,23 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
 #pragma mark Notification
 -(int)countTotalNotifications
 {
-    return [self.myProfile countTotalNotifications];
+    int totalNotifications = 0;
+    NSArray *allFriends = self.friendChatList.allValues;
+    for (Profile *friend in allFriends)
+    {
+        totalNotifications += [self countFriendNotification:friend];
+    }
+    
+    return totalNotifications;
+}
+-(int)countFriendNotification:(Profile *)friend
+{
+    if (friend.status == MatchUnViewed || friend.status == ChatUnviewed)
+    {
+        return 1;
+    }
+    
+    return 0;
 }
 
 -(void)updateNavigationWithNotification{
@@ -1133,6 +1149,8 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
         VCChat *vcChat = self.chat.viewControllers[0];
         [vcChat loadFriendsInfo];
     }
+    
+    [self updateNavigationWithNotification];
 }
 
 //==============================================================//
@@ -1575,13 +1593,10 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
         NSLog(@"send error.");
         return;
     }
-	//NSString *from = [[message attributeForName:@"from"] stringValue];
-    
     //Vanancy - setNotification for new chat
     int lastViewIndex =[[self.activeVC viewControllers] count] -1;
     if(![[[self.activeVC viewControllers]objectAtIndex:lastViewIndex] isKindOfClass:[SMChatViewController class]]){
         self.myProfile.unread_message++;
-        [self updateNavigationWithNotification];
     }
     
 	NSMutableDictionary *m = [[NSMutableDictionary alloc] init];
@@ -1600,6 +1615,8 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
 	{
         [self showLocalNotification];
 	}
+    
+    [self updateNavigationWithNotification];
 }
 
 -(void)sendPresence:(NSString*)jid withType:(NSString*)type

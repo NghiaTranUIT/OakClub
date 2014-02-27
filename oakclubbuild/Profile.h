@@ -73,7 +73,6 @@
     int num_Viewed;
     int distance;
     int active;
-    int new_mutual_attractions;
     
     NSString *s_lastMessage;
     NSString *s_lastMessage_time;
@@ -137,7 +136,6 @@
 @property int num_Viewed;
 @property int distance;
 @property int active;
-@property int new_mutual_attractions;
 @property (strong, nonatomic) NSString *s_lastMessage;
 @property (strong, nonatomic) NSString *s_lastMessage_time;
 @property (strong, nonatomic) NSMutableDictionary* a_messages;
@@ -160,7 +158,6 @@
 
 +(void) getListPeople:(NSString*)service handler:(void(^)(NSMutableArray*,int))resultHandler;
 +(void) getListPeople:(NSString*)service andParams:(NSDictionary*)params handler:(void(^)(NSMutableArray*,int))resultHandler;
--(int) countTotalNotifications;
 
 -(NSInteger)age;
 -(NSString*)languagesDescription;
