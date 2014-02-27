@@ -1,4 +1,4 @@
-//  AppDelegate.m
+ //  AppDelegate.m
 //  oakclubbuild
 //
 //  Created by VanLuu on 3/27/13.
@@ -1829,14 +1829,12 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
                            NSDictionary *data = [dict objectForKey:key_data];
                            
 #if ENABLE_CHECK_APP_VERSION
-                           
                            NSString *requiredIOSAppVersion = [data objectForKey:@"required_iOS_app_version"];
                            if (![self checkAppVersion:requiredIOSAppVersion]) {
                                failure();
                                
                                return;
                            }
-                           
 #endif
                            
                            switch (status) {
@@ -1870,9 +1868,12 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
                                    break;
                            }
                        }
-                       else if (failure)
+                       else
                        {
-                           failure();
+                           if (failure)
+                           {
+                               failure();
+                           }
                        }
                    } failure:^(AFHTTPRequestOperation *operation, NSError *error)
                    {
