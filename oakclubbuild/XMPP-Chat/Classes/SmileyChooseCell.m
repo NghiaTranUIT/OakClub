@@ -7,12 +7,10 @@
 //
 
 #import "SmileyChooseCell.h"
-#import "ChatEmoticon.h"
 
 @implementation SmileyChooseCell
 {
-    ChatEmoticon *emots;
-    NSString *smiley;
+    id<EmoticonData> _emoticon;
 }
 
 @synthesize smileyButton;
@@ -22,10 +20,7 @@
     self = [super initWithFrame:frame];
     if (self) {
         // Initialization code
-        emots = [ChatEmoticon instance];
-        smileyButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0,
-                                                                       frame.size.width,
-                                                                       frame.size.height)];
+        smileyButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, frame.size.height)];
         [smileyButton setContentMode:UIViewContentModeScaleAspectFit];
         [self.contentView addSubview:smileyButton];
     }
@@ -33,25 +28,27 @@
 }
 
 /*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect
-{
-    // Drawing code
-}
-*/
+ // Only override drawRect: if you perform custom drawing.
+ // An empty implementation adversely affects performance during animation.
+ - (void)drawRect:(CGRect)rect
+ {
+ // Drawing code
+ }
+ */
 
--(NSString *)smileyText
+-(id<EmoticonData>)emoticon
 {
-    return smiley;
+    return _emoticon;
 }
 
--(void)setSmileyText:(NSString *)smileyText
+-(void)setEmoticon:(id<EmoticonData>)emot
 {
-    if (![smiley isEqualToString:smileyText])
+    if (!_emoticon || ![[_emoticon key] isEqualToString:[emot key]])
     {
-        smiley = smileyText;
-        [smileyButton setBackgroundImage:[emots valueForKey:smileyText] forState:UIControlStateNormal];
+        _emoticon= emot;
+        [_emoticon getImageAsycn:^(UIImage *image, NSError *e) {
+            [smileyButton setBackgroundImage:image forState:UIControlStateNormal];
+        }];
     }
 }
 

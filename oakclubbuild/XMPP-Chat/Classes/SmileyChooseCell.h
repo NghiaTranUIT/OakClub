@@ -8,8 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "PSTCollectionView.h"
+#import "ChatEmoticon.h"
 
 @interface SmileyChooseCell : PSUICollectionViewCell
-@property NSString *smileyText;
+@property id<EmoticonData> emoticon;
 @property UIButton *smileyButton;
 @end

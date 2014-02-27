@@ -390,7 +390,6 @@ UITapGestureRecognizer *tap;
                 rangeCell.accessoryView = newCellView;
             }
             lblRange.text = [self getRangeValue:snapshotObj.range];
-//            [rangeCell localizeAllViews];
             return rangeCell;
             break;
         }

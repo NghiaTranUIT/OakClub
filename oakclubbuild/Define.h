@@ -221,6 +221,7 @@
 #define URL_getListPhotos @"service/getListPhotos"
 #define URL_getListCityByCountry @"service/getListCityByCountry"
 #define URL_getListLangRelWrkEth @"service/getDataLanguage"//@"service/getListLangRelWrkEth"
+#define URL_getConfig @"service/getConfig"
 #define URL_getListMaybeIWantToMeet @"service/getListMaybe" // unused
 #define URL_addToMyFavorite @"service/addToMyFavorite" //unused
 #define URL_removeMyFavorite @"service/removeMyFavorite" //unsed
@@ -277,6 +278,8 @@
 #define key_email @"email"
 #define key_weight @"weight"
 #define key_height @"height"
+#define key_width @"width"
+#define key_size @"size"
 #define key_meet_type @"meet_type"
 #define key_popularity @"popularity"
 #define key_interestedStatus @"interested_status"
@@ -326,6 +329,7 @@
 #define key_MutualLikes @"mutualLikes"
 #define key_ShareInterests @"share_interests"
 #define key_URL @"URL"
+#define key_url @"url"
 // list chat of profile
 #define key_rosters @"rosters"
 #define key_match @"matches"
@@ -341,7 +345,22 @@
 
 #define key_snapshotQueue @"snapshotQueueByProfileID"
 
+#define key_emoticon_smileys @"Smiley"
+#define key_emoticon_gift @"Gift"
+#define key_emoticon_sticker_1 @"Sticker1"
+
 #define key_receipt @"receipt"
+
+#define key_configs @"configs"
+
+#define key_emoticonDataLink @""
+
+#define key_stickers @"stickers"
+#define key_sticker @"sticker"
+#define key_symbol @"symbol_name"
+#define key_image @"image"
+
+#define key_gift @"gift"
 
 #define DATE_FORMAT @"MM/dd/yyyy"
 #define DATETIME_FORMAT @"MM/dd/yyyy HH:mm:ss"

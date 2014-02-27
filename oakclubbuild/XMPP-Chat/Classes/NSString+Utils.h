@@ -22,11 +22,3 @@
 
 
 NSString *dateToStringInterval(NSDate *pastDate);
-
-@interface EmoticonString : NSObject
-- (void) insertString:(NSString *)str atIndex:(int)index;
-- (void) removeCharactersInRange:(NSRange)rng;
-- (NSString *) textString;
-- (NSArray*) smileyRanges;
-@end
-

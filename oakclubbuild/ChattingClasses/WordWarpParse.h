@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "Line.h"
+#import "ChatEmoticon.h"
 
 @protocol StringMeasurer <NSObject>
 
@@ -19,7 +20,7 @@
 @protocol LineBuilder <NSObject>
 
 @required
-- (UIView *) buildLineWithComponent:(NSArray *)lines useFont:(UIFont *)font andEmoticonData:(NSDictionary *)data toView:(UIView *)view;
+- (UIView *) buildLineWithComponent:(NSArray *)lines useFont:(UIFont *)font andEmoticonData:(ChatEmoticon *)data toView:(UIView *)view;
 
 @end
 
@@ -34,7 +35,7 @@
 @end
 
 @interface FontAndEmoticonsStringMeasure : FontStringMeasure
-- (id) initWithFont:(UIFont *)font andEmoticonData:(NSDictionary *)data;
+- (id) initWithFont:(UIFont *)font andEmoticonData:(ChatEmoticon *)data;
 -(CGSize) measureString:(NSString*)str;
 @end
 

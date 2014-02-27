@@ -1,4 +1,3 @@
-//
 //  AppDelegate.m
 //  oakclubbuild
 //
@@ -42,6 +41,7 @@
 #import "GAIFields.h"
 #import "GAITracker.h"
 #import "GAIDictionaryBuilder.h"
+#import "OakClubChatEmoticon.h"
 
 
 NSString *const SCSessionStateChangedNotification =
@@ -57,7 +57,7 @@ NSString *const SCSessionStateChangedNotification =
 @end
 @implementation AppDelegate
 {
-//    NSString* s_DeviceToken;
+    //    NSString* s_DeviceToken;
     NSTimer *pingTimer;
 }
 NSString *const kXMPPmyJID = @"kXMPPmyJID";
@@ -149,24 +149,24 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-//    AFHTTPClient *httpClient = [[AFHTTPClient alloc]initWithOakClubAPI:DOMAIN];
-//    [httpClient getPath:URL_getListChat parameters:nil success:^(__unused AFHTTPRequestOperation *operation, id responseObject) {
-//        NSError *err;
-//        NSMutableDictionary *dict = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:&err];
-//        NSString *jsonString = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
-//        NSLog(@"%@", @"getRosterListIDSync");
-//        NSLog(@"Dan list chat: %@", jsonString);
-//    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-//        NSLog(@"get list chat Error: %@", error);
-//    }];
+    //    AFHTTPClient *httpClient = [[AFHTTPClient alloc]initWithOakClubAPI:DOMAIN];
+    //    [httpClient getPath:URL_getListChat parameters:nil success:^(__unused AFHTTPRequestOperation *operation, id responseObject) {
+    //        NSError *err;
+    //        NSMutableDictionary *dict = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:&err];
+    //        NSString *jsonString = [[NSString alloc] initWithData:responseObject encoding:NSUTF8StringEncoding];
+    //        NSLog(@"%@", @"getRosterListIDSync");
+    //        NSLog(@"Dan list chat: %@", jsonString);
+    //    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+    //        NSLog(@"get list chat Error: %@", error);
+    //    }];
     
-//    return false;
+    //    return false;
     
     self.imagePool = [[ImagePool alloc] init];
     self.snapshotSettingsObj = [[SettingObject alloc] init];
     self.notificationCenter = [[NSNotificationCenter alloc] init];
     self.messageDelegates = [[NSMutableArray alloc] init];
-   
+    
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
     self.window.backgroundColor = [UIColor whiteColor];
@@ -193,10 +193,10 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
         self.pushNotificationInfo = [launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
 	}
     
-//    NSString *path = [[NSBundle mainBundle] pathForResource:@"IMG_0293" ofType:@"MOV"];
-//    UISaveVideoAtPathToSavedPhotosAlbum(path, self, @selector(video:didFinishSavingWithError:contextInfo:), nil);
-//    path = [[NSBundle mainBundle] pathForResource:@"IMG_0293" ofType:@"mov"];
-//    UISaveVideoAtPathToSavedPhotosAlbum(path, self, @selector(video:didFinishSavingWithError:contextInfo:), nil);
+    //    NSString *path = [[NSBundle mainBundle] pathForResource:@"IMG_0293" ofType:@"MOV"];
+    //    UISaveVideoAtPathToSavedPhotosAlbum(path, self, @selector(video:didFinishSavingWithError:contextInfo:), nil);
+    //    path = [[NSBundle mainBundle] pathForResource:@"IMG_0293" ofType:@"mov"];
+    //    UISaveVideoAtPathToSavedPhotosAlbum(path, self, @selector(video:didFinishSavingWithError:contextInfo:), nil);
     
     [OakClubIAPHelper sharedInstance];
     
@@ -301,7 +301,7 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
     BOOL isMan = (self.myProfile.s_gender.ID == MALE);
     BOOL isVerify = !self.myProfile.isVerified && isMan && !isSkipButtonPressed;
     
-//    isVerify = true;
+    //    isVerify = true;
     //    isForceVerify = true;
     
     if (isForceVerify || isVerify) {
@@ -318,7 +318,7 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
 
 -(void)loadAllViewControllers{
     self.chat = [self createNavigationByClass:@"VCChat" AndHeaderName:@"Chat History" andRightButton:nil andIsStoryBoard:NO];
-
+    
     self.simpleSnapShot = [self createNavigationByClass:@"VCSimpleSnapshot" AndHeaderName:nil andRightButton:@"VCChat" andIsStoryBoard:NO];
     //     self.snapShotSettings = [self.storyboard instantiateViewControllerWithIdentifier:@"SnapshotSettings"];
     self.snapShotSettings = [self createNavigationByClass:@"VCSimpleSnapshotSetting" AndHeaderName:@"Settings" andRightButton:@"VCChat" andIsStoryBoard:NO];
@@ -327,7 +327,7 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
     self.userVerificationPage = [self createNavigationByClass:@"UserVerificationPage" AndHeaderName:@"Verification" andRightButton:@"VCChat" andIsStoryBoard:NO];
     self.snapshotLoading = [self createNavigationByClass:@"VCSimpleSnapshotLoading" AndHeaderName:nil andRightButton:@"VCChat" andIsStoryBoard:NO];
     self.myProfileVC = [self createNavigationByClass:@"VCMyProfile" AndHeaderName:@"Edit Profile" andRightButton:@"VCChat" andIsStoryBoard:NO];
-//    self.getPoints = [self createNavigationByClass:@"VCGetPoints" AndHeaderName:@"Get Coins" andRightButton:nil andIsStoryBoard:NO];
+    //    self.getPoints = [self createNavigationByClass:@"VCGetPoints" AndHeaderName:@"Get Coins" andRightButton:nil andIsStoryBoard:NO];
     self.confirmVC = [self createNavigationByClass:@"UpdateProfileViewController" AndHeaderName:@"Update Profile" andRightButton:nil andIsStoryBoard:NO];
     // PKRevealController
     
@@ -483,27 +483,27 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
     }
     
     // CHEAT:
-//    if (!self.myProfile)
-//        return;
-//    NSDictionary *remoteNotifs = @{@"data" : @{@"profile_id" : @"1m01j76t9p", @"name" : @"An Nguyen"}};
-//    if (remoteNotifs)
-//    {
-//        NSLog(@"Launched from push notification: %@", remoteNotifs);
-//        
-//        //
-//        NSDictionary *data = remoteNotifs[key_data];
-//        chatPushNotificationProfile = [[Profile alloc] init];
-//        chatPushNotificationProfile.s_Name = data[key_name];
-//        chatPushNotificationProfile.s_ID = data[key_profileID];
-//        
-//        [self application:application didReceiveRemoteNotification:remoteNotifs];
-//    }
+    //    if (!self.myProfile)
+    //        return;
+    //    NSDictionary *remoteNotifs = @{@"data" : @{@"profile_id" : @"1m01j76t9p", @"name" : @"An Nguyen"}};
+    //    if (remoteNotifs)
+    //    {
+    //        NSLog(@"Launched from push notification: %@", remoteNotifs);
+    //
+    //        //
+    //        NSDictionary *data = remoteNotifs[key_data];
+    //        chatPushNotificationProfile = [[Profile alloc] init];
+    //        chatPushNotificationProfile.s_Name = data[key_name];
+    //        chatPushNotificationProfile.s_ID = data[key_profileID];
+    //
+    //        [self application:application didReceiveRemoteNotification:remoteNotifs];
+    //    }
 }
 
 -(BOOL)application:(UIApplication *)application openURL:(NSURL *)url
-                                      sourceApplication:(NSString *)sourceApplication
-                                             annotation:(id)annotation {
-     return [FBSession.activeSession handleOpenURL:url];
+ sourceApplication:(NSString *)sourceApplication
+        annotation:(id)annotation {
+    return [FBSession.activeSession handleOpenURL:url];
 }
 
 - (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url
@@ -525,7 +525,7 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
     }];
 #endif
     
-        
+    
 }
 #if ENABLE_DEMO
 -(void)showSnapshotSettings {
@@ -571,13 +571,13 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
     {
         if(selfCopy.reloadSnapshot){
             [VCSSnapshot refreshSnapshotFocus:focus];
-//            selfCopy.reloadSnapshot = FALSE;
+            //            selfCopy.reloadSnapshot = FALSE;
         }
         return;
     }
     activeVC = _simpleSnapShot;
     PKRevealControllerState state =  self.rootVC.state;
-//    UIViewController* vchat = [self.chat.viewControllers objectAtIndex:0]; //DEBUG
+    //    UIViewController* vchat = [self.chat.viewControllers objectAtIndex:0]; //DEBUG
     if(state == PKRevealControllerFocusesRightViewController && [[self.chat viewControllers] count] > 1){
         return;
     }
@@ -617,7 +617,7 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
     activeVC = _simpleSnapShot;
     [self.rootVC setFrontViewController:self.simpleSnapShot focusAfterChange:NO completion:^(BOOL finished) {
         NSLog(@"setUserInteractionEnabled:NO showSimpleSnapshot");
-            [selfCopy.rootVC.frontViewController.view setUserInteractionEnabled:NO];
+        [selfCopy.rootVC.frontViewController.view setUserInteractionEnabled:NO];
     }];
 }
 
@@ -653,7 +653,7 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
     return params;
 }
 -(void)showInvite{
-     NSMutableArray *suggestedFriends = [[NSMutableArray alloc] init];
+    NSMutableArray *suggestedFriends = [[NSMutableArray alloc] init];
     FBRequest* friendsRequest = [FBRequest requestWithGraphPath:@"me/friends?fields=installed" parameters:nil HTTPMethod:@"GET"];
     [friendsRequest startWithCompletionHandler: ^(FBRequestConnection *connection,
                                                   NSDictionary* result,
@@ -663,7 +663,7 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
             if([[friend objectForKey:@"installed"] integerValue]==0)
                 [suggestedFriends addObject:friend.id];
         }
- 
+        
     }];
     NSMutableDictionary* params = [NSMutableDictionary dictionaryWithObjectsAndKeys:
                                    [suggestedFriends componentsJoinedByString:@","], @"to",
@@ -729,7 +729,7 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
             [self logOut];
             
             NSLog(@"Login failed! %@",error.fberrorUserMessage );
-
+            
             break;
         default:
             
@@ -738,16 +738,16 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
     }
     // show WARNING when confirm login with FB is FAILD
     /*[[NSNotificationCenter defaultCenter] postNotificationName:SCSessionStateChangedNotification object:session];
-    
-    if (error) {
-        UIAlertView *alertView = [[UIAlertView alloc]
-                                  initWithTitle:@"Error"
-                                  message:error.localizedDescription
-                                  delegate:nil
-                                  cancelButtonTitle:@"OK"
-                                  otherButtonTitles:nil];
-        [alertView show];
-    }  */  
+     
+     if (error) {
+     UIAlertView *alertView = [[UIAlertView alloc]
+     initWithTitle:@"Error"
+     message:error.localizedDescription
+     delegate:nil
+     cancelButtonTitle:@"OK"
+     otherButtonTitles:nil];
+     [alertView show];
+     }  */
 }
 
 -(void)parseProfileWithData:(NSDictionary *)data
@@ -785,7 +785,7 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
     MatchMaker *matchMakerVC = (MatchMaker *) self.matchMaker.viewControllers[0];
     [matchMakerVC loadFriendsData];
 }
-    
+
 - (void)openSessionWithhandler:(void(^)(FBSessionState))resultHandler
 {
     NSArray *permission = [[NSArray alloc] initWithObjects:@"email, user_about_me, user_birthday, user_interests, user_location, user_relationship_details",nil];
@@ -826,7 +826,7 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
         if(resultHandler != nil)
             resultHandler(sessionApp.state);
     }
-
+    
 }
 
 #pragma mark FACEBOOK
@@ -895,11 +895,11 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
     Class _class = NSClassFromString(className);
     NSArray *array = [NSArray arrayWithObject:[[_class alloc] initWithNibName:className bundle:nil]];
     [nvOakClub setViewControllers:array];
-
+    
     NavBarOakClub *tempBar = (NavBarOakClub*) nvOakClub.navigationBar;
     [tempBar setHeaderName:headerName];
     [tempBar setCurrentViewController:[array objectAtIndex:0]];
-
+    
     if(isStoryBoard){
         UIStoryboard *settingsStoryboard = [UIStoryboard
                                             storyboardWithName:rightViewControll
@@ -910,7 +910,7 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
     }
     else{
         if(rightViewControll != nil)
-            [tempBar setRightButton:rightViewControll]; 
+            [tempBar setRightButton:rightViewControll];
     }
     return nvOakClub;
 }
@@ -935,13 +935,12 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
 -(void)loadDataForList:(void(^)(NSError *e))completion
 {
     self.cityList = [[NSMutableDictionary alloc] init];
-    [[NSUserDefaults standardUserDefaults] setObject:@"Never" forKey:@"key_EmailSetting"] ;
-//    if(self.relationshipList != nil && [self.relationshipList count] > 0)
-//        return;
+    [[NSUserDefaults standardUserDefaults] setObject:@"Never" forKey:@"key_EmailSetting"];
+    
     AFHTTPClient *request = [[AFHTTPClient alloc] initWithOakClubAPI:DOMAIN];
     NSString* selectedLanguage =[[NSUserDefaults standardUserDefaults] stringForKey:key_appLanguage];
     NSDictionary *params  = [[NSDictionary alloc]initWithObjectsAndKeys:selectedLanguage, @"country", nil];
-    __block BOOL isLoadDataList = false, isLoadSnapshotSettings = false;
+    __block int nLoad = 3;
     __block NSError *apiError = nil;
     [request getPath:URL_getListLangRelWrkEth parameters:params success:^(__unused AFHTTPRequestOperation *operation, id JSON)
      {
@@ -958,31 +957,85 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
          else
              self.genderList = GenderList;
          
-         isLoadDataList = true;
-         if(isLoadSnapshotSettings && completion)
+         --nLoad;
+         if(0 == nLoad && completion)
          {
              completion(apiError);
          }
      } failure:^(AFHTTPRequestOperation *operation, NSError *error)
      {
          NSLog(@"URL_getListLangRelWrkEth - Error Code: %i - %@",[error code], [error localizedDescription]);
-         isLoadSnapshotSettings = true;
+         
+         --nLoad;
          apiError = error;
+         
+         if(0 == nLoad && completion)
+         {
+             completion(apiError);
+         }
      }];
     
     [self.snapshotSettingsObj loadSettingUseCompletion:^(NSError *err) {
-        isLoadSnapshotSettings = true;
+        --nLoad;
         if (!apiError)
         {
             apiError = err;
         }
         
-        if (isLoadDataList && completion)
+        if (0 == nLoad && completion)
+        {
+            completion(apiError);
+        }
+    }];
+    
+    [request getPath:URL_getConfig parameters:nil success:^(AFHTTPRequestOperation *operation, id JSON) {
+        --nLoad;
+        
+        NSError *e;
+        NSDictionary *result = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONReadingMutableContainers error:&e];
+        NSDictionary *data= [result valueForKey:key_data];
+        
+        NSDictionary *configs = data[key_configs];
+        
+        NSDictionary *stickerConfigs = configs[key_sticker];
+        NSString *stickerURL = stickerConfigs[key_url];
+        NSDictionary *stickerSize = stickerConfigs[key_size];
+        NSNumber *stickerWidth = stickerSize[key_width];
+        NSNumber *stickerHeight = stickerSize[key_height];
+        [[OakClubChatEmoticon instance] setStickerDomainLink:stickerURL];
+        [[OakClubChatEmoticon instance] setStickerSize:CGSizeMake([stickerWidth floatValue], [stickerHeight floatValue])];
+        
+        NSDictionary *giftConfigs = configs[key_gift];
+        NSString *giftURL = giftConfigs[key_url];
+        NSDictionary *giftSize = giftConfigs[key_size];
+        NSNumber *giftWidth = giftSize[key_width];
+        NSNumber *giftHeight = giftSize[key_height];
+        [[OakClubChatEmoticon instance] setGiftDomainLink:giftURL];
+        [[OakClubChatEmoticon instance] setGiftSize:CGSizeMake([giftWidth  floatValue], [giftHeight floatValue])];
+        
+        NSArray *stickers1 = data[key_stickers];
+        NSString *sticker1Domain = [NSString stringWithFormat:@"%@%@", DOMAIN, stickerURL];
+        id<EmoticonDataFactory> sticker1DataF = [[ServerEmoticionDataFactory alloc] initWithDomain:sticker1Domain];
+        ChatEmoticon *stickerCE = [[ChatEmoticon alloc] initWithServerConfig:stickers1 andDataFactory:sticker1DataF];
+        
+        [[OakClubChatEmoticon instance] addChatEmoticon:stickerCE forName:key_emoticon_sticker_1];
+        
+        
+        if (0 == nLoad && completion)
+        {
+            completion(apiError);
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        --nLoad;
+        apiError = error;
+        
+        if (0 == nLoad && completion)
         {
             completion(apiError);
         }
     }];
 }
+
 #pragma mark Notification
 -(int)countTotalNotifications
 {
@@ -1011,7 +1064,7 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
 }
 -(void)updateLocalNotification:(int)num{
     [UIApplication sharedApplication].applicationIconBadgeNumber = num;
-//    [self showLocalNotification];
+    //    [self showLocalNotification];
 }
 
 -(void)loadFriendsList
@@ -1024,7 +1077,7 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
     
     friendChatList = [[NSMutableDictionary alloc] init];
     
-//    NSOperationQueue *queue = [[NSOperationQueue alloc] init];
+    //    NSOperationQueue *queue = [[NSOperationQueue alloc] init];
     
     NSArray *IDs = [self.myProfile.dic_Roster allKeys];
     
@@ -1222,9 +1275,9 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
 
 - (void)goOnline
 {
-//	XMPPPresence *presence = [XMPPPresence presence]; // type="available" is implicit
-//	
-//	[[self xmppStream] sendElement:presence];
+    //	XMPPPresence *presence = [XMPPPresence presence]; // type="available" is implicit
+    //
+    //	[[self xmppStream] sendElement:presence];
     XMPPPresence *presence = [XMPPPresence presenceWithType:@"available"];
     [xmppStream sendElement:presence];
 }
@@ -1392,7 +1445,7 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
 	DDLogVerbose(@"%@: %@", THIS_FILE, THIS_METHOD);
 	
     NSLog(@"xmppStreamDidAuthenticate");
-
+    
     [self loadFriendsList];
 	[self goOnline];
 }
@@ -1469,7 +1522,7 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
             }];
         }];
         
-//        return;
+        //        return;
     }
     else
     {
@@ -1562,26 +1615,26 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
             [self sendPresence:jid withType:@"available"];
         }
         else
-        if([[presence type] isEqual: @"available"])
-        {
-            [user setSectionNum:[NSNumber numberWithInt:0]];
-            
-            if(! profile.is_available )
+            if([[presence type] isEqual: @"available"])
             {
-                [self sendPresence:jid withType:@"available"];
-                profile.is_available = true;
+                [user setSectionNum:[NSNumber numberWithInt:0]];
+                
+                if(! profile.is_available )
+                {
+                    [self sendPresence:jid withType:@"available"];
+                    profile.is_available = true;
+                }
+                
+                NSLog(@"---- user go available: %@ %@", jid, [presence name]);
             }
-            
-            NSLog(@"---- user go available: %@ %@", jid, [presence name]);
-        }
-        else
-        {
-            [user setSectionNum:[NSNumber numberWithInt:2]];
-            
-            NSLog(@"---- user go un-available: %@ %@", jid, [presence name]);
-            
-            profile.is_available = false;
-        }
+            else
+            {
+                [user setSectionNum:[NSNumber numberWithInt:2]];
+                
+                NSLog(@"---- user go un-available: %@ %@", jid, [presence name]);
+                
+                profile.is_available = false;
+            }
     }
 }
 
@@ -1757,7 +1810,7 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
                            int status = [[dict valueForKey:key_errorStatus] integerValue];
                            NSDictionary *data = [dict objectForKey:key_data];
                            
-                        #if ENABLE_CHECK_APP_VERSION
+#if ENABLE_CHECK_APP_VERSION
                            
                            NSString *requiredIOSAppVersion = [data objectForKey:@"required_iOS_app_version"];
                            if (![self checkAppVersion:requiredIOSAppVersion]) {
@@ -1766,7 +1819,7 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
                                return;
                            }
                            
-                        #endif
+#endif
                            
                            switch (status) {
                                case 0:
@@ -1850,7 +1903,7 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
         [alertView show];
         return NO;
     }
-
+    
     return YES;
 }
 
@@ -1867,10 +1920,10 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
     NSMutableArray *queue = [[NSMutableArray alloc]initWithArray:[queueDict objectForKey:self.myProfile.s_ID]];
     
     // Vanancy - DEBUG - format for params
-//    NSArray *queueTest=@[@{@"profile_id":@"1m00ujci9g",@"is_like":@"0"},@{@"profile_id":@"1lxvpek4v2",@"is_like":@"1"},@{@"profile_id":@"dsc3jk",@"is_like":@"0"}];
+    //    NSArray *queueTest=@[@{@"profile_id":@"1m00ujci9g",@"is_like":@"0"},@{@"profile_id":@"1lxvpek4v2",@"is_like":@"1"},@{@"profile_id":@"dsc3jk",@"is_like":@"0"}];
     
-//    [queueDict setObject:queueTest forKey:self.myProfile.s_ID];
-//    [[NSUserDefaults standardUserDefaults] setObject:queueDict forKey:key_snapshotQueue];
+    //    [queueDict setObject:queueTest forKey:self.myProfile.s_ID];
+    //    [[NSUserDefaults standardUserDefaults] setObject:queueDict forKey:key_snapshotQueue];
     if(queue && [queue count]>0){
         AFHTTPClient* request = [[AFHTTPClient alloc] initWithOakClubAPI:DOMAIN];
         NSDictionary* params = [[NSDictionary alloc]initWithObjectsAndKeys:queue,@"list_like", nil];
@@ -1880,7 +1933,7 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
             [queue removeAllObjects];
             [queueDict setObject:queue forKey:self.myProfile.s_ID];
             [[NSUserDefaults standardUserDefaults] setObject:queueDict forKey:key_snapshotQueue];
-             [[NSUserDefaults standardUserDefaults] synchronize];
+            [[NSUserDefaults standardUserDefaults] synchronize];
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             NSLog(@"URL_setListLikedSnapshot - Error Code: %i - %@",[error code], [error localizedDescription]);
         }];
@@ -1990,14 +2043,14 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
     
     if (self.myFBProfile && [self.myFBProfile objectForKey:@"id"] && [self.myFBProfile objectForKey:@"name"]) {
         params = [[NSDictionary alloc] initWithObjectsAndKeys:
-                    problem, @"problem",
-                    [self.myFBProfile objectForKey:@"id"], @"fb_id",
-                    [self.myFBProfile objectForKey:@"name"], @"name",
-                    [NSDate date], @"date",
-                    [UIDevice currentDevice].name, @"device_name",
-                    [UIDevice currentDevice].model, @"device_model",
-                    [UIDevice currentDevice].systemVersion, @"device_version",
-                    nil];
+                  problem, @"problem",
+                  [self.myFBProfile objectForKey:@"id"], @"fb_id",
+                  [self.myFBProfile objectForKey:@"name"], @"name",
+                  [NSDate date], @"date",
+                  [UIDevice currentDevice].name, @"device_name",
+                  [UIDevice currentDevice].model, @"device_model",
+                  [UIDevice currentDevice].systemVersion, @"device_version",
+                  nil];
     }
     
     NSLog(@"reportProblemToOakClub %@",params);
@@ -2010,7 +2063,7 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         
     }];
-
+    
 }
 
 @end

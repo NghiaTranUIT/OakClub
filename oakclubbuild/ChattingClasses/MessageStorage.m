@@ -9,8 +9,16 @@
 #import "MessageStorage.h"
 #import "WordWarpParse.h"
 #import "ChatEmoticon.h"
+#import "CompositeParser.h"
+#import "SmileyParser.h"
+#import "HTMLTagParser.h"
+#import "StickerParser.h"
+#import "OakClubChatEmoticon.h"
 
 @interface MessageStorage()
+{
+    id<EmoticonParser> emotParser;
+}
 @property NSMutableArray *messages;
 @property NSMutableArray *contentViews;
 @property NSString *profileID;
@@ -30,9 +38,31 @@
         self.contentViews = [[NSMutableArray alloc] init];
         self.contentFrames = [[NSMutableArray alloc] init];
         self.profileID = [NSString stringWithString:profile_ID];
+        
+        [self initEmoticonParser];
     }
     
     return self;
+}
+
+-(void)initEmoticonParser
+{
+    CompositeParser *parser = [[CompositeParser alloc] init];
+    
+    ChatEmoticon *stickers1 = [[OakClubChatEmoticon instance] chatEmoticonForName:key_emoticon_sticker_1];
+    CGSize stickers1Size = [OakClubChatEmoticon instance].giftSize;
+    id<EmoticonParser> stickers1Parser = [[HTMLTagParser alloc] initWithGiftEmoticon:stickers1 andType:key_sticker andSize:stickers1Size];
+    [parser addParser:stickers1Parser];
+    
+    ChatEmoticon *gifts = [[OakClubChatEmoticon instance] chatEmoticonForName:key_emoticon_gift];
+    CGSize giftSize = [OakClubChatEmoticon instance].giftSize;
+    id<EmoticonParser> giftParser = [[HTMLTagParser alloc] initWithGiftEmoticon:gifts andType:nil andSize:giftSize];
+    [parser addParser:giftParser];
+    
+    ChatEmoticon *smileys = [[OakClubChatEmoticon instance] chatEmoticonForName:key_emoticon_smileys];
+    [parser addParser:[[SmileyParser alloc] initWithEmoticons:smileys]];
+    
+    emotParser = parser;
 }
 
 - (void) addMessage:(HistoryMessage *)item
@@ -55,12 +85,12 @@
     [messages addObject:m];
     
     UIFont *font =FONT_HELVETICANEUE_LIGHT(14.0);
+    UIView *targetView = [[UIView alloc] init];
     
-    NSArray *lines = [[[WordWarpParse alloc] init] parseText:item.body byMeasure:[[FontAndEmoticonsStringMeasure alloc] initWithFont:font andEmoticonData:[ChatEmoticon instance]] withMaxWidth:150 andEmoticonData:[[ChatEmoticon instance] allKeys]];
-    UIView *view = [[[LineBuilderImpl alloc] init] buildLineWithComponent:lines useFont:font andEmoticonData:[ChatEmoticon instance] toView:[[UIView alloc] init]];
+    [emotParser parseEmoticonForText:item.body useFont:font toView:targetView];
     
-    [self.contentViews addObject:view.subviews];
-    [self.contentFrames addObject:[NSValue valueWithCGRect:view.frame]];
+    [self.contentViews addObject:targetView.subviews];
+    [self.contentFrames addObject:[NSValue valueWithCGRect:targetView.frame]];
 }
 
 - (NSDictionary *) getMessageAtIndex:(int)index

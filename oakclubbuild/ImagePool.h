@@ -18,4 +18,6 @@
 -(void)getImageAtURL:(NSString *)imgID asycn:(void (^)(UIImage *img, NSError *error, bool isFirstLoad, NSString *urlWithSize))completion;
 
 -(void)setImage:(UIImage *)img forURL:(NSString *)imgURL andSize:(CGSize)size;
+
++(void)getImageAdHocAtURL:(NSString *)imgID asycn:(void (^)(UIImage *img, NSError *error, bool isFirstLoad, NSString *urlWithSize))completion;
 @end

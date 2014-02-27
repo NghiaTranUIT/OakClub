@@ -24,10 +24,20 @@
 #import "SmileyChooseCell.h"
 #import "UIView+Localize.h"
 #import "LoadingIndicator.h"
+#import "OakClubChatEmoticon.h"
+#import "StickerChooseTabs.h"
 
-@interface SMChatViewController()
+@interface EmoticonDisplayData : NSObject
+@property CGSize cellSize;
+@property float cellPadding;
+@property int numberOfRows, numberOfColumns, numberOfItems;
+@property (weak, nonatomic) ChatEmoticon *chatEmoticon;
+@property SEL onTouched;
+@end
+
+@interface SMChatViewController() <StickerChooseTabsDelegate>
 @property UIImageView* headerLogo;
-@property (strong, nonatomic) PSUICollectionView *smileyCollection;
+@property (strong, nonatomic) StickerChooseTabs *stickerChooseTabs;
 @property (weak, nonatomic) IBOutlet UIView *textInputView;
 @property (strong, nonatomic) IBOutlet SMChat_FirstViewMatchView *firstViewMatchView;
 @end
@@ -36,22 +46,21 @@
 {
     __strong NSMutableDictionary *_requestsImage;
     NSMutableArray* a_messages;
-    EmoticonString *textMsg;
     NSMutableArray *smileyLayers;
     AppDelegate* appDel;
     NSMutableArray *cellHeight;
-    
-    int smCollNRows, smCollNCols, smNItems;
     
     UITapGestureRecognizer *dismissKeyboardGesture;
     UITapGestureRecognizer *dismissSmileyCollectionGesture;
     
     NSString *userChangedNotificationName;
+    
+    NSArray *chatEmoticons;
 }
-
 
 @synthesize messageField, chatWithUser, tView, scrollView, lblTyping, label_header, label_Age,btnMoreOption, btnShowProfile, btnBackToPrevious;
 
+@synthesize stickerChooseTabs;
 
 - (AppDelegate *)appDelegate {
 	return (AppDelegate *)[[UIApplication sharedApplication] delegate];
@@ -65,24 +74,6 @@
 -(void)showIsType:(BOOL)show
 {
     lblTyping.hidden=!show;
-}
-
--(Profile*)getProfilebyID:(NSString*)profile_id
-{
-    appDel = [self appDelegate];
-    
-    Profile* profile;
-    
-    if(profile_id == nil)
-    {
-        profile = appDel.myProfile;
-    }
-    else
-    {
-        profile = [appDel.friendChatList objectForKey:profile_id];
-    }
-    
-    return profile;
 }
 
 -(void)initMessages:(NSString*)profile_id
@@ -119,7 +110,6 @@
 
 - (id) initWithUser:(NSString *)_userName withProfile:(Profile*)_profile 
 {
-
 	if (self = [super init])
     {
         messages = [[MessageStorage alloc ] initWithProfileID:_profile.s_ID];
@@ -180,26 +170,24 @@
 -(void)viewWillDisappear:(BOOL)animated{
     [self clearCustomNavigationHeader];
 }
+
 -(void)clearCustomNavigationHeader{
     for(UIView* subview in [self.navigationController.navigationBar subviews]){
         if([subview isKindOfClass:[ChatNavigationView class]] )
             [subview removeFromSuperview];
     }
     [self loadHeaderLogo];
-//    [self.navigationController.navigationBar addSubview:self.headerLogo];
 }
+
 -(void)loadHeaderLogo{
     UIImage* logo = [UIImage imageNamed:@"Snapshot_logo.png"];
     UIImageView *logoView = [[UIImageView alloc]initWithFrame:CGRectMake(98, 10, 125, 26)];
     [logoView setImage:logo];
     logoView.tag = 101;
     [self.navigationController.navigationBar  addSubview:logoView];
-    //    [[self navBarOakClub] addToHeader:logoView];
 }
+
 -(void)customNavigationHeader{
-//    if(!IS_OS_7_OR_LATER)
-//        [self.navigationController.navigationBar.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
-    
     [btnBackToPrevious setFrame:CGRectMake(2, 2, btnBackToPrevious.frame.size.width, btnBackToPrevious.frame.size.height)];
     [btnBackToPrevious addTarget:self action:@selector(backToPreviousView) forControlEvents:UIControlEventTouchUpInside];
     
@@ -216,7 +204,6 @@
     [headerView addSubview:btnShowProfile];
     [headerView addSubview:btnMoreOption];
 
-//    NSLog(@" [self.navigationController.navigationBar subviews] = %i",[[self.navigationController.navigationBar subviews] count]);
     for(UIView* subview in [self.navigationController.navigationBar subviews]){
         if([subview isKindOfClass:[ChatNavigationView class]] || [subview isKindOfClass:[UILabel class]] || [subview isKindOfClass:[UIButton class]])
             [subview removeFromSuperview];
@@ -227,11 +214,13 @@
     [self.navigationItem setHidesBackButton:YES];
     [self.navigationController.navigationBar addSubview:headerView];
 }
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
-    [self initSmileyCollection];
+    [self initEmoticons];
+    [self initStickerChooseTabs];
     
 	self.tView.delegate = self;
 	self.tView.dataSource = self;
@@ -330,10 +319,8 @@
     [a_messages addObject:item];
 }
 
-- (IBAction)sendMessage {
-	
-    NSString *messageStr = self.messageField.text;
-	
+- (void)sendMessage:(NSString *)messageStr
+{
     if([messageStr length] > 0)
     {
         [appDel sendMessageContent:messageStr to:chatWithUser];
@@ -341,8 +328,6 @@
         NSArray *chunks = [chatWithUser componentsSeparatedByString: @"@"];
         NSString* hangout_id = [chunks objectAtIndex:0];
         [HistoryMessage postMessage:hangout_id messageContent:messageStr];
-        
-		self.messageField.text = @"";
         
 		NSMutableDictionary *m = [[NSMutableDictionary alloc] init];
 		[m setObject:[messageStr formatForChatMessage] forKey:@"msg"];
@@ -361,10 +346,10 @@
 		[self.tView reloadData];
         
         NSIndexPath *topIndexPath = [NSIndexPath indexPathForRow:(messages.count - 1) inSection:0];
-        
         [self.tView scrollToRowAtIndexPath:topIndexPath atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
     }
 }
+
 - (IBAction)onTouchMoreOption:(id)sender {
     VCReportPopup* reportPopup= [[VCReportPopup alloc]initWithProfileID:userProfile andChat:self];
     [self dismissKeyboard:sender];
@@ -412,11 +397,9 @@ static float cellWidth = 320;
 	
 	if (cell == nil)
     {
-        //cell = [[SMMessageViewTableCell alloc] initWithFrame:CGRectZero];
         cell = [[SMMessageViewTableCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
         
         cell.avatarImageView.tag = indexPath.row;
-        //[cell.avatarImageView addTarget:self action:@selector(onTapViewProfile:) forControlEvents:UIControlEventTouchUpInside];
 	}
 
 	NSString *sender = [s objectForKey:@"sender"];
@@ -465,7 +448,6 @@ static float cellWidth = 320;
                  [cell.avatarImageView setBackgroundImage:img forState:UIControlStateNormal];
              }
          }];
-        //[UIImage imageNamed:@"action-people.png"];
         [cell.senderAndTimeLabel setFrame:CGRectMake(cell.bgImageView.frame.origin.x + cell.bgImageView.frame.size.width + padding_left,
                                                      cell.bgImageView.frame.origin.y + cell.bgImageView.frame.size.height - cell.senderAndTimeLabel.frame.size.height,
                                                      cell.senderAndTimeLabel.frame.size.width, cell.senderAndTimeLabel.frame.size.height)];
@@ -503,10 +485,6 @@ static float cellWidth = 320;
     }
     
 	cell.bgImageView.image = bgImage;
-    //double timeInterval = [time doubleValue];
-    //NSTimeInterval intervalForTimer = timeInterval;
-	
-//    [cell.contentView sizeToFit];
     
     [cell.contentView bringSubviewToFront:cell.avatarImageView];
 	return cell;
@@ -520,20 +498,6 @@ static float cellWidth = 320;
     {
         cellHeight = [[NSMutableArray alloc] init];
     }
-    
-    /*
-	NSDictionary *dict = (NSDictionary *)[messages objectAtIndex:indexPath.row];
-	NSString *msg = [dict objectForKey:@"msg"];
-	
-	CGSize  textSize = { 320.0/2, CGFLOAT_MAX };
-	CGSize size = [msg sizeWithFont:[UIFont systemFontOfSize:14.0]
-				  constrainedToSize:textSize 
-					  lineBreakMode:UILineBreakModeWordWrap];
-	
-	size.height += padding_top*4;
-    
-	CGFloat height = size.height < 65 ? 65 : size.height;
-     return height;*/
     
     if (cellHeight.count <= indexPath.row)
     {
@@ -606,9 +570,8 @@ static float cellWidth = 320;
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField{
-    //[self.messageField resignFirstResponder];
-    
-    [self sendMessage];
+    [self sendMessage:messageField.text];
+    self.messageField.text = @"";
     return false;
 }
 
@@ -630,10 +593,6 @@ static float cellWidth = 320;
 // Called when the UIKeyboardWillHideNotification is sent
 - (void)keyboardWillBeHidden:(NSNotification*)aNotification
 {
-//    UIEdgeInsets contentInsets = UIEdgeInsetsZero;
-//    scrollView.contentInset = contentInsets;
-//    scrollView.scrollIndicatorInsets = contentInsets;
-    
     CGFloat screenWidth = self.view.frame.size.width;
     CGFloat screenHeight = self.view.frame.size.height;
     
@@ -646,7 +605,6 @@ static float cellWidth = 320;
 - (void)textFieldDidBeginEditing:(UITextField *)textField
 {
     messageField = textField;
-    
     messageField.returnKeyType = UIReturnKeySend;
     
     NSLog(@"textFieldDidBeginEditing ...");
@@ -654,13 +612,11 @@ static float cellWidth = 320;
 
 - (void)textFieldDidEndEditing:(UITextField *)textField
 {
-    //messageField = nil;
-    
     NSLog(@"textFieldDidEndEditing ...");
 }
 
 - (void)keyboardWillShown:(NSNotification*)aNotification {
-    [self dismissSmileyCollection:nil];
+    [self dismissStickerChooseTabs:nil];
     
     if (![self.scrollView.subviews containsObject:self.tView])
     {
@@ -676,13 +632,6 @@ static float cellWidth = 320;
 }
 
 - (void)keyboardWasShown:(NSNotification*)aNotification {
-//    NSDictionary* info = [aNotification userInfo];
-//    CGSize kbSize = [[info objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
-//    CGRect bkgndRect = messageField.superview.frame;
-//    bkgndRect.size.height += kbSize.height;
-//    [messageField.superview setFrame:bkgndRect];
-//    [scrollView setContentOffset:CGPointMake(0.0, 480-260) animated:YES];
-//    scrollView.backgroundColor = [UIColor redColor];
     NSDictionary* info = [aNotification userInfo];
     CGSize kbSize = [[info objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
 
@@ -723,26 +672,35 @@ static float cellWidth = 320;
 }
 
 #pragma mark smiley collection datasource / delegate
--(void)initSmileyCollection
+#define SMILEY_SIZE 32
+#define SMILEY_PADDING 6
+
+#define STICKER_SIZE 50
+#define STICKER_PADDING 80.0/3
+
+-(void)initEmoticons
 {
-    static NSString *smileyChooseCellID = @"smileyChooseCellID";
+    static float collectionWidth = 280;
     
-    PSUICollectionViewFlowLayout *layout = [PSUICollectionViewFlowLayout new];
-    layout.scrollDirection = PSTCollectionViewScrollDirectionVertical;
-    self.smileyCollection = [[PSUICollectionView alloc] initWithFrame:CGRectMake(20, 568, 280, 150) collectionViewLayout:layout];
-    self.smileyCollection.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-    self.smileyCollection.backgroundColor = [UIColor clearColor];
+    EmoticonDisplayData *smileys = [[EmoticonDisplayData alloc] init];
+    smileys.cellSize = CGSizeMake(SMILEY_SIZE, SMILEY_SIZE);
+    smileys.cellPadding = SMILEY_PADDING;
+    smileys.chatEmoticon = [[OakClubChatEmoticon instance] chatEmoticonForName:key_emoticon_smileys];
+    smileys.numberOfItems = smileys.chatEmoticon.emoticonKeys.count;
+    smileys.numberOfColumns = (collectionWidth  + SMILEY_PADDING) / (SMILEY_SIZE + SMILEY_PADDING);
+    smileys.numberOfRows = 1 + smileys.numberOfItems / smileys.numberOfColumns;
+    smileys.onTouched = @selector(smileyTouched:);
     
-    [self.smileyCollection setHidden:YES];
-    [self.scrollView addSubview:self.smileyCollection];
+    EmoticonDisplayData *stickers1 = [[EmoticonDisplayData alloc] init];
+    stickers1.cellSize = CGSizeMake(STICKER_SIZE, STICKER_SIZE);
+    stickers1.cellPadding = STICKER_PADDING;
+    stickers1.chatEmoticon = [[OakClubChatEmoticon instance] chatEmoticonForName:key_emoticon_sticker_1];
+    stickers1.numberOfItems = stickers1.chatEmoticon.emoticonKeys.count;
+    stickers1.numberOfColumns = (collectionWidth + STICKER_PADDING) / (STICKER_SIZE + STICKER_PADDING);
+    stickers1.numberOfRows = 1 + stickers1.numberOfItems / stickers1.numberOfColumns;
+    stickers1.onTouched = @selector(stiker1Touched:);
     
-    [self.smileyCollection registerClass:[SmileyChooseCell class] forCellWithReuseIdentifier:smileyChooseCellID];
-    self.smileyCollection.dataSource = self;
-    self.smileyCollection.delegate = self;
-    
-    smNItems = [[ChatEmoticon instance] count];
-    smCollNCols = self.smileyCollection.frame.size.width / 30;
-    smCollNRows = 1 +  smNItems / smCollNCols;
+    chatEmoticons = @[smileys, stickers1];
 }
 
 -(PSUICollectionViewCell *)collectionView:(PSUICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
@@ -753,11 +711,16 @@ static float cellWidth = 320;
     
     if (cell)
     {
-        NSString *smileyText = [[[ChatEmoticon instance] allKeys] objectAtIndex:(indexPath.section * smCollNCols + indexPath.row)];
+        int stickerGroupIndex = collectionView.tag;
+        EmoticonDisplayData *emotDisplayData = chatEmoticons[stickerGroupIndex];
         
-        [cell setSmileyText:smileyText];
-        [cell.smileyButton addTarget:self action:@selector(smileyTouched:) forControlEvents:UIControlEventTouchUpInside];
-        cell.smileyButton.tag = indexPath.section * smCollNCols + indexPath.row;
+        int smileyIndex = indexPath.section * emotDisplayData.numberOfColumns + indexPath.row;
+        ChatEmoticon *chatEmoticon = emotDisplayData.chatEmoticon;
+        NSString *smileyText = [chatEmoticon.emoticonKeys objectAtIndex:smileyIndex];
+        
+        [cell setEmoticon:[chatEmoticon getEmoticonData:smileyText]];
+        [cell.smileyButton addTarget:self action:emotDisplayData.onTouched forControlEvents:UIControlEventTouchUpInside];
+        cell.smileyButton.tag = smileyIndex;
     }
     
     return cell;
@@ -765,39 +728,165 @@ static float cellWidth = 320;
 
 - (NSInteger)numberOfSectionsInCollectionView:(PSUICollectionView *)collectionView
 {
-    return smCollNRows;
+    int stickerGroupIndex = collectionView.tag;
+    EmoticonDisplayData *emotDisplayData = chatEmoticons[stickerGroupIndex];
+    
+    return emotDisplayData.numberOfRows;
 }
 
 - (NSInteger)collectionView:(PSUICollectionView *)collectionView
      numberOfItemsInSection:(NSInteger)section
 {
-    int result = (section < smCollNRows - 1)?smCollNCols:(smNItems % smCollNCols);
+    int stickerGroupIndex = collectionView.tag;
+    EmoticonDisplayData *emotDisplayData = chatEmoticons[stickerGroupIndex];
     
-    return result;
+    return (section < emotDisplayData.numberOfRows - 1)?emotDisplayData.numberOfColumns:(emotDisplayData.numberOfItems % emotDisplayData.numberOfColumns);
 }
 
--(void)dismissSmileyCollection:(id)sender
+-(void)collectionView:(PSUICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (!self.smileyCollection.hidden)
+    EmoticonDisplayData *emotsDData = [chatEmoticons objectAtIndex:self.stickerChooseTabs.tabsView.tag];
+    ChatEmoticon *emots = emotsDData.chatEmoticon;
+    
+    int smileyIndex = (indexPath.section * emotsDData.numberOfColumns + indexPath.row);
+    NSString *stickerText = [emots.emoticonKeys objectAtIndex:smileyIndex];
+    
+    self.messageField.text = [self.messageField.text stringByAppendingString:stickerText];
+    [self dismissStickerChooseTabs:self];
+}
+
+#pragma mark - PSTCollectionViewDelegateFlowLayout
+
+- (CGSize)collectionView:(PSUICollectionView *)collectionView layout:(PSUICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
+    EmoticonDisplayData *emotsDData = [chatEmoticons objectAtIndex:collectionView.tag];
+    
+    return emotsDData.cellSize;
+}
+
+- (CGFloat)collectionView:(PSUICollectionView *)collectionView layout:(PSUICollectionViewLayout*)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section {
+    EmoticonDisplayData *emotsDData = [chatEmoticons objectAtIndex:collectionView.tag];
+    
+    return emotsDData.cellPadding;
+}
+
+- (CGFloat)collectionView:(PSUICollectionView *)collectionView layout:(PSUICollectionViewLayout*)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section
+{
+    EmoticonDisplayData *emotsDData = [chatEmoticons objectAtIndex:collectionView.tag];
+    
+    return emotsDData.cellPadding;
+}
+
+#pragma mark sticker choose tab delegate
+
+-(void)initStickerChooseTabs
+{
+    float bottom = 410;
+    if (IS_HEIGHT_GTE_568)
+    {
+        bottom += 88;
+    }
+    self.stickerChooseTabs = [[StickerChooseTabs alloc] initWithFrame:CGRectMake(20, bottom, 280, 150)];
+    self.stickerChooseTabs.delegate = self;
+    
+    [self.stickerChooseTabs reloadData];
+    
+    [self.stickerChooseTabs setHidden:YES];
+    [self.scrollView addSubview:self.stickerChooseTabs];
+}
+
+-(void)stickerChooseTabs:(StickerChooseTabs *)stChooseTabs customizeStickerView:(UIView *)contentView atIndex:(int)index
+{
+    CGRect stickerCollectionFrame = CGRectMake(0, 10, contentView.frame.size.width, contentView.frame.size.height - 20);
+    
+    PSUICollectionView *stickerCollection = [self createSmileyCollectionWithFrame:stickerCollectionFrame];
+    stickerCollection.tag = contentView.tag;
+    [stickerCollection reloadData];
+    
+    [contentView addSubview:stickerCollection];
+}
+
+-(PSUICollectionView *)createSmileyCollectionWithFrame:(CGRect)frame
+{
+    static NSString *smileyChooseCellID = @"smileyChooseCellID";
+    
+    PSUICollectionViewFlowLayout *layout = [PSUICollectionViewFlowLayout new];
+    layout.scrollDirection = PSTCollectionViewScrollDirectionVertical;
+    PSUICollectionView *smileyCollection = [[PSUICollectionView alloc] initWithFrame:frame collectionViewLayout:layout];
+    smileyCollection.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    smileyCollection.backgroundColor = [UIColor clearColor];
+    smileyCollection.pagingEnabled = false;
+    
+    [smileyCollection registerClass:[SmileyChooseCell class] forCellWithReuseIdentifier:smileyChooseCellID];
+    smileyCollection.dataSource = self;
+    smileyCollection.delegate = self;
+    
+    return smileyCollection;
+}
+
+
+#define DEFAULT_COLOR [UIColor colorWithRed:121.0/255 green:1.0/255 blue:88.0/255 alpha:1]
+#define HIGHLIGHT_COLOR [UIColor colorWithRed:88.0/255 green:1.0/255 blue:88.0/255 alpha:1]
+-(void)stickerChooseTabs:(StickerChooseTabs *)stChooseTabs customizeTabButton:(UIButton *)button atIndex:(int)index
+{
+    NSString *title = nil;
+    switch (index) {
+        case 0:
+            title = [@"Smileys" localize];
+            break;
+        case 1:
+            title = [@"Stickers" localize];
+            break;
+        default:
+            title = @"???";
+            break;
+    }
+    
+    [button.titleLabel setTextColor:[UIColor whiteColor]];
+    [button setTitle:title forState:UIControlStateNormal];
+    [button setBackgroundColor:DEFAULT_COLOR];
+}
+
+-(float)stickerChooseTabsHeightOfTabsView:(StickerChooseTabs *)stChooseTabs
+{
+    return 30;
+}
+
+-(int)stickerChooseTabsNumberOfTab:(StickerChooseTabs *)stChooseTabs
+{
+    return chatEmoticons.count;
+}
+
+-(void)stickerChooseTabs:(StickerChooseTabs *)stChooseTabs selectedTab:(int)oldIndex isChangedTo:(int)newIndex
+{
+    UIButton *oldButton = stChooseTabs.tabButtons[oldIndex];
+    [oldButton setBackgroundColor:DEFAULT_COLOR];
+    
+    UIButton *newSelectedButton = stChooseTabs.tabButtons[newIndex];
+    [newSelectedButton setBackgroundColor:HIGHLIGHT_COLOR];
+}
+
+-(void)dismissStickerChooseTabs:(id)sender
+{
+    if (!self.stickerChooseTabs.hidden)
     {
         [UIView animateWithDuration:0.2 animations:^{
-            [self.smileyCollection setFrame:CGRectMake(self.smileyCollection.frame.origin.x,
-                                                       self.smileyCollection.frame.origin.y + self.smileyCollection.frame.size.height,
-                                                       self.smileyCollection.frame.size.width,
-                                                       self.smileyCollection.frame.size.height)];
+            [self.stickerChooseTabs setFrame:CGRectMake(self.stickerChooseTabs.frame.origin.x,
+                                                        self.stickerChooseTabs.frame.origin.y + self.stickerChooseTabs.frame.size.height,
+                                                        self.stickerChooseTabs.frame.size.width,
+                                                        self.stickerChooseTabs.frame.size.height)];
             [self.tView setFrame:CGRectMake(self.tView.frame.origin.x,
                                             self.tView.frame.origin.y,
                                             self.tView.frame.size.width,
-                                            self.tView.frame.size.height + self.smileyCollection.frame.size.height)];
+                                            self.tView.frame.size.height + self.stickerChooseTabs.frame.size.height)];
             [self.textInputView setFrame:CGRectMake(self.textInputView.frame.origin.x,
-                                                    self.textInputView.frame.origin.y + self.smileyCollection.frame.size.height,
+                                                    self.textInputView.frame.origin.y + self.stickerChooseTabs.frame.size.height,
                                                     self.textInputView.frame.size.width,
                                                     self.textInputView.frame.size.height)];
             
             [self scrollToLastAnimated:YES];
             [self.tView reloadData];
         } completion:^(BOOL finished) {
-            [self.smileyCollection setHidden:YES];
+            [self.stickerChooseTabs setHidden:YES];
             
             // remove gesture
             [self.tView removeGestureRecognizer:dismissSmileyCollectionGesture];
@@ -806,49 +895,25 @@ static float cellWidth = 320;
     }
 }
 
--(void)collectionView:(PSUICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
-{
-    NSString *smileyText = [[[ChatEmoticon instance] allKeys] objectAtIndex:(indexPath.section * smCollNCols + indexPath.row)];
-    
-    self.messageField.text = [self.messageField.text stringByAppendingString:smileyText];
-    [self dismissSmileyCollection:self];
-}
-
-#pragma mark - PSTCollectionViewDelegateFlowLayout
-
-- (CGSize)collectionView:(PSUICollectionView *)collectionView layout:(PSUICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-    return CGSizeMake(24, 24);
-}
-
-- (CGFloat)collectionView:(PSUICollectionView *)collectionView layout:(PSUICollectionViewLayout*)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section {
-    return 6;
-}
-
-- (CGFloat)collectionView:(PSUICollectionView *)collectionView layout:(PSUICollectionViewLayout*)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section {
-    return 6;
-}
-
 #pragma mark smiley button
 - (IBAction)smileyButtonTouched:(id)sender {
-    if (self.smileyCollection.hidden)
+    if (self.stickerChooseTabs.hidden)
     {
         [self dismissKeyboard:sender];
-        [self.smileyCollection reloadData];
-        
-        [self.smileyCollection setHidden:NO];
+        [self.stickerChooseTabs setHidden:NO];
         
         [UIView animateWithDuration:0.2 animations:^{
-            [self.smileyCollection setFrame:CGRectMake(self.smileyCollection.frame.origin.x,
-                                                       self.smileyCollection.frame.origin.y - self.smileyCollection.frame.size.height,
-                                                       self.smileyCollection.frame.size.width,
-                                                       self.smileyCollection.frame.size.height)];
+            [self.stickerChooseTabs setFrame:CGRectMake(self.stickerChooseTabs.frame.origin.x,
+                                                        self.stickerChooseTabs.frame.origin.y - self.stickerChooseTabs.frame.size.height,
+                                                        self.stickerChooseTabs.frame.size.width,
+                                                        self.stickerChooseTabs.frame.size.height)];
             [self.tView setFrame:CGRectMake(self.tView.frame.origin.x,
                                             self.tView.frame.origin.y,
                                             self.tView.frame.size.width,
-                                            self.tView.frame.size.height - self.smileyCollection.frame.size.height)];
+                                            self.tView.frame.size.height - self.stickerChooseTabs.frame.size.height)];
             [self.textInputView setFrame:CGRectMake(self.textInputView.frame.origin.x,
-                                                   self.textInputView.frame.origin.y - self.smileyCollection.frame.size.height,
-                                                   self.textInputView.frame.size.width,
+                                                    self.textInputView.frame.origin.y - self.stickerChooseTabs.frame.size.height,
+                                                    self.textInputView.frame.size.width,
                                                     self.textInputView.frame.size.height)];
             
             [self scrollToLastAnimated:YES];
@@ -858,7 +923,7 @@ static float cellWidth = 320;
             {
                 dismissSmileyCollectionGesture = [[UITapGestureRecognizer alloc]
                                                   initWithTarget:self
-                                                  action:@selector(dismissSmileyCollection:)];;
+                                                  action:@selector(dismissStickerChooseTabs:)];
             }
             
             [self.tView addGestureRecognizer:dismissSmileyCollectionGesture];
@@ -868,10 +933,27 @@ static float cellWidth = 320;
 
 -(void)smileyTouched:(UIButton *)sender
 {
-    NSString *smileyText = [[[ChatEmoticon instance] allKeys] objectAtIndex:sender.tag];
+    EmoticonDisplayData *smileysDD = [chatEmoticons objectAtIndex:self.stickerChooseTabs.selectedIndex];
+    ChatEmoticon *smileys = smileysDD.chatEmoticon;
+    NSString *smileyText = [smileys.emoticonKeys objectAtIndex:sender.tag];
     
     self.messageField.text = [self.messageField.text stringByAppendingString:smileyText];
-    [self dismissSmileyCollection:self];
+}
+
+-(void)stiker1Touched:(UIButton *)sender
+{
+    EmoticonDisplayData *stDD = [chatEmoticons objectAtIndex:self.stickerChooseTabs.selectedIndex];
+    ChatEmoticon *stickers = stDD.chatEmoticon;
+    NSString *stickerKey = [stickers.emoticonKeys objectAtIndex:sender.tag];
+    NSString *stickerDomain = [OakClubChatEmoticon instance].stickerDomainLink;
+    CGSize stickerSize = [OakClubChatEmoticon instance].stickerSize;
+    
+    NSString *stickerText = [NSString stringWithFormat:@"<img src=\"%@%@.png\" width=\"%d\" height=\"%d\" type=\"%@\"/>",
+                             stickerDomain, stickerKey, (int)stickerSize.width, (int)stickerSize.height, key_sticker];
+    
+    [self sendMessage:stickerText];
+    
+    [self dismissStickerChooseTabs:self];
 }
 
 #pragma mark NOTIFICATION
@@ -1019,4 +1101,8 @@ NSArray *randomTexts;
         
     }];
 }
+@end
+
+@implementation EmoticonDisplayData
+@synthesize cellSize, cellPadding, numberOfItems, numberOfColumns, numberOfRows, chatEmoticon, onTouched;
 @end

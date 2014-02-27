@@ -8,6 +8,7 @@
 
 #import "WordWarpParse.h"
 #import "Line.h"
+#import "EmoticonData.h"
 
 @interface WordWarpParse()
 @end
@@ -177,14 +178,14 @@
 @end
 
 @interface FontAndEmoticonsStringMeasure()
-@property NSDictionary *emotData;
+@property ChatEmoticon *emotData;
 @end
 
 @implementation FontAndEmoticonsStringMeasure
 
 @synthesize emotData;
 
-- (id) initWithFont:(UIFont *)font andEmoticonData:(NSDictionary *)data
+- (id) initWithFont:(UIFont *)font andEmoticonData:(ChatEmoticon *)data
 {
     self = [super initWithFont:font];
     
@@ -195,12 +196,15 @@
     
     return self;
 }
--(CGSize) measureString:(NSString*)str
+
+-(CGSize)measureString:(NSString*)str
 {
-    UIImage *img = [self.emotData objectForKey:str];
-    if (img != nil)
+    id<EmoticonData> emot = [self.emotData getEmoticonData:str];
+    if (emot)
     {
-        return img.size;
+        UIImage *img = [emot image];
+        if (img)
+            return img.size;
     }
     
     return [super measureString:str];
@@ -210,7 +214,7 @@
 
 @implementation LineBuilderImpl
 
-- (UIView *) buildLineWithComponent:(NSArray *)lines useFont:(UIFont *)font andEmoticonData:(NSDictionary *)data toView:(UIView *)view
+- (UIView *) buildLineWithComponent:(NSArray *)lines useFont:(UIFont *)font andEmoticonData:(ChatEmoticon *)data toView:(UIView *)view
 {
     static float lineIndent = 10;
     
@@ -221,7 +225,9 @@
         x = 0;
         for (NSString *component in line.components)
         {
-            UIImage *emot = [data objectForKey:[component stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]];
+            UIImage *emot = nil;
+            id<EmoticonData> emotData = [data getEmoticonData:[component stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]];
+            emot = [emotData image];
             if (!emot)
             {
                 UILabel *lbl = [[UILabel alloc] init];

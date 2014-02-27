@@ -44,7 +44,6 @@
 -(void)showIsType:(BOOL)show;
 - (id) initWithUser:(NSString *) _userName withProfile:(Profile*)_profile;
 - (id) initWithUser:(NSString *) _userName withProfile:(Profile*)_profile withMessages:(NSMutableArray*) array;
-- (IBAction) sendMessage;
 - (IBAction) closeChat;
 
 @end

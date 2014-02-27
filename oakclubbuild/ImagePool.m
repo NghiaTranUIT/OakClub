@@ -45,7 +45,7 @@
 
 -(void)getImageAtURL:(NSString *)imgID withSize:(CGSize)size asycn:(void (^)(UIImage *img, NSError *error, bool isFirstLoad, NSString *urlWithSize))completion
 {
-    NSString *url = [self makeURL:imgID withSize:size];
+    NSString *url = [ImagePool makeURL:imgID withSize:size];
     //    NSLog(@"REQUEST POOL url %@", url);
     
     id img = [_images objectForKey:url];
@@ -162,9 +162,9 @@
     if (!completion)    // force nil completion
         return;
     
-    NSString *urlLarge = [self makeURL:imgID withSize:PHOTO_SIZE_LARGE];
+    NSString *urlLarge = [ImagePool makeURL:imgID withSize:PHOTO_SIZE_LARGE];
     id largeImage = [self.images objectForKey:urlLarge];
-    NSString *urlSmall = [self makeURL:imgID withSize:PHOTO_SIZE_SMALL];
+    NSString *urlSmall = [ImagePool makeURL:imgID withSize:PHOTO_SIZE_SMALL];
     id smallImage = [self.images objectForKey:urlSmall];
     
     if ([largeImage isKindOfClass:[UIImage class]])   // if already have large image
@@ -200,7 +200,7 @@
     }
 }
 
--(NSString *)makeURL:(NSString *)url withSize:(CGSize)size
++(NSString *)makeURL:(NSString *)url withSize:(CGSize)size
 {
     NSString *urlWithSize = [NSString stringWithFormat: @"%@?width=%d&height=%d", url, (int)size.width, (int)size.height];
     return urlWithSize;
@@ -209,7 +209,7 @@
 
 -(void)setImage:(UIImage *)img forURL:(NSString *)imgID andSize:(CGSize)size
 {
-    NSString *url = [self makeURL:imgID withSize:size];
+    NSString *url = [ImagePool makeURL:imgID withSize:size];
     if (img)
     {
         [_images setObject:img forKey:url];
@@ -238,5 +238,32 @@
     }
     
     return 0;
+}
+
++(void)getImageAdHocAtURL:(NSString *)imgID asycn:(void (^)(UIImage *, NSError *, bool, NSString *))completion
+{
+    NSString *photoRequestURL = imgID;
+    NSDictionary *params = nil;
+    
+    AFHTTPClient *httpClient;
+    httpClient = [[AFHTTPClient alloc]initWithBaseURL:[NSURL URLWithString:@""]];
+    NSMutableURLRequest *request = [httpClient requestWithMethod:@"GET"
+                                                            path:photoRequestURL
+                                                      parameters:params];
+    
+    AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
+    [httpClient registerHTTPOperationClass:[AFHTTPRequestOperation class]];
+    
+    [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject)
+     {
+         UIImage *image = [UIImage imageWithData:responseObject];
+         completion(image, nil, YES, photoRequestURL);
+         
+     } failure:^(AFHTTPRequestOperation *operation, NSError *error)
+     {
+         completion(nil, error, YES, photoRequestURL);
+     }];
+    
+    [operation start];
 }
 @end
