@@ -9,6 +9,7 @@
 #import "UserVerificationPage.h"
 #import "AppDelegate.h"
 #import "UIView+Localize.h"
+#import "menuViewController.h"
 
 #define kOakClub_Name @"OakClub_Name"
 
@@ -118,58 +119,122 @@
     
     NSString *shareURL = @"http://oakclub.com";
     
-    [FBNativeDialogs presentShareDialogModallyFrom:self initialText:message image:image url:[NSURL URLWithString:shareURL]
-                                           handler:^(FBNativeDialogResult result, NSError *error) {
-                                               if (error) {
-                                                   self.successPopupView.hidden = YES;
-                                                   self.failedPopupView.hidden = NO;
-                                               } else {
-                                                   if (result == FBNativeDialogResultSucceeded) {
-                                                       
-                                                       self.successPopupView.hidden = NO;
-                                                       self.failedPopupView.hidden = YES;
-                                                       
-                                                       AFHTTPClient *request = [[AFHTTPClient alloc] initWithOakClubAPI:DOMAIN];
-                                                       NSMutableURLRequest *urlReq = [request requestWithMethod:@"GET" path:URL_verifyUser parameters:nil];
-                                                       
-                                                       AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:urlReq];
-                                                       
-                                                       [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id JSON) {
-                                                           NSError *e=nil;
-                                                           NSMutableDictionary *dict = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONReadingMutableContainers error:&e];
-                                                           BOOL error = [[dict objectForKey:key_errorCode] boolValue];
-                                                           
-                                                           if (error)
-                                                           {
-                                                               self.successPopupView.hidden = YES;
-                                                               self.failedPopupView.hidden = NO;
-                                                           }
-                                                           else
-                                                           {
-                                                               self.successPopupView.hidden = NO;
-                                                               self.failedPopupView.hidden = YES;
-                                                               
-                                                               appDel.myProfile.isVerified = YES;
-                                                           }
-                                                       } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                                                           self.successPopupView.hidden = YES;
-                                                           self.failedPopupView.hidden = NO;
-                                                       }];
-                                                       
-                                                       [operation start];
-                                                       
-                                                       
-                                                       
-                                                   } else {
+    NSString *name = [@"I Got Verified!" localize];
+    
+    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithObjectsAndKeys:
+                                   name, @"name",
+                                   message, @"description",
+                                   shareURL, @"link",
+                                   @"http://oakclub.com/bundles/likevnblissdate/v3/images/logo.png", @"picture",
+                                   nil];
+    
+    if ([FBNativeDialogs canPresentShareDialogWithSession:nil]) {
+        [FBNativeDialogs presentShareDialogModallyFrom:self initialText:message image:image url:[NSURL URLWithString:shareURL]
+                                               handler:^(FBNativeDialogResult result, NSError *error) {
+                                                   if (error) {
                                                        self.successPopupView.hidden = YES;
                                                        self.failedPopupView.hidden = NO;
+                                                   } else {
+                                                       if (result == FBNativeDialogResultSucceeded) {
+                                                           
+                                                           [self verificationDidShared];
+                                                           
+                                                       } else {
+                                                           self.successPopupView.hidden = YES;
+                                                           self.failedPopupView.hidden = NO;
+                                                       }
                                                    }
-                                               }
-                                               
-                                           }];
+                                                   
+                                               }];
+    
+    } else {
+        
+        [FBWebDialogs presentFeedDialogModallyWithSession:nil
+                                               parameters:params
+                                                  handler:^(FBWebDialogResult result, NSURL *resultURL, NSError *error) {
+                                                      if (error) {
+                                                          self.successPopupView.hidden = YES;
+                                                          self.failedPopupView.hidden = NO;
+                                                      } else {
+                                                          if (result == FBWebDialogResultDialogNotCompleted) {
+                                                              self.successPopupView.hidden = YES;
+                                                              self.failedPopupView.hidden = NO;
+                                                          } else {
+                                                              NSDictionary *urlParams = [self parseURLParams:[resultURL query]];
+                                                              if (![urlParams valueForKey:@"post_id"]) {
+                                                                  // User clicked the Cancel button
+                                                                  NSLog(@"User canceled story publishing.");
+                                                                  self.successPopupView.hidden = YES;
+                                                                  self.failedPopupView.hidden = NO;
+                                                              } else {
+                                                                  // User clicked the Share button
+                                                                  [self verificationDidShared];
+                                                                  
+                                                              }
+                                                              
+                                                          }
+                                                      }
+                                                  }];
+        
+    }
+    
     
 }
 
+- (void)verificationDidShared {
+    self.successPopupView.hidden = NO;
+    self.failedPopupView.hidden = YES;
+    
+    AFHTTPClient *request = [[AFHTTPClient alloc] initWithOakClubAPI:DOMAIN];
+    NSMutableURLRequest *urlReq = [request requestWithMethod:@"GET" path:URL_verifyUser parameters:nil];
+    
+    AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:urlReq];
+    
+    [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id JSON) {
+        NSError *e=nil;
+        NSMutableDictionary *dict = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONReadingMutableContainers error:&e];
+        BOOL error = [[dict objectForKey:key_errorCode] boolValue];
+        
+        if (error)
+        {
+            self.successPopupView.hidden = YES;
+            self.failedPopupView.hidden = NO;
+        }
+        else
+        {
+            self.successPopupView.hidden = NO;
+            self.failedPopupView.hidden = YES;
+            
+            appDel.myProfile.isVerified = YES;
+            
+            UIViewController *leftViewController = [appDel.rootVC leftViewController];
+            if ([leftViewController isKindOfClass:[menuViewController class]]) {
+                menuViewController *menu = (menuViewController *)leftViewController;
+                [menu refreshMenu];
+            }
+            
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        self.successPopupView.hidden = YES;
+        self.failedPopupView.hidden = NO;
+    }];
+    
+    [operation start];
+    
+}
+
+// A function for parsing URL parameters
+- (NSDictionary*)parseURLParams:(NSString *)query {
+    NSArray *pairs = [query componentsSeparatedByString:@"&"];
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    for (NSString *pair in pairs) {
+        NSArray *kv = [pair componentsSeparatedByString:@"="];
+        NSString *val = [[kv objectAtIndex:1]
+                         stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        [params setObject:val forKey:[kv objectAtIndex:0]];
+    }
+    return params;
+}
 
 - (void)skipVerification {
     [[NSUserDefaults standardUserDefaults] setValue:[NSNumber numberWithBool:YES] forKey:@"isSkipButtonPressed"];

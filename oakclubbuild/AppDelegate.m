@@ -190,6 +190,8 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
 	// push notification. If so, we add the new message to the data model.
 	if (launchOptions != nil)
 	{
+        NSDictionary *notificationInfo = [launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
+        NSLog(@"Lauching with notification: %@", notificationInfo);
         self.pushNotificationInfo = [launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
 	}
     
@@ -256,38 +258,45 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
         if (self.pushNotificationInfo)
         {
             NSDictionary *data = self.pushNotificationInfo[key_data];
-            NSString *chatUserName = data[key_name];
             NSString *chatUserID = data[key_profileID];
-            NSString *chatUserXMPPID = [NSString stringWithFormat:@"%@%@", chatUserID, DOMAIN_AT];
-            
-            Profile *chatPushNotificationProfile = [self.myProfile.dic_Roster objectForKey:chatUserID];
-            if (!chatPushNotificationProfile)
-            {
-                Profile *chatPushNotificationProfile = [[Profile alloc] init];
-                chatPushNotificationProfile.s_Name = chatUserName;
-                chatPushNotificationProfile.s_ID = chatUserID;
-            }
-            
-            self.rootVC.recognizesPanningOnFrontView = YES;
-            [self.rootVC showViewController:self.chat];
-            
-            NSString *notifChatID = chatPushNotificationProfile.s_ID;
-            NSMutableArray *chatMessagesArray = [self.myProfile.a_messages objectForKey:notifChatID];
-            if (!chatMessagesArray)
-            {
-                chatMessagesArray = [[NSMutableArray alloc] init];
-                [self.myProfile.a_messages setObject:chatMessagesArray forKey:notifChatID];
-            }
-            
-            SMChatViewController *chatController =
-            [[SMChatViewController alloc] initWithUser:chatUserXMPPID
-                                           withProfile:chatPushNotificationProfile
-                                          withMessages:chatMessagesArray];
-            
-            [self.rootVC setFrontViewController:self.chat focusAfterChange:YES completion:^(BOOL finished) {
+            if (chatUserID) {
+                NSString *chatUserName = data[key_name];
+                NSString *chatUserXMPPID = [NSString stringWithFormat:@"%@%@", chatUserID, DOMAIN_AT];
                 
-            }];
-            [self.chat pushViewController:chatController animated:NO];
+                Profile *chatPushNotificationProfile = [self.myProfile.dic_Roster objectForKey:chatUserID];
+                if (!chatPushNotificationProfile)
+                {
+                    Profile *chatPushNotificationProfile = [[Profile alloc] init];
+                    chatPushNotificationProfile.s_Name = chatUserName;
+                    chatPushNotificationProfile.s_ID = chatUserID;
+                }
+                
+                self.rootVC.recognizesPanningOnFrontView = YES;
+                [self.rootVC showViewController:self.chat];
+                
+                NSString *notifChatID = chatPushNotificationProfile.s_ID;
+                NSMutableArray *chatMessagesArray = [self.myProfile.a_messages objectForKey:notifChatID];
+                if (!chatMessagesArray)
+                {
+                    chatMessagesArray = [[NSMutableArray alloc] init];
+                    
+                    NSLog(@"notifChatID: %@", notifChatID);
+                    NSLog(@"self.myProfile.a_messages: %@", self.myProfile.a_messages);
+                    
+                    [self.myProfile.a_messages setObject:chatMessagesArray forKey:notifChatID];
+                }
+                
+                SMChatViewController *chatController =
+                [[SMChatViewController alloc] initWithUser:chatUserXMPPID
+                                               withProfile:chatPushNotificationProfile
+                                              withMessages:chatMessagesArray];
+                
+                [self.rootVC setFrontViewController:self.chat focusAfterChange:YES completion:^(BOOL finished) {
+                    
+                }];
+                [self.chat pushViewController:chatController animated:NO];
+            }
+
         }
         
         [self checkVerification];
@@ -296,6 +305,9 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
 
 - (BOOL)checkVerification {
     BOOL isForceVerify = self.myProfile.isForceVerify;
+    if (self.myProfile.isVerified) {
+        isForceVerify = NO;
+    }
     
     BOOL isSkipButtonPressed = [[[NSUserDefaults standardUserDefaults] valueForKey:@"isSkipButtonPressed"] boolValue];
     BOOL isMan = (self.myProfile.s_gender.ID == MALE);
@@ -310,6 +322,7 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
         userVerificationPage.isPopOver = YES;
         self.window.rootViewController = userVerificationPage;
         [self.window makeKeyAndVisible];
+        
         return YES;
     }
     
@@ -386,11 +399,12 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
 
 - (void)addMessageFromRemoteNotification:(NSDictionary*)userInfo updateUI:(BOOL)updateUI
 {
+    
     self.pushNotificationInfo = userInfo;
     
     NSDictionary *data = userInfo[key_data];
-    NSString *chatUserName = data[key_name];
     NSString *chatUserID = data[key_profileID];
+    NSString *chatUserName = data[key_name];
     NSString *chatUserXMPPID = [NSString stringWithFormat:@"%@%@", chatUserID, DOMAIN_AT];
     
     // check invalid chat friend
@@ -794,9 +808,13 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
                                   completionHandler:
      ^(FBSession *session,
        FBSessionState state, NSError *error) {
-         [self sessionStateChanged:session state:state error:error];
-         if(resultHandler != nil){
-             resultHandler(state);
+         BOOL isPostProcessing = self.userVerificationPage && ((activeVC == self.userVerificationPage) || [self.window.rootViewController isKindOfClass:[UserVerificationPage class]]);
+         
+         if (!isPostProcessing) {
+             [self sessionStateChanged:session state:state error:error];
+             if(resultHandler != nil){
+                 resultHandler(state);
+             }
          }
      }];
     
@@ -1723,7 +1741,7 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
      {
          NSError *e;
          NSMutableDictionary *dict = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONReadingMutableContainers error:&e];
-         //         NSLog(@"dict: %@", dict);
+         NSLog(@"dict: %@", dict);
          BOOL error = [[dict objectForKey:key_errorCode] boolValue];
          if (!error)
          {

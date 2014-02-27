@@ -74,7 +74,26 @@
     return self;
 }
 
--(void)setUsername:(NSString *)_name{
+- (void)refreshMenu {
+    [self getListMenuItems];
+    
+    NSMutableArray *m_index = [NSMutableArray array];
+    numberNotifications = [NSMutableArray array];
+    for (int i = 0; i < [imageNames count]; i++)
+    {
+        [numberNotifications addObject:[NSNumber numberWithUnsignedInt:0]];
+        
+        [m_index addObject:[NSNumber numberWithUnsignedInt:i]];
+    }
+    
+    NSMutableDictionary *m_dict = [[NSMutableDictionary alloc] initWithObjects:[NSArray arrayWithArray:m_index] forKeys:imageNames];
+    
+    nameIndex = [NSDictionary dictionaryWithDictionary:m_dict];
+    
+    [self.tableView reloadData];
+}
+
+- (void)setUsername:(NSString *)_name{
     username = _name;
 }
 

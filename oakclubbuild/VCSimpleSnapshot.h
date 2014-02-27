@@ -54,7 +54,9 @@
 @property (weak, nonatomic) IBOutlet UIButton *buttonMAYBE;
 @property (weak, nonatomic) IBOutlet UIButton *buttonYES;
 @property (weak, nonatomic) IBOutlet UILabel *lblName;
+@property (weak, nonatomic) IBOutlet UIImageView *imgVerified;
 @property (weak, nonatomic) IBOutlet UILabel *lblNameNextProfile;
+@property (weak, nonatomic) IBOutlet UIImageView *imgVerifiedNextProfile;
 @property (weak, nonatomic) IBOutlet UILabel *lblAge;
 @property (weak, nonatomic) IBOutlet UILabel *lblPhotoCount;
 @property (weak, nonatomic) IBOutlet UIView *viewSharedFriendPopup;

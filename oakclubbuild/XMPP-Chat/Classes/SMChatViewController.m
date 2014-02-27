@@ -543,10 +543,21 @@ static float cellWidth = 320;
 	[messages addMessage:[[HistoryMessage alloc] initMessageFrom:hangout_id atTime:time toHangout:appDel.myProfile.s_ID withContent:m]];
     
 	[self.tView reloadData];
-	NSIndexPath *topIndexPath = [NSIndexPath indexPathForRow:messages.count-1 inSection:0];
-	[self.tView scrollToRowAtIndexPath:topIndexPath 
-					  atScrollPosition:UITableViewScrollPositionBottom
-							  animated:YES];
+    NSLog(@"messages.count:%d",messages.count);
+    
+    int topIndex = 0;
+    if (messages && (messages.count > 0)) {
+        topIndex = messages.count - 1;
+        NSIndexPath *topIndexPath = [NSIndexPath indexPathForRow:topIndex inSection:0];
+        
+        NSLog(@"topIndexPath: %@",topIndexPath);
+        NSLog(@"self.tView: %@",self.tView);
+        
+        [self.tView scrollToRowAtIndexPath:topIndexPath
+                          atScrollPosition:UITableViewScrollPositionBottom
+                                  animated:YES];
+    }
+    
     
     userProfile.status = ChatViewed;
 }
