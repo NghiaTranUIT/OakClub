@@ -18,6 +18,7 @@
             <string>(bandit)</string>
             <string>:-&amp;</string>
             <string>/:)</string>
+            <string>:-*</string>
             <string>&gt;:)</string>
             <string>O:-)</string>
             <string>(:|</string>
@@ -29,12 +30,15 @@
             <string>;PX</string>
             <string>(santa)</string>
             <string>(fight)</string>
+            <string>$_$</string>
             <string>(emo)</string>
             <string>(tribal)</string>
             <string>qB]</string>
             <string>p^^</string>
             <string>&quot;vvv&quot;</string>
             <string>]:-&gt;</string>
+            <string>:::^^:::</string>
+            <string>+_+</string>
         </array>
         <dict>
             <key>:)</key>
@@ -67,6 +71,8 @@
             <string>sick.png</string>
             <key>/:)</key>
             <string>doubtful.png</string>
+            <key>:-*</key>
+            <string>kiss.png</string>
             <key>&gt;:)</key>
             <string>devil.png</string>
             <key>O:-)</key>
@@ -89,6 +95,8 @@
             <string>santa.png</string>
             <key>(fight)</key>
             <string>karate.png</string>
+            <key>$_$</key>
+            <string>millionaire.png</string>
             <key>(emo)</key>
             <string>emo.png</string>
             <key>(tribal)</key>
@@ -101,6 +109,10 @@
             <string>wacky.png</string>
             <key>]:-&gt;</key>
             <string>vampire.png</string>
+            <key>:::^^:::</key>
+            <string>sweating.png</string>
+            <key>+_+</key>
+            <string>frozen.png</string>
         </dict>
     </array>
 </plist>
