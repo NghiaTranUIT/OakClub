@@ -536,7 +536,7 @@
     [appDel loadFriendsList];
 }
 
-- (void) getRosterListIDSync:(void(^)(void))handler
+- (void) getRosterListIDSync:(void(^)(NSError *e))handler
 {
     AFHTTPClient *httpClient = [[AFHTTPClient alloc]initWithOakClubAPI:DOMAIN];
     [httpClient getPath:URL_getListChat parameters:nil success:^(__unused AFHTTPRequestOperation *operation, id responseObject) {
@@ -545,10 +545,14 @@
         NSLog(@"Get list chat %@", dict);
         [self parseRoster:[dict valueForKey:key_data]];
         if(handler != nil){
-            handler();
+            handler(nil);
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"get list chat Error: %@", error);
+        if (handler)
+        {
+            handler(error);
+        }
     }];
 }
 
@@ -955,7 +959,9 @@
             NSLog(@"POST READ-MESSAGES SUCCESS!!!");
         }
         else
+        {
             NSLog(@"POST READ-MESSAGES FAIL...");
+        }
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"URL_setReadMessages - Error Code: %i - %@",[error code], [error localizedDescription]);

@@ -73,7 +73,6 @@
 @property (nonatomic, strong, readonly) XMPPCapabilities *xmppCapabilities;
 @property (nonatomic, strong, readonly) XMPPCapabilitiesCoreDataStorage *xmppCapabilitiesStorage;
 
-//@property (nonatomic, strong) IBOutlet UIWindow *window;
 @property (nonatomic, strong) IBOutlet UINavigationController *navigationController;
 @property (nonatomic, strong) IBOutlet SettingsViewController *settingsViewController;
 
@@ -109,7 +108,6 @@ extern NSString *const SCSessionStateChangedNotification;
 #endif
 
 @property (strong, nonatomic) UINavigationController *myProfileVC;
-//@property (strong, nonatomic) UINavigationController *getPoints;
 @property (strong, nonatomic) PKRevealController *rootVC;
 @property (strong, nonatomic) SCLoginViewController *loginView;
 @property (strong, nonatomic) UINavigationController *confirmVC;
@@ -125,6 +123,7 @@ extern NSString *const SCSessionStateChangedNotification;
 @property (strong, nonatomic) NSArray *likedMeList;
 
 @property BOOL reloadSnapshot;
+@property BOOL forceSycnFriendList;
 
 @property (strong, nonatomic) NSNotificationCenter *notificationCenter;
 

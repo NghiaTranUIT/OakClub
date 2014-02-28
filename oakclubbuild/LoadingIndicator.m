@@ -81,4 +81,9 @@
         [indicator stopAnimating];
     }
 }
+
+-(bool)isLocked
+{
+    return [indicator isAnimating];
+}
 @end

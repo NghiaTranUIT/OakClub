@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="4510" systemVersion="12F37" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="4510" systemVersion="12F45" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
     <dependencies>
         <deployment version="1280" defaultVersion="1280" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3742"/>
@@ -9,6 +9,7 @@
             <connections>
                 <outlet property="dismissSearchView" destination="sbz-Pt-b7N" id="WeL-Fg-rzE"/>
                 <outlet property="loadingFriendList" destination="58" id="60"/>
+                <outlet property="loadingView" destination="nVw-yi-UAW" id="UnO-sb-PNZ"/>
                 <outlet property="searchBar" destination="p1H-sC-1ii" id="8Yu-1B-ggU"/>
                 <outlet property="tableView" destination="Jv3-Gv-5Hi" id="B5U-pJ-3iG"/>
                 <outlet property="view" destination="70" id="CmD-PM-0IN"/>
@@ -47,7 +48,12 @@
                                 <outlet property="delegate" destination="-1" id="BYg-Ui-XhN"/>
                             </connections>
                         </tableView>
-                        <view hidden="YES" contentMode="scaleToFill" id="sbz-Pt-b7N">
+                        <view hidden="YES" alpha="0.5" contentMode="scaleToFill" id="nVw-yi-UAW" userLabel="View - loading">
+                            <rect key="frame" x="0.0" y="89" width="320" height="459"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                        </view>
+                        <view hidden="YES" contentMode="scaleToFill" id="sbz-Pt-b7N" userLabel="View - dismiss search view">
                             <rect key="frame" x="0.0" y="101" width="320" height="461"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>

@@ -24,8 +24,6 @@
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *loadingFriendList;
 
-- (IBAction)pushTest:(id)sender;
 //@property (strong, nonatomic) IBOutlet RootViewController *tbVC_ChatList;
--(void)loadFriendsInfo;
 -(void)reloadFriendList;
 @end

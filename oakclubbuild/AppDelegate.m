@@ -107,6 +107,8 @@ NSString *const kXMPPmyPassword = @"kXMPPmyPassword";
 @synthesize snapshotSettingsObj;
 
 @synthesize pushNotificationInfo;
+
+@synthesize reloadSnapshot, forceSycnFriendList;
 // Log levels: off, error, warn, info, verbose
 #if DEBUG
 static const int ddLogLevel = LOG_LEVEL_VERBOSE;
@@ -172,6 +174,7 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
     self.window.backgroundColor = [UIColor whiteColor];
     //Vanancy - add flag for reload data in Snapshot
     self.reloadSnapshot = FALSE;
+    self.forceSycnFriendList = false;
     
     [self tryGetLanguageFromDevice];
     
@@ -295,6 +298,8 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
                     
                 }];
                 [self.chat pushViewController:chatController animated:NO];
+                
+                self.forceSycnFriendList = true;
             }
 
         }
@@ -480,6 +485,8 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
             [self.notificationCenter postNotificationName:notificationName object:chatPushNotificationProfile];
         }];
     }
+    
+    self.forceSycnFriendList = true;
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
@@ -777,8 +784,10 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
     @finally {
     }
     
-    [self.myProfile getRosterListIDSync:^{
+    [self.myProfile getRosterListIDSync:^(NSError *e) {
+        
     }];
+    
     [self.imagePool getImageAtURL:self.myProfile.s_Avatar withSize:PHOTO_SIZE_LARGE asycn:^(UIImage *img, NSError *error, bool isFirstLoad, NSString *urlWithSize) {
         
     }];
@@ -1110,9 +1119,6 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
     int count = [self.myProfile.dic_Roster count];
     
     friendChatList = [[NSMutableDictionary alloc] init];
-    
-    //    NSOperationQueue *queue = [[NSOperationQueue alloc] init];
-    
     NSArray *IDs = [self.myProfile.dic_Roster allKeys];
     
     for (int i = 0; i < count; i++)
@@ -1123,8 +1129,6 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
         XMPPJID* jid = [XMPPJID jidWithString:xmpp_id];
         
         [friendChatList setObject:friend forKey:xmpp_id];
-        
-        NSLog(@"%d. Add friend id: %@", i, friend.s_ID);
         if(friend.s_Name == nil || [friend.s_Name isEqualToString:@""] || [friend.s_ID isEqualToString:self.myProfile.s_ID])
         {
             [xmppRoster removeUser:jid];
@@ -1142,12 +1146,6 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
             NSString *notificationName = [NSString stringWithFormat:Notification_ChatFriendChanged_Format, xmpp_id];
             [self.notificationCenter postNotificationName:notificationName object:friend];
         }
-    }
-    
-    if (self.chat)
-    {
-        VCChat *vcChat = self.chat.viewControllers[0];
-        [vcChat loadFriendsInfo];
     }
     
     [self updateNavigationWithNotification];

@@ -164,6 +164,6 @@
 
 -(void)resetUnreadMessageWithFriend:(Profile*)friend;
 -(void)setViewedMatchMutualWithFriend:(Profile*)friend;
-- (void) getRosterListIDSync:(void(^)(void))handler;
+- (void) getRosterListIDSync:(void(^)(NSError *e))handler;
 -(void)getProfileInfo:(void(^)(void))handler;
 @end

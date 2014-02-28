@@ -23,4 +23,6 @@
 
 -(void)lockViewAndDisplayIndicator;
 -(void)unlockViewAndStopIndicator;
+
+@property (readonly) bool isLocked;
 @end

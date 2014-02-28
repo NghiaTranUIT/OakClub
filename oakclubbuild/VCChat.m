@@ -43,6 +43,7 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
 @property NSString* searchResult;
 @property BOOL scopeButtonPressedIndexNumber;
 @property (weak, nonatomic) IBOutlet UIView *dismissSearchView;
+@property (weak, nonatomic) IBOutlet UIView *loadingView;
 @end
 
 @implementation VCChat
@@ -62,25 +63,6 @@ int cellCountinSection=0;
         [appDel.messageDelegates addObject:self];
     }
     return self;
-}
-
--(void)loadFriendsInfo{
-    NSLog(@"***** loadFriendsInfo begin!");
-    double current = CFAbsoluteTimeGetCurrent();
-    NSLog(@"Start %lf", current);
-    
-    if (!(appDel.friendChatList == NULL || appDel.friendChatList.count <= 0))
-    {
-        [loadingFriendList startAnimating];
-        [self.view bringSubviewToFront:loadingFriendList];
-        loadingFriendList.hidden = NO;
-        [self reloadFriendList];
-    }
-    
-    double end = CFAbsoluteTimeGetCurrent();
-    NSLog(@"End %lf", end);
-    NSLog(@"Delta %lf", end - current);
-    NSLog(@"***** loadFriendsInfo end!");
 }
 
 -(void)addTopRightButtonWithAction:(SEL)action
@@ -167,7 +149,6 @@ int cellCountinSection=0;
 {
     double current = CFAbsoluteTimeGetCurrent();
     NSLog(@"viewWillAppear Start %lf", current);
-//    fetchedResultsController = nil;
     [self.navigationController setNavigationBarHidden:YES];
     NSString* title_1 = [NSString localizeString:@"Matches"];
     NSString* title_2 = [NSString localizeString:@"VIPs"];
@@ -182,39 +163,18 @@ int cellCountinSection=0;
     [self.searchBar setShowsCancelButton:NO];
     [self.searchBar setShowsSearchResultsButton:NO];
     [self.searchBar setSelectedScopeButtonIndex:2];
-    /*
-	UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 400, 44)];
-	titleLabel.backgroundColor = [UIColor clearColor];
-	titleLabel.textColor = [UIColor whiteColor];
-	titleLabel.font = [UIFont boldSystemFontOfSize:20.0];
-	titleLabel.numberOfLines = 1;
-	titleLabel.adjustsFontSizeToFitWidth = YES;
-	titleLabel.shadowColor = [UIColor colorWithWhite:0.0 alpha:0.5];
-	titleLabel.textAlignment = UITextAlignmentCenter;
     
-	if ([[self appDelegate] connect])
-	{
-		titleLabel.text = [[[[self appDelegate] xmppStream] myJID] bare];
-	} else
-	{
-		titleLabel.text = @"No JID";
-	}
-	
-	[titleLabel sizeToFit];
     
-	self.navigationItem.titleView = titleLabel;
-     */
-
-//    if(isChatLoaded == TRUE)
-//    {
-//        [self loadChatView:selectedProfile animated:YES];
-//    }
-#if ENABLE_DEMO
-#else
     [self showNotifications];
-#endif
     
-    //	[super viewWillAppear:animated];
+    UINavigationController *focusedNavVC = (UINavigationController *) appDel.rootVC.focusedController;
+    UIViewController *focusedVC = focusedNavVC.topViewController;
+    bool isBackFromChat = [focusedVC isKindOfClass:[VCChat class]];
+    if (![indicator isLocked] && (appDel.forceSycnFriendList || !isBackFromChat))
+    {
+        [self syncFriendWithServer];
+        appDel.forceSycnFriendList = false;
+    }
     
     double end = CFAbsoluteTimeGetCurrent();
     NSLog(@"viewWillAppear End %lf", end);
@@ -223,12 +183,7 @@ int cellCountinSection=0;
 
 - (void)viewWillDisappear:(BOOL)animated
 {
-    //	[[self appDelegate] disconnect];
-    //	[[[self appDelegate] xmppvCardTempModule] removeDelegate:self];
-	
 	[super viewWillDisappear:animated];
-    
-//    fetchedResultsController = nil;
 }
 
 
@@ -237,7 +192,10 @@ int cellCountinSection=0;
     double current = CFAbsoluteTimeGetCurrent();
     NSLog(@"viewDidAppear Start %lf", current);
     
-    [self reloadFriendList];
+    if (!indicator.isLocked)
+    {
+        [self reloadFriendList];
+    }
     
     double end = CFAbsoluteTimeGetCurrent();
     NSLog(@"viewDidAppear End %lf", end);
@@ -245,10 +203,16 @@ int cellCountinSection=0;
     
     [super viewDidAppear:animated];
 }
+
+-(void)loadCompleted:(id)sender
+{
+    [indicator unlockViewAndStopIndicator];
+}
+
 - (void)viewDidUnload {
-    //    [self setTbVC_ChatList:nil];
     [self setLoadingFriendList:nil];
     [self setTableView:nil];
+    [self setLoadingView:nil];
     a_messages = nil;
     [appDel.messageDelegates removeObject:self];
     
@@ -260,7 +224,7 @@ int cellCountinSection=0;
     NSLog(@"viewDidLoad Start %lf", current);
     [super viewDidLoad];
     
-    indicator = [[LoadingIndicator alloc] initWithMainView:self.view andDelegate:self];
+    indicator = [[LoadingIndicator alloc] initWithMainView:self.tableView andDelegate:self];
     
     [self.searchDisplayController.searchResultsTableView removeFromSuperview];
     
@@ -623,41 +587,48 @@ int cellCountinSection=0;
     return NO;
 }
 
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
-    
-    if(buttonIndex == 0)
-    {
-//        lblResult.text = @" Your selected NO.";
-    }else if(buttonIndex == 1)
-    {
-//        lblResult.text = @" Your selected YES.";
-        
-        Profile* profile = [appDel.friendChatList objectForKey:[NSString stringWithFormat:DOMAIN_AT_FMT, [friendChatIDs objectAtIndex:selectedIndex.row]]];
-        NSLog(@"Removed user %@", profile.s_ID);
-        
-        XMPPJID* xmpp_jid = (XMPPJID*) profile.s_usenameXMPP;
-        
-        [appDel.xmppRoster removeUser:xmpp_jid];
-        
-        
-        [HistoryMessage deleteChatHistory:profile.s_ID];
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    switch (alertView.tag) {
+        case 1: // delete conservation
+        {
+            if(buttonIndex == 1)
+            {
+                Profile* profile = [appDel.friendChatList objectForKey:[NSString stringWithFormat:DOMAIN_AT_FMT, [friendChatIDs objectAtIndex:selectedIndex.row]]];
+                NSLog(@"Removed user %@", profile.s_ID);
+                
+                XMPPJID* xmpp_jid = (XMPPJID*) profile.s_usenameXMPP;
+                
+                [appDel.xmppRoster removeUser:xmpp_jid];
+                
+                
+                [HistoryMessage deleteChatHistory:profile.s_ID];
+            }
+        }
+            break;
+        case 2: // reload friend list
+        {
+            if (buttonIndex == 1)
+            {
+                [self syncFriendWithServer];
+            }
+        }
+        default:
+            break;
     }
     
 }
 
 -(void)tableView:(UITableView *)tv commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete your data
-        // Delete the table cell
-        
         selectedIndex = indexPath;
-        
         UIAlertView *alert = [[UIAlertView alloc]
                               initWithTitle:[@"Confirm!" localize]
                               message:@"Do you want to delete this conversation?"
                               delegate: self
                               cancelButtonTitle:@"NO"
                               otherButtonTitles:@"YES", nil];
+        alert.tag = 1;
         [alert localizeAllViews];
         [alert show];
         
@@ -784,16 +755,35 @@ int cellCountinSection=0;
                 NSLog(@"SET CHAT TO FRONT VIEW -- FOCUS: %d, FINISH: %d", appDel.rootVC.state, finished);
             }];
 #endif
-            //        if(IS_OS_7_OR_LATER){
-            //            [self.navigationController setNavigationBarHidden:NO];
-            //            [self.navigationController presentModalViewController:chatController animated:animated];
-            //        }
-            //        else{
             [appDel.chat pushViewController:chatController animated:animated];
-            //        }
         }
         
         NSLog(@"OPEN SMCHAT -- FOCUS: %d", appDel.rootVC.state);
+    }];
+}
+
+-(void)syncFriendWithServer
+{
+    [indicator lockViewAndDisplayIndicator];
+    [appDel.myProfile getRosterListIDSync:^(NSError *e) {
+        if (e)
+        {
+            UIAlertView *alert = [[UIAlertView alloc]
+                                  initWithTitle:[@"Warning" localize]
+                                  message:[@"Cannot connect to server, do you want to try again ?" localize]
+                                  delegate: self
+                                  cancelButtonTitle:@"NO"
+                                  otherButtonTitles:@"YES", nil];
+            alert.tag = 2;
+            [alert localizeAllViews];
+            [alert show];
+        }
+        else
+        {
+            [self reloadFriendList];
+        }
+        
+        [indicator unlockViewAndStopIndicator];
     }];
 }
 
@@ -895,13 +885,16 @@ int cellCountinSection=0;
 
 -(void)lockViewForIndicator:(LoadingIndicator *)indicator
 {
-    NSLog(@"setUserInteractionEnabled:NO VCChat lockViewForIndicator");
+    [self.view setUserInteractionEnabled:NO];
+    
     [appDel.rootVC.view setUserInteractionEnabled:NO];
     [self.navigationController.navigationBar setUserInteractionEnabled:NO];
 }
 
 -(void)unlockViewForIndicator:(LoadingIndicator *)indicator
 {
+    [self.view setUserInteractionEnabled:YES]
+    ;
     [appDel.rootVC.view setUserInteractionEnabled:YES];
     [self.navigationController.navigationBar setUserInteractionEnabled:YES];
 }
