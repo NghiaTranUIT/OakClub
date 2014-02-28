@@ -1239,7 +1239,7 @@ UITapGestureRecognizer *tap;
                  else
                  {
                      self.imgViewVideoThumb.image = nil;
-                     double delay = data.length / 256000.0;
+                     double delay = data.length / 128000.0;
                      [VideoUploader uploadVideoWithData:data useCompletion:^(NSString *link)
                       {
                           //use indicator instead

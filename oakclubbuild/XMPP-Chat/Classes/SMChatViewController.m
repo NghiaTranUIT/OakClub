@@ -563,7 +563,7 @@ static float cellWidth = 320;
                                   animated:YES];
     }
     
-    
+    [appDel.myProfile resetUnreadMessageWithFriend:userProfile];
     userProfile.status = ChatViewed;
 }
 
