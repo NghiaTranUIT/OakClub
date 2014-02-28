@@ -131,13 +131,6 @@ UITapGestureRecognizer *tap;
 {
     if (!profileObj.s_video && ![@"" isEqualToString:profileObj.s_video])
     {
-        //        if ([profileObj.s_video rangeOfString:@"http://"].location == NSNotFound) {
-        //            NSString *link = profileObj.s_video;
-        //            profileObj.s_video = [NSString stringWithFormat:@"%@%@.mov", DOMAIN_VIDEO, link];
-        //            appDelegate.myProfile.s_video = [NSString stringWithFormat:@"%@%@.mov", DOMAIN_VIDEO, link];
-        //            NSLog(@"Link %@",profileObj.s_video);
-        //        }
-        
         self.videoStatus = VIDEO_STATE_ADDNEW;
     }
     else

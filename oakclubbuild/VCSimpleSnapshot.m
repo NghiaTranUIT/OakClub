@@ -767,6 +767,8 @@ CGFloat pageHeight;
     }];
     [[self navBarOakClub] disableAllControl: NO];
     appDel.rootVC.recognizesPanningOnFrontView = YES;
+    
+    [appDel updateNavigationWithNotification];
 }
 
 -(void)openVipChat
@@ -781,6 +783,8 @@ CGFloat pageHeight;
                                       withMessages:array];
         [self.navigationController pushViewController:chatController animated:NO];
     }];
+    
+    [appDel updateNavigationWithNotification];
 }
 -(IBAction)onNOPEClick:(id)sender{
 //    [self doAnswer:interestedStatusNO];

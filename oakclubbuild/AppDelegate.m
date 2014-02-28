@@ -1077,6 +1077,7 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
 }
 -(int)countFriendNotification:(Profile *)friend
 {
+    NSLog(@"Count notification for: %@", friend);
     if (friend.status == MatchUnViewed || friend.status == ChatUnviewed)
     {
         return 1;

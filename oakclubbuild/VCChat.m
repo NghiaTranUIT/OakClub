@@ -873,13 +873,13 @@ int cellCountinSection=0;
     [messages addObject:newHistory];
     
     Profile *friend = [appDel.friendChatList objectForKey:sender];
-    if (!friend)
+    if (friend)
     {
-        [appDel updateNavigationWithNotification];
+        friend.status = ChatUnviewed;
+        [appDel.friendChatList setObject:friend forKey:sender];
     }
-    friend.status = ChatUnviewed;
-    [appDel.friendChatList setObject:friend forKey:sender];
     
+    [appDel updateNavigationWithNotification];
     [self reloadFriendList];
 }
 

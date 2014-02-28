@@ -1021,4 +1021,9 @@
     
     return nil;
 }
+
+-(NSString *)description
+{
+    return [NSString stringWithFormat:@"Name: %@, ID: %@, status: %d", self.s_Name, self.s_ID, self.status];
+}
 @end
