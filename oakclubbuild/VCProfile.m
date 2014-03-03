@@ -181,17 +181,28 @@ static CGFloat padding_left = 5.0;
     }
 }
 
--(void)LoadDistanceText{    
+-(void)LoadDistanceText{
+    int distance = [currentProfile distance];
+    if (0 == distance && currentProfile.s_location)
+    {
+        Location *myLocation = appDel.myProfile.s_location;
+        Location *frLocation = currentProfile.s_location;
+        double dDistance = [Location getDistanceFromLongitude:myLocation.longitude latitude:myLocation.latitude
+                                                toLongitude:frLocation.longitude latitude:frLocation.latitude];
+        distance = (int) (dDistance / 1000.0);
+    }
+    
     [lblDistanceTitle setText:[@"Distance:" localize]];
     [lblDistanceTitle sizeToFit];
     lblDistance.frame = CGRectMake(lblDistanceTitle.frame.origin.x + lblDistanceTitle.frame.size.width + 5, lblDistanceTitle.frame.origin.y, lblDistance.frame.origin.x + (self.view.frame.size.width - lblDistanceTitle.frame.size.width), lblDistanceTitle.frame.size.height);
-    if(currentProfile.distance < 1){
+    if(distance < 1){
         [lblDistance setText:[@"Less than a km away" localize]];
         return;
     }
     
     NSString *formatString = [@"%i km away" localize];
-    [lblDistance setText:[NSString stringWithFormat:formatString, currentProfile.distance]];
+    
+    [lblDistance setText:[NSString stringWithFormat:formatString, distance]];
 }
 
 -(void)LoadActiveText{
@@ -248,7 +259,6 @@ static CGFloat padding_left = 5.0;
     {
         self.interestsView.hidden = YES;
     }
-    
     
     if(currentProfile.arr_MutualFriends && [currentProfile.arr_MutualFriends count] > 0)
     {

@@ -8,6 +8,8 @@
 
 #import "Location.h"
 #import "Define.h"
+#import <CoreLocation/CoreLocation.h>
+
 @implementation Location
 -(Location *) initWithNSDictionary: (NSMutableDictionary *) loc{
     Location *location = [Location alloc];
@@ -44,5 +46,13 @@
     copyObj.latitude = self.latitude;
     copyObj.longitude = self.longitude;
     return copyObj;
+}
+
++(double)getDistanceFromLongitude:(double)frLong latitude:(double)frLat toLongitude:(double)toLong latitude:(double)toLat
+{
+    CLLocation *loc1 = [[CLLocation alloc] initWithLatitude:frLat longitude:frLong];
+    CLLocation *loc2 = [[CLLocation alloc] initWithLatitude:toLat longitude:toLong];
+    
+    return [loc1 distanceFromLocation:loc2];
 }
 @end

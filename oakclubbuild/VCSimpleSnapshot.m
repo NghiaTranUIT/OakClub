@@ -23,6 +23,8 @@
 #import "ChatNavigationView.h"
 #import <MediaPlayer/MediaPlayer.h>
 #import <AVFoundation/AVFoundation.h>
+#import "UIView+Localize.h"
+#import "NSDictionary+JSON.h"
 
 
 @interface VCSimpleSnapshot () <AppLifeCycleDelegate,APLMoveMeViewDelegate> {
@@ -55,6 +57,8 @@
 @property (weak, nonatomic) IBOutlet UIView *backgroundAvatarView;
 @property (nonatomic, strong) NSArray *pageImages;
 
+@property (weak, nonatomic) IBOutlet UILabel *lblMatchView_Or;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *indWaitSetLiked;
 @end
 
 @implementation VCSimpleSnapshot
@@ -200,25 +204,6 @@ CGFloat pageHeight;
     [[self navBarOakClub] setNotifications:totalNotifications];
 }
 
-#if ENABLE_DEMO
--(void)loadLikeMeList{
-    appDel.likedMeList = [[NSArray alloc] init];
-    // get list from server
-    AFHTTPClient *client = [[AFHTTPClient alloc] initWithOakClubAPI:DOMAIN];
-    NSDictionary *params = [[NSDictionary alloc]initWithObjectsAndKeys:@"0",@"start",@"1000",@"limit", nil];
-    [client getPath:URL_getListWhoLikeMe parameters:params success:^(__unused AFHTTPRequestOperation *operation, id JSON)
-     {
-         NSError *e=nil;
-         NSMutableDictionary *dict = [NSJSONSerialization JSONObjectWithData:JSON options:NSJSONReadingMutableContainers error:&e];
-         appDel.likedMeList = [dict valueForKey:key_data];
-         
-     } failure:^(AFHTTPRequestOperation *operation, NSError *error)
-     {
-         NSLog(@"URL_getListWhoLikeMe - Error Code: %i - %@",[error code], [error localizedDescription]);
-     }];
-}
-#endif
-
 -(void) CheckAllOperationsFinishedWithHandler:(void(^)(void))handler andFocus:(BOOL)focus{
     NSLog(@"[CHECK LOADING] CheckAllOperationsFinishedWithHandler: %d", is_loadingProfileList);
     if(setLikedQueue.operationCount == 0 && !is_loadingProfileList){
@@ -273,9 +258,7 @@ CGFloat pageHeight;
     NSMutableURLRequest *urlReq = [request requestWithMethod:@"GET" path:URL_getSnapShot parameters:params];
     [urlReq setTimeoutInterval:13];//timeout 10s
     
-    NSString *paramsDesc = [[[NSString stringWithFormat:@"%@", params] stringByReplacingOccurrencesOfString:@"=" withString:@":"] stringByReplacingOccurrencesOfString:@";" withString:@","];
-//    int c = counter;
-    NSLog(@"Get snapshot params: %@", paramsDesc);
+    NSLog(@"Get snapshot params: %@", [params JSONDescription]);
     
 //    NSLog(@"Begin get snapshot count: %d", c);
     AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:urlReq];
@@ -402,8 +385,6 @@ CGFloat pageHeight;
     }
     currentProfile = [[Profile alloc]init];
     currentProfile = [profileList objectAtIndex:currentIndex];
-    [[NSUserDefaults standardUserDefaults] setObject:currentProfile.s_ID forKey:@"currentSnapShotID"];
-    NSLog(@"Name of Profile : %@",currentProfile.s_Name);
     
     NSString *txtAge= [NSString stringWithFormat:@"%@",currentProfile.s_age];
     [lblName setText:[self formatTextWithName:currentProfile.s_Name andAge:txtAge]];
@@ -458,9 +439,6 @@ CGFloat pageHeight;
     [self.moveMeView localizeAllViews];
     [self.controlView localizeAllViews];
     [[self navBarOakClub] disableAllControl: NO];
-    
-    //load data
-    [self loadLikeMeList];
     
     //check if profile view is show, if true then hide the nav bar
     if (viewProfile.view.superview) {
@@ -686,17 +664,17 @@ CGFloat pageHeight;
     [[self navBarOakClub] disableAllControl: YES];
     appDel.rootVC.recognizesPanningOnFrontView = NO;
     matchedProfile = currentProfile;
-    //    btnSayHi.titleLabel.text = [@"Say Hi!" localize];
-//    btnKeepSwiping.titleLabel.text = [@"Keep Swiping!" localize];
     [matchViewController.view setFrame:CGRectMake(0, 0, matchViewController.view.frame.size.width, matchViewController.view.frame.size.height)];
     [lblMatchAlert setText:[NSString stringWithFormat:[@"You and %@ have liked each other" localize],currentProfile.firstName]];
-    [snapshotImagePool getImageAtURL:currentProfile.s_Avatar withSize:PHOTO_SIZE_LARGE asycn:^(UIImage *img, NSError *error, bool isFirstLoad, NSString *urlWithSize) {
+    [snapshotImagePool getImageAtURL:currentProfile.s_Avatar asycn:^(UIImage *img, NSError *error, bool isFirstLoad, NSString *urlWithSize) {
         [imgMatcher setImage:img];
-
     }];
+    [self.btnSayHi setHidden:YES];
+    [self.lblMatchView_Or setHidden:YES];
+    [self.btnKeepSwiping setHidden:YES];
     [matchViewController.view localizeAllViews];
     [self.view addSubview:matchViewController.view];
-//    [[self view] localizeAllViews];
+    [self.indWaitSetLiked startAnimating];
 }
 
 -(void)addNewChatUser:(Profile*)newChat
@@ -858,38 +836,35 @@ CGFloat pageHeight;
     }
     
     [self.moveMeView setAnswer:[answerChoice integerValue]];
-    request = [[AFHTTPClient alloc]initWithOakClubAPI:DOMAIN];
     
-    NSLog(@"current id = %@",currentProfile.s_Name);
+    request = [[AFHTTPClient alloc]initWithOakClubAPI:DOMAIN];
     NSDictionary *params;
     if([answerChoice integerValue] == interestedStatusYES)
-        params = [[NSDictionary alloc]initWithObjectsAndKeys:currentProfile.s_ID,key_profileID,@"1",@"is_like", nil];
+    {
+        params = [[NSDictionary alloc]initWithObjectsAndKeys:currentProfile.s_ID,key_profileID, @"1", key_isLike, nil];
+    }
     else
-        params = [[NSDictionary alloc]initWithObjectsAndKeys:currentProfile.s_ID,key_profileID,@"0" ,@"is_like", nil];
+    {
+        params = [[NSDictionary alloc]initWithObjectsAndKeys:currentProfile.s_ID,key_profileID, @"0", key_isLike, nil];
+    }
 
     // Vanancy - add request into QUEUE
     NSMutableDictionary* queueDict = [[NSMutableDictionary alloc]initWithDictionary:[[NSUserDefaults standardUserDefaults] objectForKey:key_snapshotQueue]] ;
     NSMutableArray *queue = [[NSMutableArray alloc]initWithArray:[queueDict objectForKey:appDel.myProfile.s_ID]] ;
-    if (queue) {
+    if (queue)
+    {
         [queue addObject:params];
     }
     [queueDict setObject:queue forKey:appDel.myProfile.s_ID];
     [[NSUserDefaults standardUserDefaults] setObject:queueDict forKey:key_snapshotQueue];
     [[NSUserDefaults standardUserDefaults] synchronize];
-    NSString *value = [[NSUserDefaults standardUserDefaults] objectForKey:@"currentSnapShotID"];
-    if ([answerChoice isEqualToString:@"1"]) {
-//        [self showMatchView];// DEBUG
-//        return; //DEBUG
-        for (int i=0; i < [appDel.likedMeList count]; i++) {
-            NSString *s_profileID = [[appDel.likedMeList objectAtIndex:i] valueForKey:key_profileID];
-            if([s_profileID isEqualToString:value]){
-                [self showMatchView];
-                break;
-            }
-        }
+    
+    bool isMatch = ([answerChoice isEqualToString:@"1"] && currentProfile.is_like);
+    if (isMatch)
+    {
+        [self showMatchView];
     }
     
-    //update flow setLike in Snapshot
     [request setParameterEncoding:AFFormURLParameterEncoding];
     NSMutableURLRequest *urlReq = [request requestWithMethod:@"POST" path:URL_setLikedSnapshot parameters:params];
     
@@ -899,33 +874,49 @@ CGFloat pageHeight;
         [queueDict setObject:queue forKey:appDel.myProfile.s_ID];
         [[NSUserDefaults standardUserDefaults] setObject:queueDict forKey:key_snapshotQueue];
         [[NSUserDefaults standardUserDefaults] synchronize];
+        
+        if (isMatch)
+        {
+            [self.indWaitSetLiked stopAnimating];
+            [self.btnSayHi setHidden:NO];
+            [self.lblMatchView_Or setHidden:NO];
+            [self.btnKeepSwiping setHidden:NO];
+        }
+        
         NSLog(@"post success !!!");
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
        NSLog(@"URL_setLikedSnapshot - Error Code: %i - %@",[error code], [error localizedDescription]);
+        
+        if (isMatch)
+        {
+            [self.indWaitSetLiked stopAnimating];
+            UIAlertView *slowConnectionAlert = [[UIAlertView alloc] initWithTitle:[@"Error" localize]
+                                                                          message:[@"Sorry! We cannot update your match with server." localize]
+                                                                         delegate:self
+                                                                cancelButtonTitle:[@"OK" localize]
+                                                                otherButtonTitles:nil];
+            slowConnectionAlert.tag = 1;
+            [slowConnectionAlert show];
+        }
     }];
     
-//    [operation start];
     [setLikedQueue addOperation:operation];
-
-    /*
-    [request setParameterEncoding:AFFormURLParameterEncoding];
-    [request postPath:URL_setLikedSnapshot parameters:params success:^(__unused AFHTTPRequestOperation *operation, id JSON) {
-        NSLog(@"post success !!!");
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"URL_setLikedSnapshot - Error Code: %i - %@",[error code], [error localizedDescription]);
-    }];
-     */
 }
 
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-    NSString *alertIndex = [alertView buttonTitleAtIndex:buttonIndex];
-    
-    if([alertIndex isEqualToString:@"OK"])
-    {
-        //Do something
-        //        [appDel showHangOut];
+    switch (alertView.tag) {
+        case 1: // slow on match view
+            if (0 == buttonIndex)
+            {
+                [self.matchViewController.view removeFromSuperview];
+                [self refreshSnapshotFocus:NO];
+            }
+            break;
+            
+        default:
+            break;
     }
 }
 

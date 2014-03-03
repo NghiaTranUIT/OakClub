@@ -139,7 +139,7 @@ UITapGestureRecognizer *tap;
     }
 }
 
-- (void)refreshThumbImagetext
+- (void)refreshThumbImage
 {
     NSString *videoThumbLink = [profileObj.s_video stringByReplacingOccurrencesOfString:@".mov" withString:@".jpg"];
     NSLog(@"videoThumbLink:%@", videoThumbLink);

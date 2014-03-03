@@ -648,24 +648,14 @@ int cellCountinSection=0;
                                       reuseIdentifier:CellIdentifier];
 
 	}
-	/*XMPPUserCoreDataStorageObject *user = [[self fetchedResultsController] objectAtIndexPath:indexPath];
-
-    XMPPJID* xmpp_jid = [user jid];
     
-    NSString* jid = [xmpp_jid bare];//[NSString stringWithFormat:@"%@@%@", [xmpp_jid user], [xmpp_jid domain]];*/
     Profile* profile = [appDel.friendChatList objectForKey:[NSString stringWithFormat:DOMAIN_AT_FMT, [friendChatIDs objectAtIndex:indexPath.row]]];
 		
     if(profile)
     {
         cell.name.text = profile.firstName;
-//        [cell setMatched:profile.is_match];
         [cell setStatus:profile.status];
-//        UIImage* avatar = [a_avatar objectForKey:profile.s_ID];
-//        
-//        if(avatar != nil)
-//        {
-//            [cell.avatar setImage:avatar];
-        //        }
+        
         [cell.avatar setImage:[UIImage imageNamed:@"Default Avatar"]];
         [appDel.imagePool getImageAtURL:profile.s_Avatar withSize:PHOTO_SIZE_SMALL asycn:^(UIImage *img, NSError *error, bool isFirstLoad, NSString *urlWithSize)
          {
@@ -678,38 +668,39 @@ int cellCountinSection=0;
                  [cell.avatar setImage:img];
              }
          }];
-//        [cell setMutualFriends:profile.num_MutualFriends];
         
         cell.last_message.text = @"";
         cell.date_history.text = @"";
         cell.lblMatched.text = @"";
         
-        if(profile.status > MatchViewed){
+        if(profile.status > MatchViewed)
+        {
             NSMutableArray* messages = [a_messages objectForKey:profile.s_ID];
             
+            NSString *msgContent = nil;
             if(messages != nil)
             {
                 HistoryMessage* m = (HistoryMessage*)[messages lastObject];
                 
                 if(m != nil)
                 {
-                    cell.last_message.text = m.body;
-                    cell.date_history.text = m.timeStr;
+                    msgContent = m.body;
                     cell.lblMatched.text = [NSString stringWithFormat:@"%@ %@", [@"Last messages on" localize],m.timeStr];
                 }
             }
             else
             {
-                cell.last_message.text = profile.s_lastMessage;
+                msgContent = profile.s_lastMessage;
                 cell.date_history.text = profile.s_lastMessage_time;
                 cell.lblMatched.text = [NSString stringWithFormat:@"%@ %@", [@"Last messages on" localize], profile.s_lastMessage_time];
             }
+            
+            cell.last_message.text = msgContent;
         }
-        else{
-            //profile.s_status_time = [profile.s_status_time stringByReplacingOccurrencesOfString:@"/" withString:@"-"];
+        else
+        {
             cell.lblMatched.text = [NSString stringWithFormat:@"%@ %@", [@"Matched on" localize], profile.match_time];
         }
-        
     }
 	
 	return cell;

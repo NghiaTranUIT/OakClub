@@ -9,6 +9,7 @@
 #import "LocationUpdate.h"
 #import "AppDelegate.h"
 #import <CoreLocation/CoreLocation.h>
+#import "NSDictionary+JSON.h"
 
 @interface LocationUpdate() <CLLocationManagerDelegate>
 {
@@ -94,7 +95,7 @@
 {
     AFHTTPClient *request = [[AFHTTPClient alloc] initWithOakClubAPI:DOMAIN];
     NSMutableDictionary *params = [[NSMutableDictionary alloc] initWithObjects:[NSArray arrayWithObjects:[NSNumber numberWithDouble:latitude], [NSNumber numberWithDouble:longitude], nil] forKeys:[NSArray arrayWithObjects:@"latitude", @"longitude", nil]];
-    NSLog(@"Coord: %@", params);
+    NSLog(@"Coord: %@", [params JSONDescription]);
     [request setParameterEncoding:AFFormURLParameterEncoding];
     
     NSMutableURLRequest *urlReq = [request requestWithMethod:@"POST" path:URL_setLocationUser parameters:params];

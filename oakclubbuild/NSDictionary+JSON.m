@@ -8,7 +8,7 @@
 
 #import "NSDictionary+JSON.h"
 
-@implementation NSDictionary (JSON)
+@implementation NSDictionary (BVJSONString)
 -(NSString *)JSONDescription
 {
     NSError *error;
@@ -19,6 +19,22 @@
     if (!jsonData) {
         NSLog(@"bv_jsonStringWithPrettyPrint: error: %@", error.localizedDescription);
         return @"{}";
+    } else {
+        return [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+    }
+}
+@end
+
+@implementation NSArray (BVJSONString)
+-(NSString*) bv_jsonStringWithPrettyPrint:(BOOL) prettyPrint {
+    NSError *error;
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:self
+                                                       options:(NSJSONWritingOptions) (prettyPrint ? NSJSONWritingPrettyPrinted : 0)
+                                                         error:&error];
+    
+    if (! jsonData) {
+        NSLog(@"bv_jsonStringWithPrettyPrint: error: %@", error.localizedDescription);
+        return @"[]";
     } else {
         return [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
     }

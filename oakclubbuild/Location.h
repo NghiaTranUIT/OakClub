@@ -19,4 +19,6 @@
 @property (assign, nonatomic) double longitude;
 -(Location *) initWithNSDictionary: (NSMutableDictionary *) loc;
 -(Location *) initWithNSDictionaryFromFB:(NSMutableDictionary *)loc;
+
++(double)getDistanceFromLongitude:(double)frLong latitude:(double)frLat toLongitude:(double)toLong latitude:(double)toLat;
 @end

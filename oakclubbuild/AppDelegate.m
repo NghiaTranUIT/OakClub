@@ -42,6 +42,7 @@
 #import "GAITracker.h"
 #import "GAIDictionaryBuilder.h"
 #import "OakClubChatEmoticon.h"
+#import "NSDictionary+JSON.h"
 
 
 NSString *const SCSessionStateChangedNotification =
@@ -269,14 +270,14 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
                 Profile *chatPushNotificationProfile = [self.myProfile.dic_Roster objectForKey:chatUserID];
                 if (!chatPushNotificationProfile)
                 {
-                    Profile *chatPushNotificationProfile = [[Profile alloc] init];
+                    chatPushNotificationProfile = [[Profile alloc] init];
                     chatPushNotificationProfile.s_Name = chatUserName;
-                    chatPushNotificationProfile.s_ID = chatUserID;
-                }
+                    chatPushNotificationProfile.s_ID = chatUserID;                }
                 
                 self.rootVC.recognizesPanningOnFrontView = YES;
                 [self.rootVC showViewController:self.chat];
                 
+                NSLog(@"Chat push notification profile 3: %@", chatPushNotificationProfile);
                 NSString *notifChatID = chatPushNotificationProfile.s_ID;
                 NSMutableArray *chatMessagesArray = [self.myProfile.a_messages objectForKey:notifChatID];
                 if (!chatMessagesArray)
@@ -1829,7 +1830,7 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
                       [params setObject:appVersion forKey:key_appVersion];
                   }
                   
-                  NSLog(@"sendRegister-params: %@", params);
+                  NSLog(@"sendRegister-params: %@", [params JSONDescription]);
                   [request getPath:URL_sendRegister parameters:params success:^(__unused AFHTTPRequestOperation *operation, id JSON)
                    {
                        NSError *e=nil;
@@ -2088,7 +2089,7 @@ static const int ddLogLevel = LOG_LEVEL_INFO;
                   nil];
     }
     
-    NSLog(@"reportProblemToOakClub %@",params);
+    NSLog(@"reportProblemToOakClub %@", [params JSONDescription]);
     
     AFHTTPClient *request = [[AFHTTPClient alloc] initWithOakClubAPI:DOMAIN];
     [request setParameterEncoding:AFFormURLParameterEncoding];

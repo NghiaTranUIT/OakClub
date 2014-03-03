@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="4514" systemVersion="12F45" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="4510" systemVersion="12F45" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
     <dependencies>
         <deployment defaultVersion="1280" identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3746"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3742"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="VCSimpleSnapshot">
@@ -26,8 +26,10 @@
                 <outlet property="imgNextProfile" destination="23" id="j2n-7D-Njs"/>
                 <outlet property="imgVerified" destination="ZrU-hl-PbK" id="6PM-kP-PT0"/>
                 <outlet property="imgVerifiedNextProfile" destination="t8g-Wb-GtX" id="E6p-2E-lv2"/>
+                <outlet property="indWaitSetLiked" destination="fTc-Q5-171" id="DR6-TP-7Qy"/>
                 <outlet property="lblAge" destination="58" id="59"/>
                 <outlet property="lblMatchAlert" destination="R1c-sV-U2o" id="8uv-p6-2Ec"/>
+                <outlet property="lblMatchView_Or" destination="lLV-cj-v3c" id="XJY-B4-9C3"/>
                 <outlet property="lblName" destination="38" id="57"/>
                 <outlet property="lblNameNextProfile" destination="8Bg-5u-bff" id="Mvl-dP-oSw"/>
                 <outlet property="lblPhotoCount" destination="37" id="60"/>
@@ -470,6 +472,11 @@
                             <action selector="dismissMatchView:" destination="-1" eventType="touchUpInside" id="v6R-X1-tud"/>
                         </connections>
                     </button>
+                    <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" id="fTc-Q5-171" userLabel="Large White Activity Indicator - wait push match">
+                        <rect key="frame" x="142" y="320" width="37" height="37"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <color key="color" red="0.47450980390000003" green="0.0039215686269999999" blue="0.34509803919999998" alpha="1" colorSpace="calibratedRGB"/>
+                    </activityIndicatorView>
                 </subviews>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>

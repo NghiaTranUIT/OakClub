@@ -10,6 +10,7 @@
 #import "NSString+Utils.h"
 #import "AppDelegate.h"
 #import "ImageInfo.h"
+#import "NSDictionary+JSON.h"
 
 @interface Profile()
 {
@@ -458,7 +459,7 @@
     
     self.num_Viewed =[[data valueForKey:key_viewed] integerValue];
     self.num_Liked =[[data valueForKey:key_liked] integerValue];
-    self.distance = [[data valueForKey:key_distance] integerValue];
+    self.distance = [[data valueForKey:key_distance] doubleValue];
     self.active = [[data valueForKey:key_active] integerValue];
     self.a_messages = [[NSMutableDictionary alloc] init];
     
@@ -594,7 +595,7 @@
 
     self.num_Viewed =[[data valueForKey:key_viewed] integerValue];
     self.num_Liked =[[data valueForKey:key_liked] integerValue];
-    self.distance = [[data valueForKey:key_distance] integerValue];
+    self.distance = [[data valueForKey:key_distance] doubleValue];
     self.active = [[data valueForKey:key_active] integerValue];
     self.match_time = [data valueForKey:key_matchTime];
 }
@@ -611,20 +612,22 @@
     }
     
     self.s_Name = [data valueForKey:key_name];
-//    self.s_Name = [self getFirstNameWithName:self.s_Name];
     self.s_ID = [data valueForKey:key_profileID];
     self.s_age = [data valueForKey:key_age];
     self.s_snapshotID =[data valueForKey:key_snapshotID];
     //load photos of profile
     self.arr_photos = [data valueForKey:key_photos];
     self.num_Photos = [arr_photos count];
-    for (int i = 0; i < self.num_Photos; i++) {
+    for (int i = 0; i < self.num_Photos; i++)
+    {
         NSMutableDictionary *photoItem = [arr_photos objectAtIndex:i];
-        if ([[photoItem valueForKey:key_isProfilePicture] boolValue]) {
+        if ([[photoItem valueForKey:key_isProfilePicture] boolValue])
+        {
             self.s_Avatar =[photoItem valueForKey:key_photoLink];
         }
     }
-    if(self.s_Avatar == nil){
+    if(self.s_Avatar == nil)
+    {
         self.s_Avatar = [data valueForKey:key_avatar];
     }
     //load mutual friends list
@@ -637,7 +640,7 @@
     
     self.num_Viewed =[[data valueForKey:key_viewed] integerValue];
     self.num_Liked =[[data valueForKey:key_liked] integerValue];
-    self.distance = [[data valueForKey:key_distance] integerValue];
+    self.distance = [[data valueForKey:key_distance] doubleValue];
     self.active = [[data valueForKey:key_active] integerValue];
     
     // new
@@ -840,7 +843,7 @@
                             nil
                             ];
     
-    NSLog(@"Set hangout profile params: %@", params);
+    NSLog(@"Set hangout profile params: %@", [params JSONDescription]);
     [httpClient setParameterEncoding:AFFormURLParameterEncoding];
     [httpClient postPath:URL_setProfileInfo parameters:params success:^(__unused AFHTTPRequestOperation *operation, id JSON)
     {
@@ -998,10 +1001,9 @@
         if(handler)
             handler();
     } failure:^(AFHTTPRequestOperation *operation, NSError *error)
-     {
+    {
          NSLog(@"URL_getProfileInfo - Error Code: %i - %@",[error code], [error localizedDescription]);
-        
-     }];
+    }];
 
 }
 

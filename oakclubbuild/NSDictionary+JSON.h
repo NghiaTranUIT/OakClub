@@ -8,6 +8,10 @@
 
 #import <Foundation/Foundation.h>
 
-@interface NSDictionary (JSON)
+@interface NSDictionary (BVJSONString)
 -(NSString *)JSONDescription;
+@end
+
+@interface NSArray (BVJSONString)
+- (NSString *)bv_jsonStringWithPrettyPrint:(BOOL)prettyPrint;
 @end

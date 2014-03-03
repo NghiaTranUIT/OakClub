@@ -120,7 +120,6 @@ extern NSString *const SCSessionStateChangedNotification;
 @property (strong, nonatomic) NSArray *languageList;
 @property (strong, nonatomic) NSArray *relationshipList;
 @property (strong, nonatomic) NSArray *genderList;
-@property (strong, nonatomic) NSArray *likedMeList;
 
 @property BOOL reloadSnapshot;
 @property BOOL forceSycnFriendList;

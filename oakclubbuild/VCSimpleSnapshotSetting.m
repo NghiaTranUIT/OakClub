@@ -21,6 +21,7 @@
 #import "NSString+Utils.h"
 #import "LoadingIndicator.h"
 #import "VCAppLanguageChoose.h"
+#import "NSDictionary+JSON.h"
 
 @interface VCSimpleSnapshotSetting () <LoadingIndicatorDelegate, MFMailComposeViewControllerDelegate>{
     SettingObject* snapshotObj;
@@ -667,7 +668,7 @@ UITapGestureRecognizer *tap;
         return value_FALSE;
 }
 
-- (void) loadSetting
+- (void)loadSetting
 {
     self.hereTo = [self loadHereTo:snapshotObj.purpose_of_search];
     
@@ -731,7 +732,7 @@ UITapGestureRecognizer *tap;
                             nil];
 #endif
     [indicator lockViewAndDisplayIndicator];
-    NSLog(@"setSnapshot setting params : %@",params);
+    NSLog(@"setSnapshot setting params : %@", [params JSONDescription]);
     
     request = [[AFHTTPClient alloc] initWithOakClubAPI:DOMAIN];
     [request setParameterEncoding:AFFormURLParameterEncoding];

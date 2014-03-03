@@ -71,7 +71,7 @@
     
     int num_Liked;
     int num_Viewed;
-    int distance;
+    double distance;
     int active;
     
     NSString *s_lastMessage;
@@ -134,7 +134,7 @@
 @property int unread_message;
 @property int num_Liked;
 @property int num_Viewed;
-@property int distance;
+@property double distance;
 @property int active;
 @property (strong, nonatomic) NSString *s_lastMessage;
 @property (strong, nonatomic) NSString *s_lastMessage_time;
